@@ -464,31 +464,26 @@ interface FontDef {
   family: string
   google?: string // Google Fonts family+weights query, if not a brand/local font
 }
+// "alpha" is the brand font (self-hosted, Hebrew + Latin). The others are
+// CMS-selectable alternatives from Google Fonts.
 const FONTS: Record<string, FontDef> = {
-  narkiss: { family: '"Narkiss New"' },
-  fbmetali: { family: '"Fb Metali"' },
+  alpha: { family: '"Abel", "Alpha"' }, // Abel for Latin glyphs (no Hebrew in it), Alpha for Hebrew
   heebo: { family: '"Heebo"', google: 'Heebo:wght@400;500;700;900' },
   assistant: { family: '"Assistant"', google: 'Assistant:wght@400;500;700;800' },
   rubik: { family: '"Rubik"', google: 'Rubik:wght@400;500;700;900' },
-  frank: { family: '"Frank Ruhl Libre"', google: 'Frank+Ruhl+Libre:wght@400;500;700;900' },
 }
-// Latin/English font chain — placed BEFORE the Hebrew fonts so Latin glyphs
-// never fall to the Hebrew serif (Narkiss) Latin shapes. "Assistant Latin" is a
-// Latin-ONLY @font-face (assistant-latin.css); "DM Sans" is a always-loaded sans
-// safety net. Both lack Hebrew, so Hebrew still falls through to the brand fonts.
-const LATIN = '"Assistant Latin", "DM Sans"'
 const SYS = '"Helvetica Neue", Arial, sans-serif'
 
 export function resolveFonts(typography?: { displayFont?: string; bodyFont?: string }) {
-  const d = FONTS[typography?.displayFont ?? 'narkiss'] ?? FONTS.narkiss
-  const b = FONTS[typography?.bodyFont ?? 'fbmetali'] ?? FONTS.fbmetali
+  const d = FONTS[typography?.displayFont ?? 'alpha'] ?? FONTS.alpha
+  const b = FONTS[typography?.bodyFont ?? 'alpha'] ?? FONTS.alpha
   const googles = [...new Set([d.google, b.google].filter(Boolean))]
   const href = googles.length
     ? `https://fonts.googleapis.com/css2?${googles.map((g) => `family=${g}`).join('&')}&display=swap`
     : null
   return {
-    display: `${LATIN}, ${d.family}, ${SYS}`,
-    body: `${LATIN}, ${b.family}, ${d.family}, ${SYS}`,
+    display: `${d.family}, ${SYS}`,
+    body: `${b.family}, ${d.family}, ${SYS}`,
     googleHref: href,
   }
 }

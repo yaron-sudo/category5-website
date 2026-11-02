@@ -1,42 +1,24 @@
 ---
 import { getSiteSettings } from '@/lib/sanity'
+import { DISCLAIMER } from '@/lib/brand'
 const settings = await getSiteSettings()
 
-// Every public route, grouped: the site, the professional-information pages
-// (incl. the articles and studies), and the product pages.
-const importantLinks = [
+import { getCategories } from '@/lib/sanity'
+const categories = await getCategories()
+const siteLinks = [
   { label: 'דף הבית', href: '/' },
-  { label: 'מידע על המרווה', href: '/product' },
-  { label: 'הסיפור שלנו', href: '/#story' },
+  { label: 'תמיכה ומידע', href: '/faq' },
   { label: 'רשימת חנויות', href: '/stores' },
-  { label: 'שאלות ותשובות', href: '/faq' },
-  { label: 'קהילה — אינסטגרם', href: '/community' },
+  { label: 'קהילה', href: '/community' },
   { label: 'צור קשר', href: '/contact' },
-]
-const infoLinks = [
-  { label: 'פורטל המידע המקצועי', href: '/experts' },
-  { label: 'השוואה לשמן דגים', href: '/compare' },
-  { label: 'כמה EPA ו-DHA יש בשמן?', href: '/omega-3-conversion' },
-  { label: 'אומגה 3 אינדקס', href: '/omega-3-index' },
-  { label: 'תהליכי הייצור', href: '/production' },
-  { label: 'מערכת החיסון', href: '/articles/immune-system' },
-  { label: 'קשב וריכוז', href: '/articles/focus-concentration' },
-  { label: 'אומגה 3 וקצב הלב', href: '/articles/omega-3-heart-rate' },
-  { label: 'מחקר: שומנים בדם', href: '/research/blood-lipids' },
-  { label: 'מחקר: דלקת מעיים', href: '/research/crohns-colitis' },
-]
-const productLinks = [
-  { label: 'מרווה מרושתת אומגה 3', href: '/product' },
-  { label: 'PURE — כמוסות טבעוניות', href: '/products/pure-capsules' },
-  { label: 'PURE — שמן בבקבוק', href: '/products/pure-oil' },
-  { label: 'ויטמין D3 טבעוני — ספריי', href: '/products/vitamin-d' },
-  { label: 'פורטי פיור — ספריי פורטיום', href: '/products/forti-pure' },
+  { label: 'חוברת מוצרים', href: '/catalog' },
 ]
 const contact = {
-  address: settings?.contact?.address || 'רחוב משה לוי 1, ראשון לציון, ישראל',
-  email: settings?.contact?.email || 'info-israel@nature-sage.com',
-  phone: settings?.contact?.phone,
-  hours: settings?.contact?.hours || 'א׳–ה׳ 09:00–17:00',
+  address: settings?.contact?.address,
+  email: settings?.contact?.email || 'info@ethical-supplements.com',
+  phone: settings?.contact?.phone || '053-9325888',
+  whatsapp: settings?.contact?.whatsapp || '972539325888',
+  hours: settings?.contact?.hours,
 }
 // CMS footer columns replace the two hardcoded link columns when non-empty.
 const cmsColumns = (settings?.footerColumns ?? [])
@@ -45,9 +27,8 @@ const cmsColumns = (settings?.footerColumns ?? [])
 const columns = cmsColumns.length
   ? cmsColumns
   : [
-      { title: 'האתר', links: importantLinks },
-      { title: 'מידע מקצועי', links: infoLinks },
-      { title: 'המוצרים', links: productLinks },
+      { title: 'משפחות מוצרים', links: categories.map((c) => ({ label: c.title, href: `/category/${c.slug}` })) },
+      { title: 'קישורים', links: siteLinks },
     ]
 
 // Social icons: render only URLs present in the CMS; when the whole object is empty,
@@ -60,22 +41,16 @@ const social: Array<{ label: string; href: string }> =
         ...(s?.instagram ? [{ label: 'Instagram', href: s.instagram }] : []),
         ...(s?.youtube ? [{ label: 'YouTube', href: s.youtube }] : []),
       ]
-    : [
-        { label: 'Facebook', href: 'https://www.facebook.com/naturesageomega3' },
-        { label: 'Instagram', href: 'https://www.instagram.com/naturesageil/' },
-        { label: 'YouTube', href: 'https://www.youtube.com/channel/UCCBDkYQ7Gl9UeTktQ77vy_A' },
-      ]
-const tagline = settings?.tagline || 'Where good gets better.'
-const disclaimer =
-  settings?.footerDisclaimer ||
-  'כל המידע הנמצא באתר ניתן למטרות חינוכיות בלבד, אינו מהווה תחליף לייעוץ, טיפול, אבחון והשגחה של רופא מוסמך, ואינו ערוך או מעוצב כדי לקדם או לפרסם שיטות ריפוי או מוצרים מסוימים. אין להשתמש בתוכן האתר למטרות אבחון או טיפול של בעיות בריאות או מחלות. יש לקרוא בזהירות את המידע המסופק על המוצרים המפורסמים או מקודמים באתר. אם יש חשש לבעיה רפואית כלשהי, יש לפנות מיד לרופא המטפל ולפעול לפי הנחיותיו, ולא להסתמך בצורה כלשהי על תכני האתר או המוצרים המופיעים בו כתחליף לטיפול על ידי רופא מוסמך.'
+    : []
+const tagline = settings?.tagline || 'פורצים גבולות בעולם תוספי התזונה'
+const disclaimer = settings?.footerDisclaimer || DISCLAIMER
 const year = new Date().getFullYear()
 ---
 <footer class="ns-footer">
   <div class="ns-container ns-footer__grid">
     <div class="ns-footer__brand">
-      <img src="/brand/logo-wordmark-cream.svg" alt="NATURESAGE" width="190" height="21" />
-      <p class="ns-footer__tagline" dir="ltr">{tagline}</p>
+      <img class="ns-footer__logo" src="/brand/category5-mark-white.svg" alt="CATEGORY 5 Ethical Supplements" width="120" height="120" />
+      <p class="ns-footer__tagline">{tagline}</p>
       <div class="ns-footer__social" aria-label="רשתות חברתיות">
         {social.map((s) => (
           <a href={s.href} aria-label={s.label} rel="noopener noreferrer" target="_blank">
@@ -97,10 +72,11 @@ const year = new Date().getFullYear()
     <div class="ns-footer__col">
       <h2 class="ns-footer__h">צור קשר</h2>
       <address class="ns-footer__contact">
-        <p>{contact.address}</p>
+        {contact.address && <p>{contact.address}</p>}
         <p><a href={`mailto:${contact.email}`}>{contact.email}</a></p>
-        {contact.phone && <p><a href={`tel:${contact.phone}`} dir="ltr">{contact.phone}</a></p>}
-        <p>שעות פעילות: {contact.hours}</p>
+        <p>ווטסאפ (הודעות בלבד): <a href={`https://wa.me/${contact.whatsapp}`} dir="ltr" rel="noopener" target="_blank">{contact.phone}</a></p>
+        {contact.hours && <p>{contact.hours}</p>}
+        <p><a href="/contact">לטופס יצירת קשר ←</a></p>
       </address>
     </div>
   </div>
@@ -111,7 +87,7 @@ const year = new Date().getFullYear()
 
   <div class="ns-footer__bar">
     <div class="ns-container ns-footer__bar-inner">
-      <span>© {year} Nature's Sage · נייטשרסייג׳ — כל הזכויות שמורות.</span>
+      <span>© {year} קטגוריה 5 תוספים אתיים · Category 5 Ethical Supplements — כל הזכויות שמורות.</span>
       <span class="ns-footer__bar-links">
         <a href="/terms">תנאי שימוש</a>
         <a href="/privacy">מדיניות פרטיות</a>

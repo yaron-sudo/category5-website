@@ -12,14 +12,16 @@ const snippets = (Astro.props.snippets ?? []).filter((s) => s.enabled !== false 
     {snippets.map((s) => (
       <template data-ns-pixel data-category={s.category || 'analytics'} data-label={s.label} set:html={s.code} />
     ))}
-    <script>
+    {/* Inside a conditional expression Astro emits this script as-is (inline, no
+        TypeScript compile), so it must be plain JavaScript. */}
+    <script is:inline>
       // Activate a template by cloning its content; <script> nodes must be
       // recreated for the browser to execute them.
-      const fired = new Set<Element>()
-      const activate = (tpl: HTMLTemplateElement) => {
+      const fired = new Set()
+      const activate = (tpl) => {
         if (fired.has(tpl)) return
         fired.add(tpl)
-        const frag = tpl.content.cloneNode(true) as DocumentFragment
+        const frag = tpl.content.cloneNode(true)
         frag.querySelectorAll('script').forEach((old) => {
           const s = document.createElement('script')
           for (const a of old.attributes) s.setAttribute(a.name, a.value)
@@ -29,8 +31,8 @@ const snippets = (Astro.props.snippets ?? []).filter((s) => s.enabled !== false 
         document.body.appendChild(frag)
       }
       const run = () => {
-        const consent = (window as any).nsConsent || {}
-        document.querySelectorAll<HTMLTemplateElement>('template[data-ns-pixel]').forEach((tpl) => {
+        const consent = window.nsConsent || {}
+        document.querySelectorAll('template[data-ns-pixel]').forEach((tpl) => {
           const cat = tpl.dataset.category || 'analytics'
           if (cat === 'necessary' || consent[cat]) activate(tpl)
         })

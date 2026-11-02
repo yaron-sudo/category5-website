@@ -48,9 +48,9 @@ const categoryDocs = cats
     const seenHeadings = new Set()
     for (const s of secs) {
       if (!s.text.length && s.images.length && !heroImage) { heroImage = s.images[0]; continue }
-      if (!tagline && s.text.length && (!s.heading || s.heading === decode(c.title))) { tagline = s.text[0]; s.text.slice(1).forEach((t) => body.push(block(t))); continue }
+      if (!tagline && s.text.length && (!s.heading || s.heading === decode(c.title))) { const [first, ...rest] = s.text.flatMap((t) => t.split('\n')).filter(Boolean); tagline = first; rest.forEach((t) => body.push(t.startsWith('•') ? bullet(t.replace(/^•\s*/, '')) : block(t))); continue }
       if (s.heading && !seenHeadings.has(s.heading) && s.heading !== decode(c.title) && s.text.length) { body.push(block(s.heading, 'h2')); seenHeadings.add(s.heading) }
-      s.text.forEach((t) => body.push(t.startsWith('•') ? bullet(t.replace(/^•\s*/, '')) : block(t)))
+      s.text.flatMap((t) => t.split('\n')).filter(Boolean).forEach((t) => body.push(t.startsWith('•') ? bullet(t.replace(/^•\s*/, '')) : block(t)))
     }
     return {
       _id: catId(c.slug),
@@ -60,7 +60,9 @@ const categoryDocs = cats
       slug: { _type: 'slug', current: c.slug },
       color: c.color,
       icon: img(CAT_ICON[c.slug]),
-      image: img(heroImage),
+      // The old pages' top image is the family's icon artwork (already `icon`), so
+      // no hero photo is migrated; editors can add one in the CMS.
+      image: undefined,
       tagline,
       body,
     }
@@ -235,7 +237,7 @@ const siteSettings = {
 // --------------------------------------------------------------------- pages
 // Legal texts from the old site, minus stray citation fragments left in them
 // ("Barnea", "Gov.ilassets.kpmg.com", "נבו", "ethical-supplements.com" tails).
-const CITES = /\s*(Barnea|Gov\.il|assets\.kpmg\.com|נבו)\b\.?/g
+const CITES = /\s*(Barnea|Gov\.il|assets\.kpmg\.com)+\.?|\s+נבו(?=[.\s:]|$)/g
 function legalBlocks(wpId) {
   const html = rawPages[wpId].content.rendered
   const text = html

@@ -9,13 +9,13 @@ import 'leaflet.markercluster/dist/MarkerCluster.css'
 // (Leaflet, clustered) + a searchable list. Search is client-side over city /
 // address / name; "המיקום שלי" sorts by distance from the visitor.
 const [doc, stores] = await Promise.all([getPage('stores'), getStores()])
-const title = doc?.title || 'היכן ניתן לרכוש את המוצרים'
+const title = doc?.title || 'רשימת חנויות'
 const intro =
   plainText(doc?.body, 400) ||
-  'מוצרי נייטשרסייג זמינים לרכישה בחנויות הטבע המובילות במדינת ישראל. הקלידו את שם העיר בשדה „מיקומך” ולחצו על „חפש”, או השתמשו במיקום הנוכחי שלכם.'
+  'המוצרים של קטגוריה 5 תוספים אתיים נמכרים בנקודות מכירה ברחבי הארץ. הקלידו את שם העיר או השתמשו במיקום הנוכחי שלכם.'
 const seo = resolveSeo(doc?.seo, {
-  title: 'רשימת חנויות — נייטשרסייג',
-  description: 'מוצרי נייטשרסייג זמינים בחנויות הטבע המובילות בישראל. חפשו חנות טבע לפי עיר או לפי המיקום שלכם.',
+  title: 'רשימת חנויות',
+  description: 'היכן ניתן לרכוש את מוצרי קטגוריה 5 תוספים אתיים: בתי טבע, סופר-פארם, ניצת הדובדבן, B&D וחנויות אינטרנט.',
 })
 
 const REGIONS: Array<{ value: StoreRegion; label: string }> = [
@@ -66,7 +66,7 @@ const tileAttribution =
   import.meta.env.PUBLIC_MAP_TILE_ATTRIBUTION || '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 // category → logo url, for the map pins (built client-side)
 const logoMap = Object.fromEntries(CATEGORIES.map((c) => [c.value, categoryLogo(c.value)]).filter(([, v]) => v))
-const payload = sorted.map((s) => ({ i: s._id, n: clean(s.name), c: clean(s.city), a: clean(s.address), p: clean(s.phone), o: clean(s.note), r: s.region, k: s.category ?? 'health', la: s.lat, ln: s.lng }))
+const payload = sorted.map((s) => ({ i: s._id, n: clean(s.name), c: clean(s.city), a: clean(s.address), p: clean(s.phone), o: clean(s.note), w: clean(s.website), x: s.approximate ? 1 : 0, r: s.region, k: s.category ?? 'health', la: s.lat, ln: s.lng }))
 // Only the first page is server-rendered (no-JS / crawler fallback). The script
 // renders rows from the JSON payload — 500 live rows made every filter click a
 // 1.5 s freeze and the HTML 640 KB.
@@ -399,12 +399,13 @@ const firstPage = sorted.slice(0, 40)
           <button type="button" class="st__main" data-store-focus>
             <span class="st__name">${esc(s.n)}</span>${brand}
             <span class="st__addr">${esc([s.a, s.c].filter(Boolean).join(', '))}</span>
-            ${s.o ? `<span class="st__note">${esc(s.o)}</span>` : ''}${dist}
+            ${s.o ? `<span class="st__note">${esc(s.o)}</span>` : ''}${s.x && s.k !== 'online' ? `<span class="st__note">מיקום משוער במפה (מרכז העיר)</span>` : ''}${dist}
           </button>
           <div class="st__actions">
             ${s.p ? `<a href="tel:${s.p.replace(/[^\d+]/g, '')}" class="st__act" dir="ltr"><svg class="st__ico"><use href="#st-i-phone"/></svg>${esc(s.p)}</a>` : ''}
-            <a href="https://waze.com/ul?ll=${ll}&navigate=yes" class="st__act" target="_blank" rel="noopener"><svg class="st__ico"><use href="#st-i-waze"/></svg>Waze</a>
-            <a href="https://www.google.com/maps/dir/?api=1&destination=${ll}" class="st__act" target="_blank" rel="noopener"><svg class="st__ico"><use href="#st-i-pin"/></svg>Google<span class="st__long">&nbsp;Maps</span></a>
+            ${s.w && /^https?:\/\//.test(s.w) ? `<a href="${esc(s.w)}" class="st__act st__act--web" target="_blank" rel="noopener"><svg class="st__ico"><use href="#st-i-pin"/></svg>לאתר החנות</a>` : ''}
+            ${s.k === 'online' ? '' : `<a href="https://waze.com/ul?ll=${ll}&navigate=yes" class="st__act" target="_blank" rel="noopener"><svg class="st__ico"><use href="#st-i-waze"/></svg>Waze</a>
+            <a href="https://www.google.com/maps/dir/?api=1&destination=${ll}" class="st__act" target="_blank" rel="noopener"><svg class="st__ico"><use href="#st-i-pin"/></svg>Google<span class="st__long">&nbsp;Maps</span></a>`}
           </div>
         </li>`
       }
@@ -600,8 +601,12 @@ const firstPage = sorted.slice(0, 40)
       })
 
       // ?q= deep link (e.g. from the footer / other pages)
-      const q0 = new URLSearchParams(location.search).get('q')
+      const params = new URLSearchParams(location.search)
+      const q0 = params.get('q')
       if (q0) { input.value = q0; query = q0 }
+      // ?type=<category> deep link (e.g. "חנויות אינטרנט" in the header menu)
+      const t0 = params.get('type')
+      if (t0) catChips.find((c) => c.dataset.cat === t0)?.click()
       // Tel Aviv first, then re-centre on the visitor once (if) the browser grants location.
       map.whenReady(() => {
         apply()

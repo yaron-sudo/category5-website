@@ -18,7 +18,7 @@ if (existsSync(envPath)) {
 // build time — no token needed. Vercel reads the adapter's `.vercel/output`.
 // Canonical production origin. Override per-environment with SITE_URL so
 // canonical tags + sitemap point at the real launch domain.
-const SITE = process.env.SITE_URL || 'https://www.naturesage.co.il'
+const SITE = process.env.SITE_URL || 'https://www.ethical-supplements.com'
 
 // ---- Visual editing / live preview (Sanity Presentation tool) --------------
 // Production stays fully static. A PREVIEW deployment sets

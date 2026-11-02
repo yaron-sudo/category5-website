@@ -1,0 +1,24 @@
+---
+import Base from '@/layouts/Base.astro'
+import PageHero from '@/components/PageHero.astro'
+
+// "חוברת מוצרים": the client's flip-book on Paperturn (same embed as the old /notebook page).
+const FLIPBOOK = 'https://www.paperturn-view.com/?pid=ODg8827543&v=10.1&bgcolor=%23FFFFFF&embed=script&shadow=1&flipSound=1&hardCover=1'
+---
+<Base title="חוברת מוצרים" description="חוברת המוצרים של קטגוריה 5 תוספים אתיים — כל המוצרים, הרכיבים וההוראות בחוברת דיגיטלית אחת.">
+  <PageHero eyebrow="קטלוג" title="חוברת מוצרים" lede="כל מוצרי קטגוריה 5 בחוברת דיגיטלית אחת. אפשר לדפדף כאן או לפתוח במסך מלא." />
+  <section class="ns-section ns-section--tight">
+    <div class="ns-container">
+      <div class="cat-book">
+        <iframe src={FLIPBOOK} title="חוברת מוצרים — קטגוריה 5" loading="lazy" allowfullscreen></iframe>
+      </div>
+      <p class="cat-book__open"><a class="ns-btn ns-btn--ghost" href={FLIPBOOK} target="_blank" rel="noopener">פתיחה במסך מלא ↗</a></p>
+    </div>
+  </section>
+  <style>
+    .cat-book { position: relative; width: 100%; height: min(78vh, 900px); border-radius: var(--ns-radius-lg); overflow: hidden; border: 1px solid var(--ns-border); background: #fff; }
+    .cat-book iframe { width: 100%; height: 100%; border: 0; display: block; }
+    .cat-book__open { text-align: center; margin-block-start: 16px; }
+    @media (max-width: 640px) { .cat-book { height: 70vh; } }
+  </style>
+</Base>

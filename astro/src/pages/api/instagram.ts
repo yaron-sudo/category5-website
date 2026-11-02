@@ -86,13 +86,13 @@ async function loadFeed(): Promise<FeedItem[]> {
 
 // Design-review sample (only when PUBLIC_INSTAGRAM_DEMO=true): site photos, clearly marked.
 const DEMO: FeedItem[] = [
-  { kind: 'reel', poster: '/img/menu/products.jpg', caption: 'דוגמה · ריל: שלושת המוצרים על השולחן בשדה' },
-  { kind: 'post', poster: '/img/menu/info-feat.jpg', caption: 'דוגמה · פוסט: צנצנת הכמוסות' },
-  { kind: 'reel', poster: '/img/menu/omega-feat.jpg', caption: 'דוגמה · ריל של לקוחה: הבוקר שלי עם שמן המרווה' },
-  { kind: 'post', poster: '/img/menu/products.jpg', caption: 'דוגמה · תיוג מלקוח' },
-  { kind: 'carousel', poster: '/img/menu/info-feat.jpg', caption: 'דוגמה · קרוסלה: איך לוקחים' },
-  { kind: 'reel', poster: '/img/menu/omega-feat.jpg', caption: 'דוגמה · ריל' },
-].map((d, i) => ({ id: `demo-${i}`, src: d.poster, permalink: 'https://www.instagram.com/naturesageil/', date: new Date(Date.now() - i * 86400e3 * 3).toISOString(), username: i % 2 ? 'naturesageil' : 'customer_story', tagged: i % 2 === 1, ...d }))
+  { kind: 'reel', poster: '/media/2022/10/Homepage1.webp', caption: 'דוגמה · ריל' },
+  { kind: 'post', poster: '/media/2022/10/Cellinol.webp', caption: 'דוגמה · פוסט' },
+  { kind: 'reel', poster: '/media/2022/10/Alyivium.webp', caption: 'דוגמה · ריל של לקוחה' },
+  { kind: 'post', poster: '/media/2022/10/Homepage1.webp', caption: 'דוגמה · תיוג מלקוח' },
+  { kind: 'carousel', poster: '/media/2022/10/Cellinol.webp', caption: 'דוגמה · קרוסלה' },
+  { kind: 'reel', poster: '/media/2022/10/Alyivium.webp', caption: 'דוגמה · ריל' },
+].map((d, i) => ({ id: `demo-${i}`, src: d.poster, permalink: 'https://www.instagram.com/', date: new Date(Date.now() - i * 86400e3 * 3).toISOString(), username: i % 2 ? 'category5' : 'customer_story', tagged: i % 2 === 1, ...d }))
 
 let cache: { at: number; items: FeedItem[] } | null = null
 

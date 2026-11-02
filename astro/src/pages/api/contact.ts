@@ -10,7 +10,7 @@
 //   App Password or Microsoft 365 "Authenticated SMTP" while it still exists):
 //     SMTP_HOST, SMTP_PORT (465 or 587), SMTP_USER, SMTP_PASS, optional SMTP_FROM
 //   Resend (HTTP API, needs the sending domain verified at resend.com):
-//     RESEND_API_KEY, CONTACT_FROM (e.g. "NatureSage <site@nature-sage.com>")
+//     RESEND_API_KEY, CONTACT_FROM (e.g. "Category 5 <site@ethical-supplements.com>")
 //
 // Without any of them, the endpoint answers 503 and the form shows its error text.
 import type { APIRoute } from 'astro'
@@ -18,7 +18,7 @@ import nodemailer from 'nodemailer'
 
 export const prerender = false
 
-const TO = import.meta.env.CONTACT_TO || process.env.CONTACT_TO || 'info-israel@nature-sage.com'
+const TO = import.meta.env.CONTACT_TO || process.env.CONTACT_TO || 'info@ethical-supplements.com'
 const env = (k: string) => (import.meta.env[k] as string | undefined) || process.env[k] || ''
 const MAX = { name: 120, email: 200, phone: 40, message: 5000 }
 
@@ -89,7 +89,7 @@ async function sendResend(m: Mail) {
   if (!res.ok) throw new Error(`resend ${res.status}: ${(await res.text()).slice(0, 200)}`)
 }
 
-const ALLOWED_ORIGIN = /^https:\/\/((www\.)?naturesage\.co\.il|[a-z0-9-]+\.vercel\.app)$|^http:\/\/localhost(:\d+)?$/
+const ALLOWED_ORIGIN = /^https:\/\/((www\.)?ethical-supplements\.com|(www\.)?category-5\.xyz|[a-z0-9-]+\.vercel\.app)$|^http:\/\/localhost(:\d+)?$/
 
 export const POST: APIRoute = async ({ request, clientAddress }) => {
   // Only the site's own pages may post here (browsers always send Origin on fetch POSTs).
@@ -150,7 +150,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   }
   const from = graphOk
     ? env('MS_SENDER')
-    : smtp ? env('SMTP_FROM') || `"אתר נייטשרסייג" <${env('SMTP_USER')}>` : env('CONTACT_FROM') || 'NatureSage <onboarding@resend.dev>'
+    : smtp ? env('SMTP_FROM') || `"אתר קטגוריה 5" <${env('SMTP_USER')}>` : env('CONTACT_FROM') || 'Category 5 <onboarding@resend.dev>'
   const mail: Mail = { to: TO, from, replyTo: `"${name.replace(/"/g, '')}" <${email}>`, subject, text, html }
 
   const transport = graphOk ? 'graph' : smtp ? 'smtp' : 'resend'

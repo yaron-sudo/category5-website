@@ -27,7 +27,7 @@ const {
   title, description, image, type, noindex, jsonLd, publishedTime, modifiedTime,
   canonicalUrl, ogTitle, ogDescription,
 } = Astro.props
-const fullTitle = title.includes("Nature") ? title : `${title} · Nature's Sage`
+const fullTitle = title.includes('קטגוריה 5') || title.includes('Category 5') ? title : `${title} | קטגוריה 5 תוספים אתיים`
 
 // CMS-selectable fonts: override the brand defaults from siteSettings.typography.
 const settings = await getSiteSettings()

@@ -16,13 +16,17 @@ export interface Props {
   shop?: boolean
   /** Wider panel with the rows in two columns (for long lists, e.g. the info menu). */
   wide?: boolean
+  /** Compact multi-column list (long grouped lists, e.g. all products by family). */
+  cols?: boolean
+  /** Label of the footer link (default: לחנות המקוונת). */
+  shopLabel?: string
 }
-const { feat, rows, shopUrl, featTag = 'מוצר הדגל', featCta = 'לעמוד המוצר', shop = true, wide = false } = Astro.props
+const { feat, rows, shopUrl, featTag = 'קטגוריה 5', featCta = 'לעמוד המוצר', shop = true, wide = false, cols = false, shopLabel = 'היכן לקנות' } = Astro.props
 const GO = '<path d="m14 7-5 5 5 5"/>'
 const LEAF = '<path d="M5 19c0-7 5-12 14-12 0 9-5 14-12 14M5 19c2-3.5 4.5-5.8 8-7.5"/>'
 const CART = '<path d="M4 5h2l2.2 10.4a1.6 1.6 0 0 0 1.6 1.3h7.6a1.6 1.6 0 0 0 1.6-1.3L20.5 9H7"/><circle cx="10.4" cy="19.6" r="1.3"/><circle cx="17.2" cy="19.6" r="1.3"/>'
 ---
-<div class:list={["ns-mega__panel", { "ns-mega__panel--wide": wide }]}>
+<div class:list={["ns-mega__panel", { "ns-mega__panel--wide": wide, "ns-mega__panel--cols": cols }]}>
   <span class="ns-mega__glow" aria-hidden="true"></span>
   {feat && (
     <a class="ns-mega__feat" href={feat.href}>
@@ -55,10 +59,10 @@ const CART = '<path d="M4 5h2l2.2 10.4a1.6 1.6 0 0 0 1.6 1.3h7.6a1.6 1.6 0 0 0 1
       </>
     ))}
     <div class="ns-mega__foot">
-      <span class="ns-mega__foot-note">ממקור אחד בטבע — מרווה מרושתת</span>
+      <span class="ns-mega__foot-note">קטגוריה 5 — תוספים אתיים</span>
       {shop && <a class="ns-mega__shop" href={shopUrl} rel="noopener">
         <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={CART} />
-        לחנות המקוונת
+        {shopLabel}
       </a>}
     </div>
   </div>
@@ -72,6 +76,14 @@ const CART = '<path d="M4 5h2l2.2 10.4a1.6 1.6 0 0 0 1.6 1.3h7.6a1.6 1.6 0 0 0 1
   .ns-mega__panel--wide .ns-mega__list { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 8px; align-content: start; }
   .ns-mega__panel--wide .ns-mega__row { padding-block: 8px; }
   .ns-mega__panel--wide .ns-mega__foot { grid-column: 1 / -1; }
+  .ns-mega__panel--cols { width: min(1120px, 96vw); }
+  .ns-mega__panel--cols .ns-mega__list { display: block; columns: 3; column-gap: 14px; max-height: min(70vh, 640px); overflow-y: auto; overscroll-behavior: contain; }
+  .ns-mega__panel--cols .ns-mega__row { padding: 5px 8px; break-inside: avoid; }
+  .ns-mega__panel--cols .ns-mega__fig, .ns-mega__panel--cols .ns-mega__fig img { width: 34px; height: 34px; }
+  .ns-mega__panel--cols .ns-mega__rtext b { font-size: 14.5px; }
+  .ns-mega__panel--cols .ns-mega__go { display: none; }
+  .ns-mega__panel--cols .ns-mega__grp { display: block; break-after: avoid; padding: 12px 8px 4px; font-size: 13px; }
+  .ns-mega__panel--cols .ns-mega__foot { column-span: all; }
   .ns-mega__grp { grid-column: 1 / -1; font-size: 12px; font-weight: 700; letter-spacing: .05em; color: var(--ns-pure-orange); padding: 8px 12px 2px; }
   .ns-mega__grp:first-child { padding-top: 0; }
   .ns-mega__glow { position: absolute; inset-block-start: -40%; inset-inline-end: -20%; width: 60%; aspect-ratio: 1; pointer-events: none; background: radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--ns-immune-green) 30%, transparent), transparent 65%); }

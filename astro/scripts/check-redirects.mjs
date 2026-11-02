@@ -1,14 +1,14 @@
 // Post-cutover check: every redirect in vercel.json must answer 301/308 with the
 // expected destination, and every destination must answer 200.
-//   node scripts/check-redirects.mjs https://www.naturesage.co.il
-//   node scripts/check-redirects.mjs https://naturesage-website.vercel.app
+//   node scripts/check-redirects.mjs https://www.ethical-supplements.com
+//   node scripts/check-redirects.mjs https://category5-website.vercel.app
 import { readFileSync } from 'node:fs'
 
-const base = (process.argv[2] || 'https://www.naturesage.co.il').replace(/\/$/, '')
+const base = (process.argv[2] || 'https://www.ethical-supplements.com').replace(/\/$/, '')
 const { redirects } = JSON.parse(readFileSync(new URL('../vercel.json', import.meta.url), 'utf8'))
 
 const head = async (url) => {
-  const res = await fetch(url, { method: 'GET', redirect: 'manual', headers: { 'User-Agent': 'naturesage-redirect-check' } })
+  const res = await fetch(url, { method: 'GET', redirect: 'manual', headers: { 'User-Agent': 'category5-redirect-check' } })
   return { status: res.status, location: res.headers.get('location') || '' }
 }
 

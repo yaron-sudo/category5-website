@@ -57,6 +57,7 @@ const badgeIcons = Object.fromEntries((doc.badges ?? []).filter((b) => BADGE_ICO
 const docs = [
   ...(doc.leaflet ? [{ label: 'עלון המוצר (PDF)', href: doc.leaflet }] : []),
   ...(doc.extraDocs ?? []),
+  { label: 'שאלו את העוזר החכם על המוצר', href: `/faq?q=${encodeURIComponent(`ספרו לי על ${doc.name}`)}` },
 ]
 
 const vm: ProductViewModel = {
@@ -74,7 +75,7 @@ const vm: ProductViewModel = {
   gallery,
   labelLinks,
   stats: doc.keyStats?.filter((s) => s.value),
-  research: doc.benefits?.length ? { eyebrow: 'יתרונות המוצר', title: doc.intro || 'למה דווקא המוצר הזה', points: doc.benefits } : undefined,
+  research: doc.benefits?.length || doc.intro ? { eyebrow: 'יתרונות המוצר', title: `מה מייחד את ${doc.name}`, lede: doc.intro, points: doc.benefits ?? [] } : undefined,
   bodyBlocks: proseSections ? undefined : doc.body,
   proseSections,
   video: doc.video,

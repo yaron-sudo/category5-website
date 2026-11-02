@@ -135,7 +135,9 @@
 @media (max-width: 560px) { .ns-footer__grid { grid-template-columns: 1fr; } }
 .ns-footer__brand { text-align: center; }
 .ns-footer__brand img { height: 22px; width: auto; display: block; margin-inline: auto; }
-.ns-footer__tagline { margin: 14px 0 18px; font-family: "Assistant Latin", "DM Sans", sans-serif; font-style: italic; font-size: 16px; color: var(--ns-immune-green); letter-spacing: .02em; direction: ltr; text-align: center; }
+.ns-footer__brand img.ns-footer__logo { height: 104px; }
+.ns-footer { border-block-start: 6px solid transparent; border-image: var(--c5-holi) 1; }
+.ns-footer__tagline { margin: 14px 0 18px; font-family: var(--ns-font-display); font-size: 17px; color: #fff; opacity: .85; text-align: center; }
 .ns-footer__social { display: flex; gap: 10px; justify-content: center; }
 .ns-footer__social a { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 999px; border: 1px solid rgba(252,244,234,.28); color: var(--ns-sun-beige); }
 .ns-footer__social a:hover { background: var(--ns-pure-orange); border-color: var(--ns-pure-orange); color: var(--ns-sun-beige); }

@@ -15,17 +15,18 @@ const title = doc?.title || 'צרו קשר'
 const intro = doc?.body?.[0] ? plainText([doc.body[0]], 400) : 'נשמח לשמוע מכם. השאירו פרטים ונחזור אליכם בהקדם.'
 const notes = (doc?.body ?? []).slice(1)
 const contact = {
-  email: settings?.contact?.email || 'info-israel@nature-sage.com',
-  phone: settings?.contact?.phone,
-  address: settings?.contact?.address || 'רחוב משה לוי 1, ראשון לציון, ישראל',
-  hours: settings?.contact?.hours || 'א׳–ה׳ 09:00–17:00',
+  email: settings?.contact?.email || 'info@ethical-supplements.com',
+  phone: settings?.contact?.phone || '053-9325888',
+  whatsapp: settings?.contact?.whatsapp || '972539325888',
+  address: settings?.contact?.address,
+  hours: settings?.contact?.hours,
 }
 const endpoint = import.meta.env.PUBLIC_CONTACT_ENDPOINT || ''
 // Web3Forms (free, no account: web3forms.com emails an access key to the inbox).
 // When the key is set the form posts straight to their API; otherwise to /api/contact.
 const w3k = import.meta.env.PUBLIC_WEB3FORMS_KEY || ''
 const faqs = (faqPage?.faqs ?? []).filter((f) => f.question && f.answer).slice(0, 4)
-const seo = resolveSeo(doc?.seo, { title: 'צור קשר — נייטשרסייג', description: 'טופס יצירת קשר, מייל, כתובת ושעות פעילות של נייטשרסייג.' })
+const seo = resolveSeo(doc?.seo, { title: 'צור קשר', description: 'יצירת קשר עם קטגוריה 5 תוספים אתיים: טופס פנייה, מייל או ווטסאפ.' })
 ---
 <Base title={seo.title} description={seo.description} noindex={seo.noindex} canonicalUrl={seo.canonical} ogTitle={seo.ogTitle} ogDescription={seo.ogDescription}>
   <PageHero eyebrow="צור קשר" title={title} lede={intro} />
@@ -66,25 +67,27 @@ const seo = resolveSeo(doc?.seo, { title: 'צור קשר — נייטשרסיי�
               <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
               <div><span class="ct__k">אימייל</span><a href={`mailto:${contact.email}`} dir="ltr">{contact.email}</a></div>
             </li>
-            {contact.phone && (
+            <li>
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 18.8z"/><path d="M9 9.5c.3 1.6 1.7 3.6 3.6 4.6l1.2-1.1 2 1-.4 1.6c-3 .3-6.6-3-7-6.2l1.5-.6.9 1.9z"/></svg>
+              <div><span class="ct__k">ווטסאפ (הודעות בלבד)</span><a href={`https://wa.me/${contact.whatsapp}`} target="_blank" rel="noopener" dir="ltr">{contact.phone}</a></div>
+            </li>
+            {contact.address && (
               <li>
-                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
-                <div><span class="ct__k">טלפון</span><a href={`tel:${contact.phone.replace(/[^\d+]/g, '')}`} dir="ltr">{contact.phone}</a></div>
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.4"/></svg>
+                <div><span class="ct__k">כתובת</span>{contact.address}</div>
               </li>
             )}
-            <li>
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.4"/></svg>
-              <div><span class="ct__k">כתובת</span>{contact.address}</div>
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
-              <div><span class="ct__k">שעות פעילות</span>{contact.hours}</div>
-            </li>
+            {contact.hours && (
+              <li>
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+                <div><span class="ct__k">מענה</span>{contact.hours}</div>
+              </li>
+            )}
           </ul>
           {notes.length > 0 && <div class="ct__note"><PortableText blocks={notes} class="ct__note-prose" /></div>}
           <div class="ct__links">
             <a class="ns-btn ns-btn--ghost" href="/stores">איפה קונים? רשימת חנויות</a>
-            <a class="ns-btn ns-btn--ghost" href="https://shop.naturesage.co.il" rel="noopener">לחנות המקוונת</a>
+            <a class="ns-btn ns-btn--ghost" href="/faq">שאלו את העוזר החכם</a>
           </div>
         </div>
       </aside>
@@ -202,7 +205,7 @@ const seo = resolveSeo(doc?.seo, { title: 'צור קשר — נייטשרסיי�
           // Web3Forms: access_key + from_name; their email uses `email` as reply-to and
           // `botcheck` as the honeypot. Own mailer: honeypot + timing fields.
           const payload = w3k
-            ? { access_key: w3k, subject, from_name: 'אתר נייטשרסייג', name: data.name, email: data.email, phone: data.phone, message: data.message, botcheck: '' }
+            ? { access_key: w3k, subject, from_name: 'אתר קטגוריה 5', name: data.name, email: data.email, phone: data.phone, message: data.message, botcheck: '' }
             : { ...data, ns_hp_field: '', subject, _source: location.href, _t: started }
           const res = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(payload) })
           const out = await res.json().catch(() => ({}))

@@ -7,13 +7,13 @@
       "has": [
         {
           "type": "host",
-          "value": "www.naturesage.co.il"
+          "value": "www.ethical-supplements.com"
         }
       ],
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self' https://api.web3forms.com; upgrade-insecure-requests; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://connect.facebook.net https://analytics.tiktok.com https://static.hotjar.com https://script.hotjar.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https://cdn.sanity.io https://*.openstreetmap.org https://*.cdninstagram.com https://*.fbcdn.net https://scontent.cdninstagram.com https://i.ytimg.com https://vumbnail.com https://www.facebook.com https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com https://analytics.tiktok.com; media-src 'self' blob: https://*.cdninstagram.com https://*.fbcdn.net; connect-src 'self' https://api.web3forms.com https://cdn.sanity.io https://*.openstreetmap.org https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://connect.facebook.net https://www.facebook.com https://analytics.tiktok.com https://*.hotjar.com wss://*.hotjar.com; frame-src https://www.youtube-nocookie.com https://www.youtube.com https://player.vimeo.com https://www.google.com https://www.googletagmanager.com; worker-src 'self' blob:; manifest-src 'self'"
+          "value": "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self' https://api.web3forms.com; upgrade-insecure-requests; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://connect.facebook.net https://analytics.tiktok.com https://static.hotjar.com https://script.hotjar.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https://cdn.sanity.io https://*.openstreetmap.org https://*.cdninstagram.com https://*.fbcdn.net https://scontent.cdninstagram.com https://i.ytimg.com https://vumbnail.com https://www.facebook.com https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com https://analytics.tiktok.com; media-src 'self' blob: https://*.cdninstagram.com https://*.fbcdn.net; connect-src 'self' https://api.web3forms.com https://cdn.sanity.io https://*.openstreetmap.org https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://connect.facebook.net https://www.facebook.com https://analytics.tiktok.com https://*.hotjar.com wss://*.hotjar.com; frame-src https://www.paperturn-view.com https://www.youtube-nocookie.com https://www.youtube.com https://player.vimeo.com https://www.google.com https://www.googletagmanager.com; worker-src 'self' blob:; manifest-src 'self'"
         },
         {
           "key": "X-Content-Type-Options",
@@ -46,13 +46,13 @@
       "has": [
         {
           "type": "host",
-          "value": "naturesage.co.il"
+          "value": "ethical-supplements.com"
         }
       ],
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self' https://api.web3forms.com; upgrade-insecure-requests; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://connect.facebook.net https://analytics.tiktok.com https://static.hotjar.com https://script.hotjar.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https://cdn.sanity.io https://*.openstreetmap.org https://*.cdninstagram.com https://*.fbcdn.net https://scontent.cdninstagram.com https://i.ytimg.com https://vumbnail.com https://www.facebook.com https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com https://analytics.tiktok.com; media-src 'self' blob: https://*.cdninstagram.com https://*.fbcdn.net; connect-src 'self' https://api.web3forms.com https://cdn.sanity.io https://*.openstreetmap.org https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://connect.facebook.net https://www.facebook.com https://analytics.tiktok.com https://*.hotjar.com wss://*.hotjar.com; frame-src https://www.youtube-nocookie.com https://www.youtube.com https://player.vimeo.com https://www.google.com https://www.googletagmanager.com; worker-src 'self' blob:; manifest-src 'self'"
+          "value": "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self' https://api.web3forms.com; upgrade-insecure-requests; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://connect.facebook.net https://analytics.tiktok.com https://static.hotjar.com https://script.hotjar.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https://cdn.sanity.io https://*.openstreetmap.org https://*.cdninstagram.com https://*.fbcdn.net https://scontent.cdninstagram.com https://i.ytimg.com https://vumbnail.com https://www.facebook.com https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com https://analytics.tiktok.com; media-src 'self' blob: https://*.cdninstagram.com https://*.fbcdn.net; connect-src 'self' https://api.web3forms.com https://cdn.sanity.io https://*.openstreetmap.org https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://connect.facebook.net https://www.facebook.com https://analytics.tiktok.com https://*.hotjar.com wss://*.hotjar.com; frame-src https://www.paperturn-view.com https://www.youtube-nocookie.com https://www.youtube.com https://player.vimeo.com https://www.google.com https://www.googletagmanager.com; worker-src 'self' blob:; manifest-src 'self'"
         },
         {
           "key": "X-Content-Type-Options",
@@ -107,6 +107,24 @@
           "value": "nosniff"
         }
       ]
+    },
+    {
+      "source": "/wp-content/uploads/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400, s-maxage=604800"
+        }
+      ]
+    },
+    {
+      "source": "/media/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800, s-maxage=2592000"
+        }
+      ]
     }
   ],
   "rewrites": [
@@ -117,33 +135,318 @@
   ],
   "redirects": [
     {
-      "source": "/the-herb",
-      "destination": "/product",
-      "permanent": true
-    },
-    {
-      "source": "/the-herb/:rest*",
-      "destination": "/product",
-      "permanent": true
-    },
-    {
-      "source": "/%D7%9E%D7%A8%D7%95%D7%95%D7%94-%D7%9E%D7%A8%D7%95%D7%A9%D7%AA%D7%AA-%D7%A9%D7%9E%D7%9F-%D7%9E%D7%96%D7%A8%D7%A2%D7%99-%D7%9E%D7%A8%D7%95%D7%95%D7%94-%D7%9E%D7%A8%D7%95%D7%A9%D7%AA%D7%AA",
+      "source": "/2022/09/22/hello-world",
       "destination": "/",
       "permanent": true
     },
     {
-      "source": "/%D7%9E%D7%A8%D7%95%D7%95%D7%94-%D7%9E%D7%A8%D7%95%D7%A9%D7%AA%D7%AA-%D7%90%D7%95%D7%9E%D7%92%D7%94-3",
-      "destination": "/product",
+      "source": "/dashboard",
+      "destination": "/",
       "permanent": true
     },
     {
-      "source": "/%D7%94%D7%A9%D7%95%D7%95%D7%90%D7%94-%D7%A9%D7%9E%D7%9F-%D7%93%D7%92%D7%99%D7%9D",
-      "destination": "/compare",
+      "source": "/landing",
+      "destination": "/",
       "permanent": true
     },
     {
-      "source": "/%D7%A9%D7%90%D7%9C%D7%95%D7%AA-%D7%95%D7%AA%D7%A9%D7%95%D7%91%D7%95%D7%AA",
+      "source": "/log",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/notebook",
+      "destination": "/catalog",
+      "permanent": true
+    },
+    {
+      "source": "/sitemap_index.xml",
+      "destination": "/sitemap-index.xml",
+      "permanent": true
+    },
+    {
+      "source": "/sitemap.xml",
+      "destination": "/sitemap-index.xml",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%93%D7%9C%D7%A7%D7%AA-%D7%95%D7%AA%D7%A0%D7%95%D7%A2%D7%94",
+      "destination": "/category/inflammation-and-mobility",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%94%D7%A6%D7%94%D7%A8%D7%AA-%D7%A4%D7%A8%D7%98%D7%99%D7%95%D7%AA",
+      "destination": "/privacy",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%95%D7%99%D7%98%D7%9E%D7%99%D7%9F-c-%D7%9C%D7%99%D7%A4%D7%95%D7%96%D7%95%D7%9E%D7%9C%D7%99",
+      "destination": "/category/liposomal-vitamin-c",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%95%D7%99%D7%98%D7%9E%D7%99%D7%9F-c-%D7%9C%D7%99%D7%A4%D7%95%D7%96%D7%95%D7%9E%D7%9C%D7%99/%D7%A1%D7%91%D7%95%D7%9F-%D7%A1%D7%9C%D7%99%D7%A0%D7%90%D7%95%D7%9C",
+      "destination": "/products/cellinol-soap",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%95%D7%99%D7%98%D7%9E%D7%99%D7%9F-c-%D7%9C%D7%99%D7%A4%D7%95%D7%96%D7%95%D7%9E%D7%9C%D7%99/%D7%A1%D7%9C%D7%99%D7%A0%D7%90%D7%95%D7%9C-%D7%92%D7%95%D7%A0%D7%99%D7%95%D7%A8",
+      "destination": "/products/cellinol-junior",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%95%D7%99%D7%98%D7%9E%D7%99%D7%9F-c-%D7%9C%D7%99%D7%A4%D7%95%D7%96%D7%95%D7%9E%D7%9C%D7%99/%D7%A1%D7%9C%D7%99%D7%A0%D7%90%D7%95%D7%9C-%D7%9E%D7%92%D7%94",
+      "destination": "/products/cellinol-liposomal-vitamin-c",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%95%D7%99%D7%98%D7%9E%D7%99%D7%9F-c-%D7%9C%D7%99%D7%A4%D7%95%D7%96%D7%95%D7%9E%D7%9C%D7%99/%D7%A7%D7%95%D7%99%D7%A7-c",
+      "destination": "/products/quick-c",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%95%D7%99%D7%98%D7%9E%D7%99%D7%A0%D7%99%D7%9D-%D7%95%D7%9E%D7%99%D7%A0%D7%A8%D7%9C%D7%99%D7%9D",
+      "destination": "/category/vitamins-and-minerals",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%96%D7%9B%D7%A8%D7%95%D7%9F-%D7%95%D7%97%D7%A9%D7%99%D7%91%D7%94",
+      "destination": "/category/memory-and-cognition",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%9E%D7%95%D7%93%D7%95%D7%9C-%D7%A9%D7%90%D7%9C%D7%95%D7%AA-%D7%95%D7%AA%D7%A9%D7%95%D7%91%D7%95%D7%AA",
       "destination": "/faq",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%9E%D7%A2%D7%A8%D7%9B%D7%AA-%D7%94%D7%97%D7%99%D7%A1%D7%95%D7%9F",
+      "destination": "/category/immune-system",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%93%D7%9C%D7%A7%D7%AA-%D7%95%D7%AA%D7%A0%D7%95%D7%A2%D7%94",
+      "destination": "/category/inflammation-and-mobility",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%93%D7%9C%D7%A7%D7%AA-%D7%95%D7%AA%D7%A0%D7%95%D7%A2%D7%94/lpldl-%D7%A4%D7%A8%D7%95%D7%91%D7%99%D7%95%D7%98%D7%99%D7%A7%D7%94",
+      "destination": "/products/lpldl-probiotic",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%93%D7%9C%D7%A7%D7%AA-%D7%95%D7%AA%D7%A0%D7%95%D7%A2%D7%94/%D7%91%D7%99%D7%95-%D7%95%D7%A8%D7%94",
+      "destination": "/products/bio-vera",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%93%D7%9C%D7%A7%D7%AA-%D7%95%D7%AA%D7%A0%D7%95%D7%A2%D7%94/%D7%92%D7%A0%D7%99%D7%A4%D7%9C%D7%95%D7%A8%D7%94-c15-%D7%A4%D7%A8%D7%95%D7%91%D7%99%D7%95%D7%98%D7%99%D7%A7%D7%94-%D7%9C%D7%A0%D7%A9%D7%99%D7%9D",
+      "destination": "/products/geniflora-c15",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%93%D7%9C%D7%A7%D7%AA-%D7%95%D7%AA%D7%A0%D7%95%D7%A2%D7%94/%D7%94%D7%95%D7%9E%D7%A0%D7%A4%D7%9C%D7%95%D7%A8%D7%94-53-%D7%A4%D7%A1%D7%92%D7%AA-%D7%94%D7%A4%D7%A8%D7%95%D7%91%D7%99%D7%95%D7%98%D7%99%D7%A7%D7%94",
+      "destination": "/products/umanaflora-53",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%93%D7%9C%D7%A7%D7%AA-%D7%95%D7%AA%D7%A0%D7%95%D7%A2%D7%94/%D7%A0%D7%9E%D7%93%D7%A8%D7%99%D7%9F-l6",
+      "destination": "/products/nemadrin-l6",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%93%D7%9C%D7%A7%D7%AA-%D7%95%D7%AA%D7%A0%D7%95%D7%A2%D7%94/%D7%A1%D7%91%D7%95%D7%9F-%D7%A0%D7%9E%D7%93%D7%A8%D7%99%D7%9F",
+      "destination": "/products/nemadrin-soap",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%93%D7%9C%D7%A7%D7%AA-%D7%95%D7%AA%D7%A0%D7%95%D7%A2%D7%94/%D7%A4%D7%A8%D7%95%D7%98%D7%A1%D7%98%D7%A8%D7%95%D7%9C-40",
+      "destination": "/products/protesterol-40",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%93%D7%9C%D7%A7%D7%AA-%D7%95%D7%AA%D7%A0%D7%95%D7%A2%D7%94/%D7%A8%D7%95%D7%99%D7%95%D7%95%D7%90%D7%9C",
+      "destination": "/products/revival-20",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%95%D7%99%D7%98%D7%9E%D7%99%D7%A0%D7%99%D7%9D-%D7%95%D7%9E%D7%99%D7%A0%D7%A8%D7%9C%D7%99%D7%9D",
+      "destination": "/category/vitamins-and-minerals",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%95%D7%99%D7%98%D7%9E%D7%99%D7%A0%D7%99%D7%9D-%D7%95%D7%9E%D7%99%D7%A0%D7%A8%D7%9C%D7%99%D7%9D/%D7%9C%D7%99%D7%A4%D7%95%D7%96%D7%9E%D7%99%D7%9F-b12",
+      "destination": "/products/lipozamin-b12-spectrum",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%95%D7%99%D7%98%D7%9E%D7%99%D7%A0%D7%99%D7%9D-%D7%95%D7%9E%D7%99%D7%A0%D7%A8%D7%9C%D7%99%D7%9D/%D7%9C%D7%99%D7%A4%D7%95%D7%96%D7%9E%D7%99%D7%9F-calcium",
+      "destination": "/products/lipozamin-calcium",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%95%D7%99%D7%98%D7%9E%D7%99%D7%A0%D7%99%D7%9D-%D7%95%D7%9E%D7%99%D7%A0%D7%A8%D7%9C%D7%99%D7%9D/%D7%9C%D7%99%D7%A4%D7%95%D7%96%D7%9E%D7%99%D7%9F-fe",
+      "destination": "/products/lipozamin-fe",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%95%D7%99%D7%98%D7%9E%D7%99%D7%A0%D7%99%D7%9D-%D7%95%D7%9E%D7%99%D7%A0%D7%A8%D7%9C%D7%99%D7%9D/%D7%9C%D7%99%D7%A4%D7%95%D7%96%D7%9E%D7%99%D7%9F-mg",
+      "destination": "/products/lipozamin-mg-complex",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%95%D7%99%D7%98%D7%9E%D7%99%D7%A0%D7%99%D7%9D-%D7%95%D7%9E%D7%99%D7%A0%D7%A8%D7%9C%D7%99%D7%9D/%D7%9C%D7%99%D7%A4%D7%95%D7%96%D7%9E%D7%99%D7%9F-mg-%D7%98%D7%90%D7%95%D7%A8%D7%98",
+      "destination": "/products/lipozamin-mg-taurate",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%95%D7%99%D7%98%D7%9E%D7%99%D7%A0%D7%99%D7%9D-%D7%95%D7%9E%D7%99%D7%A0%D7%A8%D7%9C%D7%99%D7%9D/%D7%9C%D7%99%D7%A4%D7%95%D7%96%D7%9E%D7%99%D7%9F-mg-%D7%A1%D7%A4%D7%A7%D7%98%D7%A8%D7%95%D7%9D",
+      "destination": "/products/lipozamin-mg-spectrum",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%95%D7%99%D7%98%D7%9E%D7%99%D7%A0%D7%99%D7%9D-%D7%95%D7%9E%D7%99%D7%A0%D7%A8%D7%9C%D7%99%D7%9D/%D7%9C%D7%99%D7%A4%D7%95%D7%96%D7%9E%D7%99%D7%9F-q10-%D7%A1%D7%A4%D7%A7%D7%98%D7%A8%D7%95%D7%9D",
+      "destination": "/products/lipozamin-q10-spectrum",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%95%D7%99%D7%98%D7%9E%D7%99%D7%A0%D7%99%D7%9D-%D7%95%D7%9E%D7%99%D7%A0%D7%A8%D7%9C%D7%99%D7%9D/%D7%9C%D7%99%D7%A4%D7%95%D7%96%D7%9E%D7%99%D7%9F-se",
+      "destination": "/products/lipozamin-se",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%95%D7%99%D7%98%D7%9E%D7%99%D7%A0%D7%99%D7%9D-%D7%95%D7%9E%D7%99%D7%A0%D7%A8%D7%9C%D7%99%D7%9D/%D7%9C%D7%99%D7%A4%D7%95%D7%96%D7%9E%D7%99%D7%9F-zn",
+      "destination": "/products/lipozamin-zn",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%95%D7%99%D7%98%D7%9E%D7%99%D7%A0%D7%99%D7%9D-%D7%95%D7%9E%D7%99%D7%A0%D7%A8%D7%9C%D7%99%D7%9D/%D7%9C%D7%99%D7%A4%D7%95%D7%96%D7%9E%D7%99%D7%9F-%D7%92%D7%9C%D7%95%D7%98%D7%AA%D7%99%D7%95%D7%9F",
+      "destination": "/products/lipozamin-glutathione",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%95%D7%99%D7%98%D7%9E%D7%99%D7%A0%D7%99%D7%9D-%D7%95%D7%9E%D7%99%D7%A0%D7%A8%D7%9C%D7%99%D7%9D/%D7%9C%D7%99%D7%A4%D7%95%D7%96%D7%9E%D7%99%D7%9F-%D7%A0%D7%99%D7%A7%D7%95%D7%98%D7%99%D7%A0%D7%90%D7%9E%D7%99%D7%93",
+      "destination": "/products/lipozamin-nicotinamide",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%95%D7%99%D7%98%D7%9E%D7%99%D7%A0%D7%99%D7%9D-%D7%95%D7%9E%D7%99%D7%A0%D7%A8%D7%9C%D7%99%D7%9D/%D7%A7%D7%95%D7%99%D7%A7-fe",
+      "destination": "/products/quick-fe",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%96%D7%9B%D7%A8%D7%95%D7%9F-%D7%95%D7%97%D7%A9%D7%99%D7%91%D7%94",
+      "destination": "/category/memory-and-cognition",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%96%D7%9B%D7%A8%D7%95%D7%9F-%D7%95%D7%97%D7%A9%D7%99%D7%91%D7%94/%D7%90%D7%9E%D7%95%D7%A8%D7%A4%D7%95%D7%9C%D7%99%D7%A7-%D7%9E%D7%AA%D7%99%D7%9C-%D7%A4%D7%95%D7%9C%D7%90%D7%98-%D7%90%D7%9E%D7%95%D7%A8%D7%A4%D7%99",
+      "destination": "/products/amorfolic",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%96%D7%9B%D7%A8%D7%95%D7%9F-%D7%95%D7%97%D7%A9%D7%99%D7%91%D7%94/%D7%A0%D7%95%D7%98%D7%A8%D7%95%D7%A4%D7%99%D7%A0%D7%95%D7%9C",
+      "destination": "/products/nootropinol",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%96%D7%9B%D7%A8%D7%95%D7%9F-%D7%95%D7%97%D7%A9%D7%99%D7%91%D7%94/%D7%A7%D7%95%D7%92%D7%A0%D7%99-bright",
+      "destination": "/products/cogni-bright",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%96%D7%9B%D7%A8%D7%95%D7%9F-%D7%95%D7%97%D7%A9%D7%99%D7%91%D7%94/%D7%A7%D7%95%D7%92%D7%A0%D7%99-mg",
+      "destination": "/products/cogni-mg",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%96%D7%9B%D7%A8%D7%95%D7%9F-%D7%95%D7%97%D7%A9%D7%99%D7%91%D7%94/%D7%A7%D7%95%D7%92%D7%A0%D7%99-zzz",
+      "destination": "/products/cogni-zzz",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%96%D7%9B%D7%A8%D7%95%D7%9F-%D7%95%D7%97%D7%A9%D7%99%D7%91%D7%94/%D7%A8%D7%9C%D7%A7%D7%98%D7%95%D7%9F-%D7%90%D7%9C%D7%A4%D7%90",
+      "destination": "/products/relacton-alpha",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%9E%D7%A2%D7%A8%D7%9B%D7%AA-%D7%94%D7%97%D7%99%D7%A1%D7%95%D7%9F",
+      "destination": "/category/immune-system",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%9E%D7%A2%D7%A8%D7%9B%D7%AA-%D7%94%D7%97%D7%99%D7%A1%D7%95%D7%9F/%D7%90%D7%9C%D7%99%D7%95%D7%95%D7%99%D7%95%D7%9D",
+      "destination": "/products/alyvium",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%9E%D7%A2%D7%A8%D7%9B%D7%AA-%D7%94%D7%97%D7%99%D7%A1%D7%95%D7%9F/%D7%94%D7%95%D7%9E%D7%A0%D7%A4%D7%9C%D7%95%D7%A8%D7%94-de111",
+      "destination": "/products/umanaflora-de111",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%9E%D7%A2%D7%A8%D7%9B%D7%AA-%D7%94%D7%97%D7%99%D7%A1%D7%95%D7%9F/%D7%94%D7%95%D7%9E%D7%A0%D7%A4%D7%9C%D7%95%D7%A8%D7%94-%D7%93%D7%99%D7%99%D7%9C%D7%99",
+      "destination": "/products/umanaflora-daily",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%9E%D7%A2%D7%A8%D7%9B%D7%AA-%D7%94%D7%97%D7%99%D7%A1%D7%95%D7%9F/%D7%95%D7%99%D7%A0%D7%98%D7%A8%D7%92%D7%90%D7%A8%D7%93",
+      "destination": "/products/winterguard",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%9E%D7%A2%D7%A8%D7%9B%D7%AA-%D7%94%D7%97%D7%99%D7%A1%D7%95%D7%9F/%D7%9C%D7%A7%D7%98%D7%95%D7%A4%D7%A8",
+      "destination": "/products/lactoferr",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%9E%D7%A2%D7%A8%D7%9B%D7%AA-%D7%94%D7%97%D7%99%D7%A1%D7%95%D7%9F/%D7%A1%D7%91%D7%95%D7%9F-%D7%90%D7%9C%D7%99%D7%95%D7%95%D7%99%D7%95%D7%9D",
+      "destination": "/products/alyvium-soap",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%9E%D7%A2%D7%A8%D7%9B%D7%AA-%D7%94%D7%97%D7%99%D7%A1%D7%95%D7%9F/%D7%A7%D7%A8%D7%9D-%D7%90%D7%9C%D7%99%D7%95%D7%95%D7%99%D7%95%D7%9D",
+      "destination": "/products/alyvium-cream",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%A6%D7%95%D7%A8-%D7%A7%D7%A9%D7%A8",
+      "destination": "/contact",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%A6%D7%9E%D7%97%D7%99%D7%9D-%D7%95%D7%A2%D7%A9%D7%91%D7%99%D7%9D",
+      "destination": "/category/herbs-and-plants",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%A6%D7%9E%D7%97%D7%99%D7%9D-%D7%95%D7%A2%D7%A9%D7%91%D7%99%D7%9D/%D7%92%D7%90%D7%9C%D7%95%D7%A7%D7%95%D7%A8-%D7%A0%D7%A0%D7%95-%D7%9B%D7%95%D7%A8%D7%9B%D7%95%D7%9E%D7%99%D7%9F",
+      "destination": "/products/giallocur-nano-curcumin",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%A6%D7%9E%D7%97%D7%99%D7%9D-%D7%95%D7%A2%D7%A9%D7%91%D7%99%D7%9D/%D7%92%D7%90%D7%9C%D7%95%D7%A7%D7%95%D7%A8-%D7%A0%D7%A0%D7%95-%D7%9B%D7%95%D7%A8%D7%9B%D7%95%D7%9E%D7%99%D7%9F-2",
+      "destination": "/products/kalnozim-digestive-enzymes",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%A6%D7%9E%D7%97%D7%99%D7%9D-%D7%95%D7%A2%D7%A9%D7%91%D7%99%D7%9D/%D7%A1%D7%91%D7%95%D7%9F-%D7%92%D7%90%D7%9C%D7%95%D7%A7%D7%95%D7%A8",
+      "destination": "/products/giallocur-soap",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%A6%D7%9E%D7%97%D7%99%D7%9D-%D7%95%D7%A2%D7%A9%D7%91%D7%99%D7%9D/%D7%A7%D7%9C%D7%A0%D7%95%D7%96%D7%99%D7%9F",
+      "destination": "/products/kalnozin",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%A8%D7%A9%D7%99%D7%9E%D7%AA-%D7%97%D7%A0%D7%95%D7%99%D7%95%D7%AA",
+      "destination": "/stores",
       "permanent": true
     },
     {
@@ -152,7 +455,12 @@
       "permanent": true
     },
     {
-      "source": "/%D7%A8%D7%A9%D7%99%D7%9E%D7%AA-%D7%97%D7%A0%D7%95%D7%99%D7%95%D7%AA-2",
+      "source": "/%D7%A6%D7%9E%D7%97%D7%99%D7%9D-%D7%95%D7%A2%D7%A9%D7%91%D7%99%D7%9D",
+      "destination": "/category/herbs-and-plants",
+      "permanent": true
+    },
+    {
+      "source": "/%D7%A8%D7%A9%D7%99%D7%9E%D7%AA-%D7%97%D7%A0%D7%95%D7%99%D7%95%D7%AA",
       "destination": "/stores",
       "permanent": true
     },
@@ -162,249 +470,29 @@
       "permanent": true
     },
     {
-      "source": "/%D7%9E%D7%93%D7%99%D7%A0%D7%99%D7%95%D7%AA-%D7%A4%D7%A8%D7%98%D7%99%D7%95%D7%AA",
-      "destination": "/privacy",
-      "permanent": true
-    },
-    {
-      "source": "/%D7%9E%D7%93%D7%99%D7%A0%D7%99%D7%95%D7%AA-%D7%94%D7%A7%D7%95%D7%A7%D7%99%D7%95%D7%AA",
-      "destination": "/cookies",
-      "permanent": true
-    },
-    {
-      "source": "/%D7%9E%D7%99%D7%93%D7%A2-%D7%A2%D7%9C-%D7%94%D7%9E%D7%A8%D7%94",
-      "destination": "/omega-3-conversion",
-      "permanent": true
-    },
-    {
-      "source": "/%D7%A4%D7%95%D7%A8%D7%98%D7%9C-%D7%9E%D7%95%D7%9E%D7%97%D7%99%D7%9D/%D7%9E%D7%99%D7%93%D7%A2-%D7%A2%D7%9C-%D7%94%D7%9E%D7%A8%D7%94",
-      "destination": "/omega-3-conversion",
-      "permanent": true
-    },
-    {
-      "source": "/%D7%A4%D7%95%D7%A8%D7%98%D7%9C-%D7%9E%D7%95%D7%9E%D7%97%D7%99%D7%9D/%D7%94%D7%A9%D7%95%D7%95%D7%90%D7%94-%D7%A9%D7%9E%D7%9F-%D7%93%D7%92%D7%99%D7%9D",
-      "destination": "/compare",
-      "permanent": true
-    },
-    {
-      "source": "/%D7%9E%D7%A8%D7%95%D7%95%D7%94-%D7%9E%D7%A8%D7%95%D7%A9%D7%AA%D7%AA-%D7%A9%D7%9E%D7%9F-%D7%9E%D7%96%D7%A8%D7%A2%D7%99-%D7%9E%D7%A8%D7%95%D7%95%D7%94-%D7%9E%D7%A8%D7%95%D7%A9%D7%AA%D7%AA/%D7%A6%D7%95%D7%A8-%D7%A7%D7%A9%D7%A8",
-      "destination": "/contact",
-      "permanent": true
-    },
-    {
-      "source": "/%D7%AA%D7%94%D7%9C%D7%99%D7%9B%D7%99-%D7%94%D7%99%D7%99%D7%A6%D7%95%D7%A8",
-      "destination": "/production",
-      "permanent": true
-    },
-    {
-      "source": "/%D7%90%D7%95%D7%9E%D7%92%D7%94-3-%D7%90%D7%99%D7%A0%D7%93%D7%A7%D7%A1",
-      "destination": "/omega-3-index",
-      "permanent": true
-    },
-    {
-      "source": "/%D7%A4%D7%95%D7%A8%D7%98%D7%9C-%D7%9E%D7%95%D7%9E%D7%97%D7%99%D7%9D",
-      "destination": "/experts",
-      "permanent": true
-    },
-    {
-      "source": "/%D7%A4%D7%95%D7%A8%D7%98%D7%99-%D7%A4%D7%99%D7%95%D7%A8-%D7%9E%D7%A8%D7%95%D7%95%D7%94-%D7%9E%D7%A8%D7%95%D7%A9%D7%AA%D7%AA",
-      "destination": "/products/forti-pure",
-      "permanent": true
-    },
-    {
-      "source": "/%D7%9E%D7%A8%D7%95%D7%95%D7%94-%D7%9E%D7%A8%D7%95%D7%A9%D7%AA%D7%AA-pure-%D7%9B%D7%9E%D7%95%D7%A1%D7%95%D7%AA-%D7%98%D7%91%D7%A2%D7%95%D7%A0%D7%99%D7%95%D7%AA",
-      "destination": "/products/pure-capsules",
-      "permanent": true
-    },
-    {
-      "source": "/%D7%9E%D7%A8%D7%95%D7%95%D7%94-%D7%9E%D7%A8%D7%95%D7%A9%D7%AA%D7%AA-%D7%A9%D7%9E%D7%9F-%D7%9E%D7%96%D7%A8%D7%A2%D7%99-%D7%9E%D7%A8%D7%95%D7%95%D7%94-%D7%9E%D7%A8%D7%95%D7%A9%D7%AA%D7%AA/%D7%9E%D7%A8%D7%95%D7%95%D7%94-%D7%9E%D7%A8%D7%95%D7%A9%D7%AA%D7%AA-%D7%90%D7%95%D7%9E%D7%92%D7%94-3/%D7%9E%D7%A8%D7%95%D7%95%D7%94-%D7%9E%D7%A8%D7%95%D7%A9%D7%AA%D7%AA-pure-%D7%9B%D7%9E%D7%95%D7%A1%D7%95%D7%AA-%D7%98%D7%91%D7%A2%D7%95%D7%A0%D7%99%D7%95%D7%AA",
-      "destination": "/products/pure-capsules",
-      "permanent": true
-    },
-    {
-      "source": "/%D7%9E%D7%A8%D7%95%D7%95%D7%94-%D7%9E%D7%A8%D7%95%D7%A9%D7%AA%D7%AA-%D7%A9%D7%9E%D7%9F-%D7%9E%D7%96%D7%A8%D7%A2%D7%99-%D7%9E%D7%A8%D7%95%D7%95%D7%94-%D7%9E%D7%A8%D7%95%D7%A9%D7%AA%D7%AA/%D7%9E%D7%A8%D7%95%D7%95%D7%94-%D7%9E%D7%A8%D7%95%D7%A9%D7%AA%D7%AA-%D7%90%D7%95%D7%9E%D7%92%D7%94-3/%D7%9E%D7%A8%D7%95%D7%95%D7%94-%D7%9E%D7%A8%D7%95%D7%A9%D7%AA%D7%AA-pure-%D7%A9%D7%9E%D7%9F-%D7%91%D7%91%D7%A7%D7%91%D7%95%D7%A7",
-      "destination": "/products/pure-oil",
-      "permanent": true
-    },
-    {
-      "source": "/%D7%9E%D7%A8%D7%95%D7%95%D7%94-%D7%9E%D7%A8%D7%95%D7%A9%D7%AA%D7%AA-pure-%D7%A9%D7%9E%D7%9F-%D7%91%D7%91%D7%A7%D7%91%D7%95%D7%A7",
-      "destination": "/products/pure-oil",
-      "permanent": true
-    },
-    {
-      "source": "/%D7%95%D7%99%D7%98%D7%9E%D7%99%D7%9F-%D7%93%D7%99-%D7%98%D7%91%D7%A2%D7%95%D7%A0%D7%99-%D7%9E%D7%A8%D7%95%D7%95%D7%94-%D7%9E%D7%A8%D7%95%D7%A9%D7%AA%D7%AA",
-      "destination": "/products/vitamin-d",
-      "permanent": true
-    },
-    {
-      "source": "/%D7%9E%D7%A2%D7%A8%D7%9B%D7%AA-%D7%94%D7%97%D7%99%D7%A1%D7%95%D7%9F",
-      "destination": "/articles/immune-system",
-      "permanent": true
-    },
-    {
-      "source": "/%D7%A7%D7%A9%D7%91-%D7%95%D7%A8%D7%99%D7%9B%D7%95%D7%96",
-      "destination": "/articles/focus-concentration",
-      "permanent": true
-    },
-    {
-      "source": "/%D7%94%D7%A7%D7%A9%D7%A8-%D7%91%D7%99%D7%9F-%D7%90%D7%95%D7%9E%D7%92%D7%94-3-%D7%9C%D7%A7%D7%A6%D7%91-%D7%94%D7%9C%D7%91",
-      "destination": "/articles/omega-3-heart-rate",
-      "permanent": true
-    },
-    {
-      "source": "/%D7%9E%D7%97%D7%A7%D7%A8-%D7%A9%D7%95%D7%9E%D7%A0%D7%99%D7%9D-%D7%91%D7%93%D7%9D",
-      "destination": "/research/blood-lipids",
-      "permanent": true
-    },
-    {
-      "source": "/%D7%A4%D7%95%D7%A8%D7%98%D7%9C-%D7%9E%D7%95%D7%9E%D7%97%D7%99%D7%9D/%D7%90%D7%95%D7%9E%D7%92%D7%94-3-%D7%90%D7%99%D7%A0%D7%93%D7%A7%D7%A1",
-      "destination": "/omega-3-index",
-      "permanent": true
-    },
-    {
-      "source": "/%D7%A4%D7%95%D7%A8%D7%98%D7%9C-%D7%9E%D7%95%D7%9E%D7%97%D7%99%D7%9D/%D7%9E%D7%A2%D7%A8%D7%9B%D7%AA-%D7%94%D7%97%D7%99%D7%A1%D7%95%D7%9F",
-      "destination": "/articles/immune-system",
-      "permanent": true
-    },
-    {
-      "source": "/%D7%A4%D7%95%D7%A8%D7%98%D7%9C-%D7%9E%D7%95%D7%9E%D7%97%D7%99%D7%9D/%D7%94%D7%A7%D7%A9%D7%A8-%D7%91%D7%99%D7%9F-%D7%90%D7%95%D7%9E%D7%92%D7%94-3-%D7%9C%D7%A7%D7%A6%D7%91-%D7%94%D7%9C%D7%91",
-      "destination": "/articles/omega-3-heart-rate",
-      "permanent": true
-    },
-    {
-      "source": "/%D7%A4%D7%95%D7%A8%D7%98%D7%9C-%D7%9E%D7%95%D7%9E%D7%97%D7%99%D7%9D/%D7%9E%D7%97%D7%A7%D7%A8-%D7%A7%D7%A8%D7%95%D7%94%D7%9F-%D7%A7%D7%95%D7%9C%D7%99%D7%98%D7%99%D7%A1",
-      "destination": "/research/crohns-colitis",
-      "permanent": true
-    },
-    {
-      "source": "/%D7%9E%D7%97%D7%A7%D7%A8-%D7%A7%D7%A8%D7%95%D7%94%D7%9F-%D7%A7%D7%95%D7%9C%D7%99%D7%98%D7%99%D7%A1",
-      "destination": "/research/crohns-colitis",
-      "permanent": true
-    },
-    {
-      "source": "/%D7%A4%D7%95%D7%A8%D7%98%D7%9C-%D7%9E%D7%95%D7%9E%D7%97%D7%99%D7%9D/%D7%9E%D7%97%D7%A7%D7%A8-%D7%A9%D7%95%D7%9E%D7%A0%D7%99%D7%9D-%D7%91%D7%93%D7%9D",
-      "destination": "/research/blood-lipids",
-      "permanent": true
-    },
-    {
-      "source": "/%D7%A4%D7%95%D7%A8%D7%98%D7%9C-%D7%9E%D7%95%D7%9E%D7%97%D7%99%D7%9D/%D7%A7%D7%A9%D7%91-%D7%95%D7%A8%D7%99%D7%9B%D7%95%D7%96",
-      "destination": "/articles/focus-concentration",
-      "permanent": true
-    },
-    {
-      "source": "/%D7%A4%D7%95%D7%A8%D7%98%D7%9C-%D7%9E%D7%95%D7%9E%D7%97%D7%99%D7%9D/%D7%AA%D7%94%D7%9C%D7%99%D7%9B%D7%99-%D7%94%D7%99%D7%99%D7%A6%D7%95%D7%A8",
-      "destination": "/production",
-      "permanent": true
-    },
-    {
-      "source": "/%D7%9E%D7%A8%D7%95%D7%95%D7%94-%D7%9E%D7%A8%D7%95%D7%A9%D7%AA%D7%AA-%D7%A9%D7%9E%D7%9F-%D7%9E%D7%96%D7%A8%D7%A2%D7%99-%D7%9E%D7%A8%D7%95%D7%95%D7%94-%D7%9E%D7%A8%D7%95%D7%A9%D7%AA%D7%AA/%D7%9E%D7%A8%D7%95%D7%95%D7%94-%D7%9E%D7%A8%D7%95%D7%A9%D7%AA%D7%AA-%D7%90%D7%95%D7%9E%D7%92%D7%94-3/%D7%AA%D7%94%D7%9C%D7%99%D7%9B%D7%99-%D7%94%D7%99%D7%99%D7%A6%D7%95%D7%A8",
-      "destination": "/production",
-      "permanent": true
-    },
-    {
-      "source": "/%D7%9E%D7%A8%D7%95%D7%95%D7%94-%D7%9E%D7%A8%D7%95%D7%A9%D7%AA%D7%AA-%D7%A9%D7%9E%D7%9F-%D7%9E%D7%96%D7%A8%D7%A2%D7%99-%D7%9E%D7%A8%D7%95%D7%95%D7%94-%D7%9E%D7%A8%D7%95%D7%A9%D7%AA%D7%AA/%D7%9E%D7%A8%D7%95%D7%95%D7%94-%D7%9E%D7%A8%D7%95%D7%A9%D7%AA%D7%AA-%D7%90%D7%95%D7%9E%D7%92%D7%94-3",
-      "destination": "/product",
-      "permanent": true
-    },
-    {
-      "source": "/%D7%9E%D7%A8%D7%95%D7%95%D7%94-%D7%9E%D7%A8%D7%95%D7%A9%D7%AA%D7%AA-%D7%A9%D7%9E%D7%9F-%D7%9E%D7%96%D7%A8%D7%A2%D7%99-%D7%9E%D7%A8%D7%95%D7%95%D7%94-%D7%9E%D7%A8%D7%95%D7%A9%D7%AA%D7%AA/%D7%A8%D7%A9%D7%99%D7%9E%D7%AA-%D7%97%D7%A0%D7%95%D7%99%D7%95%D7%AA-2",
-      "destination": "/stores",
-      "permanent": true
-    },
-    {
-      "source": "/%D7%9E%D7%A8%D7%95%D7%95%D7%94-%D7%9E%D7%A8%D7%95%D7%A9%D7%AA%D7%AA-%D7%A9%D7%9E%D7%9F-%D7%9E%D7%96%D7%A8%D7%A2%D7%99-%D7%9E%D7%A8%D7%95%D7%95%D7%94-%D7%9E%D7%A8%D7%95%D7%A9%D7%AA%D7%AA/%D7%9E%D7%A8%D7%95%D7%95%D7%94-%D7%9E%D7%A8%D7%95%D7%A9%D7%AA%D7%AA-%D7%90%D7%95%D7%9E%D7%92%D7%94-3/%D7%95%D7%99%D7%98%D7%9E%D7%99%D7%9F-%D7%93%D7%99-%D7%98%D7%91%D7%A2%D7%95%D7%A0%D7%99-%D7%9E%D7%A8%D7%95%D7%95%D7%94-%D7%9E%D7%A8%D7%95%D7%A9%D7%AA%D7%AA",
-      "destination": "/products/vitamin-d",
-      "permanent": true
-    },
-    {
-      "source": "/%D7%9E%D7%A8%D7%95%D7%95%D7%94-%D7%9E%D7%A8%D7%95%D7%A9%D7%AA%D7%AA-%D7%A9%D7%9E%D7%9F-%D7%9E%D7%96%D7%A8%D7%A2%D7%99-%D7%9E%D7%A8%D7%95%D7%95%D7%94-%D7%9E%D7%A8%D7%95%D7%A9%D7%AA%D7%AA/%D7%9E%D7%A8%D7%95%D7%95%D7%94-%D7%9E%D7%A8%D7%95%D7%A9%D7%AA%D7%AA-%D7%90%D7%95%D7%9E%D7%92%D7%94-3/%D7%A4%D7%95%D7%A8%D7%98%D7%99-%D7%A4%D7%99%D7%95%D7%A8-%D7%9E%D7%A8%D7%95%D7%95%D7%94-%D7%9E%D7%A8%D7%95%D7%A9%D7%AA%D7%AA",
-      "destination": "/products/forti-pure",
-      "permanent": true
-    },
-    {
-      "source": "/%D7%9E%D7%A8%D7%95%D7%95%D7%94-%D7%9E%D7%A8%D7%95%D7%A9%D7%AA%D7%AA-%D7%A9%D7%9E%D7%9F-%D7%9E%D7%96%D7%A8%D7%A2%D7%99-%D7%9E%D7%A8%D7%95%D7%95%D7%94-%D7%9E%D7%A8%D7%95%D7%A9%D7%AA%D7%AA/%D7%9E%D7%A8%D7%95%D7%95%D7%94-%D7%9E%D7%A8%D7%95%D7%A9%D7%AA%D7%AA-%D7%90%D7%95%D7%9E%D7%92%D7%94-3/%D7%A7%D7%A9%D7%91-%D7%95%D7%A8%D7%99%D7%9B%D7%95%D7%96",
-      "destination": "/articles/focus-concentration",
-      "permanent": true
-    },
-    {
-      "source": "/%D7%9E%D7%A8%D7%95%D7%95%D7%94-%D7%9E%D7%A8%D7%95%D7%A9%D7%AA%D7%AA-%D7%A9%D7%9E%D7%9F-%D7%9E%D7%96%D7%A8%D7%A2%D7%99-%D7%9E%D7%A8%D7%95%D7%95%D7%94-%D7%9E%D7%A8%D7%95%D7%A9%D7%AA%D7%AA/%D7%9E%D7%A8%D7%95%D7%95%D7%94-%D7%9E%D7%A8%D7%95%D7%A9%D7%AA%D7%AA-%D7%90%D7%95%D7%9E%D7%92%D7%94-3/%D7%9E%D7%A2%D7%A8%D7%9B%D7%AA-%D7%94%D7%97%D7%99%D7%A1%D7%95%D7%9F",
-      "destination": "/articles/immune-system",
-      "permanent": true
-    },
-    {
-      "source": "/%D7%9E%D7%A8%D7%95%D7%95%D7%94-%D7%9E%D7%A8%D7%95%D7%A9%D7%AA%D7%AA-%D7%A9%D7%9E%D7%9F-%D7%9E%D7%96%D7%A8%D7%A2%D7%99-%D7%9E%D7%A8%D7%95%D7%95%D7%94-%D7%9E%D7%A8%D7%95%D7%A9%D7%AA%D7%AA/%D7%9E%D7%A8%D7%95%D7%95%D7%94-%D7%9E%D7%A8%D7%95%D7%A9%D7%AA%D7%AA-%D7%90%D7%95%D7%9E%D7%92%D7%94-3/%D7%94%D7%A7%D7%A9%D7%A8-%D7%91%D7%99%D7%9F-%D7%90%D7%95%D7%9E%D7%92%D7%94-3-%D7%9C%D7%A7%D7%A6%D7%91-%D7%94%D7%9C%D7%91",
-      "destination": "/articles/omega-3-heart-rate",
-      "permanent": true
-    },
-    {
-      "source": "/%D7%9E%D7%A8%D7%95%D7%95%D7%94-%D7%9E%D7%A8%D7%95%D7%A9%D7%AA%D7%AA-%D7%A9%D7%9E%D7%9F-%D7%9E%D7%96%D7%A8%D7%A2%D7%99-%D7%9E%D7%A8%D7%95%D7%95%D7%94-%D7%9E%D7%A8%D7%95%D7%A9%D7%AA%D7%AA/%D7%9E%D7%A8%D7%95%D7%95%D7%94-%D7%9E%D7%A8%D7%95%D7%A9%D7%AA%D7%AA-%D7%90%D7%95%D7%9E%D7%92%D7%94-3/%D7%94%D7%A9%D7%95%D7%95%D7%90%D7%94-%D7%A9%D7%9E%D7%9F-%D7%93%D7%92%D7%99%D7%9D",
-      "destination": "/compare",
-      "permanent": true
-    },
-    {
-      "source": "/%D7%9E%D7%A8%D7%95%D7%95%D7%94-%D7%9E%D7%A8%D7%95%D7%A9%D7%AA%D7%AA-%D7%A9%D7%9E%D7%9F-%D7%9E%D7%96%D7%A8%D7%A2%D7%99-%D7%9E%D7%A8%D7%95%D7%95%D7%94-%D7%9E%D7%A8%D7%95%D7%A9%D7%AA%D7%AA/%D7%A9%D7%90%D7%9C%D7%95%D7%AA-%D7%95%D7%AA%D7%A9%D7%95%D7%91%D7%95%D7%AA",
-      "destination": "/faq",
-      "permanent": true
-    },
-    {
-      "source": "/%D7%A8%D7%A9%D7%99%D7%9E%D7%AA-%D7%97%D7%A0%D7%95%D7%99%D7%95%D7%AA",
-      "destination": "/stores",
-      "permanent": true
-    },
-    {
-      "source": "/category/:slug*",
-      "destination": "/experts",
-      "permanent": true
-    },
-    {
-      "source": "/tag/:slug*",
-      "destination": "/experts",
-      "permanent": true
-    },
-    {
-      "source": "/author/:slug*",
+      "source": "/feed/:rest*",
       "destination": "/",
       "permanent": true
     },
     {
-      "source": "/feed",
+      "source": "/category/uncategorized/:rest*",
       "destination": "/",
       "permanent": true
     },
     {
-      "source": "/feed/:slug*",
+      "source": "/author/:rest*",
       "destination": "/",
       "permanent": true
     },
     {
-      "source": "/comments/feed",
+      "source": "/wp-admin/:rest*",
       "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/page/:n",
-      "destination": "/",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/wp-login.php",
       "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/wp-admin",
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/wp-admin/:slug*",
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/xmlrpc.php",
-      "destination": "/",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/",
@@ -416,6 +504,28 @@
       ],
       "destination": "/faq",
       "permanent": false
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "query",
+          "key": "p"
+        }
+      ],
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "query",
+          "key": "page_id"
+        }
+      ],
+      "destination": "/",
+      "permanent": true
     }
   ]
 }

@@ -33,7 +33,7 @@ export interface ProductViewModel {
   features?: Feature[]
   featuresEyebrow?: string
   featuresTitle?: string
-  research?: { eyebrow?: string; title?: string; points: string[]; badge?: string; badgeSub?: string }
+  research?: { eyebrow?: string; title?: string; lede?: string; points: string[]; badge?: string; badgeSub?: string }
   bodyBlocks?: PortableBlock[]
   /** Body split at its h2s → rendered as the site's standard text cards (uniform with the story section). */
   proseSections?: Array<{ heading?: string; blocks: PortableBlock[] }>
@@ -312,7 +312,8 @@ const USAGE_ICONS: Record<string, string> = {
       <div class="ns-container pres">
         <div class="pres__text" data-reveal>
           <span class="ns-eyebrow">{p.research.eyebrow || 'מדע וטבע'}</span>
-          <h2 class="ph2">{p.research.title || 'פותח בישראל. מבוסס על ידע מחקרי.'}</h2>
+          <h2 class="ph2">{p.research.title || 'יתרונות המוצר'}</h2>
+          {p.research.lede && <p class="pres__lede">{p.research.lede}</p>}
           <ul class="pres__points">
             {p.research.points.map((pt) => <li><span class="pres__leaf" aria-hidden="true"></span>{pt}</li>)}
           </ul>
@@ -501,7 +502,7 @@ const USAGE_ICONS: Record<string, string> = {
       <div class="ns-container">
         <header class="m-head m-head--row" data-reveal>
           <div>
-            <span class="ns-eyebrow">{p.productLine.eyebrow || 'מוצרי המרווה המרושתת'}</span>
+            <span class="ns-eyebrow">{p.productLine.eyebrow || 'מוצרים נוספים'}</span>
             <h2 class="m-h2">{p.productLine.title || 'מוצרים ממקור אחד'}</h2>
           </div>
           {p.productLine.ctaHref && <a class="ns-btn ns-btn--ghost" href={p.productLine.ctaHref}>{p.productLine.ctaLabel || 'לכל המוצרים'}</a>}
@@ -533,6 +534,7 @@ const USAGE_ICONS: Record<string, string> = {
   </div>
 
   <style>
+    .pres__lede { font-size: var(--ns-text-md); line-height: 1.75; margin: 14px 0 6px; max-width: 64ch; }
     .pdocs { list-style: none; padding: 0; margin: 18px 0 0; display: flex; flex-wrap: wrap; gap: 10px; }
     .pdocs a { display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 999px; border: 1px solid var(--ns-border); background: #fff; color: var(--ns-field-green); font-weight: 600; font-size: 14.5px; text-decoration: none; }
     .pdocs a:hover { border-color: var(--ns-pure-orange); color: var(--ns-pure-orange); }
@@ -562,7 +564,7 @@ const USAGE_ICONS: Record<string, string> = {
     .ph__chip-ic { flex: none; width: 32px; height: 26px; display: grid; place-items: center; color: var(--ns-pure-orange); }
     .ph__chip-ic img { height: 24px; width: auto; max-width: 32px; object-fit: contain; display: block; }
     .ph__chip-txt { min-width: 0; }
-    @media (max-width: 480px) { .ph__trust { grid-template-columns: 1fr; } }
+    @media (max-width: 480px) { .ph__trust { gap: 7px; } .ph__chip { min-height: 40px; font-size: 12.5px; padding: 5px 10px 5px 8px; gap: 6px; } .ph__chip-ic { width: 24px; height: 22px; } }
     /* equal-column grid → every hero button is exactly the same width & height */
     .ph__cta { display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 12px; }
     .ph__btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 56px; min-width: 228px; padding-inline: 26px; white-space: nowrap; }
@@ -706,8 +708,8 @@ const USAGE_ICONS: Record<string, string> = {
     .pnar2__panel ul { position: relative; list-style: none; padding: 0; margin: 0; }
     .pnar2__panel li { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-block: 12px; border-block-end: 1px solid color-mix(in srgb, var(--ns-pure-orange) 30%, transparent); }
     .pnar2__panel li:last-child { border-block-end: 0; }
-    .pnar2__lbl { font-size: var(--ns-text-sm); color: rgba(252,244,234,.9); }
-    .pnar2__val { font-family: var(--ns-font-display); font-weight: 700; color: var(--ns-sun-beige); white-space: nowrap; background: color-mix(in srgb, var(--ns-pure-orange) 16%, transparent); border-radius: 8px; padding: 2px 10px; }
+    .pnar2__lbl { flex: none; max-width: 40%; font-size: var(--ns-text-sm); color: rgba(252,244,234,.9); }
+    .pnar2__val { font-family: var(--ns-font-display); font-weight: 700; color: var(--ns-sun-beige); text-align: end; min-width: 0; overflow-wrap: anywhere; background: color-mix(in srgb, var(--ns-pure-orange) 16%, transparent); border-radius: 8px; padding: 2px 10px; }
     @media (max-width: 900px) { .pnar2 { grid-template-columns: 1fr; } .pnar2__panel { position: static; } }
 
     /* ---------- FEATURES ---------- */

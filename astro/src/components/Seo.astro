@@ -23,7 +23,7 @@ const {
   publishedTime, modifiedTime,
 } = Astro.props
 
-const SITE = Astro.site?.href.replace(/\/$/, '') ?? 'https://www.naturesage.co.il'
+const SITE = Astro.site?.href.replace(/\/$/, '') ?? 'https://www.ethical-supplements.com'
 const canonical =
   canonicalUrl ||
   (new URL(Astro.url.pathname, Astro.site ?? SITE).href.replace(/\/$/, '') || canonicalRoot())
@@ -59,8 +59,8 @@ const baseLd: Record<string, unknown>[] = [
   {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: "Nature's Sage",
-    alternateName: 'נייטשרסייג׳',
+    name: 'Category 5 Ethical Supplements',
+    alternateName: 'קטגוריה 5 תוספים אתיים',
     url: SITE + '/',
     logo: `${SITE}/brand/logo-wordmark-green.svg`,
     slogan: 'Where good gets better.',
@@ -68,7 +68,7 @@ const baseLd: Record<string, unknown>[] = [
   {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: "Nature's Sage",
+    name: 'Category 5 Ethical Supplements',
     url: SITE + '/',
     inLanguage: 'he-IL',
   },
@@ -87,7 +87,7 @@ const allLd = [...baseLd, ...extraLd]
 {shareDescription && <meta property="og:description" content={shareDescription} />}
 <meta property="og:type" content={type === 'product' ? 'website' : type} />
 <meta property="og:url" content={canonical} />
-<meta property="og:site_name" content="Nature's Sage" />
+<meta property="og:site_name" content="קטגוריה 5 תוספים אתיים" />
 <meta property="og:locale" content="he_IL" />
 <meta property="og:image" content={ogImage} />
 <meta property="og:image:secure_url" content={ogImage} />

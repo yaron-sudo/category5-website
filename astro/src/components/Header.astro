@@ -1,93 +1,55 @@
 ---
-import { fetchQ, getHomePage, getPhotos, getSiteSettings, urlFor, img, type SanityImage } from '@/lib/sanity'
+import { getSiteSettings, getCategories, getAllProductCards, urlFor } from '@/lib/sanity'
 import MegaPanel from '@/components/MegaPanel.astro'
 import DropPanel, { type DropRow } from '@/components/DropPanel.astro'
 
-const settings = await getSiteSettings()
-
-// Product thumbnails for the mega menu: prefer the product doc's own image,
-// then the CMS product-card image, then a bundled photo by filename.
-const home = await getHomePage()
-const photos = await getPhotos(['T9A5769.jpg', 'NS_0760_1.jpg', 'FortiPure-Box-Spray.png'])
-const navProducts: Array<{ slug: string; name: string; tagline?: string; image?: SanityImage }> =
-  await fetchQ(`*[_type == "product" && defined(slug.current)]{ "slug": slug.current, name, tagline, "image": images[0] }`)
-const prodByHref: Record<string, { image?: SanityImage }> = {}
-navProducts.forEach((p) => {
-  prodByHref[p.slug === 'omega-3' ? '/product' : `/products/${p.slug}`] = { image: p.image }
-})
-const cardImg: Record<string, string> = {}
-;(home?.productCards ?? []).forEach((c) => {
-  if (c.href && c.image?.asset) cardImg[c.href] = urlFor(c.image).width(180).height(180).fit('crop').auto('format').url()
-})
-const ph = (name?: string) => (name && photos[name] ? img(photos[name].url, 180) : '')
+const [settings, categories, products] = await Promise.all([getSiteSettings(), getCategories(), getAllProductCards()])
 
 // Desktop navigation: items with `mega` open a two-zone mega panel — the first
-// child renders as a large featured card, the rest as link rows. Items without
-// `mega` are plain links. Only routes that exist today (dead links stay hidden).
+// child renders as a large featured card, the rest as link rows (optionally
+// grouped under headings). Items without `mega` are plain links.
 type MegaLink = { label: string; href: string; desc?: string; icon?: string; photo?: string; group?: string; img?: string }
 type MegaNavItem = { label: string; href: string; icon?: string; mega?: MegaLink[]; kind?: 'products' | 'info' }
+
+// "מוצרים": generated from the product families + products in the CMS, so a
+// new product appears in the menu automatically. Featured card = all families.
+const productsMega: MegaLink[] = [
+  { label: 'כל משפחות המוצרים', href: '/#families', desc: 'ויטמינים ומינרלים, ויטמין C ליפוזומלי, חיסון, זיכרון, תנועה וצמחים', img: '/media/2022/10/Homepage1.webp' },
+  ...categories.flatMap((c) =>
+    products
+      .filter((p) => p.category?.slug === c.slug)
+      .map((p) => ({ group: c.title, label: p.name, href: `/products/${p.slug}`, img: p.image?.asset ? urlFor(p.image).width(120).url() : undefined })),
+  ),
+]
+const ICON_BY_HREF: Record<string, string> = { '/faq': 'help', '/stores': 'pin', '/community': 'reel', '/contact': 'mail' }
 const fallbackMegaNav: MegaNavItem[] = [
-  {
-    label: 'המוצרים',
-    href: '/product',
-    icon: 'grid',
-    mega: [
-      // Menu photos (public/img/menu, cropped from the client's product shoot).
-      { label: 'מרווה מרושתת אומגה 3', href: '/product', desc: 'שמן זרעי מרווה מרושתת — מוצר הדגל שלנו', img: '/img/menu/omega-feat.jpg' },
-      { label: 'PURE — כמוסות טבעוניות', href: '/products/pure-capsules', desc: '90 כמוסות · 660 מ״ג שמן בכל כמוסה', img: '/img/menu/pure-capsules.png' },
-      { label: 'PURE — שמן בבקבוק', href: '/products/pure-oil', desc: '100 מ״ל בכבישה קרה · שווה־ערך ל־153 כמוסות', img: '/img/menu/pure-oil.png' },
-      { label: 'פורטי פיור — ספריי', href: '/products/forti-pure', desc: 'פורטיום (רוזמרין) + אורגנו + מרווה מרושתת · 166 מנות', img: '/img/menu/forti-pure.png' },
-      { label: 'ויטמין D3 טבעוני — ספריי', href: '/products/vitamin-d', desc: '1,000 יחב״ל במנה · ממקור חזזיות · 100 מנות', img: '/img/menu/vitamin-d.png' },
-    ],
-  },
-  {
-    label: 'מידע מקצועי',
-    href: '/product',
-    icon: 'book',
-    kind: 'info',
-    mega: [
-      { label: 'מידע על המרווה המרושתת', href: '/product', desc: 'הצמח, השמן, ההרכב והמחקר מאחורי מוצר הדגל', img: '/img/menu/info-feat.jpg' },
-      // Every page of the professional portal, grouped (the groups become
-      // headings in the mega panel and in the mobile drawer).
-      { group: 'מדריכים', label: 'פורטל המידע המקצועי', href: '/experts', desc: 'כל המחקרים, המאמרים וההשוואות במקום אחד' },
-      { group: 'מדריכים', label: 'השוואה לשמן דגים', href: '/compare', desc: 'טבלת השוואה, מדדי איכות ותחקיר החמצון' },
-      { group: 'מדריכים', label: 'כמה EPA ו-DHA יש במרווה?', href: '/omega-3-conversion', desc: 'מה המדע אומר על המרה של ALA ל-DHA' },
-      { group: 'מדריכים', label: 'אומגה 3 אינדקס', href: '/omega-3-index', desc: 'מה הבדיקה באמת מודדת, ומה לא' },
-      { group: 'מדריכים', label: 'תהליכי הייצור', href: '/production', desc: 'מהזריעה ועד הכבישה הקרה, ללא חומרים משמרים' },
-      { group: 'מדריכים', label: 'שאלות ותשובות', href: '/faq', desc: 'רכישה, מינון, היריון, כשרות וטבעונות' },
-      { group: 'מאמרים', label: 'מערכת החיסון', href: '/articles/immune-system', desc: 'מרווה מרושתת ומערכת החיסון' },
-      { group: 'מאמרים', label: 'קשב וריכוז', href: '/articles/focus-concentration', desc: 'אומגה 3 צמחית, קשב וריכוז' },
-      { group: 'מאמרים', label: 'אומגה 3 וקצב הלב', href: '/articles/omega-3-heart-rate', desc: 'אומגה 3 ממקור דגי והפרעות קצב' },
-      { group: 'מחקרים', label: 'שומנים בדם', href: '/research/blood-lipids', desc: 'מחקר קליני: פרופיל השומנים בדם' },
-      { group: 'מחקרים', label: 'דלקת מעיים', href: '/research/crohns-colitis', desc: 'ניסוי פרה-קליני: IBD וקוליטיס' },
-    ],
-  },
+  { label: 'מוצרים', href: '/#families', icon: 'grid', kind: 'products', mega: productsMega },
+  { label: 'תמיכה ומידע', href: '/faq', icon: 'help' },
   { label: 'רשימת חנויות', href: '/stores', icon: 'pin' },
   { label: 'קהילה', href: '/community', icon: 'reel' },
   { label: 'צור קשר', href: '/contact', icon: 'mail' },
 ]
 
-// CMS-driven nav: when siteSettings.nav has items, map them into the same
-// structure — children become mega entries (first child = the featured card).
-const cmsNav = (settings?.nav ?? []).filter((i) => i.label && i.href)
+// CMS nav (siteSettings.nav): the first item whose href points at the product
+// families gets the generated products mega; other items keep their children.
+const cmsNav = (settings?.nav ?? []).filter((i) => i.label && i.href && !i.href.startsWith('/category/'))
 const megaNav: MegaNavItem[] = cmsNav.length
-  ? cmsNav.map((i, idx) => {
+  ? cmsNav.map((i) => {
+      if (i.href === '/#families') return { label: i.label!, href: i.href!, icon: 'grid', kind: 'products' as const, mega: productsMega }
       const kids = (i.children ?? []).filter((c) => c.label && c.href)
       return {
         label: i.label!,
         href: i.href!,
-        icon: fallbackMegaNav[idx]?.icon ?? 'leaf',
-        ...(kids.length
-          ? { mega: kids.map((c): MegaLink => ({ label: c.label!, href: c.href!, desc: c.description })) }
-          : {}),
+        icon: ICON_BY_HREF[i.href!] ?? 'leaf',
+        ...(kids.length ? { mega: kids.map((c): MegaLink => ({ label: c.label!, href: c.href!, desc: c.description })) } : {}),
       }
     })
   : fallbackMegaNav
 
 // Header CTA button — CMS-overridable, hardcoded values as fallback.
 const cta = {
-  label: settings?.headerCta?.label || 'לרכישה',
-  href: settings?.headerCta?.href || '/product',
+  label: settings?.headerCta?.label || 'היכן לקנות',
+  href: settings?.headerCta?.href || '/stores',
 }
 
 // Social links — CMS-overridable, with the brand's live accounts as fallback
@@ -100,29 +62,15 @@ const social: Array<{ label: string; href: string }> =
         ...(soc?.instagram ? [{ label: 'Instagram', href: soc.instagram }] : []),
         ...(soc?.youtube ? [{ label: 'YouTube', href: soc.youtube }] : []),
       ]
-    : [
-        { label: 'Facebook', href: 'https://www.facebook.com/naturesageomega3' },
-        { label: 'Instagram', href: 'https://www.instagram.com/naturesageil/' },
-        { label: 'YouTube', href: 'https://www.youtube.com/channel/UCCBDkYQ7Gl9UeTktQ77vy_A' },
-      ]
+    : []
 const SOCIAL_ICONS: Record<string, string> = {
   Facebook: '<path fill="currentColor" d="M14 9h3l.5-3H14V4.5c0-.9.3-1.5 1.6-1.5H17V.2C16.7.1 15.7 0 14.6 0 12.1 0 10.5 1.5 10.5 4.2V6H8v3h2.5v9H14z"/>',
   Instagram: '<path fill="none" stroke="currentColor" stroke-width="2" d="M3 7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/>',
   YouTube: '<path fill="currentColor" d="M23 12s0-3.3-.4-4.9a2.5 2.5 0 0 0-1.8-1.8C19.2 5 12 5 12 5s-7.2 0-8.8.4A2.5 2.5 0 0 0 1.4 7.2C1 8.7 1 12 1 12s0 3.3.4 4.9a2.5 2.5 0 0 0 1.8 1.8C4.8 19 12 19 12 19s7.2 0 8.8-.4a2.5 2.5 0 0 0 1.8-1.8C23 15.3 23 12 23 12m-13 3.2V8.8l5.5 3.2z"/>',
 }
 
-const thumb = (l: { href: string; photo?: string; img?: string }) => {
-  if (l.img) return l.img
-  const pImg = prodByHref[l.href]?.image
-  if (pImg?.asset) return urlFor(pImg).width(140).height(140).fit('crop').auto('format').url()
-  return cardImg[l.href] || ph(l.photo)
-}
-const featImg = (l: { href: string; photo?: string; img?: string }) => {
-  if (l.img) return l.img
-  const pImg = prodByHref[l.href]?.image
-  if (pImg?.asset) return urlFor(pImg).width(520).height(640).fit('crop').auto('format').url()
-  return cardImg[l.href] || ph(l.photo)
-}
+const thumb = (l: { img?: string }) => l.img
+const featImg = (l: { img?: string }) => l.img
 
 // Simple line icons (stroke = currentColor).
 const ICONS: Record<string, string> = {
@@ -138,14 +86,14 @@ const ICONS: Record<string, string> = {
   go: '<path d="m14 7-5 5 5 5"/>',
   cart: '<path d="M4 5h2l2.2 10.4a1.6 1.6 0 0 0 1.6 1.3h7.6a1.6 1.6 0 0 0 1.6-1.3L20.5 9H7"/><circle cx="10.4" cy="19.6" r="1.3"/><circle cx="17.2" cy="19.6" r="1.3"/>',
 }
-const SHOP_URL = 'https://shop.naturesage.co.il'
+const SHOP_URL = '/stores'
 
-// "רכישת מוצרים": a small dropdown (mega look & feel) that replaces the old
-// orange buy button — in the top bar, the side rail and the mobile drawer.
-const BUY_LABEL = 'רכישת מוצרים'
+// "היכן לקנות": a small dropdown (mega look & feel) — in the top bar, the side
+// rail and the mobile drawer. The products are sold in stores, not on this site.
+const BUY_LABEL = cta.label
 const buyMenu: DropRow[] = [
-  { label: 'רכישה בחנויות', href: '/stores', desc: 'נקודות מכירה בכל הארץ, מפה וחיפוש לפי עיר', icon: 'pin' },
-  { label: 'רכישה באתר', href: SHOP_URL, desc: 'החנות המקוונת — משלוח עד הבית', icon: 'cart', external: true },
+  { label: 'חנויות ונקודות מכירה', href: cta.href, desc: 'בתי טבע, סופר-פארם, ניצת הדובדבן ו-B&D — מפה וחיפוש לפי עיר', icon: 'pin' },
+  { label: 'חנויות אינטרנט', href: '/stores?type=online', desc: 'הזמנה אונליין עם משלוח עד הבית', icon: 'cart' },
 ]
 
 // Resolve a mega item into the shared panel's data: first child = featured card.
@@ -156,15 +104,16 @@ const panelProps = (item: MegaNavItem) => {
     feat: first ? { label: first.label, href: first.href, desc: first.desc, img: featImg(first) } : null,
     rows: rest.map((l) => ({ label: l.label, href: l.href, desc: l.desc, group: l.group, img: info ? undefined : thumb(l) })),
     shopUrl: SHOP_URL,
-    wide: true, // both mega panels share one (large) size
-    ...(info ? { featTag: 'מידע מקצועי', featCta: 'למידע המלא', shop: false } : {}),
+    wide: true,
+    ...(info ? { featTag: 'מידע', featCta: 'למידע המלא', shop: false } : { featTag: 'קטגוריה 5', featCta: 'לכל המוצרים', cols: item.kind === 'products', shopLabel: 'היכן לקנות' }),
   }
 }
 ---
 <header class="ns-header">
   <div class="ns-container ns-header__inner">
-    <a class="ns-header__logo" href="/" aria-label="Nature's Sage — דף הבית">
-      <img src="/brand/logo-wordmark-green.svg" alt="NATURESAGE" width="172" height="19" />
+    <a class="ns-header__logo c5-logo" href="/" aria-label="קטגוריה 5 תוספים אתיים — דף הבית">
+      <img src="/brand/category5-wordmark.svg" alt="CATEGORY 5" width="168" height="20" />
+      <span class="c5-logo__sub" dir="ltr">Ethical Supplements</span>
     </a>
     <nav class="ns-nav" aria-label="ניווט ראשי">
       {megaNav.map((item) => item.mega ? (
@@ -212,8 +161,8 @@ const panelProps = (item: MegaNavItem) => {
      slim rail docks on the right edge (RTL start) so content gets the full screen;
      scrolling back to the top restores the bar. Hidden/inert until docked. -->
 <aside class="ns-rail" data-rail aria-label="ניווט צף" aria-hidden="true">
-  <a class="ns-rail__logo" href="/" aria-label="Nature's Sage — דף הבית" style="--i:0">
-    <img src="/brand/logo-wordmark-green.svg" alt="NATURESAGE" width="124" height="14" />
+  <a class="ns-rail__logo" href="/" aria-label="קטגוריה 5 תוספים אתיים — דף הבית" style="--i:0">
+    <img src="/brand/category5-mark.svg" alt="CATEGORY 5" width="64" height="64" />
   </a>
   <nav class="ns-rail__nav" aria-label="ניווט ראשי (צף)">
     {megaNav.map((item, i) => (
@@ -264,10 +213,10 @@ const panelProps = (item: MegaNavItem) => {
   </button>
   <span class="ns-mnav__deco ns-mnav__deco--1" aria-hidden="true"></span>
   <span class="ns-mnav__deco ns-mnav__deco--2" aria-hidden="true"></span>
-  <img class="ns-mnav__leaf" src="/icons/benefit/vegan-leaf.svg" alt="" aria-hidden="true" width="48" height="48" />
   <div class="ns-mnav__inner">
-    <a class="ns-mnav__logo" href="/" aria-label="Nature's Sage — דף הבית" style="--i:0">
-      <img src="/brand/logo-wordmark-green.svg" alt="NATURESAGE" width="200" height="22" />
+    <a class="ns-mnav__logo c5-logo" href="/" aria-label="קטגוריה 5 תוספים אתיים — דף הבית" style="--i:0">
+      <img src="/brand/category5-wordmark.svg" alt="CATEGORY 5" width="200" height="24" />
+      <span class="c5-logo__sub" dir="ltr">Ethical Supplements</span>
     </a>
     <nav class="ns-mnav__panel" aria-label="ניווט מובייל">
       {megaNav.map((item, i) => (
@@ -321,10 +270,15 @@ const panelProps = (item: MegaNavItem) => {
       </div>
     )}
   </div>
-  <p class="ns-mnav__tag" dir="ltr">Where good gets better.</p>
+  <p class="ns-mnav__tag">פורצים גבולות בעולם תוספי התזונה</p>
 </div>
 
 <style>
+  .c5-logo { display: inline-flex; flex-direction: column; align-items: center; gap: 3px; line-height: 1; }
+  .c5-logo img { display: block; height: 19px; width: auto; }
+  .c5-logo__sub { font-family: var(--ns-font-latin); font-size: 11.5px; letter-spacing: .2em; color: var(--ns-field-green); white-space: nowrap; }
+  .ns-mnav .c5-logo img { height: 24px; }
+  .ns-mnav .c5-logo__sub { font-size: 13px; }
   /* ---- Desktop nav + mega menu ---- */
   .ns-nav { display: flex; gap: 2px; align-items: center; }
   /* nav items are static so the mega dropdown positions against the header
@@ -512,7 +466,7 @@ const panelProps = (item: MegaNavItem) => {
   .ns-mnav__panel--buy { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--ns-border); }
   .ns-mnav__group--buy .ns-mnav__toggle { color: var(--ns-pure-orange); }
 
-  .ns-mnav__tag { position: absolute; inset-block-end: 26px; inset-inline: 0; text-align: center; margin: 0; font-family: "Assistant Latin", "DM Sans", sans-serif; font-size: 13px; letter-spacing: .08em; color: var(--ns-light-gray); opacity: 0; transition: opacity .5s var(--ns-ease-out) .45s; }
+  .ns-mnav__tag { position: absolute; inset-block-end: 26px; inset-inline: 0; text-align: center; margin: 0; font-family: var(--ns-font-latin); font-size: 13px; letter-spacing: .08em; color: var(--ns-light-gray); opacity: 0; transition: opacity .5s var(--ns-ease-out) .45s; }
   .ns-mnav.is-open .ns-mnav__tag { opacity: .8; }
 
   /* explicit close control inside the drawer (top corner, labeled) — the header

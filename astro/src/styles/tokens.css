@@ -1,59 +1,53 @@
 /* ============================================================
-   Nature's Sage — Foundations (mirrors design-handoff/assets/colors_and_type.css)
-   Font URLs point at /fonts/ (self-hosted in astro/public/fonts).
+   Category 5 Ethical Supplements — design foundations.
+   Brand font: Alpha (licensed; self-hosted woff2 in public/fonts, Hebrew + Latin).
+   Token names keep the template's --ns-* vocabulary so every shared
+   component picks up the brand without edits:
+     --ns-field-green  → brand ink (logo black)      --ns-pure-orange → primary accent
+     --ns-sun-beige    → page background              --ns-immune-green → secondary accent
+   Product-family colours: --c5-* (also stored per family in the CMS).
    ============================================================ */
 
-/* Latin fallback (Neuzeit Grotesk unavailable on Google Fonts; DM Sans substitute).
-   Must precede @font-face per CSS spec (@import comes first). */
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700&display=swap");
-@import "./assistant-latin.css";
+/* Latin text in Abel (as on the old site); Abel has no Hebrew, so Hebrew falls through to Alpha. */
+@import url("https://fonts.googleapis.com/css2?family=Abel&display=swap");
 
-@font-face {
-  font-family: "Narkiss New";
-  src: url("/fonts/NarkissNew-Medium.otf") format("opentype");
-  font-weight: 500; font-style: normal; font-display: swap;
-}
-@font-face {
-  font-family: "Narkiss New";
-  src: url("/fonts/NarkissNew-Bold.otf") format("opentype");
-  font-weight: 700; font-style: normal; font-display: swap;
-}
-@font-face {
-  font-family: "Narkiss New";
-  src: url("/fonts/NarkissNewBlack-Regular.otf") format("opentype");
-  font-weight: 900; font-style: normal; font-display: swap;
-}
-@font-face {
-  font-family: "Fb Metali";
-  src: url("/fonts/FbMetali.woff") format("woff"),
-       url("/fonts/FbMetali.ttf") format("truetype");
-  font-weight: 400; font-style: normal; font-display: swap;
-}
+@font-face { font-family: "Alpha"; src: url("/fonts/AlphaLight.woff2") format("woff2"); font-weight: 300; font-style: normal; font-display: swap; }
+@font-face { font-family: "Alpha"; src: url("/fonts/AlphaRegular.woff2") format("woff2"); font-weight: 400 600; font-style: normal; font-display: swap; }
+@font-face { font-family: "Alpha"; src: url("/fonts/AlphaBold.woff2") format("woff2"); font-weight: 700 900; font-style: normal; font-display: swap; }
 
 :root {
   /* ----- Primary palette ----- */
-  --ns-sun-beige:        #FCF4EA;
-  --ns-field-green:      #113021;
-  --ns-clary-purple:     #CBC2DD;
+  --ns-sun-beige:        #F8F9FD;
+  --ns-field-green:      #1D1D1B;
+  --ns-clary-purple:     #FBBB04;
 
   /* ----- Secondary palette ----- */
-  --ns-immune-green:     #BAE6CB;
-  --ns-pure-orange:      #E87200;
-  --ns-light-gray:       #888B8D;
+  --ns-immune-green:     #54BBD7;
+  --ns-pure-orange:      #F26927;
+  --ns-light-gray:       #6B6E73;
   --ns-dark-gray:        #2E2E2E;
 
   /* ----- Tonal ----- */
-  --ns-beige-50:  #FFFCF7;
-  --ns-beige-100: #FCF4EA;
-  --ns-beige-200: #F4E8D2;
-  --ns-beige-300: #E8D4AE;
-  --ns-green-700: #1B4A33;
-  --ns-green-800: #143A28;
-  --ns-green-900: #113021;
-  --ns-green-950: #0A1F15;
-  --ns-orange-400: #FF8A20;
-  --ns-orange-500: #E87200;
-  --ns-orange-600: #C45F00;
+  --ns-beige-50:  #FFFFFF;
+  --ns-beige-100: #F8F9FD;
+  --ns-beige-200: #EEF0F6;
+  --ns-beige-300: #DDE1EA;
+  --ns-green-700: #3A3A38;
+  --ns-green-800: #2A2A28;
+  --ns-green-900: #1D1D1B;
+  --ns-green-950: #000000;
+  --ns-orange-400: #F58A50;
+  --ns-orange-500: #F26927;
+  --ns-orange-600: #D2531A;
+
+  /* ----- Product families ----- */
+  --c5-vitamin-c:   #F26927;
+  --c5-immune:      #54BBD7;
+  --c5-memory:      #005377;
+  --c5-vitamins:    #00634A;
+  --c5-inflammation:#DA3D38;
+  --c5-herbs:       #FBBB04;
+  --c5-holi: linear-gradient(100deg, #DA3D38 0%, #F26927 22%, #FBBB04 42%, #00634A 62%, #54BBD7 80%, #005377 100%);
 
   /* ----- Semantic ----- */
   --ns-bg:            var(--ns-sun-beige);
@@ -65,17 +59,14 @@
   --ns-accent:        var(--ns-pure-orange);
   --ns-accent-soft:   var(--ns-immune-green);
   --ns-accent-cool:   var(--ns-clary-purple);
-  --ns-border:        rgba(17, 48, 33, 0.14);
-  --ns-border-strong: rgba(17, 48, 33, 0.32);
-  --ns-overlay:       rgba(17, 48, 33, 0.55);
+  --ns-border:        rgba(29, 29, 27, 0.14);
+  --ns-border-strong: rgba(29, 29, 27, 0.32);
+  --ns-overlay:       rgba(29, 29, 27, 0.55);
 
-  /* ----- Type -----
-     Latin faces ("Assistant Latin", then "DM Sans") MUST come first so Latin
-     glyphs never fall through to the Hebrew brand fonts' serif Latin shapes.
-     Both Latin faces lack Hebrew, so Hebrew still resolves to Narkiss/Fb Metali. */
-  --ns-font-display: "Assistant Latin", "DM Sans", "Narkiss New", "Helvetica Neue", Arial, sans-serif;
-  --ns-font-body:    "Assistant Latin", "DM Sans", "Fb Metali", "Narkiss New", "Helvetica Neue", Arial, sans-serif;
-  --ns-font-latin:   "Assistant Latin", "DM Sans", "Helvetica Neue", Arial, sans-serif;
+  /* ----- Type ----- */
+  --ns-font-display: "Abel", "Alpha", "Helvetica Neue", Arial, sans-serif;
+  --ns-font-body:    "Abel", "Alpha", "Helvetica Neue", Arial, sans-serif;
+  --ns-font-latin:   "Abel", "Helvetica Neue", Arial, sans-serif;
 
   /* Body/explanation sizes raised for readability (headings unchanged). */
   --ns-text-xs: 12.5px; --ns-text-sm: 15px; --ns-text-base: 18px; --ns-text-md: 20px;
@@ -90,10 +81,10 @@
   --ns-space-1: 4px; --ns-space-2: 8px; --ns-space-3: 12px; --ns-space-4: 16px; --ns-space-5: 24px;
   --ns-space-6: 32px; --ns-space-7: 48px; --ns-space-8: 64px; --ns-space-9: 96px; --ns-space-10: 128px;
 
-  --ns-shadow-sm: 0 1px 2px rgba(17, 48, 33, 0.06);
-  --ns-shadow-md: 0 6px 16px rgba(17, 48, 33, 0.08);
-  --ns-shadow-lg: 0 20px 40px -10px rgba(17, 48, 33, 0.18);
-  --ns-shadow-inner: inset 0 0 0 1px rgba(17, 48, 33, 0.08);
+  --ns-shadow-sm: 0 1px 2px rgba(29, 29, 27, 0.06);
+  --ns-shadow-md: 0 6px 16px rgba(29, 29, 27, 0.08);
+  --ns-shadow-lg: 0 20px 40px -10px rgba(29, 29, 27, 0.18);
+  --ns-shadow-inner: inset 0 0 0 1px rgba(29, 29, 27, 0.08);
 
   --ns-ease-out: cubic-bezier(.22,.61,.36,1);
   --ns-ease-in-out: cubic-bezier(.65,.05,.36,1);

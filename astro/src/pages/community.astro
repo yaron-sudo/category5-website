@@ -9,15 +9,17 @@ import PageHero from '@/components/PageHero.astro'
 import { getSiteSettings, resolveSeo } from '@/lib/sanity'
 
 const settings = await getSiteSettings()
-const igUrl = settings?.socials?.instagram || 'https://www.instagram.com/naturesageil/'
-const handle = '@' + (igUrl.replace(/\/+$/, '').split('/').pop() || 'naturesageil')
+// Instagram profile URL: siteSettings → socials.instagram (the client sends it).
+// Until it is set, the follow buttons point at Instagram's home page.
+const igUrl = settings?.socials?.instagram || 'https://www.instagram.com/'
+const handle = settings?.socials?.instagram ? '@' + (igUrl.replace(/\/+$/, '').split('/').pop() || '') : 'קטגוריה 5'
 const seo = resolveSeo(undefined, {
-  title: 'קהילה — נייטשרסייג באינסטגרם',
-  description: 'הרילס והפוסטים של נייטשרסייג ושל הקהילה: סיפורים, מתכונים ושימושים מהרשת, מתעדכנים ישירות מאינסטגרם.',
+  title: 'קהילה — קטגוריה 5 באינסטגרם',
+  description: 'הרילס והפוסטים של קטגוריה 5 תוספים אתיים ושל הקהילה: טיפים, מידע מקצועי וחדשות על המוצרים, מתעדכנים ישירות מאינסטגרם.',
 })
 ---
 <Base title={seo.title} description={seo.description} noindex={seo.noindex} canonicalUrl={seo.canonical} ogTitle={seo.ogTitle} ogDescription={seo.ogDescription}>
-  <PageHero eyebrow="קהילה" title="מה מספרים עלינו ברשת" lede="רילס, פוסטים ותיוגים מהקהילה שלנו באינסטגרם: סיפורים אישיים, מתכונים ושימושים יומיומיים במרווה המרושתת. העמוד מתעדכן אוטומטית מהחשבון שלנו.">
+  <PageHero eyebrow="קהילה" title="מה מספרים עלינו ברשת" lede="רילס, פוסטים ותיוגים מהקהילה שלנו באינסטגרם: טיפים, מידע מקצועי, חדשות על מוצרים והצצה אל מאחורי הקלעים. העמוד מתעדכן אוטומטית מהחשבון שלנו.">
     <div class="cm__hero-actions">
       <a class="ns-btn ns-btn--primary cm__follow" href={igUrl} target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M3 7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg>
@@ -61,7 +63,7 @@ const seo = resolveSeo(undefined, {
         <div>
           <span class="ns-eyebrow">שתפו אותנו</span>
           <h2>צילמתם ריל עם המוצרים? תייגו אותנו</h2>
-          <p>תייגו {handle} או השתמשו בהאשטאג <b dir="ltr">#naturesage</b>, והסיפור שלכם עשוי להופיע כאן בעמוד הקהילה.</p>
+          <p>תייגו {handle} או השתמשו בהאשטאג <b dir="ltr">#category5</b>, והסיפור שלכם עשוי להופיע כאן בעמוד הקהילה.</p>
         </div>
         <a class="ns-btn ns-btn--ghost" href={igUrl} target="_blank" rel="noopener">לפרופיל באינסטגרם</a>
       </div>
