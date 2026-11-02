@@ -1,0 +1,154 @@
+---
+// Cookie consent — banner + manage popup (Israeli Privacy Protection Law / GDPR-style).
+// Choice persists in localStorage; the banner hides once a choice is made.
+const categories = [
+  { key: 'necessary', label: 'הכרחיות', desc: 'נדרשות לתפקוד האתר ולא ניתן לכבותן.', always: true },
+  { key: 'analytics', label: 'ביצועים וסטטיסטיקה', desc: 'עוזרות לנו להבין כיצד משתמשים באתר ולשפר אותו.' },
+  { key: 'marketing', label: 'שיווק והתאמה אישית', desc: 'משמשות להצגת תוכן ופרסום מותאמים.' },
+]
+---
+<div class="cc" data-cc hidden>
+  <!-- Banner -->
+  <div class="cc__bar" data-cc-bar role="dialog" aria-live="polite" aria-label="הודעת עוגיות">
+    <div class="cc__text">
+      <strong>אנחנו משתמשים בעוגיות 🍪</strong>
+      <p>אתר זה עושה שימוש בעוגיות (Cookies) כדי לשפר את חוויית הגלישה, לנתח תנועה ולהתאים תוכן. ניתן לבחור אילו עוגיות לאשר. למידע נוסף עיינו ב<a href="/cookies">מדיניות העוגיות</a> וב<a href="/privacy">מדיניות הפרטיות</a>.</p>
+    </div>
+    <div class="cc__actions">
+      <button class="cc__btn cc__btn--ghost" data-cc-manage type="button">הגדרות</button>
+      <button class="cc__btn cc__btn--equal" data-cc-reject type="button">דחיית הכל</button>
+      <button class="cc__btn cc__btn--equal cc__btn--accept" data-cc-accept type="button">אישור הכל</button>
+    </div>
+  </div>
+
+  <!-- Manage popup -->
+  <div class="cc__modal" data-cc-modal hidden>
+    <div class="cc__backdrop" data-cc-close></div>
+    <div class="cc__dialog" role="dialog" aria-modal="true" aria-label="הגדרות עוגיות">
+      <div class="cc__dhead">
+        <strong>הגדרות עוגיות</strong>
+        <button class="cc__x" data-cc-close type="button" aria-label="סגירה">✕</button>
+      </div>
+      <div class="cc__cats">
+        {categories.map((c) => (
+          <label class="cc__cat">
+            <span class="cc__catText"><b>{c.label}</b><em>{c.desc}</em></span>
+            <input type="checkbox" data-cc-cat={c.key} checked={c.always} disabled={c.always} />
+            <span class="cc__switch" aria-hidden="true"></span>
+          </label>
+        ))}
+      </div>
+      <div class="cc__dactions">
+        <button class="cc__btn cc__btn--ghost" data-cc-save type="button">שמירת ההעדפות</button>
+        <button class="cc__btn cc__btn--primary" data-cc-accept type="button">אישור הכל</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .cc[hidden] { display: none; }
+  .cc__bar { position: fixed; inset-block-end: 0; inset-inline: 0; z-index: 90; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: space-between; background: var(--ns-field-green); color: var(--ns-sun-beige); padding: 18px clamp(16px, 4vw, 40px); box-shadow: 0 -8px 24px -12px rgba(0,0,0,.35); }
+  .cc__text { max-width: 70ch; }
+  .cc__text strong { font-family: var(--ns-font-display); font-size: 17px; display: block; margin-block-end: 4px; }
+  .cc__text p { margin: 0; font-size: 13.5px; line-height: 1.6; color: rgba(252,244,234,.9); }
+  .cc__text a { color: var(--ns-sun-beige); text-decoration: underline; }
+  .cc__actions { display: flex; gap: 10px; flex-wrap: wrap; }
+  .cc__btn { border-radius: 999px; padding: 11px 22px; font-size: 14px; font-weight: 700; cursor: pointer; border: 1.5px solid transparent; transition: transform .15s, background .2s, color .2s; }
+  .cc__btn:hover { transform: translateY(-1px); }
+  .cc__btn:focus-visible { outline: 3px solid var(--ns-pure-orange); outline-offset: 2px; }
+  .cc__btn--primary { background: var(--ns-pure-orange); color: var(--ns-sun-beige); }
+  .cc__btn--ghost { background: transparent; color: var(--ns-sun-beige); border-color: rgba(252,244,234,.5); }
+  .cc__btn--ghost:hover { background: rgba(252,244,234,.12); }
+  /* Reject + Accept carry equal visual weight (same size, both solid) per IL/GDPR guidance */
+  .cc__btn--equal { min-width: 132px; background: var(--ns-sun-beige); color: var(--ns-field-green); border-color: var(--ns-sun-beige); }
+  .cc__btn--accept { background: var(--ns-pure-orange); color: var(--ns-sun-beige); border-color: var(--ns-pure-orange); }
+
+  .cc__modal { position: fixed; inset: 0; z-index: 95; display: grid; place-items: center; padding: 20px; }
+  .cc__modal[hidden] { display: none; }
+  .cc__backdrop { position: absolute; inset: 0; background: rgba(10,31,21,.6); backdrop-filter: blur(3px); }
+  .cc__dialog { position: relative; z-index: 1; width: min(520px, 100%); max-height: 85vh; overflow: auto; background: var(--ns-bg-alt); border-radius: var(--ns-radius-lg); box-shadow: var(--ns-shadow-lg); padding: 22px; animation: ccPop .22s var(--ns-ease-out); }
+  @keyframes ccPop { from { opacity: 0; transform: scale(.97); } to { opacity: 1; transform: none; } }
+  .cc__dhead { display: flex; align-items: center; justify-content: space-between; margin-block-end: 14px; }
+  .cc__dhead strong { font-family: var(--ns-font-display); font-size: 20px; color: var(--ns-field-green); }
+  .cc__x { border: none; background: transparent; font-size: 18px; cursor: pointer; color: var(--ns-light-gray); padding: 6px; }
+  .cc__cat { display: flex; align-items: center; gap: 14px; padding: 14px 0; border-block-start: 1px solid var(--ns-border); cursor: pointer; }
+  .cc__cat:first-child { border-block-start: none; }
+  .cc__catText { flex: 1; }
+  .cc__catText b { display: block; font-family: var(--ns-font-display); font-size: 16px; color: var(--ns-field-green); }
+  .cc__catText em { display: block; font-style: normal; font-size: 13px; color: var(--ns-light-gray); margin-block-start: 2px; line-height: 1.5; }
+  .cc__cat input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .cc__switch { flex: none; width: 46px; height: 26px; border-radius: 999px; background: var(--ns-border-strong); position: relative; transition: background .2s; }
+  .cc__switch::after { content: ""; position: absolute; inset-block-start: 3px; inset-inline-start: 3px; width: 20px; height: 20px; border-radius: 999px; background: #fff; transition: transform .2s; }
+  .cc__cat input:checked + .cc__switch { background: var(--ns-immune-green); }
+  .cc__cat input:checked + .cc__switch::after { transform: translateX(-20px); }
+  .cc__cat input:disabled + .cc__switch { background: var(--ns-pure-orange); opacity: .8; }
+  .cc__cat input:focus-visible + .cc__switch { outline: 2px solid var(--ns-pure-orange); outline-offset: 2px; }
+  .cc__dactions { display: flex; gap: 10px; justify-content: flex-end; margin-block-start: 18px; }
+  .cc__dactions .cc__btn--ghost { color: var(--ns-field-green); border-color: var(--ns-border-strong); }
+
+  @media (max-width: 640px) { .cc__bar { flex-direction: column; align-items: stretch; } .cc__actions { justify-content: stretch; } .cc__actions .cc__btn { flex: 1; } }
+</style>
+
+<script>
+  const KEY = 'ns-cookie-consent'
+  const VERSION = 1                 // bump when adding a tracker category → forces re-prompt
+  const TTL = 365 * 24 * 60 * 60 * 1000  // 12-month re-prompt; stale consent is no consent
+  const cc = document.querySelector('[data-cc]') as HTMLElement | null
+  if (cc) {
+    const modal = cc.querySelector('[data-cc-modal]') as HTMLElement | null
+    const cats = Array.from(cc.querySelectorAll('[data-cc-cat]')) as HTMLInputElement[]
+    const saved = (() => { try { return JSON.parse(localStorage.getItem(KEY) || 'null') } catch { return null } })()
+    const fresh = saved && saved.v === VERSION && saved.at && (Date.now() - Date.parse(saved.at)) < TTL
+
+    // Audit trail: emit consent lifecycle events (gateable analytics can record these).
+    const audit = (action: string, consent?: Record<string, boolean>) =>
+      document.dispatchEvent(new CustomEvent('ns:consent', { detail: { action, consent } }))
+
+    const persist = (consent: Record<string, boolean>, action: string) => {
+      try { localStorage.setItem(KEY, JSON.stringify({ consent, at: new Date().toISOString(), v: VERSION })) } catch {}
+      // companion cookie (12-month) so SSR/edge can gate without a client round-trip
+      try {
+        const secure = location.protocol === 'https:' ? '; Secure' : ''
+        document.cookie = `ns_consent=${consent.analytics ? '1' : '0'}; Path=/; Max-Age=${Math.floor(TTL / 1000)}; SameSite=Lax${secure}`
+      } catch {}
+      ;(window as any).nsConsent = consent
+      audit(action, consent)
+    }
+    const hideAll = () => { cc.hidden = true }
+    const openModal = (open: boolean) => { if (modal) modal.hidden = !open }
+
+    const acceptAll = () => { persist({ necessary: true, analytics: true, marketing: true }, 'accepted'); hideAll() }
+    const rejectAll = () => { persist({ necessary: true, analytics: false, marketing: false }, 'rejected'); hideAll() }
+    const saveChoices = () => {
+      const consent: Record<string, boolean> = { necessary: true }
+      cats.forEach((c) => { consent[c.dataset.ccCat!] = c.checked })
+      persist(consent, 'customized'); hideAll()
+    }
+
+    cc.querySelectorAll('[data-cc-accept]').forEach((b) => b.addEventListener('click', acceptAll))
+    cc.querySelector('[data-cc-reject]')?.addEventListener('click', rejectAll)
+    cc.querySelector('[data-cc-manage]')?.addEventListener('click', () => openModal(true))
+    cc.querySelector('[data-cc-save]')?.addEventListener('click', saveChoices)
+    cc.querySelectorAll('[data-cc-close]').forEach((b) => b.addEventListener('click', () => openModal(false)))
+    // ESC: close the settings popup if open; otherwise dismissing the banner counts as refusal
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return
+      if (modal && !modal.hidden) openModal(false)
+      else if (!cc.hidden) rejectAll()
+    })
+
+    if (!fresh) {
+      cc.hidden = false
+      audit('shown')
+    } else {
+      ;(window as any).nsConsent = saved.consent
+      cats.forEach((c) => { if (!c.disabled) c.checked = !!saved.consent?.[c.dataset.ccCat!] })
+    }
+
+    // re-open settings from anywhere (footer link) — withdrawal as easy as granting
+    document.querySelectorAll('[data-cookie-settings]').forEach((el) => {
+      el.addEventListener('click', (e) => { e.preventDefault(); cats.forEach((c) => { if (!c.disabled) c.checked = !!(window as any).nsConsent?.[c.dataset.ccCat!] }); cc.hidden = false; openModal(true); audit('reopened') })
+    })
+  }
+</script>

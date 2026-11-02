@@ -1,0 +1,29 @@
+---
+// Sanity click-to-edit overlays. Rendered ONLY on visual-editing (preview)
+// deployments — Base.astro gates it on visualEditingEnabled, so production
+// builds ship none of this JS. Inside the Studio's Presentation tool this
+// draws an edit pencil over every stega-tagged string; standalone it shows
+// "Edit in Sanity Studio" links.
+---
+<script>
+  import { enableVisualEditing } from '@sanity/visual-editing'
+
+  enableVisualEditing({
+    // zIndex above the accessibility + cookie widgets so overlays stay clickable.
+    zIndex: 2000,
+    // This is a server-rendered MPA (no live-content loaders), so the preview
+    // reflects a draft edit only after the page re-runs on the server. When the
+    // Presentation tool reports a content mutation, reload the iframe so the
+    // fresh draft is fetched — otherwise the panel keeps showing the old render
+    // until publish. A short delay lets Sanity persist the mutation first.
+    refresh: (payload) => {
+      if (payload.source !== 'mutation') return false
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          window.location.reload()
+          resolve()
+        }, 400)
+      })
+    },
+  })
+</script>

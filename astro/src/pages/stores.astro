@@ -1,0 +1,613 @@
+---
+import Base from '@/layouts/Base.astro'
+import { getPage, getStores, plainText, resolveSeo, type StoreCategory, type StoreRegion } from '@/lib/sanity'
+import 'leaflet/dist/leaflet.css'
+import 'leaflet.markercluster/dist/MarkerCluster.css'
+
+// Store locator — same shape as the old page (title, intro, "מיקומך" search +
+// "חפש", map + directory), rebuilt natively: Sanity `store` docs → map pins
+// (Leaflet, clustered) + a searchable list. Search is client-side over city /
+// address / name; "המיקום שלי" sorts by distance from the visitor.
+const [doc, stores] = await Promise.all([getPage('stores'), getStores()])
+const title = doc?.title || 'היכן ניתן לרכוש את המוצרים'
+const intro =
+  plainText(doc?.body, 400) ||
+  'מוצרי נייטשרסייג זמינים לרכישה בחנויות הטבע המובילות במדינת ישראל. הקלידו את שם העיר בשדה „מיקומך” ולחצו על „חפש”, או השתמשו במיקום הנוכחי שלכם.'
+const seo = resolveSeo(doc?.seo, {
+  title: 'רשימת חנויות — נייטשרסייג',
+  description: 'מוצרי נייטשרסייג זמינים בחנויות הטבע המובילות בישראל. חפשו חנות טבע לפי עיר או לפי המיקום שלכם.',
+})
+
+const REGIONS: Array<{ value: StoreRegion; label: string }> = [
+  { value: 'north', label: 'צפון' },
+  { value: 'haifa', label: 'חיפה והקריות' },
+  { value: 'center', label: 'מרכז והשרון' },
+  { value: 'tel-aviv', label: 'תל אביב וגוש דן' },
+  { value: 'jerusalem', label: 'ירושלים והסביבה' },
+  { value: 'south', label: 'דרום' },
+]
+const regionCount = Object.fromEntries(REGIONS.map((r) => [r.value, stores.filter((s) => s.region === r.value).length]))
+const CATEGORIES: Array<{ value: StoreCategory; label: string }> = [
+  { value: 'health', label: 'בתי טבע' },
+  { value: 'super-pharm', label: 'סופר-פארם' },
+  { value: 'nitzat', label: 'ניצת הדובדבן' },
+  { value: 'bd', label: 'B&D' },
+  { value: 'online', label: 'אתרי אינטרנט' },
+]
+const categoryCount = Object.fromEntries(CATEGORIES.map((c) => [c.value, stores.filter((s) => s.category === c.value).length]))
+const categoryLabel = (v?: string) => CATEGORIES.find((c) => c.value === v)?.label
+// Chain logos: drop files into astro/public/icons/stores/<category>.(svg|png|webp);
+// they show in the filter chips and next to each store. Missing file → text badge.
+// Resolve public/icons/stores from the project root: in the Vercel (hybrid)
+// build import.meta.url points into the build output, where the relative
+// path does not exist and every logo silently vanished.
+const { existsSync } = await import('node:fs')
+const { resolve } = await import('node:path')
+const LOGO_DIR_CANDIDATES = [resolve(process.cwd(), 'public/icons/stores/'), resolve(process.cwd(), 'astro/public/icons/stores/')]
+const LOGO_DIR = (LOGO_DIR_CANDIDATES.find((d) => existsSync(d)) ?? LOGO_DIR_CANDIDATES[0]) + '/'
+const categoryLogo = (v?: string) => {
+  if (!v) return undefined
+  for (const ext of ['svg', 'png', 'webp']) if (existsSync(`${LOGO_DIR}${v}.${ext}`)) return `/icons/stores/${v}.${ext}`
+  return undefined
+}
+// Strip Sanity's live-preview stega markers: they would otherwise ride into the search
+// index and the city suggestions (where a picked city then matches nothing).
+const clean = (s?: string) => (s ?? '').replace(/[​-‏⁠-⁯﻿]/g, '')
+const cities = [...new Set(stores.map((s) => clean(s.city)).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'he'))
+
+// Hebrew-sorted directory (city, then name).
+const sorted = [...stores].sort((a, b) => a.city.localeCompare(b.city, 'he') || a.name.localeCompare(b.name, 'he'))
+const telHref = (p?: string) => (p ? `tel:${p.replace(/[^\d+]/g, '')}` : undefined)
+// Tile provider: OpenStreetMap by default (no key). To use a styled basemap
+// (MapTiler / Stadia / CARTO with a key), set PUBLIC_MAP_TILE_URL to the full
+// {z}/{x}/{y} template (key included) and PUBLIC_MAP_TILE_ATTRIBUTION in Vercel.
+const tileUrl = import.meta.env.PUBLIC_MAP_TILE_URL || 'https://tile.openstreetmap.org/{z}/{x}/{y}.png'
+const tileAttribution =
+  import.meta.env.PUBLIC_MAP_TILE_ATTRIBUTION || '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+// category → logo url, for the map pins (built client-side)
+const logoMap = Object.fromEntries(CATEGORIES.map((c) => [c.value, categoryLogo(c.value)]).filter(([, v]) => v))
+const payload = sorted.map((s) => ({ i: s._id, n: clean(s.name), c: clean(s.city), a: clean(s.address), p: clean(s.phone), o: clean(s.note), r: s.region, k: s.category ?? 'health', la: s.lat, ln: s.lng }))
+// Only the first page is server-rendered (no-JS / crawler fallback). The script
+// renders rows from the JSON payload — 500 live rows made every filter click a
+// 1.5 s freeze and the HTML 640 KB.
+const firstPage = sorted.slice(0, 40)
+---
+<Base title={seo.title} description={seo.description} noindex={seo.noindex} canonicalUrl={seo.canonical} ogTitle={seo.ogTitle} ogDescription={seo.ogDescription}>
+  <!-- ===== HERO + SEARCH ===== -->
+  <section class="sh">
+    <div class="ns-container sh__inner" data-reveal="now">
+      <span class="ns-eyebrow">רשימת חנויות</span>
+      <h1 class="sh__title">{title}</h1>
+      <p class="sh__lede">{intro}</p>
+
+      <form class="sh__form" data-store-form role="search" autocomplete="off">
+        <label class="sh__field">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.4"/></svg>
+          <input type="search" name="q" list="store-cities" placeholder="מיקומך — לדוגמה: תל אביב, חיפה, ירושלים" aria-label="מיקומך — שם העיר או הכתובת" data-store-q />
+          <datalist id="store-cities">{cities.map((c) => <option value={c} />)}</datalist>
+        </label>
+        <button type="submit" class="ns-btn ns-btn--primary sh__btn">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
+          חפש
+        </button>
+        <button type="button" class="ns-btn ns-btn--ghost sh__btn" data-store-geo>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="8"/></svg>
+          המיקום שלי
+        </button>
+      </form>
+
+      <div class="sh__filters">
+        <div class="sh__frow">
+          <span class="sh__flabel" id="sh-regions-label">אזור</span>
+          <div class="sh__row sh__row--regions" role="group" aria-labelledby="sh-regions-label" data-store-regions>
+            <button type="button" class="sh__chip is-active" data-region="" title={`${stores.length} חנויות`}>כל הארץ</button>
+            {REGIONS.map((r) => <button type="button" class="sh__chip" data-region={r.value} title={`${regionCount[r.value]} חנויות`}>{r.label}</button>)}
+          </div>
+        </div>
+        <div class="sh__frow">
+          <span class="sh__flabel" id="sh-cats-label">סוג חנות</span>
+          <div class="sh__row sh__row--cats" role="group" aria-labelledby="sh-cats-label" data-store-cats>
+            <button type="button" class="sh__chip sh__chip--cat is-active" data-cat="">כל החנויות</button>
+            {CATEGORIES.filter((c) => categoryCount[c.value] > 0).map((c) => (
+              <button type="button" class="sh__chip sh__chip--cat" data-cat={c.value} title={`${categoryCount[c.value]} חנויות`}>
+                {categoryLogo(c.value) ? <img class="sh__logo" src={categoryLogo(c.value)} alt="" width="22" height="22" loading="lazy" /> : null}
+                {c.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== LOCATOR ===== -->
+  <section class="ns-section ns-section--white sl-wrap">
+    <div class="ns-container">
+      <div class="sl" data-store-locator>
+        <aside class="sl__dir">
+          <div class="sl__head">
+            <p class="sl__count" data-store-count aria-live="polite">{stores.length} נקודות מכירה ברחבי הארץ</p>
+            <button type="button" class="sl__clear" data-store-clear hidden>ניקוי</button>
+          </div>
+          <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+            <symbol id="st-i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></symbol>
+            <symbol id="st-i-waze" viewBox="0 0 24 24"><path d="M3 11l18-8-8 18-2-8z"/></symbol>
+            <symbol id="st-i-pin" viewBox="0 0 24 24"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.4"/></symbol>
+          </svg>
+          <ol class="sl__list" data-store-list>
+            {firstPage.map((s) => (
+              <li class="st" data-id={s._id} data-region={s.region} data-cat={s.category ?? 'health'} data-ll={`${s.lat},${s.lng}`}>
+                <button type="button" class="st__main" data-store-focus>
+                  <span class="st__name">{s.name}</span>
+                  {categoryLogo(s.category ?? 'health')
+                    ? <span class="st__brand"><img class="st__logo" src={categoryLogo(s.category ?? 'health')} alt="" width="26" height="26" loading="lazy" />{categoryLabel(s.category ?? 'health')}</span>
+                    : s.category && s.category !== 'health' && <span class="st__cat">{categoryLabel(s.category)}</span>}
+                  <span class="st__addr">{[s.address, s.city].filter(Boolean).join(', ')}</span>
+                  {s.note && <span class="st__note">{s.note}</span>}
+                  <span class="st__dist" data-store-dist hidden></span>
+                </button>
+                <div class="st__actions">
+                  {s.phone && (
+                    <a href={telHref(s.phone)} class="st__act" dir="ltr"><svg class="st__ico"><use href="#st-i-phone"/></svg>{s.phone}</a>
+                  )}
+                  <!-- Waze / Google Maps links are filled in by the script (keeps 500 rows light) -->
+                </div>
+              </li>
+            ))}
+          </ol>
+          <div class="sl__empty" data-store-empty hidden>
+            <p data-store-empty-default>לא מצאנו חנות שמתאימה לחיפוש. נסו שם עיר אחר, או <button type="button" class="sl__link" data-store-clear>הציגו את כל החנויות</button>.</p>
+            <p data-store-empty-narrow hidden>
+              <strong data-store-empty-msg></strong><br />
+              <button type="button" class="ns-btn ns-btn--primary sl__widen" data-store-widen>חיפוש בכל הארץ ובכל סוגי החנויות</button>
+            </p>
+          </div>
+          <button type="button" class="ns-btn ns-btn--ghost sl__more" data-store-more hidden>הצגת עוד חנויות</button>
+        </aside>
+
+        <div class="sl__map">
+          <div class="sl__canvas" data-store-map data-tiles={tileUrl} data-tiles-attribution={tileAttribution} data-logos={JSON.stringify(logoMap)} role="region" aria-label="מפת נקודות המכירה"></div>
+          <noscript><p class="sl__noscript">המפה דורשת JavaScript. הרשימה המלאה מופיעה לצד/מתחת.</p></noscript>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script type="application/json" data-store-data set:html={JSON.stringify(payload).replace(/</g, '\\u003c')} />
+
+  <!-- global: the list rows are rendered by the script, so scoped rules would not reach them (all classes are prefixed sh__/sl__/st__/ns-) -->
+  <style is:global>
+    /* ---------- hero + search ---------- */
+    .sh { position: relative; overflow: hidden; padding-block: clamp(48px, 7vw, 96px) clamp(28px, 4vw, 44px);
+      background: radial-gradient(120% 120% at 85% 10%, color-mix(in srgb, var(--ns-immune-green) 22%, var(--ns-sun-beige)), var(--ns-sun-beige) 60%); }
+    .sh__inner { max-width: 880px; }
+    .sh__inner .ns-eyebrow { display: inline-flex; margin-block-end: 14px; }
+    .sh__title { font-family: var(--ns-font-display); font-weight: 500; font-size: clamp(34px, 4.6vw, 60px); line-height: 1.05; letter-spacing: -0.015em; color: var(--ns-field-green); margin: 0 0 16px; }
+    .sh__lede { font-size: clamp(17px, 1.4vw, 20px); line-height: 1.8; color: var(--ns-fg); opacity: .9; max-width: 62ch; margin: 0 0 28px; }
+
+    .sh__form { display: grid; grid-template-columns: 1fr auto auto; gap: 12px; align-items: stretch; }
+    .sh__field { display: flex; align-items: center; gap: 12px; padding: 4px 18px; min-height: 58px; background: var(--ns-bg-alt); border: 1px solid var(--ns-border); border-radius: 999px; box-shadow: var(--ns-shadow-sm); color: var(--ns-field-green); transition: box-shadow .2s var(--ns-ease-out), border-color .2s var(--ns-ease-out); }
+    .sh__field:focus-within { box-shadow: var(--ns-shadow-md); border-color: color-mix(in srgb, var(--ns-pure-orange) 45%, var(--ns-border)); }
+    .sh__field input { flex: 1; min-width: 0; border: none; background: transparent; padding: 10px 0; font: inherit; font-size: var(--ns-text-base); color: var(--ns-fg); outline: none; }
+    .sh__field input::placeholder { color: var(--ns-light-gray); }
+    .sh__field input::-webkit-search-cancel-button { appearance: none; }
+    .sh__btn { min-height: 58px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding-inline: 26px; white-space: nowrap; }
+    .sh__btn.is-busy { opacity: .6; pointer-events: none; }
+
+    /* Filter panel: one white card, two labelled rows of equal-width segmented chips. */
+    .sh__filters { display: grid; gap: 10px; margin-top: 22px; padding: 12px 14px; background: var(--ns-bg-alt); border: 1px solid var(--ns-border); border-radius: var(--ns-radius-lg); box-shadow: var(--ns-shadow-sm); }
+    .sh__frow { display: grid; grid-template-columns: 92px minmax(0, 1fr); align-items: center; gap: 12px; }
+    .sh__frow + .sh__frow { padding-top: 10px; border-top: 1px solid var(--ns-border); }
+    .sh__flabel { font-size: 14px; font-weight: 700; letter-spacing: .02em; color: var(--ns-fg-muted); }
+    .sh__row { display: grid; gap: 6px; }
+    .sh__row--regions { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+    .sh__row--cats { grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); grid-auto-flow: column; }
+    .sh__chip { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 42px; padding: 6px 10px; border-radius: 999px; border: 1px solid transparent; background: var(--ns-sun-beige); color: var(--ns-field-green); font: inherit; font-size: 15px; font-weight: 600; line-height: 1.2; white-space: nowrap; cursor: pointer; transition: background .2s var(--ns-ease-out), border-color .2s var(--ns-ease-out), color .2s var(--ns-ease-out), box-shadow .2s var(--ns-ease-out); }
+    .sh__chip:hover { border-color: var(--ns-border-strong); }
+    .sh__chip.is-active { background: var(--ns-field-green); border-color: var(--ns-field-green); color: var(--ns-sun-beige); box-shadow: var(--ns-shadow-sm); }
+    .sh__chip--cat.is-active { background: var(--ns-pure-orange); border-color: var(--ns-pure-orange); color: #fff; }
+    .sh__logo { width: 22px; height: 22px; object-fit: contain; border-radius: 4px; background: #fff; flex: none; }
+    @media (max-width: 1100px) {
+      .sh__row--regions { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .sh__row--regions .sh__chip:first-child { grid-column: 1 / -1; }
+      .sh__row--cats { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .sh__row--cats .sh__chip:first-child { grid-column: 1 / -1; }
+    }
+    .st__brand { display: inline-flex; align-items: center; gap: 7px; align-self: flex-start; font-size: 13px; font-weight: 700; color: var(--ns-fg-muted); margin-top: 2px; }
+    .st__logo { height: 24px; width: 24px; object-fit: contain; }
+    .st__cat { align-self: flex-start; font-size: 12.5px; font-weight: 700; letter-spacing: .02em; color: var(--ns-pure-orange); background: color-mix(in srgb, var(--ns-pure-orange) 10%, transparent); border-radius: 999px; padding: 2px 9px; margin-top: 2px; }
+
+    /* ---------- locator ---------- */
+    .sl-wrap { padding-block: clamp(28px, 4vw, 48px) clamp(56px, 7vw, 96px); }
+    .sl { --sl-h: min(72vh, 720px); display: grid; grid-template-columns: minmax(340px, 440px) 1fr; gap: 24px; align-items: start; }
+    .sl__dir { display: flex; flex-direction: column; height: var(--sl-h); background: var(--ns-bg-alt); border: 1px solid var(--ns-border); border-radius: var(--ns-radius-lg); box-shadow: var(--ns-shadow-md); overflow: hidden; }
+    .sl__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 20px; border-bottom: 1px solid var(--ns-border); background: var(--ns-sun-beige); }
+    .sl__count { margin: 0; font-weight: 700; font-size: 16px; color: var(--ns-field-green); }
+    .sl__clear, .sl__link { background: none; border: none; padding: 0; font: inherit; font-weight: 700; color: var(--ns-pure-orange); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+    .sl__list { list-style: none; margin: 0; padding: 10px; overflow-y: auto; overscroll-behavior: contain; flex: 1; scroll-behavior: smooth; }
+    .sl__empty { padding: 28px 22px; margin: 0; color: var(--ns-fg); line-height: 1.7; }
+    .sl__empty p { margin: 0; }
+    .sl__empty strong { display: block; margin-bottom: 12px; color: var(--ns-field-green); }
+    .sl__widen { min-height: 48px; }
+    .sl__more { margin: 10px; min-height: 48px; }
+    .sl__more[hidden] { display: none; }
+
+    .st { border-radius: var(--ns-radius-md); border: 1px solid transparent; transition: background .2s var(--ns-ease-out), border-color .2s var(--ns-ease-out); }
+    .st + .st { margin-top: 4px; }
+    .st:hover { background: color-mix(in srgb, var(--ns-sun-beige) 70%, transparent); }
+    .st.is-active { background: var(--ns-sun-beige); border-color: color-mix(in srgb, var(--ns-pure-orange) 45%, var(--ns-border)); }
+    .st[hidden] { display: none; }
+    .st__main { display: flex; flex-direction: column; gap: 3px; width: 100%; text-align: start; padding: 14px 16px 8px; background: none; border: none; font: inherit; color: inherit; cursor: pointer; }
+    .st__name { font-family: var(--ns-font-display); font-weight: 600; font-size: 18px; line-height: 1.35; color: var(--ns-field-green); }
+    .st__addr { font-size: 15.5px; line-height: 1.5; color: var(--ns-fg); opacity: .8; }
+    .st__note { font-size: 14px; color: var(--ns-fg-muted); }
+    .st__dist { font-size: 14px; font-weight: 700; color: var(--ns-pure-orange); }
+    .st__dist[hidden] { display: none; }
+    .st__actions { display: flex; flex-wrap: wrap; gap: 6px 14px; padding: 0 16px 14px; }
+    /* :global — the Waze / Google Maps links are injected by the script, outside Astro's scoping */
+    .st__act { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 600; color: var(--ns-field-green); text-decoration: none; opacity: .85; white-space: nowrap; }
+    .st__act:hover { color: var(--ns-pure-orange); opacity: 1; }
+    .st__ico { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+
+    .sl__map { position: sticky; top: 96px; }
+    .sl__canvas { height: var(--sl-h); border-radius: var(--ns-radius-lg); border: 1px solid var(--ns-border); box-shadow: var(--ns-shadow-md); overflow: hidden; background: #e9eef0; isolation: isolate; }
+    .sl__noscript { margin: 12px 0 0; color: var(--ns-fg-muted); }
+
+    /* ---------- tablets & phones: a short list (4, expandable) with the map right under it ---------- */
+    @media (max-width: 1023px) {
+      .sl-wrap { padding-block: 16px 56px; }
+      .sl { grid-template-columns: 1fr; gap: 12px; --sl-h: min(60dvh, 520px); }
+      .sl__map { position: static; scroll-margin-top: 84px; }
+      .sl__dir { height: auto; max-height: none; }
+      .sl__list { overflow: visible; flex: none; }
+    }
+    @media (max-width: 760px) {
+      /* hero: tighter */
+      .sh { padding-block: 28px 22px; }
+      .sh__inner .ns-eyebrow { margin-block-end: 8px; }
+      .sh__title { font-size: 30px; margin-bottom: 10px; }
+      .sh__lede { font-size: 15.5px; line-height: 1.6; margin-bottom: 18px; }
+      .sh__form { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .sh__field { grid-column: 1 / -1; min-height: 52px; padding-inline: 16px; }
+      .sh__field input { font-size: 16px; } /* ≥16px: iOS doesn't zoom the page on focus */
+      .sh__btn { min-height: 48px; padding-inline: 14px; font-size: 15px; }
+      /* filters: every option visible — compact chips that wrap */
+      .sh__filters { margin-top: 14px; padding: 10px 12px; gap: 8px; }
+      .sh__frow { grid-template-columns: 1fr; gap: 6px; }
+      .sh__frow + .sh__frow { padding-top: 8px; }
+      .sh__flabel { font-size: 12.5px; }
+      .sh__row, .sh__row--regions, .sh__row--cats { display: flex; flex-wrap: wrap; grid-auto-flow: unset; gap: 6px; }
+      .sh__row .sh__chip, .sh__row .sh__chip:first-child { flex: 0 0 auto; grid-column: auto; min-height: 34px; font-size: 13.5px; padding-inline: 12px; gap: 6px; }
+      .sh__logo { width: 18px; height: 18px; }
+      /* directory rows: compact, actions as pills */
+      .sl__head { padding: 12px 14px; }
+      .sl__count { font-size: 14.5px; }
+      .sl__list { padding: 6px; }
+      .st__main { padding: 12px 12px 6px; gap: 2px; }
+      .st__name { font-size: 16.5px; }
+      .st__addr { font-size: 14.5px; }
+      .st__brand { font-size: 12.5px; }
+      .st__dist { font-size: 13px; }
+      .st__actions { gap: 6px; padding: 2px 12px 12px; }
+      .st__act { font-size: 13px; padding: 6px 10px; border-radius: 999px; background: var(--ns-sun-beige); opacity: 1; }
+      .st__long { display: none; }
+      /* map view: keep Leaflet's zoom buttons clear of the sticky switch */
+      .sl__canvas .leaflet-top.leaflet-left { top: auto; bottom: 28px; }
+      .sl__more { margin: 8px 6px; }
+    }
+
+    /* ---------- Leaflet skin (global: Leaflet renders outside Astro's scope) ---------- */
+    .sl__canvas .leaflet-container { font-family: inherit; direction: ltr; }
+    .ns-pin { background: none; border: none; }
+    .ns-pin svg { width: 34px; height: 42px; filter: drop-shadow(0 4px 6px rgba(17,48,33,.3)); transition: transform .2s var(--ns-ease-spring); transform-origin: 50% 100%; }
+    .ns-pin.is-active svg, .ns-pin:hover svg { transform: scale(1.18); }
+    /* Branded pin: round white badge with the chain logo + a pointer */
+    .ns-bpin { background: none; border: none; }
+    .ns-bpin__badge { position: relative; width: 40px; height: 40px; border-radius: 999px; background: #fff; border: 2px solid var(--ns-field-green); box-shadow: 0 4px 10px rgba(17,48,33,.28); display: grid; place-items: center; transition: transform .2s var(--ns-ease-spring); transform-origin: 50% 120%; }
+    .ns-bpin__badge::after { content: ''; position: absolute; left: 50%; bottom: -9px; width: 12px; height: 12px; background: var(--ns-field-green); transform: translateX(-50%) rotate(45deg); border-radius: 2px; z-index: -1; }
+    .ns-bpin__badge img { width: 26px; height: 26px; object-fit: contain; }
+    .ns-bpin.is-active .ns-bpin__badge, .ns-bpin:hover .ns-bpin__badge { transform: scale(1.15); }
+    .sl__canvas .leaflet-popup-content .ns-pop__brand { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; color: var(--ns-fg-muted); margin-bottom: 4px; }
+    .sl__canvas .leaflet-popup-content .ns-pop__brand img { width: 20px; height: 20px; object-fit: contain; }
+    .ns-cluster { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 999px; background: var(--ns-field-green); color: var(--ns-sun-beige); font: 700 15px/1 var(--ns-font-body); box-shadow: 0 0 0 6px rgba(17,48,33,.18), 0 6px 14px rgba(17,48,33,.28); }
+    .ns-cluster--lg { width: 54px; height: 54px; font-size: 17px; }
+    .ns-me { width: 18px; height: 18px; border-radius: 999px; background: #2b7cff; border: 3px solid #fff; box-shadow: 0 0 0 8px rgba(43,124,255,.22); }
+    .sl__canvas .leaflet-popup-content-wrapper { direction: rtl; text-align: start; border-radius: 14px; box-shadow: var(--ns-shadow-lg); padding: 4px 2px; }
+    .sl__canvas .leaflet-popup-content { margin: 12px 16px; font-size: 15px; line-height: 1.55; color: var(--ns-field-green); }
+    .sl__canvas .leaflet-popup-content strong { display: block; font-family: var(--ns-font-display); font-size: 17px; margin-bottom: 2px; }
+    .sl__canvas .leaflet-popup-content .ns-pop__links { display: flex; gap: 14px; margin-top: 8px; }
+    .sl__canvas .leaflet-popup-content .ns-pop__links a { font-weight: 700; color: var(--ns-pure-orange); text-decoration: none; }
+    .sl__canvas .leaflet-popup-content a[href^="tel"] { color: inherit; text-decoration: none; direction: ltr; unicode-bidi: embed; }
+    .sl__canvas .leaflet-control-zoom a { color: var(--ns-field-green); }
+    .sl__canvas .leaflet-control-attribution { font-size: 10px; background: rgba(255,255,255,.75); }
+  </style>
+
+  <script>
+    import L from 'leaflet'
+    import 'leaflet.markercluster'
+
+    type Store = { i: string; n: string; c: string; a: string; p: string; o?: string; r: string; k: string; la: number; ln: number }
+    const data: Store[] = JSON.parse(document.querySelector('[data-store-data]')?.textContent || '[]')
+    const mapEl = document.querySelector<HTMLElement>('[data-store-map]')
+    const list = document.querySelector<HTMLElement>('[data-store-list]')
+    if (data.length && mapEl && list) init()
+
+    function init() {
+      const rowEl = (id: string) => list!.querySelector<HTMLElement>(`.st[data-id="${CSS.escape(id)}"]`)
+      const form = document.querySelector<HTMLFormElement>('[data-store-form]')!
+      const input = document.querySelector<HTMLInputElement>('[data-store-q]')!
+      const geoBtn = document.querySelector<HTMLButtonElement>('[data-store-geo]')!
+      const chips = [...document.querySelectorAll<HTMLButtonElement>('[data-store-regions] [data-region]')]
+      const catChips = [...document.querySelectorAll<HTMLButtonElement>('[data-store-cats] [data-cat]')]
+      const countEl = document.querySelector<HTMLElement>('[data-store-count]')!
+      const emptyEl = document.querySelector<HTMLElement>('[data-store-empty]')!
+      const moreBtn = document.querySelector<HTMLButtonElement>('[data-store-more]')!
+      const clearBtns = [...document.querySelectorAll<HTMLButtonElement>('[data-store-clear]')]
+      // Phones/tablets: a short list of 4 with the map right under it; "show more" adds 8 at a time.
+      const isStacked = () => window.matchMedia('(max-width: 1023px)').matches
+      const PAGE = isStacked() ? 4 : 40
+      const PAGE_MORE = isStacked() ? 8 : 40
+
+      // ---- map ----
+      const map = L.map(mapEl!, { scrollWheelZoom: false, zoomControl: true, attributionControl: true })
+      L.tileLayer(mapEl!.dataset.tiles!, { maxZoom: 19, attribution: mapEl!.dataset.tilesAttribution || '' }).addTo(map)
+      map.on('focus', () => map.scrollWheelZoom.enable())
+      map.on('blur', () => map.scrollWheelZoom.disable())
+
+      const pinSvg = '<svg viewBox="0 0 34 42" aria-hidden="true"><path d="M17 41c0 0-15-13.2-15-24A15 15 0 0 1 32 17c0 10.8-15 24-15 24z" fill="#E87200" stroke="#fff" stroke-width="2.5"/><circle cx="17" cy="17" r="5.5" fill="#fff"/></svg>'
+      const pinIcon = L.divIcon({ className: 'ns-pin', html: pinSvg, iconSize: [34, 42], iconAnchor: [17, 41], popupAnchor: [0, -40] })
+      // Branded pins per category (logo files in /icons/stores); categories without a logo keep the orange pin.
+      const logos: Record<string, string> = JSON.parse(mapEl!.dataset.logos || '{}')
+      const LABELS: Record<string, string> = { health: 'בית טבע', 'super-pharm': 'סופר-פארם', nitzat: 'ניצת הדובדבן', bd: 'B&D', online: 'אתר אינטרנט' }
+      const iconFor = (k: string) =>
+        logos[k]
+          ? L.divIcon({ className: 'ns-bpin', html: `<div class="ns-bpin__badge"><img src="${logos[k]}" alt="" width="26" height="26"></div>`, iconSize: [40, 50], iconAnchor: [20, 49], popupAnchor: [0, -46] })
+          : pinIcon
+      const cluster = (L as any).markerClusterGroup({
+        showCoverageOnHover: false, maxClusterRadius: 48, spiderfyOnMaxZoom: true, disableClusteringAtZoom: 15,
+        chunkedLoading: true, chunkInterval: 50, chunkDelay: 10, removeOutsideVisibleBounds: true,
+        iconCreateFunction: (c: any) => {
+          const n = c.getChildCount()
+          return L.divIcon({ html: `<div class="ns-cluster${n >= 20 ? ' ns-cluster--lg' : ''}">${n}</div>`, className: '', iconSize: n >= 20 ? [54, 54] : [44, 44] })
+        },
+      })
+      map.addLayer(cluster)
+
+      const esc = (s: string) => s.replace(/[&<>"]/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[ch]!)
+      const markers = new Map<string, L.Marker>()
+      const popupHtml = (s: Store) => {
+        const addr = [s.a, s.c].filter(Boolean).join(', ')
+        const brand = logos[s.k] ? `<span class="ns-pop__brand"><img src="${logos[s.k]}" alt="">${LABELS[s.k] || ''}</span>` : ''
+        return `<strong>${esc(s.n)}</strong>${brand}${esc(addr)}${s.p ? `<br><a href="tel:${s.p.replace(/[^\d+]/g, '')}">${esc(s.p)}</a>` : ''}` +
+          `<div class="ns-pop__links"><a href="https://waze.com/ul?ll=${s.la},${s.ln}&navigate=yes" target="_blank" rel="noopener">Waze</a>` +
+          `<a href="https://www.google.com/maps/dir/?api=1&destination=${s.la},${s.ln}" target="_blank" rel="noopener">Google Maps</a></div>`
+      }
+      for (const s of data) {
+        const m = L.marker([s.la, s.ln], { icon: iconFor(s.k), title: s.n })
+        m.bindPopup(() => popupHtml(s), { maxWidth: 280 }) // built lazily on open
+        m.on('click', () => highlight(s.i, true))
+        markers.set(s.i, m)
+      }
+      // list row markup (same as the server-rendered first page)
+      const rowHtml = (s: Store & { d?: number }, active: boolean) => {
+        const brand = logos[s.k]
+          ? `<span class="st__brand"><img class="st__logo" src="${logos[s.k]}" alt="" width="26" height="26" loading="lazy">${LABELS[s.k] || ''}</span>`
+          : s.k !== 'health' ? `<span class="st__cat">${LABELS[s.k] || ''}</span>` : ''
+        const dist = typeof s.d === 'number' ? `<span class="st__dist">${fmtKm(s.d)} ${fromLabel()}</span>` : ''
+        const ll = `${s.la},${s.ln}`
+        return `<li class="st${active ? ' is-active' : ''}" data-id="${esc(s.i)}">
+          <button type="button" class="st__main" data-store-focus>
+            <span class="st__name">${esc(s.n)}</span>${brand}
+            <span class="st__addr">${esc([s.a, s.c].filter(Boolean).join(', '))}</span>
+            ${s.o ? `<span class="st__note">${esc(s.o)}</span>` : ''}${dist}
+          </button>
+          <div class="st__actions">
+            ${s.p ? `<a href="tel:${s.p.replace(/[^\d+]/g, '')}" class="st__act" dir="ltr"><svg class="st__ico"><use href="#st-i-phone"/></svg>${esc(s.p)}</a>` : ''}
+            <a href="https://waze.com/ul?ll=${ll}&navigate=yes" class="st__act" target="_blank" rel="noopener"><svg class="st__ico"><use href="#st-i-waze"/></svg>Waze</a>
+            <a href="https://www.google.com/maps/dir/?api=1&destination=${ll}" class="st__act" target="_blank" rel="noopener"><svg class="st__ico"><use href="#st-i-pin"/></svg>Google<span class="st__long">&nbsp;Maps</span></a>
+          </div>
+        </li>`
+      }
+      let onMap = new Set<string>()
+
+      // ---- state ----
+      let query = ''
+      let region = ''
+      let cat = ''
+      // Distance origin: the visitor's location when granted, otherwise central Tel Aviv.
+      const DEFAULT_ORIGIN = { lat: 32.0853, lng: 34.7818 }
+      const VIEW_KM = 10 // width of the default view around the origin (≈5 km each way)
+      let origin: { lat: number; lng: number } = DEFAULT_ORIGIN
+      let originIsMe = false
+      let meMarker: L.Marker | null = null
+      const fromLabel = () => (originIsMe ? 'ממך' : 'ממרכז תל אביב')
+      let visible: Store[] = []
+      let shown = PAGE
+      let activeId = ''
+
+      // Strip invisible chars too (Sanity's live-preview stega markers ride along in strings).
+      const norm = (s: string) => s.toLowerCase().replace(/[​-‏⁠-⁯﻿]/g, '').replace(/["'״׳`]/g, '').replace(/[-–,.()/]/g, ' ').replace(/\s+/g, ' ').trim()
+      const hay = new Map(data.map((s) => [s.i, norm(`${s.n} ${s.a} ${s.c}`)]))
+      const matchesQuery = (s: Store, tokens: string[]) => tokens.every((t) => hay.get(s.i)!.includes(t))
+      const toRad = (d: number) => (d * Math.PI) / 180
+      const distKm = (a: { lat: number; lng: number }, s: Store) => {
+        const dLat = toRad(s.la - a.lat), dLng = toRad(s.ln - a.lng)
+        const h = Math.sin(dLat / 2) ** 2 + Math.cos(toRad(a.lat)) * Math.cos(toRad(s.la)) * Math.sin(dLng / 2) ** 2
+        return 6371 * 2 * Math.asin(Math.sqrt(h))
+      }
+      const fmtKm = (km: number) => (km < 1 ? `${Math.round(km * 1000)} מ׳` : `${km < 10 ? km.toFixed(1) : Math.round(km)} ק״מ`)
+
+      function apply(fit = true) {
+        const tokens = norm(query).split(' ').filter(Boolean)
+        visible = data.filter((s) => (!region || s.r === region) && (!cat || s.k === cat) && matchesQuery(s, tokens))
+        if (origin) {
+          const o = origin
+          visible = visible.map((s) => ({ ...s, d: distKm(o, s) })).sort((a, b) => a.d - b.d) as any
+        }
+        shown = PAGE
+        render(fit)
+      }
+
+      function render(fit: boolean) {
+        // only the rows on screen exist in the DOM (40 at a time, not 500)
+        list!.innerHTML = visible.slice(0, shown).map((s) => rowHtml(s as Store & { d?: number }, s.i === activeId)).join('')
+        moreBtn.hidden = visible.length <= shown
+        if (!moreBtn.hidden) moreBtn.textContent = `הצגת עוד חנויות (${visible.length - shown})`
+        emptyEl.hidden = visible.length > 0
+        list!.hidden = visible.length === 0
+        if (visible.length === 0) {
+          // Nothing in the chosen region / type — say so, and offer the nationwide result.
+          const tokens = norm(query).split(' ').filter(Boolean)
+          const nationwide = region || cat ? data.filter((s) => matchesQuery(s, tokens)).length : 0
+          const narrow = emptyEl.querySelector<HTMLElement>('[data-store-empty-narrow]')!
+          const def = emptyEl.querySelector<HTMLElement>('[data-store-empty-default]')!
+          narrow.hidden = nationwide === 0
+          def.hidden = nationwide > 0
+          if (nationwide > 0) {
+            const where = [
+              region ? `באזור „${chips.find((c) => c.dataset.region === region)?.textContent?.trim()}”` : '',
+              cat ? `בסוג „${catChips.find((c) => c.dataset.cat === cat)?.textContent?.trim()}”` : '',
+            ].filter(Boolean).join(' ו')
+            narrow.querySelector('[data-store-empty-msg]')!.textContent =
+              `${query.trim() ? `„${query.trim()}” לא נמצא ${where}` : `אין חנויות ${where}`}. שימו לב: מסנן פעיל. בכל הארץ יש ${nationwide} חנויות תואמות.`
+          }
+        }
+        list!.scrollTop = 0
+
+        // count line
+        const filtered = !!(query.trim() || region || cat)
+        const regionLabel = [
+          region ? chips.find((c) => c.dataset.region === region)?.firstChild?.textContent?.trim() : '',
+          cat ? catChips.find((c) => c.dataset.cat === cat)?.firstChild?.textContent?.trim() : '',
+        ].filter(Boolean).join(' · ')
+        countEl.textContent = !filtered
+          ? `${data.length} נקודות מכירה · לפי מרחק ${fromLabel()}`
+          : visible.length === 0
+            ? 'לא נמצאו חנויות'
+            : `נמצאו ${visible.length} חנויות${query.trim() ? ` עבור „${query.trim()}”` : ''}${regionLabel ? ` · ${regionLabel}` : ''} · לפי מרחק ${fromLabel()}`
+        clearBtns.forEach((b) => { if (b.classList.contains('sl__clear')) b.hidden = !filtered })
+
+        // map — only the difference changes (remove what left the filter, add what entered)
+        const want = new Set(visible.map((s) => s.i))
+        const gone = [...onMap].filter((id) => !want.has(id)).map((id) => markers.get(id)!)
+        const added = [...want].filter((id) => !onMap.has(id)).map((id) => markers.get(id)!)
+        if (gone.length) cluster.removeLayers(gone)
+        if (added.length) cluster.addLayers(added)
+        onMap = want
+        if (fit) fitMap(true)
+      }
+
+      function fitMap(animate: boolean) {
+        if (mapEl!.offsetParent === null) return // hidden (list view on phones) — refit when shown
+        const filtered = !!(query.trim() || region || cat)
+        if (!filtered) {
+          focusOrigin(animate) // default view: ~VIEW_KM across around the origin
+        } else if (visible.length) {
+          map.invalidateSize()
+          const pts = visible.map((s) => [s.la, s.ln] as [number, number])
+          if (pts.length === 1) map.setView(pts[0], 15, { animate })
+          else map.fitBounds(L.latLngBounds(pts).pad(0.18), { maxZoom: 15, animate })
+        }
+      }
+
+
+      // Centre on the origin so the map shows about VIEW_KM across. Leaflet needs the real
+      // container size for this; if the map isn't laid out yet, retry on the next frame.
+      function focusOrigin(animate: boolean) {
+        map.invalidateSize()
+        if (map.getSize().x < 50) { requestAnimationFrame(() => focusOrigin(animate)); return }
+        const bounds = L.latLng(origin.lat, origin.lng).toBounds(VIEW_KM * 1000)
+        const zoom = Math.max(map.getBoundsZoom(bounds, false), 11)
+        map.setView([origin.lat, origin.lng], zoom, { animate })
+      }
+      function setOrigin(lat: number, lng: number, isMe: boolean) {
+        origin = { lat, lng }
+        originIsMe = isMe
+        if (meMarker) { map.removeLayer(meMarker); meMarker = null }
+        if (isMe) meMarker = L.marker([lat, lng], { icon: L.divIcon({ className: 'ns-me', iconSize: [18, 18] }), title: 'המיקום שלך', zIndexOffset: 1000 }).addTo(map)
+      }
+      function locate(onDone?: () => void) {
+        if (!navigator.geolocation) { onDone?.(); return }
+        navigator.geolocation.getCurrentPosition(
+          (pos) => { setOrigin(pos.coords.latitude, pos.coords.longitude, true); apply(); onDone?.() },
+          () => { onDone?.(); },
+          { enableHighAccuracy: false, timeout: 8000, maximumAge: 300000 },
+        )
+      }
+
+      function highlight(id: string, fromMap: boolean) {
+        if (activeId) { rowEl(activeId)?.classList.remove('is-active'); markers.get(activeId)?.getElement()?.classList.remove('is-active') }
+        activeId = id
+        markers.get(id)?.getElement()?.classList.add('is-active')
+        let li = rowEl(id)
+        if (!li && fromMap) {
+          // the row is beyond the shown page: extend the list up to it
+          const idx = visible.findIndex((s) => s.i === id)
+          if (idx >= 0) { shown = Math.max(shown, idx + 1); render(false); li = rowEl(id) }
+        }
+        li?.classList.add('is-active')
+        if (fromMap && li && li.offsetParent !== null) li.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
+      }
+
+      // ---- events ----
+      form.addEventListener('submit', (e) => { e.preventDefault(); query = input.value; apply() })
+      input.addEventListener('input', () => { if (!input.value.trim() && query) { query = ''; apply() } })
+      input.addEventListener('change', () => { if (input.value !== query) { query = input.value; apply() } })
+      chips.forEach((c) => c.addEventListener('click', () => {
+        region = c.dataset.region || ''
+        chips.forEach((x) => x.classList.toggle('is-active', x === c))
+        apply()
+      }))
+      catChips.forEach((c) => c.addEventListener('click', () => {
+        cat = c.dataset.cat || ''
+        catChips.forEach((x) => x.classList.toggle('is-active', x === c))
+        apply()
+      }))
+      clearBtns.forEach((b) => b.addEventListener('click', () => {
+        query = ''; region = ''; cat = ''; input.value = ''
+        chips.forEach((x) => x.classList.toggle('is-active', !x.dataset.region))
+        catChips.forEach((x) => x.classList.toggle('is-active', !x.dataset.cat))
+        apply()
+      }))
+      moreBtn.addEventListener('click', () => { shown += PAGE_MORE; render(false) })
+      emptyEl.querySelector('[data-store-widen]')!.addEventListener('click', () => {
+        region = ''; cat = ''
+        chips.forEach((x) => x.classList.toggle('is-active', !x.dataset.region))
+        catChips.forEach((x) => x.classList.toggle('is-active', !x.dataset.cat))
+        apply()
+      })
+      list!.addEventListener('click', (e) => {
+        const btn = (e.target as HTMLElement).closest<HTMLElement>('[data-store-focus]')
+        if (!btn) return
+        const id = btn.closest<HTMLElement>('.st')!.dataset.id!
+        const m = markers.get(id)!
+        highlight(id, false)
+        // zoom in to street level (~1 km across) on the chosen store, then open its popup
+        const at = m.getLatLng()
+        const zoom = Math.max(map.getBoundsZoom(at.toBounds(1000), false), 16)
+        map.once('moveend', () => cluster.zoomToShowLayer(m, () => m.openPopup()))
+        map.setView(at, zoom, { animate: true })
+        if (isStacked()) mapEl!.scrollIntoView({ block: 'start', behavior: 'smooth' }) // phones: the map sits under the list
+      })
+      geoBtn.addEventListener('click', () => {
+        if (!navigator.geolocation) { countEl.textContent = 'הדפדפן אינו תומך באיתור מיקום'; return }
+        geoBtn.classList.add('is-busy')
+        query = ''; input.value = ''
+        locate(() => {
+          geoBtn.classList.remove('is-busy')
+          if (!originIsMe) countEl.textContent = 'לא הצלחנו לאתר את המיקום שלך — מציגים את מרכז תל אביב'
+        })
+      })
+
+      // ?q= deep link (e.g. from the footer / other pages)
+      const q0 = new URLSearchParams(location.search).get('q')
+      if (q0) { input.value = q0; query = q0 }
+      // Tel Aviv first, then re-centre on the visitor once (if) the browser grants location.
+      map.whenReady(() => {
+        apply()
+        if (!q0) locate()
+      })
+      window.addEventListener('load', () => { map.invalidateSize(); fitMap(false) }, { once: true })
+    }
+  </script>
+</Base>

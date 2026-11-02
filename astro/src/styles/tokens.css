@@ -1,0 +1,156 @@
+/* ============================================================
+   Nature's Sage — Foundations (mirrors design-handoff/assets/colors_and_type.css)
+   Font URLs point at /fonts/ (self-hosted in astro/public/fonts).
+   ============================================================ */
+
+/* Latin fallback (Neuzeit Grotesk unavailable on Google Fonts; DM Sans substitute).
+   Must precede @font-face per CSS spec (@import comes first). */
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700&display=swap");
+@import "./assistant-latin.css";
+
+@font-face {
+  font-family: "Narkiss New";
+  src: url("/fonts/NarkissNew-Medium.otf") format("opentype");
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Narkiss New";
+  src: url("/fonts/NarkissNew-Bold.otf") format("opentype");
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Narkiss New";
+  src: url("/fonts/NarkissNewBlack-Regular.otf") format("opentype");
+  font-weight: 900; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Fb Metali";
+  src: url("/fonts/FbMetali.woff") format("woff"),
+       url("/fonts/FbMetali.ttf") format("truetype");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+
+:root {
+  /* ----- Primary palette ----- */
+  --ns-sun-beige:        #FCF4EA;
+  --ns-field-green:      #113021;
+  --ns-clary-purple:     #CBC2DD;
+
+  /* ----- Secondary palette ----- */
+  --ns-immune-green:     #BAE6CB;
+  --ns-pure-orange:      #E87200;
+  --ns-light-gray:       #888B8D;
+  --ns-dark-gray:        #2E2E2E;
+
+  /* ----- Tonal ----- */
+  --ns-beige-50:  #FFFCF7;
+  --ns-beige-100: #FCF4EA;
+  --ns-beige-200: #F4E8D2;
+  --ns-beige-300: #E8D4AE;
+  --ns-green-700: #1B4A33;
+  --ns-green-800: #143A28;
+  --ns-green-900: #113021;
+  --ns-green-950: #0A1F15;
+  --ns-orange-400: #FF8A20;
+  --ns-orange-500: #E87200;
+  --ns-orange-600: #C45F00;
+
+  /* ----- Semantic ----- */
+  --ns-bg:            var(--ns-sun-beige);
+  --ns-bg-alt:        #FFFFFF;
+  --ns-bg-inverse:    var(--ns-field-green);
+  --ns-fg:            var(--ns-field-green);
+  --ns-fg-muted:      var(--ns-light-gray);
+  --ns-fg-inverse:    var(--ns-sun-beige);
+  --ns-accent:        var(--ns-pure-orange);
+  --ns-accent-soft:   var(--ns-immune-green);
+  --ns-accent-cool:   var(--ns-clary-purple);
+  --ns-border:        rgba(17, 48, 33, 0.14);
+  --ns-border-strong: rgba(17, 48, 33, 0.32);
+  --ns-overlay:       rgba(17, 48, 33, 0.55);
+
+  /* ----- Type -----
+     Latin faces ("Assistant Latin", then "DM Sans") MUST come first so Latin
+     glyphs never fall through to the Hebrew brand fonts' serif Latin shapes.
+     Both Latin faces lack Hebrew, so Hebrew still resolves to Narkiss/Fb Metali. */
+  --ns-font-display: "Assistant Latin", "DM Sans", "Narkiss New", "Helvetica Neue", Arial, sans-serif;
+  --ns-font-body:    "Assistant Latin", "DM Sans", "Fb Metali", "Narkiss New", "Helvetica Neue", Arial, sans-serif;
+  --ns-font-latin:   "Assistant Latin", "DM Sans", "Helvetica Neue", Arial, sans-serif;
+
+  /* Body/explanation sizes raised for readability (headings unchanged). */
+  --ns-text-xs: 12.5px; --ns-text-sm: 15px; --ns-text-base: 18px; --ns-text-md: 20px;
+  --ns-text-lg: 23px; --ns-text-xl: 28px; --ns-text-2xl: 36px; --ns-text-3xl: 48px;
+  --ns-text-4xl: 64px; --ns-text-5xl: 84px;
+
+  --ns-leading-tight: 1.1; --ns-leading-snug: 1.25; --ns-leading-normal: 1.5; --ns-leading-relaxed: 1.7;
+  --ns-tracking-tight: -0.02em; --ns-tracking-normal: 0; --ns-tracking-wide: 0.06em;
+
+  /* ----- Shape / spacing ----- */
+  --ns-radius-sm: 4px; --ns-radius-md: 10px; --ns-radius-lg: 20px; --ns-radius-xl: 32px; --ns-radius-pill: 999px;
+  --ns-space-1: 4px; --ns-space-2: 8px; --ns-space-3: 12px; --ns-space-4: 16px; --ns-space-5: 24px;
+  --ns-space-6: 32px; --ns-space-7: 48px; --ns-space-8: 64px; --ns-space-9: 96px; --ns-space-10: 128px;
+
+  --ns-shadow-sm: 0 1px 2px rgba(17, 48, 33, 0.06);
+  --ns-shadow-md: 0 6px 16px rgba(17, 48, 33, 0.08);
+  --ns-shadow-lg: 0 20px 40px -10px rgba(17, 48, 33, 0.18);
+  --ns-shadow-inner: inset 0 0 0 1px rgba(17, 48, 33, 0.08);
+
+  --ns-ease-out: cubic-bezier(.22,.61,.36,1);
+  --ns-ease-in-out: cubic-bezier(.65,.05,.36,1);
+  /* modern motion language: long-tail "smooth" for entrances, gentle spring for touch feedback */
+  --ns-ease-smooth: cubic-bezier(.22,1,.36,1);
+  --ns-ease-spring: cubic-bezier(.34,1.35,.44,1);
+  --ns-dur-fast: 160ms; --ns-dur-base: 280ms; --ns-dur-slow: 520ms; --ns-dur-reveal: 850ms;
+}
+
+/* ============================================================
+   SEMANTIC ELEMENT STYLES
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+html { background: var(--ns-bg); color: var(--ns-fg); -webkit-text-size-adjust: 100%; scroll-behavior: smooth; overflow-x: clip; }
+body { overflow-x: clip; }
+/* media never exceeds its container (prevents images overflowing their frame) */
+img, svg, video, canvas { max-width: 100%; }
+
+body {
+  margin: 0;
+  font-family: var(--ns-font-body);
+  font-size: var(--ns-text-base);
+  line-height: var(--ns-leading-relaxed);
+  color: var(--ns-fg);
+  background: var(--ns-bg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, .ns-h1 { font-family: var(--ns-font-display); font-weight: 500; font-size: var(--ns-text-4xl); line-height: var(--ns-leading-tight); letter-spacing: var(--ns-tracking-tight); color: var(--ns-fg); margin: 0 0 var(--ns-space-5); }
+h2, .ns-h2 { font-family: var(--ns-font-display); font-weight: 500; font-size: var(--ns-text-3xl); line-height: var(--ns-leading-snug); letter-spacing: var(--ns-tracking-tight); margin: 0 0 var(--ns-space-4); }
+h3, .ns-h3 { font-family: var(--ns-font-display); font-weight: 700; font-size: var(--ns-text-2xl); line-height: var(--ns-leading-snug); margin: 0 0 var(--ns-space-3); }
+h4, .ns-h4 { font-family: var(--ns-font-display); font-weight: 700; font-size: var(--ns-text-xl); line-height: var(--ns-leading-snug); margin: 0 0 var(--ns-space-3); }
+h5, .ns-h5 { font-family: var(--ns-font-body); font-weight: 700; font-size: var(--ns-text-lg); line-height: var(--ns-leading-snug); margin: 0 0 var(--ns-space-2); }
+
+p, .ns-p { font-family: var(--ns-font-body); font-size: var(--ns-text-base); line-height: var(--ns-leading-relaxed); margin: 0 0 var(--ns-space-4); color: var(--ns-fg); }
+
+/* orange section eyebrows — a touch larger and crisper on every screen */
+.ns-eyebrow { font-family: var(--ns-font-body); font-weight: 800; font-size: clamp(17.5px, 1.3vw, 19.5px); line-height: 1.3; text-transform: uppercase; letter-spacing: 0.09em; color: var(--ns-accent); display: inline-flex; align-items: center; gap: 12px; }
+.ns-eyebrow::before { content: ""; inline-size: 40px; block-size: 2.5px; border-radius: 999px; background: currentColor; opacity: .85; flex: none; }
+.ns-lede { font-family: var(--ns-font-display); font-weight: 500; font-size: var(--ns-text-lg); line-height: var(--ns-leading-relaxed); color: var(--ns-fg); }
+small, .ns-small { font-size: var(--ns-text-sm); color: var(--ns-fg-muted); }
+
+a { color: var(--ns-accent); text-decoration: none; transition: color var(--ns-dur-fast) var(--ns-ease-out); }
+a:hover { color: var(--ns-orange-600); }
+
+[dir="rtl"] { text-align: right; }
+
+/* Responsive type scale-down (mobile: hero never below ~40px, body never below 16px). */
+@media (max-width: 768px) {
+  :root { --ns-text-4xl: 44px; --ns-text-3xl: 34px; --ns-text-2xl: 28px; --ns-text-xl: 24px;
+          /* body copy steps down on phones so long prose doesn't balloon */
+          --ns-text-base: 17px; --ns-text-md: 18px; }
+}
+
+/* Accessibility: visible focus + reduced motion. */
+:focus-visible { outline: 3px solid var(--ns-accent); outline-offset: 2px; border-radius: var(--ns-radius-sm); }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+}

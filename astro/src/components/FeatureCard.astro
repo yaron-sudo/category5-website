@@ -1,0 +1,15 @@
+---
+import type { Feature } from '@/lib/sanity'
+
+interface Props {
+  feature: Feature
+}
+const { feature } = Astro.props
+// Benefit icons are self-hosted brand SVGs (astro/public/icons/benefit/<icon>.svg).
+const iconSrc = `/icons/benefit/${feature.icon}.svg`
+---
+<div class="ns-card ns-feature">
+  <img class="ns-feature__icon" src={iconSrc} alt="" aria-hidden="true" width="88" height="88" />
+  <h3 class="ns-feature__title">{feature.title}</h3>
+  {feature.text && <p class="ns-feature__text">{feature.text}</p>}
+</div>

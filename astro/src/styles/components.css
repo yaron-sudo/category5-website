@@ -1,0 +1,290 @@
+/* ============================================================
+   Nature's Sage — component system (per DESIGN_INSTRUCTIONS §4–§6)
+   ============================================================ */
+
+/* ---- Layout ---- */
+.ns-container { max-width: 1240px; margin-inline: auto; padding-inline: var(--ns-space-6); }
+
+.ns-section { padding-block: var(--ns-space-9); }
+.ns-section--tight { padding-block: var(--ns-space-8); }
+.ns-section--beige { background: var(--ns-sun-beige); }
+.ns-section--white { background: var(--ns-bg-alt); }
+.ns-section--inverse { background: var(--ns-bg-inverse); color: var(--ns-fg-inverse); }
+.ns-section--inverse :is(h1, h2, h3, h4, p) { color: var(--ns-fg-inverse); }
+
+.ns-section-head { max-width: 64ch; margin-block-end: var(--ns-space-7); }
+.ns-section-head .ns-eyebrow { margin-block-end: var(--ns-space-2); display: block; }
+
+/* ---- Buttons — the pill ---- */
+.ns-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--ns-space-2);
+  font-family: var(--ns-font-body); font-size: var(--ns-text-base); line-height: 1;
+  padding: 14px 32px; border-radius: var(--ns-radius-pill);
+  border: 1px solid transparent; cursor: pointer; text-decoration: none;
+  transition: background var(--ns-dur-fast) var(--ns-ease-out), color var(--ns-dur-fast) var(--ns-ease-out),
+    box-shadow var(--ns-dur-base) var(--ns-ease-smooth), transform var(--ns-dur-base) var(--ns-ease-spring);
+}
+.ns-btn:active { transform: translateY(0) scale(0.96); transition-duration: var(--ns-dur-fast); }
+@media (hover: hover) {
+  .ns-btn--secondary:hover, .ns-btn--ghost:hover, .ns-btn--ghost-dark:hover { transform: translateY(-2px); }
+}
+.ns-btn--primary { background: var(--ns-pure-orange); color: var(--ns-sun-beige); box-shadow: 0 6px 16px -8px rgba(232,114,0,.55); }
+.ns-btn--primary:hover { background: var(--ns-orange-600); color: var(--ns-sun-beige); transform: translateY(-2px); box-shadow: 0 12px 24px -8px rgba(232,114,0,.6); }
+.ns-btn--secondary { background: var(--ns-field-green); color: var(--ns-sun-beige); }
+.ns-btn--secondary:hover { background: var(--ns-green-950); color: var(--ns-sun-beige); }
+.ns-btn--ghost { background: transparent; color: var(--ns-field-green); border-color: var(--ns-field-green); }
+.ns-btn--ghost:hover { background: var(--ns-field-green); color: var(--ns-sun-beige); }
+.ns-btn--ghost-dark { background: transparent; color: var(--ns-sun-beige); border-color: var(--ns-sun-beige); }
+.ns-btn--ghost-dark:hover { background: var(--ns-sun-beige); color: var(--ns-field-green); }
+
+/* ---- Pill chips ---- */
+.ns-chip {
+  display: inline-flex; align-items: center; gap: var(--ns-space-2);
+  padding: 8px 16px; border-radius: var(--ns-radius-pill); font-size: var(--ns-text-sm);
+  background: var(--ns-immune-green); color: var(--ns-field-green);
+}
+.ns-chip--cool { background: var(--ns-clary-purple); }
+
+/* ---- Cards ---- */
+.ns-card {
+  background: var(--ns-bg-alt);
+  border: 1px solid var(--ns-border);
+  border-radius: var(--ns-radius-lg);
+  box-shadow: var(--ns-shadow-sm);
+  padding: var(--ns-space-6);
+  transition: transform var(--ns-dur-base) var(--ns-ease-out), box-shadow var(--ns-dur-base) var(--ns-ease-out);
+}
+.ns-card:hover { transform: translateY(-2px); box-shadow: var(--ns-shadow-lg); }
+
+/* ---- Grid ---- */
+.ns-grid { display: grid; gap: var(--ns-space-5); }
+.ns-grid--2 { grid-template-columns: repeat(2, 1fr); }
+.ns-grid--3 { grid-template-columns: repeat(3, 1fr); }
+.ns-grid--4 { grid-template-columns: repeat(4, 1fr); }
+@media (max-width: 980px) { .ns-grid--3, .ns-grid--4 { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px) { .ns-grid--2 { grid-template-columns: 1fr; } }
+@media (max-width: 600px) { .ns-grid--2, .ns-grid--3, .ns-grid--4 { grid-template-columns: 1fr; } }
+
+/* ---- Feature card ---- */
+.ns-feature { text-align: center; }
+.ns-feature__icon { width: 96px; height: 96px; margin-inline: auto; margin-block-end: var(--ns-space-4); display: block; padding: 16px; box-sizing: border-box; border: 1.5px solid color-mix(in srgb, var(--ns-field-green) 32%, transparent); border-radius: 50%; background: var(--ns-bg); transition: border-color var(--ns-dur-base) var(--ns-ease-out), background var(--ns-dur-base) var(--ns-ease-out); }
+.ns-card:hover .ns-feature__icon { border-color: var(--ns-pure-orange); background: color-mix(in srgb, var(--ns-immune-green) 28%, var(--ns-bg)); }
+.ns-feature__title { font-family: var(--ns-font-display); font-weight: 700; font-size: var(--ns-text-xl); margin-block-end: var(--ns-space-2); }
+.ns-feature__text { color: var(--ns-fg); margin: 0; font-size: var(--ns-text-base); }
+
+/* ---- Stat block ---- */
+.ns-stat { text-align: center; }
+.ns-stat__value { font-family: var(--ns-font-display); font-weight: 900; font-size: var(--ns-text-4xl); line-height: 1; color: var(--ns-field-green); }
+.ns-stat__label { font-size: var(--ns-text-sm); color: var(--ns-fg-muted); margin-block-start: var(--ns-space-2); }
+.ns-section--inverse .ns-stat__value { color: var(--ns-sun-beige); }
+
+/* ---- Expert card ---- */
+.ns-expert { background: var(--ns-clary-purple); border-radius: var(--ns-radius-lg); padding: var(--ns-space-7); }
+.ns-expert__quote { font-family: var(--ns-font-display); font-weight: 500; font-size: var(--ns-text-lg); line-height: var(--ns-leading-relaxed); margin: 0 0 var(--ns-space-5); }
+.ns-expert__name { font-weight: 700; }
+.ns-expert__role { color: var(--ns-fg-muted); font-size: var(--ns-text-sm); }
+
+/* ---- Prose (Portable Text) ---- */
+.ns-prose { max-width: 72ch; }
+.ns-prose > :first-child { margin-block-start: 0; }
+.ns-prose img { max-width: 100%; height: auto; border-radius: var(--ns-radius-md); margin-block: var(--ns-space-5); }
+.ns-prose ul, .ns-prose ol { padding-inline-start: var(--ns-space-5); margin-block: var(--ns-space-4); line-height: var(--ns-leading-relaxed); }
+.ns-prose li { margin-block-end: var(--ns-space-2); }
+.ns-prose blockquote { margin: var(--ns-space-5) 0; padding-inline-start: var(--ns-space-4); border-inline-start: 3px solid var(--ns-accent); color: var(--ns-fg); }
+.ns-prose a { text-decoration: underline; }
+.ns-prose .pt-lead { font-size: var(--ns-text-lg); line-height: 1.7; }
+.ns-prose .pt-small { font-size: var(--ns-text-sm); color: var(--ns-fg-muted); }
+.ns-prose strong { font-weight: 700; }
+
+/* ---- Portable Text editorial blocks (youtube / cta / callout / captions) ---- */
+.pt-figure { margin: var(--ns-space-5) 0; }
+.pt-figure img, .pt-figure .pt-video { margin-block: 0; }
+.pt-figure figcaption { margin-block-start: 8px; font-size: var(--ns-text-sm); color: var(--ns-fg-muted); text-align: center; }
+.pt-video { position: relative; aspect-ratio: 16 / 9; border-radius: var(--ns-radius-md); overflow: hidden; background: var(--ns-green-950); margin-block: var(--ns-space-5); }
+.pt-video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.pt-cta-row { margin-block: var(--ns-space-5); }
+.pt-cta { display: inline-block; padding: 12px 28px; border-radius: 999px; font-weight: 700; text-decoration: none !important; transition: transform var(--ns-dur-base) var(--ns-ease-out), box-shadow var(--ns-dur-base) var(--ns-ease-out); }
+.pt-cta:hover { transform: translateY(-2px); box-shadow: var(--ns-shadow-md); }
+.pt-cta--solid { background: var(--ns-pure-orange); color: var(--ns-sun-beige); }
+.pt-cta--outline { border: 2px solid var(--ns-field-green); color: var(--ns-field-green); }
+.pt-callout { display: flex; flex-direction: column; gap: 6px; margin-block: var(--ns-space-5); padding: 18px 22px; border-radius: var(--ns-radius-md); border-inline-start: 4px solid; font-size: var(--ns-text-md); line-height: 1.7; }
+.pt-callout--info { background: rgba(17, 48, 33, .06); border-color: var(--ns-field-green); }
+.pt-callout--warning { background: rgba(240, 132, 28, .1); border-color: var(--ns-pure-orange); }
+.pt-callout__title { font-weight: 700; }
+
+/* ---- Header / footer ---- */
+.ns-header {
+  position: sticky; top: 0; z-index: 50;
+  background: color-mix(in srgb, var(--ns-sun-beige) 80%, transparent);
+  backdrop-filter: blur(12px);
+  border-block-end: 1px solid var(--ns-border);
+}
+.ns-header__inner { display: flex; align-items: center; justify-content: space-between; padding-block: var(--ns-space-4); }
+.ns-header__logo img { height: 25px; width: auto; display: block; }
+.ns-nav { display: flex; gap: var(--ns-space-5); align-items: center; }
+.ns-nav a { color: var(--ns-field-green); font-size: var(--ns-text-base); }
+.ns-nav a:hover { color: var(--ns-accent); }
+@media (max-width: 768px) { .ns-nav { display: none; } }
+
+.ns-footer { background: var(--ns-field-green); color: var(--ns-fg-inverse); padding-block: var(--ns-space-8) 0; }
+.ns-footer a { color: rgba(252,244,234,.86); transition: color var(--ns-dur-fast) var(--ns-ease-out); }
+.ns-footer a:hover { color: var(--ns-immune-green); }
+.ns-footer__grid { display: grid; grid-template-columns: 1.25fr 1fr 1.15fr 1.1fr 1.1fr; gap: var(--ns-space-6); padding-block-end: var(--ns-space-8); }
+@media (max-width: 1100px) { .ns-footer__grid { grid-template-columns: 1fr 1fr 1fr; } .ns-footer__brand { grid-column: 1 / -1; } }
+@media (max-width: 900px) { .ns-footer__grid { grid-template-columns: 1fr 1fr; gap: var(--ns-space-6); } }
+@media (max-width: 560px) { .ns-footer__grid { grid-template-columns: 1fr; } }
+.ns-footer__brand { text-align: center; }
+.ns-footer__brand img { height: 22px; width: auto; display: block; margin-inline: auto; }
+.ns-footer__tagline { margin: 14px 0 18px; font-family: "Assistant Latin", "DM Sans", sans-serif; font-style: italic; font-size: 16px; color: var(--ns-immune-green); letter-spacing: .02em; direction: ltr; text-align: center; }
+.ns-footer__social { display: flex; gap: 10px; justify-content: center; }
+.ns-footer__social a { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 999px; border: 1px solid rgba(252,244,234,.28); color: var(--ns-sun-beige); }
+.ns-footer__social a:hover { background: var(--ns-pure-orange); border-color: var(--ns-pure-orange); color: var(--ns-sun-beige); }
+.ns-footer__h { font-family: var(--ns-font-display); font-weight: 700; font-size: 17px; color: var(--ns-sun-beige); margin: 0 0 16px; }
+.ns-footer__col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.ns-footer__col a { font-size: 15px; }
+.ns-footer__contact { font-style: normal; display: flex; flex-direction: column; gap: 10px; font-size: 15px; color: rgba(252,244,234,.86); }
+.ns-footer__contact p { margin: 0; color: inherit; font-size: inherit; line-height: 1.6; }
+.ns-footer__disclaimer { border-block-start: 1px solid rgba(252,244,234,.16); padding-block: var(--ns-space-6); margin-inline: auto; font-size: 12.5px; line-height: 1.7; color: rgba(252,244,234,.6); max-width: 100ch; text-align: center; }
+.ns-footer__bar { background: var(--ns-green-950); }
+.ns-footer__bar-inner { display: flex; flex-wrap: wrap; gap: 12px 24px; justify-content: space-between; align-items: center; padding-block: 18px; font-size: 13px; color: rgba(252,244,234,.6); }
+.ns-footer__bar-links { display: flex; flex-wrap: wrap; gap: 18px; }
+
+/* ---- Hero ---- */
+.ns-hero { text-align: center; padding-block: var(--ns-space-9) var(--ns-space-8); }
+.ns-hero__inner { max-width: 800px; margin-inline: auto; }
+.ns-hero__tagline { font-family: var(--ns-font-display); font-weight: 900; font-size: clamp(36px, 5vw, 56px); line-height: var(--ns-leading-tight); margin-block: var(--ns-space-4); text-wrap: balance; }
+.ns-hero__lede { font-size: var(--ns-text-lg); color: var(--ns-fg); margin-block-end: var(--ns-space-6); max-width: 56ch; margin-inline: auto; }
+.ns-hero__cta { display: inline-flex; gap: var(--ns-space-4); flex-wrap: wrap; justify-content: center; }
+
+/* Accent — one or two highlight words only. */
+.ns-accent-word { color: var(--ns-accent); }
+
+.ns-purity { display: flex; flex-wrap: wrap; gap: var(--ns-space-3); justify-content: center; margin-block-start: var(--ns-space-6); }
+
+/* ---- Home headings + rich text (rendered inside Heading/PortableText components,
+       so they must be global, not page-scoped). ---- */
+.m-h2 { font-family: var(--ns-font-display); font-weight: 500; font-size: clamp(30px,3.2vw,46px); line-height: 1.18; letter-spacing: -0.01em; margin: 8px 0 16px; color: var(--ns-field-green); text-wrap: balance; }
+.m-history__title { color: var(--ns-sun-beige); font-family: var(--ns-font-display); font-weight: 500; font-size: clamp(30px,3.4vw,48px); line-height: 1.15; margin-block: 10px 16px; text-wrap: balance; }
+.m-intro__title { border-inline-start: 5px solid var(--ns-pure-orange); padding-inline-start: 20px; }
+.m-cta__title { font-family: var(--ns-font-display); font-weight: 500; font-size: clamp(28px,3vw,44px); margin: 0; color: var(--ns-field-green); }
+.m-rt { max-width: 54ch; }
+.m-rt p { font-size: var(--ns-text-md); line-height: 1.8; color: var(--ns-fg); opacity: .85; margin: 0 0 14px; }
+.m-rt p:last-child { margin-bottom: 0; }
+.m-rt--light p { color: rgba(252,244,234,.92); opacity: 1; }
+/* On narrow screens justify the in-box body copy so it fills the card cleanly
+   instead of reading as a ragged, spread-out column. Centered sections opt out. */
+@media (max-width: 700px) {
+  .m-rt p, .m-expert__bio { text-align: justify; text-justify: inter-word; }
+  .m-history__lede p, .m-history__lede, .m-bio { text-align: center; }
+}
+.m-bio { max-width: 70ch; margin-inline: auto; text-align: center; }
+/* Full section width so the lede lines up with the timeline rules below it. */
+.m-history__lede { max-width: none; margin: 0 0 44px; }
+
+/* ---- CMS heading sizes (override component defaults; chosen per-heading in Studio) ---- */
+.ns-fs-sm { font-size: clamp(20px, 2vw, 24px) !important; }
+.ns-fs-md { font-size: clamp(24px, 2.4vw, 30px) !important; }
+.ns-fs-lg { font-size: clamp(28px, 3vw, 38px) !important; }
+.ns-fs-xl { font-size: clamp(32px, 3.6vw, 46px) !important; }
+.ns-fs-2xl { font-size: clamp(40px, 4.6vw, 60px) !important; }
+.ns-fs-3xl { font-size: clamp(48px, 5.6vw, 76px) !important; }
+
+/* ---- Scroll reveal (fade-up). Opt-in via [data-reveal]. Long-tail "smooth"
+   easing + a whisper of scale gives entrances a floaty, premium feel;
+   transform/opacity only, so it stays 60fps on mobile. ---- */
+[data-reveal] { opacity: 0; transform: translateY(26px) scale(.985); transition: opacity var(--ns-dur-reveal) var(--ns-ease-smooth), transform var(--ns-dur-reveal) var(--ns-ease-smooth); will-change: opacity, transform; }
+[data-reveal].is-visible { opacity: 1; transform: none; }
+/* No JS (or JS not yet running): never hide content. The inline head script adds html.js. */
+html:not(.js) [data-reveal] { opacity: 1; transform: none; transition: none; }
+/* Above-the-fold (hero) content: CSS-only entrance that plays at once, with no
+   dependency on the script bundle — the first screen must never wait for JS. */
+[data-reveal="now"] { opacity: 1; transform: none; transition: none; animation: nsRevealNow .6s var(--ns-ease-smooth) both; }
+@keyframes nsRevealNow { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { [data-reveal="now"] { animation: none; } }
+@media (max-width: 700px) { [data-reveal] { transform: translateY(18px); } }
+@media (prefers-reduced-motion: reduce) { [data-reveal] { opacity: 1 !important; transform: none !important; transition: none !important; } }
+
+/* ---- Scroll-driven parallax (CSS only; progressively enhanced). Media in
+   split/story sections drifts gently as it crosses the viewport; the history
+   backdrop breathes. Skipped automatically by non-supporting browsers and
+   by prefers-reduced-motion. ---- */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .m-split__media, .m-story__media {
+      animation: ns-drift linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 55%;
+    }
+    .m-history__bg {
+      animation: ns-breathe linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
+  }
+}
+@keyframes ns-drift { from { transform: translateY(26px); } to { transform: translateY(0); } }
+@keyframes ns-breathe { from { transform: scale(1.08) translateY(-2%); } to { transform: scale(1) translateY(2%); } }
+
+/* ---- Page transitions (cross-document View Transitions, progressively enhanced).
+   The old page drifts up and softens while the new one floats in from below and
+   sharpens — flowing but brief. The header and the fixed widgets are captured as
+   their own groups so they stay put and only the content moves. Browsers without
+   support (and reduced-motion users) get a plain navigation. ---- */
+@view-transition { navigation: auto; }
+.ns-header { view-transition-name: ns-header; }
+.a11y__btn { view-transition-name: ns-a11y; }
+@media (prefers-reduced-motion: no-preference) {
+  /* old page fades + lifts quickly; the new one glides up into place after a
+     beat — no blur or scale (both cost frames and show edges on a full page) */
+  /* fast: the old page is gone in ~0.1s, the new one rises smoothly in 0.3s */
+  ::view-transition-old(root) { animation: ns-page-out .12s linear both; }
+  ::view-transition-new(root) { animation: ns-page-in .3s cubic-bezier(.33, 0, .12, 1) both; }
+  /* pinned groups: a quick, plain cross-fade (they look identical across pages) */
+  ::view-transition-old(ns-header), ::view-transition-new(ns-header),
+  ::view-transition-old(ns-a11y), ::view-transition-new(ns-a11y) { animation-duration: .2s; }
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+}
+@keyframes ns-page-out {
+  to { opacity: 0; }
+}
+@keyframes ns-page-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ---- Unified text box: white card, hairline border, soft shadow, short orange
+   accent rule above the heading. The home story/split cards and the product
+   story/prose cards all follow this; feature, usage and FAQ cards already do. ---- */
+.ns-textbox { background: var(--ns-bg-alt); border: 1px solid var(--ns-border); border-radius: var(--ns-radius-lg); box-shadow: var(--ns-shadow-md); padding: clamp(28px, 3.2vw, 52px); }
+
+/* ---------- "קרא עוד" fold (site-wide) ----------
+   Nothing is clamped by default (no-JS = full text). Base.astro's script adds
+   .is-clipped only when at least a full line would be hidden; the fade and the
+   button exist only in that state. --fold-max sets the clamp (≈5 lines);
+   data-fold="always" clamps on desktop too so sibling cards stay the same height. */
+.ns-fold { position: relative; --fold-bg: var(--ns-bg-alt); --fold-max: 8.4em; }
+.ns-fold.is-clipped { max-height: var(--fold-max); overflow: hidden; transition: max-height .45s var(--ns-ease-smooth); }
+.ns-fold.is-clipped::after { content: ""; position: absolute; inset-inline: 0; inset-block-end: 0; height: 3.4em; background: linear-gradient(to top, var(--fold-bg), transparent); pointer-events: none; transition: opacity .3s var(--ns-ease-out); }
+.ns-fold.is-clipped.is-open { max-height: var(--fold-h, 400em); }
+.ns-fold.is-clipped.is-open::after { opacity: 0; }
+.ns-fold__btn { display: none; }
+.ns-fold.is-clipped + .ns-fold__btn { display: inline-flex; align-items: center; gap: 7px; margin-block-start: 10px; background: none; border: none; padding: 4px 0; font: inherit; font-size: 15.5px; font-weight: 700; color: var(--ns-pure-orange); cursor: pointer; }
+.ns-fold__btn::after { content: ""; width: 8px; height: 8px; border-inline-end: 2px solid currentColor; border-block-end: 2px solid currentColor; transform: translateY(-2px) rotate(45deg); transition: transform .25s var(--ns-ease-out); }
+.ns-fold__btn[aria-expanded="true"]::after { transform: translateY(2px) rotate(-135deg); }
+@media (min-width: 901px) { .ns-fold[data-fold="always"] { --fold-max: 24em; } }
+
+/* Wider container for content-heavy pages (info articles, portal). */
+.ns-container--wide { max-width: 1400px; }
+
+/* ---- Global image lightbox: any content photo opens enlarged (Base.astro) ---- */
+img[data-zoomable] { cursor: zoom-in; }
+.ns-glb { border: none; padding: 0; background: transparent; max-width: min(94vw, 1200px); max-height: 94vh; overflow: visible; }
+.ns-glb::backdrop { background: rgba(12, 30, 20, .84); backdrop-filter: blur(6px); }
+.ns-glb__fig { margin: 0; display: flex; flex-direction: column; gap: 12px; align-items: center; }
+.ns-glb__fig img { max-width: min(92vw, 1160px); max-height: 84vh; width: auto; height: auto; border-radius: var(--ns-radius-lg); box-shadow: 0 40px 90px -30px rgba(0,0,0,.7); background: #fff; animation: nsGlbIn .3s var(--ns-ease-smooth) both; }
+@keyframes nsGlbIn { from { opacity: 0; transform: scale(.96); } to { opacity: 1; transform: none; } }
+.ns-glb__fig figcaption { font-size: 15px; color: var(--ns-sun-beige); text-align: center; max-width: 70ch; }
+.ns-glb__fig figcaption:empty { display: none; }
+.ns-glb__close { position: fixed; inset-block-start: 18px; inset-inline-end: 18px; width: 46px; height: 46px; border-radius: 50%; border: none; background: var(--ns-sun-beige); color: var(--ns-field-green); display: grid; place-items: center; cursor: pointer; box-shadow: var(--ns-shadow-lg); }

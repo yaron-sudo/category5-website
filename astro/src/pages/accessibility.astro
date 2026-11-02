@@ -1,0 +1,59 @@
+---
+import Base from '@/layouts/Base.astro'
+import { getSiteSettings } from '@/lib/sanity'
+
+const settings = await getSiteSettings()
+const email = settings?.contact?.email || 'info@naturesage.co.il'
+const phone = settings?.contact?.phone || ''
+const updated = '28.06.2026'
+---
+<Base
+  title="הצהרת נגישות — Nature's Sage"
+  description="הצהרת הנגישות של אתר Nature's Sage — מרווה מרושתת. האתר הונגש בהתאם לתקן הישראלי 5568 ולהנחיות WCAG 2.0 ברמה AA."
+>
+  <section class="m-section">
+    <div class="ns-container a11y-page">
+      <span class="ns-eyebrow">נגישות</span>
+      <h1 class="m-h2">הצהרת נגישות</h1>
+      <div class="ns-prose m-rt">
+        <p>חברת Nature's Sage רואה חשיבות רבה במתן שירות שוויוני לכלל הגולשים, ופועלת להנגשת אתר האינטרנט שלה כך שיהיה זמין ונוח לשימוש גם עבור אנשים עם מוגבלות.</p>
+
+        <h2>רמת הנגישות באתר</h2>
+        <p>האתר הונגש בהתאם לתקנות שוויון זכויות לאנשים עם מוגבלות (התאמות נגישות לשירות), התשע"ג–2013, ובהתאם לתקן הישראלי <strong>ת"י 5568</strong> המבוסס על הנחיות <strong>WCAG 2.0</strong> ברמת התאמה <strong>AA</strong>.</p>
+
+        <h2>התאמות הנגישות שבוצעו</h2>
+        <ul>
+          <li>תפריט נגישות קבוע בכל עמודי האתר (לחצן נגישות בפינת המסך) המאפשר: הגדלה/הקטנה של הטקסט, ניגודיות גבוהה, גווני אפור, הדגשת קישורים, גופן קריא, הגדלת ריווח, עצירת אנימציות וסמן עכבר מוגדל.</li>
+          <li>מבנה סמנטי ותגיות כותרת היררכיות, וטקסט חלופי לתמונות.</li>
+          <li>ניווט מלא באמצעות מקלדת ומיקוד נראה לעין (focus).</li>
+          <li>קישור "דלג לתוכן" בתחילת כל עמוד.</li>
+          <li>כיבוד העדפת המשתמש להפחתת תנועה (prefers-reduced-motion).</li>
+          <li>שמירת העדפות הנגישות של המשתמש בין ביקורים.</li>
+        </ul>
+
+        <h2>הסדרי נגישות מול נותני שירות</h2>
+        <p>השירות והמוצרים זמינים ליצירת קשר בערוצים נגישים. נשמח לסייע בכל פנייה.</p>
+
+        <h2>החרגות ומגבלות ידועות</h2>
+        <p>על אף מאמצינו להנגיש את כלל הדפים והרכיבים, ייתכן שיימצאו חלקים שטרם הונגשו במלואם. אנו ממשיכים לפעול לשיפור הנגישות באופן שוטף. אם נתקלתם בקושי, נשמח שתעדכנו אותנו ונטפל בכך בהקדם.</p>
+
+        <h2>פניות בנושא נגישות — רכז/ת הנגישות</h2>
+        <p>נתקלתם בבעיית נגישות, או שיש לכם בקשה או הצעה לשיפור? נשמח לקבל פנייה דרך רכז/ת הנגישות שלנו:</p>
+        <ul>
+          <li>דוא"ל: <a href={`mailto:${email}`}>{email}</a></li>
+          {phone && <li>טלפון: <a href={`tel:${phone}`}>{phone}</a></li>}
+        </ul>
+        <p>בעת הפנייה נשמח אם תפרטו את הבעיה, את הדף שבו היא הופיעה ואת סוג הדפדפן והטכנולוגיה המסייעת שבהם נעשה שימוש — כדי שנוכל לטפל ביעילות.</p>
+
+        <p class="a11y-page__date">הצהרת נגישות זו עודכנה לאחרונה בתאריך {updated}.</p>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .a11y-page { max-width: 820px; }
+    .a11y-page .m-h2 { margin-block: 8px 18px; }
+    .a11y-page :global(h2) { font-family: var(--ns-font-display); font-weight: 600; font-size: 22px; color: var(--ns-field-green); margin-block: 28px 8px; }
+    .a11y-page :global(.a11y-page__date) { margin-block-start: 28px; color: var(--ns-light-gray); font-size: 14px; }
+  </style>
+</Base>

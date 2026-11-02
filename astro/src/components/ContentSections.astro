@@ -1,0 +1,97 @@
+---
+// Renders a content page's body as the site's uniform text cards — the same
+// design line as the product pages: two symmetric columns of white cards, each
+// clamped with a "קרא עוד" fold (Base.astro script), one card per h2 section.
+// An odd last card spans both columns.
+import PortableText from '@/components/PortableText.astro'
+import type { PortableBlock } from '@/lib/sanity'
+
+interface Props {
+  sections: Array<{ heading: string; blocks: PortableBlock[] }>
+  /** Section ids for in-page links: `sec-<index>` */
+  numbered?: boolean
+  /** Single column (used for narrow slots such as references). */
+  single?: boolean
+  /** Id prefix for in-page anchors (default "sec" → sec-0, sec-1 …). */
+  idPrefix?: string
+  /** Start numbering from this index (when several lists share a page). */
+  startIndex?: number
+  /** Short sections that carry an image (recipes, steps) render as full-width
+   *  rows with the photo beside the text, alternating sides, instead of a
+   *  half-width card with the photo squeezed under the text. */
+  splitImages?: boolean
+  class?: string
+}
+const { sections, numbered = false, single = false, idPrefix = 'sec', startIndex = 0, splitImages = false, class: className } = Astro.props
+const textLen = (blocks: PortableBlock[]) =>
+  blocks.reduce((n, b) => n + (b._type === 'block' ? ((b.children as Array<{ text?: string }>) ?? []).reduce((m, c) => m + (c.text?.length ?? 0), 0) : 0), 0)
+const isSplit = (s: { blocks: PortableBlock[] }) => splitImages && !single && s.blocks.some((b) => b._type === 'image') && textLen(s.blocks) < 900
+let splitCount = 0
+---
+<div class:list={['cs', { 'cs--single': single }, className]}>
+  {sections.map((s, i) => (
+    <article class:list={['cs__card', 'ns-textbox', { 'cs__card--split': isSplit(s), 'cs__card--split-rev': isSplit(s) && splitCount++ % 2 === 1 }]} id={`${idPrefix}-${i}`} data-reveal style={`transition-delay:${Math.min(i, 6) * 60}ms`}>
+      {s.heading && (
+        <h2 class="cs__h">
+          {numbered && <span class="cs__n">{String(startIndex + i + 1).padStart(2, '0')}</span>}
+          {s.heading}
+        </h2>
+      )}
+      {isSplit(s) ? (
+        <div class="cs__split">
+          <PortableText blocks={s.blocks.filter((b) => b._type !== 'image')} class="cs__prose ns-prose" />
+          <div class="cs__media"><PortableText blocks={s.blocks.filter((b) => b._type === 'image')} class="cs__media-inner" /></div>
+        </div>
+      ) : single ? (
+        <PortableText blocks={s.blocks} class="cs__prose ns-prose" />
+      ) : (
+        <>
+          <div class="ns-fold" data-fold="always">
+            <PortableText blocks={s.blocks} class="cs__prose ns-prose" />
+          </div>
+          <button type="button" class="ns-fold__btn" data-fold-btn aria-expanded="false">קרא עוד</button>
+        </>
+      )}
+    </article>
+  ))}
+</div>
+
+<style>
+  .cs { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(16px, 2vw, 24px); align-items: stretch; }
+  .cs--single { grid-template-columns: 1fr; }
+  .cs__card { display: flex; flex-direction: column; padding: clamp(24px, 3vw, 40px) clamp(22px, 3.2vw, 44px); }
+  .cs:not(.cs--single) .cs__card:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .cs__h { display: flex; align-items: baseline; gap: 14px; font-family: var(--ns-font-display); font-weight: 600; font-size: clamp(21px, 1.9vw, 27px); line-height: 1.25; color: var(--ns-field-green); margin: 0 0 14px; }
+  .cs__n { font-family: var(--ns-font-latin); font-weight: 700; font-size: 14px; letter-spacing: .08em; color: var(--ns-pure-orange); }
+  .cs__prose { max-width: none; font-size: clamp(17px, 1.25vw, 19px); line-height: 1.85; color: var(--ns-fg); }
+  .cs__prose :global(p) { margin: 0 0 14px; }
+  .cs__prose :global(p:last-child) { margin-bottom: 0; }
+  .cs__prose :global(h3) { font-family: var(--ns-font-display); font-weight: 600; font-size: clamp(18px, 1.4vw, 20px); color: var(--ns-field-green); margin: 20px 0 6px; }
+  .cs__prose :global(h3:first-child) { margin-top: 0; }
+  .cs__prose :global(a) { color: var(--ns-pure-orange); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+  .cs__prose :global(img) { width: 100%; height: auto; border-radius: var(--ns-radius-lg); margin: 16px 0 4px; }
+  .cs__prose :global(.pt-video), .cs__prose :global(.pt-figure) { margin: 16px 0 4px; }
+  .cs__prose :global(blockquote) { margin: 14px 0; padding: 12px 18px; border-inline-start: 3px solid var(--ns-pure-orange); background: var(--ns-sun-beige); border-radius: 10px; font-size: 16px; line-height: 1.7; color: var(--ns-fg); }
+  .cs__prose :global(ul), .cs__prose :global(ol) { margin: 8px 0 14px; padding-inline-start: 22px; }
+  .cs__prose :global(li) { margin-bottom: 6px; }
+  /* split rows: full width, text beside the photo (photo on the inline-end side,
+     alternating), the photo fills the row's height */
+  .cs__card--split { grid-column: 1 / -1; }
+  .cs__split { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(280px, .85fr); gap: clamp(20px, 3vw, 40px); align-items: stretch; }
+  .cs__card--split-rev .cs__split { grid-template-columns: minmax(280px, .85fr) minmax(0, 1.15fr); }
+  .cs__card--split-rev .cs__media { order: -1; }
+  .cs__media { min-height: 260px; }
+  .cs__media :global(.cs__media-inner), .cs__media :global(.pt-figure) { height: 100%; margin: 0; }
+  .cs__media :global(img) { width: 100%; height: 100%; min-height: 260px; object-fit: cover; border-radius: var(--ns-radius-lg); margin: 0; display: block; }
+  .cs__media :global(figcaption) { display: none; }
+  /* fold button pinned to the card's bottom so sibling cards line up */
+  .cs .ns-fold__btn { margin-block-start: auto; padding-block-start: 14px; align-self: flex-start; }
+  @media (max-width: 900px) {
+    .cs { grid-template-columns: 1fr; }
+    .cs__split, .cs__card--split-rev .cs__split { grid-template-columns: 1fr; }
+    .cs__card--split-rev .cs__media { order: 0; }
+    .cs__media, .cs__media :global(img) { min-height: 0; }
+    .cs__media :global(img) { aspect-ratio: 16 / 10; }
+    .cs__prose { font-size: 16.5px; line-height: 1.72; }
+  }
+</style>

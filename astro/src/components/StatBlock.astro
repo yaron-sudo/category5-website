@@ -1,0 +1,11 @@
+---
+interface Props {
+  value: string
+  label: string
+}
+const { value, label } = Astro.props
+---
+<div class="ns-stat">
+  <div class="ns-stat__value">{value}</div>
+  <div class="ns-stat__label">{label}</div>
+</div>

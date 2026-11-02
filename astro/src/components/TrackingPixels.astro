@@ -1,0 +1,42 @@
+---
+// CMS-managed tracking snippets (Google/Facebook/TikTok pixels…), gated by the
+// cookie-consent categories (Amendment 13): 'necessary' activates immediately;
+// 'analytics'/'marketing' stay inert <template>s until window.nsConsent grants
+// the category — the vendor script is not even fetched before consent.
+interface Snippet { label?: string; category?: string; code?: string; enabled?: boolean }
+interface Props { snippets?: Snippet[] }
+const snippets = (Astro.props.snippets ?? []).filter((s) => s.enabled !== false && s.code)
+---
+{snippets.length > 0 && (
+  <>
+    {snippets.map((s) => (
+      <template data-ns-pixel data-category={s.category || 'analytics'} data-label={s.label} set:html={s.code} />
+    ))}
+    <script>
+      // Activate a template by cloning its content; <script> nodes must be
+      // recreated for the browser to execute them.
+      const fired = new Set<Element>()
+      const activate = (tpl: HTMLTemplateElement) => {
+        if (fired.has(tpl)) return
+        fired.add(tpl)
+        const frag = tpl.content.cloneNode(true) as DocumentFragment
+        frag.querySelectorAll('script').forEach((old) => {
+          const s = document.createElement('script')
+          for (const a of old.attributes) s.setAttribute(a.name, a.value)
+          s.textContent = old.textContent
+          old.replaceWith(s)
+        })
+        document.body.appendChild(frag)
+      }
+      const run = () => {
+        const consent = (window as any).nsConsent || {}
+        document.querySelectorAll<HTMLTemplateElement>('template[data-ns-pixel]').forEach((tpl) => {
+          const cat = tpl.dataset.category || 'analytics'
+          if (cat === 'necessary' || consent[cat]) activate(tpl)
+        })
+      }
+      run()
+      document.addEventListener('ns:consent', run)
+    </script>
+  </>
+)}

@@ -1,0 +1,8992 @@
+[
+ {
+  "_id": "store-c5-1",
+  "_type": "store",
+  "sourceId": "c5-1",
+  "name": "א.כ. ראס אל חנות בעמ - תלפיות",
+  "category": "health",
+  "city": "ירושלים",
+  "address": "יד חרוצים 22",
+  "phone": "02582111",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.7503146,
+   "lng": 35.215267
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-2",
+  "_type": "store",
+  "sourceId": "c5-2",
+  "name": "א.ר.נ החזקות בעמ",
+  "category": "health",
+  "city": "מודיעין",
+  "address": "שדרות המלאכות 121",
+  "phone": "08-9744409",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.891540374999998,
+   "lng": 34.987554274999994
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-3",
+  "_type": "store",
+  "sourceId": "c5-3",
+  "name": "אלמונדו",
+  "category": "health",
+  "city": "פרדס חנה-כרכור",
+  "address": "דרך השדה 18",
+  "phone": "050-7467775",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.4791576,
+   "lng": 34.9813202
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-4",
+  "_type": "store",
+  "sourceId": "c5-4",
+  "name": "אלמונדו אתר אינטרנט",
+  "category": "online",
+  "city": "פתח תקווה",
+  "phone": "03-6397475",
+  "website": "https://www.almondo.co.il/200132-%D7%95%D7%99%D7%98%D7%9E%D7%99%D7%A0%D7%99%D7%9D/321692-category-5",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0901854,
+   "lng": 34.882469625
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-5",
+  "_type": "store",
+  "sourceId": "c5-5",
+  "name": "אוצר הטבע",
+  "category": "health",
+  "city": "מודיעין עילית",
+  "address": "אבני נזר 46",
+  "phone": "053-3172255",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.9304948,
+   "lng": 35.0388026
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-6",
+  "_type": "store",
+  "sourceId": "c5-6",
+  "name": "אורן בית טבע בע\"מ - מונוסון",
+  "category": "health",
+  "city": "יהוד-מונוסון",
+  "address": "החורש 4",
+  "phone": "03-5518870",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0330363,
+   "lng": 34.8788481
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-7",
+  "_type": "store",
+  "sourceId": "c5-7",
+  "name": "אורן בית טבע בע\"מ -קרית אונו",
+  "category": "health",
+  "city": "קריית אונו",
+  "address": "שלמה המלך 40",
+  "phone": "03-5289890",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0548391,
+   "lng": 34.8638919
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-8",
+  "_type": "store",
+  "sourceId": "c5-8",
+  "name": "אורני בית מרקחת בע\"מ -מכבי",
+  "category": "health",
+  "city": "תל אביב",
+  "address": "הגואל 3",
+  "phone": "03-6879532",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.053941,
+   "lng": 34.7882548
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-9",
+  "_type": "store",
+  "sourceId": "c5-9",
+  "name": "אלבה בשפע בע\"מ",
+  "category": "health",
+  "city": "תל אביב",
+  "address": "שדרות ירושלים 11",
+  "phone": "054-7738073",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0558725,
+   "lng": 34.75985
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-10",
+  "_type": "store",
+  "sourceId": "c5-10",
+  "name": "טבע בריא - אתר אינטרנט",
+  "category": "health",
+  "city": "תל אביב",
+  "address": "ראול ולנברג 14א",
+  "phone": "03-6485501",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.1087837,
+   "lng": 34.836956
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-11",
+  "_type": "store",
+  "sourceId": "c5-11",
+  "name": "אקופארם בע\"מ",
+  "category": "health",
+  "city": "מעלות",
+  "address": "עוזי נרקיס 9",
+  "phone": "079-5555502",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 33.012267,
+   "lng": 35.2885369
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-12",
+  "_type": "store",
+  "sourceId": "c5-12",
+  "name": "אשר שיווק טבע בע\"מ",
+  "category": "health",
+  "city": "חיפה",
+  "address": "הקיטור 5 חוצות המפרץ",
+  "phone": "04-8722293",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.8128754,
+   "lng": 35.0592729
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-13",
+  "_type": "store",
+  "sourceId": "c5-13",
+  "name": "בדרך שלך",
+  "category": "health",
+  "city": "ספיר",
+  "address": "צין 5",
+  "phone": "052-6322111",
+  "region": "south",
+  "location": {
+   "_type": "geopoint",
+   "lat": 30.6160433,
+   "lng": 35.1851914
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-14",
+  "_type": "store",
+  "sourceId": "c5-14",
+  "name": "ביו גאיה",
+  "category": "health",
+  "city": "כפר סבא",
+  "address": "הגביש 3",
+  "phone": "072-2204559",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.1771016,
+   "lng": 34.93019719999999
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-15",
+  "_type": "store",
+  "sourceId": "c5-15",
+  "name": "בית בריא",
+  "category": "health",
+  "city": "קריית ביאליק",
+  "address": "קרן היסוד 22",
+  "phone": "04-6827575",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.83028720000001,
+   "lng": 35.0852959
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-16",
+  "_type": "store",
+  "sourceId": "c5-16",
+  "name": "בית הטבע יובל",
+  "category": "health",
+  "city": "ראשון לציון",
+  "address": "ז`בוטינסקי 48",
+  "phone": "03-9673694",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.9671914,
+   "lng": 34.7996663
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-17",
+  "_type": "store",
+  "sourceId": "c5-17",
+  "name": "בית השקד והטבע",
+  "category": "health",
+  "city": "רמת גן",
+  "address": "קריניצי 10",
+  "phone": "03-6725432",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0792447,
+   "lng": 34.8158979
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-18",
+  "_type": "store",
+  "sourceId": "c5-18",
+  "name": "בית טבע-תבלין וטבע פ\"ת",
+  "category": "health",
+  "city": "פתח תקווה",
+  "address": "שטמפר 15",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0901497,
+   "lng": 34.8855149
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-19",
+  "_type": "store",
+  "sourceId": "c5-19",
+  "name": "בית טבע אורגנו",
+  "category": "health",
+  "city": "ירכא",
+  "address": "אזור תעשיה ירכא",
+  "phone": "050-7288803",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.949658,
+   "lng": 35.179038
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-20",
+  "_type": "store",
+  "sourceId": "c5-20",
+  "name": "בית טבע אלומות",
+  "category": "health",
+  "city": "רחובות",
+  "address": "בית הפועלים 5, רחובות",
+  "phone": "08-9462333",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.8973557,
+   "lng": 34.8098376
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-21",
+  "_type": "store",
+  "sourceId": "c5-21",
+  "name": "בית טבע אמא אדמה בת-ים",
+  "category": "health",
+  "city": "בת ים",
+  "address": "בלפור 87",
+  "phone": "03-6597882",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.020472,
+   "lng": 34.7457067
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-22",
+  "_type": "store",
+  "sourceId": "c5-22",
+  "name": "בית טבע בית בטבע",
+  "category": "health",
+  "city": "גן יבנה",
+  "address": "העצמאות 6",
+  "phone": "08-8574871",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.789297,
+   "lng": 34.7138776
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-23",
+  "_type": "store",
+  "sourceId": "c5-23",
+  "name": "בית טבע בעיר",
+  "category": "health",
+  "city": "חולון",
+  "address": "סוקולוב 54",
+  "phone": "03-5014952",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.02255160000001,
+   "lng": 34.774926
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-24",
+  "_type": "store",
+  "sourceId": "c5-24",
+  "name": "בית טבע הדסא ירושלים",
+  "category": "health",
+  "city": "ירושלים",
+  "address": "בית יעקב 2",
+  "phone": "02-6244442",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.7855716,
+   "lng": 35.2117339
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-25",
+  "_type": "store",
+  "sourceId": "c5-25",
+  "name": "בית טבע הילה בטבע",
+  "category": "health",
+  "city": "הרצליה",
+  "address": "סוקולוב 40",
+  "phone": "09-9567121",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.1669612,
+   "lng": 34.844759
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-26",
+  "_type": "store",
+  "sourceId": "c5-26",
+  "name": "בית טבע ויטמין סי",
+  "category": "health",
+  "city": "בית שמש",
+  "address": "נהר הירדן 38 - בחנייה",
+  "phone": "02-9921980",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.7286296,
+   "lng": 34.9928748
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-27",
+  "_type": "store",
+  "sourceId": "c5-27",
+  "name": "בית טבע זמורה",
+  "category": "health",
+  "city": "ירושלים",
+  "address": "נג'ארה 37 גבעת שאול",
+  "phone": "02-6519392",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.792658,
+   "lng": 35.19082909999999
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-28",
+  "_type": "store",
+  "sourceId": "c5-28",
+  "name": "בית טבע טובלי טבע - הרב קוק",
+  "category": "health",
+  "city": "בני ברק",
+  "address": "הרב קוק 3",
+  "phone": "03-6193125",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0875527,
+   "lng": 34.827402
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-29",
+  "_type": "store",
+  "sourceId": "c5-29",
+  "name": "בית טבע טל",
+  "category": "health",
+  "city": "חולון",
+  "address": "שינקר 51",
+  "phone": "03-5042585",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0217915,
+   "lng": 34.7762919
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-30",
+  "_type": "store",
+  "sourceId": "c5-30",
+  "name": "בית טבע למהדרין (שקדיה)",
+  "category": "health",
+  "city": "חיפה",
+  "address": "חרמון 9",
+  "phone": "04-8674499",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.8048278,
+   "lng": 35.0013908
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-31",
+  "_type": "store",
+  "sourceId": "c5-31",
+  "name": "בית טבע מליסה",
+  "category": "health",
+  "city": "דימונה",
+  "address": "מרכז מסחרי שלב ד חנות מס 16",
+  "phone": "08-6573221",
+  "region": "south",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.069419,
+   "lng": 35.033363
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-32",
+  "_type": "store",
+  "sourceId": "c5-32",
+  "name": "בית טבע נוה אביבים",
+  "category": "health",
+  "city": "תל אביב",
+  "address": "יהודה הנשיא 34, נוה אביבים",
+  "phone": "03-6410411",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.11937,
+   "lng": 34.7959312
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-33",
+  "_type": "store",
+  "sourceId": "c5-33",
+  "name": "בית טבע ניצת יקנעם בע\"מ",
+  "category": "nitzat",
+  "city": "יקנעם",
+  "address": "דרך רבין 9, מרכז ביג",
+  "phone": "04-8282121",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.6426784,
+   "lng": 35.0927494
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-34",
+  "_type": "store",
+  "sourceId": "c5-34",
+  "name": "בית טבע נירולי",
+  "category": "health",
+  "city": "תל אביב",
+  "address": "לילנבלום 3",
+  "phone": "03-5107869",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0619076,
+   "lng": 34.7673616
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-35",
+  "_type": "store",
+  "sourceId": "c5-35",
+  "name": "בית טבע פולט",
+  "category": "health",
+  "city": "כרמיאל",
+  "address": "מורד הגיא 100, חנות 307 קניון לב העיר",
+  "phone": "04-9585147",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.9081326,
+   "lng": 35.2936948
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-36",
+  "_type": "store",
+  "sourceId": "c5-36",
+  "name": "בית טבע פנציאה- נהריה",
+  "category": "health",
+  "city": "נהריה",
+  "address": "הרצל 75",
+  "phone": "04-9512625",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 33.0054824,
+   "lng": 35.0961202
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-37",
+  "_type": "store",
+  "sourceId": "c5-37",
+  "name": "בית טבע רוח וריחן",
+  "category": "health",
+  "city": "איכסאל",
+  "phone": "054-3201824",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.6821176,
+   "lng": 35.3229703
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-38",
+  "_type": "store",
+  "sourceId": "c5-38",
+  "name": "בית טבע רותם",
+  "category": "health",
+  "city": "באר שבע",
+  "address": "רמבם 7",
+  "phone": "08-9933092",
+  "region": "south",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.2411265,
+   "lng": 34.79324
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-39",
+  "_type": "store",
+  "sourceId": "c5-39",
+  "name": "בית מרקחת אופיר",
+  "category": "health",
+  "city": "תל אביב",
+  "address": "נחלת בנימין 22",
+  "phone": "03-5609088",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0664289,
+   "lng": 34.7702383
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-40",
+  "_type": "store",
+  "sourceId": "c5-40",
+  "name": "בית מרקחת אחד העם",
+  "category": "health",
+  "city": "רחובות",
+  "address": "אחד העם 26, רחובות",
+  "phone": "08-9361920",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.8989556,
+   "lng": 34.8116038
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-41",
+  "_type": "store",
+  "sourceId": "c5-41",
+  "name": "בית מרקחת אסותא פ\"ת",
+  "category": "health",
+  "city": "פתח תקווה",
+  "address": "הברון הירש 23",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0900236,
+   "lng": 34.8842779
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-42",
+  "_type": "store",
+  "sourceId": "c5-42",
+  "name": "בית מרקחת אקו פארם",
+  "category": "health",
+  "city": "מעלות",
+  "address": "עוזי נרקיס 9",
+  "phone": "079-5555502",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 33.012267,
+   "lng": 35.2885369
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-43",
+  "_type": "store",
+  "sourceId": "c5-43",
+  "name": "בית מרקחת בבלי",
+  "category": "health",
+  "city": "תל אביב",
+  "address": "עוזיאל 1",
+  "phone": "03-6040552",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0953818,
+   "lng": 34.799436
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-44",
+  "_type": "store",
+  "sourceId": "c5-44",
+  "name": "בית מרקחת גאולה",
+  "category": "health",
+  "city": "ירושלים",
+  "address": "מלכי ישראל 14",
+  "phone": "02-5371050",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.7889215,
+   "lng": 35.2169698
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-45",
+  "_type": "store",
+  "sourceId": "c5-45",
+  "name": "בית מרקחת גילי",
+  "category": "health",
+  "city": "תל מונד",
+  "address": "הדקל 41",
+  "phone": "09-7961236",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.252996,
+   "lng": 34.9179688
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-46",
+  "_type": "store",
+  "sourceId": "c5-46",
+  "name": "בית מרקחת דן בע\"מ",
+  "category": "health",
+  "city": "אשדוד",
+  "address": "דב גור מרכז מסחרי ו'",
+  "phone": "08-8555646",
+  "region": "south",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.804381,
+   "lng": 34.655314
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-47",
+  "_type": "store",
+  "sourceId": "c5-47",
+  "name": "בית מרקחת הדר חיפה",
+  "category": "health",
+  "city": "חיפה",
+  "address": "הנביאים 21",
+  "phone": "04-8623944",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.8127105,
+   "lng": 34.995354
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-48",
+  "_type": "store",
+  "sourceId": "c5-48",
+  "name": "בית מרקחת הדר פרדס חנה",
+  "category": "health",
+  "city": "פרדס חנה-כרכור",
+  "address": "הדקלים 103",
+  "phone": "04-6372469",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.4737504,
+   "lng": 34.9732394
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-49",
+  "_type": "store",
+  "sourceId": "c5-49",
+  "name": "בית מרקחת המרכז נס ציונה",
+  "category": "health",
+  "city": "נס ציונה",
+  "address": "ויצמן 8",
+  "phone": "08-9404960",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.9256274,
+   "lng": 34.7979852
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-50",
+  "_type": "store",
+  "sourceId": "c5-50",
+  "name": "בית מרקחת הר נוף",
+  "category": "health",
+  "city": "ירושלים",
+  "address": "שאולזון 31 הר נוף",
+  "phone": "02-6518294",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.784846,
+   "lng": 35.1733
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-51",
+  "_type": "store",
+  "sourceId": "c5-51",
+  "name": "בית מרקחת הרצל ראשל\"צ",
+  "category": "health",
+  "city": "ראשון לציון",
+  "address": "הרצל 41",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.9693858,
+   "lng": 34.8048302
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-52",
+  "_type": "store",
+  "sourceId": "c5-52",
+  "name": "בית מרקחת ישגב",
+  "category": "health",
+  "city": "תל אביב",
+  "address": "הרוגי המלכות 7 רמת החייל",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.1098437,
+   "lng": 34.8331752
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-53",
+  "_type": "store",
+  "sourceId": "c5-53",
+  "name": "בית מרקחת ישי",
+  "category": "health",
+  "city": "עפולה",
+  "address": "הרב לוין 9",
+  "phone": "04-6594650",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.609865,
+   "lng": 35.287787
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-54",
+  "_type": "store",
+  "sourceId": "c5-54",
+  "name": "בית מרקחת לב הרצליה",
+  "category": "health",
+  "city": "הרצליה",
+  "address": "בן-גוריון 2",
+  "phone": "09-9547035",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.1666234,
+   "lng": 34.8422973
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-55",
+  "_type": "store",
+  "sourceId": "c5-55",
+  "name": "בית מרקחת מושנזון",
+  "category": "health",
+  "city": "תל אביב",
+  "address": "בן יהודה 83",
+  "phone": "03-5222481",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0818339,
+   "lng": 34.7707645
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-56",
+  "_type": "store",
+  "sourceId": "c5-56",
+  "name": "בית מרקחת מירה פארם בע\"מ",
+  "category": "health",
+  "city": "חולון",
+  "address": "דב הוז 49",
+  "phone": "03-6517978",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.02317,
+   "lng": 34.76483
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-57",
+  "_type": "store",
+  "sourceId": "c5-57",
+  "name": "בית מרקחת מני (יצחק קטורזה)",
+  "category": "health",
+  "city": "ירושלים",
+  "address": "יפו 102",
+  "phone": "02-5383048",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.785817,
+   "lng": 35.212809
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-58",
+  "_type": "store",
+  "sourceId": "c5-58",
+  "name": "בית מרקחת מרכז השרון פ\"ת",
+  "category": "health",
+  "city": "פתח תקווה",
+  "address": "קציר 7",
+  "phone": "03-9311078",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.088773,
+   "lng": 34.8856363
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-59",
+  "_type": "store",
+  "sourceId": "c5-59",
+  "name": "בית מרקחת עזרא",
+  "category": "health",
+  "city": "בת ים",
+  "address": "בלפור 135",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0142345,
+   "lng": 34.7427764
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-60",
+  "_type": "store",
+  "sourceId": "c5-60",
+  "name": "בית מרקחת פארמה גד ת\"א",
+  "category": "health",
+  "city": "תל אביב",
+  "address": "גרינברג אורי צבי 25",
+  "phone": "03-7410331",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.043752,
+   "lng": 34.7703956
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-61",
+  "_type": "store",
+  "sourceId": "c5-61",
+  "name": "בית מרקחת פרמקסי בע\"מ",
+  "category": "health",
+  "city": "חולון",
+  "address": "רבינוביץ 17",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.9993477,
+   "lng": 34.7696026
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-62",
+  "_type": "store",
+  "sourceId": "c5-62",
+  "name": "בית מרקחת רוזנפארם",
+  "category": "health",
+  "city": "מודיעין",
+  "address": "עמק החולה 76",
+  "phone": "08-9701866",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.8962749,
+   "lng": 35.0113001
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-63",
+  "_type": "store",
+  "sourceId": "c5-63",
+  "name": "בית מרקחת רימונה",
+  "category": "health",
+  "city": "תל אביב",
+  "address": "זימן 16",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0769924,
+   "lng": 34.8006088
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-64",
+  "_type": "store",
+  "sourceId": "c5-64",
+  "name": "בית מרקחת רמת חן",
+  "category": "health",
+  "city": "רמת גן",
+  "address": "אלוף דוד 40",
+  "phone": "03-6767301",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0583594,
+   "lng": 34.818979
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-65",
+  "_type": "store",
+  "sourceId": "c5-65",
+  "name": "בית מרקחת רמת שלמה",
+  "category": "health",
+  "city": "ירושלים",
+  "address": "חזון איש 36",
+  "phone": "02-5711511",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.7768831,
+   "lng": 35.22243460000001
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-66",
+  "_type": "store",
+  "sourceId": "c5-66",
+  "name": "בית מרקחת רסקו",
+  "category": "health",
+  "city": "טבריה",
+  "address": "אלחדיף ת.ד 1690",
+  "phone": "04-6790871",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.791853,
+   "lng": 35.536157
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-67",
+  "_type": "store",
+  "sourceId": "c5-67",
+  "name": "בית מרקחת שוורץ-ניצת הדובדבן טבריה",
+  "category": "nitzat",
+  "city": "טבריה",
+  "address": "הגליל 7",
+  "phone": "04-6720994",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.7873154,
+   "lng": 35.5396538
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-68",
+  "_type": "store",
+  "sourceId": "c5-68",
+  "name": "בית מרקחת תל גנים",
+  "category": "health",
+  "city": "גבעתיים",
+  "address": "הרצוג 23",
+  "phone": "03-5717504",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0614937,
+   "lng": 34.816468
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-69",
+  "_type": "store",
+  "sourceId": "c5-69",
+  "name": "בר וטבע",
+  "category": "health",
+  "city": "יד בנימין",
+  "address": "עובדיה 1",
+  "phone": "052-4031418",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.795124,
+   "lng": 34.820474
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-70",
+  "_type": "store",
+  "sourceId": "c5-70",
+  "name": "בריאה בית בריאות וטבע תל אביב",
+  "category": "health",
+  "city": "תל אביב",
+  "address": "לה גארדיה 64",
+  "phone": "054-4749478",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0591414,
+   "lng": 34.7984235
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-71",
+  "_type": "store",
+  "sourceId": "c5-71",
+  "name": "גרין לייף",
+  "category": "health",
+  "city": "ירושלים",
+  "address": "מאה שערים 66",
+  "phone": "02-8020906",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.7867482,
+   "lng": 35.2236809
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-72",
+  "_type": "store",
+  "sourceId": "c5-72",
+  "name": "דרור לוי בית טבע בע\"מ",
+  "category": "health",
+  "city": "נתניה",
+  "address": "הרצל 27",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.328657,
+   "lng": 34.857471
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-73",
+  "_type": "store",
+  "sourceId": "c5-73",
+  "name": "דרך הטבע - קרית מוצקין",
+  "category": "health",
+  "city": "קריית מוצקין",
+  "address": "דבורה 9",
+  "phone": "077-5548081",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.8249639,
+   "lng": 35.0781795
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-74",
+  "_type": "store",
+  "sourceId": "c5-74",
+  "name": "דרך טבע לובה",
+  "category": "health",
+  "city": "פתח תקווה",
+  "address": "איכילוב 15",
+  "phone": "03-9045525",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0872209,
+   "lng": 34.884172
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-75",
+  "_type": "store",
+  "sourceId": "c5-75",
+  "name": "הדובדבן שבחורב בע\"מ",
+  "category": "health",
+  "city": "פתח תקווה",
+  "address": "שחם 17",
+  "phone": "03-7614641",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0879003,
+   "lng": 34.8600023
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-76",
+  "_type": "store",
+  "sourceId": "c5-76",
+  "name": "הטחוניה של שחר",
+  "category": "health",
+  "city": "ירושלים",
+  "address": "אגריפס 69",
+  "phone": "02-6509449",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.7837642,
+   "lng": 35.2136123
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-77",
+  "_type": "store",
+  "sourceId": "c5-77",
+  "name": "היפר טבע זיקים אשקלון",
+  "category": "health",
+  "city": "אשקלון",
+  "address": "הגבורה 9",
+  "phone": "08-6712017",
+  "region": "south",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.6652764,
+   "lng": 34.5656533
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-78",
+  "_type": "store",
+  "sourceId": "c5-78",
+  "name": "הירוקה - מזון ומוצרים מהטבע בע\"מ",
+  "category": "health",
+  "city": "פרדס חנה-כרכור",
+  "address": "המושב 29",
+  "phone": "04-6377508",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.472833,
+   "lng": 34.993005
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-79",
+  "_type": "store",
+  "sourceId": "c5-79",
+  "name": "הלן פארם יבנה",
+  "category": "health",
+  "city": "יבנה",
+  "address": "אגוז 1",
+  "phone": "08-9436747",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.8775101,
+   "lng": 34.735939
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-80",
+  "_type": "store",
+  "sourceId": "c5-80",
+  "name": "הפינה הטבעית ירושלים",
+  "category": "health",
+  "city": "ירושלים",
+  "address": "יפו 101",
+  "phone": "02-6247821",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.7849172,
+   "lng": 35.2145413
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-81",
+  "_type": "store",
+  "sourceId": "c5-81",
+  "name": "הרוקחים עלה פארם בע\"מ",
+  "category": "health",
+  "city": "מודיעין",
+  "address": "החרט 1",
+  "phone": "08-9969611",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.890473,
+   "lng": 34.9622794
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-82",
+  "_type": "store",
+  "sourceId": "c5-82",
+  "name": "וי קר אונליין בע\"מ",
+  "category": "health",
+  "city": "גן נר",
+  "address": "רקפת 270",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.5275,
+   "lng": 35.3397
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-83",
+  "_type": "store",
+  "sourceId": "c5-83",
+  "name": "ויטה טבע- יוליה רזניקוב",
+  "category": "health",
+  "city": "הרצליה",
+  "address": "העצמאות 42א ד 37 ק6",
+  "phone": "052-2244247",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.1645868,
+   "lng": 34.8449938
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-84",
+  "_type": "store",
+  "sourceId": "c5-84",
+  "name": "ויתניה",
+  "category": "health",
+  "city": "כפר כמא-כניסה מזרחית",
+  "phone": "052-7300893",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.721473,
+   "lng": 35.4394617
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-85",
+  "_type": "store",
+  "sourceId": "c5-85",
+  "name": "זימרת הארץ",
+  "category": "health",
+  "city": "בני ברק",
+  "address": "ירושליים 14 תד 3392",
+  "phone": "03-6163574",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.084932,
+   "lng": 34.835226
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-86",
+  "_type": "store",
+  "sourceId": "c5-86",
+  "name": "חדוות הטבע",
+  "category": "health",
+  "city": "הרצליה",
+  "address": "סוקולוב 34",
+  "phone": "054-2550101",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.1672379,
+   "lng": 34.8419199
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-87",
+  "_type": "store",
+  "sourceId": "c5-87",
+  "name": "טאפש פארם \"בית מרקחת חניתה\"",
+  "category": "health",
+  "city": "חיפה",
+  "address": "חניתה 22",
+  "phone": "04-8231905",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.7936379,
+   "lng": 35.0109112
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-88",
+  "_type": "store",
+  "sourceId": "c5-88",
+  "name": "טבע- לי נטורופתיה בע\"מ",
+  "category": "health",
+  "city": "ראשון לציון",
+  "address": "רוטשילד 28 ( סימטה )",
+  "phone": "03-9569449",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.9642607,
+   "lng": 34.8031019
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-89",
+  "_type": "store",
+  "sourceId": "c5-89",
+  "name": "טבע בוקיש",
+  "category": "health",
+  "city": "ערבה תיכונה",
+  "address": "כפר האמנים",
+  "phone": "077-7808053",
+  "region": "south",
+  "location": {
+   "_type": "geopoint",
+   "lat": 30.49125519999999,
+   "lng": 35.1660438
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-90",
+  "_type": "store",
+  "sourceId": "c5-90",
+  "name": "טבע בנחלה מ.ש.מ בע\"מ - רחובות",
+  "category": "health",
+  "city": "רחובות",
+  "address": "הרצל 184, רחובות",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.8972778,
+   "lng": 34.8108597
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-91",
+  "_type": "store",
+  "sourceId": "c5-91",
+  "name": "טבע בנחלה משמ בע''מ",
+  "category": "health",
+  "city": "תל אביב",
+  "address": "נחלת יצחק 18",
+  "phone": "03-6967474",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0741433,
+   "lng": 34.7978549
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-92",
+  "_type": "store",
+  "sourceId": "c5-92",
+  "name": "טבע גבעתיים",
+  "category": "health",
+  "city": "גבעתיים",
+  "address": "סירקין 18",
+  "phone": "03-6700154",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0779912,
+   "lng": 34.8153621
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-93",
+  "_type": "store",
+  "sourceId": "c5-93",
+  "name": "טבע גדרה בע\"מ",
+  "category": "health",
+  "city": "גדרה",
+  "address": "ויצמן 19",
+  "phone": "08-8594774",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.8169109,
+   "lng": 34.7798188
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-94",
+  "_type": "store",
+  "sourceId": "c5-94",
+  "name": "טבע גוש בע\"מ - אפרת",
+  "category": "health",
+  "city": "אפרת",
+  "address": "זית שמן 2",
+  "phone": "02-6283252",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.6687902,
+   "lng": 35.1636961
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-95",
+  "_type": "store",
+  "sourceId": "c5-95",
+  "name": "טבע גוש בע\"מ - קניון הרים",
+  "category": "health",
+  "city": "אלון שבות",
+  "address": "גוש עציון צמוד לקניון הרים",
+  "phone": "052-3471279",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.6451762,
+   "lng": 35.1304915
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-96",
+  "_type": "store",
+  "sourceId": "c5-96",
+  "name": "טבע ובריאות אשדוד",
+  "category": "health",
+  "city": "אשדוד",
+  "address": "משה שפירא 22",
+  "phone": "08-8552262",
+  "region": "south",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.7929337,
+   "lng": 34.6588752
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-97",
+  "_type": "store",
+  "sourceId": "c5-97",
+  "name": "טבע כל ר\"ג",
+  "category": "health",
+  "city": "רמת גן",
+  "address": "הרוא\"ה 2",
+  "phone": "03-6736876",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0835569,
+   "lng": 34.8160141
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-98",
+  "_type": "store",
+  "sourceId": "c5-98",
+  "name": "טבע מלאכי",
+  "category": "health",
+  "city": "ירושלים",
+  "address": "מלאכי 12",
+  "phone": "02-6502316",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.7898859,
+   "lng": 35.2166649
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-99",
+  "_type": "store",
+  "sourceId": "c5-99",
+  "name": "טבע מלחה",
+  "category": "health",
+  "city": "ירושלים",
+  "address": "קניון מלחה ק- קרקע",
+  "phone": "02-6784693",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.751541,
+   "lng": 35.1871949
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-100",
+  "_type": "store",
+  "sourceId": "c5-100",
+  "name": "טבע סיטי",
+  "category": "health",
+  "city": "ביתר עילית",
+  "address": "הרן 20 קניון לב בית\"ר",
+  "phone": "054-6457720",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.7031666,
+   "lng": 35.1179452
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-101",
+  "_type": "store",
+  "sourceId": "c5-101",
+  "name": "טבע סנטר צפת",
+  "category": "health",
+  "city": "צפת",
+  "address": "קריית חבד 221/22",
+  "phone": "04-6923467",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.963764,
+   "lng": 35.505188
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-102",
+  "_type": "store",
+  "sourceId": "c5-102",
+  "name": "טבע סנטר שיווק בע\"מ",
+  "category": "health",
+  "city": "קרית עקרון",
+  "address": "המלך חאסן 11 (בילו 2000)",
+  "phone": "08-9453670",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.8642326,
+   "lng": 34.8134119
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-103",
+  "_type": "store",
+  "sourceId": "c5-103",
+  "name": "טבע עומריקה בע\"מ",
+  "category": "health",
+  "city": "רעננה",
+  "address": "אחוזה 148",
+  "phone": "09-7437743",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.1815915,
+   "lng": 34.8710158
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-104",
+  "_type": "store",
+  "sourceId": "c5-104",
+  "name": "טבע עמק בע\"מ -ראש פינה",
+  "category": "health",
+  "city": "ראש פינה",
+  "address": "גיא אוני 1",
+  "phone": "04-8522809",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.9685935,
+   "lng": 35.5484237
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-105",
+  "_type": "store",
+  "sourceId": "c5-105",
+  "name": "טבע רובינשטיין בע\"מ - רבי עקיבא",
+  "category": "health",
+  "city": "בני ברק",
+  "address": "רבי עקיבא 147",
+  "phone": "03-5793595",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0858404,
+   "lng": 34.8391628
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-106",
+  "_type": "store",
+  "sourceId": "c5-106",
+  "name": "טבע שופ מרכז",
+  "category": "health",
+  "city": "תל אביב",
+  "address": "המלך ג`ורג' 62",
+  "phone": "03-6297823",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0754408,
+   "lng": 34.77653859999999
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-107",
+  "_type": "store",
+  "sourceId": "c5-107",
+  "name": "טבעי בריא נתיבות",
+  "category": "health",
+  "city": "נתיבות",
+  "address": "שפתי חיים 18",
+  "phone": "08-9941694",
+  "region": "south",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.4269008,
+   "lng": 34.5850444
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-108",
+  "_type": "store",
+  "sourceId": "c5-108",
+  "name": "טבעי לי",
+  "category": "health",
+  "city": "פתח תקווה",
+  "address": "ההסתדרות 3",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0858982,
+   "lng": 34.8825169
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-109",
+  "_type": "store",
+  "sourceId": "c5-109",
+  "name": "טבעכל מרכז",
+  "category": "health",
+  "city": "תל אביב",
+  "address": "גולומב 60",
+  "phone": "03-9600186",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0539297,
+   "lng": 34.7829012
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-110",
+  "_type": "store",
+  "sourceId": "c5-110",
+  "name": "טבעלה אשדוד",
+  "category": "health",
+  "city": "אשדוד",
+  "address": "ינאי 7 - רובע ז'",
+  "phone": "08-8655673",
+  "region": "south",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.7878646,
+   "lng": 34.6647452
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-111",
+  "_type": "store",
+  "sourceId": "c5-111",
+  "name": "טבעלה בית שמש",
+  "category": "health",
+  "city": "בית שמש",
+  "address": "שפת אמת 37",
+  "phone": "02-9927020",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.7375512,
+   "lng": 34.9957916
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-112",
+  "_type": "store",
+  "sourceId": "c5-112",
+  "name": "טוב הטבע ירושלים",
+  "category": "health",
+  "city": "ירושלים",
+  "address": "שטראוס 34",
+  "phone": "02-5340689",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.787678,
+   "lng": 35.2187083
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-113",
+  "_type": "store",
+  "sourceId": "c5-113",
+  "name": "טוב הטבע רמות ירושלים",
+  "category": "health",
+  "city": "ירושלים",
+  "address": "מעלות כיסופים 801 רמות",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.7861175,
+   "lng": 35.1736066
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-114",
+  "_type": "store",
+  "sourceId": "c5-114",
+  "name": "טופ טבע",
+  "category": "health",
+  "city": "אלעד",
+  "address": "שמעון בן שטח 8- מרכז רימון",
+  "phone": "03-9097700",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.053726,
+   "lng": 34.964993
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-115",
+  "_type": "store",
+  "sourceId": "c5-115",
+  "name": "טיב טעם אשדוד סניף 3",
+  "category": "health",
+  "city": "אשדוד",
+  "address": "ז'בוטינסקי",
+  "phone": "054-6645824",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.809601,
+   "lng": 34.654477
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-116",
+  "_type": "store",
+  "sourceId": "c5-116",
+  "name": "טיב טעם אשקלון",
+  "category": "health",
+  "city": "אשקלון",
+  "address": "המסגר 4",
+  "phone": "08-6755292",
+  "region": "south",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.657423,
+   "lng": 34.5883598
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-117",
+  "_type": "store",
+  "sourceId": "c5-117",
+  "name": "טיב טעם באר שבע 15",
+  "category": "health",
+  "city": "באר שבע",
+  "address": "יצחק נפחא 25",
+  "phone": "08-6252000",
+  "region": "south",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.2468421,
+   "lng": 34.8123479
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-118",
+  "_type": "store",
+  "sourceId": "c5-118",
+  "name": "טיב טעם הוד השרון סניף 24",
+  "category": "health",
+  "city": "הוד השרון",
+  "address": "סוקולוב 46",
+  "phone": "054-9777260",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.16905,
+   "lng": 34.9016158
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-119",
+  "_type": "store",
+  "sourceId": "c5-119",
+  "name": "טיב טעם הרצליה 52",
+  "category": "health",
+  "city": "הרצליה",
+  "address": "בן גוריון 56",
+  "phone": "054-5477729",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.1579238,
+   "lng": 34.8419268
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-120",
+  "_type": "store",
+  "sourceId": "c5-120",
+  "name": "טיב טעם נתניה 2",
+  "category": "health",
+  "city": "נתניה",
+  "address": "א.ת דרומי, מתחם איקאה",
+  "phone": "09-8928111",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.3225363,
+   "lng": 34.8806737
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-121",
+  "_type": "store",
+  "sourceId": "c5-121",
+  "name": "טיב טעם קריות 12",
+  "category": "health",
+  "city": "חיפה",
+  "address": "החרושת 10",
+  "phone": "04-8818900",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.8102478,
+   "lng": 35.0562633
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-122",
+  "_type": "store",
+  "sourceId": "c5-122",
+  "name": "טיב טעם ראשל\"צ מזרח",
+  "category": "health",
+  "city": "ראשון לציון",
+  "address": "המכבים 62, צומת בית דגן, א.ת.ישן",
+  "phone": "03-9595777",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.9745403,
+   "lng": 34.8105298
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-123",
+  "_type": "store",
+  "sourceId": "c5-123",
+  "name": "טיב טעם רחובות 18",
+  "category": "health",
+  "city": "רחובות",
+  "address": "אופנהיימר פינת הרצל, רחובות",
+  "phone": "08-9369100",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.910741,
+   "lng": 34.807014
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-124",
+  "_type": "store",
+  "sourceId": "c5-124",
+  "name": "טיב טעם רמת החייל 19",
+  "category": "health",
+  "city": "תל אביב",
+  "address": "דבורה הנביאה 122",
+  "phone": "03-7696700",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.1139666,
+   "lng": 34.84122139999999
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-125",
+  "_type": "store",
+  "sourceId": "c5-125",
+  "name": "טעם לחיים",
+  "category": "health",
+  "city": "תל אביב",
+  "address": "מרחביה 13",
+  "phone": "052-4590178",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0596526,
+   "lng": 34.7721039
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-126",
+  "_type": "store",
+  "sourceId": "c5-126",
+  "name": "יש לי בוטן",
+  "category": "health",
+  "city": "גבעתיים",
+  "address": "כורזין 5",
+  "phone": "03-5710695",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0601993,
+   "lng": 34.8158286
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-127",
+  "_type": "store",
+  "sourceId": "c5-127",
+  "name": "כאן עולם קימונאות",
+  "category": "health",
+  "city": "אשדוד",
+  "address": "שדרות תל חי 63/17",
+  "phone": "08-8678795",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.80102868,
+   "lng": 34.65912324
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-128",
+  "_type": "store",
+  "sourceId": "c5-128",
+  "name": "כליל הטבע בע\"מ",
+  "category": "health",
+  "city": "עפולה",
+  "address": "הנשיא 16",
+  "phone": "04-6403555",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.6100126,
+   "lng": 35.2884487
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-129",
+  "_type": "store",
+  "sourceId": "c5-129",
+  "name": "לב הטבע (2008) בע\"מ",
+  "category": "health",
+  "city": "ירושלים",
+  "address": "בוש מרדכי 6",
+  "phone": "02-5388832",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.7792783,
+   "lng": 35.2135581
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-130",
+  "_type": "store",
+  "sourceId": "c5-130",
+  "name": "טבע בריא",
+  "category": "health",
+  "city": "תל אביב",
+  "address": "יהודה הימית 61, יפו",
+  "phone": "03-6037071",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0499269,
+   "lng": 34.7537005
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-131",
+  "_type": "store",
+  "sourceId": "c5-131",
+  "name": "מ.ש.מ נקודת טבע בע\"מ",
+  "category": "health",
+  "city": "כפר סבא",
+  "address": "ויצמן 108",
+  "phone": "09-7674522",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.1750449,
+   "lng": 34.9086842
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-132",
+  "_type": "store",
+  "sourceId": "c5-132",
+  "name": "מאמאדמה",
+  "category": "health",
+  "city": "אורנית",
+  "address": "הערבה 1 מרכז מסחרי",
+  "phone": "03-5178532",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.1293115,
+   "lng": 34.9954596
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-133",
+  "_type": "store",
+  "sourceId": "c5-133",
+  "name": "בית הטבע מוסא",
+  "category": "health",
+  "city": "אריאל",
+  "address": "יהודה 14/16",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.1051803,
+   "lng": 35.1714819
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-134",
+  "_type": "store",
+  "sourceId": "c5-134",
+  "name": "מי כמוך בע\"מ -טבע כרכור",
+  "category": "health",
+  "city": "פרדס חנה-כרכור",
+  "address": "המייסדים 54",
+  "phone": "04-6371299",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.4741334,
+   "lng": 34.9908937
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-135",
+  "_type": "store",
+  "sourceId": "c5-135",
+  "name": "מירים פרוד",
+  "category": "health",
+  "city": "קיבוץ נחל פרוד",
+  "phone": "052-2047310",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.933066,
+   "lng": 35.434318
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-136",
+  "_type": "store",
+  "sourceId": "c5-136",
+  "name": "מכולת טבע",
+  "category": "health",
+  "city": "תל אביב",
+  "address": "פלורנטין 36",
+  "phone": "050-7414182",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0562129,
+   "lng": 34.7706948
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-137",
+  "_type": "store",
+  "sourceId": "c5-137",
+  "name": "מקום ידידותי",
+  "category": "health",
+  "city": "הוד השרון",
+  "address": "הידידות 1",
+  "phone": "09-7460801",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.1611609,
+   "lng": 34.9025753
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-138",
+  "_type": "store",
+  "sourceId": "c5-138",
+  "name": "מרכז שורשים",
+  "category": "health",
+  "city": "תל אביב",
+  "address": "בן יהודה 35",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0771102,
+   "lng": 34.7679725
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-139",
+  "_type": "store",
+  "sourceId": "c5-139",
+  "name": "משק רוזנצוויג",
+  "category": "health",
+  "city": "קריית שמונה",
+  "address": "א.ת דרומי (ליד הום סנטר)",
+  "phone": "04-6940030",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 33.1985377,
+   "lng": 35.5772925
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-140",
+  "_type": "store",
+  "sourceId": "c5-140",
+  "name": "נטורלניק",
+  "category": "health",
+  "city": "תל אביב",
+  "address": "בן יהודה 27",
+  "phone": "054-5459234",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0764648,
+   "lng": 34.768023
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-141",
+  "_type": "store",
+  "sourceId": "c5-141",
+  "name": "ניצת הדובדבן גאולים ביתר בע\"מ",
+  "category": "nitzat",
+  "city": "ביתר עילית",
+  "address": "הר\"ן 14",
+  "phone": "02-6267185",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.7037307,
+   "lng": 35.1176307
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-142",
+  "_type": "store",
+  "sourceId": "c5-142",
+  "name": "ניצת הדובדבן - אשקלון או קאילן בע\"מ",
+  "category": "nitzat",
+  "city": "אשקלון",
+  "address": "מתחם פוואר סנטר, כפר סילבר",
+  "phone": "08-6756066",
+  "region": "south",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.6748007,
+   "lng": 34.6060214
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-143",
+  "_type": "store",
+  "sourceId": "c5-143",
+  "name": "ניצת הדובדבן תל -אביב",
+  "category": "nitzat",
+  "city": "תל אביב",
+  "address": "אבן גבירול 58",
+  "phone": "03-6965174",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0789016,
+   "lng": 34.7815665
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-144",
+  "_type": "store",
+  "sourceId": "c5-144",
+  "name": "ניצת הדובדבן אשדוד בע\"מ",
+  "category": "nitzat",
+  "city": "אשדוד",
+  "address": "האורגים 2",
+  "phone": "08-6613559",
+  "region": "south",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.8103631,
+   "lng": 34.6622048
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-145",
+  "_type": "store",
+  "sourceId": "c5-145",
+  "name": "ניצת הדובדבן בית שמש בע\"מ",
+  "category": "nitzat",
+  "city": "בית שמש",
+  "address": "יגאל אלון 24, מתחם סן סנטר(ליד תחנת דלק פז)",
+  "phone": "02-9991660",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.7544424,
+   "lng": 34.992761
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-146",
+  "_type": "store",
+  "sourceId": "c5-146",
+  "name": "ניצת הדובדבן בנימינה בע\"מ",
+  "category": "nitzat",
+  "city": "בנימינה",
+  "address": "השריג 2",
+  "phone": "04-6702602",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.5176075,
+   "lng": 34.9402728
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-147",
+  "_type": "store",
+  "sourceId": "c5-147",
+  "name": "ניצת הדובדבן בע\"מ- חיפה",
+  "category": "nitzat",
+  "city": "חיפה",
+  "address": "קומוי 7 -נוה שאנן",
+  "phone": "04-8322020",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.781857,
+   "lng": 35.01402
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-148",
+  "_type": "store",
+  "sourceId": "c5-148",
+  "name": "ניצת הדובדבן בע\"מ- קסטינה",
+  "category": "nitzat",
+  "city": "(ריק)",
+  "address": "ביג קסטינה",
+  "phone": "08-6626658",
+  "region": "south",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.728028,
+   "lng": 34.7550671
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-149",
+  "_type": "store",
+  "sourceId": "c5-149",
+  "name": "ניצת הדובדבן בע\"מ-סמילנסקי",
+  "category": "nitzat",
+  "city": "נתניה",
+  "address": "סמילנסקי 4",
+  "phone": "09-7732199",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.3282142,
+   "lng": 34.8559309
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-150",
+  "_type": "store",
+  "sourceId": "c5-150",
+  "name": "ניצת הדובדבן בע\"מ - אריאל",
+  "category": "nitzat",
+  "city": "אריאל",
+  "address": "הבנאי 6",
+  "phone": "03-6701979",
+  "region": "south",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.046051,
+   "lng": 34.851612
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-151",
+  "_type": "store",
+  "sourceId": "c5-151",
+  "name": "ניצת הדובדבן בע\"מ - באר שבע",
+  "category": "nitzat",
+  "city": "באר שבע",
+  "address": "העל 30 מתחם באר שבע",
+  "phone": "08-9229060",
+  "region": "south",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.2521018,
+   "lng": 34.7867691
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-152",
+  "_type": "store",
+  "sourceId": "c5-152",
+  "name": "ניצת הדובדבן בע\"מ - דיזינגוף 226",
+  "category": "nitzat",
+  "city": "תל אביב",
+  "address": "דיזינגוף 226",
+  "phone": "03-6135994",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0890596,
+   "lng": 34.7756284
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-153",
+  "_type": "store",
+  "sourceId": "c5-153",
+  "name": "ניצת הדובדבן בע\"מ - הוד השרון",
+  "category": "nitzat",
+  "city": "הוד השרון",
+  "address": "סוקולוב 13",
+  "phone": "09-8354687",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.1627152,
+   "lng": 34.9023851
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-154",
+  "_type": "store",
+  "sourceId": "c5-154",
+  "name": "ניצת הדובדבן בע\"מ - הרצליה",
+  "category": "nitzat",
+  "city": "הרצליה",
+  "address": "שד' בן גוריון 22, שער העיר",
+  "phone": "09-9560310",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.1629415,
+   "lng": 34.8421532
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-155",
+  "_type": "store",
+  "sourceId": "c5-155",
+  "name": "ניצת הדובדבן בע\"מ - חדרה",
+  "category": "nitzat",
+  "city": "חדרה",
+  "address": "שכטמן 10",
+  "phone": "04-6289245",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.4340458,
+   "lng": 34.9196518
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-156",
+  "_type": "store",
+  "sourceId": "c5-156",
+  "name": "ניצת הדובדבן בע\"מ - יהוד",
+  "category": "nitzat",
+  "city": "יהוד-מונוסון",
+  "address": "אלטלף 4",
+  "phone": "03-6486163",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0262441,
+   "lng": 34.9010009
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-157",
+  "_type": "store",
+  "sourceId": "c5-157",
+  "name": "ניצת הדובדבן בע\"מ - יהודה מכבי",
+  "category": "nitzat",
+  "city": "תל אביב",
+  "address": "יהודה מכבי 79",
+  "phone": "03-5562753",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.094197,
+   "lng": 34.7927009
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-158",
+  "_type": "store",
+  "sourceId": "c5-158",
+  "name": "ניצת הדובדבן בע\"מ - יכין סנטר",
+  "category": "nitzat",
+  "city": "פתח תקווה",
+  "address": "שחם 17",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0879003,
+   "lng": 34.8600023
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-159",
+  "_type": "store",
+  "sourceId": "c5-159",
+  "name": "ניצת הדובדבן בע\"מ - כפר סבא",
+  "category": "nitzat",
+  "city": "כפר סבא",
+  "address": "אנג'ל 78, מתחם B סנטר",
+  "phone": "09-9577643",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.1981077,
+   "lng": 34.890305
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-160",
+  "_type": "store",
+  "sourceId": "c5-160",
+  "name": "ניצת הדובדבן בע\"מ - כרכור",
+  "category": "nitzat",
+  "city": "פרדס חנה-כרכור",
+  "address": "המייסדים 22",
+  "phone": "04-8229574",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.4705238,
+   "lng": 34.9901543
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-161",
+  "_type": "store",
+  "sourceId": "c5-161",
+  "name": "ניצת הדובדבן בע\"מ - מבשרת",
+  "category": "nitzat",
+  "city": "מבשרת ציון",
+  "address": "החוצבים 20",
+  "phone": "0289667897",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.790487,
+   "lng": 35.142428
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-162",
+  "_type": "store",
+  "sourceId": "c5-162",
+  "name": "ניצת הדובדבן בע\"מ - נתניה פיאנו",
+  "category": "nitzat",
+  "city": "נתניה",
+  "address": "דודו דותן 8 (מתחם פיאנו)",
+  "phone": "09-8665702",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.2779106,
+   "lng": 34.8418372
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-163",
+  "_type": "store",
+  "sourceId": "c5-163",
+  "name": "ניצת הדובדבן בע\"מ - קרית מוצקין",
+  "category": "nitzat",
+  "city": "קריית מוצקין",
+  "address": "שדרות ירושלים 1",
+  "phone": "04-6498189",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.8040805,
+   "lng": 35.1058407
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-164",
+  "_type": "store",
+  "sourceId": "c5-164",
+  "name": "ניצת הדובדבן בע\"מ - רחובות הרצל",
+  "category": "nitzat",
+  "city": "רחובות",
+  "address": "יעקב 3, רחובות",
+  "phone": "08-6411237",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.896108,
+   "lng": 34.811677
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-165",
+  "_type": "store",
+  "sourceId": "c5-165",
+  "name": "ניצת הדובדבן בע\"מ - רמת אביב",
+  "category": "nitzat",
+  "city": "תל אביב",
+  "address": "ברודצקי 15",
+  "phone": "03-5457392",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.1065947,
+   "lng": 34.7973754
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-166",
+  "_type": "store",
+  "sourceId": "c5-166",
+  "name": "ניצת הדובדבן בע\"מ - רמת גן",
+  "category": "nitzat",
+  "city": "רמת גן",
+  "address": "ביאליק 46",
+  "phone": "03-6487240",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0838088,
+   "lng": 34.8143044
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-167",
+  "_type": "store",
+  "sourceId": "c5-167",
+  "name": "ניצת הדובדבן בע\"מ - שינקין",
+  "category": "nitzat",
+  "city": "תל אביב",
+  "address": "שינקין 59",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0684158,
+   "lng": 34.777418
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-168",
+  "_type": "store",
+  "sourceId": "c5-168",
+  "name": "ניצת הדובדבן בע\"מ - תל מונד",
+  "category": "nitzat",
+  "city": "תל מונד",
+  "address": "הדרור 8",
+  "phone": "09-8301997",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.263501,
+   "lng": 34.889549
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-169",
+  "_type": "store",
+  "sourceId": "c5-169",
+  "name": "ניצת הדובדבן בע\"מ - תלפיות",
+  "category": "nitzat",
+  "city": "ירושלים",
+  "address": "האומן 17",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.7507208,
+   "lng": 35.2086194
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-170",
+  "_type": "store",
+  "sourceId": "c5-170",
+  "name": "ניצת הדובדבן בע\"מ -אגריפס",
+  "category": "nitzat",
+  "city": "ירושלים",
+  "address": "אגריפס 99",
+  "phone": "02-5955154",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.7838783,
+   "lng": 35.2127281
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-171",
+  "_type": "store",
+  "sourceId": "c5-171",
+  "name": "ניצת הדובדבן בע\"מ -בוגרשוב",
+  "category": "nitzat",
+  "city": "תל אביב",
+  "address": "בוגרשוב 40",
+  "phone": "03-6703962",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.076129,
+   "lng": 34.7708641
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-172",
+  "_type": "store",
+  "sourceId": "c5-172",
+  "name": "ניצת הדובדבן בע\"מ -ביג באר שבע",
+  "category": "nitzat",
+  "city": "באר שבע",
+  "address": "חיל ההנדסה 2",
+  "phone": "08-9448231",
+  "region": "south",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.2433919,
+   "lng": 34.8125699
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-173",
+  "_type": "store",
+  "sourceId": "c5-173",
+  "name": "ניצת הדובדבן בע\"מ -גבעתיים",
+  "category": "nitzat",
+  "city": "גבעתיים",
+  "address": "סירקין 2",
+  "phone": "03-6375816",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0762722,
+   "lng": 34.8144712
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-174",
+  "_type": "store",
+  "sourceId": "c5-174",
+  "name": "ניצת הדובדבן בע\"מ -חורב",
+  "category": "nitzat",
+  "city": "חיפה",
+  "address": "חורב 14",
+  "phone": "04-6203606",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.7852998,
+   "lng": 34.985779
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-175",
+  "_type": "store",
+  "sourceId": "c5-175",
+  "name": "ניצת הדובדבן בע\"מ -טבעון",
+  "category": "nitzat",
+  "city": "טבעון",
+  "address": "כיכר בן גוריון 2",
+  "phone": "04-9530933",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.7225564,
+   "lng": 35.1302145
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-176",
+  "_type": "store",
+  "sourceId": "c5-176",
+  "name": "ניצת הדובדבן בע\"מ -טופ דן",
+  "category": "nitzat",
+  "city": "תל אביב",
+  "address": "פנחס רוזן 72",
+  "phone": "03-7476039",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.114692,
+   "lng": 34.8260661
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-177",
+  "_type": "store",
+  "sourceId": "c5-177",
+  "name": "ניצת הדובדבן בע\"מ -כרמיאל",
+  "category": "nitzat",
+  "city": "כרמיאל",
+  "address": "מתחם היוצר",
+  "phone": "04-9082408",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.9233702,
+   "lng": 35.308121
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-178",
+  "_type": "store",
+  "sourceId": "c5-178",
+  "name": "ניצת הדובדבן בע\"מ -ניות י-ם",
+  "category": "nitzat",
+  "city": "ירושלים",
+  "address": "שד הרב הרצוג 61",
+  "phone": "02-5946694",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.7661786,
+   "lng": 35.2047032
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-179",
+  "_type": "store",
+  "sourceId": "c5-179",
+  "name": "ניצת הדובדבן בע\"מ -נתניה שרונים",
+  "category": "nitzat",
+  "city": "נתניה",
+  "address": "פנחס בלקני 23",
+  "phone": "09-7736774",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.3126543,
+   "lng": 34.8739349
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-180",
+  "_type": "store",
+  "sourceId": "c5-180",
+  "name": "ניצת הדובדבן בע\"מ -רמת השרון",
+  "category": "nitzat",
+  "city": "רמת השרון",
+  "address": "סוקולוב 91",
+  "phone": "03-6726166",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.1485728,
+   "lng": 34.8395049
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-181",
+  "_type": "store",
+  "sourceId": "c5-181",
+  "name": "ניצת הדובדבן בע\"מ -רמת ישי",
+  "category": "nitzat",
+  "city": "רמת ישי",
+  "address": "האקליפטוס 4",
+  "phone": "04-8110843",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.7071087,
+   "lng": 35.1741454
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-182",
+  "_type": "store",
+  "sourceId": "c5-182",
+  "name": "ניצת הדובדבן בעמ - פלורנטין",
+  "category": "nitzat",
+  "city": "תל אביב",
+  "address": "הרצל 104",
+  "phone": "03-6839543",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0557882,
+   "lng": 34.7707355
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-183",
+  "_type": "store",
+  "sourceId": "c5-183",
+  "name": "ניצת הדובדבן זכרון יעקב",
+  "category": "nitzat",
+  "city": "זכרון יעקב",
+  "address": "מרכז מסחרי מול זכרון חנות 1",
+  "phone": "04-6290802",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.56924,
+   "lng": 34.933385
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-184",
+  "_type": "store",
+  "sourceId": "c5-184",
+  "name": "ניצת הדובדבן ירושליים",
+  "category": "nitzat",
+  "city": "ירושלים",
+  "address": "כנפי נשרים 22",
+  "phone": "02-6515697",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.7878319,
+   "lng": 35.1892063
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-185",
+  "_type": "store",
+  "sourceId": "c5-185",
+  "name": "ניצת הדובדבן עפולה",
+  "category": "nitzat",
+  "city": "עפולה",
+  "address": "חנקין 16",
+  "phone": "04-6427055",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.604309,
+   "lng": 35.2930835
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-186",
+  "_type": "store",
+  "sourceId": "c5-186",
+  "name": "ניצת הדובדבן פ\"ת",
+  "category": "nitzat",
+  "city": "פתח תקווה",
+  "address": "מתחם אושר עד איזור תעשיה סגולה",
+  "phone": "03-6246222",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.1052195,
+   "lng": 34.891782
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-187",
+  "_type": "store",
+  "sourceId": "c5-187",
+  "name": "ניצת הדובדבן פרדס חנה בע\"מ",
+  "category": "nitzat",
+  "city": "פרדס חנה-כרכור",
+  "address": "תדהר 2, מרכז ביג",
+  "phone": "052-2228781",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.48815740000001,
+   "lng": 34.9709335
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-188",
+  "_type": "store",
+  "sourceId": "c5-188",
+  "name": "ניצת הדובדבן רעננה (1998) בע\"מ",
+  "category": "nitzat",
+  "city": "רעננה",
+  "address": "אוסטרובסקי 39",
+  "phone": "09-7744717",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.177891,
+   "lng": 34.871013
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-189",
+  "_type": "store",
+  "sourceId": "c5-189",
+  "name": "ניצת הדובדבן שוק הכרמל בע\"מ",
+  "category": "nitzat",
+  "city": "תל אביב",
+  "address": "הכרמל 30",
+  "phone": "03-5101497",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0675179,
+   "lng": 34.7673512
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-190",
+  "_type": "store",
+  "sourceId": "c5-190",
+  "name": "ניצת הדובדבן הקריות בע\"מ",
+  "category": "nitzat",
+  "city": "קריית אתא",
+  "address": "ביג קריות, סולל בונה",
+  "phone": "04-6196114",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.811895,
+   "lng": 35.071818
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-191",
+  "_type": "store",
+  "sourceId": "c5-191",
+  "name": "ניצת הדובדבן רחובות - טבע גוש בע\"מ",
+  "category": "nitzat",
+  "city": "רחובות",
+  "address": "מוטי קינד 10, רחובות",
+  "phone": "08-6563339",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.8942717,
+   "lng": 34.7901567
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-192",
+  "_type": "store",
+  "sourceId": "c5-192",
+  "name": "נקודת טבע בית טבע עלומים",
+  "category": "health",
+  "city": "נס ציונה",
+  "address": "ויצמן 27",
+  "phone": "08-9380035",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.9275948,
+   "lng": 34.7980183
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-193",
+  "_type": "store",
+  "sourceId": "c5-193",
+  "name": "נקודת טבע חולון",
+  "category": "health",
+  "city": "חולון",
+  "address": "הרוקמים 26",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0070358,
+   "lng": 34.8005222
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-194",
+  "_type": "store",
+  "sourceId": "c5-194",
+  "name": "נקודת טבע יהודה מכבי",
+  "category": "health",
+  "city": "תל אביב",
+  "address": "יהודה מכבי 52",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0939074,
+   "lng": 34.7926851
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-195",
+  "_type": "store",
+  "sourceId": "c5-195",
+  "name": "נקודת טבע מ.ש.מ בע\"מ - חדרה",
+  "category": "health",
+  "city": "חדרה",
+  "address": "גורדון 10",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.43552,
+   "lng": 34.920362
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-196",
+  "_type": "store",
+  "sourceId": "c5-196",
+  "name": "נקודת טבע מ.ש.מ בעמ - סניף יפו",
+  "category": "health",
+  "city": "תל אביב",
+  "address": "יהודה הימית 61",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0499269,
+   "lng": 34.7537005
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-197",
+  "_type": "store",
+  "sourceId": "c5-197",
+  "name": "נקודת טבע מ.ש.מ סניף ראשון לציון",
+  "category": "health",
+  "city": "ראשון לציון",
+  "address": "הסוכה 14",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.9742547,
+   "lng": 34.7787152
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-198",
+  "_type": "store",
+  "sourceId": "c5-198",
+  "name": "נקודת טבע רעננה",
+  "category": "health",
+  "city": "רעננה",
+  "address": "אליעזר יפה 5",
+  "phone": "09-8616737",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.181159,
+   "lng": 34.8748522
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-199",
+  "_type": "store",
+  "sourceId": "c5-199",
+  "name": "נקודת טבע שוסטר מ.ש.מ בע\"מ",
+  "category": "health",
+  "city": "רמת אביב ג",
+  "address": "אחימאיר 25",
+  "phone": "03-6426381",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.1250547,
+   "lng": 34.803558
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-200",
+  "_type": "store",
+  "sourceId": "c5-200",
+  "name": "סופרפוד לאב בעמ",
+  "category": "health",
+  "city": "פרדס חנה-כרכור",
+  "address": "החרמון 5",
+  "phone": "050-6977552",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.4826602,
+   "lng": 34.9678887
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-201",
+  "_type": "store",
+  "sourceId": "c5-201",
+  "name": "עדן טבע מרקט בע\"מ -תל אביב 156",
+  "category": "health",
+  "city": "תל אביב",
+  "address": "מתחם גן העיר, רח' אבן גבירול 71 (קומת המזרקה)",
+  "phone": "03-7621777",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0821759,
+   "lng": 34.7805383
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-202",
+  "_type": "store",
+  "sourceId": "c5-202",
+  "name": "על המשקל בע\"מ - קרני שומרון",
+  "category": "health",
+  "city": "קרני שומרון",
+  "address": "העמל 4",
+  "phone": "09-7941471",
+  "region": "south",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.046051,
+   "lng": 34.851612
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-203",
+  "_type": "store",
+  "sourceId": "c5-203",
+  "name": "פארמה דאבל די בע\"מ",
+  "category": "health",
+  "city": "בת ים",
+  "address": "בלפור 45",
+  "phone": "03-5068776",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0261197,
+   "lng": 34.7452885
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-204",
+  "_type": "store",
+  "sourceId": "c5-204",
+  "name": "פארמה עודד- לקוח",
+  "category": "health",
+  "city": "ראשון לציון",
+  "address": "פלטין 3, אזור תעשייה חדש",
+  "phone": "03-9613086",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.988759,
+   "lng": 34.7717812
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-205",
+  "_type": "store",
+  "sourceId": "c5-205",
+  "name": "פארמה פלוס טל שחר",
+  "category": "health",
+  "city": "תל אביב",
+  "address": "שלום אש 9",
+  "phone": "03-6499312",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.1070612,
+   "lng": 34.8211824
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-206",
+  "_type": "store",
+  "sourceId": "c5-206",
+  "name": "פניני הטבע נתיבות",
+  "category": "health",
+  "city": "נתיבות",
+  "address": "שדרות ירושלים 110",
+  "phone": "052-7544344",
+  "region": "south",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.4217194,
+   "lng": 34.5719241
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-207",
+  "_type": "store",
+  "sourceId": "c5-207",
+  "name": "פניני טבע אורגני בע\"מ",
+  "category": "health",
+  "city": "מודיעין",
+  "address": "א.ת שילת בית מגה אור",
+  "phone": "08-9762431",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.8891466,
+   "lng": 34.9662406
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-208",
+  "_type": "store",
+  "sourceId": "c5-208",
+  "name": "פריים פארם",
+  "category": "health",
+  "city": "תל אביב",
+  "address": "יהודה מכבי 42",
+  "phone": "03-6055198",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.09385779999999,
+   "lng": 34.7915896
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-209",
+  "_type": "store",
+  "sourceId": "c5-209",
+  "name": "קבוצת מלצר טבעונות בע\"מ - סניף רגבה",
+  "category": "health",
+  "city": "מושב רגבה",
+  "address": "ביג רגבה",
+  "phone": "054-5300062",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.9745544,
+   "lng": 35.0948589
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-210",
+  "_type": "store",
+  "sourceId": "c5-210",
+  "name": "קבוצת מלצר טבעונות בעמ - סניף ויצמן",
+  "category": "health",
+  "city": "נהריה",
+  "address": "ויצמן 70",
+  "phone": "04-6197552",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 33.0057562,
+   "lng": 35.0922764
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-211",
+  "_type": "store",
+  "sourceId": "c5-211",
+  "name": "קו אופ אורגני",
+  "category": "health",
+  "city": "קבוץ גבעת חיים איחוד",
+  "address": "גבעת חיים איחוד",
+  "phone": "052-3990225",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.396065,
+   "lng": 34.933464
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-212",
+  "_type": "store",
+  "sourceId": "c5-212",
+  "name": "קיי. או.אל. הטבע בע\"מ",
+  "category": "health",
+  "city": "רמת ישי",
+  "address": "הצפצפה אזור תעשיה",
+  "phone": "04-6224969",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.7064675,
+   "lng": 35.174535
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-213",
+  "_type": "store",
+  "sourceId": "c5-213",
+  "name": "קינמון-בית טבע עם אלטרנטיבה",
+  "category": "health",
+  "city": "פתח תקווה",
+  "address": "מוהליבר 27",
+  "phone": "077-2005956",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.086298,
+   "lng": 34.8858547
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-214",
+  "_type": "store",
+  "sourceId": "c5-214",
+  "name": "קנאביסרי בעמ - בית מרקחת תלתן",
+  "category": "health",
+  "city": "בת ים",
+  "address": "עפרה חזה 9",
+  "phone": "03-7555465",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.00685,
+   "lng": 34.739938
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-215",
+  "_type": "store",
+  "sourceId": "c5-215",
+  "name": "קנאשור פארמסי בע\"מ",
+  "category": "health",
+  "city": "תל אביב",
+  "address": "פינקס 27",
+  "phone": "03-6041449",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0913416,
+   "lng": 34.7866793
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-216",
+  "_type": "store",
+  "sourceId": "c5-216",
+  "name": "קסם הטבע מוצרי בריאות וטבע בע\"מ - (קריות)",
+  "category": "health",
+  "city": "חיפה",
+  "address": "האצטדיון 4",
+  "phone": "04-6255559",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.8245612,
+   "lng": 35.0611846
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-217",
+  "_type": "store",
+  "sourceId": "c5-217",
+  "name": "קסם הטבע מוצרי בריאות וטבע בע\"מ (חיפה)",
+  "category": "health",
+  "city": "חיפה",
+  "address": "מוריה 58",
+  "phone": "04-8262728",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.796323,
+   "lng": 34.9843125
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-218",
+  "_type": "store",
+  "sourceId": "c5-218",
+  "name": "קסם הטבע מוצרי בריאות וטבע בע\"מ(כפר ורדים)",
+  "category": "health",
+  "city": "כפר ורדים",
+  "address": "מרכז מסחרי- כפר ורדים",
+  "phone": "04-9574333",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.9962038,
+   "lng": 35.2754552
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-219",
+  "_type": "store",
+  "sourceId": "c5-219",
+  "name": "קסם הטבע מוצרי בריאות וטבע בע\"מ(כרמיאל)",
+  "category": "health",
+  "city": "כרמיאל",
+  "address": "החרושת 13",
+  "phone": "04-9889669",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.9217548,
+   "lng": 35.3058228
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-220",
+  "_type": "store",
+  "sourceId": "c5-220",
+  "name": "ניצת הדובדבן אילת",
+  "category": "nitzat",
+  "city": "אילת",
+  "address": "המוצר 17, אזור תעשיה אילת",
+  "region": "south",
+  "location": {
+   "_type": "geopoint",
+   "lat": 29.5673879,
+   "lng": 34.9587889
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-221",
+  "_type": "store",
+  "sourceId": "c5-221",
+  "name": "ר.עזרא סחר ושיווק בעמ",
+  "category": "health",
+  "city": "כפר סבא",
+  "address": "המנופים 2",
+  "phone": "052-7733004",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.1729496,
+   "lng": 34.92862970000001
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-222",
+  "_type": "store",
+  "sourceId": "c5-222",
+  "name": "רעננה בטבע בע\"מ",
+  "category": "health",
+  "city": "רעננה",
+  "address": "החרושת 32",
+  "phone": "09-9789577",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.1970314,
+   "lng": 34.8802834
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-223",
+  "_type": "store",
+  "sourceId": "c5-223",
+  "name": "שורשים בית טבע ובריאות",
+  "category": "health",
+  "city": "יבנה",
+  "address": "שד' דואני 20",
+  "phone": "08-9334202",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.8728971,
+   "lng": 34.7394285
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-224",
+  "_type": "store",
+  "sourceId": "c5-224",
+  "name": "שירג זיותי סניף שד ירושליים",
+  "category": "health",
+  "city": "יפו",
+  "address": "שדרות ירושלים 57",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0497368,
+   "lng": 34.7590386
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-225",
+  "_type": "store",
+  "sourceId": "c5-225",
+  "name": "שירת הארץ - ירושליים צפת",
+  "category": "health",
+  "city": "צפת",
+  "address": "ירושלים 37",
+  "phone": "04-6827050",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.9684787,
+   "lng": 35.4934263
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-226",
+  "_type": "store",
+  "sourceId": "c5-226",
+  "name": "שקדיה בע\"מ",
+  "category": "health",
+  "city": "רמת גן",
+  "address": "שד` ירושלים 48",
+  "phone": "03674649",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0497636,
+   "lng": 34.7587122
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-227",
+  "_type": "store",
+  "sourceId": "c5-227",
+  "name": "שקדיה גבעתיים",
+  "category": "health",
+  "city": "גבעתיים",
+  "address": "כצנלסון 56",
+  "phone": "03-7319958",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0751169,
+   "lng": 34.8081534
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-228",
+  "_type": "store",
+  "sourceId": "c5-228",
+  "name": "שקדיה הוד השרון",
+  "category": "health",
+  "city": "הוד השרון",
+  "address": "הבנים 14",
+  "phone": "09-7481486",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.1558321,
+   "lng": 34.8909276
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-229",
+  "_type": "store",
+  "sourceId": "c5-229",
+  "name": "ת.ר.ד בריאות בע\"מ",
+  "category": "health",
+  "city": "יבנה",
+  "address": "עוזי חיטמן 1",
+  "phone": "08-6599066",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.8637268,
+   "lng": 34.7265993
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-230",
+  "_type": "store",
+  "sourceId": "c5-230",
+  "name": "תבלין וטבע חדרה",
+  "category": "health",
+  "city": "חדרה",
+  "address": "רוטשילד 15",
+  "phone": "04-6330633",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.4356097,
+   "lng": 34.9206946
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-231",
+  "_type": "store",
+  "sourceId": "c5-231",
+  "name": "תבלינים בטעם טוב",
+  "category": "health",
+  "city": "קריית גת",
+  "address": "כיכר פז 26 מרכז מסחרי (מול בנק מזרחי)",
+  "phone": "08-6816015",
+  "region": "south",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.606988,
+   "lng": 34.7727972
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-232",
+  "_type": "store",
+  "sourceId": "c5-232",
+  "name": "ביוגאיה אתר אינטרנט",
+  "category": "online",
+  "city": "כפר סבא",
+  "website": "https://www.biogaya.co.il/catalogsearch/result/?q=%D7%A7%D7%98%D7%92%D7%95%D7%A8%D7%99%D7%94+5",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.178195,
+   "lng": 34.90761
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-233",
+  "_type": "store",
+  "sourceId": "c5-233",
+  "name": "המרכז לרפואת הרמבם",
+  "category": "online",
+  "city": "ראשון לציון",
+  "website": "https://rambam-medicine.org.il/shop/",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.95908129999999,
+   "lng": 34.8020886
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-234",
+  "_type": "store",
+  "sourceId": "c5-234",
+  "name": "המרכז לרפואת הרמבם",
+  "category": "health",
+  "city": "ראשון לציון",
+  "address": "אסף סנטר בית חולים אסף הרופא",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.971067599999994,
+   "lng": 34.79581617142857
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-235",
+  "_type": "store",
+  "sourceId": "c5-235",
+  "name": "כליל הטבע",
+  "category": "online",
+  "city": "עפולה",
+  "website": "https://www.klilhateva.co.il/search/?q=%D7%A7%D7%98%D7%92%D7%95%D7%A8%D7%99%D7%94+5",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.608669899999995,
+   "lng": 35.289310300000004
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-236",
+  "_type": "store",
+  "sourceId": "c5-236",
+  "name": "ByBy Today",
+  "category": "online",
+  "city": "רמת גן",
+  "address": "תל אביב",
+  "website": "https://byby.today",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.07094668,
+   "lng": 34.80478151999999
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-237",
+  "_type": "store",
+  "sourceId": "c5-237",
+  "name": "ניצת הדובדבן אתר אינטרנט",
+  "category": "online",
+  "city": "מודיעין",
+  "website": "https://www.nizat.com/productslist.aspx?manufacturer=%D7%A7%D7%98%D7%92%D7%95%D7%A8%D7%99%D7%94+5",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.891540374999998,
+   "lng": 34.987554274999994
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-238",
+  "_type": "store",
+  "sourceId": "c5-238",
+  "name": "טבע בריא אתר אינטרנט",
+  "category": "online",
+  "city": "תל אביב",
+  "website": "https://www.tevabari.co.il/",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.079862119444456,
+   "lng": 34.78712651944445
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-239",
+  "_type": "store",
+  "sourceId": "c5-239",
+  "name": "B&D בן יעקב - בני ברק",
+  "category": "bd",
+  "city": "בני ברק",
+  "address": "בן יעקב 21",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.08610836666667,
+   "lng": 34.83393026666666
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-240",
+  "_type": "store",
+  "sourceId": "c5-240",
+  "name": "B&D הרב קוק - בני ברק",
+  "category": "bd",
+  "city": "בני ברק",
+  "address": "הרב קוק 13",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.08610836666667,
+   "lng": 34.83393026666666
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-241",
+  "_type": "store",
+  "sourceId": "c5-241",
+  "name": "B&D אלעד",
+  "category": "bd",
+  "city": "אלעד",
+  "address": "יהודה הנשיא 95",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.053726,
+   "lng": 34.964993
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-242",
+  "_type": "store",
+  "sourceId": "c5-242",
+  "name": "B&D קריית ספר מודיעין עלית",
+  "category": "bd",
+  "city": "מודיעין עילית",
+  "address": "חפץ חיים 7",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.9304948,
+   "lng": 35.0388026
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-243",
+  "_type": "store",
+  "sourceId": "c5-243",
+  "name": "B&D ברכפלד מודיעין עלית",
+  "category": "bd",
+  "city": "מודיעין עילית",
+  "address": "רבי שמעון בר יוחאי 35",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.9304948,
+   "lng": 35.0388026
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-244",
+  "_type": "store",
+  "sourceId": "c5-244",
+  "name": "B&D קריית גת",
+  "category": "bd",
+  "city": "קריית גת",
+  "address": "בית יוסף 68",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.61,
+   "lng": 34.7642
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-245",
+  "_type": "store",
+  "sourceId": "c5-245",
+  "name": "B&D תל ציון",
+  "category": "bd",
+  "city": "כוכב יעקב",
+  "address": "אהבת ישראל 18",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.88,
+   "lng": 35.24
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-246",
+  "_type": "store",
+  "sourceId": "c5-246",
+  "name": "B&D ירושלים - פינת חנות המפעל",
+  "category": "bd",
+  "city": "ירושלים",
+  "address": "אגרות משה 5",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.779259366666672,
+   "lng": 35.20542961666667
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-247",
+  "_type": "store",
+  "sourceId": "c5-247",
+  "name": "B&D אשדוד",
+  "category": "bd",
+  "city": "אשדוד",
+  "address": "רבי מאיר בעל הנס 28",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.80102868,
+   "lng": 34.65912324
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-248",
+  "_type": "store",
+  "sourceId": "c5-248",
+  "name": "B&D ביתר עלית",
+  "category": "bd",
+  "city": "ביתר עילית",
+  "address": "המגיד ממעזריטש 60",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.70344865,
+   "lng": 35.11778795
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-249",
+  "_type": "store",
+  "sourceId": "c5-249",
+  "name": "B&D נתיבות",
+  "category": "bd",
+  "city": "נתיבות",
+  "address": "בן גוריון 9",
+  "region": "south",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.4243101,
+   "lng": 34.57848425
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-250",
+  "_type": "store",
+  "sourceId": "c5-250",
+  "name": "B&D בית שמש",
+  "category": "bd",
+  "city": "בית שמש",
+  "address": "שדרות האמוראים 73",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.740207733333335,
+   "lng": 34.993809133333336
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-251",
+  "_type": "store",
+  "sourceId": "c5-251",
+  "name": "סופר-פארם יבנה הירוקה",
+  "category": "super-pharm",
+  "city": "יבנה",
+  "address": "רחוב הדוגית 16",
+  "phone": "077-8882380",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.871377999999996,
+   "lng": 34.733988933333336
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-252",
+  "_type": "store",
+  "sourceId": "c5-252",
+  "name": "סופר פארם GALLERY",
+  "category": "super-pharm",
+  "city": "ראשון לציון",
+  "address": "ילדי טהרן 5",
+  "phone": "077-8881360",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.971067599999994,
+   "lng": 34.79581617142857
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-253",
+  "_type": "store",
+  "sourceId": "c5-253",
+  "name": "סופר פארם TLV",
+  "category": "super-pharm",
+  "city": "תל אביב",
+  "address": "החשמונאים 94",
+  "phone": "077-8882520",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.079862119444456,
+   "lng": 34.78712651944445
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-254",
+  "_type": "store",
+  "sourceId": "c5-254",
+  "name": "סופר פארם אבן יהודה",
+  "category": "super-pharm",
+  "city": "אבן יהודה",
+  "address": "המייסדים 62",
+  "phone": "077-8882680",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.27,
+   "lng": 34.8875
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-255",
+  "_type": "store",
+  "sourceId": "c5-255",
+  "name": "סופר פארם אגמים אשקלון",
+  "category": "super-pharm",
+  "city": "אשקלון",
+  "address": "שד עמק האלה 49",
+  "phone": "077-8883180",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.665833366666664,
+   "lng": 34.586678166666665
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-256",
+  "_type": "store",
+  "sourceId": "c5-256",
+  "name": "סופר פארם אגמים נתניה",
+  "category": "super-pharm",
+  "city": "נתניה",
+  "address": "שדרות אגם כנרת 6",
+  "phone": "077-8882330",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.313994480000005,
+   "lng": 34.86196954
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-257",
+  "_type": "store",
+  "sourceId": "c5-257",
+  "name": "סופר פארם אודיטוריום חיפה",
+  "category": "super-pharm",
+  "city": "חיפה",
+  "address": "שד' הנשיא 134",
+  "phone": "077-8881110",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.802482266666665,
+   "lng": 35.01872092222223
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-258",
+  "_type": "store",
+  "sourceId": "c5-258",
+  "name": "סופר פארם אום אל פחם",
+  "category": "super-pharm",
+  "city": "אום אל פחם",
+  "address": "מתחם SEVEN רחוב אום אל פחם 27",
+  "phone": "077-8881290",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.5196,
+   "lng": 35.1532
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-259",
+  "_type": "store",
+  "sourceId": "c5-259",
+  "name": "סופר פארם אונו פארק",
+  "category": "super-pharm",
+  "city": "קריית אונו",
+  "address": "שמירה אימבר 1",
+  "phone": "077-8883270",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0636,
+   "lng": 34.8553
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-260",
+  "_type": "store",
+  "sourceId": "c5-260",
+  "name": "סופר פארם אוסישקין",
+  "category": "super-pharm",
+  "city": "רמת השרון",
+  "address": "אוסישקין 62",
+  "phone": "077-8881270",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.1485728,
+   "lng": 34.8395049
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-261",
+  "_type": "store",
+  "sourceId": "c5-261",
+  "name": "סופר פארם אור יהודה",
+  "category": "super-pharm",
+  "city": "אור יהודה",
+  "address": "המפעל 11",
+  "phone": "077-8881260",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0306,
+   "lng": 34.8556
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-262",
+  "_type": "store",
+  "sourceId": "c5-262",
+  "name": "סופר פארם אורדע",
+  "category": "super-pharm",
+  "city": "רמת גן",
+  "address": "כיכר רמבם 3",
+  "phone": "077-8880500",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.07094668,
+   "lng": 34.80478151999999
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-263",
+  "_type": "store",
+  "sourceId": "c5-263",
+  "name": "סופר פארם אורון",
+  "category": "super-pharm",
+  "city": "פתח תקווה",
+  "address": "רוטשילד 182",
+  "phone": "077-8880060",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0901854,
+   "lng": 34.882469625
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-264",
+  "_type": "store",
+  "sourceId": "c5-264",
+  "name": "סופר פארם איינשטיין חיפה",
+  "category": "super-pharm",
+  "city": "חיפה",
+  "address": "איינשטין 139",
+  "phone": "077-8882630",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.802482266666665,
+   "lng": 35.01872092222223
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-265",
+  "_type": "store",
+  "sourceId": "c5-265",
+  "name": "סופר פארם איכילוב",
+  "category": "super-pharm",
+  "city": "תל אביב",
+  "address": "ויצמן 14 א' ת\"א",
+  "phone": "077-8881070",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.079862119444456,
+   "lng": 34.78712651944445
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-266",
+  "_type": "store",
+  "sourceId": "c5-266",
+  "name": "סופר פארם אילת שחמון",
+  "category": "super-pharm",
+  "city": "אילת",
+  "address": "שד ששת הימים 290-294",
+  "phone": "077-8881670",
+  "region": "south",
+  "location": {
+   "_type": "geopoint",
+   "lat": 29.5673879,
+   "lng": 34.9587889
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-267",
+  "_type": "store",
+  "sourceId": "c5-267",
+  "name": "סופר פארם אליהו קורן י-ם",
+  "category": "super-pharm",
+  "city": "ירושלים",
+  "address": "אסתר רזיאל 6",
+  "phone": "077-8882400",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.779259366666672,
+   "lng": 35.20542961666667
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-268",
+  "_type": "store",
+  "sourceId": "c5-268",
+  "name": "סופר פארם אלנבי",
+  "category": "super-pharm",
+  "city": "תל אביב",
+  "address": "אלנבי 115",
+  "phone": "077-8881140",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.079862119444456,
+   "lng": 34.78712651944445
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-269",
+  "_type": "store",
+  "sourceId": "c5-269",
+  "name": "סופר פארם אם המושבות",
+  "category": "super-pharm",
+  "city": "פתח תקווה",
+  "address": "יעל רום 8",
+  "phone": "077-8881990",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0901854,
+   "lng": 34.882469625
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-270",
+  "_type": "store",
+  "sourceId": "c5-270",
+  "name": "סופר פארם ארלוזורוב",
+  "category": "super-pharm",
+  "city": "תל אביב",
+  "address": "דיזינגוף 208",
+  "phone": "077-8882200",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.079862119444456,
+   "lng": 34.78712651944445
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-271",
+  "_type": "store",
+  "sourceId": "c5-271",
+  "name": "סופר פארם ארמון חיפה",
+  "category": "super-pharm",
+  "city": "חיפה",
+  "address": "נביאים 18",
+  "phone": "077-8880820",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.802482266666665,
+   "lng": 35.01872092222223
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-272",
+  "_type": "store",
+  "sourceId": "c5-272",
+  "name": "סופר פארם ארנה",
+  "category": "super-pharm",
+  "city": "נהריה",
+  "address": "שד בן צבי 1",
+  "phone": "077-8882290",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 33.006591566666664,
+   "lng": 35.09548266666667
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-273",
+  "_type": "store",
+  "sourceId": "c5-273",
+  "name": "סופר פארם אשדוד סיטי",
+  "category": "super-pharm",
+  "city": "אשדוד",
+  "address": "הבנים 1",
+  "phone": "077-8880400",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.80102868,
+   "lng": 34.65912324
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-274",
+  "_type": "store",
+  "sourceId": "c5-274",
+  "name": "סופר פארם באר יעקב",
+  "category": "super-pharm",
+  "city": "באר יעקב",
+  "address": "רחוב שא נס 17",
+  "phone": "077-8882490",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.9425,
+   "lng": 34.8344
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-275",
+  "_type": "store",
+  "sourceId": "c5-275",
+  "name": "סופר פארם בורוכוב",
+  "category": "super-pharm",
+  "city": "גבעתיים",
+  "address": "בורוכוב 54",
+  "phone": "077-8882790",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.07021466,
+   "lng": 34.81405666
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-276",
+  "_type": "store",
+  "sourceId": "c5-276",
+  "name": "סופר פארם ביג אור יהודה",
+  "category": "super-pharm",
+  "city": "אור יהודה",
+  "address": "יצחק רבין 5",
+  "phone": "077-8881930",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0306,
+   "lng": 34.8556
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-277",
+  "_type": "store",
+  "sourceId": "c5-277",
+  "name": "סופר פארם ביג אילת",
+  "category": "super-pharm",
+  "city": "אילת",
+  "address": "הסתת 14",
+  "phone": "077-8881120",
+  "region": "south",
+  "location": {
+   "_type": "geopoint",
+   "lat": 29.5673879,
+   "lng": 34.9587889
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-278",
+  "_type": "store",
+  "sourceId": "c5-278",
+  "name": "סופר פארם ביג ב\"ש",
+  "category": "super-pharm",
+  "city": "באר שבע",
+  "address": "חיל ההנדסה 2",
+  "phone": "077-8880550",
+  "region": "south",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.2433919,
+   "lng": 34.8125699
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-279",
+  "_type": "store",
+  "sourceId": "c5-279",
+  "name": "סופר פארם ביג יהוד",
+  "category": "super-pharm",
+  "city": "יהוד-מונוסון",
+  "address": "אלטלף 4",
+  "phone": "077-8882950",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0333,
+   "lng": 34.8833
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-280",
+  "_type": "store",
+  "sourceId": "c5-280",
+  "name": "סופר פארם ביג יקנעם",
+  "category": "super-pharm",
+  "city": "יקנעם",
+  "address": "שדרות יצחק רבין 9",
+  "phone": "077-8881510",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.6426784,
+   "lng": 35.0927494
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-281",
+  "_type": "store",
+  "sourceId": "c5-281",
+  "name": "סופר פארם ביג נצרת",
+  "category": "super-pharm",
+  "city": "נצרת",
+  "address": "תופיק זיאד 53",
+  "phone": "077-8881590",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.6996,
+   "lng": 35.3035
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-282",
+  "_type": "store",
+  "sourceId": "c5-282",
+  "name": "סופר פארם ביג עפולה",
+  "category": "super-pharm",
+  "city": "עפולה",
+  "address": "השוק 13",
+  "phone": "077-8882010",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.608669899999995,
+   "lng": 35.289310300000004
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-283",
+  "_type": "store",
+  "sourceId": "c5-283",
+  "name": "סופר פארם ביג פאשן",
+  "category": "super-pharm",
+  "city": "אשדוד",
+  "address": "דרך הרכבת 1",
+  "phone": "077-8882300",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.80102868,
+   "lng": 34.65912324
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-284",
+  "_type": "store",
+  "sourceId": "c5-284",
+  "name": "סופר פארם ביג פולג",
+  "category": "super-pharm",
+  "city": "נתניה דרום",
+  "address": "גיבורי ישראל 5 א",
+  "phone": "077-8881040",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.285,
+   "lng": 34.855
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-285",
+  "_type": "store",
+  "sourceId": "c5-285",
+  "name": "סופר פארם ביג פוריה",
+  "category": "super-pharm",
+  "city": "טבריה",
+  "address": "המברג 1",
+  "phone": "077-8881580",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.7895842,
+   "lng": 35.5379054
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-286",
+  "_type": "store",
+  "sourceId": "c5-286",
+  "name": "סופר פארם ביג פרדס חנה",
+  "category": "super-pharm",
+  "city": "פרדס חנה-כרכור",
+  "address": "תדהר 1",
+  "phone": "077-8881940",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.48152266666667,
+   "lng": 34.9706872
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-287",
+  "_type": "store",
+  "sourceId": "c5-287",
+  "name": "סופר פארם ביג צ'ק פוסט",
+  "category": "super-pharm",
+  "city": "חיפה",
+  "address": "בר יהודה 111",
+  "phone": "077-8881700",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.802482266666665,
+   "lng": 35.01872092222223
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-288",
+  "_type": "store",
+  "sourceId": "c5-288",
+  "name": "סופר פארם ביג קסטינה",
+  "category": "super-pharm",
+  "city": "מתחם ביג קסטינה",
+  "address": "אזור תעשיה, מתחם ביג קסטינה",
+  "phone": "077-8881500",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.725,
+   "lng": 34.74
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-289",
+  "_type": "store",
+  "sourceId": "c5-289",
+  "name": "סופר פארם ביג קרית גת",
+  "category": "super-pharm",
+  "city": "קריית גת",
+  "address": "הדרם 3",
+  "phone": "077-8881780",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.606988,
+   "lng": 34.7727972
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-290",
+  "_type": "store",
+  "sourceId": "c5-290",
+  "name": "סופר פארם בילו סנטר",
+  "category": "super-pharm",
+  "city": "בילו סנטר",
+  "address": "קרית עקרון, מתחם בילו סנטר, בילו סנטר",
+  "phone": "077-8880520",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.86,
+   "lng": 34.775
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-291",
+  "_type": "store",
+  "sourceId": "c5-291",
+  "name": "סופר פארם בית אמריקה",
+  "category": "super-pharm",
+  "city": "פתח תקווה",
+  "address": "רוטשילד 72",
+  "phone": "077-8880050",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0901854,
+   "lng": 34.882469625
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-292",
+  "_type": "store",
+  "sourceId": "c5-292",
+  "name": "סופר פארם בית האומות",
+  "category": "super-pharm",
+  "city": "ירושלים",
+  "address": "חברון 101",
+  "phone": "077-8881760",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.779259366666672,
+   "lng": 35.20542961666667
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-293",
+  "_type": "store",
+  "sourceId": "c5-293",
+  "name": "סופר פארם בית הבד",
+  "category": "super-pharm",
+  "city": "הוד השרון",
+  "address": "בית הבד 2",
+  "phone": "077-8882270",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.16218955,
+   "lng": 34.89937595
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-294",
+  "_type": "store",
+  "sourceId": "c5-294",
+  "name": "סופר פארם בית הכרם",
+  "category": "super-pharm",
+  "city": "ירושלים",
+  "address": "אביזוהר 7",
+  "phone": "077-8881210",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.779259366666672,
+   "lng": 35.20542961666667
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-295",
+  "_type": "store",
+  "sourceId": "c5-295",
+  "name": "סופר פארם בית שאן",
+  "category": "super-pharm",
+  "city": "בית שאן",
+  "address": "ירושלים הבירה",
+  "phone": "077-8881714",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.497,
+   "lng": 35.4969
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-296",
+  "_type": "store",
+  "sourceId": "c5-296",
+  "name": "סופר פארם בית שמש",
+  "category": "super-pharm",
+  "city": "בית שמש",
+  "address": "יגאל אלון 1",
+  "phone": "077-8880930",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.740207733333335,
+   "lng": 34.993809133333336
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-297",
+  "_type": "store",
+  "sourceId": "c5-297",
+  "name": "סופר פארם בן גוריון",
+  "category": "super-pharm",
+  "city": "רמת גן",
+  "address": "בן גוריון 183",
+  "phone": "077-8880960",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.07094668,
+   "lng": 34.80478151999999
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-298",
+  "_type": "store",
+  "sourceId": "c5-298",
+  "name": "סופר פארם בן יהודה",
+  "category": "super-pharm",
+  "city": "תל אביב",
+  "address": "אלנבי 1",
+  "phone": "077-8882100",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.079862119444456,
+   "lng": 34.78712651944445
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-299",
+  "_type": "store",
+  "sourceId": "c5-299",
+  "name": "סופר פארם בסר סיטי פ\"ת",
+  "category": "super-pharm",
+  "city": "פתח תקווה",
+  "address": "זבוטינסקי 61",
+  "phone": "077-8883130",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0901854,
+   "lng": 34.882469625
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-300",
+  "_type": "store",
+  "sourceId": "c5-300",
+  "name": "סופר פארם ברנע אשקלון",
+  "category": "super-pharm",
+  "city": "אשקלון",
+  "address": "שד ירושלים 117",
+  "phone": "077-8883050",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.665833366666664,
+   "lng": 34.586678166666665
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-301",
+  "_type": "store",
+  "sourceId": "c5-301",
+  "name": "סופר פארם בת ים",
+  "category": "super-pharm",
+  "city": "בת ים",
+  "address": "יוספטל 92",
+  "phone": "077-8881150",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.01691905,
+   "lng": 34.7434274
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-302",
+  "_type": "store",
+  "sourceId": "c5-302",
+  "name": "סופר פארם ג'דיידה-מכר",
+  "category": "super-pharm",
+  "city": "ג'דייה מכר",
+  "phone": "077-8882960",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.928656,
+   "lng": 35.150573
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-303",
+  "_type": "store",
+  "sourceId": "c5-303",
+  "name": "סופר פארם גאלרי קריון",
+  "category": "super-pharm",
+  "city": "קריית ביאליק",
+  "address": "דרך עכו 192",
+  "phone": "077-8880150",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.83028720000001,
+   "lng": 35.0852959
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-304",
+  "_type": "store",
+  "sourceId": "c5-304",
+  "name": "סופר פארם גבעת טל",
+  "category": "super-pharm",
+  "city": "ראש העין",
+  "address": "משה דייו 2",
+  "phone": "077-8881030",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0956,
+   "lng": 34.9566
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-305",
+  "_type": "store",
+  "sourceId": "c5-305",
+  "name": "סופר פארם גבעת סבון",
+  "category": "super-pharm",
+  "city": "גבעת סביון",
+  "address": "הגליל 78",
+  "phone": "077-8880120",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.05,
+   "lng": 34.88
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-306",
+  "_type": "store",
+  "sourceId": "c5-306",
+  "name": "סופר פארם גבעת שאול",
+  "category": "super-pharm",
+  "city": "ירושלים",
+  "address": "כנפי נשרים 22",
+  "phone": "077-8880880",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.7878319,
+   "lng": 35.1892063
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-307",
+  "_type": "store",
+  "sourceId": "c5-307",
+  "name": "סופר פארם גבעת שמואל",
+  "category": "super-pharm",
+  "city": "גבעת שמואל",
+  "address": "מנחם בגין 23",
+  "phone": "077-8882470",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0778,
+   "lng": 34.8481
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-308",
+  "_type": "store",
+  "sourceId": "c5-308",
+  "name": "סופר פארם גדרה",
+  "category": "super-pharm",
+  "city": "גדרה",
+  "address": "בן גוריון 105",
+  "phone": "077-8881460",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.8169109,
+   "lng": 34.7798188
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-309",
+  "_type": "store",
+  "sourceId": "c5-309",
+  "name": "סופר פארם גורדון",
+  "category": "super-pharm",
+  "city": "תל אביב",
+  "address": "דיזינגוף 129",
+  "phone": "077-8880730",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.079862119444456,
+   "lng": 34.78712651944445
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-310",
+  "_type": "store",
+  "sourceId": "c5-310",
+  "name": "סופר פארם גושן קרית מוצקין",
+  "category": "super-pharm",
+  "city": "קריית מוצקין",
+  "address": "גושן 20",
+  "phone": "077-8882820",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.8145222,
+   "lng": 35.092010099999996
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-311",
+  "_type": "store",
+  "sourceId": "c5-311",
+  "name": "סופר פארם גילה",
+  "category": "super-pharm",
+  "city": "ירושלים",
+  "address": "צביה ויצחק 5",
+  "phone": "077-8880070",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.779259366666672,
+   "lng": 35.20542961666667
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-312",
+  "_type": "store",
+  "sourceId": "c5-312",
+  "name": "סופר פארם גלובוס אשקלון",
+  "category": "super-pharm",
+  "city": "אשקלון",
+  "address": "גלובוס סנטר",
+  "phone": "077-8882690",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.665833366666664,
+   "lng": 34.586678166666665
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-313",
+  "_type": "store",
+  "sourceId": "c5-313",
+  "name": "סופר פארם גליל ים הרצליה",
+  "category": "super-pharm",
+  "city": "הרצליה",
+  "address": "יוסי שריד 6",
+  "phone": "077-8883140",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.1643791,
+   "lng": 34.84300833333333
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-314",
+  "_type": "store",
+  "sourceId": "c5-314",
+  "name": "סופר פארם גן יבנה",
+  "category": "super-pharm",
+  "city": "גן יבנה",
+  "address": "המגינים 56",
+  "phone": "077-8882280",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.789297,
+   "lng": 34.7138776
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-315",
+  "_type": "store",
+  "sourceId": "c5-315",
+  "name": "סופר פארם גן שמואל",
+  "category": "super-pharm",
+  "city": "קיבוץ גן שמואל",
+  "address": "מרכז מסחרי",
+  "phone": "077-8880840",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.4469,
+   "lng": 34.9506
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-316",
+  "_type": "store",
+  "sourceId": "c5-316",
+  "name": "סופר פארם גרנד ב\"ש",
+  "category": "super-pharm",
+  "city": "באר שבע",
+  "address": "שד טוביהו דוד 125",
+  "phone": "077-8882040",
+  "region": "south",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.245865575000003,
+   "lng": 34.801231724999994
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-317",
+  "_type": "store",
+  "sourceId": "c5-317",
+  "name": "סופר פארם גרנד קניון",
+  "category": "super-pharm",
+  "city": "חיפה",
+  "address": "דרך שמחה גולן 54",
+  "phone": "077-8880770",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.802482266666665,
+   "lng": 35.01872092222223
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-318",
+  "_type": "store",
+  "sourceId": "c5-318",
+  "name": "סופר פארם דושי סנטר נצרת",
+  "category": "super-pharm",
+  "city": "נצרת",
+  "address": "בילאל 45",
+  "phone": "0",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.6996,
+   "lng": 35.3035
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-319",
+  "_type": "store",
+  "sourceId": "c5-319",
+  "name": "סופר פארם דיזינגוף סנטר",
+  "category": "super-pharm",
+  "city": "תל אביב",
+  "address": "דיזינגוף 50",
+  "phone": "077-8880170",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.079862119444456,
+   "lng": 34.78712651944445
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-320",
+  "_type": "store",
+  "sourceId": "c5-320",
+  "name": "סופר פארם דימונה דימרי סנטר",
+  "category": "super-pharm",
+  "city": "דימונה",
+  "address": "גולדה מאיר 20",
+  "phone": "077-8883020",
+  "region": "south",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.069419,
+   "lng": 35.033363
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-321",
+  "_type": "store",
+  "sourceId": "c5-321",
+  "name": "סופר פארם דימונה",
+  "category": "super-pharm",
+  "city": "דימונה",
+  "address": "אזור תעשיה 395",
+  "phone": "077-8881350",
+  "region": "south",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.069419,
+   "lng": 35.033363
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-322",
+  "_type": "store",
+  "sourceId": "c5-322",
+  "name": "סופר פארם דרך בר לב",
+  "category": "super-pharm",
+  "city": "תל אביב",
+  "address": "משה דיין 2",
+  "phone": "077-8882700",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.079862119444456,
+   "lng": 34.78712651944445
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-323",
+  "_type": "store",
+  "sourceId": "c5-323",
+  "name": "סופר פארם דרך מצדה ב״ש",
+  "category": "super-pharm",
+  "city": "באר שבע",
+  "address": "ראובן רובין 1",
+  "phone": "077-8882970",
+  "region": "south",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.245865575000003,
+   "lng": 34.801231724999994
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-324",
+  "_type": "store",
+  "sourceId": "c5-324",
+  "name": "סופר פארם האב עמק חפר כמיפל",
+  "category": "super-pharm",
+  "city": "עמ חפר",
+  "address": "החריש 28",
+  "phone": "0",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.36,
+   "lng": 34.9
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-325",
+  "_type": "store",
+  "sourceId": "c5-325",
+  "name": "סופר פארם האב עמק חפר כמיפל",
+  "category": "super-pharm",
+  "city": "עמק חפר",
+  "address": "החריש 28",
+  "phone": "077-8885307",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.36,
+   "lng": 34.9
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-326",
+  "_type": "store",
+  "sourceId": "c5-326",
+  "name": "סופר פארם האר\"י -",
+  "category": "super-pharm",
+  "city": "נתניה",
+  "address": "האר\"י 1",
+  "phone": "077-8881400",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.313994480000005,
+   "lng": 34.86196954
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-327",
+  "_type": "store",
+  "sourceId": "c5-327",
+  "name": "סופר פארם הגוש הגדול",
+  "category": "super-pharm",
+  "city": "תל אביב",
+  "address": "אינשטיין 7",
+  "phone": "077-8882530",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.079862119444456,
+   "lng": 34.78712651944445
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-328",
+  "_type": "store",
+  "sourceId": "c5-328",
+  "name": "סופר פארם הדסה עין כרם",
+  "category": "super-pharm",
+  "city": "קניון ישפרו סנטר",
+  "phone": "077-8881380",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.9525,
+   "lng": 34.8125
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-329",
+  "_type": "store",
+  "sourceId": "c5-329",
+  "name": "סופר פארם הדר גנים פ\"ת",
+  "category": "super-pharm",
+  "city": "פתח תקווה",
+  "address": "הרב משורר ישיעו 11",
+  "phone": "077-8883110",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0901854,
+   "lng": 34.882469625
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-330",
+  "_type": "store",
+  "sourceId": "c5-330",
+  "name": "סופר פארם הוד השרון",
+  "category": "super-pharm",
+  "city": "הוד השרון",
+  "address": "ז'בוטינסקי 3",
+  "phone": "077-8880540",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.16218955,
+   "lng": 34.89937595
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-331",
+  "_type": "store",
+  "sourceId": "c5-331",
+  "name": "סופר פארם היכל פ\"ת",
+  "category": "super-pharm",
+  "city": "פתח תקווה",
+  "address": "ההסתדרות 26",
+  "phone": "077-8880590",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0871,
+   "lng": 34.8875
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-332",
+  "_type": "store",
+  "sourceId": "c5-332",
+  "name": "סופר פארם המכללה ראשל\"צ -",
+  "category": "super-pharm",
+  "city": "ראשון לציון",
+  "address": "שדרות יצחק רבין 7",
+  "phone": "077-8882440",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.971067599999994,
+   "lng": 34.79581617142857
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-333",
+  "_type": "store",
+  "sourceId": "c5-333",
+  "name": "סופר פארם הנשיאים הוד השרון",
+  "category": "super-pharm",
+  "city": "הוד השרון",
+  "address": "הנשיאים 1",
+  "phone": "077-8883080",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.16218955,
+   "lng": 34.89937595
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-334",
+  "_type": "store",
+  "sourceId": "c5-334",
+  "name": "סופר פארם העצמאות בתים",
+  "category": "super-pharm",
+  "city": "בת ים",
+  "address": "שד העצמאות 67",
+  "phone": "077-8881790",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.01691905,
+   "lng": 34.7434274
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-335",
+  "_type": "store",
+  "sourceId": "c5-335",
+  "name": "סופר פארם העצמאות קרית אתא",
+  "category": "super-pharm",
+  "city": "קריית אתא",
+  "address": "דרך העצמאות 61",
+  "phone": "077-8881390",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.811895,
+   "lng": 35.071818
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-336",
+  "_type": "store",
+  "sourceId": "c5-336",
+  "name": "סופר פארם הקישון יבנה",
+  "category": "super-pharm",
+  "city": "יבנה",
+  "address": "שד ירושלים",
+  "phone": "077-8882370",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.871377999999996,
+   "lng": 34.733988933333336
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-337",
+  "_type": "store",
+  "sourceId": "c5-337",
+  "name": "סופר פארם הקניון הגדול פתח תקוה",
+  "category": "super-pharm",
+  "city": "פתח תקווה",
+  "address": "ז'בוטינסקי 72",
+  "phone": "077-8881680",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0901854,
+   "lng": 34.882469625
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-338",
+  "_type": "store",
+  "sourceId": "c5-338",
+  "name": "סופר פארם הר יונה",
+  "category": "super-pharm",
+  "city": "נצרת עילית",
+  "address": "הפריון 2",
+  "phone": "077-8882800",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.7165,
+   "lng": 35.3266
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-339",
+  "_type": "store",
+  "sourceId": "c5-339",
+  "name": "סופר פארם הרצל ראשון",
+  "category": "super-pharm",
+  "city": "ראשון לציון",
+  "address": "הרצל 52",
+  "phone": "077-8881630",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.971067599999994,
+   "lng": 34.79581617142857
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-340",
+  "_type": "store",
+  "sourceId": "c5-340",
+  "name": "סופר פארם הרצל רחובות",
+  "category": "super-pharm",
+  "city": "רחובות",
+  "address": "הרצל 182, רחובות",
+  "phone": "077-8880810",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.899118299999998,
+   "lng": 34.80685813333334
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-341",
+  "_type": "store",
+  "sourceId": "c5-341",
+  "name": "סופר פארם הרצליה פיתוח",
+  "category": "super-pharm",
+  "city": "הרצליה פיתוח",
+  "address": "שד אבא אבן 8",
+  "phone": "077-8881420",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.1626,
+   "lng": 34.8075
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-342",
+  "_type": "store",
+  "sourceId": "c5-342",
+  "name": "סופר פארם התמרים",
+  "category": "super-pharm",
+  "city": "אילת",
+  "address": "שדרות התמרים 9",
+  "phone": "077-8881440",
+  "region": "south",
+  "location": {
+   "_type": "geopoint",
+   "lat": 29.5673879,
+   "lng": 34.9587889
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-343",
+  "_type": "store",
+  "sourceId": "c5-343",
+  "name": "סופר פארם ויצמן חולון",
+  "category": "super-pharm",
+  "city": "חולון",
+  "address": "ויצמן 43",
+  "phone": "077-8881410",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.01477932,
+   "lng": 34.777234539999995
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-344",
+  "_type": "store",
+  "sourceId": "c5-344",
+  "name": "סופר פארם זכרון יעקב",
+  "category": "super-pharm",
+  "city": "זכרון יעקב",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.5715966,
+   "lng": 34.94273895
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-345",
+  "_type": "store",
+  "sourceId": "c5-345",
+  "name": "סופר פארם חדרה",
+  "category": "super-pharm",
+  "city": "חדרה",
+  "address": "גמלא 3",
+  "phone": "077-8882750",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.435058500000004,
+   "lng": 34.92023613333333
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-346",
+  "_type": "store",
+  "sourceId": "c5-346",
+  "name": "סופר פארם חדרה מזרח",
+  "category": "super-pharm",
+  "city": "חדרה",
+  "address": "צה\"ל 5",
+  "phone": "077-8881830",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.435058500000004,
+   "lng": 34.92023613333333
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-347",
+  "_type": "store",
+  "sourceId": "c5-347",
+  "name": "סופר פארם חולון",
+  "category": "super-pharm",
+  "city": "חולון",
+  "address": "גולדה מאיר 7",
+  "phone": "077-8880660",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.01477932,
+   "lng": 34.777234539999995
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-348",
+  "_type": "store",
+  "sourceId": "c5-348",
+  "name": "סופר פארם חוצות אשקלון",
+  "category": "super-pharm",
+  "city": "אשקלון",
+  "address": "נח\"ל 1",
+  "phone": "077-8882450",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.665833366666664,
+   "lng": 34.586678166666665
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-349",
+  "_type": "store",
+  "sourceId": "c5-349",
+  "name": "סופר פארם חורב",
+  "category": "super-pharm",
+  "city": "חיפה",
+  "address": "חורב 15",
+  "phone": "077-8880130",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.802482266666665,
+   "lng": 35.01872092222223
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-350",
+  "_type": "store",
+  "sourceId": "c5-350",
+  "name": "סופר פארם חורה",
+  "category": "super-pharm",
+  "city": "חורה",
+  "address": "אלסלם 1",
+  "phone": "077-8883160",
+  "region": "south",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.3,
+   "lng": 34.9333
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-351",
+  "_type": "store",
+  "sourceId": "c5-351",
+  "name": "סופר פארם חריש בעיר",
+  "category": "super-pharm",
+  "city": "חריש",
+  "address": "דרך ארץ 35",
+  "phone": "077-8883240",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.46,
+   "lng": 35.0447
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-352",
+  "_type": "store",
+  "sourceId": "c5-352",
+  "name": "סופר פארם חריש",
+  "category": "super-pharm",
+  "city": "חריש",
+  "address": "דרך ארץ 2",
+  "phone": "077-8882780",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.46,
+   "lng": 35.0447
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-353",
+  "_type": "store",
+  "sourceId": "c5-353",
+  "name": "סופר פארם טבעון",
+  "category": "super-pharm",
+  "city": "טבעון",
+  "address": "מרווה 1",
+  "phone": "077-8881900",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.7225564,
+   "lng": 35.1302145
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-354",
+  "_type": "store",
+  "sourceId": "c5-354",
+  "name": "סופר פארם טבריה",
+  "category": "super-pharm",
+  "city": "טבריה",
+  "address": "ירדן פינת השילוח 1",
+  "phone": "077-8880710",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.7895842,
+   "lng": 35.5379054
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-355",
+  "_type": "store",
+  "sourceId": "c5-355",
+  "name": "סופר פארם טיילת אילת",
+  "category": "super-pharm",
+  "city": "אילת",
+  "address": "טיילת מלכה שבא",
+  "phone": "077-8882660",
+  "region": "south",
+  "location": {
+   "_type": "geopoint",
+   "lat": 29.5673879,
+   "lng": 34.9587889
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-356",
+  "_type": "store",
+  "sourceId": "c5-356",
+  "name": "סופר פארם טירת הכרמל",
+  "category": "super-pharm",
+  "city": "טירת הכרמל",
+  "address": "מלחמת ששת הימים 1",
+  "phone": "077-8882220",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.76,
+   "lng": 34.9714
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-357",
+  "_type": "store",
+  "sourceId": "c5-357",
+  "name": "סופר פארם יד אליהו",
+  "category": "super-pharm",
+  "city": "תל אביב",
+  "address": "יגאל אלון 51",
+  "phone": "077-8881490",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.079862119444456,
+   "lng": 34.78712651944445
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-358",
+  "_type": "store",
+  "sourceId": "c5-358",
+  "name": "סופר פארם יוקלר עפולה",
+  "category": "super-pharm",
+  "city": "עפולה",
+  "address": "חטיבה תשע 2",
+  "phone": "077-8882990",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.608669899999995,
+   "lng": 35.289310300000004
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-359",
+  "_type": "store",
+  "sourceId": "c5-359",
+  "name": "סופר פארם יכין פ\"ת",
+  "category": "super-pharm",
+  "city": "פתח תקווה",
+  "address": "יצחק רבין 17",
+  "phone": "0",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0901854,
+   "lng": 34.882469625
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-360",
+  "_type": "store",
+  "sourceId": "c5-360",
+  "name": "סופר פארם יפו ירושלים",
+  "category": "super-pharm",
+  "city": "ירושלים",
+  "address": "הרברט סמואל 1",
+  "phone": "077-8882190",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.779259366666672,
+   "lng": 35.20542961666667
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-361",
+  "_type": "store",
+  "sourceId": "c5-361",
+  "name": "סופר פארם יפיע",
+  "category": "super-pharm",
+  "city": "חיפה",
+  "address": "רחוב נצרת",
+  "phone": "077-8882420",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.802482266666665,
+   "lng": 35.01872092222223
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-362",
+  "_type": "store",
+  "sourceId": "c5-362",
+  "name": "סופר פארם ירכא",
+  "category": "super-pharm",
+  "city": "כפר ירכא",
+  "address": "ביג פאשן אאוטלט",
+  "phone": "077-8882674",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.9564,
+   "lng": 35.1947
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-363",
+  "_type": "store",
+  "sourceId": "c5-363",
+  "name": "סופר פארם ישפרו נס ציונה",
+  "category": "super-pharm",
+  "city": "נס ציונה",
+  "address": "הפטיש 6",
+  "phone": "077-8881860",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.926611100000002,
+   "lng": 34.79800175
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-364",
+  "_type": "store",
+  "sourceId": "c5-364",
+  "name": "סופר פארם כוכב יאיר",
+  "category": "super-pharm",
+  "city": "כוכב יאיר",
+  "address": "א.ת צומת כוכב יאיר",
+  "phone": "077-8881620",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.2236,
+   "lng": 34.9969
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-365",
+  "_type": "store",
+  "sourceId": "c5-365",
+  "name": "סופר פארם כופר הישוב",
+  "category": "super-pharm",
+  "city": "רמת גן",
+  "address": "ביאליק 10",
+  "phone": "077-8880290",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.07094668,
+   "lng": 34.80478151999999
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-366",
+  "_type": "store",
+  "sourceId": "c5-366",
+  "name": "סופר פארם כיכר דיזינגוף",
+  "category": "super-pharm",
+  "city": "תל אביב",
+  "address": "פינסקר 69",
+  "phone": "077-8882170",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.079862119444456,
+   "lng": 34.78712651944445
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-367",
+  "_type": "store",
+  "sourceId": "c5-367",
+  "name": "סופר פארם כפר גנים",
+  "category": "super-pharm",
+  "city": "פתח תקווה",
+  "address": "העצמאות 65 פינת בן גוריון",
+  "phone": "077-8881730",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0901854,
+   "lng": 34.882469625
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-368",
+  "_type": "store",
+  "sourceId": "c5-368",
+  "name": "סופר פארם כפר יאסיף",
+  "category": "super-pharm",
+  "city": "כפר יאסיף",
+  "address": "כפר יאסיף 15",
+  "phone": "077-8881340",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.9542,
+   "lng": 35.1622
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-369",
+  "_type": "store",
+  "sourceId": "c5-369",
+  "name": "סופר פארם כפר יונה",
+  "category": "super-pharm",
+  "city": "כפר יונה",
+  "address": "שד בן גוריון 1",
+  "phone": "077-8883060",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.3167,
+   "lng": 34.9333
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-370",
+  "_type": "store",
+  "sourceId": "c5-370",
+  "name": "סופר פארם כפר כנא",
+  "category": "super-pharm",
+  "city": "כביש ראשי כפר כנא, שכונת פוק אלעין 18, 1",
+  "phone": "077-8882890",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.7469,
+   "lng": 35.3428
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-371",
+  "_type": "store",
+  "sourceId": "c5-371",
+  "name": "סופר פארם כפר סבא הירוקה",
+  "category": "super-pharm",
+  "city": "כפר סבא",
+  "address": "רפפורט 3",
+  "phone": "077-8882250",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.180279760000005,
+   "lng": 34.91308522
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-372",
+  "_type": "store",
+  "sourceId": "c5-372",
+  "name": "סופר פארם כפר סבא",
+  "category": "super-pharm",
+  "city": "כפר סבא",
+  "address": "ויצמן 78",
+  "phone": "077-8880090",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.180279760000005,
+   "lng": 34.91308522
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-373",
+  "_type": "store",
+  "sourceId": "c5-373",
+  "name": "סופר פארם כפר קרע",
+  "category": "super-pharm",
+  "city": "כפר קרע",
+  "address": "קניון סלמאה סנטר",
+  "phone": "077-8882940",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.5039,
+   "lng": 35.0533
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-374",
+  "_type": "store",
+  "sourceId": "c5-374",
+  "name": "סופר פארם כרמיאל",
+  "category": "super-pharm",
+  "city": "כרמיאל",
+  "address": "החרושת 14",
+  "phone": "077-8880670",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.917752533333335,
+   "lng": 35.3025462
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-375",
+  "_type": "store",
+  "sourceId": "c5-375",
+  "name": "סופר פארם כרמיאל ק\"קל",
+  "category": "super-pharm",
+  "city": "כרמיאל",
+  "address": "קרן קיימת לישראל",
+  "phone": "077-8881130",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.917752533333335,
+   "lng": 35.3025462
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-376",
+  "_type": "store",
+  "sourceId": "c5-376",
+  "name": "סופר פארם לב העיר",
+  "category": "super-pharm",
+  "city": "קריית גת",
+  "address": "כיכר פז 3",
+  "phone": "077-8881224",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.606988,
+   "lng": 34.7727972
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-377",
+  "_type": "store",
+  "sourceId": "c5-377",
+  "name": "סופר פארם לב חדרה",
+  "category": "super-pharm",
+  "city": "חדרה",
+  "address": "רוטשילד 40",
+  "phone": "077-8880850",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.435058500000004,
+   "lng": 34.92023613333333
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-378",
+  "_type": "store",
+  "sourceId": "c5-378",
+  "name": "סופר פארם לוד",
+  "category": "super-pharm",
+  "city": "לוד",
+  "address": "דוד המלך 2",
+  "phone": "077-8881180",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.951,
+   "lng": 34.8881
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-379",
+  "_type": "store",
+  "sourceId": "c5-379",
+  "name": "סופר פארם לונדון מיניסטור",
+  "category": "super-pharm",
+  "city": "תל אביב",
+  "address": "שד' שאול המלך 4",
+  "phone": "077-8880390",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.079862119444456,
+   "lng": 34.78712651944445
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-380",
+  "_type": "store",
+  "sourceId": "c5-380",
+  "name": "סופר פארם לישנסקי",
+  "category": "super-pharm",
+  "city": "ראשון לציון",
+  "address": "לישנסקי 9",
+  "phone": "077-8880510",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.971067599999994,
+   "lng": 34.79581617142857
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-381",
+  "_type": "store",
+  "sourceId": "c5-381",
+  "name": "סופר פארם מגדל העמק",
+  "category": "super-pharm",
+  "city": "מגדל העמק",
+  "address": "שד שאול עמור 77",
+  "phone": "077-8881240",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.6767,
+   "lng": 35.2397
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-382",
+  "_type": "store",
+  "sourceId": "c5-382",
+  "name": "סופר פארם מגדל ורד",
+  "category": "super-pharm",
+  "city": "גבעתיים",
+  "address": "דרך השלום 53",
+  "phone": "077-8880970",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.07021466,
+   "lng": 34.81405666
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-383",
+  "_type": "store",
+  "sourceId": "c5-383",
+  "name": "סופר פארם מגדל ספיר",
+  "category": "super-pharm",
+  "city": "רמת גן",
+  "address": "תובל 40",
+  "phone": "077-8883280",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.07094668,
+   "lng": 34.80478151999999
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-384",
+  "_type": "store",
+  "sourceId": "c5-384",
+  "name": "סופר פארם מגדל שלום",
+  "category": "super-pharm",
+  "city": "תל אביב",
+  "address": "אחד העם 9",
+  "phone": "077-8881720",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.079862119444456,
+   "lng": 34.78712651944445
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-385",
+  "_type": "store",
+  "sourceId": "c5-385",
+  "name": "סופר פארם מגדלי אלון",
+  "category": "super-pharm",
+  "city": "תל אביב",
+  "address": "יגאל אלון 94",
+  "phone": "077-8882610",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.079862119444456,
+   "lng": 34.78712651944445
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-386",
+  "_type": "store",
+  "sourceId": "c5-386",
+  "name": "סופר פארם מגדלי תל אביב",
+  "category": "super-pharm",
+  "city": "תל אביב",
+  "address": "נחלת יצחק 20",
+  "phone": "077-8881884",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.079862119444456,
+   "lng": 34.78712651944445
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-387",
+  "_type": "store",
+  "sourceId": "c5-387",
+  "name": "סופר פארם מדרחוב",
+  "category": "super-pharm",
+  "city": "ירושלים",
+  "address": "ההסתדרות 3",
+  "phone": "077-8880270",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.779259366666672,
+   "lng": 35.20542961666667
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-388",
+  "_type": "store",
+  "sourceId": "c5-388",
+  "name": "סופר פארם מודיעין ישפרו",
+  "category": "super-pharm",
+  "city": "מודיעין",
+  "address": "אזור המלאכה",
+  "phone": "077-8881250",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.891540374999998,
+   "lng": 34.987554274999994
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-389",
+  "_type": "store",
+  "sourceId": "c5-389",
+  "name": "סופר פארם מודיעין שמשוני",
+  "category": "super-pharm",
+  "city": "מודיעין",
+  "address": "עמק בית שאן 29",
+  "phone": "077-8881010",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.891540374999998,
+   "lng": 34.987554274999994
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-390",
+  "_type": "store",
+  "sourceId": "c5-390",
+  "name": "סופר פארם מול החוף חדרה",
+  "category": "super-pharm",
+  "city": "חדרה",
+  "address": "פרופסור שכטמן 10",
+  "phone": "077-8882650",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.435058500000004,
+   "lng": 34.92023613333333
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-391",
+  "_type": "store",
+  "sourceId": "c5-391",
+  "name": "סופר פארם מול הים",
+  "category": "super-pharm",
+  "city": "אילת",
+  "address": "קניון מול הים",
+  "phone": "077-8880530",
+  "region": "south",
+  "location": {
+   "_type": "geopoint",
+   "lat": 29.5673879,
+   "lng": 34.9587889
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-392",
+  "_type": "store",
+  "sourceId": "c5-392",
+  "name": "סופר פארם מול זכרון",
+  "category": "super-pharm",
+  "city": "זכרון יעקב",
+  "address": "אזור תעשיה מערבי, כביש 4",
+  "phone": "077-8881544",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.5715966,
+   "lng": 34.94273895
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-393",
+  "_type": "store",
+  "sourceId": "c5-393",
+  "name": "סופר פארם מול כנרת צמח",
+  "category": "super-pharm",
+  "city": "מתחם מול כנרת צמח ד.נ עמק הירדן 1510501",
+  "phone": "077-8882910",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.7041008,
+   "lng": 35.58533
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-394",
+  "_type": "store",
+  "sourceId": "c5-394",
+  "name": "סופר פארם מורשת מודיעין",
+  "category": "super-pharm",
+  "city": "מודיעין",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.891540374999998,
+   "lng": 34.987554274999994
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-395",
+  "_type": "store",
+  "sourceId": "c5-395",
+  "name": "סופר פארם מזכרת בתיה",
+  "category": "super-pharm",
+  "city": "מזכרת בתיה",
+  "address": "מנחם בגין 2",
+  "phone": "077-8881820",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.8536,
+   "lng": 34.8458
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-396",
+  "_type": "store",
+  "sourceId": "c5-396",
+  "name": "סופר פארם מכון מור",
+  "category": "super-pharm",
+  "city": "בני ברק",
+  "address": "ז'בוטינסקי 7",
+  "phone": "077-8882550",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.08610836666667,
+   "lng": 34.83393026666666
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-397",
+  "_type": "store",
+  "sourceId": "c5-397",
+  "name": "סופר פארם ממילא",
+  "category": "super-pharm",
+  "city": "ירושלים",
+  "address": "שלמה המלך 9",
+  "phone": "077-8881450",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.779259366666672,
+   "lng": 35.20542961666667
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-398",
+  "_type": "store",
+  "sourceId": "c5-398",
+  "name": "סופר פארם מעלה אדומים",
+  "category": "super-pharm",
+  "city": "מעלה אדומים",
+  "address": "דרך קדם 5",
+  "phone": "077-8880740",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.777,
+   "lng": 35.2981
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-399",
+  "_type": "store",
+  "sourceId": "c5-399",
+  "name": "סופר פארם מעלות",
+  "category": "super-pharm",
+  "city": "מעלות",
+  "address": "שלמה שרירא 3",
+  "phone": "077-8882000",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 33.012267,
+   "lng": 35.2885369
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-400",
+  "_type": "store",
+  "sourceId": "c5-400",
+  "name": "סופר פארם מצליח",
+  "category": "super-pharm",
+  "city": "רמלה",
+  "address": "שושנה דמארי 20",
+  "phone": "077-8882150",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.9293,
+   "lng": 34.8664
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-401",
+  "_type": "store",
+  "sourceId": "c5-401",
+  "name": "סופר פארם מרום נוה",
+  "category": "super-pharm",
+  "city": "רמת גן",
+  "address": "לנדאו 7",
+  "phone": "077-8880640",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.07094668,
+   "lng": 34.80478151999999
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-402",
+  "_type": "store",
+  "sourceId": "c5-402",
+  "name": "סופר פארם מרינה הרצליה -",
+  "category": "super-pharm",
+  "city": "הרצליה פיתוח",
+  "address": "יורדי הים 1",
+  "phone": "077-8881100",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.1626,
+   "lng": 34.8075
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-403",
+  "_type": "store",
+  "sourceId": "c5-403",
+  "name": "סופר פארם מרכז דוד אפרידר",
+  "category": "super-pharm",
+  "city": "אשקלון",
+  "address": "הנשיא 3",
+  "phone": "077-8881000",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.665833366666664,
+   "lng": 34.586678166666665
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-404",
+  "_type": "store",
+  "sourceId": "c5-404",
+  "name": "סופר פארם מרכז עזריאלי השלום",
+  "category": "super-pharm",
+  "city": "תל אביב",
+  "address": "דרך מנחם בגין 132",
+  "phone": "077-8880610",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.079862119444456,
+   "lng": 34.78712651944445
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-405",
+  "_type": "store",
+  "sourceId": "c5-405",
+  "name": "סופר פארם משחררים",
+  "category": "super-pharm",
+  "city": "באר שבע",
+  "address": "המשחררים 70",
+  "phone": "077-8880044",
+  "region": "south",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.245865575000003,
+   "lng": 34.801231724999994
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-406",
+  "_type": "store",
+  "sourceId": "c5-406",
+  "name": "סופר פארם נאות שמיר רמלה",
+  "category": "super-pharm",
+  "city": "רמלה",
+  "address": "משה לוי 17",
+  "phone": "077-8883210",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.9293,
+   "lng": 34.8664
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-407",
+  "_type": "store",
+  "sourceId": "c5-407",
+  "name": "סופר פארם נאות שקמה",
+  "category": "super-pharm",
+  "city": "ראשון לציון",
+  "address": "מורשת ישראל 15",
+  "phone": "077-8880900",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.971067599999994,
+   "lng": 34.79581617142857
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-408",
+  "_type": "store",
+  "sourceId": "c5-408",
+  "name": "סופר פארם נהריה געתון",
+  "category": "super-pharm",
+  "city": "נהריה",
+  "address": "ויצמן 62",
+  "phone": "077-8881054",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 33.006591566666664,
+   "lng": 35.09548266666667
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-409",
+  "_type": "store",
+  "sourceId": "c5-409",
+  "name": "סופר פארם נהריה רגבה",
+  "category": "super-pharm",
+  "city": "נהריה",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 33.006591566666664,
+   "lng": 35.09548266666667
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-410",
+  "_type": "store",
+  "sourceId": "c5-410",
+  "name": "סופר פארם נוה זאב",
+  "category": "super-pharm",
+  "city": "באר שבע",
+  "address": "שד' יוהנה ז'בוטינסקי 28-30",
+  "phone": "077-8881640",
+  "region": "south",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.245865575000003,
+   "lng": 34.801231724999994
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-411",
+  "_type": "store",
+  "sourceId": "c5-411",
+  "name": "סופר פארם נוה זמר רעננה",
+  "category": "super-pharm",
+  "city": "רעננה",
+  "address": "סשה ארגוב 23",
+  "phone": "077-8883070",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.184418225,
+   "lng": 34.8742911
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-412",
+  "_type": "store",
+  "sourceId": "c5-412",
+  "name": "סופר פארם נוה שאנן",
+  "category": "super-pharm",
+  "city": "חיפה",
+  "address": "טרומפלדור 54",
+  "phone": "077-8880440",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.802482266666665,
+   "lng": 35.01872092222223
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-413",
+  "_type": "store",
+  "sourceId": "c5-413",
+  "name": "סופר פארם ניות",
+  "category": "super-pharm",
+  "city": "ירושלים",
+  "address": "בורלא 5",
+  "phone": "077-8880020",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.779259366666672,
+   "lng": 35.20542961666667
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-414",
+  "_type": "store",
+  "sourceId": "c5-414",
+  "name": "סופר פארם נמל תל אביב",
+  "category": "super-pharm",
+  "city": "תל אביב",
+  "address": "מתחם גני התערוכה 3",
+  "phone": "077-8882050",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.079862119444456,
+   "lng": 34.78712651944445
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-415",
+  "_type": "store",
+  "sourceId": "c5-415",
+  "name": "סופר פארם נס ציונה",
+  "category": "super-pharm",
+  "city": "נס ציונה",
+  "address": "אירוסים 53",
+  "phone": "077-8880160",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.926611100000002,
+   "lng": 34.79800175
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-416",
+  "_type": "store",
+  "sourceId": "c5-416",
+  "name": "סופר פארם נצרת",
+  "category": "super-pharm",
+  "city": "נצרת",
+  "address": "פאולוס השישי",
+  "phone": "077-8880570",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.6996,
+   "lng": 35.3035
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-417",
+  "_type": "store",
+  "sourceId": "c5-417",
+  "name": "סופר פארם נצרת עילית",
+  "category": "super-pharm",
+  "city": "נצרת עילית",
+  "address": "דרך העמק 999",
+  "phone": "077-8881310",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.7165,
+   "lng": 35.3266
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-418",
+  "_type": "store",
+  "sourceId": "c5-418",
+  "name": "סופר פארם נרקיסים ראשל\"צ",
+  "category": "super-pharm",
+  "city": "ראשון לציון",
+  "address": "ירושלים 116",
+  "phone": "077-8883230",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.971067599999994,
+   "lng": 34.79581617142857
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-419",
+  "_type": "store",
+  "sourceId": "c5-419",
+  "name": "סופר פארם סוקולוב הרצליה",
+  "category": "super-pharm",
+  "city": "הרצליה",
+  "address": "סוקולוב 25",
+  "phone": "077-8880260",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.1643791,
+   "lng": 34.84300833333333
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-420",
+  "_type": "store",
+  "sourceId": "c5-420",
+  "name": "סופר פארם סטאר סנטר אשדוד",
+  "category": "super-pharm",
+  "city": "אשדוד",
+  "address": "זבוטינסקי 41",
+  "phone": "077-8881170",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.80102868,
+   "lng": 34.65912324
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-421",
+  "_type": "store",
+  "sourceId": "c5-421",
+  "name": "סופר פארם סיטי סנטר",
+  "category": "super-pharm",
+  "city": "חיפה",
+  "address": "שד בן גוריון 6",
+  "phone": "077-8880790",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.802482266666665,
+   "lng": 35.01872092222223
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-422",
+  "_type": "store",
+  "sourceId": "c5-422",
+  "name": "סופר פארם סינמול",
+  "category": "super-pharm",
+  "city": "חיפה",
+  "address": "ההסתדרות 55",
+  "phone": "077-8880200",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.802482266666665,
+   "lng": 35.01872092222223
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-423",
+  "_type": "store",
+  "sourceId": "c5-423",
+  "name": "סופר פארם סכנין",
+  "category": "super-pharm",
+  "city": "סכנין",
+  "address": "אלגליל 1",
+  "phone": "077-8881520",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.8636,
+   "lng": 35.2972
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-424",
+  "_type": "store",
+  "sourceId": "c5-424",
+  "name": "סופר פארם עטרות",
+  "category": "super-pharm",
+  "city": "ירושלים",
+  "address": "דרך רמאללה 101",
+  "phone": "077-8882740",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.779259366666672,
+   "lng": 35.20542961666667
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-425",
+  "_type": "store",
+  "sourceId": "c5-425",
+  "name": "סופר פארם עיר ימים נתניה",
+  "category": "super-pharm",
+  "city": "נתניה",
+  "address": "בני ברמן 2",
+  "phone": "077-8881910",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.313994480000005,
+   "lng": 34.86196954
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-426",
+  "_type": "store",
+  "sourceId": "c5-426",
+  "name": "סופר פארם עכו",
+  "category": "super-pharm",
+  "city": "עכו",
+  "address": "דוד רמז 67",
+  "phone": "077-8881550",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.9281,
+   "lng": 35.082
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-427",
+  "_type": "store",
+  "sourceId": "c5-427",
+  "name": "סופר פארם עמק סנטר",
+  "category": "super-pharm",
+  "city": "עפולה",
+  "address": "בית חולים העמק",
+  "phone": "077-8881190",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.608669899999995,
+   "lng": 35.289310300000004
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-428",
+  "_type": "store",
+  "sourceId": "c5-428",
+  "name": "סופר פארם עמק רפאים",
+  "category": "super-pharm",
+  "city": "ירושלים",
+  "address": "עמק רפאים 24",
+  "phone": "077-8882260",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.779259366666672,
+   "lng": 35.20542961666667
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-429",
+  "_type": "store",
+  "sourceId": "c5-429",
+  "name": "סופר פארם עפולה",
+  "category": "super-pharm",
+  "city": "עפולה",
+  "address": "יהושע חנקין 14",
+  "phone": "077-8880430",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.608669899999995,
+   "lng": 35.289310300000004
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-430",
+  "_type": "store",
+  "sourceId": "c5-430",
+  "name": "סופר פארם ערד",
+  "category": "super-pharm",
+  "city": "ערד",
+  "address": "הקנאים 27",
+  "phone": "077-8880360",
+  "region": "south",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.2589,
+   "lng": 35.2128
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-431",
+  "_type": "store",
+  "sourceId": "c5-431",
+  "name": "סופר פארם פלאנט",
+  "category": "super-pharm",
+  "city": "באר שבע",
+  "address": "ברוך קטינקא 2",
+  "phone": "077-8882570",
+  "region": "south",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.245865575000003,
+   "lng": 34.801231724999994
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-432",
+  "_type": "store",
+  "sourceId": "c5-432",
+  "name": "סופר פארם פסגת דן ת\"א",
+  "category": "super-pharm",
+  "city": "רמת גן",
+  "address": "זבוטינסקי 105",
+  "phone": "077-8883010",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.07094668,
+   "lng": 34.80478151999999
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-433",
+  "_type": "store",
+  "sourceId": "c5-433",
+  "name": "סופר פארם פסגת זאב",
+  "category": "super-pharm",
+  "city": "ירושלים",
+  "address": "שד משה דיין 106",
+  "phone": "077-8881160",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.779259366666672,
+   "lng": 35.20542961666667
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-434",
+  "_type": "store",
+  "sourceId": "c5-434",
+  "name": "סופר פארם פקר כ\"ס",
+  "category": "super-pharm",
+  "city": "כפר סבא",
+  "address": "ויצמן 207",
+  "phone": "077-8881570",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.180279760000005,
+   "lng": 34.91308522
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-435",
+  "_type": "store",
+  "sourceId": "c5-435",
+  "name": "סופר פארם פרדס חנה",
+  "category": "super-pharm",
+  "city": "פרדס חנה-כרכור",
+  "address": "הגלעד 1",
+  "phone": "077-8880860",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.48152266666667,
+   "lng": 34.9706872
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-436",
+  "_type": "store",
+  "sourceId": "c5-436",
+  "name": "סופר פארם פרופיט חולון",
+  "category": "super-pharm",
+  "city": "חולון",
+  "address": "הכישור 1",
+  "phone": "077-8881850",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.01477932,
+   "lng": 34.777234539999995
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-437",
+  "_type": "store",
+  "sourceId": "c5-437",
+  "name": "סופר פארם צורן",
+  "category": "super-pharm",
+  "city": "צורן",
+  "address": "יצחקרבין 38",
+  "phone": "077-8883000",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.29,
+   "lng": 34.955
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-438",
+  "_type": "store",
+  "sourceId": "c5-438",
+  "name": "סופר פארם צים גני תקווה",
+  "category": "super-pharm",
+  "city": "גני תקווה",
+  "address": "ההדרים 7",
+  "phone": "077-8883100",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0617,
+   "lng": 34.8733
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-439",
+  "_type": "store",
+  "sourceId": "c5-439",
+  "name": "סופר פארם צים טייבה",
+  "category": "super-pharm",
+  "city": "טייבה",
+  "address": "מתחם SEVEN",
+  "phone": "077-8883200",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.2667,
+   "lng": 35.0103
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-440",
+  "_type": "store",
+  "sourceId": "c5-440",
+  "name": "סופר פארם צים נתיבות",
+  "category": "super-pharm",
+  "city": "נתיבות",
+  "address": "בעלי מלאכה 5",
+  "phone": "077-8881810",
+  "region": "south",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.4243101,
+   "lng": 34.57848425
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-441",
+  "_type": "store",
+  "sourceId": "c5-441",
+  "name": "סופר פארם צמרות",
+  "category": "super-pharm",
+  "city": "הרצליה",
+  "address": "צמרות 2",
+  "phone": "077-8880010",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.1643791,
+   "lng": 34.84300833333333
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-442",
+  "_type": "store",
+  "sourceId": "c5-442",
+  "name": "סופר פארם צמרת ת\"א",
+  "category": "super-pharm",
+  "city": "תל אביב",
+  "address": "ניסים אלוני 10",
+  "phone": "077-8881750",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.079862119444456,
+   "lng": 34.78712651944445
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-443",
+  "_type": "store",
+  "sourceId": "c5-443",
+  "name": "סופר פארם צפת",
+  "category": "super-pharm",
+  "city": "צפת",
+  "address": "הגדוד השלישי 3",
+  "phone": "077-8882310",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.966121349999995,
+   "lng": 35.49930715
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-444",
+  "_type": "store",
+  "sourceId": "c5-444",
+  "name": "סופר פארם קדימה",
+  "category": "super-pharm",
+  "city": "קדימה",
+  "address": "האופה 1",
+  "phone": "077-8882060",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.2783,
+   "lng": 34.9131
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-445",
+  "_type": "store",
+  "sourceId": "c5-445",
+  "name": "סופר פארם קניון אורות",
+  "category": "super-pharm",
+  "city": "אור עקיבא",
+  "address": "שד הנשיא וייצמן 1",
+  "phone": "077-8882840",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.505,
+   "lng": 34.92
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-446",
+  "_type": "store",
+  "sourceId": "c5-446",
+  "name": "סופר פארם קניון אחים ישראל",
+  "category": "super-pharm",
+  "city": "ירושלים",
+  "address": "יד חרוצים 18",
+  "phone": "077-8882850",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.779259366666672,
+   "lng": 35.20542961666667
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-447",
+  "_type": "store",
+  "sourceId": "c5-447",
+  "name": "סופר פארם קניון ביאליק רג",
+  "category": "super-pharm",
+  "city": "רמת גן",
+  "address": "ביאליק 76",
+  "phone": "077-8882720",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.07094668,
+   "lng": 34.80478151999999
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-448",
+  "_type": "store",
+  "sourceId": "c5-448",
+  "name": "סופר פארם קניון בית שמש",
+  "category": "super-pharm",
+  "city": "בית שמש",
+  "address": "דרך יצחק רבין 2",
+  "phone": "077-8881980",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.740207733333335,
+   "lng": 34.993809133333336
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-449",
+  "_type": "store",
+  "sourceId": "c5-449",
+  "name": "סופר פארם קניון גבעתיים",
+  "category": "super-pharm",
+  "city": "גבעתיים",
+  "address": "דרך יצחק רבין 53",
+  "phone": "077-8881200",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.07021466,
+   "lng": 34.81405666
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-450",
+  "_type": "store",
+  "sourceId": "c5-450",
+  "name": "סופר פארם קניון הזהב",
+  "category": "super-pharm",
+  "city": "ראשון לציון",
+  "address": "סחרוב 21",
+  "phone": "077-8880320",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.971067599999994,
+   "lng": 34.79581617142857
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-451",
+  "_type": "store",
+  "sourceId": "c5-451",
+  "name": "סופר פארם קניון הנגב",
+  "category": "super-pharm",
+  "city": "באר שבע",
+  "address": "צומת אלי כהן",
+  "phone": "077-8880180",
+  "region": "south",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.245865575000003,
+   "lng": 34.801231724999994
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-452",
+  "_type": "store",
+  "sourceId": "c5-452",
+  "name": "סופר פארם קניון הראל",
+  "category": "super-pharm",
+  "city": "מבשרת ציון",
+  "address": "הראל 1",
+  "phone": "077-8882500",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.790487,
+   "lng": 35.142428
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-453",
+  "_type": "store",
+  "sourceId": "c5-453",
+  "name": "סופר פארם קניון השרון",
+  "category": "super-pharm",
+  "city": "נתניה",
+  "address": "הרצל 58",
+  "phone": "077-8880140",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.313994480000005,
+   "lng": 34.86196954
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-454",
+  "_type": "store",
+  "sourceId": "c5-454",
+  "name": "סופר פארם קניון טבריה",
+  "category": "super-pharm",
+  "city": "טבריה",
+  "address": "יהודה הלוי 1/1",
+  "phone": "077-8882080",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.7895842,
+   "lng": 35.5379054
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-455",
+  "_type": "store",
+  "sourceId": "c5-455",
+  "name": "סופר פארם קניון מבשרת",
+  "category": "super-pharm",
+  "city": "מבשרת ציון",
+  "address": "שד' החוצבים 10",
+  "phone": "077-8882480",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.790487,
+   "lng": 35.142428
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-456",
+  "_type": "store",
+  "sourceId": "c5-456",
+  "name": "סופר פארם קניון מודיעין",
+  "category": "super-pharm",
+  "city": "מודיעין",
+  "address": "לב העיר 2",
+  "phone": "077-8881530",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.891540374999998,
+   "lng": 34.987554274999994
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-457",
+  "_type": "store",
+  "sourceId": "c5-457",
+  "name": "סופר פארם קניון עזריאלי רמלה",
+  "category": "super-pharm",
+  "city": "רמלה",
+  "address": "שד דוד רזיאל 1",
+  "phone": "077-8882730",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.9293,
+   "lng": 34.8664
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-458",
+  "_type": "store",
+  "sourceId": "c5-458",
+  "name": "סופר פארם קניון ערים",
+  "category": "super-pharm",
+  "city": "כפר סבא",
+  "address": "וייצמן 63",
+  "phone": "077-8881480",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.180279760000005,
+   "lng": 34.91308522
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-459",
+  "_type": "store",
+  "sourceId": "c5-459",
+  "name": "סופר פארם קניון ראשונים",
+  "category": "super-pharm",
+  "city": "ראשון לציון",
+  "address": "שד' נים 2",
+  "phone": "077-8882560",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.971067599999994,
+   "lng": 34.79581617142857
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-460",
+  "_type": "store",
+  "sourceId": "c5-460",
+  "name": "סופר פארם קניון רחובות",
+  "category": "super-pharm",
+  "city": "רחובות",
+  "address": "בילו 2, רחובות",
+  "phone": "077-8880450",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.899118299999998,
+   "lng": 34.80685813333334
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-461",
+  "_type": "store",
+  "sourceId": "c5-461",
+  "name": "סופר פארם קניון רמת גן",
+  "category": "super-pharm",
+  "city": "רמת גן",
+  "address": "אבא הילל 165, קניון איילון",
+  "phone": "077-8880100",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.07094668,
+   "lng": 34.80478151999999
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-462",
+  "_type": "store",
+  "sourceId": "c5-462",
+  "name": "סופר פארם קניון רננים",
+  "category": "super-pharm",
+  "city": "רעננה",
+  "address": "המלאכה 2",
+  "phone": "077-8880680",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.184418225,
+   "lng": 34.8742911
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-463",
+  "_type": "store",
+  "sourceId": "c5-463",
+  "name": "סופר פארם קניון שאול המלך ב״ש",
+  "category": "super-pharm",
+  "city": "באר שבע",
+  "address": "קניון שאול המלך 80",
+  "phone": "077-8880470",
+  "region": "south",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.245865575000003,
+   "lng": 34.801231724999994
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-464",
+  "_type": "store",
+  "sourceId": "c5-464",
+  "name": "סופר פארם קרית אונו",
+  "category": "super-pharm",
+  "city": "קריית אונו",
+  "address": "שלמה המלך 37",
+  "phone": "077-8880980",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0548391,
+   "lng": 34.8638919
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-465",
+  "_type": "store",
+  "sourceId": "c5-465",
+  "name": "סופר פארם קרית אתא",
+  "category": "super-pharm",
+  "city": "מפרץ חיפה",
+  "address": "מרכז ביג, מפרץ חיפה",
+  "phone": "077-8880720",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.795,
+   "lng": 35.04
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-466",
+  "_type": "store",
+  "sourceId": "c5-466",
+  "name": "סופר פארם קרית היובל י-ם",
+  "category": "super-pharm",
+  "city": "ירושלים",
+  "address": "רחוב צילי 8",
+  "phone": "077-8883310",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.779259366666672,
+   "lng": 35.20542961666667
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-467",
+  "_type": "store",
+  "sourceId": "c5-467",
+  "name": "סופר פארם קרית השרון",
+  "category": "super-pharm",
+  "city": "נתניה",
+  "address": "שד טום לנטוס 60",
+  "phone": "077-8882460",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.313994480000005,
+   "lng": 34.86196954
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-468",
+  "_type": "store",
+  "sourceId": "c5-468",
+  "name": "סופר פארם קרית חיים",
+  "category": "super-pharm",
+  "city": "קרית חיים",
+  "address": "אח\"י אילת 34",
+  "phone": "077-8882350",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.825,
+   "lng": 35.0583
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-469",
+  "_type": "store",
+  "sourceId": "c5-469",
+  "name": "סופר פארם קרית ים",
+  "category": "super-pharm",
+  "city": "קריית ים",
+  "address": "גולדה מאיר 2",
+  "phone": "077-8883290",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.8497,
+   "lng": 35.0686
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-470",
+  "_type": "store",
+  "sourceId": "c5-470",
+  "name": "סופר פארם קרית ים",
+  "category": "super-pharm",
+  "city": "קריית ים",
+  "address": "שד ירושלים 51",
+  "phone": "077-8881560",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.8497,
+   "lng": 35.0686
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-471",
+  "_type": "store",
+  "sourceId": "c5-471",
+  "name": "סופר פארם קרית מוצקין",
+  "category": "super-pharm",
+  "city": "קריית מוצקין",
+  "address": "שדרות ירושלים 1",
+  "phone": "077-8882160",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.8040805,
+   "lng": 35.1058407
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-472",
+  "_type": "store",
+  "sourceId": "c5-472",
+  "name": "סופר פארם קרית רמלה",
+  "category": "super-pharm",
+  "city": "רמלה",
+  "address": "שד הרצל 91",
+  "phone": "077-8880760",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.9293,
+   "lng": 34.8664
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-473",
+  "_type": "store",
+  "sourceId": "c5-473",
+  "name": "סופר פארם קרית שמונה",
+  "category": "super-pharm",
+  "city": "קריית שמונה",
+  "address": "הנשיא 4",
+  "phone": "077-8880420",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 33.1985377,
+   "lng": 35.5772925
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-474",
+  "_type": "store",
+  "sourceId": "c5-474",
+  "name": "סופר פארם קרני שומרון",
+  "category": "super-pharm",
+  "city": "קרני שומרון",
+  "address": "שדרות רחבעם 1",
+  "phone": "077-8883170",
+  "region": "south",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.046051,
+   "lng": 34.851612
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-475",
+  "_type": "store",
+  "sourceId": "c5-475",
+  "name": "סופר פארם ראש העין",
+  "category": "super-pharm",
+  "city": "ראש העין",
+  "address": "שבזי 10",
+  "phone": "077-8882430",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0956,
+   "lng": 34.9566
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-476",
+  "_type": "store",
+  "sourceId": "c5-476",
+  "name": "סופר פארם ראש פינה",
+  "category": "super-pharm",
+  "city": "ראש פינה",
+  "address": "האגס",
+  "phone": "077-8882810",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.9685935,
+   "lng": 35.5484237
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-477",
+  "_type": "store",
+  "sourceId": "c5-477",
+  "name": "סופר פארם ראשון לצפון",
+  "category": "super-pharm",
+  "city": "ראשון לציון",
+  "address": "בקר 15",
+  "phone": "077-8880250",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.971067599999994,
+   "lng": 34.79581617142857
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-478",
+  "_type": "store",
+  "sourceId": "c5-478",
+  "name": "סופר פארם רוטשילד",
+  "category": "super-pharm",
+  "city": "ראשון לציון",
+  "address": "רוטשילד 46",
+  "phone": "077-8880460",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.971067599999994,
+   "lng": 34.79581617142857
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-479",
+  "_type": "store",
+  "sourceId": "c5-479",
+  "name": "סופר פארם רחובות החדשה",
+  "category": "super-pharm",
+  "city": "רחובות",
+  "address": "שד פנקס בן דוד, רחובות",
+  "phone": "077-8882580",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.899118299999998,
+   "lng": 34.80685813333334
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-480",
+  "_type": "store",
+  "sourceId": "c5-480",
+  "name": "סופר פארם רחובות",
+  "category": "super-pharm",
+  "city": "רחובות",
+  "address": "מוטי קינד 10, רחובות",
+  "phone": "077-8882130",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.8942717,
+   "lng": 34.7901567
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-481",
+  "_type": "store",
+  "sourceId": "c5-481",
+  "name": "סופר פארם רכבת עפולה",
+  "category": "super-pharm",
+  "city": "עפולה",
+  "address": "יצחק רבין 20",
+  "phone": "077-8882830",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.608669899999995,
+   "lng": 35.289310300000004
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-482",
+  "_type": "store",
+  "sourceId": "c5-482",
+  "name": "סופר פארם רמב\"ם חיפה",
+  "category": "super-pharm",
+  "city": "חיפה",
+  "address": "העליה השניה 8",
+  "phone": "077-8882320",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.802482266666665,
+   "lng": 35.01872092222223
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-483",
+  "_type": "store",
+  "sourceId": "c5-483",
+  "name": "סופר פארם רמבלס סנטר",
+  "category": "super-pharm",
+  "city": "רמלה",
+  "address": "דני מס 16",
+  "phone": "077-8882930",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.9293,
+   "lng": 34.8664
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-484",
+  "_type": "store",
+  "sourceId": "c5-484",
+  "name": "סופר פארם רמות ירושלים",
+  "category": "super-pharm",
+  "city": "ירושלים",
+  "address": "שד גולדה מאיר",
+  "phone": "077-8881840",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.779259366666672,
+   "lng": 35.20542961666667
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-485",
+  "_type": "store",
+  "sourceId": "c5-485",
+  "name": "סופר פארם רמות רכס",
+  "category": "super-pharm",
+  "city": "באר שבע",
+  "address": "אוסקר שינדלר 21",
+  "phone": "077-8882230",
+  "region": "south",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.245865575000003,
+   "lng": 34.801231724999994
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-486",
+  "_type": "store",
+  "sourceId": "c5-486",
+  "name": "סופר פארם רמז",
+  "category": "super-pharm",
+  "city": "נתניה",
+  "address": "רמז 16 פינת סמילנסקי",
+  "phone": "077-8880780",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.313994480000005,
+   "lng": 34.86196954
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-487",
+  "_type": "store",
+  "sourceId": "c5-487",
+  "name": "סופר פארם רמלוד",
+  "category": "super-pharm",
+  "city": "רמלה",
+  "address": "צופית 40",
+  "phone": "077-8881740",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.9293,
+   "lng": 34.8664
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-488",
+  "_type": "store",
+  "sourceId": "c5-488",
+  "name": "סופר פארם רמת אביב ג",
+  "category": "super-pharm",
+  "city": "תל אביב",
+  "address": "אחימאיר 1",
+  "phone": "077-8883220",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.079862119444456,
+   "lng": 34.78712651944445
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-489",
+  "_type": "store",
+  "sourceId": "c5-489",
+  "name": "סופר פארם רמת אביב",
+  "category": "super-pharm",
+  "city": "רמת אביב",
+  "address": "איינשטיין 40, קניון רמת אביב",
+  "phone": "077-8880080",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.1133,
+   "lng": 34.8044
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-490",
+  "_type": "store",
+  "sourceId": "c5-490",
+  "name": "סופר פארם רמת החייל",
+  "category": "super-pharm",
+  "city": "רמת החייל",
+  "address": "הברזל 23",
+  "phone": "077-8881370",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.11,
+   "lng": 34.84
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-491",
+  "_type": "store",
+  "sourceId": "c5-491",
+  "name": "סופר פארם רמת הנשיא",
+  "category": "super-pharm",
+  "city": "חיפה",
+  "address": "שונית 12",
+  "phone": "077-8882240",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.802482266666665,
+   "lng": 35.01872092222223
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-492",
+  "_type": "store",
+  "sourceId": "c5-492",
+  "name": "סופר פארם רמת ישי",
+  "category": "super-pharm",
+  "city": "רמת ישי",
+  "address": "האקליפטוס 3",
+  "phone": "077-8882070",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.7067881,
+   "lng": 35.1743402
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-493",
+  "_type": "store",
+  "sourceId": "c5-493",
+  "name": "סופר פארם רעננה אחוזה",
+  "category": "super-pharm",
+  "city": "רעננה",
+  "address": "אחוזה 83",
+  "phone": "077-8880560",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.184418225,
+   "lng": 34.8742911
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-494",
+  "_type": "store",
+  "sourceId": "c5-494",
+  "name": "סופר פארם רעננה מול הפארק",
+  "category": "super-pharm",
+  "city": "רעננה",
+  "address": "מרכז מול- אחוזה 267",
+  "phone": "077-8880350",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.184418225,
+   "lng": 34.8742911
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-495",
+  "_type": "store",
+  "sourceId": "c5-495",
+  "name": "סופר פארם שבעת הכוכבים",
+  "category": "super-pharm",
+  "city": "הרצליה",
+  "address": "שבעת הכוכבים 8",
+  "phone": "077-8880870",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.1643791,
+   "lng": 34.84300833333333
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-496",
+  "_type": "store",
+  "sourceId": "c5-496",
+  "name": "סופר פארם שדרות",
+  "category": "super-pharm",
+  "city": "שדרות",
+  "address": "סמטת הפלדה 1, שדרות",
+  "phone": "077-8881320",
+  "region": "south",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.525,
+   "lng": 34.5961
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-497",
+  "_type": "store",
+  "sourceId": "c5-497",
+  "name": "סופר פארם שוהם",
+  "category": "super-pharm",
+  "city": "שוהם",
+  "address": "עמק איילון 30",
+  "phone": "077-8880490",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.9989,
+   "lng": 34.9461
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-498",
+  "_type": "store",
+  "sourceId": "c5-498",
+  "name": "סופר פארם שיכון דן",
+  "category": "super-pharm",
+  "city": "תל אביב",
+  "address": "פנחס רוזן 72",
+  "phone": "077-8880650",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.114692,
+   "lng": 34.8260661
+  },
+  "active": true
+ },
+ {
+  "_id": "store-c5-499",
+  "_type": "store",
+  "sourceId": "c5-499",
+  "name": "סופר פארם שכונת הפארק בת-ים",
+  "category": "super-pharm",
+  "city": "בת ים",
+  "address": "הקוממיות 16",
+  "phone": "07-7882980",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.01691905,
+   "lng": 34.7434274
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-500",
+  "_type": "store",
+  "sourceId": "c5-500",
+  "name": "סופר פארם שנקר חולון",
+  "category": "super-pharm",
+  "city": "חולון",
+  "address": "אריה שנקר 49",
+  "phone": "077-8882090",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.01477932,
+   "lng": 34.777234539999995
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-501",
+  "_type": "store",
+  "sourceId": "c5-501",
+  "name": "סופר פארם שער אשקלון",
+  "category": "super-pharm",
+  "city": "אשקלון",
+  "address": "א.ת. צומת כפר סילבר",
+  "phone": "077-8880750",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.665833366666664,
+   "lng": 34.586678166666665
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-502",
+  "_type": "store",
+  "sourceId": "c5-502",
+  "name": "סופר פארם שער הצפון",
+  "category": "super-pharm",
+  "city": "קריית אתא",
+  "address": "קרן היסוד 14",
+  "phone": "077-8882210",
+  "region": "haifa",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.811895,
+   "lng": 35.071818
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-503",
+  "_type": "store",
+  "sourceId": "c5-503",
+  "name": "סופר פארם שער ראשון",
+  "category": "super-pharm",
+  "city": "ראשון לציון",
+  "address": "גולדה מאיר 1",
+  "phone": "077-8882770",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.971067599999994,
+   "lng": 34.79581617142857
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-504",
+  "_type": "store",
+  "sourceId": "c5-504",
+  "name": "סופר פארם שער רחובות",
+  "category": "super-pharm",
+  "city": "רחובות",
+  "address": "הלל וחנן אופנהיימר 2, רחובות",
+  "phone": "077-8881470",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.899118299999998,
+   "lng": 34.80685813333334
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-505",
+  "_type": "store",
+  "sourceId": "c5-505",
+  "name": "סופר פארם שפיים",
+  "category": "super-pharm",
+  "city": "קיבוץ שפיים",
+  "phone": "077-8880480",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.216586,
+   "lng": 34.822409
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-506",
+  "_type": "store",
+  "sourceId": "c5-506",
+  "name": "סופר פארם שפיר סנטר ראש העין",
+  "category": "super-pharm",
+  "city": "ראש העין",
+  "address": "יגאל אלון 22",
+  "phone": "077-8883190",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.0956,
+   "lng": 34.9566
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-507",
+  "_type": "store",
+  "sourceId": "c5-507",
+  "name": "סופר פארם שפרעם",
+  "category": "super-pharm",
+  "city": "שפרעם",
+  "address": "ג'ונבלט, שכונת אל עיין",
+  "phone": "077-8881430",
+  "region": "north",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.8056,
+   "lng": 35.17
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-508",
+  "_type": "store",
+  "sourceId": "c5-508",
+  "name": "סופר פארם שרונה",
+  "category": "super-pharm",
+  "city": "תל אביב",
+  "address": "שד' מנחם בגין 121 (קניון עזריאלי שרונה)",
+  "phone": "077-8882340",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.079862119444456,
+   "lng": 34.78712651944445
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-509",
+  "_type": "store",
+  "sourceId": "c5-509",
+  "name": "סופר פארם תחנה מרכזית ת״א",
+  "category": "super-pharm",
+  "city": "תל אביב",
+  "address": "לוינסקי 108",
+  "phone": "077-8880330",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.079862119444456,
+   "lng": 34.78712651944445
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-510",
+  "_type": "store",
+  "sourceId": "c5-510",
+  "name": "סופר פארם תל השומר",
+  "category": "super-pharm",
+  "city": "רמת גן",
+  "address": "עמק האלה",
+  "phone": "077-8880240",
+  "region": "tel-aviv",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.07094668,
+   "lng": 34.80478151999999
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-511",
+  "_type": "store",
+  "sourceId": "c5-511",
+  "name": "סופר פארם תל מונד",
+  "category": "super-pharm",
+  "city": "תל מונד",
+  "address": "הדקל 47",
+  "phone": "077-8881960",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.2582485,
+   "lng": 34.9037589
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-512",
+  "_type": "store",
+  "sourceId": "c5-512",
+  "name": "סופר פארם תלפיות",
+  "category": "super-pharm",
+  "city": "ירושלים",
+  "address": "פייר קניג 26",
+  "phone": "077-8880950",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.779259366666672,
+   "lng": 35.20542961666667
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-513",
+  "_type": "store",
+  "sourceId": "c5-513",
+  "name": "הסנה מרפא גוש עציון",
+  "category": "super-pharm",
+  "city": "אלון שבות",
+  "address": "צומת גוש עציון",
+  "phone": "02-9931819",
+  "region": "jerusalem",
+  "location": {
+   "_type": "geopoint",
+   "lat": 31.6451762,
+   "lng": 35.1304915
+  },
+  "approximate": true,
+  "active": true
+ },
+ {
+  "_id": "store-c5-514",
+  "_type": "store",
+  "sourceId": "c5-514",
+  "name": "טבע עומריקה",
+  "category": "health",
+  "city": "רעננה",
+  "address": "אחוזה 148",
+  "region": "center",
+  "location": {
+   "_type": "geopoint",
+   "lat": 32.1815915,
+   "lng": 34.8710158
+  },
+  "active": true
+ },
+ {
+  "_id": "page-stores",
+  "_type": "page",
+  "title": "רשימת חנויות",
+  "slug": {
+   "_type": "slug",
+   "current": "stores"
+  },
+  "body": [
+   {
+    "_type": "block",
+    "_key": "b0",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "s1",
+      "text": "המוצרים של קטגוריה 5 תוספים אתיים נמכרים בלמעלה מ-500 נקודות מכירה ברחבי הארץ: בתי טבע, סניפי סופר-פארם, ניצת הדובדבן, B&D וחנויות אינטרנט. הקלידו עיר או השתמשו במיקום הנוכחי שלכם כדי למצוא את נקודת המכירה הקרובה.",
+      "marks": []
+     }
+    ]
+   }
+  ],
+  "seo": {
+   "_type": "seo",
+   "metaTitle": "רשימת חנויות ונקודות מכירה | קטגוריה 5 תוספים אתיים",
+   "metaDescription": "היכן ניתן לרכוש את מוצרי קטגוריה 5 תוספים אתיים: בתי טבע, סופר-פארם, ניצת הדובדבן, B&D וחנויות אינטרנט ברחבי ישראל. חיפוש לפי עיר או מיקום."
+  }
+ }
+]

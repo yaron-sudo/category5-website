@@ -1,0 +1,109 @@
+---
+// Centralised SEO/meta head. Used by Base.astro on every page.
+// Emits: canonical, description, robots, Open Graph, Twitter Card, JSON-LD.
+interface Props {
+  title: string
+  description?: string
+  image?: string // absolute URL or site-root path; used for OG/Twitter
+  type?: 'website' | 'article' | 'product'
+  noindex?: boolean
+  /** CMS canonical override (seo.canonical) — use only for duplicated content. */
+  canonicalUrl?: string
+  /** CMS social-share overrides (seo.ogTitle / seo.ogDescription). */
+  ogTitle?: string
+  ogDescription?: string
+  /** Extra JSON-LD object(s) merged after the default Organization/WebSite. */
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[]
+  publishedTime?: string
+  modifiedTime?: string
+}
+const {
+  title, description, image, type = 'website', noindex = false, jsonLd,
+  canonicalUrl, ogTitle, ogDescription,
+  publishedTime, modifiedTime,
+} = Astro.props
+
+const SITE = Astro.site?.href.replace(/\/$/, '') ?? 'https://www.naturesage.co.il'
+const canonical =
+  canonicalUrl ||
+  (new URL(Astro.url.pathname, Astro.site ?? SITE).href.replace(/\/$/, '') || canonicalRoot())
+function canonicalRoot() { return SITE + '/' }
+const shareTitle = ogTitle || title
+const shareDescription = ogDescription || description
+// Share image: absolute URL; Sanity images are normalised to a 1200×630 JPEG
+// (WhatsApp/Facebook/LinkedIn's expected ratio, well under WhatsApp's size
+// limit) with the brand beige filling any free area instead of cropping the
+// product away.
+const shareImage = (src: string) => {
+  const u = new URL(src, Astro.site ?? SITE)
+  if (u.hostname === 'cdn.sanity.io') {
+    // start from the full original (drop the page's own crop); landscape photos
+    // are cropped to 1.9:1, everything else (packshots, squares) is letterboxed
+    // on the brand beige so nothing of the product is cut off.
+    u.searchParams.delete('rect'); u.searchParams.delete('auto')
+    const dims = u.pathname.match(/-(\d+)x(\d+)\.\w+$/)
+    const ratio = dims ? Number(dims[1]) / Number(dims[2]) : 1
+    u.searchParams.set('w', '1200'); u.searchParams.set('h', '630')
+    if (ratio >= 1.4) { u.searchParams.set('fit', 'crop'); u.searchParams.set('crop', 'entropy') }
+    else { u.searchParams.set('fit', 'fill'); u.searchParams.set('bg', 'f7f3ec') }
+    u.searchParams.set('fm', 'jpg'); u.searchParams.set('q', '82')
+  }
+  return u.href
+}
+const ogImage = image ? shareImage(image) : `${SITE}/og-default.jpg`
+const ogImageAlt = shareTitle
+const robots = noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
+
+// Default structured data — Organization + WebSite. Pages append their own.
+const baseLd: Record<string, unknown>[] = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: "Nature's Sage",
+    alternateName: 'נייטשרסייג׳',
+    url: SITE + '/',
+    logo: `${SITE}/brand/logo-wordmark-green.svg`,
+    slogan: 'Where good gets better.',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: "Nature's Sage",
+    url: SITE + '/',
+    inLanguage: 'he-IL',
+  },
+]
+const extraLd = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : []
+const allLd = [...baseLd, ...extraLd]
+---
+<title>{title}</title>
+{description && <meta name="description" content={description} />}
+<link rel="canonical" href={canonical} />
+<meta name="robots" content={robots} />
+<meta name="theme-color" content="#113021" />
+
+<!-- Open Graph -->
+<meta property="og:title" content={shareTitle} />
+{shareDescription && <meta property="og:description" content={shareDescription} />}
+<meta property="og:type" content={type === 'product' ? 'website' : type} />
+<meta property="og:url" content={canonical} />
+<meta property="og:site_name" content="Nature's Sage" />
+<meta property="og:locale" content="he_IL" />
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:secure_url" content={ogImage} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:alt" content={ogImageAlt} />
+{publishedTime && <meta property="article:published_time" content={publishedTime} />}
+{modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={shareTitle} />
+{shareDescription && <meta name="twitter:description" content={shareDescription} />}
+<meta name="twitter:image" content={ogImage} />
+<meta name="twitter:image:alt" content={ogImageAlt} />
+
+<!-- Structured data -->
+{allLd.map((ld) => <script type="application/ld+json" set:html={JSON.stringify(ld).replace(/</g, '\\u003c')} />)}

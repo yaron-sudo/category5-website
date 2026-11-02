@@ -1,0 +1,206 @@
+---
+import '@/styles/tokens.css'
+import '@/styles/components.css'
+import Header from '@/components/Header.astro'
+import Footer from '@/components/Footer.astro'
+import Seo from '@/components/Seo.astro'
+import Accessibility from '@/components/Accessibility.astro'
+import CookieConsent from '@/components/CookieConsent.astro'
+import TrackingPixels from '@/components/TrackingPixels.astro'
+import { getSiteSettings, resolveFonts, visualEditingEnabled } from '@/lib/sanity'
+import VisualEditing from '@/components/VisualEditing.astro'
+
+interface Props {
+  title: string
+  description?: string
+  image?: string
+  type?: 'website' | 'article' | 'product'
+  noindex?: boolean
+  canonicalUrl?: string
+  ogTitle?: string
+  ogDescription?: string
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[]
+  publishedTime?: string
+  modifiedTime?: string
+}
+const {
+  title, description, image, type, noindex, jsonLd, publishedTime, modifiedTime,
+  canonicalUrl, ogTitle, ogDescription,
+} = Astro.props
+const fullTitle = title.includes("Nature") ? title : `${title} · Nature's Sage`
+
+// CMS-selectable fonts: override the brand defaults from siteSettings.typography.
+const settings = await getSiteSettings()
+const fonts = resolveFonts(settings?.typography)
+---
+<!doctype html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <Seo
+      title={fullTitle}
+      description={description}
+      image={image}
+      type={type}
+      noindex={noindex}
+      canonicalUrl={canonicalUrl}
+      ogTitle={ogTitle}
+      ogDescription={ogDescription}
+      jsonLd={jsonLd}
+      publishedTime={publishedTime}
+      modifiedTime={modifiedTime}
+    />
+    <link rel="icon" href="/logos/logo-teardrop.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    {fonts.googleHref && <link rel="stylesheet" href={fonts.googleHref} />}
+    <style set:html={`:root{--ns-font-display:${fonts.display};--ns-font-body:${fonts.body};}`}></style>
+    <!-- Apply saved accessibility preferences before first paint (avoids FOUC for users
+         who rely on high contrast / larger text). Mirrors Accessibility.astro's class map. -->
+    <script is:inline>
+      document.documentElement.classList.add('js');
+      (function () {
+        try {
+          var s = JSON.parse(localStorage.getItem('ns-a11y') || '{}'); var f = s.flags || {};
+          var c = document.documentElement.classList;
+          var M = { contrast: 'a11y-contrast', grayscale: 'a11y-grayscale', links: 'a11y-links', headings: 'a11y-headings', readable: 'a11y-readable', spacing: 'a11y-spacing', stopAnim: 'a11y-stop-anim', bigCursor: 'a11y-bigcursor' };
+          for (var k in M) { if (f[k]) c.add(M[k]); }
+          if (s.font && s.font !== 1) { document.documentElement.style.zoom = String(s.font); }
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <a href="#main" class="ns-skip">דלג לתוכן</a>
+    <!-- Page content wrapper. Accessibility filters (grayscale) apply here, NOT on
+         <html>, so the fixed accessibility/cookie widgets keep their viewport
+         positioning and stay reachable. -->
+    <div class="ns-page">
+      {settings?.announcement?.enabled && settings.announcement.text && (
+        <div class="ns-announce">
+          {settings.announcement.href
+            ? <a href={settings.announcement.href}>{settings.announcement.text}</a>
+            : <span>{settings.announcement.text}</span>}
+        </div>
+      )}
+      <Header />
+      <main id="main">
+        <slot />
+      </main>
+      <!-- global image lightbox (see the inline script below) -->
+      <dialog class="ns-glb" data-glb aria-label="תצוגה מוגדלת">
+        <button type="button" class="ns-glb__close" data-glb-close aria-label="סגירה">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+        <figure class="ns-glb__fig"><img data-glb-img src="" alt="" /><figcaption data-glb-cap></figcaption></figure>
+      </dialog>
+      <Footer />
+    </div>
+    <Accessibility />
+    <CookieConsent />
+    <TrackingPixels snippets={(settings as any)?.tracking} />
+    {visualEditingEnabled && <VisualEditing />}
+    <script is:inline>
+      // Scroll reveal + image lightbox — INLINE so they run as soon as the HTML is
+      // parsed, not after the (deferred) module bundle downloads: the first
+      // screen used to stay invisible for up to 1.5 s on slow connections.
+      (function () {
+        var els = document.querySelectorAll('[data-reveal]')
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        if (reduce || !('IntersectionObserver' in window)) {
+          els.forEach(function (el) { el.classList.add('is-visible') })
+        } else {
+          var io = new IntersectionObserver(function (entries) {
+            for (var i = 0; i < entries.length; i++) {
+              if (entries[i].isIntersecting) { entries[i].target.classList.add('is-visible'); io.unobserve(entries[i].target) }
+            }
+          }, { rootMargin: '0px 0px -10% 0px', threshold: 0.08 })
+          els.forEach(function (el) { io.observe(el) })
+        }
+
+        // Lightbox: every content photo in <main> (not icons, logos, menu thumbs,
+        // map, linked cards or components with their own viewer) opens enlarged.
+        var lb = document.querySelector('[data-glb]')
+        if (!lb || typeof lb.showModal !== 'function') return
+        var lbImg = lb.querySelector('[data-glb-img]'), lbCap = lb.querySelector('[data-glb-cap]')
+        var SKIP = 'a, button, .ns-header, .ns-footer, .ns-mnav, .ns-rail, .ns-mega__panel, .leaflet-container, .cm__card, .pg, .ns-lightbox, .ns-glb, .st, .ns-cookie, .hero-wrap, [data-no-zoom]'
+        var big = function (src) {
+          try {
+            var u = new URL(src, location.href)
+            // original framing: drop the page's crop (rect/h/fit) and ask for a large copy
+            if (u.hostname === 'cdn.sanity.io') { u.searchParams.delete('rect'); u.searchParams.delete('h'); u.searchParams.delete('fit'); u.searchParams.delete('crop'); u.searchParams.set('w', '1800'); return u.toString() }
+          } catch (e) {}
+          return src
+        }
+        var mark = function () {
+          document.querySelectorAll('main img:not([data-zoomable])').forEach(function (img) {
+            if (img.closest(SKIP)) return
+            // skip icons/logos/badges by markup, not by rendered size (lazy images have none yet)
+            var w = img.getAttribute('width'), src = img.getAttribute('src') || ''
+            if ((w && +w < 140) || /logo|icon|__ic\b|badge|pin|avatar|chip|thumb/i.test(img.className) || /\/icons\//.test(src)) return
+            img.setAttribute('data-zoomable', '')
+          })
+        }
+        document.addEventListener('click', function (e) {
+          var img = e.target && e.target.closest ? e.target.closest('img[data-zoomable]') : null
+          if (!img) return
+          e.preventDefault()
+          lbImg.src = big(img.currentSrc || img.src); lbImg.alt = img.alt || ''
+          var fc = img.closest('figure') && img.closest('figure').querySelector('figcaption')
+          lbCap.textContent = (fc && fc.textContent.trim()) || img.alt || ''
+          lb.showModal()
+        })
+        lb.querySelector('[data-glb-close]').addEventListener('click', function () { lb.close() })
+        lb.addEventListener('click', function (e) { if (e.target === lb) lb.close() })
+        lb.addEventListener('close', function () { lbImg.removeAttribute('src') })
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mark); else mark()
+        window.addEventListener('load', mark)
+      })()
+    </script>
+    <script>
+
+      // "קרא עוד" fold for [data-fold] blocks (site-wide; styles in components.css).
+      // Nothing is clamped by default (no-JS = full text). We clamp — and only
+      // then show the fade + button — when the block is at least a full line
+      // taller than the clamp; a block that barely overflows is shown whole.
+      // data-fold="always" clamps on desktop too (symmetric sibling cards);
+      // otherwise only on phones. Re-evaluated after fonts load and on resize.
+      const foldMq = window.matchMedia('(max-width: 900px)')
+      document.querySelectorAll<HTMLElement>('[data-fold]').forEach((fold) => {
+        const btn = fold.nextElementSibling as HTMLButtonElement | null
+        if (!btn || !btn.hasAttribute('data-fold-btn')) return
+        const decide = () => {
+          if (fold.classList.contains('is-open')) return
+          const always = fold.dataset.fold === 'always'
+          if (!foldMq.matches && !always) { fold.classList.remove('is-clipped'); return }
+          const cs = getComputedStyle(fold)
+          const fs = parseFloat(cs.fontSize) || 16
+          const para = fold.querySelector('p')
+          const lineH = (para && parseFloat(getComputedStyle(para).lineHeight)) || fs * 1.7
+          const clampPx = (parseFloat(cs.getPropertyValue('--fold-max')) || 8.4) * fs // mirrors the CSS clamp
+          fold.classList.toggle('is-clipped', fold.scrollHeight > clampPx + lineH * 0.9)
+        }
+        btn.addEventListener('click', () => {
+          const open = fold.classList.toggle('is-open')
+          fold.style.setProperty('--fold-h', fold.scrollHeight + 'px')
+          btn.setAttribute('aria-expanded', String(open))
+          btn.textContent = open ? 'הצג פחות' : 'קרא עוד'
+          if (!open) fold.closest('article, .pnar2__main')?.scrollIntoView({ block: 'nearest', behavior: reduce ? 'auto' : 'smooth' })
+        })
+        decide()
+        window.addEventListener('resize', decide)
+        window.addEventListener('load', decide)
+        document.fonts?.ready.then(decide)
+      })
+    </script>
+    <style is:global>
+      .ns-skip { position: absolute; inset-inline-start: -9999px; top: 0; background: var(--ns-field-green); color: var(--ns-sun-beige); padding: 12px 16px; border-radius: 0 0 var(--ns-radius-md) 0; z-index: 100; }
+      .ns-skip:focus { inset-inline-start: 0; }
+      /* CMS announcement bar (siteSettings.announcement), rendered above the header. */
+      .ns-announce { background: var(--ns-field-green); color: var(--ns-sun-beige); text-align: center; font-size: 14px; padding-block: 8px; padding-inline: 16px; }
+      .ns-announce a, .ns-announce span { color: var(--ns-sun-beige); }
+      .ns-announce a:hover { text-decoration: underline; }
+    </style>
+  </body>
+</html>

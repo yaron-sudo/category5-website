@@ -1,0 +1,34 @@
+---
+import Base from '@/layouts/Base.astro'
+interface Props {
+  heading: string
+  title: string
+  description: string
+  updated?: string
+}
+const { heading, title, description, updated } = Astro.props
+---
+<Base title={title} description={description}>
+  <section class="m-section">
+    <div class="ns-container legal">
+      <span class="ns-eyebrow">מידע משפטי</span>
+      <h1 class="m-h2 legal__title">{heading}</h1>
+      <div class="ns-prose m-rt legal__body">
+        <slot />
+      </div>
+      {updated && <p class="legal__date">עודכן לאחרונה: {updated}</p>}
+    </div>
+  </section>
+
+  <style>
+    .legal { max-width: 860px; }
+    .legal__title { margin-block: 8px 20px; }
+    .legal__body :global(h2) { font-family: var(--ns-font-display); font-weight: 600; font-size: 22px; color: var(--ns-field-green); margin-block: 30px 8px; }
+    .legal__body :global(h3) { font-family: var(--ns-font-display); font-weight: 600; font-size: 18px; color: var(--ns-field-green); margin-block: 20px 6px; }
+    .legal__body :global(p) { margin-block: 0 14px; }
+    .legal__body :global(ul) { margin-block: 8px 16px; padding-inline-start: 22px; }
+    .legal__body :global(li) { margin-block-end: 6px; }
+    .legal__body :global(a) { color: var(--ns-pure-orange); text-decoration: underline; word-break: break-word; }
+    .legal__date { margin-block-start: 30px; color: var(--ns-light-gray); font-size: 14px; }
+  </style>
+</Base>

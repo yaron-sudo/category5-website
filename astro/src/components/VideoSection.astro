@@ -1,0 +1,152 @@
+---
+interface Props {
+  youtubeId: string
+  posterUrl?: string
+  title?: string
+}
+const { youtubeId, posterUrl, title } = Astro.props
+// Fall back to YouTube's own thumbnail if no poster is set in the CMS.
+const poster = posterUrl || `https://i.ytimg.com/vi/${youtubeId}/maxresdefault.jpg`
+---
+<section class="vid" data-video data-yt={youtubeId} aria-label={title || 'וידאו'}>
+  <div class="vid__frame" data-video-frame>
+    <img class="vid__poster" src={poster} alt={title || ''} loading="lazy"
+      onerror="this.onerror=null;this.src=this.src.replace('maxresdefault','hqdefault')" />
+    <div class="vid__veil"></div>
+    <button class="vid__play" data-video-open type="button" aria-label="נגן וידאו במסך מוגדל">
+      <svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+    </button>
+    {title && <span class="vid__title">{title}</span>}
+  </div>
+</section>
+
+<!-- Lightbox (single instance, fixed to the viewport) -->
+<div class="vlb" data-video-lightbox hidden>
+  <div class="vlb__backdrop" data-video-close></div>
+  <div class="vlb__dialog" role="dialog" aria-modal="true" aria-label={title || 'וידאו'}>
+    <div class="vlb__bar">
+      <button class="vlb__btn" data-video-fs type="button" aria-label="מסך מלא" title="מסך מלא">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+      <button class="vlb__btn" data-video-close type="button" aria-label="סגור" title="סגור">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="vlb__player" data-video-player></div>
+  </div>
+</div>
+
+<style>
+  .vid { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; background: var(--ns-sun-beige); }
+  .vid__frame { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; cursor: pointer; background: transparent; display: grid; place-items: center; }
+  .vid__poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .vid__veil { position: absolute; inset: 0; background: rgba(17,48,33,.42); transition: background var(--ns-dur-base) var(--ns-ease-out); }
+  .vid__frame:hover .vid__veil { background: rgba(17,48,33,.28); }
+  .vid__frame.is-previewing .vid__veil { background: rgba(17,48,33,.18); }
+  /* inline muted preview iframe (injected on scroll-in) sits above poster, below controls */
+  /* Over-size so a video wider than 16:9 fills the box and its black
+     letterbox bars are cropped by .vid's overflow:hidden instead of showing. */
+  .vid__preview { position: absolute; top: 0; left: -50%; width: 200%; height: 100%; border: 0; pointer-events: none; }
+  .vid__play { position: relative; z-index: 2; width: 84px; height: 84px; border: none; cursor: pointer; border-radius: 999px; background: var(--ns-pure-orange); color: var(--ns-sun-beige); display: grid; place-items: center; box-shadow: var(--ns-shadow-lg); transition: transform var(--ns-dur-base) var(--ns-ease-out); }
+  .vid__play svg { margin-inline-start: 4px; }
+  .vid__frame:hover .vid__play { transform: scale(1.06); }
+  .vid__title { position: absolute; z-index: 2; inset-block-end: 28px; inset-inline: 0; text-align: center; color: var(--ns-sun-beige); font-family: var(--ns-font-display); font-weight: 500; font-size: var(--ns-text-xl); padding-inline: 24px; }
+
+  /* ---- Lightbox ---- */
+  .vlb { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 24px; }
+  .vlb[hidden] { display: none; }
+  .vlb__backdrop { position: absolute; inset: 0; background: rgba(10,31,21,.82); backdrop-filter: blur(4px); animation: vlbFade var(--ns-dur-base) var(--ns-ease-out); }
+  .vlb__dialog { position: relative; z-index: 1; width: min(80vw, calc(80vh * 16 / 9)); max-width: 1500px; animation: vlbPop var(--ns-dur-base) var(--ns-ease-out); }
+  .vlb__bar { display: flex; justify-content: flex-end; gap: 10px; margin-block-end: 12px; }
+  .vlb__btn { width: 44px; height: 44px; border-radius: 999px; border: 1px solid rgba(252,244,234,.4); background: rgba(252,244,234,.12); color: var(--ns-sun-beige); cursor: pointer; display: grid; place-items: center; transition: background var(--ns-dur-fast) var(--ns-ease-out); }
+  .vlb__btn:hover { background: rgba(252,244,234,.25); }
+  .vlb__player { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: var(--ns-radius-lg); overflow: hidden; box-shadow: var(--ns-shadow-lg); background: #000; }
+  .vlb__player iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  /* native fullscreen on the dialog: fill the screen, hide rounding */
+  .vlb__dialog:fullscreen { width: 100vw; height: 100vh; display: flex; flex-direction: column; justify-content: center; background: #000; }
+  .vlb__dialog:fullscreen .vlb__bar { position: absolute; inset-block-start: 16px; inset-inline-end: 16px; margin: 0; }
+  .vlb__dialog:fullscreen .vlb__player { border-radius: 0; box-shadow: none; }
+
+  @keyframes vlbFade { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes vlbPop { from { opacity: 0; transform: scale(.96); } to { opacity: 1; transform: none; } }
+  body.vlb-open { overflow: hidden; }
+  @media (prefers-reduced-motion: reduce) { .vlb__backdrop, .vlb__dialog { animation: none; } }
+</style>
+
+<script>
+  document.querySelectorAll('[data-video]').forEach((section) => {
+    const id = section.getAttribute('data-yt')
+    if (!id) return
+    const frame = section.querySelector('[data-video-frame], [data-video-open]') as HTMLElement | null
+    const lightbox = section.parentElement?.querySelector('[data-video-lightbox]') as HTMLElement | null
+    const player = lightbox?.querySelector('[data-video-player]') as HTMLElement | null
+    const dialog = lightbox?.querySelector('.vlb__dialog') as HTMLElement | null
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+    // 1) Inline muted preview — autoplay/loop once scrolled into view.
+    if (!reduce && 'IntersectionObserver' in window) {
+      let loaded = false
+      const io = new IntersectionObserver((entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting && !loaded) {
+            loaded = true
+            const pv = document.createElement('iframe')
+            pv.className = 'vid__preview'
+            // Inline styles: scoped component CSS doesn't reach JS-created elements.
+            // Start transparent and fade in only once loaded, so the poster frame
+            // shows first instead of YouTube's blank/colored loading screen.
+            // Over-size (200% wide, centred) so a wider-than-16:9 video fills the
+            // frame by height and its black letterbox bars are cropped, not shown.
+            pv.style.cssText = 'position:absolute;top:0;left:-50%;width:200%;height:100%;border:0;pointer-events:none;opacity:0;transition:opacity .7s var(--ns-ease-out,ease);'
+            pv.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&mute=1&loop=1&playlist=${id}&controls=0&playsinline=1&modestbranding=1&rel=0`
+            pv.allow = 'autoplay; encrypted-media; picture-in-picture'
+            pv.tabIndex = -1
+            pv.addEventListener('load', () => { setTimeout(() => { pv.style.opacity = '1' }, 500) })
+            frame?.insertBefore(pv, frame.querySelector('.vid__veil'))
+            frame?.classList.add('is-previewing')
+            io.disconnect()
+          }
+        }
+      }, { threshold: 0.25, rootMargin: '0px 0px -10% 0px' })
+      io.observe(section)
+    }
+
+    // 2) Click → open lightbox with sound + controls.
+    let lastFocus: HTMLElement | null = null
+    const open = () => {
+      if (!lightbox || !player) return
+      lastFocus = document.activeElement as HTMLElement
+      player.innerHTML = ''
+      const iframe = document.createElement('iframe')
+      // Inline styles: scoped component CSS doesn't reach JS-created elements,
+      // so size the iframe directly to fill the lightbox player.
+      iframe.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:0;'
+      iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&playsinline=1&modestbranding=1`
+      iframe.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen'
+      iframe.allowFullscreen = true
+      iframe.title = section.getAttribute('aria-label') || 'video'
+      player.appendChild(iframe)
+      lightbox.hidden = false
+      document.body.classList.add('vlb-open')
+      ;(lightbox.querySelector('[data-video-close]') as HTMLElement | null)?.focus()
+    }
+    const close = () => {
+      if (!lightbox || !player) return
+      if (document.fullscreenElement) document.exitFullscreen?.()
+      lightbox.hidden = true
+      player.innerHTML = ''
+      document.body.classList.remove('vlb-open')
+      lastFocus?.focus()
+    }
+
+    frame?.addEventListener('click', open)
+    lightbox?.querySelectorAll('[data-video-close]').forEach((b) => b.addEventListener('click', close))
+    lightbox?.querySelector('[data-video-fs]')?.addEventListener('click', () => {
+      if (document.fullscreenElement) document.exitFullscreen?.()
+      else dialog?.requestFullscreen?.()
+    })
+    document.addEventListener('keydown', (ev) => {
+      if (ev.key === 'Escape' && lightbox && !lightbox.hidden && !document.fullscreenElement) close()
+    })
+  })
+</script>

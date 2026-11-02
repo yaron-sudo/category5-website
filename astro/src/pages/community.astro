@@ -1,0 +1,225 @@
+---
+// קהילה — the brand's Instagram feed (reels + posts, optionally posts the
+// brand is tagged in), pulled live through /api/instagram and rendered in the
+// site's look: title hero, filter chips, a card grid (9:16 reels, square
+// posts), a "follow" strip. Static page; the feed loads client-side from the
+// cached API route, so the HTML is tiny and Instagram is never hit per visitor.
+import Base from '@/layouts/Base.astro'
+import PageHero from '@/components/PageHero.astro'
+import { getSiteSettings, resolveSeo } from '@/lib/sanity'
+
+const settings = await getSiteSettings()
+const igUrl = settings?.socials?.instagram || 'https://www.instagram.com/naturesageil/'
+const handle = '@' + (igUrl.replace(/\/+$/, '').split('/').pop() || 'naturesageil')
+const seo = resolveSeo(undefined, {
+  title: 'קהילה — נייטשרסייג באינסטגרם',
+  description: 'הרילס והפוסטים של נייטשרסייג ושל הקהילה: סיפורים, מתכונים ושימושים מהרשת, מתעדכנים ישירות מאינסטגרם.',
+})
+---
+<Base title={seo.title} description={seo.description} noindex={seo.noindex} canonicalUrl={seo.canonical} ogTitle={seo.ogTitle} ogDescription={seo.ogDescription}>
+  <PageHero eyebrow="קהילה" title="מה מספרים עלינו ברשת" lede="רילס, פוסטים ותיוגים מהקהילה שלנו באינסטגרם: סיפורים אישיים, מתכונים ושימושים יומיומיים במרווה המרושתת. העמוד מתעדכן אוטומטית מהחשבון שלנו.">
+    <div class="cm__hero-actions">
+      <a class="ns-btn ns-btn--primary cm__follow" href={igUrl} target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M3 7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg>
+        עקבו אחרינו {handle}
+      </a>
+    </div>
+  </PageHero>
+
+  <section class="ns-section ns-section--white cm">
+    <div class="ns-container ns-container--wide">
+      <div class="cm__bar" data-reveal>
+        <div class="cm__chips" role="tablist" aria-label="סינון התוכן">
+          <button type="button" class="cm__chip is-active" data-kind="" role="tab" aria-selected="true">הכל</button>
+          <button type="button" class="cm__chip" data-kind="reel" role="tab" aria-selected="false">רילס</button>
+          <button type="button" class="cm__chip" data-kind="post" role="tab" aria-selected="false">פוסטים</button>
+          <button type="button" class="cm__chip" data-kind="tagged" role="tab" aria-selected="false" hidden>מהקהילה</button>
+        </div>
+        <span class="cm__count" data-cm-count aria-live="polite"></span>
+      </div>
+
+      <!-- loading skeleton -->
+      <div class="cm__grid" data-cm-grid aria-busy="true">
+        {Array.from({ length: 8 }).map((_, i) => <div class={`cm__skel${i % 3 === 0 ? ' cm__skel--tall' : ''}`} aria-hidden="true"></div>)}
+      </div>
+
+      <div class="cm__more-wrap"><button type="button" class="ns-btn ns-btn--ghost" data-cm-more hidden>הציגו עוד</button></div>
+
+      <!-- no token / no items -->
+      <div class="cm__empty ns-textbox" data-cm-empty hidden>
+        <svg viewBox="0 0 24 24" width="44" height="44" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.6" d="M3 7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg>
+        <h2>הפיד מתעדכן בקרוב</h2>
+        <p>בינתיים כל הרילס, הסיפורים והתיוגים מחכים לכם בעמוד האינסטגרם שלנו.</p>
+        <a class="ns-btn ns-btn--primary" href={igUrl} target="_blank" rel="noopener">לאינסטגרם {handle}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="ns-section ns-section--beige cm__cta-wrap">
+    <div class="ns-container ns-container--wide">
+      <div class="cm__cta ns-textbox" data-reveal>
+        <div>
+          <span class="ns-eyebrow">שתפו אותנו</span>
+          <h2>צילמתם ריל עם המוצרים? תייגו אותנו</h2>
+          <p>תייגו {handle} או השתמשו בהאשטאג <b dir="ltr">#naturesage</b>, והסיפור שלכם עשוי להופיע כאן בעמוד הקהילה.</p>
+        </div>
+        <a class="ns-btn ns-btn--ghost" href={igUrl} target="_blank" rel="noopener">לפרופיל באינסטגרם</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- reel player -->
+  <dialog class="cm__player" data-cm-player aria-label="צפייה בריל">
+    <button type="button" class="cm__player-close" data-cm-close aria-label="סגירה">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+    <div class="cm__player-box">
+      <video data-cm-video controls playsinline preload="none"></video>
+      <a class="cm__player-link" data-cm-link href="#" target="_blank" rel="noopener">לפתיחה באינסטגרם ↗</a>
+    </div>
+  </dialog>
+
+  <!-- global: the feed cards are injected by the script below, so scoped
+       (data-astro-cid) rules would never match them; every class is cm__-prefixed. -->
+  <style is:global>
+    .cm__hero-actions { margin-top: 22px; }
+    .cm__follow { display: inline-flex; align-items: center; gap: 10px; min-height: 52px; padding-inline: 26px; }
+
+    .cm { padding-block: clamp(28px, 4vw, 56px) clamp(48px, 6vw, 80px); }
+    .cm__bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: clamp(18px, 2.4vw, 30px); }
+    .cm__chips { display: flex; gap: 8px; flex-wrap: wrap; }
+    .cm__chip { display: inline-flex; align-items: center; justify-content: center; min-height: 42px; padding: 6px 18px; border-radius: 999px; border: 1px solid transparent; background: var(--ns-sun-beige); color: var(--ns-field-green); font: inherit; font-size: 15px; font-weight: 600; line-height: 1.2; cursor: pointer; transition: background .2s var(--ns-ease-out), border-color .2s var(--ns-ease-out), color .2s var(--ns-ease-out), box-shadow .2s var(--ns-ease-out); }
+    .cm__chip:hover { border-color: var(--ns-border-strong); }
+    .cm__chip.is-active { background: var(--ns-field-green); border-color: var(--ns-field-green); color: var(--ns-sun-beige); box-shadow: var(--ns-shadow-sm); }
+    .cm__chip[hidden] { display: none; }
+    .cm__count { font-size: 14px; color: var(--ns-fg-muted); }
+
+    /* grid: 4 columns, reels span two rows (9:16), posts are square */
+    .cm__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: minmax(0, 1fr); grid-auto-flow: dense; gap: clamp(12px, 1.6vw, 20px); }
+    .cm__skel { aspect-ratio: 1; border-radius: var(--ns-radius-lg); background: linear-gradient(100deg, var(--ns-sun-beige) 30%, #fff 50%, var(--ns-sun-beige) 70%); background-size: 200% 100%; animation: cmShimmer 1.4s linear infinite; }
+    .cm__skel--tall { aspect-ratio: 9 / 16; grid-row: span 2; }
+    @keyframes cmShimmer { to { background-position: -200% 0; } }
+
+    .cm__card { position: relative; display: block; border-radius: var(--ns-radius-lg); overflow: hidden; background: var(--ns-sun-beige); box-shadow: var(--ns-shadow-md); isolation: isolate; aspect-ratio: 1; color: var(--ns-sun-beige); text-decoration: none; opacity: 0; transform: translateY(14px); animation: cmIn .5s var(--ns-ease-smooth) forwards; animation-delay: calc(var(--i, 0) * 50ms); }
+    .cm__card--reel { aspect-ratio: 9 / 16; grid-row: span 2; }
+    @keyframes cmIn { to { opacity: 1; transform: none; } }
+    .cm__card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .6s var(--ns-ease-smooth); }
+    .cm__card:hover img { transform: scale(1.05); }
+    .cm__card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(17,48,33,.82) 0%, rgba(17,48,33,.25) 40%, transparent 65%); opacity: .95; transition: opacity .3s var(--ns-ease-out); }
+    .cm__kind { position: absolute; inset-block-start: 12px; inset-inline-start: 12px; z-index: 2; display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 999px; background: rgba(252,244,234,.92); color: var(--ns-field-green); font-size: 12px; font-weight: 700; }
+    .cm__kind--tag { background: var(--ns-pure-orange); color: #fff; }
+    .cm__play { position: absolute; inset: 0; z-index: 2; display: grid; place-items: center; pointer-events: none; }
+    .cm__play span { width: 58px; height: 58px; border-radius: 50%; display: grid; place-items: center; background: rgba(252,244,234,.92); color: var(--ns-field-green); box-shadow: var(--ns-shadow-lg); transition: transform .3s var(--ns-ease-out), background .3s var(--ns-ease-out); }
+    .cm__card:hover .cm__play span { transform: scale(1.08); background: var(--ns-pure-orange); color: #fff; }
+    .cm__meta { position: absolute; inset-inline: 0; inset-block-end: 0; z-index: 2; padding: 14px 14px 12px; display: flex; flex-direction: column; gap: 4px; }
+    .cm__user { font-family: var(--ns-font-latin); font-size: 12.5px; font-weight: 700; letter-spacing: .02em; direction: ltr; text-align: right; opacity: .9; }
+    .cm__cap { font-size: 14px; line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .cm__date { font-size: 12px; opacity: .75; }
+
+    .cm__more-wrap { display: flex; justify-content: center; margin-top: clamp(20px, 3vw, 34px); }
+    .cm__more-wrap .ns-btn[hidden] { display: none; }
+    .cm__empty { display: none; flex-direction: column; align-items: center; text-align: center; gap: 10px; color: var(--ns-field-green); }
+    .cm__empty:not([hidden]) { display: flex; }
+    .cm__empty h2 { font-family: var(--ns-font-display); font-weight: 600; font-size: 24px; margin: 6px 0 0; }
+    .cm__empty p { margin: 0 0 10px; color: var(--ns-fg); max-width: 48ch; }
+
+    .cm__cta-wrap { padding-block: clamp(32px, 4vw, 56px) clamp(56px, 7vw, 96px); }
+    .cm__cta { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .cm__cta .ns-eyebrow { display: inline-flex; margin-bottom: 10px; }
+    .cm__cta h2 { font-family: var(--ns-font-display); font-weight: 600; font-size: clamp(22px, 2vw, 30px); color: var(--ns-field-green); margin: 0 0 8px; }
+    .cm__cta p { margin: 0; color: var(--ns-fg); line-height: 1.7; }
+    .cm__cta .ns-btn { flex: none; }
+
+    .cm__player { border: 0; padding: 0; background: transparent; max-width: none; max-height: none; width: 100vw; height: 100vh; }
+    .cm__player::backdrop { background: rgba(17,48,33,.82); backdrop-filter: blur(6px); }
+    .cm__player-box { position: absolute; inset: 0; display: grid; place-items: center; gap: 12px; align-content: center; }
+    .cm__player video { width: min(420px, 92vw); max-height: 80vh; aspect-ratio: 9 / 16; border-radius: 22px; background: #000; box-shadow: var(--ns-shadow-lg); }
+    .cm__player-link { color: var(--ns-sun-beige); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+    .cm__player-close { position: absolute; inset-block-start: 18px; inset-inline-end: 18px; z-index: 2; width: 44px; height: 44px; border-radius: 50%; border: 0; background: var(--ns-sun-beige); color: var(--ns-field-green); display: grid; place-items: center; cursor: pointer; }
+
+    @media (max-width: 1023px) { .cm__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+    @media (max-width: 760px) {
+      .cm__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .cm__cta { flex-direction: column; align-items: flex-start; }
+      .cm__bar { flex-direction: column; align-items: flex-start; }
+    }
+    @media (prefers-reduced-motion: reduce) { .cm__card { animation: none; opacity: 1; transform: none; } .cm__skel { animation: none; } }
+  </style>
+
+  <script>
+    type Item = { id: string; kind: 'reel' | 'post' | 'carousel'; src: string; poster: string; permalink: string; caption: string; date: string; username: string; tagged: boolean }
+    const grid = document.querySelector<HTMLElement>('[data-cm-grid]')!
+    const empty = document.querySelector<HTMLElement>('[data-cm-empty]')!
+    const more = document.querySelector<HTMLButtonElement>('[data-cm-more]')!
+    const count = document.querySelector<HTMLElement>('[data-cm-count]')!
+    const chips = [...document.querySelectorAll<HTMLButtonElement>('.cm__chip')]
+    const player = document.querySelector<HTMLDialogElement>('[data-cm-player]')!
+    const video = player.querySelector<HTMLVideoElement>('[data-cm-video]')!
+    const link = player.querySelector<HTMLAnchorElement>('[data-cm-link]')!
+    const PAGE = 12
+    let items: Item[] = [], kind = '', shown = 0
+
+    const esc = (s: string) => s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!)
+    const fmtDate = (iso: string) => { try { return new Date(iso).toLocaleDateString('he-IL', { day: 'numeric', month: 'short', year: 'numeric' }) } catch { return '' } }
+    const filtered = () => items.filter((it) => !kind || (kind === 'tagged' ? it.tagged : kind === 'post' ? it.kind !== 'reel' : it.kind === kind))
+
+    const card = (it: Item, i: number) => {
+      const reel = it.kind === 'reel'
+      const label = it.tagged ? 'מהקהילה' : reel ? 'ריל' : it.kind === 'carousel' ? 'קרוסלה' : 'פוסט'
+      return `<a class="cm__card${reel ? ' cm__card--reel' : ''}" href="${esc(it.permalink)}" target="_blank" rel="noopener" style="--i:${i % PAGE}" data-id="${esc(it.id)}" ${reel && it.src ? `data-video="${esc(it.src)}"` : ''}>
+        <img src="${esc(it.poster)}" alt="${esc(it.caption.slice(0, 80))}" loading="lazy" />
+        <span class="cm__kind${it.tagged ? ' cm__kind--tag' : ''}">${label}</span>
+        ${reel ? '<span class="cm__play"><span><svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span></span>' : ''}
+        <span class="cm__meta">
+          ${it.username ? `<span class="cm__user">@${esc(it.username)}</span>` : ''}
+          ${it.caption ? `<span class="cm__cap">${esc(it.caption)}</span>` : ''}
+          ${it.date ? `<span class="cm__date">${fmtDate(it.date)}</span>` : ''}
+        </span>
+      </a>`
+    }
+
+    const render = (reset = true) => {
+      const list = filtered()
+      if (reset) { grid.innerHTML = ''; shown = 0 }
+      const slice = list.slice(shown, shown + PAGE)
+      grid.insertAdjacentHTML('beforeend', slice.map(card).join(''))
+      shown += slice.length
+      more.hidden = shown >= list.length
+      count.textContent = list.length ? `${list.length} פריטים` : ''
+      empty.hidden = list.length > 0
+      grid.setAttribute('aria-busy', 'false')
+    }
+
+    chips.forEach((c) => c.addEventListener('click', () => {
+      chips.forEach((x) => { x.classList.toggle('is-active', x === c); x.setAttribute('aria-selected', String(x === c)) })
+      kind = c.dataset.kind || ''
+      render()
+    }))
+    more.addEventListener('click', () => render(false))
+
+    // reels play in a lightbox (direct mp4 from the API); anything else opens Instagram
+    grid.addEventListener('click', (e) => {
+      const a = (e.target as HTMLElement).closest<HTMLAnchorElement>('.cm__card[data-video]')
+      if (!a) return
+      e.preventDefault()
+      video.src = a.dataset.video!
+      video.poster = a.querySelector('img')?.src || ''
+      link.href = a.href
+      player.showModal()
+      video.play().catch(() => {})
+    })
+    const close = () => { video.pause(); video.removeAttribute('src'); video.load(); player.close() }
+    player.querySelector('[data-cm-close]')!.addEventListener('click', close)
+    player.addEventListener('click', (e) => { if (e.target === player) close() })
+    player.addEventListener('close', () => { video.pause() })
+
+    fetch('/api/instagram', { headers: { Accept: 'application/json' } })
+      .then((r) => r.json())
+      .then((data: { configured: boolean; items: Item[] }) => {
+        items = data.items || []
+        chips.find((c) => c.dataset.kind === 'tagged')!.hidden = !items.some((it) => it.tagged)
+        render()
+      })
+      .catch(() => { items = []; render() })
+  </script>
+</Base>

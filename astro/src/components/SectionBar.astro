@@ -1,0 +1,88 @@
+---
+// Sticky horizontal section bar that sits right under the site header: numbered
+// chips (one per section id on the page) and a reading-progress line. The
+// active chip follows the scroll. Shared by the professional pages
+// (ArticleShell) and the product pages.
+interface Props {
+  entries: Array<{ id: string; label: string }>
+  label?: string
+}
+const { entries, label = 'ניווט בעמוד' } = Astro.props
+---
+{entries.length > 0 && (
+  <nav class="as-bar" aria-label={label} data-article-nav>
+    <div class="ns-container ns-container--wide as-bar__inner">
+      <div class="as-bar__chips" data-article-chips>
+        {entries.map((e, i) => (
+          <a class="as-bar__chip" href={`#${e.id}`} data-target={e.id}><span class="as-bar__n">{String(i + 1).padStart(2, '0')}</span>{e.label}</a>
+        ))}
+      </div>
+    </div>
+    <span class="as-bar__progress" data-article-progress aria-hidden="true"></span>
+  </nav>
+)}
+
+<style>
+  .as-bar { position: sticky; top: var(--as-bar-top, 86px); z-index: 30; background: color-mix(in srgb, var(--ns-sun-beige) 92%, #fff); backdrop-filter: blur(10px); border-block: 1px solid var(--ns-border); transition: top .45s var(--ns-ease-smooth); }
+  :global(html.ns-docked) .as-bar { top: 0; }
+  .as-bar__inner { display: flex; align-items: center; gap: 16px; min-height: 60px; }
+  .as-bar__chips { display: flex; gap: 6px; flex: 1; min-width: 0; overflow-x: auto; scrollbar-width: none; padding-block: 8px; scroll-behavior: smooth; }
+  .as-bar__chips::-webkit-scrollbar { display: none; }
+  .as-bar__chip { flex: none; display: inline-flex; align-items: center; gap: 8px; min-height: 38px; padding: 6px 14px; border-radius: 999px; border: 1px solid transparent; font-size: 14.5px; font-weight: 600; line-height: 1.2; color: var(--ns-field-green); text-decoration: none; white-space: nowrap; transition: background .2s var(--ns-ease-out), color .2s var(--ns-ease-out), border-color .2s var(--ns-ease-out); }
+  .as-bar__n { font-family: var(--ns-font-latin); font-size: 11.5px; font-weight: 700; letter-spacing: .06em; color: var(--ns-pure-orange); }
+  .as-bar__chip:hover { background: var(--ns-bg-alt); border-color: var(--ns-border); }
+  .as-bar__chip.is-active { background: var(--ns-field-green); color: var(--ns-sun-beige); }
+  .as-bar__chip.is-active .as-bar__n { color: var(--ns-sun-beige); opacity: .8; }
+  .as-bar__progress { position: absolute; inset-inline-start: 0; bottom: -1px; height: 3px; width: var(--p, 0%); background: var(--ns-pure-orange); transition: width .15s linear; }
+  /* anchors land below the header + bar */
+  :global(html) { scroll-padding-top: 170px; }
+  @media (max-width: 1023px) { .as-bar { --as-bar-top: 76px; } :global(html.ns-docked) .as-bar { top: 76px; } :global(html) { scroll-padding-top: 150px; } }
+  @media (max-width: 760px) { .as-bar__inner { min-height: 52px; } .as-bar__chip { min-height: 34px; font-size: 13.5px; padding-inline: 12px; } }
+</style>
+
+<script>
+  // Highlight the section in view, keep its chip visible, and draw the reading
+  // progress across the bar (over [data-article-body] when present, otherwise
+  // from the first to the last target section).
+  const bar = document.querySelector<HTMLElement>('[data-article-nav]')
+  if (bar) {
+    const chips = [...bar.querySelectorAll<HTMLAnchorElement>('[data-target]')]
+    const chipRow = bar.querySelector<HTMLElement>('[data-article-chips]')!
+    const progress = bar.querySelector<HTMLElement>('[data-article-progress]')!
+    const targets = chips.map((c) => document.getElementById(c.dataset.target!)).filter((el): el is HTMLElement => !!el)
+    const body = document.querySelector<HTMLElement>('[data-article-body]')
+    const top = (el: HTMLElement) => el.getBoundingClientRect().top + window.scrollY
+    let active = ''
+    const update = () => {
+      const barBottom = bar.getBoundingClientRect().bottom + 24
+      let cur = targets[0]?.id ?? ''
+      for (const t of targets) if (t.getBoundingClientRect().top <= barBottom) cur = t.id
+      if (cur !== active) {
+        active = cur
+        chips.forEach((c) => c.classList.toggle('is-active', c.dataset.target === cur))
+        const chip = chips.find((c) => c.dataset.target === cur)
+        if (chip) {
+          // Scroll only the chip row (never scrollIntoView: inside a sticky bar
+          // Chrome also scrolls the window to the bar's in-flow position = page jumps).
+          const r = chip.getBoundingClientRect(), row = chipRow.getBoundingClientRect()
+          if (r.left < row.left || r.right > row.right) chipRow.scrollBy({ left: (r.left + r.width / 2) - (row.left + row.width / 2), behavior: 'smooth' })
+        }
+      }
+      let start = 0, end = 1
+      if (body) {
+        start = top(body) - bar.offsetHeight
+        end = top(body) + body.offsetHeight - window.innerHeight
+      } else if (targets.length) {
+        const last = targets[targets.length - 1]
+        start = top(targets[0]) - bar.offsetHeight
+        end = top(last) + last.offsetHeight - window.innerHeight
+      }
+      const p = Math.max(0, Math.min(1, (window.scrollY - start) / Math.max(1, end - start)))
+      progress.style.setProperty('--p', `${(p * 100).toFixed(1)}%`)
+    }
+    let ticking = false
+    window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(() => { update(); ticking = false }) } }, { passive: true })
+    window.addEventListener('resize', update)
+    update()
+  }
+</script>

@@ -1,0 +1,21 @@
+---
+// Renders a CMS heading: { text, level (h1-h4/p), size (sm..3xl) }.
+// Tolerant of a plain string (legacy) and of missing fields, with prop defaults.
+interface HeadingValue { text?: string; level?: string; size?: string }
+interface Props {
+  value?: HeadingValue | string | null
+  text?: string
+  level?: string
+  size?: string
+  class?: string
+}
+const { value, text: textProp, level: levelProp, size: sizeProp, class: className } = Astro.props
+const v: HeadingValue = typeof value === 'string' ? { text: value } : (value || {})
+
+const text = v.text ?? textProp
+const level = v.level || levelProp || 'h2'
+const size = v.size || sizeProp
+const Tag = (['h1', 'h2', 'h3', 'h4', 'p'].includes(level) ? level : 'h2') as keyof HTMLElementTagNameMap
+const cls = [className, size ? `ns-fs-${size}` : ''].filter(Boolean).join(' ')
+---
+{text && <Tag class={cls}>{text}</Tag>}

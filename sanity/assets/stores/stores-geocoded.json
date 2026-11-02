@@ -1,0 +1,8620 @@
+[
+ {
+  "id": "c5-1",
+  "name": "א.כ. ראס אל חנות בעמ - תלפיות",
+  "address": "יד חרוצים 22, ירושלים, ישראל",
+  "city": "ירושלים",
+  "phone": "02582111",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.7503146,
+   "lng": 35.215267,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Yad Harutsim St 22, Jerusalem, ישראל",
+   "locality": "Jerusalem",
+   "area1": "Jerusalem District",
+   "route": "Yad Harutsim Street",
+   "streetNumber": "22"
+  }
+ },
+ {
+  "id": "c5-2",
+  "name": "א.ר.נ החזקות בעמ",
+  "address": "שדרות המלאכות 121, מודיעין, ישראל",
+  "city": "מודיעין",
+  "phone": "08-9744409",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.891540374999998,
+   "lng": 34.987554274999994,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-3",
+  "name": "אלמונדו",
+  "address": "דרך השדה 18, כרכור, ישראל",
+  "city": "כרכור",
+  "phone": "050-7467775",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.4791576,
+   "lng": 34.9813202,
+   "precision": "GEOMETRIC_CENTER",
+   "partial": false,
+   "formatted": "דרך השדה 18, פרדס חנה כרכור, ישראל",
+   "locality": "פרדס חנה כרכור",
+   "area1": "מחוז חיפה",
+   "route": "דרך השדה",
+   "streetNumber": "18"
+  }
+ },
+ {
+  "id": "c5-4",
+  "name": "אלמונדו אתר אינטרנט",
+  "address": "ישראל, פתח תקווה, ישראל",
+  "city": "פתח תקווה",
+  "phone": "036397475",
+  "website": "https://www.almondo.co.il/200132-%D7%95%D7%99%D7%98%D7%9E%D7%99%D7%A0%D7%99%D7%9D/321692-category-5",
+  "tags": "אתר אינטרנט",
+  "geo": {
+   "lat": 32.0901854,
+   "lng": 34.882469625,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-5",
+  "name": "אוצר הטבע",
+  "address": "אבני נזר 46, מודיעין עלית, ישראל",
+  "city": "מודיעין עלית",
+  "phone": "053-3172255",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.9304948,
+   "lng": 35.0388026,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Avney-Nezer St 46, Modi'in Ilit",
+   "locality": "Modi'in Ilit",
+   "area1": "",
+   "route": "Avney-Nezer Street",
+   "streetNumber": "46"
+  }
+ },
+ {
+  "id": "c5-6",
+  "name": "אורן בית טבע בע\"מ - מונוסון",
+  "address": "החורש 4, יהוד מונוסון, ישראל",
+  "city": "יהוד מונוסון",
+  "phone": "03-5518870",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.0330363,
+   "lng": 34.8788481,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "דרך החורש 4, יהוד מונוסון, ישראל",
+   "locality": "יהוד מונוסון",
+   "area1": "מחוז המרכז",
+   "route": "דרך החורש",
+   "streetNumber": "4"
+  }
+ },
+ {
+  "id": "c5-7",
+  "name": "אורן בית טבע בע\"מ -קרית אונו",
+  "address": "שלמה המלך 40, קרית אונו, ישראל",
+  "city": "קרית אונו",
+  "phone": "03-5289890",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.0548391,
+   "lng": 34.8638919,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Shlomo ha-Melekh St 40, Kiryat Ono, ישראל",
+   "locality": "Kiryat Ono",
+   "area1": "Tel Aviv District",
+   "route": "Shlomo ha-Melekh Street",
+   "streetNumber": "40"
+  }
+ },
+ {
+  "id": "c5-8",
+  "name": "אורני בית מרקחת בע\"מ -מכבי",
+  "address": "הגואל 3, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "03-6879532",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.053941,
+   "lng": 34.7882548,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Go'el St 3, Tel Aviv-Yafo, 67753, ישראל",
+   "locality": "Tel Aviv-Yafo",
+   "area1": "Tel Aviv District",
+   "route": "Go'el Street",
+   "streetNumber": "3"
+  }
+ },
+ {
+  "id": "c5-9",
+  "name": "אלבה בשפע בע\"מ",
+  "address": "שדרות ירושלים 11, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "054-7738073",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.0558725,
+   "lng": 34.75985,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Jerusalem Blvd 11, Tel Aviv-Yafo, ישראל",
+   "locality": "Tel Aviv-Yafo",
+   "area1": "Tel Aviv District",
+   "route": "Jerusalem Boulevard",
+   "streetNumber": "11"
+  }
+ },
+ {
+  "id": "c5-10",
+  "name": "טבע בריא - אתר אינטרנט",
+  "address": "ראול ולנברג 14א, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "03-6485501",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.1087837,
+   "lng": 34.836956,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Raoul Wallenberg St 14א, Tel Aviv-Yafo, 6962140, ישראל",
+   "locality": "Tel Aviv-Yafo",
+   "area1": "Tel Aviv District",
+   "route": "Raoul Wallenberg Street",
+   "streetNumber": "14א"
+  }
+ },
+ {
+  "id": "c5-11",
+  "name": "אקופארם בע\"מ",
+  "address": "עוזי נרקיס 9, מעלות, ישראל",
+  "city": "מעלות",
+  "phone": "0795555502",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 33.012267,
+   "lng": 35.2885369,
+   "precision": "RANGE_INTERPOLATED",
+   "partial": true,
+   "formatted": "Narkis St 9, Ma'alot-Tarshiha, ישראל",
+   "locality": "Ma'alot-Tarshiha",
+   "area1": "North District",
+   "route": "Narkis Street",
+   "streetNumber": "9"
+  }
+ },
+ {
+  "id": "c5-12",
+  "name": "אשר שיווק טבע בע\"מ",
+  "address": "הקיטור 5 חוצות המפרץ, חיפה, ישראל",
+  "city": "חיפה",
+  "phone": "04-8722293",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.8128754,
+   "lng": 35.0592729,
+   "precision": "ROOFTOP",
+   "partial": true,
+   "formatted": "HaKitor St 5, Haifa, 2624752, ישראל",
+   "locality": "Haifa",
+   "area1": "Haifa District",
+   "route": "HaKitor Street",
+   "streetNumber": "5"
+  }
+ },
+ {
+  "id": "c5-13",
+  "name": "בדרך שלך",
+  "address": "צין 5, ספיר, ישראל",
+  "city": "ספיר",
+  "phone": "0526322111",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 30.6160433,
+   "lng": 35.1851914,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Tsin St 5, Sapir, ישראל",
+   "locality": "Sapir",
+   "area1": "South District",
+   "route": "Tsin Street",
+   "streetNumber": "5"
+  }
+ },
+ {
+  "id": "c5-14",
+  "name": "ביו גאיה",
+  "address": "הגביש 3, כפר סבא, ישראל",
+  "city": "כפר סבא",
+  "phone": "072-2204559",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.1771016,
+   "lng": 34.93019719999999,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Ha-Gavish St 3, Kefar Sava, ישראל",
+   "locality": "Kefar Sava",
+   "area1": "Center District",
+   "route": "Ha-Gavish Street",
+   "streetNumber": "3"
+  }
+ },
+ {
+  "id": "c5-15",
+  "name": "בית בריא",
+  "address": "קרן היסוד 22, קרית ביאליק, ישראל",
+  "city": "קרית ביאליק",
+  "phone": "04-6827575",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.83028720000001,
+   "lng": 35.0852959,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Keren ha-Yesod St 22, Kiryat Bialik, ישראל",
+   "locality": "Kiryat Bialik",
+   "area1": "Haifa District",
+   "route": "Keren ha-Yesod Street",
+   "streetNumber": "22"
+  }
+ },
+ {
+  "id": "c5-16",
+  "name": "בית הטבע יובל",
+  "address": "ז`בוטינסקי 48, ראשון לציון, ישראל",
+  "city": "ראשון לציון",
+  "phone": "03-9673694",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.9671914,
+   "lng": 34.7996663,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Jabotinsky St 48, Rishon LeZion, ישראל",
+   "locality": "Rishon LeZion",
+   "area1": "Center District",
+   "route": "Jabotinsky Street",
+   "streetNumber": "48"
+  }
+ },
+ {
+  "id": "c5-17",
+  "name": "בית השקד והטבע",
+  "address": "קריניצי 10, רמת גן, ישראל",
+  "city": "רמת גן",
+  "phone": "03-6725432",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.0792447,
+   "lng": 34.8158979,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Krinitsi St 10, Ramat Gan, ישראל",
+   "locality": "Ramat Gan",
+   "area1": "Tel Aviv District",
+   "route": "Krinitsi Street",
+   "streetNumber": "10"
+  }
+ },
+ {
+  "id": "c5-18",
+  "name": "בית טבע-תבלין וטבע פ\"ת",
+  "address": "שטמפר 15, פתח תקווה, ישראל",
+  "city": "פתח תקווה",
+  "phone": "",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.0901497,
+   "lng": 34.8855149,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Yehoshua Shtampfer St 15, Petah Tikva, ישראל",
+   "locality": "Petah Tikva",
+   "area1": "Center District",
+   "route": "Yehoshua Shtampfer Street",
+   "streetNumber": "15"
+  }
+ },
+ {
+  "id": "c5-19",
+  "name": "בית טבע אורגנו",
+  "address": "אזור תעשיה ירכא, ירכא, ישראל",
+  "city": "ירכא",
+  "phone": "050-7288803",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.949658,
+   "lng": 35.179038,
+   "precision": "GEOMETRIC_CENTER",
+   "partial": false,
+   "formatted": "ירכא, ישראל",
+   "locality": "ירכא",
+   "area1": "מחוז הצפון",
+   "route": "",
+   "streetNumber": ""
+  }
+ },
+ {
+  "id": "c5-20",
+  "name": "בית טבע אלומות",
+  "address": "בית הפועלים 5, רחובות, ישראל",
+  "city": "רחובות",
+  "phone": "08-9462333",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.8973557,
+   "lng": 34.8098376,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Beit ha-Po'alim St 5, Rehovot, ישראל",
+   "locality": "Rehovot",
+   "area1": "Center District",
+   "route": "Beit ha-Po'alim Street",
+   "streetNumber": "5"
+  }
+ },
+ {
+  "id": "c5-21",
+  "name": "בית טבע אמא אדמה בת-ים",
+  "address": "בלפור 87, בת ים, ישראל",
+  "city": "בת ים",
+  "phone": "03-6597882",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.020472,
+   "lng": 34.7457067,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Balfour St 87, Bat Yam, ישראל",
+   "locality": "Bat Yam",
+   "area1": "Center District",
+   "route": "Balfour Street",
+   "streetNumber": "87"
+  }
+ },
+ {
+  "id": "c5-22",
+  "name": "בית טבע בית בטבע",
+  "address": "העצמאות 6, גן יבנה, ישראל",
+  "city": "גן יבנה",
+  "phone": "08-8574871",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.789297,
+   "lng": 34.7138776,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Ha-Atsma'ut St 6, Gan Yavne, ישראל",
+   "locality": "Gan Yavne",
+   "area1": "Center District",
+   "route": "Ha-Atsma'ut Street",
+   "streetNumber": "6"
+  }
+ },
+ {
+  "id": "c5-23",
+  "name": "בית טבע בעיר",
+  "address": "סוקולוב 54, חולון, ישראל",
+  "city": "חולון",
+  "phone": "03-5014952",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.02255160000001,
+   "lng": 34.774926,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Sokolov St 54, Holon, ישראל",
+   "locality": "Holon",
+   "area1": "Center District",
+   "route": "Sokolov Street",
+   "streetNumber": "54"
+  }
+ },
+ {
+  "id": "c5-24",
+  "name": "בית טבע הדסא ירושלים",
+  "address": "בית יעקב 2, ירושלים, ישראל",
+  "city": "ירושלים",
+  "phone": "02-6244442",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.7855716,
+   "lng": 35.2117339,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Beit Ya'akov St 2, Jerusalem, ישראל",
+   "locality": "Jerusalem",
+   "area1": "Jerusalem District",
+   "route": "Beit Ya'akov Street",
+   "streetNumber": "2"
+  }
+ },
+ {
+  "id": "c5-25",
+  "name": "בית טבע הילה בטבע",
+  "address": "סוקולוב 40, הרצליה, ישראל",
+  "city": "הרצליה",
+  "phone": "09-9567121",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.1669612,
+   "lng": 34.844759,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Sokolov St 40, Herzliya, ישראל",
+   "locality": "Herzliya",
+   "area1": "Tel Aviv District",
+   "route": "Sokolov Street",
+   "streetNumber": "40"
+  }
+ },
+ {
+  "id": "c5-26",
+  "name": "בית טבע ויטמין סי",
+  "address": "נהר הירדן 38 - בחנייה, בית שמש, ישראל",
+  "city": "בית שמש",
+  "phone": "02-9921980",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.7286296,
+   "lng": 34.9928748,
+   "precision": "ROOFTOP",
+   "partial": true,
+   "formatted": "Nahar Hayarden Ave 38, Bet Shemesh, ישראל",
+   "locality": "Bet Shemesh",
+   "area1": "Jerusalem District",
+   "route": "Nahar Hayarden Avenue",
+   "streetNumber": "38"
+  }
+ },
+ {
+  "id": "c5-27",
+  "name": "בית טבע זמורה",
+  "address": "נג'ארה 37 גבעת שאול, ירושלים, ישראל",
+  "city": "ירושלים",
+  "phone": "02-6519392",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.792658,
+   "lng": 35.19082909999999,
+   "precision": "RANGE_INTERPOLATED",
+   "partial": true,
+   "formatted": "Giv'at Sha'ul St 37, Jerusalem, ישראל",
+   "locality": "Jerusalem",
+   "area1": "Jerusalem District",
+   "route": "Giv'at Sha'ul Street",
+   "streetNumber": "37"
+  }
+ },
+ {
+  "id": "c5-28",
+  "name": "בית טבע טובלי טבע - הרב קוק",
+  "address": "הרב קוק 3, בני ברק, ישראל",
+  "city": "בני ברק",
+  "phone": "03-6193125",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.0875527,
+   "lng": 34.827402,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Ha-Rav Avraham Yitskhak ha-Cohen Kook St 3, Bnei Brak, ישראל",
+   "locality": "Bnei Brak",
+   "area1": "Tel Aviv District",
+   "route": "Ha-Rav Avraham Yitskhak ha-Cohen Kook Street",
+   "streetNumber": "3"
+  }
+ },
+ {
+  "id": "c5-29",
+  "name": "בית טבע טל",
+  "address": "שינקר 51, חולון, ישראל",
+  "city": "חולון",
+  "phone": "03-5042585",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.0217915,
+   "lng": 34.7762919,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Arye Shenkar St 51, Holon, ישראל",
+   "locality": "Holon",
+   "area1": "Center District",
+   "route": "Arye Shenkar Street",
+   "streetNumber": "51"
+  }
+ },
+ {
+  "id": "c5-30",
+  "name": "בית טבע למהדרין (שקדיה)",
+  "address": "חרמון 9, חיפה, ישראל",
+  "city": "חיפה",
+  "phone": "04-8674499",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.8048278,
+   "lng": 35.0013908,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Hermon St 9, Haifa, ישראל",
+   "locality": "Haifa",
+   "area1": "Haifa District",
+   "route": "Hermon Street",
+   "streetNumber": "9"
+  }
+ },
+ {
+  "id": "c5-31",
+  "name": "בית טבע מליסה",
+  "address": "מרכז מסחרי שלב ד חנות מס 16, דימונה, ישראל",
+  "city": "דימונה",
+  "phone": "08-6573221",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.069419,
+   "lng": 35.033363,
+   "precision": "APPROXIMATE",
+   "partial": true,
+   "formatted": "דימונה, ישראל",
+   "locality": "דימונה",
+   "area1": "מחוז הדרום",
+   "route": "",
+   "streetNumber": ""
+  }
+ },
+ {
+  "id": "c5-32",
+  "name": "בית טבע נוה אביבים",
+  "address": "יהודה הנשיא 34, נוה אביבים, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "03-6410411",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.11937,
+   "lng": 34.7959312,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Yehuda ha-Nasi St 34, Tel Aviv-Yafo, 6920024, ישראל",
+   "locality": "Tel Aviv-Yafo",
+   "area1": "Tel Aviv District",
+   "route": "Yehuda ha-Nasi Street",
+   "streetNumber": "34"
+  }
+ },
+ {
+  "id": "c5-33",
+  "name": "בית טבע ניצת יקנעם בע\"מ",
+  "address": "דרך רבין 9, מרכז ביג, יקנעם, ישראל",
+  "city": "יקנעם",
+  "phone": "04-8282121",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 32.6426784,
+   "lng": 35.0927494,
+   "precision": "ROOFTOP",
+   "partial": true,
+   "formatted": "שדרות יצחק רבין 9, יוקנעם עילית, ישראל",
+   "locality": "יוקנעם עילית",
+   "area1": "מחוז הצפון",
+   "route": "שדרות יצחק רבין",
+   "streetNumber": "9"
+  }
+ },
+ {
+  "id": "c5-34",
+  "name": "בית טבע נירולי",
+  "address": "לילנבלום 3, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "03-5107869",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.0619076,
+   "lng": 34.7673616,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Lilienblum St 3, Tel Aviv-Yafo, 6513105, ישראל",
+   "locality": "Tel Aviv-Yafo",
+   "area1": "Tel Aviv District",
+   "route": "Lilienblum Street",
+   "streetNumber": "3"
+  }
+ },
+ {
+  "id": "c5-35",
+  "name": "בית טבע פולט",
+  "address": "מורד הגיא 100, חנות 307 קניון לב העיר, כרמיאל, ישראל",
+  "city": "כרמיאל",
+  "phone": "04-9585147",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.9081326,
+   "lng": 35.2936948,
+   "precision": "ROOFTOP",
+   "partial": true,
+   "formatted": "לב כרמיאל, Morad ha-Gai St 100, כרמיאל, ישראל",
+   "locality": "כרמיאל",
+   "area1": "מחוז הצפון",
+   "route": "Morad ha-Gai Street",
+   "streetNumber": "100"
+  }
+ },
+ {
+  "id": "c5-36",
+  "name": "בית טבע פנציאה- נהריה",
+  "address": "הרצל 75, נהריה, ישראל",
+  "city": "נהריה",
+  "phone": "049512625",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 33.0054824,
+   "lng": 35.0961202,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Herzl St 75, Nahariyya, ישראל",
+   "locality": "Nahariyya",
+   "area1": "North District",
+   "route": "Herzl Street",
+   "streetNumber": "75"
+  }
+ },
+ {
+  "id": "c5-37",
+  "name": "בית טבע רוח וריחן",
+  "address": "איכסאל, איכסאל, ישראל",
+  "city": "איכסאל",
+  "phone": "054-3201824",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.6821176,
+   "lng": 35.3229703,
+   "precision": "APPROXIMATE",
+   "partial": false,
+   "formatted": "אכסאל, ישראל",
+   "locality": "אכסאל",
+   "area1": "מחוז הצפון",
+   "route": "",
+   "streetNumber": ""
+  }
+ },
+ {
+  "id": "c5-38",
+  "name": "בית טבע רותם",
+  "address": "רמבם 7, באר שבע, ישראל",
+  "city": "באר שבע",
+  "phone": "08-9933092",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.2411265,
+   "lng": 34.79324,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Rambam St 7, Be'er Sheva, ישראל",
+   "locality": "Be'er Sheva",
+   "area1": "South District",
+   "route": "Rambam Street",
+   "streetNumber": "7"
+  }
+ },
+ {
+  "id": "c5-39",
+  "name": "בית מרקחת אופיר",
+  "address": "נחלת בנימין 22, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "03-5609088",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.0664289,
+   "lng": 34.7702383,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Nahalat Binyamin St 22, Tel Aviv-Yafo, ישראל",
+   "locality": "Tel Aviv-Yafo",
+   "area1": "Tel Aviv District",
+   "route": "Nahalat Binyamin Street",
+   "streetNumber": "22"
+  }
+ },
+ {
+  "id": "c5-40",
+  "name": "בית מרקחת אחד העם",
+  "address": "אחד העם 26, רחובות, ישראל",
+  "city": "רחובות",
+  "phone": "08-9361920",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.8989556,
+   "lng": 34.8116038,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Ahad Ha'Am St 26, Rehovot, ישראל",
+   "locality": "Rehovot",
+   "area1": "Center District",
+   "route": "Ahad Ha'Am Street",
+   "streetNumber": "26"
+  }
+ },
+ {
+  "id": "c5-41",
+  "name": "בית מרקחת אסותא פ\"ת",
+  "address": "הברון הירש 23, פתח תקווה, ישראל",
+  "city": "פתח תקווה",
+  "phone": "",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.0900236,
+   "lng": 34.8842779,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Baron Hirsch St 23, Petah Tikva, ישראל",
+   "locality": "Petah Tikva",
+   "area1": "Center District",
+   "route": "Baron Hirsch Street",
+   "streetNumber": "23"
+  }
+ },
+ {
+  "id": "c5-42",
+  "name": "בית מרקחת אקו פארם",
+  "address": "עוזי נרקיס 9, מעלות, ישראל",
+  "city": "מעלות",
+  "phone": "0795555502",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 33.012267,
+   "lng": 35.2885369,
+   "precision": "RANGE_INTERPOLATED",
+   "partial": true,
+   "formatted": "Narkis St 9, Ma'alot-Tarshiha, ישראל",
+   "locality": "Ma'alot-Tarshiha",
+   "area1": "North District",
+   "route": "Narkis Street",
+   "streetNumber": "9"
+  }
+ },
+ {
+  "id": "c5-43",
+  "name": "בית מרקחת בבלי",
+  "address": "עוזיאל 1, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "03-6040552",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.0953818,
+   "lng": 34.799436,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Ha-Rav Uzi'el St 1, Tel Aviv-Yafo, ישראל",
+   "locality": "Tel Aviv-Yafo",
+   "area1": "Tel Aviv District",
+   "route": "Ha-Rav Uzi'el Street",
+   "streetNumber": "1"
+  }
+ },
+ {
+  "id": "c5-44",
+  "name": "בית מרקחת גאולה",
+  "address": "מלכי ישראל 14, ירושלים, ישראל",
+  "city": "ירושלים",
+  "phone": "02-5371050",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.7889215,
+   "lng": 35.2169698,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Malkei Israel St 14, Jerusalem, ישראל",
+   "locality": "Jerusalem",
+   "area1": "Jerusalem District",
+   "route": "Malkei Israel Street",
+   "streetNumber": "14"
+  }
+ },
+ {
+  "id": "c5-45",
+  "name": "בית מרקחת גילי",
+  "address": "הדקל 41, תל מונד, ישראל",
+  "city": "תל מונד",
+  "phone": "09-7961236",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.252996,
+   "lng": 34.9179688,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Ha-Dekel St 41, Tel Mond, ישראל",
+   "locality": "Tel Mond",
+   "area1": "Center District",
+   "route": "Ha-Dekel Street",
+   "streetNumber": "41"
+  }
+ },
+ {
+  "id": "c5-46",
+  "name": "בית מרקחת דן בע\"מ",
+  "address": "דב גור מרכז מסחרי ו', אשדוד, ישראל",
+  "city": "אשדוד",
+  "phone": "08-8555646",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.804381,
+   "lng": 34.655314,
+   "precision": "APPROXIMATE",
+   "partial": true,
+   "formatted": "אשדוד, ישראל",
+   "locality": "אשדוד",
+   "area1": "מחוז הדרום",
+   "route": "",
+   "streetNumber": ""
+  }
+ },
+ {
+  "id": "c5-47",
+  "name": "בית מרקחת הדר חיפה",
+  "address": "הנביאים 21, חיפה, ישראל",
+  "city": "חיפה",
+  "phone": "04-8623944",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.8127105,
+   "lng": 34.995354,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Ha-Nevi'im St 21, Haifa, ישראל",
+   "locality": "Haifa",
+   "area1": "Haifa District",
+   "route": "Ha-Nevi'im Street",
+   "streetNumber": "21"
+  }
+ },
+ {
+  "id": "c5-48",
+  "name": "בית מרקחת הדר פרדס חנה",
+  "address": "הדקלים 103, פרדס חנה, ישראל",
+  "city": "פרדס חנה",
+  "phone": "04-6372469",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.4737504,
+   "lng": 34.9732394,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Ha-Dkalim St 103, Pardes Hanna-Karkur, 3702199, ישראל",
+   "locality": "Pardes Hanna-Karkur",
+   "area1": "Haifa District",
+   "route": "Ha-Dkalim Street",
+   "streetNumber": "103"
+  }
+ },
+ {
+  "id": "c5-49",
+  "name": "בית מרקחת המרכז נס ציונה",
+  "address": "ויצמן 8, נס ציונה, ישראל",
+  "city": "נס ציונה",
+  "phone": "08-9404960",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.9256274,
+   "lng": 34.7979852,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "גן הגיבורים, Weizman St 8, נס ציונה, ישראל",
+   "locality": "נס ציונה",
+   "area1": "מחוז המרכז",
+   "route": "Weizman Street",
+   "streetNumber": "8"
+  }
+ },
+ {
+  "id": "c5-50",
+  "name": "בית מרקחת הר נוף",
+  "address": "שאולזון 31 הר נוף, ירושלים, ישראל",
+  "city": "ירושלים",
+  "phone": "02-6518294",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.784846,
+   "lng": 35.1733,
+   "precision": "APPROXIMATE",
+   "partial": true,
+   "formatted": "הר נוף, ירושלים, ישראל",
+   "locality": "ירושלים",
+   "area1": "מחוז ירושלים",
+   "route": "",
+   "streetNumber": ""
+  }
+ },
+ {
+  "id": "c5-51",
+  "name": "בית מרקחת הרצל ראשל\"צ",
+  "address": "הרצל 41, ראשון לציון, ישראל",
+  "city": "ראשון לציון",
+  "phone": "",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.9693858,
+   "lng": 34.8048302,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Herzl St 41, Rishon LeZion, ישראל",
+   "locality": "Rishon LeZion",
+   "area1": "Center District",
+   "route": "Herzl Street",
+   "streetNumber": "41"
+  }
+ },
+ {
+  "id": "c5-52",
+  "name": "בית מרקחת ישגב",
+  "address": "הרוגי המלכות 7 רמת החייל, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.1098437,
+   "lng": 34.8331752,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Harugei Malkhut St 7, Tel Aviv-Yafo, ישראל",
+   "locality": "Tel Aviv-Yafo",
+   "area1": "Tel Aviv District",
+   "route": "Harugei Malkhut Street",
+   "streetNumber": "7"
+  }
+ },
+ {
+  "id": "c5-53",
+  "name": "בית מרקחת ישי",
+  "address": "הרב לוין 9, עפולה, ישראל",
+  "city": "עפולה",
+  "phone": "04-6594650",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.609865,
+   "lng": 35.287787,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "HaRav Nahum Levin St 9, Afula, ישראל",
+   "locality": "Afula",
+   "area1": "North District",
+   "route": "HaRav Nahum Levin Street",
+   "streetNumber": "9"
+  }
+ },
+ {
+  "id": "c5-54",
+  "name": "בית מרקחת לב הרצליה",
+  "address": "בן-גוריון 2, הרצליה, ישראל",
+  "city": "הרצליה",
+  "phone": "09-9547035",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.1666234,
+   "lng": 34.8422973,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Ben Gurion Blvd 2, Herzliya, 46785, ישראל",
+   "locality": "Herzliya",
+   "area1": "Tel Aviv District",
+   "route": "Ben Gurion Boulevard",
+   "streetNumber": "2"
+  }
+ },
+ {
+  "id": "c5-55",
+  "name": "בית מרקחת מושנזון",
+  "address": "בן יהודה 83, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "03-5222481",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.0818339,
+   "lng": 34.7707645,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Ben Yehuda St 83, Tel Aviv-Yafo, 6343509, ישראל",
+   "locality": "Tel Aviv-Yafo",
+   "area1": "Tel Aviv District",
+   "route": "Ben Yehuda Street",
+   "streetNumber": "83"
+  }
+ },
+ {
+  "id": "c5-56",
+  "name": "בית מרקחת מירה פארם בע\"מ",
+  "address": "דב הוז 49, חולון, ישראל",
+  "city": "חולון",
+  "phone": "03-6517978",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.02317,
+   "lng": 34.76483,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "שדרות דב הוז 49, חולון, ישראל",
+   "locality": "חולון",
+   "area1": "מחוז המרכז",
+   "route": "שדרות דב הוז",
+   "streetNumber": "49"
+  }
+ },
+ {
+  "id": "c5-57",
+  "name": "בית מרקחת מני (יצחק קטורזה)",
+  "address": "יפו 102, ירושלים, ישראל",
+  "city": "ירושלים",
+  "phone": "02-5383048",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.785817,
+   "lng": 35.212809,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Jaffa St 102, Jerusalem, ישראל",
+   "locality": "Jerusalem",
+   "area1": "Jerusalem District",
+   "route": "Jaffa Street",
+   "streetNumber": "102"
+  }
+ },
+ {
+  "id": "c5-58",
+  "name": "בית מרקחת מרכז השרון פ\"ת",
+  "address": "קציר 7, פתח תקווה, ישראל",
+  "city": "פתח תקווה",
+  "phone": "03-9311078",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.088773,
+   "lng": 34.8856363,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Aharon Katsir St 7, Petah Tikva, 4959130, ישראל",
+   "locality": "Petah Tikva",
+   "area1": "Center District",
+   "route": "Aharon Katsir Street",
+   "streetNumber": "7"
+  }
+ },
+ {
+  "id": "c5-59",
+  "name": "בית מרקחת עזרא",
+  "address": "בלפור 135, בת ים, ישראל",
+  "city": "בת ים",
+  "phone": "",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.0142345,
+   "lng": 34.7427764,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Balfour St 135, Bat Yam, ישראל",
+   "locality": "Bat Yam",
+   "area1": "Center District",
+   "route": "Balfour Street",
+   "streetNumber": "135"
+  }
+ },
+ {
+  "id": "c5-60",
+  "name": "בית מרקחת פארמה גד ת\"א",
+  "address": "גרינברג אורי צבי 25, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "03-7410331",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.043752,
+   "lng": 34.7703956,
+   "precision": "ROOFTOP",
+   "partial": true,
+   "formatted": "Zvi Preigerson St 25, Tel Aviv-Yafo, ישראל",
+   "locality": "Tel Aviv-Yafo",
+   "area1": "Tel Aviv District",
+   "route": "Zvi Preigerson Street",
+   "streetNumber": "25"
+  }
+ },
+ {
+  "id": "c5-61",
+  "name": "בית מרקחת פרמקסי בע\"מ",
+  "address": "רבינוביץ 17, חולון, ישראל",
+  "city": "חולון",
+  "phone": "",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.9993477,
+   "lng": 34.7696026,
+   "precision": "RANGE_INTERPOLATED",
+   "partial": false,
+   "formatted": "Yehoshu'a Rabinovich St 17, Holon, ישראל",
+   "locality": "Holon",
+   "area1": "Center District",
+   "route": "Yehoshu'a Rabinovich Street",
+   "streetNumber": "17"
+  }
+ },
+ {
+  "id": "c5-62",
+  "name": "בית מרקחת רוזנפארם",
+  "address": "עמק החולה 76, מודיעין, ישראל",
+  "city": "מודיעין",
+  "phone": "08-9701866",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.8962749,
+   "lng": 35.0113001,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Emek Hahula St 76, Modi'in-Maccabim-Re'ut, 7170399, ישראל",
+   "locality": "Modi'in-Maccabim-Re'ut",
+   "area1": "Center District",
+   "route": "Emek Hahula Street",
+   "streetNumber": "76"
+  }
+ },
+ {
+  "id": "c5-63",
+  "name": "בית מרקחת רימונה",
+  "address": "זימן 16, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.0769924,
+   "lng": 34.8006088,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Yosef Ziman St 16, Tel Aviv-Yafo, 9878978, ישראל",
+   "locality": "Tel Aviv-Yafo",
+   "area1": "Tel Aviv District",
+   "route": "Yosef Ziman Street",
+   "streetNumber": "16"
+  }
+ },
+ {
+  "id": "c5-64",
+  "name": "בית מרקחת רמת חן",
+  "address": "אלוף דוד 40, רמת גן, ישראל",
+  "city": "רמת גן",
+  "phone": "036767301",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.0583594,
+   "lng": 34.818979,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Aluf David St 40, Ramat Gan, ישראל",
+   "locality": "Ramat Gan",
+   "area1": "Tel Aviv District",
+   "route": "Aluf David Street",
+   "streetNumber": "40"
+  }
+ },
+ {
+  "id": "c5-65",
+  "name": "בית מרקחת רמת שלמה",
+  "address": "חזון איש 36, ירושליים, ישראל",
+  "city": "ירושליים",
+  "phone": "02-5711511",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.7768831,
+   "lng": 35.22243460000001,
+   "precision": "APPROXIMATE",
+   "partial": true,
+   "formatted": "ירושלים, ישראל",
+   "locality": "ירושלים",
+   "area1": "מחוז ירושלים",
+   "route": "",
+   "streetNumber": ""
+  }
+ },
+ {
+  "id": "c5-66",
+  "name": "בית מרקחת רסקו",
+  "address": "אלחדיף ת.ד 1690, טבריה, ישראל",
+  "city": "טבריה",
+  "phone": "04-6790871",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.791853,
+   "lng": 35.536157,
+   "precision": "GEOMETRIC_CENTER",
+   "partial": true,
+   "formatted": "Al Hadif St, Tiberias, ישראל",
+   "locality": "Tiberias",
+   "area1": "",
+   "route": "Al Hadif Street",
+   "streetNumber": ""
+  }
+ },
+ {
+  "id": "c5-67",
+  "name": "בית מרקחת שוורץ-ניצת הדובדבן טבריה",
+  "address": "הגליל 7, טבריה, ישראל",
+  "city": "טבריה",
+  "phone": "04-6720994",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 32.7873154,
+   "lng": 35.5396538,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "HaGalil St 7, Tiberias, ישראל",
+   "locality": "Tiberias",
+   "area1": "North District",
+   "route": "HaGalil Street",
+   "streetNumber": "7"
+  }
+ },
+ {
+  "id": "c5-68",
+  "name": "בית מרקחת תל גנים",
+  "address": "הרצוג 23, גבעתיים, ישראל",
+  "city": "גבעתיים",
+  "phone": "03-5717504",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.0614937,
+   "lng": 34.816468,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "HaRav Herzog St 23, Giv'atayim, 5360110, ישראל",
+   "locality": "Giv'atayim",
+   "area1": "Tel Aviv District",
+   "route": "HaRav Herzog Street",
+   "streetNumber": "23"
+  }
+ },
+ {
+  "id": "c5-69",
+  "name": "בר וטבע",
+  "address": "עובדיה 1, יד בנימין, ישראל",
+  "city": "יד בנימין",
+  "phone": "052-4031418-איריס",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.795124,
+   "lng": 34.820474,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Hosha St 1, Yad Binyamin, ישראל",
+   "locality": "Yad Binyamin",
+   "area1": "Center District",
+   "route": "Hosha Street",
+   "streetNumber": "1"
+  }
+ },
+ {
+  "id": "c5-70",
+  "name": "בריאה בית בריאות וטבע תל אביב",
+  "address": "לה גארדיה 64, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "054-4749478",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.0591414,
+   "lng": 34.7984235,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "La Guardia St 64, Tel Aviv-Yafo, ישראל",
+   "locality": "Tel Aviv-Yafo",
+   "area1": "Tel Aviv District",
+   "route": "La Guardia Street",
+   "streetNumber": "64"
+  }
+ },
+ {
+  "id": "c5-71",
+  "name": "גרין לייף",
+  "address": "מאה שערים 66, ירושלים, ישראל",
+  "city": "ירושלים",
+  "phone": "028020906",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.7867482,
+   "lng": 35.2236809,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Me'a She'arim St 66, Jerusalem, ישראל",
+   "locality": "Jerusalem",
+   "area1": "Jerusalem District",
+   "route": "Me'a She'arim Street",
+   "streetNumber": "66"
+  }
+ },
+ {
+  "id": "c5-72",
+  "name": "דרור לוי בית טבע בע\"מ",
+  "address": "הרצל 27, נתניה, ישראל",
+  "city": "נתניה",
+  "phone": "",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.328657,
+   "lng": 34.857471,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Herzl St 27, Netanya, ישראל",
+   "locality": "Netanya",
+   "area1": "Center District",
+   "route": "Herzl Street",
+   "streetNumber": "27"
+  }
+ },
+ {
+  "id": "c5-73",
+  "name": "דרך הטבע - קרית מוצקין",
+  "address": "דבורה 9, קרית מוצקין, ישראל",
+  "city": "קרית מוצקין",
+  "phone": "077-5548081",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.8249639,
+   "lng": 35.0781795,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Dvora St 9, Kiryat Motzkin, ישראל",
+   "locality": "Kiryat Motzkin",
+   "area1": "Haifa District",
+   "route": "Dvora Street",
+   "streetNumber": "9"
+  }
+ },
+ {
+  "id": "c5-74",
+  "name": "דרך טבע לובה",
+  "address": "איכילוב 15, פתח תקווה, ישראל",
+  "city": "פתח תקווה",
+  "phone": "03-9045525",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.0872209,
+   "lng": 34.884172,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Ihilov St 15, Petah Tikva, ישראל",
+   "locality": "Petah Tikva",
+   "area1": "Center District",
+   "route": "Ihilov Street",
+   "streetNumber": "15"
+  }
+ },
+ {
+  "id": "c5-75",
+  "name": "הדובדבן שבחורב בע\"מ",
+  "address": "שחם 17, פתח תקווה, ישראל",
+  "city": "פתח תקווה",
+  "phone": "03-7614641",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.0879003,
+   "lng": 34.8600023,
+   "precision": "GEOMETRIC_CENTER",
+   "partial": false,
+   "formatted": "Shacham St 17, Petah Tikva, 4951717, ישראל",
+   "locality": "Petah Tikva",
+   "area1": "Center District",
+   "route": "Shacham Street",
+   "streetNumber": "17"
+  }
+ },
+ {
+  "id": "c5-76",
+  "name": "הטחוניה של שחר",
+  "address": "אגריפס 69, ירושלים, ישראל",
+  "city": "ירושלים",
+  "phone": "02-6509449",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.7837642,
+   "lng": 35.2136123,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Agripas St 69, Jerusalem, ישראל",
+   "locality": "Jerusalem",
+   "area1": "Jerusalem District",
+   "route": "Agripas Street",
+   "streetNumber": "69"
+  }
+ },
+ {
+  "id": "c5-77",
+  "name": "היפר טבע זיקים אשקלון",
+  "address": "הגבורה 9, אשקלון, ישראל",
+  "city": "אשקלון",
+  "phone": "08-6712017",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.6652764,
+   "lng": 34.5656533,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Ha-Gvura St 9, Ashkelon, ישראל",
+   "locality": "Ashkelon",
+   "area1": "South District",
+   "route": "Ha-Gvura Street",
+   "streetNumber": "9"
+  }
+ },
+ {
+  "id": "c5-78",
+  "name": "הירוקה - מזון ומוצרים מהטבע בע\"מ",
+  "address": "המושב 29, כרכור, ישראל",
+  "city": "כרכור",
+  "phone": "046377508",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.472833,
+   "lng": 34.993005,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Ha-Moshav St 29, Pardes Hanna-Karkur, ישראל",
+   "locality": "Pardes Hanna-Karkur",
+   "area1": "Haifa District",
+   "route": "Ha-Moshav Street",
+   "streetNumber": "29"
+  }
+ },
+ {
+  "id": "c5-79",
+  "name": "הלן פארם יבנה",
+  "address": "אגוז 1, יבנה, ישראל",
+  "city": "יבנה",
+  "phone": "08-9436747",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.8775101,
+   "lng": 34.735939,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Egoz St 1, Yavne, ישראל",
+   "locality": "Yavne",
+   "area1": "Center District",
+   "route": "Egoz Street",
+   "streetNumber": "1"
+  }
+ },
+ {
+  "id": "c5-80",
+  "name": "הפינה הטבעית ירושלים",
+  "address": "יפו 101, ירושלים, ישראל",
+  "city": "ירושלים",
+  "phone": "02-6247821",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.7849172,
+   "lng": 35.2145413,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Jaffa St 101, Jerusalem, ישראל",
+   "locality": "Jerusalem",
+   "area1": "Jerusalem District",
+   "route": "Jaffa Street",
+   "streetNumber": "101"
+  }
+ },
+ {
+  "id": "c5-81",
+  "name": "הרוקחים עלה פארם בע\"מ",
+  "address": "החרט 1, מודיעין, ישראל",
+  "city": "מודיעין",
+  "phone": "08-9969611",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.890473,
+   "lng": 34.9622794,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "ישפרו סנטר, HaHarat St 1, מודיעין מכבים רעות, ישראל",
+   "locality": "מודיעין מכבים רעות",
+   "area1": "מחוז המרכז",
+   "route": "HaHarat Street",
+   "streetNumber": "1"
+  }
+ },
+ {
+  "id": "c5-82",
+  "name": "וי קר אונליין בע\"מ",
+  "address": "רקפת 270, גן נר, ישראל",
+  "city": "גן נר",
+  "phone": "",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.5275,
+   "lng": 35.3397,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-83",
+  "name": "ויטה טבע- יוליה רזניקוב",
+  "address": "העצמאות 42א ד 37 ק6, הרצליה, ישראל",
+  "city": "הרצליה",
+  "phone": "052-2244247",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.1645868,
+   "lng": 34.8449938,
+   "precision": "ROOFTOP",
+   "partial": true,
+   "formatted": "HaAtsmaut St 42, ד 37, Herzliya, ישראל",
+   "locality": "Herzliya",
+   "area1": "Tel Aviv District",
+   "route": "HaAtsmaut Street",
+   "streetNumber": "42"
+  }
+ },
+ {
+  "id": "c5-84",
+  "name": "ויתניה",
+  "address": "כפר כמא-כניסה מזרחית, כפר כמא-כניסה מזרחית, ישראל",
+  "city": "כפר כמא-כניסה מזרחית",
+  "phone": "052-7300893",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.721473,
+   "lng": 35.4394617,
+   "precision": "APPROXIMATE",
+   "partial": true,
+   "formatted": "כפר כמא, ישראל",
+   "locality": "כפר כמא",
+   "area1": "מחוז הצפון",
+   "route": "",
+   "streetNumber": ""
+  }
+ },
+ {
+  "id": "c5-85",
+  "name": "זימרת הארץ",
+  "address": "ירושליים 14 תד 3392, בני ברק, ישראל",
+  "city": "בני ברק",
+  "phone": "03-6163574",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.084932,
+   "lng": 34.835226,
+   "precision": "APPROXIMATE",
+   "partial": true,
+   "formatted": "בני ברק, ישראל",
+   "locality": "בני ברק",
+   "area1": "מחוז תל אביב",
+   "route": "",
+   "streetNumber": ""
+  }
+ },
+ {
+  "id": "c5-86",
+  "name": "חדוות הטבע",
+  "address": "סוקולוב 34, הרצליה, ישראל",
+  "city": "הרצליה",
+  "phone": "054-2550101",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.1672379,
+   "lng": 34.8419199,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Sokolov St 34, Herzliya, ישראל",
+   "locality": "Herzliya",
+   "area1": "Tel Aviv District",
+   "route": "Sokolov Street",
+   "streetNumber": "34"
+  }
+ },
+ {
+  "id": "c5-87",
+  "name": "טאפש פארם \"בית מרקחת חניתה\"",
+  "address": "חניתה 22, חיפה, ישראל",
+  "city": "חיפה",
+  "phone": "048231905",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.7936379,
+   "lng": 35.0109112,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Khanita St 22, Haifa, ישראל",
+   "locality": "Haifa",
+   "area1": "Haifa District",
+   "route": "Khanita Street",
+   "streetNumber": "22"
+  }
+ },
+ {
+  "id": "c5-88",
+  "name": "טבע- לי נטורופתיה בע\"מ",
+  "address": "רוטשילד 28 ( סימטה ), ראשון לציון, ישראל",
+  "city": "ראשון לציון",
+  "phone": "03-9569449",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.9642607,
+   "lng": 34.8031019,
+   "precision": "ROOFTOP",
+   "partial": true,
+   "formatted": "Rothschild St 28, Rishon LeZion, ישראל",
+   "locality": "Rishon LeZion",
+   "area1": "Center District",
+   "route": "Rothschild Street",
+   "streetNumber": "28"
+  }
+ },
+ {
+  "id": "c5-89",
+  "name": "טבע בוקיש",
+  "address": "כפר האמנים, ערבה תיכונה, ישראל",
+  "city": "ערבה תיכונה",
+  "phone": "077-7808053",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 30.49125519999999,
+   "lng": 35.1660438,
+   "precision": "GEOMETRIC_CENTER",
+   "partial": true,
+   "formatted": "בשער הישוב ישר בככר, פניה שניה ימינה. חניה בסככות או ימינה לבית הקפה, צוקים, 8683300, ישראל",
+   "locality": "צוקים",
+   "area1": "מחוז הדרום",
+   "route": "",
+   "streetNumber": ""
+  }
+ },
+ {
+  "id": "c5-90",
+  "name": "טבע בנחלה מ.ש.מ בע\"מ - רחובות",
+  "address": "הרצל 184, רחובות, ישראל",
+  "city": "רחובות",
+  "phone": "",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.8972778,
+   "lng": 34.8108597,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Herzl St 184, Rehovot, ישראל",
+   "locality": "Rehovot",
+   "area1": "Center District",
+   "route": "Herzl Street",
+   "streetNumber": "184"
+  }
+ },
+ {
+  "id": "c5-91",
+  "name": "טבע בנחלה משמ בע''מ",
+  "address": "נחלת יצחק 18, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "03-6967474",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.0741433,
+   "lng": 34.7978549,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Nakhalat Yitskhak St 18, Tel Aviv-Yafo, 6744815, ישראל",
+   "locality": "Tel Aviv-Yafo",
+   "area1": "Tel Aviv District",
+   "route": "Nakhalat Yitskhak Street",
+   "streetNumber": "18"
+  }
+ },
+ {
+  "id": "c5-92",
+  "name": "טבע גבעתיים",
+  "address": "סירקין 18, גבעתיים, ישראל",
+  "city": "גבעתיים",
+  "phone": "03-6700154",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.0779912,
+   "lng": 34.8153621,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Sirkin St 18, Giv'atayim, 53620, ישראל",
+   "locality": "Giv'atayim",
+   "area1": "Tel Aviv District",
+   "route": "Sirkin Street",
+   "streetNumber": "18"
+  }
+ },
+ {
+  "id": "c5-93",
+  "name": "טבע גדרה בע\"מ",
+  "address": "ויצמן 19, גדרה, ישראל",
+  "city": "גדרה",
+  "phone": "08-8594774",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.8169109,
+   "lng": 34.7798188,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Weizman St 19, Gedera, ישראל",
+   "locality": "Gedera",
+   "area1": "Center District",
+   "route": "Weizman Street",
+   "streetNumber": "19"
+  }
+ },
+ {
+  "id": "c5-94",
+  "name": "טבע גוש בע\"מ - אפרת",
+  "address": "זית שמן 2, אפרת, ישראל",
+  "city": "אפרת",
+  "phone": "026283252",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.6687902,
+   "lng": 35.1636961,
+   "precision": "ROOFTOP",
+   "partial": true,
+   "formatted": "Zeit Shemen St 2, Efrat",
+   "locality": "Efrat",
+   "area1": "",
+   "route": "Zeit Shemen Street",
+   "streetNumber": "2"
+  }
+ },
+ {
+  "id": "c5-95",
+  "name": "טבע גוש בע\"מ - קניון הרים",
+  "address": "גוש עציון צמוד לקניון הרים, אלון שבות, ישראל",
+  "city": "אלון שבות",
+  "phone": "052-3471279",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.6451762,
+   "lng": 35.1304915,
+   "precision": "GEOMETRIC_CENTER",
+   "partial": true,
+   "formatted": "צומת גוש עציון, אלון שבות",
+   "locality": "אלון שבות",
+   "area1": "",
+   "route": "",
+   "streetNumber": ""
+  }
+ },
+ {
+  "id": "c5-96",
+  "name": "טבע ובריאות אשדוד",
+  "address": "משה שפירא 22, אשדוד, ישראל",
+  "city": "אשדוד",
+  "phone": "08-8552262",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.7929337,
+   "lng": 34.6588752,
+   "precision": "ROOFTOP",
+   "partial": true,
+   "formatted": "Avraham Shapira St 22, Ashdod, ישראל",
+   "locality": "Ashdod",
+   "area1": "South District",
+   "route": "Avraham Shapira Street",
+   "streetNumber": "22"
+  }
+ },
+ {
+  "id": "c5-97",
+  "name": "טבע כל ר\"ג",
+  "address": "הרוא\"ה 2, רמת גן, ישראל",
+  "city": "רמת גן",
+  "phone": "03-6736876",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.0835569,
+   "lng": 34.8160141,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Haroe St 2, Ramat Gan, ישראל",
+   "locality": "Ramat Gan",
+   "area1": "Tel Aviv District",
+   "route": "Haroe Street",
+   "streetNumber": "2"
+  }
+ },
+ {
+  "id": "c5-98",
+  "name": "טבע מלאכי",
+  "address": "מלאכי 12, ירושלים, ישראל",
+  "city": "ירושלים",
+  "phone": "026502316",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.7898859,
+   "lng": 35.2166649,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Malachi St 12, Jerusalem, ישראל",
+   "locality": "Jerusalem",
+   "area1": "Jerusalem District",
+   "route": "Malachi Street",
+   "streetNumber": "12"
+  }
+ },
+ {
+  "id": "c5-99",
+  "name": "טבע מלחה",
+  "address": "קניון מלחה ק- קרקע, ירושלים, ישראל",
+  "city": "ירושלים",
+  "phone": "02-6784693",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.751541,
+   "lng": 35.1871949,
+   "precision": "ROOFTOP",
+   "partial": true,
+   "formatted": "דרך אגודת ספורט בית\"ר 1, ירושלים, ישראל",
+   "locality": "ירושלים",
+   "area1": "מחוז ירושלים",
+   "route": "דרך אגודת ספורט בית\"ר",
+   "streetNumber": "1"
+  }
+ },
+ {
+  "id": "c5-100",
+  "name": "טבע סיטי",
+  "address": "הרן 20 קניון לב בית\"ר, ביתר עלית, ישראל",
+  "city": "ביתר עלית",
+  "phone": "054-645-7720",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.7031666,
+   "lng": 35.1179452,
+   "precision": "ROOFTOP",
+   "partial": true,
+   "formatted": "Haran St 20, Betar Illit",
+   "locality": "Betar Illit",
+   "area1": "",
+   "route": "Haran Street",
+   "streetNumber": "20"
+  }
+ },
+ {
+  "id": "c5-101",
+  "name": "טבע סנטר צפת",
+  "address": "קריית חבד 221/22, צפת, ישראל",
+  "city": "צפת",
+  "phone": "04-6923467",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.963764,
+   "lng": 35.505188,
+   "precision": "APPROXIMATE",
+   "partial": true,
+   "formatted": "קרית חב\"ד, צפת, ישראל",
+   "locality": "צפת",
+   "area1": "מחוז הצפון",
+   "route": "",
+   "streetNumber": ""
+  }
+ },
+ {
+  "id": "c5-102",
+  "name": "טבע סנטר שיווק בע\"מ",
+  "address": "המלך חאסן 11 (בילו 2000), קרית עקרון, ישראל",
+  "city": "קרית עקרון",
+  "phone": "08-9453670",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.8642326,
+   "lng": 34.8134119,
+   "precision": "ROOFTOP",
+   "partial": true,
+   "formatted": "11, קרית עקרון, ישראל",
+   "locality": "קרית עקרון",
+   "area1": "מחוז המרכז",
+   "route": "",
+   "streetNumber": ""
+  }
+ },
+ {
+  "id": "c5-103",
+  "name": "טבע עומריקה בע\"מ",
+  "address": "אחוזה 148, רעננה, ישראל",
+  "city": "רעננה",
+  "phone": "09-7437743",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.1815915,
+   "lng": 34.8710158,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Ahuza St 148, Ra'anana, 4330013, ישראל",
+   "locality": "Ra'anana",
+   "area1": "Center District",
+   "route": "Ahuza Street",
+   "streetNumber": "148"
+  }
+ },
+ {
+  "id": "c5-104",
+  "name": "טבע עמק בע\"מ -ראש פינה",
+  "address": "גיא אוני 1, ראש פינה, ישראל",
+  "city": "ראש פינה",
+  "phone": "04-8522809",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.9685935,
+   "lng": 35.5484237,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Ma'ale Gei Oni St 1, Rosh Pinna, 12000, ישראל",
+   "locality": "Rosh Pinna",
+   "area1": "North District",
+   "route": "Ma'ale Gei Oni Street",
+   "streetNumber": "1"
+  }
+ },
+ {
+  "id": "c5-105",
+  "name": "טבע רובינשטיין בע\"מ - רבי עקיבא",
+  "address": "רבי עקיבא 147, בני ברק, ישראל",
+  "city": "בני ברק",
+  "phone": "03-5793595",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.0858404,
+   "lng": 34.8391628,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Rabi Akiva St 147, Bnei Brak, ישראל",
+   "locality": "Bnei Brak",
+   "area1": "Tel Aviv District",
+   "route": "Rabi Akiva Street",
+   "streetNumber": "147"
+  }
+ },
+ {
+  "id": "c5-106",
+  "name": "טבע שופ מרכז",
+  "address": "המלך ג`ורג' 62, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "03-6297823",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.0754408,
+   "lng": 34.77653859999999,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "King George St 62, Tel Aviv-Yafo, 64337, ישראל",
+   "locality": "Tel Aviv-Yafo",
+   "area1": "Tel Aviv District",
+   "route": "King George Street",
+   "streetNumber": "62"
+  }
+ },
+ {
+  "id": "c5-107",
+  "name": "טבעי בריא נתיבות",
+  "address": "שפתי חיים 18, נתיבות, ישראל",
+  "city": "נתיבות",
+  "phone": "08-9941694",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.4269008,
+   "lng": 34.5850444,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Siftei Khayim St 18, Netivot, ישראל",
+   "locality": "Netivot",
+   "area1": "South District",
+   "route": "Siftei Khayim Street",
+   "streetNumber": "18"
+  }
+ },
+ {
+  "id": "c5-108",
+  "name": "טבעי לי",
+  "address": "ההסתדרות 3, פתח תקווה, ישראל",
+  "city": "פתח תקווה",
+  "phone": "",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.0858982,
+   "lng": 34.8825169,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Hahistadrut St 3, Petah Tikva, 4954007, ישראל",
+   "locality": "Petah Tikva",
+   "area1": "Center District",
+   "route": "Hahistadrut Street",
+   "streetNumber": "3"
+  }
+ },
+ {
+  "id": "c5-109",
+  "name": "טבעכל מרכז",
+  "address": "גולומב 60, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "03-9600186",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.0539297,
+   "lng": 34.7829012,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Golomb St 60, Tel Aviv-Yafo, ישראל",
+   "locality": "Tel Aviv-Yafo",
+   "area1": "Tel Aviv District",
+   "route": "Golomb Street",
+   "streetNumber": "60"
+  }
+ },
+ {
+  "id": "c5-110",
+  "name": "טבעלה אשדוד",
+  "address": "ינאי 7 - רובע ז', אשדוד, ישראל",
+  "city": "אשדוד",
+  "phone": "08-8655673",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.7878646,
+   "lng": 34.6647452,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Rabbi Yanai St 7, Ashdod, ישראל",
+   "locality": "Ashdod",
+   "area1": "South District",
+   "route": "Rabbi Yanai Street",
+   "streetNumber": "7"
+  }
+ },
+ {
+  "id": "c5-111",
+  "name": "טבעלה בית שמש",
+  "address": "שפת אמת 37, בית שמש, ישראל",
+  "city": "בית שמש",
+  "phone": "02-9927020",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.7375512,
+   "lng": 34.9957916,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Sfat Emet St 37, Bet Shemesh, ישראל",
+   "locality": "Bet Shemesh",
+   "area1": "Jerusalem District",
+   "route": "Sfat Emet Street",
+   "streetNumber": "37"
+  }
+ },
+ {
+  "id": "c5-112",
+  "name": "טוב הטבע ירושלים",
+  "address": "שטראוס 34, ירושלים, ישראל",
+  "city": "ירושלים",
+  "phone": "02-5340689",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.787678,
+   "lng": 35.2187083,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Natan Strauss St 34, Jerusalem, ישראל",
+   "locality": "Jerusalem",
+   "area1": "Jerusalem District",
+   "route": "Natan Strauss Street",
+   "streetNumber": "34"
+  }
+ },
+ {
+  "id": "c5-113",
+  "name": "טוב הטבע רמות ירושלים",
+  "address": "מעלות כיסופים 801 רמות, ירושלים, ישראל",
+  "city": "ירושלים",
+  "phone": "",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.7861175,
+   "lng": 35.1736066,
+   "precision": "ROOFTOP",
+   "partial": true,
+   "formatted": "Ha-Rav Sha'ul Even Dnan St 5, Jerusalem, ישראל",
+   "locality": "Jerusalem",
+   "area1": "Jerusalem District",
+   "route": "Ha-Rav Sha'ul Even Dnan Street",
+   "streetNumber": "5"
+  }
+ },
+ {
+  "id": "c5-114",
+  "name": "טופ טבע",
+  "address": "שמעון בן שטח 8- מרכז רימון, אלעד, ישראל",
+  "city": "אלעד",
+  "phone": "03-9097700",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.053726,
+   "lng": 34.964993,
+   "precision": "GEOMETRIC_CENTER",
+   "partial": true,
+   "formatted": "שמעון בן שטח מזרח, אלעד, ישראל",
+   "locality": "אלעד",
+   "area1": "מחוז המרכז",
+   "route": "",
+   "streetNumber": ""
+  }
+ },
+ {
+  "id": "c5-115",
+  "name": "טיב טעם אשדוד סניף 3",
+  "address": "ז'בוטינסקי, אשדוד, ישראל",
+  "city": "אשדוד",
+  "phone": "0546645824",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.809601,
+   "lng": 34.654477,
+   "precision": "GEOMETRIC_CENTER",
+   "partial": false,
+   "formatted": "Jabotinski St, Ashdod, ישראל",
+   "locality": "Ashdod",
+   "area1": "",
+   "route": "Jabotinski Street",
+   "streetNumber": ""
+  }
+ },
+ {
+  "id": "c5-116",
+  "name": "טיב טעם אשקלון",
+  "address": "המסגר 4, אשקלון, ישראל",
+  "city": "אשקלון",
+  "phone": "08-6755292",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.657423,
+   "lng": 34.5883598,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "HaMasger St 4, Ashkelon, ישראל",
+   "locality": "Ashkelon",
+   "area1": "South District",
+   "route": "HaMasger Street",
+   "streetNumber": "4"
+  }
+ },
+ {
+  "id": "c5-117",
+  "name": "טיב טעם באר שבע 15",
+  "address": "יצחק נפחא 25, באר שבע, ישראל",
+  "city": "באר שבע",
+  "phone": "08-625-2000",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.2468421,
+   "lng": 34.8123479,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Yitshak Nafha St 25, Be'er Sheva, ישראל",
+   "locality": "Be'er Sheva",
+   "area1": "South District",
+   "route": "Yitshak Nafha Street",
+   "streetNumber": "25"
+  }
+ },
+ {
+  "id": "c5-118",
+  "name": "טיב טעם הוד השרון סניף 24",
+  "address": "סוקולוב 46, הוד השרון, ישראל",
+  "city": "הוד השרון",
+  "phone": "0549777260",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.16905,
+   "lng": 34.9016158,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Sokolov St 46, Hod Hasharon, ישראל",
+   "locality": "Hod Hasharon",
+   "area1": "Center District",
+   "route": "Sokolov Street",
+   "streetNumber": "46"
+  }
+ },
+ {
+  "id": "c5-119",
+  "name": "טיב טעם הרצליה 52",
+  "address": "בן גוריון 56, הרצליה, ישראל",
+  "city": "הרצליה",
+  "phone": "0545477729",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.1579238,
+   "lng": 34.8419268,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Ben Gurion Blvd 56, Herzliya, ישראל",
+   "locality": "Herzliya",
+   "area1": "Tel Aviv District",
+   "route": "Ben Gurion Boulevard",
+   "streetNumber": "56"
+  }
+ },
+ {
+  "id": "c5-120",
+  "name": "טיב טעם נתניה 2",
+  "address": "א.ת דרומי, מתחם איקאה, נתניה, ישראל",
+  "city": "נתניה",
+  "phone": "09-892-8111",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.3225363,
+   "lng": 34.8806737,
+   "precision": "GEOMETRIC_CENTER",
+   "partial": true,
+   "formatted": "א.ת., HaKadar St 45, נתניה, ישראל",
+   "locality": "נתניה",
+   "area1": "מחוז המרכז",
+   "route": "HaKadar Street",
+   "streetNumber": "45"
+  }
+ },
+ {
+  "id": "c5-121",
+  "name": "טיב טעם קריות 12",
+  "address": "החרושת 10, חיפה, ישראל",
+  "city": "חיפה",
+  "phone": "04-881-8900",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.8102478,
+   "lng": 35.0562633,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "החרושת 10, חיפה, ישראל",
+   "locality": "חיפה",
+   "area1": "מחוז חיפה",
+   "route": "החרושת",
+   "streetNumber": "10"
+  }
+ },
+ {
+  "id": "c5-122",
+  "name": "טיב טעם ראשל\"צ מזרח",
+  "address": "המכבים 62, צומת בית דגן, א.ת.ישן, ראשון לציון, ישראל",
+  "city": "ראשון לציון",
+  "phone": "03-9595777",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.9745403,
+   "lng": 34.8105298,
+   "precision": "GEOMETRIC_CENTER",
+   "partial": true,
+   "formatted": "א.ת. ישן, Binyamin Shmotkin St 11, ראשון לציון, ישראל",
+   "locality": "ראשון לציון",
+   "area1": "מחוז המרכז",
+   "route": "Binyamin Shmotkin Street",
+   "streetNumber": "11"
+  }
+ },
+ {
+  "id": "c5-123",
+  "name": "טיב טעם רחובות 18",
+  "address": "אופנהיימר פינת הרצל, רחובות, ישראל",
+  "city": "רחובות",
+  "phone": "08-936-9100",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.910741,
+   "lng": 34.807014,
+   "precision": "GEOMETRIC_CENTER",
+   "partial": true,
+   "formatted": "רחובות, ישראל",
+   "locality": "רחובות",
+   "area1": "מחוז המרכז",
+   "route": "",
+   "streetNumber": ""
+  }
+ },
+ {
+  "id": "c5-124",
+  "name": "טיב טעם רמת החייל 19",
+  "address": "דבורה הנביאה 122, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "037696700",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.1139666,
+   "lng": 34.84122139999999,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Dvora HaNevi'a St 122, Tel Aviv-Yafo, 6944019, ישראל",
+   "locality": "Tel Aviv-Yafo",
+   "area1": "Tel Aviv District",
+   "route": "Dvora HaNevi'a Street",
+   "streetNumber": "122"
+  }
+ },
+ {
+  "id": "c5-125",
+  "name": "טעם לחיים",
+  "address": "מרחביה 13, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "052-4590178",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.0596526,
+   "lng": 34.7721039,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Merkhavya St 13, Tel Aviv-Yafo, ישראל",
+   "locality": "Tel Aviv-Yafo",
+   "area1": "Tel Aviv District",
+   "route": "Merkhavya Street",
+   "streetNumber": "13"
+  }
+ },
+ {
+  "id": "c5-126",
+  "name": "יש לי בוטן",
+  "address": "כורזין 5, גבעתיים, ישראל",
+  "city": "גבעתיים",
+  "phone": "03-5710695",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.0601993,
+   "lng": 34.8158286,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Korazin St 5, Giv'atayim, ישראל",
+   "locality": "Giv'atayim",
+   "area1": "Tel Aviv District",
+   "route": "Korazin Street",
+   "streetNumber": "5"
+  }
+ },
+ {
+  "id": "c5-127",
+  "name": "כאן עולם קימונאות",
+  "address": "שדרות תל חי 63/17, אשדוד, ישראל",
+  "city": "אשדוד",
+  "phone": "08-8678795",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.80102868,
+   "lng": 34.65912324,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-128",
+  "name": "כליל הטבע בע\"מ",
+  "address": "הנשיא 16, עפולה, ישראל",
+  "city": "עפולה",
+  "phone": "04-6403555",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.6100126,
+   "lng": 35.2884487,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Ha-Nasi Weizman St 16, Afula, ישראל",
+   "locality": "Afula",
+   "area1": "North District",
+   "route": "Ha-Nasi Weizman Street",
+   "streetNumber": "16"
+  }
+ },
+ {
+  "id": "c5-129",
+  "name": "לב הטבע (2008) בע\"מ",
+  "address": "בוש מרדכי 6, ירושלים, ישראל",
+  "city": "ירושלים",
+  "phone": "02-5388832",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.7792783,
+   "lng": 35.2135581,
+   "precision": "ROOFTOP",
+   "partial": true,
+   "formatted": "Mordehai Narkis St 6, Jerusalem, ישראל",
+   "locality": "Jerusalem",
+   "area1": "Jerusalem District",
+   "route": "Mordehai Narkis Street",
+   "streetNumber": "6"
+  }
+ },
+ {
+  "id": "c5-130",
+  "name": "טבע בריא",
+  "address": "יהודה הימית 61, יפו, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "03-6037071",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.0499269,
+   "lng": 34.7537005,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Yehuda Hayamit St 61, Tel Aviv-Yafo, ישראל",
+   "locality": "Tel Aviv-Yafo",
+   "area1": "Tel Aviv District",
+   "route": "Yehuda Hayamit Street",
+   "streetNumber": "61"
+  }
+ },
+ {
+  "id": "c5-131",
+  "name": "מ.ש.מ נקודת טבע בע\"מ",
+  "address": "ויצמן 108, כפר סבא, ישראל",
+  "city": "כפר סבא",
+  "phone": "09-7674522",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.1750449,
+   "lng": 34.9086842,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Weizmann St 108, Kefar Sava, ישראל",
+   "locality": "Kefar Sava",
+   "area1": "Center District",
+   "route": "Weizmann Street",
+   "streetNumber": "108"
+  }
+ },
+ {
+  "id": "c5-132",
+  "name": "מאמאדמה",
+  "address": "הערבה 1 מרכז מסחרי, אורנית, ישראל",
+  "city": "אורנית",
+  "phone": "03-5178532",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.1293115,
+   "lng": 34.9954596,
+   "precision": "ROOFTOP",
+   "partial": true,
+   "formatted": "Ha-Arava St 1, Oranit",
+   "locality": "Oranit",
+   "area1": "",
+   "route": "Ha-Arava Street",
+   "streetNumber": "1"
+  }
+ },
+ {
+  "id": "c5-133",
+  "name": "בית הטבע מוסא",
+  "address": "יהודה 14/16, אריאל, ישראל",
+  "city": "אריאל",
+  "phone": "",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.1051803,
+   "lng": 35.1714819,
+   "precision": "RANGE_INTERPOLATED",
+   "partial": true,
+   "formatted": "16, Yehuda St 14, Ari'el",
+   "locality": "Ari'el",
+   "area1": "",
+   "route": "Yehuda Street",
+   "streetNumber": "14"
+  }
+ },
+ {
+  "id": "c5-134",
+  "name": "מי כמוך בע\"מ -טבע כרכור",
+  "address": "המייסדים 54, כרכור, ישראל",
+  "city": "כרכור",
+  "phone": "04-6371299",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.4741334,
+   "lng": 34.9908937,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Ha-Meyasdim St 54, Pardes Hanna-Karkur, ישראל",
+   "locality": "Pardes Hanna-Karkur",
+   "area1": "Haifa District",
+   "route": "Ha-Meyasdim Street",
+   "streetNumber": "54"
+  }
+ },
+ {
+  "id": "c5-135",
+  "name": "מירים פרוד",
+  "address": "קיבוץ נחל פרוד, קיבוץ נחל פרוד, ישראל",
+  "city": "קיבוץ נחל פרוד",
+  "phone": "052-2047310",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.933066,
+   "lng": 35.434318,
+   "precision": "APPROXIMATE",
+   "partial": true,
+   "formatted": "פרוד, ישראל",
+   "locality": "פרוד",
+   "area1": "מחוז הצפון",
+   "route": "",
+   "streetNumber": ""
+  }
+ },
+ {
+  "id": "c5-136",
+  "name": "מכולת טבע",
+  "address": "פלורנטין 36, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "050-7414182",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.0562129,
+   "lng": 34.7706948,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Florentin St 36, Tel Aviv-Yafo, ישראל",
+   "locality": "Tel Aviv-Yafo",
+   "area1": "Tel Aviv District",
+   "route": "Florentin Street",
+   "streetNumber": "36"
+  }
+ },
+ {
+  "id": "c5-137",
+  "name": "מקום ידידותי",
+  "address": "הידידות 1, הוד השרון, ישראל",
+  "city": "הוד השרון",
+  "phone": "09-7460801",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.1611609,
+   "lng": 34.9025753,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Ha-Yedidut St 1, Hod Hasharon, ישראל",
+   "locality": "Hod Hasharon",
+   "area1": "Center District",
+   "route": "Ha-Yedidut Street",
+   "streetNumber": "1"
+  }
+ },
+ {
+  "id": "c5-138",
+  "name": "מרכז שורשים",
+  "address": "בן יהודה 35, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.0771102,
+   "lng": 34.7679725,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Ben Yehuda St 35, Tel Aviv-Yafo, ישראל",
+   "locality": "Tel Aviv-Yafo",
+   "area1": "Tel Aviv District",
+   "route": "Ben Yehuda Street",
+   "streetNumber": "35"
+  }
+ },
+ {
+  "id": "c5-139",
+  "name": "משק רוזנצוויג",
+  "address": "א.ת דרומי (ליד הום סנטר), קרית שמונה, ישראל",
+  "city": "קרית שמונה",
+  "phone": "046940030",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 33.1985377,
+   "lng": 35.5772925,
+   "precision": "GEOMETRIC_CENTER",
+   "partial": true,
+   "formatted": "אזור תעשייה דרומי, קרית שמונה, ישראל",
+   "locality": "קרית שמונה",
+   "area1": "מחוז הצפון",
+   "route": "",
+   "streetNumber": ""
+  }
+ },
+ {
+  "id": "c5-140",
+  "name": "נטורלניק",
+  "address": "בן יהודה 27, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "054-5459234",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.0764648,
+   "lng": 34.768023,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Ben Yehuda St 27, Tel Aviv-Yafo, ישראל",
+   "locality": "Tel Aviv-Yafo",
+   "area1": "Tel Aviv District",
+   "route": "Ben Yehuda Street",
+   "streetNumber": "27"
+  }
+ },
+ {
+  "id": "c5-141",
+  "name": "ניצת הדובדבן גאולים ביתר בע\"מ",
+  "address": "הר\"ן 14, ביתר עלית, ישראל",
+  "city": "ביתר עלית",
+  "phone": "02-6267185",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 31.7037307,
+   "lng": 35.1176307,
+   "precision": "ROOFTOP",
+   "partial": true,
+   "formatted": "Haran St 14, Betar Illit",
+   "locality": "Betar Illit",
+   "area1": "",
+   "route": "Haran Street",
+   "streetNumber": "14"
+  }
+ },
+ {
+  "id": "c5-142",
+  "name": "ניצת הדובדבן - אשקלון או קאילן בע\"מ",
+  "address": "מתחם פוואר סנטר,כפר סילבר, אשקלון, ישראל",
+  "city": "אשקלון",
+  "phone": "08-6756066",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 31.6748007,
+   "lng": 34.6060214,
+   "precision": "GEOMETRIC_CENTER",
+   "partial": true,
+   "formatted": "פאוור סנטר, צומת, כפר סילבר, ישראל",
+   "locality": "כפר סילבר",
+   "area1": "מחוז הדרום",
+   "route": "צומת",
+   "streetNumber": ""
+  }
+ },
+ {
+  "id": "c5-143",
+  "name": "ניצת הדובדבן תל -אביב",
+  "address": "אבן גבירול 58, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "03-6965174",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 32.0789016,
+   "lng": 34.7815665,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Shlomo Ibn Gabirol St 58, Tel Aviv-Yafo, ישראל",
+   "locality": "Tel Aviv-Yafo",
+   "area1": "Tel Aviv District",
+   "route": "Shlomo Ibn Gabirol Street",
+   "streetNumber": "58"
+  }
+ },
+ {
+  "id": "c5-144",
+  "name": "ניצת הדובדבן אשדוד בע\"מ",
+  "address": "האורגים 2, אשדוד, ישראל",
+  "city": "אשדוד",
+  "phone": "08-6613559",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 31.8103631,
+   "lng": 34.6622048,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "HaOrgim St 2, Ashdod, ישראל",
+   "locality": "Ashdod",
+   "area1": "South District",
+   "route": "HaOrgim Street",
+   "streetNumber": "2"
+  }
+ },
+ {
+  "id": "c5-145",
+  "name": "ניצת הדובדבן בית שמש בע\"מ",
+  "address": "יגאל אלון 24, מתחם סן סנטר(ליד תחנת דלק פז), בית שמש, ישראל",
+  "city": "בית שמש",
+  "phone": "02-9991660",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 31.7544424,
+   "lng": 34.992761,
+   "precision": "ROOFTOP",
+   "partial": true,
+   "formatted": "שדרות יגאל אלון 24, בית שמש, 9906223, ישראל",
+   "locality": "בית שמש",
+   "area1": "מחוז ירושלים",
+   "route": "שדרות יגאל אלון",
+   "streetNumber": "24"
+  }
+ },
+ {
+  "id": "c5-146",
+  "name": "ניצת הדובדבן בנימינה בע\"מ",
+  "address": "השריג 2, בנימינה, ישראל",
+  "city": "בנימינה",
+  "phone": "04-6702602",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 32.5176075,
+   "lng": 34.9402728,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Ha-Sarig St 2, Binyamina-Giv'at Ada, ישראל",
+   "locality": "Binyamina-Giv'at Ada",
+   "area1": "Haifa District",
+   "route": "Ha-Sarig Street",
+   "streetNumber": "2"
+  }
+ },
+ {
+  "id": "c5-147",
+  "name": "ניצת הדובדבן בע\"מ- חיפה",
+  "address": "קומוי 7 -נוה שאנן, חיפה, ישראל",
+  "city": "חיפה",
+  "phone": "04-8322020",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 32.781857,
+   "lng": 35.01402,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Komoly St 7, Haifa, ישראל",
+   "locality": "Haifa",
+   "area1": "Haifa District",
+   "route": "Komoly street",
+   "streetNumber": "7"
+  }
+ },
+ {
+  "id": "c5-148",
+  "name": "ניצת הדובדבן בע\"מ- קסטינה",
+  "address": "ביג קסטינה, (ריק), ישראל",
+  "city": "(ריק)",
+  "phone": "086626658",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 31.728028,
+   "lng": 34.7550671,
+   "precision": "GEOMETRIC_CENTER",
+   "partial": true,
+   "formatted": "Shibolim St, באר טוביה, ישראל",
+   "locality": "באר טוביה",
+   "area1": "South District",
+   "route": "Shibolim Street",
+   "streetNumber": ""
+  }
+ },
+ {
+  "id": "c5-149",
+  "name": "ניצת הדובדבן בע\"מ-סמילנסקי",
+  "address": "סמילנסקי 4, נתניה, ישראל",
+  "city": "נתניה",
+  "phone": "097732199",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 32.3282142,
+   "lng": 34.8559309,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Смилянски 4, Netanya, 42040, ישראל",
+   "locality": "Netanya",
+   "area1": "Center District",
+   "route": "Смилянски",
+   "streetNumber": "4"
+  }
+ },
+ {
+  "id": "c5-150",
+  "name": "ניצת הדובדבן בע\"מ - אריאל",
+  "address": "הבנאי 6, אריאל, ישראל",
+  "city": "אריאל",
+  "phone": "03-6701979",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 31.046051,
+   "lng": 34.851612,
+   "precision": "APPROXIMATE",
+   "partial": true,
+   "formatted": "ישראל",
+   "locality": "",
+   "area1": "",
+   "route": "",
+   "streetNumber": ""
+  }
+ },
+ {
+  "id": "c5-151",
+  "name": "ניצת הדובדבן בע\"מ - באר שבע",
+  "address": "העל 30 מתחם באר שבע, באר שבע, ישראל",
+  "city": "באר שבע",
+  "phone": "08-9229060",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 31.2521018,
+   "lng": 34.7867691,
+   "precision": "APPROXIMATE",
+   "partial": true,
+   "formatted": "באר שבע, ישראל",
+   "locality": "באר שבע",
+   "area1": "מחוז הדרום",
+   "route": "",
+   "streetNumber": ""
+  }
+ },
+ {
+  "id": "c5-152",
+  "name": "ניצת הדובדבן בע\"מ - דיזינגוף 226",
+  "address": "דיזינגוף 226, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "03-6135994",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 32.0890596,
+   "lng": 34.7756284,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Dizengoff St 226, Tel Aviv-Yafo, ישראל",
+   "locality": "Tel Aviv-Yafo",
+   "area1": "Tel Aviv District",
+   "route": "Dizengoff Street",
+   "streetNumber": "226"
+  }
+ },
+ {
+  "id": "c5-153",
+  "name": "ניצת הדובדבן בע\"מ - הוד השרון",
+  "address": "סוקולוב 13, הוד השרון, ישראל",
+  "city": "הוד השרון",
+  "phone": "098354687",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 32.1627152,
+   "lng": 34.9023851,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Sokolov St 13, Hod Hasharon, ישראל",
+   "locality": "Hod Hasharon",
+   "area1": "Center District",
+   "route": "Sokolov Street",
+   "streetNumber": "13"
+  }
+ },
+ {
+  "id": "c5-154",
+  "name": "ניצת הדובדבן בע\"מ - הרצליה",
+  "address": "שד' בן גוריון 22,שער העיר, הרצליה, ישראל",
+  "city": "הרצליה",
+  "phone": "09-9560310",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 32.1629415,
+   "lng": 34.8421532,
+   "precision": "ROOFTOP",
+   "partial": true,
+   "formatted": "Ben Gurion Blvd 22, Herzliya, ישראל",
+   "locality": "Herzliya",
+   "area1": "Tel Aviv District",
+   "route": "Ben Gurion Boulevard",
+   "streetNumber": "22"
+  }
+ },
+ {
+  "id": "c5-155",
+  "name": "ניצת הדובדבן בע\"מ - חדרה",
+  "address": "שכטמן 10, חדרה, ישראל",
+  "city": "חדרה",
+  "phone": "046289245",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 32.4340458,
+   "lng": 34.9196518,
+   "precision": "APPROXIMATE",
+   "partial": true,
+   "formatted": "חדרה, ישראל",
+   "locality": "חדרה",
+   "area1": "מחוז חיפה",
+   "route": "",
+   "streetNumber": ""
+  }
+ },
+ {
+  "id": "c5-156",
+  "name": "ניצת הדובדבן בע\"מ - יהוד",
+  "address": "אלטלף 4, יהוד מונוסון, ישראל",
+  "city": "יהוד מונוסון",
+  "phone": "036486163",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 32.0262441,
+   "lng": 34.9010009,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Altalef St 4, Yehud-Monosson, ישראל",
+   "locality": "Yehud-Monosson",
+   "area1": "Center District",
+   "route": "Altalef Street",
+   "streetNumber": "4"
+  }
+ },
+ {
+  "id": "c5-157",
+  "name": "ניצת הדובדבן בע\"מ - יהודה מכבי",
+  "address": "יהודה מכבי 79, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "03-5562753",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 32.094197,
+   "lng": 34.7927009,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Yehuda HaMakkabbi St 79, Tel Aviv-Yafo, ישראל",
+   "locality": "Tel Aviv-Yafo",
+   "area1": "Tel Aviv District",
+   "route": "Yehuda HaMakkabbi Street",
+   "streetNumber": "79"
+  }
+ },
+ {
+  "id": "c5-158",
+  "name": "ניצת הדובדבן בע\"מ - יכין סנטר",
+  "address": "שחם 17, פתח תקווה, ישראל",
+  "city": "פתח תקווה",
+  "phone": "",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 32.0879003,
+   "lng": 34.8600023,
+   "precision": "GEOMETRIC_CENTER",
+   "partial": false,
+   "formatted": "Shacham St 17, Petah Tikva, 4951717, ישראל",
+   "locality": "Petah Tikva",
+   "area1": "Center District",
+   "route": "Shacham Street",
+   "streetNumber": "17"
+  }
+ },
+ {
+  "id": "c5-159",
+  "name": "ניצת הדובדבן בע\"מ - כפר סבא",
+  "address": "אנג'ל 78,מתחם B סנטר, כפר סבא, ישראל",
+  "city": "כפר סבא",
+  "phone": "09-9577643",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 32.1981077,
+   "lng": 34.890305,
+   "precision": "ROOFTOP",
+   "partial": true,
+   "formatted": "Engel St 78, Kefar Sava, ישראל",
+   "locality": "Kefar Sava",
+   "area1": "Center District",
+   "route": "Engel Street",
+   "streetNumber": "78"
+  }
+ },
+ {
+  "id": "c5-160",
+  "name": "ניצת הדובדבן בע\"מ - כרכור",
+  "address": "המייסדים 22, כרכור, ישראל",
+  "city": "כרכור",
+  "phone": "048229574",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 32.4705238,
+   "lng": 34.9901543,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Ha-Meyasdim St 22, Pardes Hanna-Karkur, ישראל",
+   "locality": "Pardes Hanna-Karkur",
+   "area1": "Haifa District",
+   "route": "Ha-Meyasdim Street",
+   "streetNumber": "22"
+  }
+ },
+ {
+  "id": "c5-161",
+  "name": "ניצת הדובדבן בע\"מ - מבשרת",
+  "address": "החוצבים 20, מבשרת ציון, ישראל",
+  "city": "מבשרת ציון",
+  "phone": "0289667897",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 31.790487,
+   "lng": 35.142428,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "שד' החוצבים 20, מבשרת ציון, ישראל",
+   "locality": "מבשרת ציון",
+   "area1": "מחוז ירושלים",
+   "route": "שד' החוצבים",
+   "streetNumber": "20"
+  }
+ },
+ {
+  "id": "c5-162",
+  "name": "ניצת הדובדבן בע\"מ - נתניה פיאנו",
+  "address": "דודו דותן 8 (מתחם פיאנו), נתניה, ישראל",
+  "city": "נתניה",
+  "phone": "098665702",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 32.2779106,
+   "lng": 34.8418372,
+   "precision": "ROOFTOP",
+   "partial": true,
+   "formatted": "Shoshana Damari St 10, Netanya, ישראל",
+   "locality": "Netanya",
+   "area1": "Center District",
+   "route": "Shoshana Damari Street",
+   "streetNumber": "10"
+  }
+ },
+ {
+  "id": "c5-163",
+  "name": "ניצת הדובדבן בע\"מ - קרית מוצקין",
+  "address": "שדרות ירושלים 1, קרית מוצקין, ישראל",
+  "city": "קרית מוצקין",
+  "phone": "046498189",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 32.8040805,
+   "lng": 35.1058407,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Jerusalem St 1, Kiryat Motzkin, ישראל",
+   "locality": "Kiryat Motzkin",
+   "area1": "Haifa District",
+   "route": "Jerusalem Street",
+   "streetNumber": "1"
+  }
+ },
+ {
+  "id": "c5-164",
+  "name": "ניצת הדובדבן בע\"מ - רחובות הרצל",
+  "address": "יעקב 3, רחובות, ישראל",
+  "city": "רחובות",
+  "phone": "086411237",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 31.896108,
+   "lng": 34.811677,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Ya'akov St 3, Rehovot, ישראל",
+   "locality": "Rehovot",
+   "area1": "Center District",
+   "route": "Ya'akov Street",
+   "streetNumber": "3"
+  }
+ },
+ {
+  "id": "c5-165",
+  "name": "ניצת הדובדבן בע\"מ - רמת אביב",
+  "address": "ברודצקי 15, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "03-5457392",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 32.1065947,
+   "lng": 34.7973754,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Brodetsky St 15, Tel Aviv-Yafo, ישראל",
+   "locality": "Tel Aviv-Yafo",
+   "area1": "Tel Aviv District",
+   "route": "Brodetsky Street",
+   "streetNumber": "15"
+  }
+ },
+ {
+  "id": "c5-166",
+  "name": "ניצת הדובדבן בע\"מ - רמת גן",
+  "address": "ביאליק 46, רמת גן, ישראל",
+  "city": "רמת גן",
+  "phone": "036487240",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 32.0838088,
+   "lng": 34.8143044,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Bialik St 46, Ramat Gan, ישראל",
+   "locality": "Ramat Gan",
+   "area1": "Tel Aviv District",
+   "route": "Bialik Street",
+   "streetNumber": "46"
+  }
+ },
+ {
+  "id": "c5-167",
+  "name": "ניצת הדובדבן בע\"מ - שינקין",
+  "address": "שינקין 59, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 32.0684158,
+   "lng": 34.777418,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Sheinkin St 59, Tel Aviv-Yafo, 6523113, ישראל",
+   "locality": "Tel Aviv-Yafo",
+   "area1": "Tel Aviv District",
+   "route": "Sheinkin Street",
+   "streetNumber": "59"
+  }
+ },
+ {
+  "id": "c5-168",
+  "name": "ניצת הדובדבן בע\"מ - תל מונד",
+  "address": "הדרור 8, תל מונד, ישראל",
+  "city": "תל מונד",
+  "phone": "09-8301997",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 32.263501,
+   "lng": 34.889549,
+   "precision": "RANGE_INTERPOLATED",
+   "partial": false,
+   "formatted": "Dror St 8, Even Yehuda, ישראל",
+   "locality": "Even Yehuda",
+   "area1": "Center District",
+   "route": "Dror Street",
+   "streetNumber": "8"
+  }
+ },
+ {
+  "id": "c5-169",
+  "name": "ניצת הדובדבן בע\"מ - תלפיות",
+  "address": "האומן 17, ירושלים, ישראל",
+  "city": "ירושלים",
+  "phone": "",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 31.7507208,
+   "lng": 35.2086194,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "IL 9342111, HaUman St 17, ירושלים, ישראל",
+   "locality": "ירושלים",
+   "area1": "מחוז ירושלים",
+   "route": "HaUman Street",
+   "streetNumber": "17"
+  }
+ },
+ {
+  "id": "c5-170",
+  "name": "ניצת הדובדבן בע\"מ -אגריפס",
+  "address": "אגריפס 99, ירושלים, ישראל",
+  "city": "ירושלים",
+  "phone": "02-5955154",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 31.7838783,
+   "lng": 35.2127281,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "שוק מחנה יהודה, Agripas St 99, ירושלים, 9430250, ישראל",
+   "locality": "ירושלים",
+   "area1": "מחוז ירושלים",
+   "route": "Agripas Street",
+   "streetNumber": "99"
+  }
+ },
+ {
+  "id": "c5-171",
+  "name": "ניצת הדובדבן בע\"מ -בוגרשוב",
+  "address": "בוגרשוב 40, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "03-670-3962",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 32.076129,
+   "lng": 34.7708641,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Bograshov St 40, Tel Aviv-Yafo, ישראל",
+   "locality": "Tel Aviv-Yafo",
+   "area1": "Tel Aviv District",
+   "route": "Bograshov Street",
+   "streetNumber": "40"
+  }
+ },
+ {
+  "id": "c5-172",
+  "name": "ניצת הדובדבן בע\"מ -ביג באר שבע",
+  "address": "חיל ההנדסה 2, באר שבע, ישראל",
+  "city": "באר שבע",
+  "phone": "08-9448231",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 31.2433919,
+   "lng": 34.8125699,
+   "precision": "GEOMETRIC_CENTER",
+   "partial": false,
+   "formatted": "מתחם B7, Heil Handasa St 2, באר שבע, ישראל",
+   "locality": "באר שבע",
+   "area1": "מחוז הדרום",
+   "route": "Heil Handasa Street",
+   "streetNumber": "2"
+  }
+ },
+ {
+  "id": "c5-173",
+  "name": "ניצת הדובדבן בע\"מ -גבעתיים",
+  "address": "סירקין 2, גבעתיים, ישראל",
+  "city": "גבעתיים",
+  "phone": "036375816",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 32.0762722,
+   "lng": 34.8144712,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Sirkin St 2, Giv'atayim, ישראל",
+   "locality": "Giv'atayim",
+   "area1": "Tel Aviv District",
+   "route": "Sirkin Street",
+   "streetNumber": "2"
+  }
+ },
+ {
+  "id": "c5-174",
+  "name": "ניצת הדובדבן בע\"מ -חורב",
+  "address": "חורב 14, חיפה, ישראל",
+  "city": "חיפה",
+  "phone": "046203606",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 32.7852998,
+   "lng": 34.985779,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Khorev St 14, Haifa, ישראל",
+   "locality": "Haifa",
+   "area1": "Haifa District",
+   "route": "Khorev Street",
+   "streetNumber": "14"
+  }
+ },
+ {
+  "id": "c5-175",
+  "name": "ניצת הדובדבן בע\"מ -טבעון",
+  "address": "כיכר בן גוריון 2, טבעון, ישראל",
+  "city": "טבעון",
+  "phone": "049530933",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 32.7225564,
+   "lng": 35.1302145,
+   "precision": "APPROXIMATE",
+   "partial": true,
+   "formatted": "כיכר בן גוריון, קרית טבעון",
+   "locality": "קרית טבעון",
+   "area1": "מחוז חיפה",
+   "route": "",
+   "streetNumber": ""
+  }
+ },
+ {
+  "id": "c5-176",
+  "name": "ניצת הדובדבן בע\"מ -טופ דן",
+  "address": "פנחס רוזן 72, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "03-7476039",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 32.114692,
+   "lng": 34.8260661,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Pinkhas Rosen St 72, Tel Aviv-Yafo, ישראל",
+   "locality": "Tel Aviv-Yafo",
+   "area1": "Tel Aviv District",
+   "route": "Pinkhas Rosen Street",
+   "streetNumber": "72"
+  }
+ },
+ {
+  "id": "c5-177",
+  "name": "ניצת הדובדבן בע\"מ -כרמיאל",
+  "address": "מתחם היוצר, כרמיאל, ישראל",
+  "city": "כרמיאל",
+  "phone": "049082408",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 32.9233702,
+   "lng": 35.308121,
+   "precision": "ROOFTOP",
+   "partial": true,
+   "formatted": "Ha-Yotsrim St 7, Karmiel, ישראל",
+   "locality": "Karmiel",
+   "area1": "North District",
+   "route": "Ha-Yotsrim Street",
+   "streetNumber": "7"
+  }
+ },
+ {
+  "id": "c5-178",
+  "name": "ניצת הדובדבן בע\"מ -ניות י-ם",
+  "address": "שד הרב הרצוג 61, ירושלים, ישראל",
+  "city": "ירושלים",
+  "phone": "025946694",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 31.7661786,
+   "lng": 35.2047032,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Ha-Rav Herzog St 61, Jerusalem, ישראל",
+   "locality": "Jerusalem",
+   "area1": "Jerusalem District",
+   "route": "Ha-Rav Herzog Street",
+   "streetNumber": "61"
+  }
+ },
+ {
+  "id": "c5-179",
+  "name": "ניצת הדובדבן בע\"מ -נתניה שרונים",
+  "address": "פנחס בלקני 23, נתניה, ישראל",
+  "city": "נתניה",
+  "phone": "097736774",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 32.3126543,
+   "lng": 34.8739349,
+   "precision": "RANGE_INTERPOLATED",
+   "partial": false,
+   "formatted": "Pinkhas Balkani St 23, Netanya, ישראל",
+   "locality": "Netanya",
+   "area1": "Center District",
+   "route": "Pinkhas Balkani Street",
+   "streetNumber": "23"
+  }
+ },
+ {
+  "id": "c5-180",
+  "name": "ניצת הדובדבן בע\"מ -רמת השרון",
+  "address": "סוקולוב 91, רמת השרון, ישראל",
+  "city": "רמת השרון",
+  "phone": "03-6726166",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 32.1485728,
+   "lng": 34.8395049,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Sokolov St 91, Ramat Hasharon, ישראל",
+   "locality": "Ramat Hasharon",
+   "area1": "Tel Aviv District",
+   "route": "Sokolov Street",
+   "streetNumber": "91"
+  }
+ },
+ {
+  "id": "c5-181",
+  "name": "ניצת הדובדבן בע\"מ -רמת ישי",
+  "address": "האקליפטוס 4, רמת ישי, ישראל",
+  "city": "רמת ישי",
+  "phone": "04-8110843",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 32.7071087,
+   "lng": 35.1741454,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Ekaliptus St 4, Ramat Yishai, ישראל",
+   "locality": "Ramat Yishai",
+   "area1": "North District",
+   "route": "Ekaliptus Street",
+   "streetNumber": "4"
+  }
+ },
+ {
+  "id": "c5-182",
+  "name": "ניצת הדובדבן בעמ - פלורנטין",
+  "address": "הרצל 104, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "036839543",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 32.0557882,
+   "lng": 34.7707355,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Herzl St 104, Tel Aviv-Yafo, ישראל",
+   "locality": "Tel Aviv-Yafo",
+   "area1": "Tel Aviv District",
+   "route": "Herzl Street",
+   "streetNumber": "104"
+  }
+ },
+ {
+  "id": "c5-183",
+  "name": "ניצת הדובדבן זכרון יעקב",
+  "address": "מרכז מסחרי מול זכרון חנות 1, זכרון יעקב, ישראל",
+  "city": "זכרון יעקב",
+  "phone": "04-6290802",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 32.56924,
+   "lng": 34.933385,
+   "precision": "ROOFTOP",
+   "partial": true,
+   "formatted": "אזור תעשייה מערבי, 4, זכרון יעקב, ישראל",
+   "locality": "זכרון יעקב",
+   "area1": "מחוז חיפה",
+   "route": "4",
+   "streetNumber": ""
+  }
+ },
+ {
+  "id": "c5-184",
+  "name": "ניצת הדובדבן ירושליים",
+  "address": "כנפי נשרים 22, ירושלים, ישראל",
+  "city": "ירושלים",
+  "phone": "02-6515697",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 31.7878319,
+   "lng": 35.1892063,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Kanfei Nesharim St 22, Jerusalem, ישראל",
+   "locality": "Jerusalem",
+   "area1": "Jerusalem District",
+   "route": "Kanfei Nesharim Street",
+   "streetNumber": "22"
+  }
+ },
+ {
+  "id": "c5-185",
+  "name": "ניצת הדובדבן עפולה",
+  "address": "חנקין 16, עפולה, ישראל",
+  "city": "עפולה",
+  "phone": "04-6427055",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 32.604309,
+   "lng": 35.2930835,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Joshua Hankin St 16, Afula, ישראל",
+   "locality": "Afula",
+   "area1": "North District",
+   "route": "Joshua Hankin Street",
+   "streetNumber": "16"
+  }
+ },
+ {
+  "id": "c5-186",
+  "name": "ניצת הדובדבן פ\"ת",
+  "address": "מתחם אושר עד איזור תעשיה סגולה, פתח תקווה, ישראל",
+  "city": "פתח תקווה",
+  "phone": "03-6246222",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 32.1052195,
+   "lng": 34.891782,
+   "precision": "ROOFTOP",
+   "partial": true,
+   "formatted": "Ben Tsiyon Galis St 33, Petah Tikva, ישראל",
+   "locality": "Petah Tikva",
+   "area1": "Center District",
+   "route": "Ben Tsiyon Galis Street",
+   "streetNumber": "33"
+  }
+ },
+ {
+  "id": "c5-187",
+  "name": "ניצת הדובדבן פרדס חנה בע\"מ",
+  "address": "תדהר 2, מרכז ביג, פרדס חנה, ישראל",
+  "city": "פרדס חנה",
+  "phone": "052-2228781",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 32.48815740000001,
+   "lng": 34.9709335,
+   "precision": "ROOFTOP",
+   "partial": true,
+   "formatted": "מרכז מסחרי ביג, Tidhar St 2, פרדס חנה כרכור, ישראל",
+   "locality": "פרדס חנה כרכור",
+   "area1": "מחוז חיפה",
+   "route": "Tidhar Street",
+   "streetNumber": "2"
+  }
+ },
+ {
+  "id": "c5-188",
+  "name": "ניצת הדובדבן רעננה (1998) בע\"מ",
+  "address": "אוסטרובסקי 39, רעננה, ישראל",
+  "city": "רעננה",
+  "phone": "09-7744717",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 32.177891,
+   "lng": 34.871013,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Ostrovsky St 39, Ra'anana, ישראל",
+   "locality": "Ra'anana",
+   "area1": "Center District",
+   "route": "Ostrovsky Street",
+   "streetNumber": "39"
+  }
+ },
+ {
+  "id": "c5-189",
+  "name": "ניצת הדובדבן שוק הכרמל בע\"מ",
+  "address": "הכרמל 30, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "03-5101497",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 32.0675179,
+   "lng": 34.7673512,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "HaCarmel St 30, Tel Aviv-Yafo, ישראל",
+   "locality": "Tel Aviv-Yafo",
+   "area1": "Tel Aviv District",
+   "route": "HaCarmel Street",
+   "streetNumber": "30"
+  }
+ },
+ {
+  "id": "c5-190",
+  "name": "ניצת הדובדבן הקריות בע\"מ",
+  "address": "ביג קריות, סולל בונה, קרית אתא, ישראל",
+  "city": "קרית אתא",
+  "phone": "04-6196114",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 32.811895,
+   "lng": 35.071818,
+   "precision": "ROOFTOP",
+   "partial": true,
+   "formatted": "Hahistadrut Ave 248, Haifa, ישראל",
+   "locality": "Haifa",
+   "area1": "Haifa District",
+   "route": "Hahistadrut Avenue",
+   "streetNumber": "248"
+  }
+ },
+ {
+  "id": "c5-191",
+  "name": "ניצת הדובדבן רחובות - טבע גוש בע\"מ",
+  "address": "מוטי קינד 10, רחובות, ישראל",
+  "city": "רחובות",
+  "phone": "08-6563339",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 31.8942717,
+   "lng": 34.7901567,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Moti Kind St 10, Rehovot, 7638519, ישראל",
+   "locality": "Rehovot",
+   "area1": "Center District",
+   "route": "Moti Kind Street",
+   "streetNumber": "10"
+  }
+ },
+ {
+  "id": "c5-192",
+  "name": "נקודת טבע בית טבע עלומים",
+  "address": "ויצמן 27, נס ציונה, ישראל",
+  "city": "נס ציונה",
+  "phone": "08-9380035",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.9275948,
+   "lng": 34.7980183,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Weizman St 27, Ness Ziona, 74030, ישראל",
+   "locality": "Ness Ziona",
+   "area1": "Center District",
+   "route": "Weizman Street",
+   "streetNumber": "27"
+  }
+ },
+ {
+  "id": "c5-193",
+  "name": "נקודת טבע חולון",
+  "address": "הרוקמים 26, חולון, ישראל",
+  "city": "חולון",
+  "phone": "",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.0070358,
+   "lng": 34.8005222,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Harokmim St 26, Holon, ישראל",
+   "locality": "Holon",
+   "area1": "Center District",
+   "route": "Harokmim Street",
+   "streetNumber": "26"
+  }
+ },
+ {
+  "id": "c5-194",
+  "name": "נקודת טבע יהודה מכבי",
+  "address": "יהודה מכבי 52, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.0939074,
+   "lng": 34.7926851,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Yehuda HaMakkabbi St 52, Tel Aviv-Yafo, ישראל",
+   "locality": "Tel Aviv-Yafo",
+   "area1": "Tel Aviv District",
+   "route": "Yehuda HaMakkabbi Street",
+   "streetNumber": "52"
+  }
+ },
+ {
+  "id": "c5-195",
+  "name": "נקודת טבע מ.ש.מ בע\"מ - חדרה",
+  "address": "גורדון 10, חדרה, ישראל",
+  "city": "חדרה",
+  "phone": "",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.43552,
+   "lng": 34.920362,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Gordon St 10, Hadera, ישראל",
+   "locality": "Hadera",
+   "area1": "Haifa District",
+   "route": "Gordon Street",
+   "streetNumber": "10"
+  }
+ },
+ {
+  "id": "c5-196",
+  "name": "נקודת טבע מ.ש.מ בעמ - סניף יפו",
+  "address": "יהודה הימית 61, תל אביב יפו, ישראל",
+  "city": "תל אביב יפו",
+  "phone": "",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.0499269,
+   "lng": 34.7537005,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Yehuda Hayamit St 61, Tel Aviv-Yafo, ישראל",
+   "locality": "Tel Aviv-Yafo",
+   "area1": "Tel Aviv District",
+   "route": "Yehuda Hayamit Street",
+   "streetNumber": "61"
+  }
+ },
+ {
+  "id": "c5-197",
+  "name": "נקודת טבע מ.ש.מ סניף ראשון לציון",
+  "address": "הסוכה 14, ראשון לציון, ישראל",
+  "city": "ראשון לציון",
+  "phone": "",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.9742547,
+   "lng": 34.7787152,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Ha-Suka St 14, Rishon LeZion, ישראל",
+   "locality": "Rishon LeZion",
+   "area1": "Center District",
+   "route": "Ha-Suka Street",
+   "streetNumber": "14"
+  }
+ },
+ {
+  "id": "c5-198",
+  "name": "נקודת טבע רעננה",
+  "address": "אליעזר יפה 5, רעננה, ישראל",
+  "city": "רעננה",
+  "phone": "09-8616737",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.181159,
+   "lng": 34.8748522,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Eliezer Yafe St 5, Ra'anana, 4345103, ישראל",
+   "locality": "Ra'anana",
+   "area1": "Center District",
+   "route": "Eliezer Yafe Street",
+   "streetNumber": "5"
+  }
+ },
+ {
+  "id": "c5-199",
+  "name": "נקודת טבע שוסטר מ.ש.מ בע\"מ",
+  "address": "אחימאיר 25, רמת אביב ג, ישראל",
+  "city": "רמת אביב ג",
+  "phone": "03-6426381",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.1250547,
+   "lng": 34.803558,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Aba Akhime'ir St 25, Tel Aviv-Yafo, 61650, ישראל",
+   "locality": "Tel Aviv-Yafo",
+   "area1": "Tel Aviv District",
+   "route": "Aba Akhime'ir Street",
+   "streetNumber": "25"
+  }
+ },
+ {
+  "id": "c5-200",
+  "name": "סופרפוד לאב בעמ",
+  "address": "החרמון 5, פרדס חנה, ישראל",
+  "city": "פרדס חנה",
+  "phone": "0506977552",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.4826602,
+   "lng": 34.9678887,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Hermon St 5, Pardes Hanna-Karkur, 3702705, ישראל",
+   "locality": "Pardes Hanna-Karkur",
+   "area1": "Haifa District",
+   "route": "Hermon Street",
+   "streetNumber": "5"
+  }
+ },
+ {
+  "id": "c5-201",
+  "name": "עדן טבע מרקט בע\"מ -תל אביב 156",
+  "address": "מתחם גן העיר, רח' אבן גבירול 71 (קומת המזרקה), תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "03-7621777",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.0821759,
+   "lng": 34.7805383,
+   "precision": "ROOFTOP",
+   "partial": true,
+   "formatted": "Shlomo Ibn Gabirol St 71, Tel Aviv-Yafo, ישראל",
+   "locality": "Tel Aviv-Yafo",
+   "area1": "Tel Aviv District",
+   "route": "Shlomo Ibn Gabirol Street",
+   "streetNumber": "71"
+  }
+ },
+ {
+  "id": "c5-202",
+  "name": "על המשקל בע\"מ - קרני שומרון",
+  "address": "העמל 4, קרני שומרון, ישראל",
+  "city": "קרני שומרון",
+  "phone": "09-7941471",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.046051,
+   "lng": 34.851612,
+   "precision": "APPROXIMATE",
+   "partial": true,
+   "formatted": "ישראל",
+   "locality": "",
+   "area1": "",
+   "route": "",
+   "streetNumber": ""
+  }
+ },
+ {
+  "id": "c5-203",
+  "name": "פארמה דאבל די בע\"מ",
+  "address": "בלפור 45, בת ים, ישראל",
+  "city": "בת ים",
+  "phone": "03-5068776",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.0261197,
+   "lng": 34.7452885,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Balfour St 45, Bat Yam, ישראל",
+   "locality": "Bat Yam",
+   "area1": "Center District",
+   "route": "Balfour Street",
+   "streetNumber": "45"
+  }
+ },
+ {
+  "id": "c5-204",
+  "name": "פארמה עודד- לקוח",
+  "address": "פלטין 3, אזור תעשייה חדש, ראשון לציון, ישראל",
+  "city": "ראשון לציון",
+  "phone": "03-9613086",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.988759,
+   "lng": 34.7717812,
+   "precision": "ROOFTOP",
+   "partial": true,
+   "formatted": "Naftali Faltin St 3, Rishon LeZion, ישראל",
+   "locality": "Rishon LeZion",
+   "area1": "Center District",
+   "route": "Naftali Faltin Street",
+   "streetNumber": "3"
+  }
+ },
+ {
+  "id": "c5-205",
+  "name": "פארמה פלוס טל שחר",
+  "address": "שלום אש 9, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "03-6499312",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.1070612,
+   "lng": 34.8211824,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Shalom Ash St 9, Tel Aviv-Yafo, ישראל",
+   "locality": "Tel Aviv-Yafo",
+   "area1": "Tel Aviv District",
+   "route": "Shalom Ash Street",
+   "streetNumber": "9"
+  }
+ },
+ {
+  "id": "c5-206",
+  "name": "פניני הטבע נתיבות",
+  "address": "שדרות ירושלים 110, נתיבות, ישראל",
+  "city": "נתיבות",
+  "phone": "052-7544344",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.4217194,
+   "lng": 34.5719241,
+   "precision": "GEOMETRIC_CENTER",
+   "partial": true,
+   "formatted": "שד' ירושלים, נתיבות, ישראל",
+   "locality": "נתיבות",
+   "area1": "מחוז הדרום",
+   "route": "שד' ירושלים",
+   "streetNumber": ""
+  }
+ },
+ {
+  "id": "c5-207",
+  "name": "פניני טבע אורגני בע\"מ",
+  "address": "א.ת שילת בית מגה אור, מודיעין, ישראל",
+  "city": "מודיעין",
+  "phone": "08-9762431",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.8891466,
+   "lng": 34.9662406,
+   "precision": "ROOFTOP",
+   "partial": true,
+   "formatted": "HaMelahot Blvd 5, Modi'in-Maccabim-Re'ut, ישראל",
+   "locality": "Modi'in-Maccabim-Re'ut",
+   "area1": "Center District",
+   "route": "HaMelahot Boulevard",
+   "streetNumber": "5"
+  }
+ },
+ {
+  "id": "c5-208",
+  "name": "פריים פארם",
+  "address": "יהודה מכבי 42, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "03-6055198",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.09385779999999,
+   "lng": 34.7915896,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Yehuda HaMakkabbi St 42, Tel Aviv-Yafo, ישראל",
+   "locality": "Tel Aviv-Yafo",
+   "area1": "Tel Aviv District",
+   "route": "Yehuda HaMakkabbi Street",
+   "streetNumber": "42"
+  }
+ },
+ {
+  "id": "c5-209",
+  "name": "קבוצת מלצר טבעונות בע\"מ - סניף רגבה",
+  "address": "ביג רגבה, מושב רגבה, ישראל",
+  "city": "מושב רגבה",
+  "phone": "054-5300062",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.9745544,
+   "lng": 35.0948589,
+   "precision": "GEOMETRIC_CENTER",
+   "partial": false,
+   "formatted": "רגבה, 22804 כביש, רגבה, ישראל",
+   "locality": "רגבה",
+   "area1": "מחוז הצפון",
+   "route": "",
+   "streetNumber": ""
+  }
+ },
+ {
+  "id": "c5-210",
+  "name": "קבוצת מלצר טבעונות בעמ - סניף ויצמן",
+  "address": "ויצמן 70, נהריה, ישראל",
+  "city": "נהריה",
+  "phone": "046197552",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 33.0057562,
+   "lng": 35.0922764,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Weizman St 70, Nahariyya, 2242004, ישראל",
+   "locality": "Nahariyya",
+   "area1": "North District",
+   "route": "Weizman Street",
+   "streetNumber": "70"
+  }
+ },
+ {
+  "id": "c5-211",
+  "name": "קו אופ אורגני",
+  "address": "גבעת חיים איחוד, קבוץ גבעת חיים איחוד, ישראל",
+  "city": "קבוץ גבעת חיים איחוד",
+  "phone": "052-3990225",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.396065,
+   "lng": 34.933464,
+   "precision": "GEOMETRIC_CENTER",
+   "partial": true,
+   "formatted": "גבעת חיים איחוד, גבעת חיים איחוד, ישראל",
+   "locality": "גבעת חיים איחוד",
+   "area1": "מחוז המרכז",
+   "route": "",
+   "streetNumber": ""
+  }
+ },
+ {
+  "id": "c5-212",
+  "name": "קיי. או.אל. הטבע בע\"מ",
+  "address": "הצפצפה אזור תעשיה, רמת ישי, ישראל",
+  "city": "רמת ישי",
+  "phone": "04-6224969",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.7064675,
+   "lng": 35.174535,
+   "precision": "GEOMETRIC_CENTER",
+   "partial": true,
+   "formatted": "Tsaftsafa St, Ramat Yishai, ישראל",
+   "locality": "Ramat Yishai",
+   "area1": "",
+   "route": "Tsaftsafa Street",
+   "streetNumber": ""
+  }
+ },
+ {
+  "id": "c5-213",
+  "name": "קינמון-בית טבע עם אלטרנטיבה",
+  "address": "מוהליבר 27, פתח תקווה, ישראל",
+  "city": "פתח תקווה",
+  "phone": "077-2005956",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.086298,
+   "lng": 34.8858547,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Mohaliver St 27, Petah Tikva, 4959048, ישראל",
+   "locality": "Petah Tikva",
+   "area1": "Center District",
+   "route": "Mohaliver Street",
+   "streetNumber": "27"
+  }
+ },
+ {
+  "id": "c5-214",
+  "name": "קנאביסרי בעמ - בית מרקחת תלתן",
+  "address": "עפרה חזה 9, בת ים, ישראל",
+  "city": "בת ים",
+  "phone": "037555465",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.00685,
+   "lng": 34.739938,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "עפרה חזה 9, בת ים, ישראל",
+   "locality": "בת ים",
+   "area1": "מחוז המרכז",
+   "route": "עפרה חזה",
+   "streetNumber": "9"
+  }
+ },
+ {
+  "id": "c5-215",
+  "name": "קנאשור פארמסי בע\"מ",
+  "address": "פינקס 27, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "03-6041449",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.0913416,
+   "lng": 34.7866793,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Pinkas St 27, Tel Aviv-Yafo, ישראל",
+   "locality": "Tel Aviv-Yafo",
+   "area1": "Tel Aviv District",
+   "route": "Pinkas Street",
+   "streetNumber": "27"
+  }
+ },
+ {
+  "id": "c5-216",
+  "name": "קסם הטבע מוצרי בריאות וטבע בע\"מ - (קריות)",
+  "address": "האצטדיון 4, חיפה, ישראל",
+  "city": "חיפה",
+  "phone": "046255559",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.8245612,
+   "lng": 35.0611846,
+   "precision": "GEOMETRIC_CENTER",
+   "partial": false,
+   "formatted": "Ha'ytztadion St 4, Haifa, ישראל",
+   "locality": "Haifa",
+   "area1": "Haifa District",
+   "route": "Ha'ytztadion Street",
+   "streetNumber": "4"
+  }
+ },
+ {
+  "id": "c5-217",
+  "name": "קסם הטבע מוצרי בריאות וטבע בע\"מ (חיפה)",
+  "address": "מוריה 58, חיפה, ישראל",
+  "city": "חיפה",
+  "phone": "04-8262728",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.796323,
+   "lng": 34.9843125,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Moriah Ave 58, Haifa, ישראל",
+   "locality": "Haifa",
+   "area1": "Haifa District",
+   "route": "Moriah Avenue",
+   "streetNumber": "58"
+  }
+ },
+ {
+  "id": "c5-218",
+  "name": "קסם הטבע מוצרי בריאות וטבע בע\"מ(כפר ורדים)",
+  "address": "מרכז מסחרי- כפר ורדים, כפר ורדים, ישראל",
+  "city": "כפר ורדים",
+  "phone": "04-9574333",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.9962038,
+   "lng": 35.2754552,
+   "precision": "GEOMETRIC_CENTER",
+   "partial": false,
+   "formatted": "מרכז מסחרי, כפר ורדים, ישראל",
+   "locality": "כפר ורדים",
+   "area1": "מחוז הצפון",
+   "route": "",
+   "streetNumber": ""
+  }
+ },
+ {
+  "id": "c5-219",
+  "name": "קסם הטבע מוצרי בריאות וטבע בע\"מ(כרמיאל)",
+  "address": "החרושת 13, כרמיאל, ישראל",
+  "city": "כרמיאל",
+  "phone": "04-9889669",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.9217548,
+   "lng": 35.3058228,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Ha-Kharoshet St 13, Karmiel, 20100, ישראל",
+   "locality": "Karmiel",
+   "area1": "North District",
+   "route": "Ha-Kharoshet Street",
+   "streetNumber": "13"
+  }
+ },
+ {
+  "id": "c5-220",
+  "name": "ניצת הדובדבן אילת",
+  "address": "המוצר 17, אזור תעשיה אילת, אילת, ישראל",
+  "city": "אילת",
+  "phone": "",
+  "website": "",
+  "tags": "ניצת הדובדבן",
+  "geo": {
+   "lat": 29.5673879,
+   "lng": 34.9587889,
+   "precision": "ROOFTOP",
+   "partial": true,
+   "formatted": "Ha-Mutsar St 17, Eilat, ישראל",
+   "locality": "Eilat",
+   "area1": "South District",
+   "route": "Ha-Mutsar Street",
+   "streetNumber": "17"
+  }
+ },
+ {
+  "id": "c5-221",
+  "name": "ר.עזרא סחר ושיווק בעמ",
+  "address": "המנופים 2, כפר סבא, ישראל",
+  "city": "כפר סבא",
+  "phone": "0527733004",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.1729496,
+   "lng": 34.92862970000001,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "HaMenofim St 2, Kefar Sava, 4442220, ישראל",
+   "locality": "Kefar Sava",
+   "area1": "Center District",
+   "route": "HaMenofim Street",
+   "streetNumber": "2"
+  }
+ },
+ {
+  "id": "c5-222",
+  "name": "רעננה בטבע בע\"מ",
+  "address": "החרושת 32, רעננה, ישראל",
+  "city": "רעננה",
+  "phone": "099789577",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.1970314,
+   "lng": 34.8802834,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "HaHaroshet St 32, Ra'anana, ישראל",
+   "locality": "Ra'anana",
+   "area1": "Center District",
+   "route": "HaHaroshet Street",
+   "streetNumber": "32"
+  }
+ },
+ {
+  "id": "c5-223",
+  "name": "שורשים בית טבע ובריאות",
+  "address": "שד' דואני 20, יבנה, ישראל",
+  "city": "יבנה",
+  "phone": "08-9334202",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.8728971,
+   "lng": 34.7394285,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "שדרות דואני 20, יבנה, 8155110, ישראל",
+   "locality": "יבנה",
+   "area1": "מחוז המרכז",
+   "route": "שדרות דואני",
+   "streetNumber": "20"
+  }
+ },
+ {
+  "id": "c5-224",
+  "name": "שירג זיותי סניף שד ירושליים",
+  "address": "שדרות ירושלים 57, יפו, ישראל",
+  "city": "יפו",
+  "phone": "",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.0497368,
+   "lng": 34.7590386,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Jerusalem Blvd 57, Tel Aviv-Yafo, ישראל",
+   "locality": "Tel Aviv-Yafo",
+   "area1": "Tel Aviv District",
+   "route": "Jerusalem Boulevard",
+   "streetNumber": "57"
+  }
+ },
+ {
+  "id": "c5-225",
+  "name": "שירת הארץ - ירושליים צפת",
+  "address": "ירושלים 37, צפת, ישראל",
+  "city": "צפת",
+  "phone": "046827050",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.9684787,
+   "lng": 35.4934263,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Jerusalem St 37, Safed, ישראל",
+   "locality": "Safed",
+   "area1": "North District",
+   "route": "Jerusalem Street",
+   "streetNumber": "37"
+  }
+ },
+ {
+  "id": "c5-226",
+  "name": "שקדיה בע\"מ",
+  "address": "שד` ירושלים 48, רמת גן, ישראל",
+  "city": "רמת גן",
+  "phone": "03-674649",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.0497636,
+   "lng": 34.7587122,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Jerusalem Blvd 48, Tel Aviv-Yafo, ישראל",
+   "locality": "Tel Aviv-Yafo",
+   "area1": "Tel Aviv District",
+   "route": "Jerusalem Boulevard",
+   "streetNumber": "48"
+  }
+ },
+ {
+  "id": "c5-227",
+  "name": "שקדיה גבעתיים",
+  "address": "כצנלסון 56, גבעתיים, ישראל",
+  "city": "גבעתיים",
+  "phone": "03-7319958",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.0751169,
+   "lng": 34.8081534,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Katzenelson St 56, Giv'atayim, ישראל",
+   "locality": "Giv'atayim",
+   "area1": "Tel Aviv District",
+   "route": "Katzenelson Street",
+   "streetNumber": "56"
+  }
+ },
+ {
+  "id": "c5-228",
+  "name": "שקדיה הוד השרון",
+  "address": "הבנים 14, הוד השרון, ישראל",
+  "city": "הוד השרון",
+  "phone": "09-7481486",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.1558321,
+   "lng": 34.8909276,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "HaBanim St 14, Hod Hasharon, ישראל",
+   "locality": "Hod Hasharon",
+   "area1": "Center District",
+   "route": "HaBanim Street",
+   "streetNumber": "14"
+  }
+ },
+ {
+  "id": "c5-229",
+  "name": "ת.ר.ד בריאות בע\"מ",
+  "address": "עוזי חיטמן 1, יבנה, ישראל",
+  "city": "יבנה",
+  "phone": "086599066",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.8637268,
+   "lng": 34.7265993,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Uzi Hitman St 1, Yavne, ישראל",
+   "locality": "Yavne",
+   "area1": "Center District",
+   "route": "Uzi Hitman Street",
+   "streetNumber": "1"
+  }
+ },
+ {
+  "id": "c5-230",
+  "name": "תבלין וטבע חדרה",
+  "address": "רוטשילד 15, חדרה, ישראל",
+  "city": "חדרה",
+  "phone": "04-6330633",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.4356097,
+   "lng": 34.9206946,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "שדרות רוטשילד 15, חדרה, ישראל",
+   "locality": "חדרה",
+   "area1": "מחוז חיפה",
+   "route": "שדרות רוטשילד",
+   "streetNumber": "15"
+  }
+ },
+ {
+  "id": "c5-231",
+  "name": "תבלינים בטעם טוב",
+  "address": "כיכר פז 26 מרכז מסחרי (מול בנק מזרחי), קרית גת, ישראל",
+  "city": "קרית גת",
+  "phone": "08-6816015",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 31.606988,
+   "lng": 34.7727972,
+   "precision": "GEOMETRIC_CENTER",
+   "partial": true,
+   "formatted": "שדרת פ\"ז, קרית גת, ישראל",
+   "locality": "קרית גת",
+   "area1": "מחוז הדרום",
+   "route": "שדרת פ\"ז",
+   "streetNumber": ""
+  }
+ },
+ {
+  "id": "c5-232",
+  "name": "ביוגאיה אתר אינטרנט",
+  "address": "כפר סבא, כפר סבא, ישראל",
+  "city": "כפר סבא",
+  "phone": "",
+  "website": "https://www.biogaya.co.il/catalogsearch/result/?q=%D7%A7%D7%98%D7%92%D7%95%D7%A8%D7%99%D7%94+5",
+  "tags": "אתר אינטרנט",
+  "geo": {
+   "lat": 32.178195,
+   "lng": 34.90761,
+   "precision": "APPROXIMATE",
+   "partial": false,
+   "formatted": "כפר סבא, ישראל",
+   "locality": "כפר סבא",
+   "area1": "מחוז המרכז",
+   "route": "",
+   "streetNumber": ""
+  }
+ },
+ {
+  "id": "c5-233",
+  "name": "המרכז לרפואת הרמבם",
+  "address": "ראשון לציון, ראשון לציון, ישראל",
+  "city": "ראשון לציון",
+  "phone": "",
+  "website": "https://rambam-medicine.org.il/shop/",
+  "tags": "אתר אינטרנט",
+  "geo": {
+   "lat": 31.95908129999999,
+   "lng": 34.8020886,
+   "precision": "APPROXIMATE",
+   "partial": false,
+   "formatted": "ראשון לציון, ישראל",
+   "locality": "ראשון לציון",
+   "area1": "מחוז המרכז",
+   "route": "",
+   "streetNumber": ""
+  }
+ },
+ {
+  "id": "c5-234",
+  "name": "המרכז לרפואת הרמבם",
+  "address": "אסף סנטר בית חולים אסף הרופא, ראשון לציון, ישראל",
+  "city": "ראשון לציון",
+  "phone": "",
+  "website": "",
+  "tags": "",
+  "geo": {
+   "lat": 31.971067599999994,
+   "lng": 34.79581617142857,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-235",
+  "name": "כליל הטבע",
+  "address": "עפולה, עפולה, ישראל",
+  "city": "עפולה",
+  "phone": "",
+  "website": "https://www.klilhateva.co.il/search/?q=%D7%A7%D7%98%D7%92%D7%95%D7%A8%D7%99%D7%94+5",
+  "tags": "אתר אינטרנט",
+  "geo": {
+   "lat": 32.608669899999995,
+   "lng": 35.289310300000004,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-236",
+  "name": "ByBy Today",
+  "address": "תל אביב, רמת גן, ישראל",
+  "city": "רמת גן",
+  "phone": "",
+  "website": "https://byby.today",
+  "tags": "אתר אינטרנט",
+  "geo": {
+   "lat": 32.07094668,
+   "lng": 34.80478151999999,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-237",
+  "name": "ניצת הדובדבן אתר אינטרנט",
+  "address": "מודיעין, מודיעין, ישראל",
+  "city": "מודיעין",
+  "phone": "",
+  "website": "https://www.nizat.com/productslist.aspx?manufacturer=%D7%A7%D7%98%D7%92%D7%95%D7%A8%D7%99%D7%94+5",
+  "tags": "אתר אינטרנט",
+  "geo": {
+   "lat": 31.891540374999998,
+   "lng": 34.987554274999994,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-238",
+  "name": "טבע בריא אתר אינטרנט",
+  "address": "תל אביב, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "",
+  "website": "https://www.tevabari.co.il/",
+  "tags": "אתר אינטרנט",
+  "geo": {
+   "lat": 32.079862119444456,
+   "lng": 34.78712651944445,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-239",
+  "name": "B&D בן יעקב - בני ברק",
+  "address": "בן יעקב 21, בני ברק, ישראל",
+  "city": "בני ברק",
+  "phone": "",
+  "website": "",
+  "tags": "B&D",
+  "geo": {
+   "lat": 32.08610836666667,
+   "lng": 34.83393026666666,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-240",
+  "name": "B&D הרב קוק - בני ברק",
+  "address": "הרב קוק 13, בני ברק, ישראל",
+  "city": "בני ברק",
+  "phone": "",
+  "website": "",
+  "tags": "B&D",
+  "geo": {
+   "lat": 32.08610836666667,
+   "lng": 34.83393026666666,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-241",
+  "name": "B&D אלעד",
+  "address": "יהודה הנשיא 95, אלעד, ישראל",
+  "city": "אלעד",
+  "phone": "",
+  "website": "",
+  "tags": "B&D",
+  "geo": {
+   "lat": 32.053726,
+   "lng": 34.964993,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-242",
+  "name": "B&D קריית ספר מודיעין עלית",
+  "address": "חפץ חיים 7, מודיעין עלית, ישראל",
+  "city": "מודיעין עלית",
+  "phone": "",
+  "website": "",
+  "tags": "B&D",
+  "geo": {
+   "lat": 31.9304948,
+   "lng": 35.0388026,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-243",
+  "name": "B&D ברכפלד מודיעין עלית",
+  "address": "רבי שמעון בר יוחאי 35, מודיעין עלית, ישראל",
+  "city": "מודיעין עלית",
+  "phone": "",
+  "website": "",
+  "tags": "B&D",
+  "geo": {
+   "lat": 31.9304948,
+   "lng": 35.0388026,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-244",
+  "name": "B&D קריית גת",
+  "address": "בית יוסף 68, קריית גת, ישראל",
+  "city": "קריית גת",
+  "phone": "",
+  "website": "",
+  "tags": "B&D",
+  "geo": {
+   "lat": 31.61,
+   "lng": 34.7642,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-245",
+  "name": "B&D תל ציון",
+  "address": "אהבת ישראל 18, כוכב יעקב, ישראל",
+  "city": "כוכב יעקב",
+  "phone": "",
+  "website": "",
+  "tags": "B&D",
+  "geo": {
+   "lat": 31.88,
+   "lng": 35.24,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-246",
+  "name": "B&D ירושלים - פינת חנות המפעל",
+  "address": "אגרות משה 5, ירושלים, ישראל",
+  "city": "ירושלים",
+  "phone": "",
+  "website": "",
+  "tags": "B&D",
+  "geo": {
+   "lat": 31.779259366666672,
+   "lng": 35.20542961666667,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-247",
+  "name": "B&D אשדוד",
+  "address": "רבי מאיר בעל הנס 28, אשדוד, ישראל",
+  "city": "אשדוד",
+  "phone": "",
+  "website": "",
+  "tags": "B&D",
+  "geo": {
+   "lat": 31.80102868,
+   "lng": 34.65912324,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-248",
+  "name": "B&D ביתר עלית",
+  "address": "המגיד ממעזריטש 60, ביתר עלית, ישראל",
+  "city": "ביתר עלית",
+  "phone": "",
+  "website": "",
+  "tags": "B&D",
+  "geo": {
+   "lat": 31.70344865,
+   "lng": 35.11778795,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-249",
+  "name": "B&D נתיבות",
+  "address": "בן גוריון 9, נתיבות, ישראל",
+  "city": "נתיבות",
+  "phone": "",
+  "website": "",
+  "tags": "B&D",
+  "geo": {
+   "lat": 31.4243101,
+   "lng": 34.57848425,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-250",
+  "name": "B&D בית שמש",
+  "address": "שדרות האמוראים 73, בית שמש, ישראל",
+  "city": "בית שמש",
+  "phone": "",
+  "website": "",
+  "tags": "B&D",
+  "geo": {
+   "lat": 31.740207733333335,
+   "lng": 34.993809133333336,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-251",
+  "name": "סופר-פארם יבנה הירוקה",
+  "address": "רחוב הדוגית 16, יבנה, ישראל",
+  "city": "יבנה",
+  "phone": "077-8882380",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.871377999999996,
+   "lng": 34.733988933333336,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-252",
+  "name": "סופר פארם GALLERY",
+  "address": "ילדי טהרן 5, ראשון לציון, ישראל",
+  "city": "ראשון לציון",
+  "phone": "0778881360",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.971067599999994,
+   "lng": 34.79581617142857,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-253",
+  "name": "סופר פארם TLV",
+  "address": "החשמונאים 94, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "077-8882520",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.079862119444456,
+   "lng": 34.78712651944445,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-254",
+  "name": "סופר פארם אבן יהודה",
+  "address": "המייסדים 62, אבן יהודה, ישראל",
+  "city": "אבן יהודה",
+  "phone": "0778882680",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.27,
+   "lng": 34.8875,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-255",
+  "name": "סופר פארם אגמים אשקלון",
+  "address": "שד עמק האלה 49, אשקלון, ישראל",
+  "city": "אשקלון",
+  "phone": "0778883180",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.665833366666664,
+   "lng": 34.586678166666665,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-256",
+  "name": "סופר פארם אגמים נתניה",
+  "address": "שדרות אגם כנרת 6, נתניה, ישראל",
+  "city": "נתניה",
+  "phone": "0778882330",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.313994480000005,
+   "lng": 34.86196954,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-257",
+  "name": "סופר פארם אודיטוריום חיפה",
+  "address": "שד' הנשיא 134, חיפה, ישראל",
+  "city": "חיפה",
+  "phone": "0778881110",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.802482266666665,
+   "lng": 35.01872092222223,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-258",
+  "name": "סופר פארם אום אל פחם",
+  "address": "מתחם SEVEN רחוב אום אל פחם 27, אום אל פחם, ישראל",
+  "city": "אום אל פחם",
+  "phone": "0778881290",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.5196,
+   "lng": 35.1532,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-259",
+  "name": "סופר פארם אונו פארק",
+  "address": "שמירה אימבר 1, קריית אונו, ישראל",
+  "city": "קריית אונו",
+  "phone": "077-888-3270",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.0636,
+   "lng": 34.8553,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-260",
+  "name": "סופר פארם אוסישקין",
+  "address": "אוסישקין 62, רמת השרון, ישראל",
+  "city": "רמת השרון",
+  "phone": "0778881270",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.1485728,
+   "lng": 34.8395049,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-261",
+  "name": "סופר פארם אור יהודה",
+  "address": "המפעל 11, אור יהודה, ישראל",
+  "city": "אור יהודה",
+  "phone": "0778881260",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.0306,
+   "lng": 34.8556,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-262",
+  "name": "סופר פארם אורדע",
+  "address": "כיכר רמבם 3, רמת גן, ישראל",
+  "city": "רמת גן",
+  "phone": "0778880500",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.07094668,
+   "lng": 34.80478151999999,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-263",
+  "name": "סופר פארם אורון",
+  "address": "רוטשילד 182, פתח תקווה, ישראל",
+  "city": "פתח תקווה",
+  "phone": "0778880060",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.0901854,
+   "lng": 34.882469625,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-264",
+  "name": "סופר פארם איינשטיין חיפה",
+  "address": "איינשטין 139, חיפה, ישראל",
+  "city": "חיפה",
+  "phone": "0778882630",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.802482266666665,
+   "lng": 35.01872092222223,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-265",
+  "name": "סופר פארם איכילוב",
+  "address": "ויצמן 14 א' ת\"א, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "077-8881070",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.079862119444456,
+   "lng": 34.78712651944445,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-266",
+  "name": "סופר פארם אילת שחמון",
+  "address": "שד ששת הימים 290-294, אילת, ישראל",
+  "city": "אילת",
+  "phone": "0778881670",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 29.5673879,
+   "lng": 34.9587889,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-267",
+  "name": "סופר פארם אליהו קורן י-ם",
+  "address": "אסתר רזיאל 6, ירושלים, ישראל",
+  "city": "ירושלים",
+  "phone": "0778882400",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.779259366666672,
+   "lng": 35.20542961666667,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-268",
+  "name": "סופר פארם אלנבי",
+  "address": "אלנבי 115, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "0778881140",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.079862119444456,
+   "lng": 34.78712651944445,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-269",
+  "name": "סופר פארם אם המושבות",
+  "address": "יעל רום 8, פתח תקווה, ישראל",
+  "city": "פתח תקווה",
+  "phone": "0778881990",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.0901854,
+   "lng": 34.882469625,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-270",
+  "name": "סופר פארם ארלוזורוב",
+  "address": "דיזינגוף 208, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "0778882200",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.079862119444456,
+   "lng": 34.78712651944445,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-271",
+  "name": "סופר פארם ארמון חיפה",
+  "address": "נביאים 18, חיפה, ישראל",
+  "city": "חיפה",
+  "phone": "0778880820",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.802482266666665,
+   "lng": 35.01872092222223,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-272",
+  "name": "סופר פארם ארנה",
+  "address": "שד בן צבי 1, נהריה, ישראל",
+  "city": "נהריה",
+  "phone": "0778882290",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 33.006591566666664,
+   "lng": 35.09548266666667,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-273",
+  "name": "סופר פארם אשדוד סיטי",
+  "address": "הבנים 1, אשדוד, ישראל",
+  "city": "אשדוד",
+  "phone": "0778880400",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.80102868,
+   "lng": 34.65912324,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-274",
+  "name": "סופר פארם באר יעקב",
+  "address": "רחוב שא נס 17, באר יעקב, ישראל",
+  "city": "באר יעקב",
+  "phone": "0778882490",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.9425,
+   "lng": 34.8344,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-275",
+  "name": "סופר פארם בורוכוב",
+  "address": "בורוכוב 54, גבעתיים, ישראל",
+  "city": "גבעתיים",
+  "phone": "0778882790",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.07021466,
+   "lng": 34.81405666,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-276",
+  "name": "סופר פארם ביג אור יהודה",
+  "address": "יצחק רבין 5, אור יהודה, ישראל",
+  "city": "אור יהודה",
+  "phone": "0778881930",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.0306,
+   "lng": 34.8556,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-277",
+  "name": "סופר פארם ביג אילת",
+  "address": "הסתת 14, אילת, ישראל",
+  "city": "אילת",
+  "phone": "0778881120",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 29.5673879,
+   "lng": 34.9587889,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-278",
+  "name": "סופר פארם ביג ב\"ש",
+  "address": "חיל ההנדסה 2, באר שבע, ישראל",
+  "city": "באר שבע",
+  "phone": "0778880550",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.2433919,
+   "lng": 34.8125699,
+   "precision": "GEOMETRIC_CENTER",
+   "partial": false,
+   "formatted": "מתחם B7, Heil Handasa St 2, באר שבע, ישראל",
+   "locality": "באר שבע",
+   "area1": "מחוז הדרום",
+   "route": "Heil Handasa Street",
+   "streetNumber": "2"
+  }
+ },
+ {
+  "id": "c5-279",
+  "name": "סופר פארם ביג יהוד",
+  "address": "אלטלף 4, יהוד, ישראל",
+  "city": "יהוד",
+  "phone": "0778882950",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.0333,
+   "lng": 34.8833,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-280",
+  "name": "סופר פארם ביג יקנעם",
+  "address": "שדרות יצחק רבין 9, יקנעם, ישראל",
+  "city": "יקנעם",
+  "phone": "077-888-1510",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.6426784,
+   "lng": 35.0927494,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-281",
+  "name": "סופר פארם ביג נצרת",
+  "address": "תופיק זיאד 53, נצרת, ישראל",
+  "city": "נצרת",
+  "phone": "077-8881590",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.6996,
+   "lng": 35.3035,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-282",
+  "name": "סופר פארם ביג עפולה",
+  "address": "השוק 13, עפולה, ישראל",
+  "city": "עפולה",
+  "phone": "0778882010",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.608669899999995,
+   "lng": 35.289310300000004,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-283",
+  "name": "סופר פארם ביג פאשן",
+  "address": "דרך הרכבת 1, אשדוד, ישראל",
+  "city": "אשדוד",
+  "phone": "0778882300",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.80102868,
+   "lng": 34.65912324,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-284",
+  "name": "סופר פארם ביג פולג",
+  "address": "גיבורי ישראל 5 א, נתניה דרום, ישראל",
+  "city": "נתניה דרום",
+  "phone": "0778881040",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.285,
+   "lng": 34.855,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-285",
+  "name": "סופר פארם ביג פוריה",
+  "address": "המברג 1, טבריה, ישראל",
+  "city": "טבריה",
+  "phone": "0778881580",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.7895842,
+   "lng": 35.5379054,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-286",
+  "name": "סופר פארם ביג פרדס חנה",
+  "address": "תדהר 1, פרדס חנה, ישראל",
+  "city": "פרדס חנה",
+  "phone": "077-8881940",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.48152266666667,
+   "lng": 34.9706872,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-287",
+  "name": "סופר פארם ביג צ'ק פוסט",
+  "address": "בר יהודה 111, חיפה, ישראל",
+  "city": "חיפה",
+  "phone": "0778881700",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.802482266666665,
+   "lng": 35.01872092222223,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-288",
+  "name": "סופר פארם ביג קסטינה",
+  "address": "אזור תעשיה, באר טוביה, מתחם ביג קסטינה, ישראל",
+  "city": "מתחם ביג קסטינה",
+  "phone": "0778881500",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.725,
+   "lng": 34.74,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-289",
+  "name": "סופר פארם ביג קרית גת",
+  "address": "הדרם 3, קרית גת, ישראל",
+  "city": "קרית גת",
+  "phone": "0778881780",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.606988,
+   "lng": 34.7727972,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-290",
+  "name": "סופר פארם בילו סנטר",
+  "address": "קרית עקרון, מתחם בילו סנטר, רח הדקל, בילו סנטר, ישראל",
+  "city": "בילו סנטר",
+  "phone": "077-8880520",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.86,
+   "lng": 34.775,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-291",
+  "name": "סופר פארם בית אמריקה",
+  "address": "רוטשילד 72, פתח תקווה, ישראל",
+  "city": "פתח תקווה",
+  "phone": "077-8880050",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.0901854,
+   "lng": 34.882469625,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-292",
+  "name": "סופר פארם בית האומות",
+  "address": "חברון 101, ירושלים, ישראל",
+  "city": "ירושלים",
+  "phone": "0778881760",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.779259366666672,
+   "lng": 35.20542961666667,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-293",
+  "name": "סופר פארם בית הבד",
+  "address": "בית הבד 2, הוד השרון, ישראל",
+  "city": "הוד השרון",
+  "phone": "077-8882270",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.16218955,
+   "lng": 34.89937595,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-294",
+  "name": "סופר פארם בית הכרם",
+  "address": "אביזוהר 7, ירושלים, ישראל",
+  "city": "ירושלים",
+  "phone": "0778881210",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.779259366666672,
+   "lng": 35.20542961666667,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-295",
+  "name": "סופר פארם בית שאן",
+  "address": "ירושלים הבירה, בית שאן, ישראל",
+  "city": "בית שאן",
+  "phone": "0778881714",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.497,
+   "lng": 35.4969,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-296",
+  "name": "סופר פארם בית שמש",
+  "address": "יגאל אלון 1, בית שמש, ישראל",
+  "city": "בית שמש",
+  "phone": "077-8880930",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.740207733333335,
+   "lng": 34.993809133333336,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-297",
+  "name": "סופר פארם בן גוריון",
+  "address": "בן גוריון 183, רמת גן, ישראל",
+  "city": "רמת גן",
+  "phone": "0778880960",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.07094668,
+   "lng": 34.80478151999999,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-298",
+  "name": "סופר פארם בן יהודה",
+  "address": "אלנבי 1, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "0778882100",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.079862119444456,
+   "lng": 34.78712651944445,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-299",
+  "name": "סופר פארם בסר סיטי פ\"ת",
+  "address": "זבוטינסקי 61, פתח תקווה, ישראל",
+  "city": "פתח תקווה",
+  "phone": "0778883130",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.0901854,
+   "lng": 34.882469625,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-300",
+  "name": "סופר פארם ברנע אשקלון",
+  "address": "שד ירושלים 117, אשקלון, ישראל",
+  "city": "אשקלון",
+  "phone": "0778883050",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.665833366666664,
+   "lng": 34.586678166666665,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-301",
+  "name": "סופר פארם בת ים",
+  "address": "יוספטל 92, בת ים, ישראל",
+  "city": "בת ים",
+  "phone": "0778881150",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.01691905,
+   "lng": 34.7434274,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-302",
+  "name": "סופר פארם ג'דיידה-מכר",
+  "address": "ג'דייה מכר, ג'דייה מכר, ישראל",
+  "city": "ג'דייה מכר",
+  "phone": "0778882960",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.928656,
+   "lng": 35.150573,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-303",
+  "name": "סופר פארם גאלרי קריון",
+  "address": "דרך עכו 192, קרית ביאליק, ישראל",
+  "city": "קרית ביאליק",
+  "phone": "0778880150",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.83028720000001,
+   "lng": 35.0852959,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-304",
+  "name": "סופר פארם גבעת טל",
+  "address": "משה דייו 2, ראש העין, ישראל",
+  "city": "ראש העין",
+  "phone": "0778881030",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.0956,
+   "lng": 34.9566,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-305",
+  "name": "סופר פארם גבעת סבון",
+  "address": "הגליל 78, גבעת סביון, ישראל",
+  "city": "גבעת סביון",
+  "phone": "0778880120",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.05,
+   "lng": 34.88,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-306",
+  "name": "סופר פארם גבעת שאול",
+  "address": "כנפי נשרים 22, ירושלים, ישראל",
+  "city": "ירושלים",
+  "phone": "0778880880",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.7878319,
+   "lng": 35.1892063,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Kanfei Nesharim St 22, Jerusalem, ישראל",
+   "locality": "Jerusalem",
+   "area1": "Jerusalem District",
+   "route": "Kanfei Nesharim Street",
+   "streetNumber": "22"
+  }
+ },
+ {
+  "id": "c5-307",
+  "name": "סופר פארם גבעת שמואל",
+  "address": "מנחם בגין 23, גבעת שמואל, ישראל",
+  "city": "גבעת שמואל",
+  "phone": "0778882470",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.0778,
+   "lng": 34.8481,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-308",
+  "name": "סופר פארם גדרה",
+  "address": "בן גוריון 105, גדרה, ישראל",
+  "city": "גדרה",
+  "phone": "0778881460",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.8169109,
+   "lng": 34.7798188,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-309",
+  "name": "סופר פארם גורדון",
+  "address": "דיזינגוף 129, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "0778880730",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.079862119444456,
+   "lng": 34.78712651944445,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-310",
+  "name": "סופר פארם גושן קרית מוצקין",
+  "address": "גושן 20, קרית מוצקין, ישראל",
+  "city": "קרית מוצקין",
+  "phone": "0778882820",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.8145222,
+   "lng": 35.092010099999996,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-311",
+  "name": "סופר פארם גילה",
+  "address": "צביה ויצחק 5, ירושלים, ישראל",
+  "city": "ירושלים",
+  "phone": "0778880070",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.779259366666672,
+   "lng": 35.20542961666667,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-312",
+  "name": "סופר פארם גלובוס אשקלון",
+  "address": "גלובוס סנטר, אשקלון, ישראל",
+  "city": "אשקלון",
+  "phone": "0778882690",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.665833366666664,
+   "lng": 34.586678166666665,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-313",
+  "name": "סופר פארם גליל ים הרצליה",
+  "address": "יוסי שריד 6, הרצליה, ישראל",
+  "city": "הרצליה",
+  "phone": "0778883140",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.1643791,
+   "lng": 34.84300833333333,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-314",
+  "name": "סופר פארם גן יבנה",
+  "address": "המגינים 56, גן יבנה, ישראל",
+  "city": "גן יבנה",
+  "phone": "0778882280",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.789297,
+   "lng": 34.7138776,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-315",
+  "name": "סופר פארם גן שמואל",
+  "address": "מרכז מסחרי, קיבוץ גן שמואל, ישראל",
+  "city": "קיבוץ גן שמואל",
+  "phone": "0778880840",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.4469,
+   "lng": 34.9506,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-316",
+  "name": "סופר פארם גרנד ב\"ש",
+  "address": "שד טוביהו דוד 125, באר שבע, ישראל",
+  "city": "באר שבע",
+  "phone": "0778882040",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.245865575000003,
+   "lng": 34.801231724999994,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-317",
+  "name": "סופר פארם גרנד קניון",
+  "address": "דרך שמחה גולן 54, חיפה, ישראל",
+  "city": "חיפה",
+  "phone": "0778880770",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.802482266666665,
+   "lng": 35.01872092222223,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-318",
+  "name": "סופר פארם דושי סנטר נצרת",
+  "address": "בילאל 45, נצרת, ישראל",
+  "city": "נצרת",
+  "phone": "0",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.6996,
+   "lng": 35.3035,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-319",
+  "name": "סופר פארם דיזינגוף סנטר",
+  "address": "דיזינגוף 50, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "0778880170",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.079862119444456,
+   "lng": 34.78712651944445,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-320",
+  "name": "סופר פארם דימונה דימרי סנטר",
+  "address": "גולדה מאיר 20, דימונה, ישראל",
+  "city": "דימונה",
+  "phone": "0778883020",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.069419,
+   "lng": 35.033363,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-321",
+  "name": "סופר פארם דימונה",
+  "address": "אזור תעשיה 395, דימונה, ישראל",
+  "city": "דימונה",
+  "phone": "0778881350",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.069419,
+   "lng": 35.033363,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-322",
+  "name": "סופר פארם דרך בר לב",
+  "address": "משה דיין 2, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "0778882700",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.079862119444456,
+   "lng": 34.78712651944445,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-323",
+  "name": "סופר פארם דרך מצדה ב״ש",
+  "address": "ראובן רובין 1, באר שבע, ישראל",
+  "city": "באר שבע",
+  "phone": "0778882970",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.245865575000003,
+   "lng": 34.801231724999994,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-324",
+  "name": "סופר פארם האב עמק חפר כמיפל",
+  "address": "החריש 28, עמ חפר, ישראל",
+  "city": "עמ חפר",
+  "phone": "0",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.36,
+   "lng": 34.9,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-325",
+  "name": "סופר פארם האב עמק חפר כמיפל",
+  "address": "החריש 28, עמק חפר, ישראל",
+  "city": "עמק חפר",
+  "phone": "0778885307",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.36,
+   "lng": 34.9,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-326",
+  "name": "סופר פארם האר\"י -",
+  "address": "האר\"י 1, נתניה, ישראל",
+  "city": "נתניה",
+  "phone": "0778881400",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.313994480000005,
+   "lng": 34.86196954,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-327",
+  "name": "סופר פארם הגוש הגדול",
+  "address": "אינשטיין 7, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "0778882530",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.079862119444456,
+   "lng": 34.78712651944445,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-328",
+  "name": "סופר פארם הדסה עין כרם",
+  "address": "קניון ישפרו סנטר, קניון ישפרו סנטר, ישראל",
+  "city": "קניון ישפרו סנטר",
+  "phone": "0778881380",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.9525,
+   "lng": 34.8125,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-329",
+  "name": "סופר פארם הדר גנים פ\"ת",
+  "address": "הרב משורר ישיעו 11, פתח תקווה, ישראל",
+  "city": "פתח תקווה",
+  "phone": "0778883110",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.0901854,
+   "lng": 34.882469625,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-330",
+  "name": "סופר פארם הוד השרון",
+  "address": "ז'בוטינסקי 3, הוד השרון, ישראל",
+  "city": "הוד השרון",
+  "phone": "0778880540",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.16218955,
+   "lng": 34.89937595,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-331",
+  "name": "סופר פארם היכל פ\"ת",
+  "address": "ההסתדרות 26, פתח תקוה, ישראל",
+  "city": "פתח תקוה",
+  "phone": "0778880590",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.0871,
+   "lng": 34.8875,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-332",
+  "name": "סופר פארם המכללה ראשל\"צ -",
+  "address": "שדרות יצחק רבין 7, ראשון לציון, ישראל",
+  "city": "ראשון לציון",
+  "phone": "077-8882440",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.971067599999994,
+   "lng": 34.79581617142857,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-333",
+  "name": "סופר פארם הנשיאים הוד השרון",
+  "address": "הנשיאים 1, הוד השרון, ישראל",
+  "city": "הוד השרון",
+  "phone": "0778883080",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.16218955,
+   "lng": 34.89937595,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-334",
+  "name": "סופר פארם העצמאות בתים",
+  "address": "שד העצמאות 67, בת ים, ישראל",
+  "city": "בת ים",
+  "phone": "0778881790",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.01691905,
+   "lng": 34.7434274,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-335",
+  "name": "סופר פארם העצמאות קרית אתא",
+  "address": "דרך העצמאות 61, קרית אתא, ישראל",
+  "city": "קרית אתא",
+  "phone": "0778881390",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.811895,
+   "lng": 35.071818,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-336",
+  "name": "סופר פארם הקישון יבנה",
+  "address": "שד ירושלים, יבנה, ישראל",
+  "city": "יבנה",
+  "phone": "077-8882370",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.871377999999996,
+   "lng": 34.733988933333336,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-337",
+  "name": "סופר פארם הקניון הגדול פתח תקוה",
+  "address": "ז'בוטינסקי 72, פתח תקווה, ישראל",
+  "city": "פתח תקווה",
+  "phone": "0778881680",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.0901854,
+   "lng": 34.882469625,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-338",
+  "name": "סופר פארם הר יונה",
+  "address": "הפריון 2, נצרת עילית, ישראל",
+  "city": "נצרת עילית",
+  "phone": "0778882800",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.7165,
+   "lng": 35.3266,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-339",
+  "name": "סופר פארם הרצל ראשון",
+  "address": "הרצל 52, ראשון לציון, ישראל",
+  "city": "ראשון לציון",
+  "phone": "0778881630",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.971067599999994,
+   "lng": 34.79581617142857,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-340",
+  "name": "סופר פארם הרצל רחובות",
+  "address": "הרצל 182, רחובות, ישראל",
+  "city": "רחובות",
+  "phone": "0778880810",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.899118299999998,
+   "lng": 34.80685813333334,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-341",
+  "name": "סופר פארם הרצליה פיתוח",
+  "address": "שד אבא אבן 8, הרצליה פיתוח, ישראל",
+  "city": "הרצליה פיתוח",
+  "phone": "0778881420",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.1626,
+   "lng": 34.8075,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-342",
+  "name": "סופר פארם התמרים",
+  "address": "שדרות התמרים 9, אילת, ישראל",
+  "city": "אילת",
+  "phone": "0778881440",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 29.5673879,
+   "lng": 34.9587889,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-343",
+  "name": "סופר פארם ויצמן חולון",
+  "address": "ויצמן 43, חולון, ישראל",
+  "city": "חולון",
+  "phone": "077-8881410",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.01477932,
+   "lng": 34.777234539999995,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-344",
+  "name": "סופר פארם זכרון יעקב",
+  "address": "זכרון יעקב, זכרון יעקב, ישראל",
+  "city": "זכרון יעקב",
+  "phone": "",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.5715966,
+   "lng": 34.94273895,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-345",
+  "name": "סופר פארם חדרה",
+  "address": "גמלא 3, חדרה, ישראל",
+  "city": "חדרה",
+  "phone": "0778882750",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.435058500000004,
+   "lng": 34.92023613333333,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-346",
+  "name": "סופר פארם חדרה מזרח",
+  "address": "צה\"ל 5, חדרה, ישראל",
+  "city": "חדרה",
+  "phone": "0778881830",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.435058500000004,
+   "lng": 34.92023613333333,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-347",
+  "name": "סופר פארם חולון",
+  "address": "גולדה מאיר 7, חולון, ישראל",
+  "city": "חולון",
+  "phone": "0778880660",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.01477932,
+   "lng": 34.777234539999995,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-348",
+  "name": "סופר פארם חוצות אשקלון",
+  "address": "נח\"ל 1, אשקלון, ישראל",
+  "city": "אשקלון",
+  "phone": "0778882450",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.665833366666664,
+   "lng": 34.586678166666665,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-349",
+  "name": "סופר פארם חורב",
+  "address": "חורב 15, חיפה, ישראל",
+  "city": "חיפה",
+  "phone": "077-8880130",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.802482266666665,
+   "lng": 35.01872092222223,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-350",
+  "name": "סופר פארם חורה",
+  "address": "אלסלם 1, חורה, ישראל",
+  "city": "חורה",
+  "phone": "0778883160",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.3,
+   "lng": 34.9333,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-351",
+  "name": "סופר פארם חריש בעיר",
+  "address": "דרך ארץ 35, חריש, ישראל",
+  "city": "חריש",
+  "phone": "0778883240",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.46,
+   "lng": 35.0447,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-352",
+  "name": "סופר פארם חריש",
+  "address": "דרך ארץ 2, חריש, ישראל",
+  "city": "חריש",
+  "phone": "0778882780",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.46,
+   "lng": 35.0447,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-353",
+  "name": "סופר פארם טבעון",
+  "address": "מרווה 1, טבעון, ישראל",
+  "city": "טבעון",
+  "phone": "0778881900",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.7225564,
+   "lng": 35.1302145,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-354",
+  "name": "סופר פארם טבריה",
+  "address": "ירדן פינת השילוח 1, טבריה, ישראל",
+  "city": "טבריה",
+  "phone": "0778880710",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.7895842,
+   "lng": 35.5379054,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-355",
+  "name": "סופר פארם טיילת אילת",
+  "address": "טיילת מלכה שבא, אילת, ישראל",
+  "city": "אילת",
+  "phone": "077-8882660",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 29.5673879,
+   "lng": 34.9587889,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-356",
+  "name": "סופר פארם טירת הכרמל",
+  "address": "מלחמת ששת הימים 1, טירת הכרמל, ישראל",
+  "city": "טירת הכרמל",
+  "phone": "0778882220",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.76,
+   "lng": 34.9714,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-357",
+  "name": "סופר פארם יד אליהו",
+  "address": "יגאל אלון 51, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "0778881490",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.079862119444456,
+   "lng": 34.78712651944445,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-358",
+  "name": "סופר פארם יוקלר עפולה",
+  "address": "חטיבה תשע 2, עפולה, ישראל",
+  "city": "עפולה",
+  "phone": "0778882990",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.608669899999995,
+   "lng": 35.289310300000004,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-359",
+  "name": "סופר פארם יכין פ\"ת",
+  "address": "יצחק רבין 17, פתח תקווה, ישראל",
+  "city": "פתח תקווה",
+  "phone": "0",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.0901854,
+   "lng": 34.882469625,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-360",
+  "name": "סופר פארם יפו ירושלים",
+  "address": "הרברט סמואל 1, ירושלים, ישראל",
+  "city": "ירושלים",
+  "phone": "0778882190",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.779259366666672,
+   "lng": 35.20542961666667,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-361",
+  "name": "סופר פארם יפיע",
+  "address": "רחוב נצרת, חיפה, ישראל",
+  "city": "חיפה",
+  "phone": "0778882420",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.802482266666665,
+   "lng": 35.01872092222223,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-362",
+  "name": "סופר פארם ירכא",
+  "address": "ביג פאשן אאוטלט, כפר ירכא, ישראל",
+  "city": "כפר ירכא",
+  "phone": "0778882674",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.9564,
+   "lng": 35.1947,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-363",
+  "name": "סופר פארם ישפרו נס ציונה",
+  "address": "הפטיש 6, נס ציונה, ישראל",
+  "city": "נס ציונה",
+  "phone": "0778881860",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.926611100000002,
+   "lng": 34.79800175,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-364",
+  "name": "סופר פארם כוכב יאיר",
+  "address": "א.ת צומת כוכב יאיר, כוכב יאיר, ישראל",
+  "city": "כוכב יאיר",
+  "phone": "0778881620",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.2236,
+   "lng": 34.9969,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-365",
+  "name": "סופר פארם כופר הישוב",
+  "address": "ביאליק 10, רמת גן, ישראל",
+  "city": "רמת גן",
+  "phone": "0778880290",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.07094668,
+   "lng": 34.80478151999999,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-366",
+  "name": "סופר פארם כיכר דיזינגוף",
+  "address": "פינסקר 69, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "0778882170",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.079862119444456,
+   "lng": 34.78712651944445,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-367",
+  "name": "סופר פארם כפר גנים",
+  "address": "העצמאות 65 פינת בן גוריון, פתח תקווה, ישראל",
+  "city": "פתח תקווה",
+  "phone": "0778881730",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.0901854,
+   "lng": 34.882469625,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-368",
+  "name": "סופר פארם כפר יאסיף",
+  "address": "כפר יאסיף 15, כפר יאסיף, ישראל",
+  "city": "כפר יאסיף",
+  "phone": "0778881340",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.9542,
+   "lng": 35.1622,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-369",
+  "name": "סופר פארם כפר יונה",
+  "address": "שד בן גוריון 1, כפר יונה, ישראל",
+  "city": "כפר יונה",
+  "phone": "0778883060",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.3167,
+   "lng": 34.9333,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-370",
+  "name": "סופר פארם כפר כנא",
+  "address": "כביש ראשי כפר כנא, שכונת פוק אלעין 18, 1693000, כביש ראשי כפר כנא, שכונת פוק אלעין 18, 1, ישראל",
+  "city": "כביש ראשי כפר כנא, שכונת פוק אלעין 18, 1",
+  "phone": "0778882890",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.7469,
+   "lng": 35.3428,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-371",
+  "name": "סופר פארם כפר סבא הירוקה",
+  "address": "רפפורט 3, כפר סבא, ישראל",
+  "city": "כפר סבא",
+  "phone": "077-8882250",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.180279760000005,
+   "lng": 34.91308522,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-372",
+  "name": "סופר פארם כפר סבא",
+  "address": "ויצמן 78, כפר סבא, ישראל",
+  "city": "כפר סבא",
+  "phone": "0778880090",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.180279760000005,
+   "lng": 34.91308522,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-373",
+  "name": "סופר פארם כפר קרע",
+  "address": "קניון סלמאה סנטר, כפר קרע, ישראל",
+  "city": "כפר קרע",
+  "phone": "0778882940",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.5039,
+   "lng": 35.0533,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-374",
+  "name": "סופר פארם כרמיאל",
+  "address": "החרושת 14, כרמיאל, ישראל",
+  "city": "כרמיאל",
+  "phone": "077-8880670",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.917752533333335,
+   "lng": 35.3025462,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-375",
+  "name": "סופר פארם כרמיאל ק\"קל",
+  "address": "קרן קיימת לישראל, כרמיאל, ישראל",
+  "city": "כרמיאל",
+  "phone": "0778881130",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.917752533333335,
+   "lng": 35.3025462,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-376",
+  "name": "סופר פארם לב העיר",
+  "address": "כיכר פז 3, קרית גת, ישראל",
+  "city": "קרית גת",
+  "phone": "0778881224",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.606988,
+   "lng": 34.7727972,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-377",
+  "name": "סופר פארם לב חדרה",
+  "address": "רוטשילד 40, חדרה, ישראל",
+  "city": "חדרה",
+  "phone": "0778880850",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.435058500000004,
+   "lng": 34.92023613333333,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-378",
+  "name": "סופר פארם לוד",
+  "address": "דוד המלך 2, לוד, ישראל",
+  "city": "לוד",
+  "phone": "0778881180",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.951,
+   "lng": 34.8881,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-379",
+  "name": "סופר פארם לונדון מיניסטור",
+  "address": "שד' שאול המלך 4, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "0778880390",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.079862119444456,
+   "lng": 34.78712651944445,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-380",
+  "name": "סופר פארם לישנסקי",
+  "address": "לישנסקי 9, ראשון לציון, ישראל",
+  "city": "ראשון לציון",
+  "phone": "077-8880510",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.971067599999994,
+   "lng": 34.79581617142857,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-381",
+  "name": "סופר פארם מגדל העמק",
+  "address": "שד שאול עמור 77, מגדל העמק, ישראל",
+  "city": "מגדל העמק",
+  "phone": "0778881240",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.6767,
+   "lng": 35.2397,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-382",
+  "name": "סופר פארם מגדל ורד",
+  "address": "דרך השלום 53, גבעתיים, ישראל",
+  "city": "גבעתיים",
+  "phone": "0778880970",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.07021466,
+   "lng": 34.81405666,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-383",
+  "name": "סופר פארם מגדל ספיר",
+  "address": "תובל 40, רמת גן, ישראל",
+  "city": "רמת גן",
+  "phone": "0778883280",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.07094668,
+   "lng": 34.80478151999999,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-384",
+  "name": "סופר פארם מגדל שלום",
+  "address": "אחד העם 9, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "0778881720",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.079862119444456,
+   "lng": 34.78712651944445,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-385",
+  "name": "סופר פארם מגדלי אלון",
+  "address": "יגאל אלון 94, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "077-8882610",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.079862119444456,
+   "lng": 34.78712651944445,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-386",
+  "name": "סופר פארם מגדלי תל אביב",
+  "address": "נחלת יצחק 20, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "0778881884",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.079862119444456,
+   "lng": 34.78712651944445,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-387",
+  "name": "סופר פארם מדרחוב",
+  "address": "ההסתדרות 3, ירושלים, ישראל",
+  "city": "ירושלים",
+  "phone": "0778880270",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.779259366666672,
+   "lng": 35.20542961666667,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-388",
+  "name": "סופר פארם מודיעין ישפרו",
+  "address": "אזור המלאכה, מודיעין, ישראל",
+  "city": "מודיעין",
+  "phone": "0778881250",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.891540374999998,
+   "lng": 34.987554274999994,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-389",
+  "name": "סופר פארם מודיעין שמשוני",
+  "address": "עמק בית שאן 29, מודיעין, ישראל",
+  "city": "מודיעין",
+  "phone": "077-8881010",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.891540374999998,
+   "lng": 34.987554274999994,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-390",
+  "name": "סופר פארם מול החוף חדרה",
+  "address": "פרופסור שכטמן 10, חדרה, ישראל",
+  "city": "חדרה",
+  "phone": "0778882650",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.435058500000004,
+   "lng": 34.92023613333333,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-391",
+  "name": "סופר פארם מול הים",
+  "address": "קניון מול הים, אילת, ישראל",
+  "city": "אילת",
+  "phone": "0778880530",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 29.5673879,
+   "lng": 34.9587889,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-392",
+  "name": "סופר פארם מול זכרון",
+  "address": "אזור תעשיה מערבי, כביש 4, זכרון יעקב, ישראל",
+  "city": "זכרון יעקב",
+  "phone": "077-8881544",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.5715966,
+   "lng": 34.94273895,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-393",
+  "name": "סופר פארם מול כנרת צמח",
+  "address": "מתחם מול כנרת צמח ד.נ עמק הירדן 1510501, מתחם מול כנרת צמח ד.נ עמק הירדן 1510501, ישראל",
+  "city": "מתחם מול כנרת צמח ד.נ עמק הירדן 1510501",
+  "phone": "0778882910",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.7041008,
+   "lng": 35.58533,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-394",
+  "name": "סופר פארם מורשת מודיעין",
+  "address": "מודיעין, מודיעין, ישראל",
+  "city": "מודיעין",
+  "phone": "",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.891540374999998,
+   "lng": 34.987554274999994,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-395",
+  "name": "סופר פארם מזכרת בתיה",
+  "address": "מנחם בגין 2, מזכרת בתיה, ישראל",
+  "city": "מזכרת בתיה",
+  "phone": "0778881820",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.8536,
+   "lng": 34.8458,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-396",
+  "name": "סופר פארם מכון מור",
+  "address": "ז'בוטינסקי 7, בני ברק, ישראל",
+  "city": "בני ברק",
+  "phone": "0778882550",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.08610836666667,
+   "lng": 34.83393026666666,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-397",
+  "name": "סופר פארם ממילא",
+  "address": "שלמה המלך 9, ירושלים, ישראל",
+  "city": "ירושלים",
+  "phone": "0778881450",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.779259366666672,
+   "lng": 35.20542961666667,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-398",
+  "name": "סופר פארם מעלה אדומים",
+  "address": "דרך קדם 5, מעלה אדומים, ישראל",
+  "city": "מעלה אדומים",
+  "phone": "0778880740",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.777,
+   "lng": 35.2981,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-399",
+  "name": "סופר פארם מעלות",
+  "address": "שלמה שרירא 3, מעלות, ישראל",
+  "city": "מעלות",
+  "phone": "0778882000",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 33.012267,
+   "lng": 35.2885369,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-400",
+  "name": "סופר פארם מצליח",
+  "address": "שושנה דמארי 20, רמלה, ישראל",
+  "city": "רמלה",
+  "phone": "0778882150",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.9293,
+   "lng": 34.8664,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-401",
+  "name": "סופר פארם מרום נוה",
+  "address": "לנדאו 7, רמת גן, ישראל",
+  "city": "רמת גן",
+  "phone": "0778880640",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.07094668,
+   "lng": 34.80478151999999,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-402",
+  "name": "סופר פארם מרינה הרצליה -",
+  "address": "יורדי הים 1, הרצליה פיתוח, ישראל",
+  "city": "הרצליה פיתוח",
+  "phone": "077-8881100",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.1626,
+   "lng": 34.8075,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-403",
+  "name": "סופר פארם מרכז דוד אפרידר",
+  "address": "הנשיא 3, אשקלון, ישראל",
+  "city": "אשקלון",
+  "phone": "0778881000",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.665833366666664,
+   "lng": 34.586678166666665,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-404",
+  "name": "סופר פארם מרכז עזריאלי השלום",
+  "address": "דרך מנחם בגין 132, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "0778880610",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.079862119444456,
+   "lng": 34.78712651944445,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-405",
+  "name": "סופר פארם משחררים",
+  "address": "המשחררים 70, באר שבע, ישראל",
+  "city": "באר שבע",
+  "phone": "077-8880044",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.245865575000003,
+   "lng": 34.801231724999994,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-406",
+  "name": "סופר פארם נאות שמיר רמלה",
+  "address": "משה לוי 17, רמלה, ישראל",
+  "city": "רמלה",
+  "phone": "0778883210",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.9293,
+   "lng": 34.8664,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-407",
+  "name": "סופר פארם נאות שקמה",
+  "address": "מורשת ישראל 15, ראשון לציון, ישראל",
+  "city": "ראשון לציון",
+  "phone": "0778880900",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.971067599999994,
+   "lng": 34.79581617142857,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-408",
+  "name": "סופר פארם נהריה געתון",
+  "address": "ויצמן 62, נהריה, ישראל",
+  "city": "נהריה",
+  "phone": "0778881054",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 33.006591566666664,
+   "lng": 35.09548266666667,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-409",
+  "name": "סופר פארם נהריה רגבה",
+  "address": "נהריה, נהריה, ישראל",
+  "city": "נהריה",
+  "phone": "",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 33.006591566666664,
+   "lng": 35.09548266666667,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-410",
+  "name": "סופר פארם נוה זאב",
+  "address": "שד' יוהנה ז'בוטינסקי 28-30, באר שבע, ישראל",
+  "city": "באר שבע",
+  "phone": "0778881640",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.245865575000003,
+   "lng": 34.801231724999994,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-411",
+  "name": "סופר פארם נוה זמר רעננה",
+  "address": "סשה ארגוב 23, רעננה, ישראל",
+  "city": "רעננה",
+  "phone": "0778883070",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.184418225,
+   "lng": 34.8742911,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-412",
+  "name": "סופר פארם נוה שאנן",
+  "address": "טרומפלדור 54, חיפה, ישראל",
+  "city": "חיפה",
+  "phone": "077-8880440",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.802482266666665,
+   "lng": 35.01872092222223,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-413",
+  "name": "סופר פארם ניות",
+  "address": "בורלא 5, ירושלים, ישראל",
+  "city": "ירושלים",
+  "phone": "0778880020",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.779259366666672,
+   "lng": 35.20542961666667,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-414",
+  "name": "סופר פארם נמל תל אביב",
+  "address": "מתחם גני התערוכה 3, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "0778882050",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.079862119444456,
+   "lng": 34.78712651944445,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-415",
+  "name": "סופר פארם נס ציונה",
+  "address": "אירוסים 53, נס ציונה, ישראל",
+  "city": "נס ציונה",
+  "phone": "0778880160",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.926611100000002,
+   "lng": 34.79800175,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-416",
+  "name": "סופר פארם נצרת",
+  "address": "פאולוס השישי, נצרת, ישראל",
+  "city": "נצרת",
+  "phone": "0778880570",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.6996,
+   "lng": 35.3035,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-417",
+  "name": "סופר פארם נצרת עילית",
+  "address": "דרך העמק 999, נצרת עילית, ישראל",
+  "city": "נצרת עילית",
+  "phone": "077-8881310",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.7165,
+   "lng": 35.3266,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-418",
+  "name": "סופר פארם נרקיסים ראשל\"צ",
+  "address": "ירושלים 116, ראשון לציון, ישראל",
+  "city": "ראשון לציון",
+  "phone": "0778883230",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.971067599999994,
+   "lng": 34.79581617142857,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-419",
+  "name": "סופר פארם סוקולוב הרצליה",
+  "address": "סוקולוב 25, הרצליה, ישראל",
+  "city": "הרצליה",
+  "phone": "077-8880260",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.1643791,
+   "lng": 34.84300833333333,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-420",
+  "name": "סופר פארם סטאר סנטר אשדוד",
+  "address": "זבוטינסקי 41, אשדוד, ישראל",
+  "city": "אשדוד",
+  "phone": "077-8881170",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.80102868,
+   "lng": 34.65912324,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-421",
+  "name": "סופר פארם סיטי סנטר",
+  "address": "שד בן גוריון 6, חיפה, ישראל",
+  "city": "חיפה",
+  "phone": "0778880790",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.802482266666665,
+   "lng": 35.01872092222223,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-422",
+  "name": "סופר פארם סינמול",
+  "address": "ההסתדרות 55, חיפה, ישראל",
+  "city": "חיפה",
+  "phone": "0778880200",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.802482266666665,
+   "lng": 35.01872092222223,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-423",
+  "name": "סופר פארם סכנין",
+  "address": "אלגליל 1, סכנין, ישראל",
+  "city": "סכנין",
+  "phone": "077-888-1520",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.8636,
+   "lng": 35.2972,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-424",
+  "name": "סופר פארם עטרות",
+  "address": "דרך רמאללה 101, ירושלים, ישראל",
+  "city": "ירושלים",
+  "phone": "0778882740",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.779259366666672,
+   "lng": 35.20542961666667,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-425",
+  "name": "סופר פארם עיר ימים נתניה",
+  "address": "בני ברמן 2, נתניה, ישראל",
+  "city": "נתניה",
+  "phone": "0778881910",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.313994480000005,
+   "lng": 34.86196954,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-426",
+  "name": "סופר פארם עכו",
+  "address": "דוד רמז 67, עכו, ישראל",
+  "city": "עכו",
+  "phone": "077-888-1550",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.9281,
+   "lng": 35.082,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-427",
+  "name": "סופר פארם עמק סנטר",
+  "address": "בית חולים העמק, עפולה, ישראל",
+  "city": "עפולה",
+  "phone": "0778881190",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.608669899999995,
+   "lng": 35.289310300000004,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-428",
+  "name": "סופר פארם עמק רפאים",
+  "address": "עמק רפאים 24, ירושלים, ישראל",
+  "city": "ירושלים",
+  "phone": "0778882260",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.779259366666672,
+   "lng": 35.20542961666667,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-429",
+  "name": "סופר פארם עפולה",
+  "address": "יהושע חנקין 14, עפולה, ישראל",
+  "city": "עפולה",
+  "phone": "0778880430",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.608669899999995,
+   "lng": 35.289310300000004,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-430",
+  "name": "סופר פארם ערד",
+  "address": "הקנאים 27, ערד, ישראל",
+  "city": "ערד",
+  "phone": "077-8880360",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.2589,
+   "lng": 35.2128,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-431",
+  "name": "סופר פארם פלאנט",
+  "address": "ברוך קטינקא 2, באר שבע, ישראל",
+  "city": "באר שבע",
+  "phone": "0778882570",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.245865575000003,
+   "lng": 34.801231724999994,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-432",
+  "name": "סופר פארם פסגת דן ת\"א",
+  "address": "זבוטינסקי 105, רמת גן, ישראל",
+  "city": "רמת גן",
+  "phone": "0778883010",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.07094668,
+   "lng": 34.80478151999999,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-433",
+  "name": "סופר פארם פסגת זאב",
+  "address": "שד משה דיין 106, ירושלים, ישראל",
+  "city": "ירושלים",
+  "phone": "0778881160",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.779259366666672,
+   "lng": 35.20542961666667,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-434",
+  "name": "סופר פארם פקר כ\"ס",
+  "address": "ויצמן 207, כפר סבא, ישראל",
+  "city": "כפר סבא",
+  "phone": "0778881570",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.180279760000005,
+   "lng": 34.91308522,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-435",
+  "name": "סופר פארם פרדס חנה",
+  "address": "הגלעד 1, פרדס חנה, ישראל",
+  "city": "פרדס חנה",
+  "phone": "0778880860",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.48152266666667,
+   "lng": 34.9706872,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-436",
+  "name": "סופר פארם פרופיט חולון",
+  "address": "הכישור 1, חולון, ישראל",
+  "city": "חולון",
+  "phone": "077-8881850",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.01477932,
+   "lng": 34.777234539999995,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-437",
+  "name": "סופר פארם צורן",
+  "address": "יצחקרבין 38, צורן, ישראל",
+  "city": "צורן",
+  "phone": "077-8883000",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.29,
+   "lng": 34.955,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-438",
+  "name": "סופר פארם צים גני תקווה",
+  "address": "ההדרים 7, גני תקווה, ישראל",
+  "city": "גני תקווה",
+  "phone": "0778883100",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.0617,
+   "lng": 34.8733,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-439",
+  "name": "סופר פארם צים טייבה",
+  "address": "מתחם SEVEN, טייבה, ישראל",
+  "city": "טייבה",
+  "phone": "0778883200",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.2667,
+   "lng": 35.0103,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-440",
+  "name": "סופר פארם צים נתיבות",
+  "address": "בעלי מלאכה 5, נתיבות, ישראל",
+  "city": "נתיבות",
+  "phone": "0778881810",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.4243101,
+   "lng": 34.57848425,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-441",
+  "name": "סופר פארם צמרות",
+  "address": "צמרות 2, הרצליה, ישראל",
+  "city": "הרצליה",
+  "phone": "0778880010",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.1643791,
+   "lng": 34.84300833333333,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-442",
+  "name": "סופר פארם צמרת ת\"א",
+  "address": "ניסים אלוני 10, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "0778881750",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.079862119444456,
+   "lng": 34.78712651944445,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-443",
+  "name": "סופר פארם צפת",
+  "address": "הגדוד השלישי 3, צפת, ישראל",
+  "city": "צפת",
+  "phone": "077-8882310",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.966121349999995,
+   "lng": 35.49930715,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-444",
+  "name": "סופר פארם קדימה",
+  "address": "האופה 1, קדימה, ישראל",
+  "city": "קדימה",
+  "phone": "0778882060",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.2783,
+   "lng": 34.9131,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-445",
+  "name": "סופר פארם קניון אורות",
+  "address": "שד הנשיא וייצמן 1, אור עקיבא, ישראל",
+  "city": "אור עקיבא",
+  "phone": "0778882840",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.505,
+   "lng": 34.92,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-446",
+  "name": "סופר פארם קניון אחים ישראל",
+  "address": "יד חרוצים 18, ירושלים, ישראל",
+  "city": "ירושלים",
+  "phone": "0778882850",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.779259366666672,
+   "lng": 35.20542961666667,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-447",
+  "name": "סופר פארם קניון ביאליק רג",
+  "address": "ביאליק 76, רמת גן, ישראל",
+  "city": "רמת גן",
+  "phone": "0778882720",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.07094668,
+   "lng": 34.80478151999999,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-448",
+  "name": "סופר פארם קניון בית שמש",
+  "address": "דרך יצחק רבין 2, בית שמש, ישראל",
+  "city": "בית שמש",
+  "phone": "0778881980",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.740207733333335,
+   "lng": 34.993809133333336,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-449",
+  "name": "סופר פארם קניון גבעתיים",
+  "address": "דרך יצחק רבין 53, גבעתיים, ישראל",
+  "city": "גבעתיים",
+  "phone": "0778881200",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.07021466,
+   "lng": 34.81405666,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-450",
+  "name": "סופר פארם קניון הזהב",
+  "address": "סחרוב 21, ראשון לציון, ישראל",
+  "city": "ראשון לציון",
+  "phone": "0778880320",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.971067599999994,
+   "lng": 34.79581617142857,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-451",
+  "name": "סופר פארם קניון הנגב",
+  "address": "צומת אלי כהן, באר שבע, ישראל",
+  "city": "באר שבע",
+  "phone": "0778880180",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.245865575000003,
+   "lng": 34.801231724999994,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-452",
+  "name": "סופר פארם קניון הראל",
+  "address": "הראל 1, מבשרת ציון, ישראל",
+  "city": "מבשרת ציון",
+  "phone": "0778882500",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.790487,
+   "lng": 35.142428,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-453",
+  "name": "סופר פארם קניון השרון",
+  "address": "הרצל 58, נתניה, ישראל",
+  "city": "נתניה",
+  "phone": "0778880140",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.313994480000005,
+   "lng": 34.86196954,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-454",
+  "name": "סופר פארם קניון טבריה",
+  "address": "יהודה הלוי 1/1, טבריה, ישראל",
+  "city": "טבריה",
+  "phone": "0778882080",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.7895842,
+   "lng": 35.5379054,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-455",
+  "name": "סופר פארם קניון מבשרת",
+  "address": "שד' החוצבים 10, מבשרת ציון, ישראל",
+  "city": "מבשרת ציון",
+  "phone": "0778882480",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.790487,
+   "lng": 35.142428,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-456",
+  "name": "סופר פארם קניון מודיעין",
+  "address": "לב העיר 2, מודיעין, ישראל",
+  "city": "מודיעין",
+  "phone": "0778881530",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.891540374999998,
+   "lng": 34.987554274999994,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-457",
+  "name": "סופר פארם קניון עזריאלי רמלה",
+  "address": "שד דוד רזיאל 1, רמלה, ישראל",
+  "city": "רמלה",
+  "phone": "0778882730",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.9293,
+   "lng": 34.8664,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-458",
+  "name": "סופר פארם קניון ערים",
+  "address": "וייצמן 63, כפר סבא, ישראל",
+  "city": "כפר סבא",
+  "phone": "0778881480",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.180279760000005,
+   "lng": 34.91308522,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-459",
+  "name": "סופר פארם קניון ראשונים",
+  "address": "שד' נים 2, ראשון לציון, ישראל",
+  "city": "ראשון לציון",
+  "phone": "0778882560",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.971067599999994,
+   "lng": 34.79581617142857,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-460",
+  "name": "סופר פארם קניון רחובות",
+  "address": "בילו 2, רחובות, ישראל",
+  "city": "רחובות",
+  "phone": "0778880450",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.899118299999998,
+   "lng": 34.80685813333334,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-461",
+  "name": "סופר פארם קניון רמת גן",
+  "address": "אבא הילל 165, קניון איילון, רמת גן, ישראל",
+  "city": "רמת גן",
+  "phone": "077-8880100",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.07094668,
+   "lng": 34.80478151999999,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-462",
+  "name": "סופר פארם קניון רננים",
+  "address": "המלאכה 2, רעננה, ישראל",
+  "city": "רעננה",
+  "phone": "0778880680",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.184418225,
+   "lng": 34.8742911,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-463",
+  "name": "סופר פארם קניון שאול המלך ב״ש",
+  "address": "קניון שאול המלך 80, באר שבע, ישראל",
+  "city": "באר שבע",
+  "phone": "0778880470",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.245865575000003,
+   "lng": 34.801231724999994,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-464",
+  "name": "סופר פארם קרית אונו",
+  "address": "שלמה המלך 37, קרית אונו, ישראל",
+  "city": "קרית אונו",
+  "phone": "0778880980",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.0548391,
+   "lng": 34.8638919,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-465",
+  "name": "סופר פארם קרית אתא",
+  "address": "מרכז ביג, מפרץ חיפה, ישראל",
+  "city": "מפרץ חיפה",
+  "phone": "077-8880720",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.795,
+   "lng": 35.04,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-466",
+  "name": "סופר פארם קרית היובל י-ם",
+  "address": "רחוב צילי 8, ירושלים, ישראל",
+  "city": "ירושלים",
+  "phone": "077-888-3310",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.779259366666672,
+   "lng": 35.20542961666667,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-467",
+  "name": "סופר פארם קרית השרון",
+  "address": "שד טום לנטוס 60, נתניה, ישראל",
+  "city": "נתניה",
+  "phone": "0778882460",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.313994480000005,
+   "lng": 34.86196954,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-468",
+  "name": "סופר פארם קרית חיים",
+  "address": "אח\"י אילת 34, קרית חיים, ישראל",
+  "city": "קרית חיים",
+  "phone": "077-8882350",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.825,
+   "lng": 35.0583,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-469",
+  "name": "סופר פארם קרית ים",
+  "address": "גולדה מאיר 2, קרית ים, ישראל",
+  "city": "קרית ים",
+  "phone": "077-8883290",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.8497,
+   "lng": 35.0686,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-470",
+  "name": "סופר פארם קרית ים",
+  "address": "שד ירושלים 51, קרית ים, ישראל",
+  "city": "קרית ים",
+  "phone": "0778881560",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.8497,
+   "lng": 35.0686,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-471",
+  "name": "סופר פארם קרית מוצקין",
+  "address": "שדרות ירושלים 1, קרית מוצקין, ישראל",
+  "city": "קרית מוצקין",
+  "phone": "0778882160",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.8040805,
+   "lng": 35.1058407,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Jerusalem St 1, Kiryat Motzkin, ישראל",
+   "locality": "Kiryat Motzkin",
+   "area1": "Haifa District",
+   "route": "Jerusalem Street",
+   "streetNumber": "1"
+  }
+ },
+ {
+  "id": "c5-472",
+  "name": "סופר פארם קרית רמלה",
+  "address": "שד הרצל 91, רמלה, ישראל",
+  "city": "רמלה",
+  "phone": "0778880760",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.9293,
+   "lng": 34.8664,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-473",
+  "name": "סופר פארם קרית שמונה",
+  "address": "הנשיא 4, קרית שמונה, ישראל",
+  "city": "קרית שמונה",
+  "phone": "0778880420",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 33.1985377,
+   "lng": 35.5772925,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-474",
+  "name": "סופר פארם קרני שומרון",
+  "address": "שדרות רחבעם 1, קרני שומרון, ישראל",
+  "city": "קרני שומרון",
+  "phone": "0778883170",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.046051,
+   "lng": 34.851612,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-475",
+  "name": "סופר פארם ראש העין",
+  "address": "שבזי 10, ראש העין, ישראל",
+  "city": "ראש העין",
+  "phone": "0778882430",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.0956,
+   "lng": 34.9566,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-476",
+  "name": "סופר פארם ראש פינה",
+  "address": "האגס, ראש פינה, ישראל",
+  "city": "ראש פינה",
+  "phone": "0778882810",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.9685935,
+   "lng": 35.5484237,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-477",
+  "name": "סופר פארם ראשון לצפון",
+  "address": "בקר 15, ראשון לציון, ישראל",
+  "city": "ראשון לציון",
+  "phone": "0778880250",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.971067599999994,
+   "lng": 34.79581617142857,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-478",
+  "name": "סופר פארם רוטשילד",
+  "address": "רוטשילד 46, ראשון לציון, ישראל",
+  "city": "ראשון לציון",
+  "phone": "0778880460",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.971067599999994,
+   "lng": 34.79581617142857,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-479",
+  "name": "סופר פארם רחובות החדשה",
+  "address": "שד פנקס בן דוד, רחובות, ישראל",
+  "city": "רחובות",
+  "phone": "0778882580",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.899118299999998,
+   "lng": 34.80685813333334,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-480",
+  "name": "סופר פארם רחובות",
+  "address": "מוטי קינד 10, רחובות, ישראל",
+  "city": "רחובות",
+  "phone": "0778882130",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.8942717,
+   "lng": 34.7901567,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Moti Kind St 10, Rehovot, 7638519, ישראל",
+   "locality": "Rehovot",
+   "area1": "Center District",
+   "route": "Moti Kind Street",
+   "streetNumber": "10"
+  }
+ },
+ {
+  "id": "c5-481",
+  "name": "סופר פארם רכבת עפולה",
+  "address": "יצחק רבין 20, עפולה, ישראל",
+  "city": "עפולה",
+  "phone": "077-8882830",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.608669899999995,
+   "lng": 35.289310300000004,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-482",
+  "name": "סופר פארם רמב\"ם חיפה",
+  "address": "העליה השניה 8, חיפה, ישראל",
+  "city": "חיפה",
+  "phone": "0778882320",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.802482266666665,
+   "lng": 35.01872092222223,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-483",
+  "name": "סופר פארם רמבלס סנטר",
+  "address": "דני מס 16, רמלה, ישראל",
+  "city": "רמלה",
+  "phone": "0778882930",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.9293,
+   "lng": 34.8664,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-484",
+  "name": "סופר פארם רמות ירושלים",
+  "address": "שד גולדה מאיר, ירושלים, ישראל",
+  "city": "ירושלים",
+  "phone": "0778881840",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.779259366666672,
+   "lng": 35.20542961666667,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-485",
+  "name": "סופר פארם רמות רכס",
+  "address": "אוסקר שינדלר 21, באר שבע, ישראל",
+  "city": "באר שבע",
+  "phone": "0778882230",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.245865575000003,
+   "lng": 34.801231724999994,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-486",
+  "name": "סופר פארם רמז",
+  "address": "רמז 16 פינת סמילנסקי, נתניה, ישראל",
+  "city": "נתניה",
+  "phone": "0778880780",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.313994480000005,
+   "lng": 34.86196954,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-487",
+  "name": "סופר פארם רמלוד",
+  "address": "צופית 40, רמלה, ישראל",
+  "city": "רמלה",
+  "phone": "0778881740",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.9293,
+   "lng": 34.8664,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-488",
+  "name": "סופר פארם רמת אביב ג",
+  "address": "אחימאיר 1, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "0778883220",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.079862119444456,
+   "lng": 34.78712651944445,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-489",
+  "name": "סופר פארם רמת אביב",
+  "address": "איינשטיין 40, קניון רמת אביב, רמת אביב, ישראל",
+  "city": "רמת אביב",
+  "phone": "077-8880080",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.1133,
+   "lng": 34.8044,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-490",
+  "name": "סופר פארם רמת החייל",
+  "address": "הברזל 23, רמת החייל, ישראל",
+  "city": "רמת החייל",
+  "phone": "0778881370",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.11,
+   "lng": 34.84,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-491",
+  "name": "סופר פארם רמת הנשיא",
+  "address": "שונית 12, חיפה, ישראל",
+  "city": "חיפה",
+  "phone": "0778882240",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.802482266666665,
+   "lng": 35.01872092222223,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-492",
+  "name": "סופר פארם רמת ישי",
+  "address": "האקליפטוס 3, רמת ישי, ישראל",
+  "city": "רמת ישי",
+  "phone": "0778882070",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.7067881,
+   "lng": 35.1743402,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-493",
+  "name": "סופר פארם רעננה אחוזה",
+  "address": "אחוזה 83, רעננה, ישראל",
+  "city": "רעננה",
+  "phone": "077-888-0560",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.184418225,
+   "lng": 34.8742911,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-494",
+  "name": "סופר פארם רעננה מול הפארק",
+  "address": "מרכז מול- אחוזה 267, רעננה, ישראל",
+  "city": "רעננה",
+  "phone": "077-8880350",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.184418225,
+   "lng": 34.8742911,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-495",
+  "name": "סופר פארם שבעת הכוכבים",
+  "address": "שבעת הכוכבים 8, הרצליה, ישראל",
+  "city": "הרצליה",
+  "phone": "077-888-0870",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.1643791,
+   "lng": 34.84300833333333,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-496",
+  "name": "סופר פארם שדרות",
+  "address": "סמטת הפלדה 1, שדרות, ישראל",
+  "city": "שדרות",
+  "phone": "0778881320",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.525,
+   "lng": 34.5961,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-497",
+  "name": "סופר פארם שוהם",
+  "address": "עמק איילון 30, שוהם, ישראל",
+  "city": "שוהם",
+  "phone": "0778880490",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.9989,
+   "lng": 34.9461,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-498",
+  "name": "סופר פארם שיכון דן",
+  "address": "פנחס רוזן 72, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "0778880650",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.114692,
+   "lng": 34.8260661,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Pinkhas Rosen St 72, Tel Aviv-Yafo, ישראל",
+   "locality": "Tel Aviv-Yafo",
+   "area1": "Tel Aviv District",
+   "route": "Pinkhas Rosen Street",
+   "streetNumber": "72"
+  }
+ },
+ {
+  "id": "c5-499",
+  "name": "סופר פארם שכונת הפארק בת-ים",
+  "address": "הקוממיות 16, בת ים, ישראל",
+  "city": "בת ים",
+  "phone": "077882980",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.01691905,
+   "lng": 34.7434274,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-500",
+  "name": "סופר פארם שנקר חולון",
+  "address": "אריה שנקר 49, חולון, ישראל",
+  "city": "חולון",
+  "phone": "0778882090",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.01477932,
+   "lng": 34.777234539999995,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-501",
+  "name": "סופר פארם שער אשקלון",
+  "address": "א.ת. צומת כפר סילבר, אשקלון, ישראל",
+  "city": "אשקלון",
+  "phone": "0778880750",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.665833366666664,
+   "lng": 34.586678166666665,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-502",
+  "name": "סופר פארם שער הצפון",
+  "address": "קרן היסוד 14, קרית אתא, ישראל",
+  "city": "קרית אתא",
+  "phone": "0778882210",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.811895,
+   "lng": 35.071818,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-503",
+  "name": "סופר פארם שער ראשון",
+  "address": "גולדה מאיר 1, ראשון לציון, ישראל",
+  "city": "ראשון לציון",
+  "phone": "0778882770",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.971067599999994,
+   "lng": 34.79581617142857,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-504",
+  "name": "סופר פארם שער רחובות",
+  "address": "הלל וחנן אופנהיימר 2, רחובות, ישראל",
+  "city": "רחובות",
+  "phone": "0778881470",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.899118299999998,
+   "lng": 34.80685813333334,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-505",
+  "name": "סופר פארם שפיים",
+  "address": "קיבוץ שפיים, קיבוץ שפיים, ישראל",
+  "city": "קיבוץ שפיים",
+  "phone": "0778880480",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.216586,
+   "lng": 34.822409,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-506",
+  "name": "סופר פארם שפיר סנטר ראש העין",
+  "address": "יגאל אלון 22, ראש העין, ישראל",
+  "city": "ראש העין",
+  "phone": "0778883190",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.0956,
+   "lng": 34.9566,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-507",
+  "name": "סופר פארם שפרעם",
+  "address": "ג'ונבלט, שכונת אל עיין, שפרעם, ישראל",
+  "city": "שפרעם",
+  "phone": "0778881430",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.8056,
+   "lng": 35.17,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-508",
+  "name": "סופר פארם שרונה",
+  "address": "שד' מנחם בגין 121 (קניון עזריאלי שרונה), תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "0778882340",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.079862119444456,
+   "lng": 34.78712651944445,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-509",
+  "name": "סופר פארם תחנה מרכזית ת״א",
+  "address": "לוינסקי 108, תל אביב, ישראל",
+  "city": "תל אביב",
+  "phone": "0778880330",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.079862119444456,
+   "lng": 34.78712651944445,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-510",
+  "name": "סופר פארם תל השומר",
+  "address": "עמק האלה, רמת גן, ישראל",
+  "city": "רמת גן",
+  "phone": "0778880240",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.07094668,
+   "lng": 34.80478151999999,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-511",
+  "name": "סופר פארם תל מונד",
+  "address": "הדקל 47, תל מונד, ישראל",
+  "city": "תל מונד",
+  "phone": "0778881960",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 32.2582485,
+   "lng": 34.9037589,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-512",
+  "name": "סופר פארם תלפיות",
+  "address": "פייר קניג 26, ירושלים, ישראל",
+  "city": "ירושלים",
+  "phone": "0778880950",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.779259366666672,
+   "lng": 35.20542961666667,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-513",
+  "name": "הסנה מרפא גוש עציון",
+  "address": "צומת גוש עציון, אלון שבות, ישראל",
+  "city": "אלון שבות",
+  "phone": "029931819",
+  "website": "",
+  "tags": "סופר-פארם",
+  "geo": {
+   "lat": 31.6451762,
+   "lng": 35.1304915,
+   "precision": "city"
+  }
+ },
+ {
+  "id": "c5-514",
+  "name": "טבע עומריקה",
+  "address": "אחוזה 148, רעננה, ישראל",
+  "city": "רעננה",
+  "phone": "",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "lat": 32.1815915,
+   "lng": 34.8710158,
+   "precision": "ROOFTOP",
+   "partial": false,
+   "formatted": "Ahuza St 148, Ra'anana, 4330013, ישראל",
+   "locality": "Ra'anana",
+   "area1": "Center District",
+   "route": "Ahuza Street",
+   "streetNumber": "148"
+  }
+ },
+ {
+  "id": "c5-515",
+  "name": "",
+  "address": ", , ישראל",
+  "city": "",
+  "phone": "",
+  "website": "",
+  "tags": "בית טבע",
+  "geo": {
+   "status": "NONE"
+  }
+ }
+]

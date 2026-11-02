@@ -1,0 +1,25 @@
+---
+import Base from '@/layouts/Base.astro'
+---
+<Base
+  title="העמוד לא נמצא"
+  description="העמוד שחיפשתם לא נמצא באתר Nature's Sage."
+  noindex={true}
+>
+  <section class="nf">
+    <div class="ns-container nf__inner">
+      <p class="nf__code" dir="ltr" aria-hidden="true">404</p>
+      <h1 class="nf__h">העמוד לא נמצא</h1>
+      <p class="nf__p">ייתכן שהקישור שגוי או שהעמוד הוסר. אפשר לחזור לדף הבית ולהמשיך משם.</p>
+      <a class="ns-btn ns-btn--primary" href="/">חזרה לדף הבית</a>
+    </div>
+  </section>
+
+  <style>
+    .nf { background: var(--ns-sun-beige); padding-block: 96px 120px; }
+    .nf__inner { display: flex; flex-direction: column; align-items: center; text-align: center; }
+    .nf__code { margin: 0; font-family: var(--ns-font-display); font-weight: 500; font-size: clamp(88px, 18vw, 160px); line-height: 1; color: var(--ns-field-green); opacity: .14; }
+    .nf__h { margin: 8px 0 0; font-family: var(--ns-font-display); font-weight: 500; font-size: clamp(26px, 4vw, 38px); color: var(--ns-field-green); }
+    .nf__p { margin: 14px 0 28px; max-width: 46ch; color: var(--ns-fg); }
+  </style>
+</Base>

@@ -1,0 +1,55 @@
+---
+// Shared hero for content pages (faq / stores / contact / compare / articles):
+// eyebrow, title, lede, optional photo on the side, and a slot for extras
+// (search field, buttons). Same gradient + type scale on every page.
+interface Props {
+  eyebrow: string
+  title: string
+  lede?: string
+  image?: { src: string; alt?: string } | null
+  wide?: boolean
+}
+const { eyebrow, title, lede, image, wide = false } = Astro.props
+---
+<section class:list={['ph2', { 'ph2--img': !!image }]}>
+  <div class:list={['ns-container', 'ph2__inner', { 'ph2__inner--wide': wide }]} data-reveal="now">
+    <div class="ph2__text">
+      <span class="ns-eyebrow">{eyebrow}</span>
+      <h1 class="ph2__title">{title}</h1>
+      {lede && <p class="ph2__lede">{lede}</p>}
+      <slot />
+    </div>
+    {image && (
+      <figure class="ph2__fig">
+        <img src={image.src} alt={image.alt ?? ''} width="520" height="520" loading="eager" fetchpriority="high" />
+      </figure>
+    )}
+  </div>
+</section>
+
+<style>
+  .ph2 { position: relative; overflow: hidden; padding-block: clamp(48px, 7vw, 96px) clamp(28px, 4vw, 48px);
+    background: radial-gradient(120% 120% at 85% 10%, color-mix(in srgb, var(--ns-immune-green) 22%, var(--ns-sun-beige)), var(--ns-sun-beige) 60%); }
+  .ph2__inner { max-width: 880px; }
+  .ph2__inner--wide { max-width: none; }
+  /* photo hero: text + photo side by side inside the wide container (same width
+     as the cards below), photo ~42% of it, 5:4 so it reads as a proper picture. */
+  .ph2--img .ph2__inner { max-width: 1400px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, 42%); gap: clamp(28px, 5vw, 80px); align-items: center; }
+  .ph2__text .ns-eyebrow { display: inline-flex; margin-block-end: 14px; }
+  .ph2__title { font-family: var(--ns-font-display); font-weight: 500; font-size: clamp(34px, 4.6vw, 60px); line-height: 1.05; letter-spacing: -0.015em; color: var(--ns-field-green); margin: 0 0 16px; }
+  .ph2__lede { font-size: clamp(17px, 1.4vw, 20px); line-height: 1.8; color: var(--ns-fg); opacity: .9; max-width: 62ch; margin: 0; }
+  .ph2__fig { margin: 0; }
+  .ph2__fig img { display: block; width: 100%; height: auto; aspect-ratio: 5 / 4; object-fit: cover; border-radius: var(--ns-radius-xl); box-shadow: var(--ns-shadow-lg); }
+  @media (max-width: 900px) {
+    .ph2--img .ph2__inner { grid-template-columns: 1fr; }
+    .ph2__fig { order: -1; max-width: none; }
+    .ph2__fig img { aspect-ratio: 16 / 9; }
+  }
+  @media (max-width: 760px) {
+    .ph2 { padding-block: 32px 24px; }
+    .ph2__text .ns-eyebrow { margin-block-end: 8px; }
+    .ph2__title { font-size: 31px; margin-bottom: 10px; }
+    .ph2__lede { font-size: 15.5px; line-height: 1.6; }
+    .ph2__fig { display: none; }
+  }
+</style>

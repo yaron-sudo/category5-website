@@ -1,0 +1,20 @@
+---
+import { urlFor, type PortableBlock } from '@/lib/sanity'
+import { portableToHtml } from '@/lib/portableText'
+
+interface Props {
+  blocks?: PortableBlock[]
+  class?: string
+}
+const { blocks = [], class: className = 'ns-prose' } = Astro.props
+
+const html = portableToHtml(blocks, (block) => {
+  if (!block.asset) return null
+  try {
+    return urlFor(block).width(1200).fit('max').auto('format').url()
+  } catch {
+    return null
+  }
+})
+---
+<div class={className} set:html={html} />

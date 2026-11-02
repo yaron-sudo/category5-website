@@ -1,0 +1,623 @@
+---
+import { fetchQ, getHomePage, getPhotos, getSiteSettings, urlFor, img, type SanityImage } from '@/lib/sanity'
+import MegaPanel from '@/components/MegaPanel.astro'
+import DropPanel, { type DropRow } from '@/components/DropPanel.astro'
+
+const settings = await getSiteSettings()
+
+// Product thumbnails for the mega menu: prefer the product doc's own image,
+// then the CMS product-card image, then a bundled photo by filename.
+const home = await getHomePage()
+const photos = await getPhotos(['T9A5769.jpg', 'NS_0760_1.jpg', 'FortiPure-Box-Spray.png'])
+const navProducts: Array<{ slug: string; name: string; tagline?: string; image?: SanityImage }> =
+  await fetchQ(`*[_type == "product" && defined(slug.current)]{ "slug": slug.current, name, tagline, "image": images[0] }`)
+const prodByHref: Record<string, { image?: SanityImage }> = {}
+navProducts.forEach((p) => {
+  prodByHref[p.slug === 'omega-3' ? '/product' : `/products/${p.slug}`] = { image: p.image }
+})
+const cardImg: Record<string, string> = {}
+;(home?.productCards ?? []).forEach((c) => {
+  if (c.href && c.image?.asset) cardImg[c.href] = urlFor(c.image).width(180).height(180).fit('crop').auto('format').url()
+})
+const ph = (name?: string) => (name && photos[name] ? img(photos[name].url, 180) : '')
+
+// Desktop navigation: items with `mega` open a two-zone mega panel — the first
+// child renders as a large featured card, the rest as link rows. Items without
+// `mega` are plain links. Only routes that exist today (dead links stay hidden).
+type MegaLink = { label: string; href: string; desc?: string; icon?: string; photo?: string; group?: string; img?: string }
+type MegaNavItem = { label: string; href: string; icon?: string; mega?: MegaLink[]; kind?: 'products' | 'info' }
+const fallbackMegaNav: MegaNavItem[] = [
+  {
+    label: 'המוצרים',
+    href: '/product',
+    icon: 'grid',
+    mega: [
+      // Menu photos (public/img/menu, cropped from the client's product shoot).
+      { label: 'מרווה מרושתת אומגה 3', href: '/product', desc: 'שמן זרעי מרווה מרושתת — מוצר הדגל שלנו', img: '/img/menu/omega-feat.jpg' },
+      { label: 'PURE — כמוסות טבעוניות', href: '/products/pure-capsules', desc: '90 כמוסות · 660 מ״ג שמן בכל כמוסה', img: '/img/menu/pure-capsules.png' },
+      { label: 'PURE — שמן בבקבוק', href: '/products/pure-oil', desc: '100 מ״ל בכבישה קרה · שווה־ערך ל־153 כמוסות', img: '/img/menu/pure-oil.png' },
+      { label: 'פורטי פיור — ספריי', href: '/products/forti-pure', desc: 'פורטיום (רוזמרין) + אורגנו + מרווה מרושתת · 166 מנות', img: '/img/menu/forti-pure.png' },
+      { label: 'ויטמין D3 טבעוני — ספריי', href: '/products/vitamin-d', desc: '1,000 יחב״ל במנה · ממקור חזזיות · 100 מנות', img: '/img/menu/vitamin-d.png' },
+    ],
+  },
+  {
+    label: 'מידע מקצועי',
+    href: '/product',
+    icon: 'book',
+    kind: 'info',
+    mega: [
+      { label: 'מידע על המרווה המרושתת', href: '/product', desc: 'הצמח, השמן, ההרכב והמחקר מאחורי מוצר הדגל', img: '/img/menu/info-feat.jpg' },
+      // Every page of the professional portal, grouped (the groups become
+      // headings in the mega panel and in the mobile drawer).
+      { group: 'מדריכים', label: 'פורטל המידע המקצועי', href: '/experts', desc: 'כל המחקרים, המאמרים וההשוואות במקום אחד' },
+      { group: 'מדריכים', label: 'השוואה לשמן דגים', href: '/compare', desc: 'טבלת השוואה, מדדי איכות ותחקיר החמצון' },
+      { group: 'מדריכים', label: 'כמה EPA ו-DHA יש במרווה?', href: '/omega-3-conversion', desc: 'מה המדע אומר על המרה של ALA ל-DHA' },
+      { group: 'מדריכים', label: 'אומגה 3 אינדקס', href: '/omega-3-index', desc: 'מה הבדיקה באמת מודדת, ומה לא' },
+      { group: 'מדריכים', label: 'תהליכי הייצור', href: '/production', desc: 'מהזריעה ועד הכבישה הקרה, ללא חומרים משמרים' },
+      { group: 'מדריכים', label: 'שאלות ותשובות', href: '/faq', desc: 'רכישה, מינון, היריון, כשרות וטבעונות' },
+      { group: 'מאמרים', label: 'מערכת החיסון', href: '/articles/immune-system', desc: 'מרווה מרושתת ומערכת החיסון' },
+      { group: 'מאמרים', label: 'קשב וריכוז', href: '/articles/focus-concentration', desc: 'אומגה 3 צמחית, קשב וריכוז' },
+      { group: 'מאמרים', label: 'אומגה 3 וקצב הלב', href: '/articles/omega-3-heart-rate', desc: 'אומגה 3 ממקור דגי והפרעות קצב' },
+      { group: 'מחקרים', label: 'שומנים בדם', href: '/research/blood-lipids', desc: 'מחקר קליני: פרופיל השומנים בדם' },
+      { group: 'מחקרים', label: 'דלקת מעיים', href: '/research/crohns-colitis', desc: 'ניסוי פרה-קליני: IBD וקוליטיס' },
+    ],
+  },
+  { label: 'רשימת חנויות', href: '/stores', icon: 'pin' },
+  { label: 'קהילה', href: '/community', icon: 'reel' },
+  { label: 'צור קשר', href: '/contact', icon: 'mail' },
+]
+
+// CMS-driven nav: when siteSettings.nav has items, map them into the same
+// structure — children become mega entries (first child = the featured card).
+const cmsNav = (settings?.nav ?? []).filter((i) => i.label && i.href)
+const megaNav: MegaNavItem[] = cmsNav.length
+  ? cmsNav.map((i, idx) => {
+      const kids = (i.children ?? []).filter((c) => c.label && c.href)
+      return {
+        label: i.label!,
+        href: i.href!,
+        icon: fallbackMegaNav[idx]?.icon ?? 'leaf',
+        ...(kids.length
+          ? { mega: kids.map((c): MegaLink => ({ label: c.label!, href: c.href!, desc: c.description })) }
+          : {}),
+      }
+    })
+  : fallbackMegaNav
+
+// Header CTA button — CMS-overridable, hardcoded values as fallback.
+const cta = {
+  label: settings?.headerCta?.label || 'לרכישה',
+  href: settings?.headerCta?.href || '/product',
+}
+
+// Social links — CMS-overridable, with the brand's live accounts as fallback
+// (mirrors the footer so the two never drift apart).
+const soc = settings?.socials
+const social: Array<{ label: string; href: string }> =
+  soc?.facebook || soc?.instagram || soc?.youtube
+    ? [
+        ...(soc?.facebook ? [{ label: 'Facebook', href: soc.facebook }] : []),
+        ...(soc?.instagram ? [{ label: 'Instagram', href: soc.instagram }] : []),
+        ...(soc?.youtube ? [{ label: 'YouTube', href: soc.youtube }] : []),
+      ]
+    : [
+        { label: 'Facebook', href: 'https://www.facebook.com/naturesageomega3' },
+        { label: 'Instagram', href: 'https://www.instagram.com/naturesageil/' },
+        { label: 'YouTube', href: 'https://www.youtube.com/channel/UCCBDkYQ7Gl9UeTktQ77vy_A' },
+      ]
+const SOCIAL_ICONS: Record<string, string> = {
+  Facebook: '<path fill="currentColor" d="M14 9h3l.5-3H14V4.5c0-.9.3-1.5 1.6-1.5H17V.2C16.7.1 15.7 0 14.6 0 12.1 0 10.5 1.5 10.5 4.2V6H8v3h2.5v9H14z"/>',
+  Instagram: '<path fill="none" stroke="currentColor" stroke-width="2" d="M3 7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/>',
+  YouTube: '<path fill="currentColor" d="M23 12s0-3.3-.4-4.9a2.5 2.5 0 0 0-1.8-1.8C19.2 5 12 5 12 5s-7.2 0-8.8.4A2.5 2.5 0 0 0 1.4 7.2C1 8.7 1 12 1 12s0 3.3.4 4.9a2.5 2.5 0 0 0 1.8 1.8C4.8 19 12 19 12 19s7.2 0 8.8-.4a2.5 2.5 0 0 0 1.8-1.8C23 15.3 23 12 23 12m-13 3.2V8.8l5.5 3.2z"/>',
+}
+
+const thumb = (l: { href: string; photo?: string; img?: string }) => {
+  if (l.img) return l.img
+  const pImg = prodByHref[l.href]?.image
+  if (pImg?.asset) return urlFor(pImg).width(140).height(140).fit('crop').auto('format').url()
+  return cardImg[l.href] || ph(l.photo)
+}
+const featImg = (l: { href: string; photo?: string; img?: string }) => {
+  if (l.img) return l.img
+  const pImg = prodByHref[l.href]?.image
+  if (pImg?.asset) return urlFor(pImg).width(520).height(640).fit('crop').auto('format').url()
+  return cardImg[l.href] || ph(l.photo)
+}
+
+// Simple line icons (stroke = currentColor).
+const ICONS: Record<string, string> = {
+  drop: '<path d="M12 3c3 3.6 5.5 6.6 5.5 9.5a5.5 5.5 0 0 1-11 0C6.5 9.6 9 6.6 12 3z"/>',
+  leaf: '<path d="M5 19c0-7 5-12 14-12 0 9-5 14-12 14M5 19c2-3.5 4.5-5.8 8-7.5"/>',
+  grid: '<rect x="3.5" y="3.5" width="7" height="7" rx="1.4"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.4"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.4"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.4"/>',
+  sparkle: '<path d="M12 3l1.7 4.8L18.5 9l-4.8 1.7L12 15l-1.7-4.3L5.5 9l4.8-1.2z"/>',
+  help: '<circle cx="12" cy="12" r="9"/><path d="M9.6 9.3a2.5 2.5 0 0 1 4.7 1.2c0 1.7-2.3 2-2.3 3.5M12 17h.01"/>',
+  pin: '<path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.4"/>',
+  book: '<path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5V5.5M20 18v3H6.5"/>',
+  mail: '<rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/>',
+  reel: '<rect x="3" y="4" width="18" height="16" rx="3"/><path d="M3 9h18M8 4l3 5M13 4l3 5"/><path d="m10.5 12.5 4 2.3-4 2.3z" fill="currentColor" stroke="none"/>',
+  go: '<path d="m14 7-5 5 5 5"/>',
+  cart: '<path d="M4 5h2l2.2 10.4a1.6 1.6 0 0 0 1.6 1.3h7.6a1.6 1.6 0 0 0 1.6-1.3L20.5 9H7"/><circle cx="10.4" cy="19.6" r="1.3"/><circle cx="17.2" cy="19.6" r="1.3"/>',
+}
+const SHOP_URL = 'https://shop.naturesage.co.il'
+
+// "רכישת מוצרים": a small dropdown (mega look & feel) that replaces the old
+// orange buy button — in the top bar, the side rail and the mobile drawer.
+const BUY_LABEL = 'רכישת מוצרים'
+const buyMenu: DropRow[] = [
+  { label: 'רכישה בחנויות', href: '/stores', desc: 'נקודות מכירה בכל הארץ, מפה וחיפוש לפי עיר', icon: 'pin' },
+  { label: 'רכישה באתר', href: SHOP_URL, desc: 'החנות המקוונת — משלוח עד הבית', icon: 'cart', external: true },
+]
+
+// Resolve a mega item into the shared panel's data: first child = featured card.
+const panelProps = (item: MegaNavItem) => {
+  const [first, ...rest] = item.mega ?? []
+  const info = item.kind === 'info'
+  return {
+    feat: first ? { label: first.label, href: first.href, desc: first.desc, img: featImg(first) } : null,
+    rows: rest.map((l) => ({ label: l.label, href: l.href, desc: l.desc, group: l.group, img: info ? undefined : thumb(l) })),
+    shopUrl: SHOP_URL,
+    wide: true, // both mega panels share one (large) size
+    ...(info ? { featTag: 'מידע מקצועי', featCta: 'למידע המלא', shop: false } : {}),
+  }
+}
+---
+<header class="ns-header">
+  <div class="ns-container ns-header__inner">
+    <a class="ns-header__logo" href="/" aria-label="Nature's Sage — דף הבית">
+      <img src="/brand/logo-wordmark-green.svg" alt="NATURESAGE" width="172" height="19" />
+    </a>
+    <nav class="ns-nav" aria-label="ניווט ראשי">
+      {megaNav.map((item) => item.mega ? (
+        <div class="ns-nav__item">
+          <a class="ns-nav__top" href={item.href} aria-haspopup="true">
+            {item.label}
+            <svg class="ns-nav__chev" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </a>
+          <div class="ns-mega">
+            <MegaPanel {...panelProps(item)} />
+          </div>
+        </div>
+      ) : (
+        <a class="ns-nav__top" href={item.href}>{item.label}</a>
+      ))}
+    </nav>
+    <div class="ns-header__end">
+      {social.length > 0 && (
+        <div class="ns-header__social" aria-label="רשתות חברתיות">
+          {social.map((s) => (
+            <a href={s.href} aria-label={s.label} rel="noopener noreferrer" target="_blank">
+              <svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" set:html={SOCIAL_ICONS[s.label]} />
+            </a>
+          ))}
+        </div>
+      )}
+      <div class="ns-nav__item ns-nav__item--buy">
+        <a class="ns-nav__top ns-nav__top--buy" href="/stores" aria-haspopup="true">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={ICONS.cart} />
+          {BUY_LABEL}
+          <svg class="ns-nav__chev" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </a>
+        <div class="ns-mega ns-mega--drop">
+          <DropPanel rows={buyMenu} />
+        </div>
+      </div>
+    </div>
+    <button class="ns-burger" data-nav-toggle type="button" aria-label="פתיחת תפריט" aria-expanded="false" aria-controls="mobile-nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Desktop side rail: when the page is scrolled the top bar slides away and this
+     slim rail docks on the right edge (RTL start) so content gets the full screen;
+     scrolling back to the top restores the bar. Hidden/inert until docked. -->
+<aside class="ns-rail" data-rail aria-label="ניווט צף" aria-hidden="true">
+  <a class="ns-rail__logo" href="/" aria-label="Nature's Sage — דף הבית" style="--i:0">
+    <img src="/brand/logo-wordmark-green.svg" alt="NATURESAGE" width="124" height="14" />
+  </a>
+  <nav class="ns-rail__nav" aria-label="ניווט ראשי (צף)">
+    {megaNav.map((item, i) => (
+      <div class="ns-rail__item" style={`--i:${i + 1}`}>
+        <a class="ns-rail__link" href={item.href} aria-haspopup={item.mega ? 'true' : undefined} data-label={item.label}>
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={ICONS[item.icon ?? 'leaf']} />
+          <span>{item.label}</span>
+          {item.mega && <svg class="ns-rail__chev" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg>}
+        </a>
+        {item.mega && (
+          <div class="ns-rail__fly">
+            <MegaPanel {...panelProps(item)} />
+          </div>
+        )}
+      </div>
+    ))}
+  </nav>
+  {social.length > 0 && (
+    <div class="ns-rail__social" aria-label="רשתות חברתיות" style={`--i:${megaNav.length + 1}`}>
+      {social.map((s) => (
+        <a href={s.href} aria-label={s.label} rel="noopener noreferrer" target="_blank">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" set:html={SOCIAL_ICONS[s.label]} />
+        </a>
+      ))}
+    </div>
+  )}
+  <div class="ns-rail__item ns-rail__item--buy" style={`--i:${megaNav.length + 2}`}>
+    <a class="ns-rail__link ns-rail__cta" href="/stores" aria-haspopup="true" data-label={BUY_LABEL}>
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={ICONS.cart} />
+      <span>{BUY_LABEL}</span>
+    </a>
+    <div class="ns-rail__fly ns-rail__fly--drop">
+      <DropPanel rows={buyMenu} />
+    </div>
+  </div>
+  <button type="button" class="ns-rail__top" data-rail-top aria-label="חזרה לראש הדף" style={`--i:${megaNav.length + 3}`}>
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+    <span>למעלה</span>
+  </button>
+</aside>
+
+<!-- Mobile navigation drawer (animated). Kept OUTSIDE <header> because the header's
+     backdrop-filter would otherwise trap this fixed overlay inside the header box. -->
+<div class="ns-mnav" id="mobile-nav" data-mobile-nav hidden>
+  <button type="button" class="ns-mnav__close" data-nav-close aria-label="סגירת התפריט וחזרה לדף">
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    סגירה
+  </button>
+  <span class="ns-mnav__deco ns-mnav__deco--1" aria-hidden="true"></span>
+  <span class="ns-mnav__deco ns-mnav__deco--2" aria-hidden="true"></span>
+  <img class="ns-mnav__leaf" src="/icons/benefit/vegan-leaf.svg" alt="" aria-hidden="true" width="48" height="48" />
+  <div class="ns-mnav__inner">
+    <a class="ns-mnav__logo" href="/" aria-label="Nature's Sage — דף הבית" style="--i:0">
+      <img src="/brand/logo-wordmark-green.svg" alt="NATURESAGE" width="200" height="22" />
+    </a>
+    <nav class="ns-mnav__panel" aria-label="ניווט מובייל">
+      {megaNav.map((item, i) => (
+        <div class="ns-mnav__group" style={`--i:${i + 1}`}>
+          {item.mega ? (
+            <button type="button" class="ns-mnav__toggle" aria-expanded="false" aria-controls={`mnav-subs-${i}`} data-mnav-toggle>
+              <svg class="ns-mnav__ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={ICONS[item.icon ?? 'leaf']} />
+              <span>{item.label}</span>
+              <svg class="ns-mnav__chev" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+          ) : (
+            <a href={item.href}>
+              <svg class="ns-mnav__ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={ICONS[item.icon ?? 'leaf']} />
+              <span>{item.label}</span>
+            </a>
+          )}
+          {item.mega && (
+            <div class="ns-mnav__subs" id={`mnav-subs-${i}`} hidden>
+              {item.mega.map((sub, j) => (
+                <>
+                  {sub.group && sub.group !== item.mega![j - 1]?.group && <span class="ns-mnav__grp">{sub.group}</span>}
+                  <a href={sub.href}><span class="ns-mnav__dot" aria-hidden="true"></span>{sub.label}</a>
+                </>
+              ))}
+            </div>
+          )}
+        </div>
+      ))}
+    </nav>
+    <nav class="ns-mnav__panel ns-mnav__panel--buy" aria-label={BUY_LABEL}>
+      <div class="ns-mnav__group ns-mnav__group--buy" style={`--i:${megaNav.length + 1}`}>
+        <button type="button" class="ns-mnav__toggle" aria-expanded="false" aria-controls="mnav-subs-buy" data-mnav-toggle>
+          <svg class="ns-mnav__ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={ICONS.cart} />
+          <span>{BUY_LABEL}</span>
+          <svg class="ns-mnav__chev" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <div class="ns-mnav__subs" id="mnav-subs-buy" hidden>
+          {buyMenu.map((l) => (
+            <a href={l.href} {...(l.external ? { target: '_blank', rel: 'noopener' } : {})}><span class="ns-mnav__dot" aria-hidden="true"></span>{l.label}</a>
+          ))}
+        </div>
+      </div>
+    </nav>
+    {social.length > 0 && (
+      <div class="ns-mnav__social" style={`--i:${megaNav.length + 2}`} aria-label="רשתות חברתיות">
+        {social.map((s) => (
+          <a href={s.href} aria-label={s.label} rel="noopener noreferrer" target="_blank">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" set:html={SOCIAL_ICONS[s.label]} />
+          </a>
+        ))}
+      </div>
+    )}
+  </div>
+  <p class="ns-mnav__tag" dir="ltr">Where good gets better.</p>
+</div>
+
+<style>
+  /* ---- Desktop nav + mega menu ---- */
+  .ns-nav { display: flex; gap: 2px; align-items: center; }
+  /* nav items are static so the mega dropdown positions against the header
+     container (.ns-header__inner) — a wide panel then hugs the container's
+     left edge instead of running off-screen from a right-hand item. */
+  .ns-nav__item { position: static; }
+  .ns-header__inner { position: relative; }
+  .ns-nav__top { display: inline-flex; align-items: center; gap: 6px; color: var(--ns-field-green); font-size: clamp(18px, 1.35vw, 21px); font-weight: 500; padding: 10px 15px; border-radius: var(--ns-radius-md); transition: color .2s var(--ns-ease-out); }
+  .ns-nav__top:hover, .ns-nav__item:hover .ns-nav__top, .ns-nav__item:focus-within .ns-nav__top { color: var(--ns-pure-orange); }
+  .ns-nav__chev { opacity: .7; transition: transform .25s var(--ns-ease-out); }
+  .ns-nav__item:hover .ns-nav__chev, .ns-nav__item:focus-within .ns-nav__chev { transform: rotate(180deg); }
+
+  /* sliding underline (from the reading side) on desktop nav items */
+  .ns-nav__top { position: relative; }
+  .ns-nav__top::after { content: ""; position: absolute; inset-inline: 12px; inset-block-end: 4px; height: 2px; border-radius: 2px; background: var(--ns-pure-orange); transform: scaleX(0); transform-origin: 100% 50%; transition: transform var(--ns-dur-base) var(--ns-ease-smooth); }
+  .ns-nav__top:hover::after, .ns-nav__item:focus-within .ns-nav__top::after { transform: scaleX(1); }
+
+  /* invisible hover bridge so the pointer can travel into the panel */
+  /* mega dropdown: soft entrance (drifts up, unblurs, slight overshoot) and a
+     gentle exit (fades + settles down, slightly delayed so the panel doesn't
+     vanish the instant the pointer crosses the gap). */
+  .ns-mega { position: absolute; inset-block-start: 100%; inset-inline-end: 0; padding-block-start: 14px; opacity: 0; visibility: hidden; transform: translateY(18px) scale(.97); filter: blur(6px); transform-origin: top right; transition: opacity .22s var(--ns-ease-out) .06s, transform .28s var(--ns-ease-smooth) .06s, filter .22s var(--ns-ease-out) .06s, visibility 0s linear .3s; z-index: 60; }
+  .ns-nav__item:hover .ns-mega, .ns-nav__item:focus-within .ns-mega { opacity: 1; visibility: visible; transform: none; filter: blur(0); transition: opacity .3s var(--ns-ease-out), transform .55s cubic-bezier(.2, 1.3, .35, 1), filter .35s var(--ns-ease-out), visibility 0s; }
+  .ns-mega :global(.ns-mega__panel) { transform-origin: top right; }
+
+  /* (panel contents + styles live in MegaPanel.astro — shared with the side rail) */
+
+  /* right-side cluster: social icons + CTA */
+  .ns-header__end { display: flex; align-items: center; gap: 14px; }
+  .ns-header__social { display: flex; align-items: center; gap: 4px; }
+  .ns-header__social a { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 999px; color: var(--ns-field-green); transition: color .2s var(--ns-ease-out), background .2s var(--ns-ease-out), transform .2s var(--ns-ease-out); }
+  .ns-header__social a:hover { color: var(--ns-pure-orange); background: color-mix(in srgb, var(--ns-pure-orange) 10%, transparent); transform: translateY(-2px); }
+  /* buy dropdown item: orange pill in the old button's place; its small panel
+     hangs under the item itself (not the container-wide mega position) */
+  .ns-nav__item--buy { position: relative; }
+  .ns-nav__top--buy { gap: 8px; padding: 10px 18px; border-radius: 999px; background: var(--ns-pure-orange); color: var(--ns-sun-beige); font-weight: 600; font-size: clamp(16px, 1.15vw, 18px); box-shadow: 0 12px 26px -12px rgba(232,114,0,.7); transition: background .2s var(--ns-ease-out), transform .2s var(--ns-ease-out), box-shadow .2s var(--ns-ease-out); }
+  .ns-nav__top--buy::after { display: none; }
+  .ns-nav__item--buy:hover .ns-nav__top--buy, .ns-nav__item--buy:focus-within .ns-nav__top--buy { background: var(--ns-orange-600, #c95f00); color: var(--ns-sun-beige); transform: translateY(-1px); box-shadow: 0 16px 30px -12px rgba(232,114,0,.8); }
+  .ns-mega--drop { inset-inline-end: 0; inset-inline-start: auto; transform-origin: top left; }
+  .ns-mega--drop :global(.ns-drop) { transform-origin: top left; }
+
+  /* mobile drawer social row */
+  .ns-mnav__social { display: flex; gap: 14px; margin-top: 24px; opacity: 0; transform: translateY(16px); transition: opacity .42s var(--ns-ease-out), transform .42s var(--ns-ease-out); transition-delay: calc(var(--i) * .05s + .08s); }
+  .ns-mnav__social a { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 999px; color: var(--ns-field-green); border: 1.5px solid color-mix(in srgb, var(--ns-field-green) 22%, transparent); transition: color .2s var(--ns-ease-out), border-color .2s var(--ns-ease-out), transform .2s var(--ns-ease-out); }
+  .ns-mnav__social a:hover { color: var(--ns-pure-orange); border-color: var(--ns-pure-orange); transform: translateY(-2px); }
+  .ns-mnav.is-open .ns-mnav__social { opacity: 1; transform: none; }
+
+  /* ---- Desktop side-dock: top bar ⇄ right-edge rail (html.ns-docked) ---- */
+  .ns-header { transition: transform .45s var(--ns-ease-smooth), opacity .3s var(--ns-ease-out), background .2s var(--ns-ease-out); }
+  :global(html.ns-docked) .ns-header { transform: translateY(-110%); opacity: 0; pointer-events: none; }
+
+  /* The rail: bigger, no overflow clipping (the flyout is positioned inside it),
+     a bold spring entrance with staggered items, and a soft exit. */
+  .ns-rail { position: fixed; inset-block-start: 50%; inset-inline-start: 20px; z-index: 70; display: none; flex-direction: column; align-items: stretch; gap: 10px; width: 156px; padding: 26px 12px 20px; background: color-mix(in srgb, var(--ns-sun-beige) 94%, transparent); backdrop-filter: blur(14px); border: 1px solid var(--ns-border); border-radius: 30px; box-shadow: 0 34px 80px -30px rgba(17,48,33,.5), 0 0 0 1px rgba(255,255,255,.35) inset, var(--ns-shadow-lg); opacity: 0; visibility: hidden; transform: translate(calc(100% + 60px), -50%) scale(.94) rotate(3deg); transition: transform .5s var(--ns-ease-smooth), opacity .3s var(--ns-ease-out), visibility .5s; }
+  @media (min-width: 1024px) { .ns-rail { display: flex; } }
+  :global(html.ns-docked) .ns-rail { opacity: 1; visibility: visible; animation: railIn .85s cubic-bezier(.22, 1.35, .36, 1) both; }
+  @keyframes railIn {
+    0%   { transform: translate(calc(100% + 60px), -50%) scale(.94) rotate(3deg); opacity: 0; }
+    60%  { opacity: 1; }
+    100% { transform: translate(0, -50%) scale(1) rotate(0); opacity: 1; }
+  }
+  /* exit: a slow "wind-up and launch" — the rail nudges toward the page, tilts,
+     then sweeps off the right edge while fading; items fold away first. JS adds
+     html.ns-undocking for the duration so this never plays on first load. */
+  :global(html.ns-undocking) .ns-rail { opacity: 1; visibility: visible; animation: railOut 1.3s cubic-bezier(.55, -.3, .7, .05) both; }
+  @keyframes railOut {
+    0%   { transform: translate(0, -50%) scale(1) rotate(0); opacity: 1; filter: blur(0); }
+    28%  { transform: translate(-18px, -50%) scale(1.035) rotate(-2.5deg); opacity: 1; filter: blur(0); }
+    100% { transform: translate(calc(100% + 90px), -50%) scale(.88) rotate(7deg); opacity: 0; filter: blur(2px); }
+  }
+  :global(html.ns-undocking) .ns-rail > * { opacity: 0; transform: translateX(14px); transition: opacity .3s var(--ns-ease-out), transform .35s var(--ns-ease-smooth); transition-delay: calc(var(--i, 0) * 40ms); }
+  /* items rise in one after another once the rail has landed */
+  .ns-rail > * { opacity: 0; transform: translateX(22px); transition: opacity .35s var(--ns-ease-out), transform .45s var(--ns-ease-smooth); }
+  :global(html.ns-docked) .ns-rail > * { opacity: 1; transform: none; transition-delay: calc(var(--i, 0) * 55ms + 260ms); }
+
+  /* horizontal wordmark in a soft well at the top */
+  .ns-rail__logo { display: grid; place-items: center; height: 56px; margin-block-end: 10px; }
+  .ns-rail__logo img { width: 124px; height: auto; display: block; }
+
+  .ns-rail__nav { display: flex; flex-direction: column; gap: 6px; }
+  /* mega items are static so their flyout positions against the rail itself and
+     sits vertically centred on the screen (the info panel is tall; anchored to
+     its item it ran off the bottom). The buy item keeps its own anchor. */
+  .ns-rail__item { position: static; }
+  .ns-rail__item--buy { position: relative; }
+  .ns-rail__link { position: relative; display: flex; flex-direction: column; align-items: center; gap: 7px; padding: 15px 6px; border-radius: 18px; color: var(--ns-field-green); font-size: 13.5px; font-weight: 700; line-height: 1.15; text-align: center; transition: background .2s var(--ns-ease-out), color .2s var(--ns-ease-out); }
+  .ns-rail__link:hover, .ns-rail__item:focus-within .ns-rail__link { background: color-mix(in srgb, var(--ns-pure-orange) 11%, transparent); color: var(--ns-pure-orange); }
+  .ns-rail__chev { position: absolute; inset-inline-end: 8px; inset-block-start: 50%; translate: 0 -50%; opacity: .55; }
+
+  /* the SAME mega panel as the top bar, opening toward the page.
+     RTL: inline-start = right, so "right: 100%" places it LEFT of the rail. */
+  .ns-rail__fly { position: absolute; inset-block-start: 50%; inset-inline-start: calc(100% + 14px); opacity: 0; visibility: hidden; transform: translate(18px, -50%) scale(.97); filter: blur(6px); transform-origin: right center; transition: opacity .22s var(--ns-ease-out) .06s, transform .28s var(--ns-ease-smooth) .06s, filter .22s var(--ns-ease-out) .06s, visibility 0s linear .3s; }
+  .ns-rail__fly::before { content: ""; position: absolute; inset-block: 0; inset-inline-end: 100%; width: 18px; } /* hover bridge over the gap */
+  .ns-rail__item:hover .ns-rail__fly, .ns-rail__item:focus-within .ns-rail__fly { opacity: 1; visibility: visible; transform: translate(0, -50%); filter: blur(0);
+ transition: opacity .3s var(--ns-ease-out), transform .55s cubic-bezier(.2, 1.3, .35, 1), filter .35s var(--ns-ease-out), visibility 0s; }
+
+  .ns-rail__social { display: flex; justify-content: center; gap: 2px; margin-block-start: 4px; padding-block-start: 10px; border-block-start: 1px solid var(--ns-border); }
+  .ns-rail__social a { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 999px; color: var(--ns-field-green); transition: color .2s var(--ns-ease-out), background .2s var(--ns-ease-out); }
+  .ns-rail__social a:hover { color: var(--ns-pure-orange); background: color-mix(in srgb, var(--ns-pure-orange) 10%, transparent); }
+
+  /* buy item in the rail: a light, compact orange pill (not a heavy block) */
+  .ns-rail__item--buy { margin-block-start: 4px; }
+  .ns-rail__cta { padding: 10px 6px; gap: 5px; font-size: 12.5px; border-radius: 14px; background: color-mix(in srgb, var(--ns-pure-orange) 14%, transparent); color: var(--ns-pure-orange); box-shadow: 0 0 0 1px color-mix(in srgb, var(--ns-pure-orange) 30%, transparent) inset; }
+  .ns-rail__cta svg { width: 20px; height: 20px; }
+  .ns-rail__cta:hover, .ns-rail__item--buy:focus-within .ns-rail__cta { background: var(--ns-orange-600, #c95f00); color: var(--ns-sun-beige); }
+  .ns-rail__fly--drop { inset-block-start: auto; inset-block-end: -8px; transform: translateX(18px) scale(.97); transform-origin: right bottom; }
+  .ns-rail__item--buy:hover .ns-rail__fly--drop, .ns-rail__item--buy:focus-within .ns-rail__fly--drop { transform: none; }
+  /* never taller than the screen */
+  .ns-rail__fly :global(.ns-mega__panel) { max-height: calc(100vh - 48px); overflow-y: auto; }
+  .ns-rail__top { display: flex; align-items: center; justify-content: center; gap: 7px; margin-block-start: 4px; padding: 9px 10px; border-radius: 999px; border: 1px solid var(--ns-border); background: transparent; color: var(--ns-field-green); font: inherit; font-size: 12.5px; font-weight: 600; cursor: pointer; transition: background .2s var(--ns-ease-out), color .2s var(--ns-ease-out), transform .2s var(--ns-ease-out); }
+  .ns-rail__top:hover { background: var(--ns-field-green); color: var(--ns-sun-beige); transform: translateY(-2px); }
+  /* short viewports: drop the socials so the rail never exceeds the screen */
+  @media (max-height: 720px) { .ns-rail__social { display: none; } .ns-rail__link { padding-block: 9px; } }
+  @media (prefers-reduced-motion: reduce) { .ns-rail, .ns-header, .ns-rail__fly, .ns-rail > * { transition: none !important; animation: none !important; } :global(html.ns-docked) .ns-rail { transform: translate(0, -50%); } }
+
+  /* ---- Compact rail on narrower desktops (1024–1599px): icon-only, 72px wide,
+     so it sits in the page margin and never covers content. Labels appear as
+     tooltips toward the page; the full rail returns on wide screens. ---- */
+  @media (min-width: 1024px) and (max-width: 1599px) {
+    .ns-rail { width: 72px; padding: 14px 8px 12px; gap: 6px; border-radius: 24px; }
+    .ns-rail__logo { height: 44px; margin-block-end: 2px; }
+    .ns-rail__logo img { display: none; }
+    .ns-rail__logo::before { content: ""; width: 40px; height: 40px; border-radius: 999px; background: color-mix(in srgb, var(--ns-field-green) 10%, transparent) url('/icons/benefit/vegan-leaf.svg') center / 22px 22px no-repeat; border: 1px solid var(--ns-border); }
+    .ns-rail__link { padding: 11px 4px; gap: 0; border-radius: 14px; }
+    .ns-rail__link > span, .ns-rail__chev { display: none; }
+    /* tooltip label toward the page (inline-end = left in RTL) */
+    .ns-rail__link::after { content: attr(data-label); position: absolute; inset-block-start: 50%; inset-inline-start: calc(100% + 12px); translate: 0 -50%; white-space: nowrap; font-size: 13.5px; font-weight: 700; color: var(--ns-sun-beige); background: var(--ns-field-green); padding: 7px 12px; border-radius: 999px; box-shadow: var(--ns-shadow-md); opacity: 0; transform: translateX(6px); pointer-events: none; transition: opacity .18s var(--ns-ease-out), transform .2s var(--ns-ease-out); }
+    .ns-rail__link:hover::after, .ns-rail__link:focus-visible::after { opacity: 1; transform: none; }
+    .ns-rail__item:has(.ns-rail__fly):hover .ns-rail__link::after { opacity: 0; } /* the mega flyout replaces the tooltip */
+    .ns-rail__social { flex-direction: column; align-items: center; gap: 0; padding-block-start: 6px; }
+    .ns-rail__social a { width: 34px; height: 34px; }
+    .ns-rail__cta { width: 38px; height: 38px; padding: 0; margin: 2px auto 0; border-radius: 999px; }
+    .ns-rail__cta svg { width: 18px; height: 18px; }
+    .ns-rail__top { width: 40px; height: 40px; padding: 0; margin: 4px auto 0; }
+    .ns-rail__top span { display: none; }
+  }
+
+  /* Animated hamburger (hidden on desktop, shown ≤768px) */
+  .ns-burger { display: none; position: relative; z-index: 60; width: 44px; height: 44px; padding: 10px; border: none; background: transparent; cursor: pointer; }
+  .ns-burger span { display: block; width: 100%; height: 2px; border-radius: 2px; background: var(--ns-field-green); transition: transform .32s var(--ns-ease-out), opacity .2s var(--ns-ease-out); }
+  .ns-burger span + span { margin-top: 5px; }
+  .ns-burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .ns-burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .ns-burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* Full-screen drawer; z-index below the sticky header (50) so the bar (X) stays on top. */
+  .ns-mnav { position: fixed; inset: 0; z-index: 45; overflow: hidden auto; background: linear-gradient(180deg, var(--ns-beige-50), var(--ns-sun-beige) 72%); display: grid; place-items: center; opacity: 0; transition: opacity .34s var(--ns-ease-out); }
+  .ns-mnav[hidden] { display: none; }
+  .ns-mnav.is-open { opacity: 1; }
+  .ns-mnav__inner { position: relative; display: flex; flex-direction: column; align-items: center; width: min(90vw, 460px); padding-block: 84px 60px; }
+
+  /* brand decorations echoing the hero's line-art capsules + leaf */
+  .ns-mnav__deco { position: absolute; border: 1.5px solid var(--ns-field-green); border-radius: 999px; opacity: .1; pointer-events: none; }
+  .ns-mnav__deco--1 { width: 300px; height: 120px; inset-block-start: -34px; inset-inline-end: -54px; transform: rotate(-10deg); }
+  .ns-mnav__deco--2 { width: 230px; height: 96px; inset-block-end: 60px; inset-inline-start: -64px; transform: rotate(8deg); }
+  .ns-mnav__leaf { position: absolute; width: 48px; inset-block-end: 92px; inset-inline-end: 12%; opacity: .4; pointer-events: none; }
+
+  /* logo at the top of the menu */
+  .ns-mnav__logo { display: block; margin-bottom: 30px; opacity: 0; transform: translateY(16px); transition: opacity .42s var(--ns-ease-out), transform .42s var(--ns-ease-out); transition-delay: .06s; }
+  .ns-mnav__logo img { height: 26px; width: auto; display: block; }
+
+  .ns-mnav__panel { display: flex; flex-direction: column; align-items: stretch; gap: 2px; width: 100%; }
+  .ns-mnav__group { opacity: 0; transform: translateY(16px); transition: opacity .42s var(--ns-ease-out), transform .42s var(--ns-ease-out); transition-delay: calc(var(--i) * .05s + .08s); }
+  .ns-mnav__group > a, .ns-mnav__toggle { display: flex; align-items: center; justify-content: flex-start; gap: 14px; width: 100%; font-family: var(--ns-font-display); font-weight: 500; font-size: 26px; line-height: 1.1; color: var(--ns-field-green); padding: 14px 18px; border-radius: var(--ns-radius-md); transition: background .2s var(--ns-ease-out), color .2s var(--ns-ease-out); }
+  .ns-mnav__toggle { background: none; border: none; text-align: start; cursor: pointer; }
+  .ns-mnav__ic { flex: none; color: var(--ns-pure-orange); transition: transform .25s var(--ns-ease-out); }
+  .ns-mnav__chev { flex: none; margin-inline-start: auto; color: var(--ns-field-green); opacity: .6; transition: transform .3s var(--ns-ease-out); }
+  .ns-mnav__toggle[aria-expanded="true"] .ns-mnav__chev { transform: rotate(180deg); opacity: 1; color: var(--ns-pure-orange); }
+  .ns-mnav__group > a:hover, .ns-mnav__group > a:focus-visible, .ns-mnav__toggle:hover, .ns-mnav__toggle:focus-visible { background: color-mix(in srgb, var(--ns-field-green) 7%, transparent); color: var(--ns-pure-orange); }
+  .ns-mnav__group > a:hover .ns-mnav__ic, .ns-mnav__toggle:hover .ns-mnav__ic { transform: scale(1.12); }
+
+  /* sub-links (mega children) — collapsed by default, opened by the parent row */
+  .ns-mnav__subs { display: flex; flex-direction: column; gap: 1px; padding-inline-start: 42px; margin-block: 2px 8px; animation: mnavSubsIn .28s var(--ns-ease-out) both; }
+  .ns-mnav__subs[hidden] { display: none; }
+  .ns-mnav__grp { font-size: 12.5px; font-weight: 700; letter-spacing: .04em; color: var(--ns-pure-orange); padding: 10px 14px 2px; }
+  .ns-mnav__grp:first-child { padding-top: 4px; }
+  @keyframes mnavSubsIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+  .ns-mnav__subs a { display: flex; align-items: center; gap: 10px; font-size: 16.5px; font-weight: 500; color: var(--ns-fg); opacity: .85; padding: 8px 14px; border-radius: var(--ns-radius-md); transition: background .2s var(--ns-ease-out), color .2s var(--ns-ease-out); }
+  .ns-mnav__subs a:hover, .ns-mnav__subs a:focus-visible { background: color-mix(in srgb, var(--ns-field-green) 7%, transparent); color: var(--ns-pure-orange); opacity: 1; }
+  .ns-mnav__dot { width: 6px; height: 6px; border-radius: 999px; background: var(--ns-pure-orange); flex: none; }
+
+  .ns-mnav.is-open .ns-mnav__logo,
+  .ns-mnav.is-open .ns-mnav__group { opacity: 1; transform: none; }
+
+  .ns-mnav__panel--buy { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--ns-border); }
+  .ns-mnav__group--buy .ns-mnav__toggle { color: var(--ns-pure-orange); }
+
+  .ns-mnav__tag { position: absolute; inset-block-end: 26px; inset-inline: 0; text-align: center; margin: 0; font-family: "Assistant Latin", "DM Sans", sans-serif; font-size: 13px; letter-spacing: .08em; color: var(--ns-light-gray); opacity: 0; transition: opacity .5s var(--ns-ease-out) .45s; }
+  .ns-mnav.is-open .ns-mnav__tag { opacity: .8; }
+
+  /* explicit close control inside the drawer (top corner, labeled) — the header
+     burger is hidden while open so there is exactly one obvious way out */
+  .ns-mnav__close { position: absolute; inset-block-start: 14px; inset-inline-end: 14px; z-index: 3; display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px 10px 14px; border-radius: 999px; border: 1.5px solid var(--ns-field-green); background: var(--ns-bg-alt); color: var(--ns-field-green); font: inherit; font-size: 15.5px; font-weight: 700; cursor: pointer; box-shadow: var(--ns-shadow-sm); opacity: 0; transform: translateY(-8px); transition: opacity .3s var(--ns-ease-out) .05s, transform .3s var(--ns-ease-out) .05s, background .2s var(--ns-ease-out), color .2s var(--ns-ease-out); }
+  .ns-mnav.is-open .ns-mnav__close { opacity: 1; transform: none; }
+  .ns-mnav__close:hover, .ns-mnav__close:focus-visible { background: var(--ns-field-green); color: var(--ns-sun-beige); }
+  :global(body.ns-nav-open) .ns-burger { opacity: 0; pointer-events: none; }
+
+  body.ns-nav-open { overflow: hidden; }
+  /* blend the header into the open menu and avoid a duplicate logo */
+  /* while the drawer is open the header is invisible AND click-through, otherwise
+     it (z-index 50, above the drawer) would swallow taps on the drawer's close button */
+  :global(body.ns-nav-open) .ns-header { background: transparent; backdrop-filter: none; border-block-end-color: transparent; pointer-events: none; }
+  :global(body.ns-nav-open) .ns-header__logo { opacity: 0; pointer-events: none; }
+
+  @media (max-width: 768px) {
+    .ns-nav { display: none; }      /* hide the desktop mega nav; mobile uses the hamburger drawer */
+    .ns-nav__item--buy, .ns-header__social { display: none; }
+    .ns-burger { display: block; }
+    .ns-header__logo img { height: 22px; max-width: 58vw; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ns-burger span, .ns-mnav, .ns-mnav *, .ns-mnav__tag, .ns-mega, .ns-mega__row, .ns-mega__feat img { transition: none !important; }
+    .ns-nav__item:hover .ns-mega__row, .ns-nav__item:focus-within .ns-mega__row { transition: none !important; }
+  }
+</style>
+
+<script>
+  const toggle = document.querySelector('[data-nav-toggle]') as HTMLButtonElement | null
+  const drawer = document.querySelector('[data-mobile-nav]') as HTMLElement | null
+  if (toggle && drawer) {
+    let open = false
+    const setOpen = (next: boolean) => {
+      open = next
+      toggle.setAttribute('aria-expanded', String(next))
+      toggle.setAttribute('aria-label', next ? 'סגירת תפריט' : 'פתיחת תפריט')
+      document.body.classList.toggle('ns-nav-open', next)
+      if (next) {
+        drawer.hidden = false
+        requestAnimationFrame(() => drawer.classList.add('is-open'))
+      } else {
+        drawer.classList.remove('is-open')
+        const done = () => { if (!open) drawer.hidden = true; drawer.removeEventListener('transitionend', done) }
+        drawer.addEventListener('transitionend', done)
+      }
+    }
+    toggle.addEventListener('click', () => setOpen(!open))
+    // Collapsible groups (e.g. המוצרים): closed by default, one tap opens the sub-links.
+    const groupToggles = [...drawer.querySelectorAll<HTMLButtonElement>('[data-mnav-toggle]')]
+    const setGroup = (btn: HTMLButtonElement, expanded: boolean) => {
+      btn.setAttribute('aria-expanded', String(expanded))
+      const subs = document.getElementById(btn.getAttribute('aria-controls') || '')
+      if (subs) subs.hidden = !expanded
+    }
+    groupToggles.forEach((btn) => btn.addEventListener('click', () => setGroup(btn, btn.getAttribute('aria-expanded') !== 'true')))
+    drawer.addEventListener('transitionend', () => { if (!open) groupToggles.forEach((b) => setGroup(b, false)) })
+    drawer.querySelectorAll('[data-nav-close]').forEach((b) => b.addEventListener('click', () => { setOpen(false); toggle.focus() }))
+    drawer.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setOpen(false)))
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && open) setOpen(false) })
+  }
+  // Escape also dismisses an open (keyboard-focused) mega panel.
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && document.activeElement?.closest('.ns-nav__item')) {
+      ;(document.activeElement as HTMLElement).blur()
+    }
+  })
+
+  // Desktop side-dock: past 240px of scroll the top bar hands over to the
+  // right-edge rail; back under 90px it returns (hysteresis = no flicker).
+  // Disabled on narrow viewports and while the mobile drawer is open.
+  const rail = document.querySelector<HTMLElement>('[data-rail]')
+  if (rail) {
+    const wide = window.matchMedia('(min-width: 1024px)')
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    let docked = false
+    let queued = false
+    let outTimer = 0
+    const apply = (next: boolean) => {
+      if (next === docked) return
+      docked = next
+      const root = document.documentElement
+      root.classList.toggle('ns-docked', next)
+      rail.setAttribute('aria-hidden', String(!next))
+      // play the slow exit choreography (never on first load)
+      window.clearTimeout(outTimer)
+      if (!next && !reduceMotion) {
+        root.classList.add('ns-undocking')
+        outTimer = window.setTimeout(() => root.classList.remove('ns-undocking'), 1350)
+      } else {
+        root.classList.remove('ns-undocking')
+      }
+    }
+    const update = () => {
+      queued = false
+      if (!wide.matches || document.body.classList.contains('ns-nav-open')) { apply(false); return }
+      const y = window.scrollY
+      if (!docked && y > 240) apply(true)
+      else if (docked && y < 90) apply(false)
+    }
+    window.addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(update) } }, { passive: true })
+    wide.addEventListener('change', update)
+    update()
+    rail.querySelector('[data-rail-top]')?.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' })
+    })
+  }
+</script>

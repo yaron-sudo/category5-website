@@ -1,0 +1,125 @@
+---
+// Shared body for every "מידע מקצועי" page: optional key-number strip, a sticky
+// horizontal section bar right under the header (chips only + reading-progress
+// line, the active section follows the scroll), and the two-column "קרא עוד"
+// text cards (ContentSections) — or custom content via the default slot
+// (tables, timelines, card grids) under the same bar.
+import ContentSections from '@/components/ContentSections.astro'
+import SectionBar from '@/components/SectionBar.astro'
+import { balancePairs } from '@/lib/portableText'
+import type { PortableBlock } from '@/lib/sanity'
+
+type Section = { heading: string; blocks: PortableBlock[] }
+interface Props {
+  sections?: Section[]
+  refs?: Section | null
+  /** Explicit nav entries; defaults to the sections' headings (#sec-i). */
+  toc?: Array<{ id: string; label: string }>
+  stats?: Array<{ v: string; u: string; l: string }>
+  next?: Array<{ eyebrow: string; title: string; href: string; cta: string }>
+  /** Short image sections (recipes) as full-width text+photo rows (see ContentSections). */
+  splitImages?: boolean
+  /** Structured references (replace the prose `refs` card): numbered, linked, one per row. */
+  refList?: Array<{ title: string; authors?: string; source?: string; url: string }>
+}
+const { sections: rawSections = [], refs = null, toc, stats = [], next = [], refList = [], splitImages = false } = Astro.props
+const sections = balancePairs(rawSections)
+const custom = Astro.slots.has('default')
+const entries = toc ?? [
+  ...sections.map((s, i) => ({ id: `sec-${i}`, label: s.heading })).filter((e) => e.label),
+  ...(refs || refList.length ? [{ id: 'refs', label: refs?.heading || 'הפניות למחקרים' }] : []),
+]
+---
+<SectionBar entries={entries} />
+
+<slot name="hero" />
+
+{stats.length > 0 && (
+  <section class="ns-section ns-section--white as-stats-wrap">
+    <div class="ns-container ns-container--wide">
+      <div class="as-stats">
+        {stats.map((s, i) => (
+          <div class="as-stat ns-textbox" data-reveal style={`transition-delay:${i * 70}ms`}>
+            <span class="as-stat__v" dir="ltr">{s.v}<small>{s.u}</small></span>
+            <span class="as-stat__l">{s.l}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+<section class="ns-section ns-section--beige as-wrap" data-article-body>
+  <div class="ns-container ns-container--wide as__body">
+    {custom ? <slot /> : <ContentSections sections={sections} numbered splitImages={splitImages} />}
+    {refList.length > 0 ? (
+      <article class="as__refs as__refs--list ns-textbox" id="refs" data-reveal>
+        <h2>{refs?.heading || 'הפניות למחקרים'}</h2>
+        <ol class="as__reflist">
+          {refList.map((r, i) => (
+            <li class="as__ref">
+              <span class="as__ref-n">{i + 1}</span>
+              <div class="as__ref-body" dir="ltr">
+                <a class="as__ref-title" href={r.url} target="_blank" rel="noopener">{r.title}<span class="as__ref-ext" aria-hidden="true">↗</span></a>
+                {(r.authors || r.source) && <span class="as__ref-meta">{[r.authors, r.source].filter(Boolean).join(' · ')}</span>}
+              </div>
+            </li>
+          ))}
+        </ol>
+      </article>
+    ) : refs && (
+      <article class="as__refs ns-textbox" id="refs" data-reveal>
+        <h2>{refs.heading}</h2>
+        <div class="as__refs-list"><ContentSections sections={[{ heading: '', blocks: refs.blocks }]} single idPrefix="ref" /></div>
+      </article>
+    )}
+    {next.length > 0 && (
+      <div class="as__next" data-reveal>
+        {next.map((n) => (
+          <a class="as__next-card ns-textbox" href={n.href}>
+            <span class="ns-eyebrow">{n.eyebrow}</span>
+            <strong>{n.title}</strong>
+            <span class="as__next-go">{n.cta} ←</span>
+          </a>
+        ))}
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .as-stats-wrap { padding-block: clamp(24px, 3vw, 40px); }
+  .as-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(14px, 2vw, 24px); }
+  /* key numbers: centred column — big value, unit under it, then the label — with an orange top accent */
+  .as-stat { position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 4px; min-height: 164px; padding: clamp(24px, 2.6vw, 34px) clamp(18px, 2vw, 28px); }
+  .as-stat::before { content: ''; position: absolute; inset-inline: 0; top: 0; height: 4px; background: linear-gradient(90deg, var(--ns-pure-orange), color-mix(in srgb, var(--ns-pure-orange) 35%, transparent)); }
+  .as-stat__v { font-family: var(--ns-font-latin); font-weight: 600; font-size: clamp(40px, 3.6vw, 54px); line-height: 1; color: var(--ns-pure-orange); display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .as-stat__v small { font-family: var(--ns-font-body); font-size: 13.5px; font-weight: 700; letter-spacing: .02em; color: var(--ns-fg-muted); }
+  .as-stat__v small:empty { display: none; }
+  .as-stat__l { font-size: var(--ns-text-base); line-height: 1.5; color: var(--ns-fg); max-width: 26ch; margin-top: 6px; }
+  .as-wrap { padding-block: clamp(32px, 4.5vw, 64px) clamp(56px, 7vw, 96px); }
+  .as__body { display: grid; gap: clamp(20px, 3vw, 36px); }
+  .as__body :global([id]) { scroll-margin-top: 170px; }
+  .as__refs { padding: clamp(22px, 3vw, 36px); }
+  .as__refs h2 { font-family: var(--ns-font-display); font-weight: 600; font-size: 22px; color: var(--ns-field-green); margin: 0 0 10px; }
+  .as__refs-list :global(.cs__card) { padding: 0; border: none; box-shadow: none; background: transparent; }
+  .as__refs-list :global(.cs__prose) { font-size: 15px; line-height: 1.7; color: var(--ns-fg-muted); direction: ltr; text-align: left; font-family: var(--ns-font-latin); }
+  /* structured references: centred heading, numbered rows, title is the live link */
+  .as__refs--list h2 { text-align: center; font-size: clamp(22px, 2vw, 28px); margin-bottom: 22px; }
+  .as__reflist { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .as__ref { display: flex; gap: 14px; align-items: flex-start; padding: 16px 18px; border: 1px solid var(--ns-border); border-radius: var(--ns-radius-lg); background: var(--ns-bg-alt); }
+  .as__ref-n { flex: none; width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; background: var(--ns-field-green); color: var(--ns-sun-beige); font-family: var(--ns-font-latin); font-weight: 700; font-size: 13px; }
+  .as__ref-body { display: flex; flex-direction: column; gap: 4px; min-width: 0; text-align: left; font-family: var(--ns-font-latin); }
+  .as__ref-title { color: var(--ns-field-green); font-weight: 600; font-size: 15.5px; line-height: 1.45; text-decoration: none; }
+  .as__ref-title:hover { color: var(--ns-pure-orange); text-decoration: underline; text-underline-offset: 3px; }
+  .as__ref-ext { font-size: 12px; margin-inline-start: 6px; color: var(--ns-pure-orange); }
+  .as__ref-meta { font-size: 13.5px; line-height: 1.5; color: var(--ns-fg-muted); }
+  .as__next { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .as__next-card { display: flex; flex-direction: column; gap: 8px; padding: 24px; text-decoration: none; color: var(--ns-field-green); transition: transform .25s var(--ns-ease-out), box-shadow .25s var(--ns-ease-out); }
+  .as__next-card:hover { transform: translateY(-3px); box-shadow: var(--ns-shadow-lg); }
+  .as__next-card strong { font-family: var(--ns-font-display); font-weight: 600; font-size: 20px; line-height: 1.3; }
+  .as__next-go { color: var(--ns-pure-orange); font-weight: 700; font-size: 15px; }
+  @media (max-width: 1023px) { .as__body :global([id]) { scroll-margin-top: 150px; } }
+  @media (max-width: 900px) { .as__reflist { grid-template-columns: 1fr; } }
+  @media (max-width: 760px) { .as-stats { grid-template-columns: 1fr; } .as__next { grid-template-columns: 1fr; } }
+</style>

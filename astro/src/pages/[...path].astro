@@ -1,0 +1,29 @@
+---
+// Server fallback for every path that is not a built page: the old WordPress
+// URLs are Hebrew, and Vercel's static redirect matching proved unreliable
+// with them (percent-encoding), so this route decodes the request path,
+// looks it up in the same redirect map (vercel.json) and answers with a real
+// 301 itself. Anything unknown renders the normal 404 page.
+import NotFound from './404.astro'
+import redirectsConfig from '../../vercel.json'
+
+export const prerender = false
+
+const decode = (s: string) => { try { return decodeURIComponent(s) } catch { return s } }
+const norm = (s: string) => decode(s).normalize('NFC').replace(/\/+$/, '') || '/'
+const path = norm(Astro.url.pathname)
+
+// exact (non-pattern) rules, decoded, without trailing slashes
+const rules = (redirectsConfig.redirects as Array<{ source: string; destination: string; has?: unknown }>)
+  .filter((r) => !r.has && !r.source.includes(':') && !r.source.includes('*'))
+const hit = rules.find((r) => norm(r.source) === path)
+if (hit) {
+  const r = Astro.redirect(hit.destination + (Astro.url.search || ''), 301)
+  r.headers.set('Cache-Control', 'public, s-maxage=86400, max-age=3600')
+  return r
+}
+
+Astro.response.status = 404
+Astro.response.headers.set('Cache-Control', 'public, s-maxage=600, max-age=60')
+---
+<NotFound />
