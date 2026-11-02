@@ -1,4 +1,4 @@
-# בריף לסשן חדש: אתר חדש על בסיס הארכיטקטורה של naturesage.co.il
+# בריף לסשן חדש: אתר חדש על בסיס הארכיטקטורה של ethical-supplements.com
 
 > **עדכון:** אתר המקור בפועל הוא https://www.ethical-supplements.com/ (לא category-5.xyz). ראו `docs/SOURCE-SURVEY.md`.
 
@@ -15,7 +15,7 @@
 | שם המותג / האתר | Category 5 |
 | **אתר המקור (תוכן, מבנה, מיתוג)** | **https://www.category-5.xyz** |
 | דומיין לאתר החדש | category-5.xyz (אותו דומיין, אחרי מעבר) / לאשר עם הלקוח |
-| שפה וכיוון | לקבוע לפי אתר המקור (ברירת מחדל: עברית RTL כמו בנייטשרסייג) |
+| שפה וכיוון | לקבוע לפי אתר המקור (ברירת מחדל: עברית RTL כמו בקטגוריה 5) |
 | ריפו GitHub חדש (ריק) | הלקוח יוצר. שם: `yaron-sudo/<name>` (למלא) |
 | פרויקט Sanity חדש (projectId + dataset) | ייווצר ב-sanity.io/manage |
 | פרויקט Vercel חדש | ייווצר ויחובר לריפו |
@@ -46,12 +46,12 @@
    אחד לאחד: המטרה היא אותו מותג, בתשתית ובאיכות של האתר החדש.
 6. **לאשר עם הלקוח** לפני בניית סידים: רשימת העמודים שזוהו, מה נשאר ומה נזרק.
 
-**כלל ברזל:** לא לגעת בריפו המקורי `yaron-sudo/naturesage-website`. קוראים ממנו
+**כלל ברזל:** לא לגעת בריפו המקורי `yaron-sudo/category5-website`. קוראים ממנו
 בלבד. כל העבודה בריפו החדש.
 
 **הודעת פתיחה מוצעת לסשן החדש:**
 
-> קרא את `docs/NEW-SITE-BRIEF.md` בריפו `yaron-sudo/naturesage-website` (ענף
+> קרא את `docs/NEW-SITE-BRIEF.md` בריפו `yaron-sudo/category5-website` (ענף
 > `claude/compassionate-feynman-n0s6nx`) ופעל לפיו. הריפו החדש הוא `yaron-sudo/<name>`
 > (ריק). אתר המקור הוא https://www.category-5.xyz. התחל בסעיף 0.1 (סקירת אתר
 > המקור) והצג לי את רשימת העמודים והמיתוג שזיהית לפני שאתה בונה.
@@ -60,7 +60,7 @@
 
 ## 1. מה הפרויקט המקורי (ממנו משכפלים)
 
-- **ריפו:** `yaron-sudo/naturesage-website`, ענף `claude/compassionate-feynman-n0s6nx`
+- **ריפו:** `yaron-sudo/category5-website`, ענף `claude/compassionate-feynman-n0s6nx`
   (הענף שחי בייצור; הוסיפו אותו לסשן עם `add_repo` וקראו ממנו).
 - **ארכיטקטורה:** Astro 4.16 (output: `hybrid`, כל העמודים סטטיים, 3 נתיבי שרת)
   + Sanity v3 (תוכן, Studio ב-`sanity/`) + Vercel (אחסון, פונקציות, הפניות,
@@ -106,7 +106,7 @@ docs/                       מדריכים ללקוח (מייל, אינסטגר�
 
 ---
 
-## 2. מה גנרי (להעתיק) ומה ספציפי לנייטשרסייג (לא להעתיק)
+## 2. מה גנרי (להעתיק) ומה ספציפי לקטגוריה 5 (לא להעתיק)
 
 **להעתיק כמו שהוא (עם שינוי שמות/טקסטים בלבד):**
 - `astro.config.mjs`, `scripts/*`, `tsconfig.json`, `package.json` (אותן גרסאות!
@@ -123,7 +123,7 @@ docs/                       מדריכים ללקוח (מייל, אינסטגר�
   geocode-stores.mjs + seed-stores.mjs (אם יש רשימת חנויות).
 - `docs/`: המדריכים למייל ולאינסטגרם, תבנית תוכנית המעבר, תוכנית האבטחה.
 
-**ספציפי לנייטשרסייג, לא להעתיק:**
+**ספציפי לקטגוריה 5, לא להעתיק:**
 - כל `public/img`, `public/brand`, `public/icons/stores`, `public/icons/badges`, `og-default.jpg`.
 - `src/lib/references.ts`, `src/lib/contentPatches.ts`, `src/lib/sections.ts` (רק
   המבנה; ה-BOOTSTRAP כולו טקסטים של המותג).
