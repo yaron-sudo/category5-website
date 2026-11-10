@@ -1,0 +1,9 @@
+{
+  "name": "category5-website",
+  "private": true,
+  "description": "Root wrapper so Vercel can build from the repo root. The site lives in astro/ (Astro + @astrojs/vercel), the CMS in sanity/.",
+  "scripts": {
+    "install:astro": "npm --prefix astro ci --no-audit --no-fund",
+    "build": "npm --prefix astro run build && rm -rf .vercel/output && mkdir -p .vercel && cp -r astro/.vercel/output .vercel/output"
+  }
+}
