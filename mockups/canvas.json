@@ -1,0 +1,371 @@
+{
+ "v": 3,
+ "createdOnFiles": {
+  "v": 1,
+  "at": "2026-11-05T17:30:00Z"
+ },
+ "title": "Category 5 – תבניות אתר",
+ "launch": {
+  "view": "canvas"
+ },
+ "pages": [],
+ "boards": {
+  "Main.dc.html": {
+   "x": 0,
+   "y": 1300,
+   "w": 1440,
+   "h": 3700,
+   "title": "עמוד הבית",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Series.dc.html": {
+   "x": 1520,
+   "y": 1300,
+   "w": 1440,
+   "h": 2000,
+   "title": "עמוד סדרה · ויטמינים ומינרלים",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Series-plants.dc.html": {
+   "x": 1520,
+   "y": 3920,
+   "w": 1440,
+   "h": 2000,
+   "title": "עמוד סדרה · צמחים",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Series-probio.dc.html": {
+   "x": 3040,
+   "y": 3920,
+   "w": 1440,
+   "h": 2000,
+   "title": "עמוד סדרה · פרוביוטיקה",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Series-pro.dc.html": {
+   "x": 4560,
+   "y": 3920,
+   "w": 1440,
+   "h": 2000,
+   "title": "עמוד סדרה · הסדרה המקצועית",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Need.dc.html": {
+   "x": 3040,
+   "y": 1300,
+   "w": 1440,
+   "h": 1800,
+   "title": "עמוד תחום (מה הצורך)",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Product.dc.html": {
+   "x": 4560,
+   "y": 1300,
+   "w": 1440,
+   "h": 2200,
+   "title": "עמוד מוצר",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Stores.dc.html": {
+   "x": 6080,
+   "y": 1300,
+   "w": 1440,
+   "h": 1900,
+   "title": "עמוד חנויות",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Glossary.dc.html": {
+   "x": 7600,
+   "y": 1300,
+   "w": 1440,
+   "h": 2200,
+   "title": "עולם המושגים",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Articles.dc.html": {
+   "x": 9120,
+   "y": 1300,
+   "w": 1440,
+   "h": 1900,
+   "title": "מאמרים מקצועיים",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Article.dc.html": {
+   "x": 10640,
+   "y": 1300,
+   "w": 1440,
+   "h": 2000,
+   "title": "עמוד מאמר",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Search.dc.html": {
+   "x": 12160,
+   "y": 1300,
+   "w": 1440,
+   "h": 1700,
+   "title": "תוצאות חיפוש",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Legal.dc.html": {
+   "x": 13680,
+   "y": 1300,
+   "w": 1440,
+   "h": 2000,
+   "title": "עמוד טקסט / משפטי",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Contact.dc.html": {
+   "x": 15200,
+   "y": 1300,
+   "w": 1440,
+   "h": 1500,
+   "title": "צור קשר",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Product-Pro.dc.html": {
+   "x": 6080,
+   "y": 3920,
+   "w": 1440,
+   "h": 2200,
+   "title": "עמוד מוצר · הסדרה המקצועית (קלצידקס)",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Header.dc.html": {
+   "x": 0,
+   "y": 0,
+   "w": 1440,
+   "h": 480,
+   "title": "Header + תפריטים",
+   "is_interactive": true
+  },
+  "Footer.dc.html": {
+   "x": 1520,
+   "y": 0,
+   "w": 1440,
+   "h": 520,
+   "title": "Footer"
+  },
+  "Floating.dc.html": {
+   "x": 3040,
+   "y": 0,
+   "w": 480,
+   "h": 760,
+   "title": "צ'אט AI + נגישות (צף)",
+   "is_interactive": true
+  },
+  "ProductCard.dc.html": {
+   "x": 3600,
+   "y": 0,
+   "w": 320,
+   "h": 520,
+   "title": "כרטיס מוצר"
+  },
+  "SeriesTile.dc.html": {
+   "x": 4000,
+   "y": 0,
+   "w": 320,
+   "h": 360,
+   "title": "אריח סדרה"
+  },
+  "M-Home.dc.html": {
+   "x": 0,
+   "y": 7120,
+   "w": 390,
+   "h": 6400,
+   "title": "מובייל · בית",
+   "is_interactive": true
+  },
+  "M-Series.dc.html": {
+   "x": 470,
+   "y": 7120,
+   "w": 390,
+   "h": 4200,
+   "title": "מובייל · סדרה",
+   "is_interactive": true
+  },
+  "M-Need.dc.html": {
+   "x": 940,
+   "y": 7120,
+   "w": 390,
+   "h": 3800,
+   "title": "מובייל · תחום",
+   "is_interactive": true
+  },
+  "M-Product.dc.html": {
+   "x": 1410,
+   "y": 7120,
+   "w": 390,
+   "h": 4200,
+   "title": "מובייל · מוצר",
+   "is_interactive": true
+  },
+  "M-Stores.dc.html": {
+   "x": 1880,
+   "y": 7120,
+   "w": 390,
+   "h": 4000,
+   "title": "מובייל · חנויות",
+   "is_interactive": true
+  },
+  "M-Glossary.dc.html": {
+   "x": 2350,
+   "y": 7120,
+   "w": 390,
+   "h": 5200,
+   "title": "מובייל · מושגים",
+   "is_interactive": true
+  },
+  "M-Articles.dc.html": {
+   "x": 2820,
+   "y": 7120,
+   "w": 390,
+   "h": 5200,
+   "title": "מובייל · מאמרים",
+   "is_interactive": true
+  },
+  "M-Article.dc.html": {
+   "x": 3290,
+   "y": 7120,
+   "w": 390,
+   "h": 3600,
+   "title": "מובייל · מאמר",
+   "is_interactive": true
+  },
+  "M-Search.dc.html": {
+   "x": 3760,
+   "y": 7120,
+   "w": 390,
+   "h": 3800,
+   "title": "מובייל · חיפוש",
+   "is_interactive": true
+  },
+  "M-Menu.dc.html": {
+   "x": 4230,
+   "y": 7120,
+   "w": 390,
+   "h": 844,
+   "title": "מובייל · תפריט פתוח",
+   "is_interactive": true
+  },
+  "M-Chat.dc.html": {
+   "x": 4700,
+   "y": 7120,
+   "w": 390,
+   "h": 844,
+   "title": "מובייל · צ'אט פתוח",
+   "is_interactive": true
+  },
+  "M-Contact.dc.html": {
+   "x": 5170,
+   "y": 7120,
+   "w": 390,
+   "h": 3200,
+   "title": "מובייל · צור קשר",
+   "is_interactive": true
+  }
+ },
+ "order": [
+  "Main.dc.html",
+  "Series.dc.html",
+  "Series-plants.dc.html",
+  "Series-probio.dc.html",
+  "Series-pro.dc.html",
+  "Need.dc.html",
+  "Product.dc.html",
+  "Stores.dc.html",
+  "Glossary.dc.html",
+  "Articles.dc.html",
+  "Article.dc.html",
+  "Search.dc.html",
+  "Legal.dc.html",
+  "Contact.dc.html",
+  "Product-Pro.dc.html",
+  "Header.dc.html",
+  "Footer.dc.html",
+  "Floating.dc.html",
+  "ProductCard.dc.html",
+  "SeriesTile.dc.html",
+  "M-Home.dc.html",
+  "M-Series.dc.html",
+  "M-Need.dc.html",
+  "M-Product.dc.html",
+  "M-Stores.dc.html",
+  "M-Glossary.dc.html",
+  "M-Articles.dc.html",
+  "M-Article.dc.html",
+  "M-Search.dc.html",
+  "M-Menu.dc.html",
+  "M-Chat.dc.html",
+  "M-Contact.dc.html"
+ ],
+ "notes": {
+  "t-components": {
+   "x": 0,
+   "y": -300,
+   "text": "רכיבים משותפים — Header · Footer · צ'אט AI · כרטיסים",
+   "kind": "title1",
+   "maxW": 4320
+  },
+  "t-pages": {
+   "x": 0,
+   "y": 1000,
+   "text": "תבניות עמוד — דסקטופ (1440, רספונסיבי)",
+   "kind": "title1",
+   "maxW": 18160
+  },
+  "t-series": {
+   "x": 1520,
+   "y": 3620,
+   "text": "עמוד סדרה — ארבע הסדרות בצבעיהן · עמוד מוצר קלצידקס",
+   "kind": "title1",
+   "maxW": 6000
+  },
+  "t-mobile": {
+   "x": 0,
+   "y": 6820,
+   "text": "תבניות עמוד — מובייל (390)",
+   "kind": "title1",
+   "maxW": 5560
+  },
+  "handoff": {
+   "x": -620,
+   "y": 1300,
+   "w": 520,
+   "size": "m",
+   "fill": "green",
+   "text": "הנחיות ל-Claude Code\n\nנתיבים: / · /series/[slug] · /needs/[slug] · /products/[slug] · /stores · /glossary#[term] · /articles · /articles/[slug] · /search?q= · /contact · /legal/[slug]\n\nרכיבים משותפים: Header (צף, נסגר בבחירה), Footer, Floating (צ'אט AI + נגישות), ProductCard, SeriesTile.\n\nצבעים: טקסט שחור #141414; רקעים לבן / #f7f7f5 / #e9e9e7 / #dcdcd9. צבע סדרה רק באייקון ובריבוע הסדרה: ויטמינים ומינרלים #003e21 · צמחים #d5a425 · פרוביוטיקה #85bbe6 · הסדרה המקצועית #4d0333.\n\nכפתורים: לבן, קו 1px שחור, טקסט שחור, פינות 4px.\nטיפוגרפיה: Noto Sans Hebrew; גוף 17px; כותרות משנה 20px רגיל; כותרות 22px משקל 600.\n\nאזורי 'באנר' / 'אימג׳' אפורים = מקום לתמונה שתסופק."
+  },
+  "open": {
+   "x": -620,
+   "y": 2160,
+   "w": 520,
+   "size": "m",
+   "fill": "orange",
+   "text": "חסר / יסופק\n\n• אימג' באנר עמוד הבית ×2\n• אימג' לכל עמוד סדרה\n• אימג' לכל עמוד תחום\n• טקסט אודות\n• רשימת חנויות\n• הסברי עולם המושגים\n• הערה משפטית ל-Footer"
+  }
+ },
+ "designSystems": [
+  {
+   "title": "Category 5 New Brand System",
+   "namespace": "category5",
+   "artifact": "https://claude.ai/code/artifact/88eeb65f-7dbc-4fe5-b827-6924683d33d1",
+   "version": "1793898868-9ecd",
+   "copiedAt": "2026-11-05T17:30:00Z"
+  }
+ ]
+}

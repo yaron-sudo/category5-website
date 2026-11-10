@@ -1,6 +1,9 @@
 ---
 // Accessibility widget — Israeli-compliant toolbar (IS 5568 / WCAG 2.0 AA).
 // Floating button opens a panel of adjustments; choices persist in localStorage.
+// variant="c5": the Category 5 floating button (mockups/Floating.dc.html), bottom right.
+interface Props { variant?: 'default' | 'c5'; label?: string }
+const { variant = 'default', label = 'נגישות' } = Astro.props
 const tools = [
   { key: 'fontUp',     label: 'הגדלת טקסט',        icon: 'A+' },
   { key: 'fontDown',   label: 'הקטנת טקסט',        icon: 'A−' },
@@ -15,9 +18,15 @@ const tools = [
 ]
 ---
 <div class="a11y" data-a11y>
-  <button class="a11y__btn" data-a11y-toggle type="button" aria-label="תפריט נגישות" aria-expanded="false" aria-controls="a11y-panel" title="נגישות">
-    <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="currentColor"><circle cx="12" cy="4" r="2"/><path d="M21 9c-2.5.8-5 1.2-9 1.2S5.5 9.8 3 9l.4-1.9C5.7 7.8 8 8.2 12 8.2s6.3-.4 8.6-1.1L21 9zM10.6 11.5l-.7 4.1L7 22l-1.8-.8 2.7-6 .4-3.7h3.4l.4 3.7 2.7 6L13 22l-2.9-6.4-.7-4.1z"/></svg>
-  </button>
+  {variant === 'c5' ? (
+    <button type="button" data-a11y-toggle aria-label={label} aria-expanded="false" aria-controls="a11y-panel" style="position: fixed; right: 20px; bottom: 20px; z-index: 80; width: 48px; height: 48px; border-radius: 4px; border: 1px solid #141414; background: #ffffff; color: #141414; display: flex; align-items: center; justify-content: center; cursor: pointer">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="4.5" r="1.8" fill="currentColor"></circle><path d="M5 8.5l7 1.5 7-1.5M12 10v4.5M12 14.5l-3.5 6M12 14.5l3.5 6"></path></svg>
+    </button>
+  ) : (
+    <button class="a11y__btn" data-a11y-toggle type="button" aria-label="תפריט נגישות" aria-expanded="false" aria-controls="a11y-panel" title="נגישות">
+      <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="currentColor"><circle cx="12" cy="4" r="2"/><path d="M21 9c-2.5.8-5 1.2-9 1.2S5.5 9.8 3 9l.4-1.9C5.7 7.8 8 8.2 12 8.2s6.3-.4 8.6-1.1L21 9zM10.6 11.5l-.7 4.1L7 22l-1.8-.8 2.7-6 .4-3.7h3.4l.4 3.7 2.7 6L13 22l-2.9-6.4-.7-4.1z"/></svg>
+    </button>
+  )}
 
   <div class="a11y__panel" id="a11y-panel" data-a11y-panel role="dialog" aria-label="התאמות נגישות" aria-modal="false" hidden>
     <div class="a11y__head">

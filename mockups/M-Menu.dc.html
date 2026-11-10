@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>מובייל – תפריט פתוח</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/category5/tokens.css">
+<link rel="stylesheet" href="site.css">
+<script src="site.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>body{margin:0}</style>
+</helmet>
+<div style="width: 390px; height: 844px; overflow: hidden; background: #efefed; position: relative">
+<div style="position: absolute; inset: 0; background: rgba(20,20,20,0.35)"></div>
+<div style="position: relative; z-index: 2">
+<dc-import name="Header" demo="mobile" hint-size="390px,80px"></dc-import>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

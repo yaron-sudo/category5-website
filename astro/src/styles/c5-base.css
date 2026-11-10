@@ -1,0 +1,54 @@
+/* Category 5 — base layer for the new site (loaded before c5-site.css).
+   Everything here comes from the mockups' <helmet> blocks (fonts, page grids,
+   underline inputs, stores banner) plus the responsive switch the mockups
+   compute in JS (wide / narrow at 1000px). */
+
+@font-face { font-family: "C5 Sans"; src: url("/assets/fonts/NotoSansHebrew-Regular.ttf") format("truetype"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "C5 Sans"; src: url("/assets/fonts/NotoSansHebrew-Bold.ttf") format("truetype"); font-weight: 700; font-display: swap; }
+/* 500/600 map to the regular/bold files (Noto Sans Hebrew is supplied in two weights). */
+@font-face { font-family: "C5 Sans"; src: url("/assets/fonts/NotoSansHebrew-Bold.ttf") format("truetype"); font-weight: 600; font-display: swap; }
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: #ffffff; color: #141414; font-size: 17px; line-height: 1.6; }
+img { max-width: 100%; }
+
+/* mockups/Main.dc.html helmet */
+.series-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; align-items: stretch; }
+@media (max-width: 1000px) { .series-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 480px) { .series-grid { grid-template-columns: minmax(0, 1fr); } }
+.articles-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; }
+@media (max-width: 1000px) { .articles-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 480px) { .articles-grid { grid-template-columns: minmax(0, 1fr); } }
+.c5-line { border: 0; border-bottom: 1px solid #141414; border-radius: 0; background: transparent; padding: 10px 0; font: inherit; width: 100%; box-sizing: border-box; outline: 0; transition: border-color .5s cubic-bezier(.22,.61,.36,1); }
+.c5-line:focus { border-bottom-width: 1.5px; }
+.c5-stores { background: #efeee2 url("/assets/backgrounds/stores-banner-bg.jpg") center / cover no-repeat; }
+
+/* Header: the mockup renders the nav (wide) or the hamburger (narrow) by width; done in CSS here. */
+@media (max-width: 999.98px) { .c5-wide { display: none !important; } }
+@media (min-width: 1000px) { .c5-narrow, .c5-mobile-panel { display: none !important; } }
+.c5-panel[hidden] { display: none !important; }
+
+/* Glossary terms anywhere on the site (BRIEF §1): thin dashed black underline. */
+a.c5-term { color: #141414; text-decoration: underline dashed 1px; text-underline-offset: 4px; background: none !important; }
+
+/* visually hidden (labels) */
+.c5-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Accessibility panel (shared widget) in the site's palette. */
+.c5-site { --ns-bg: #f7f7f5; --ns-bg-alt: #ffffff; --ns-border: #dcdcd9; --ns-field-green: #141414; --ns-pure-orange: #141414; --ns-sun-beige: #ffffff; --ns-light-gray: #8a8a88; --ns-radius-md: 4px; --ns-radius-lg: 8px; --ns-shadow-lg: 0 24px 40px rgba(0,0,0,.06); --ns-ease-out: cubic-bezier(.22,.61,.36,1); --ns-font-display: "C5 Sans", "Noto Sans Hebrew", Arial, sans-serif; }
+.c5-site .a11y__panel { inset-block-end: 80px; border-radius: 4px; }
+.c5-site .a11y__opt { border-radius: 4px; }
+.c5-site .a11y__opt[aria-pressed="true"] { background: #efeeea; }
+
+/* site.css targets the mockup file links (a[href^="Product"], a[href^="Series"]);
+   the same card / tile rules for the real routes. */
+a[href^="/products/"], a[href^="/series/"] { transition: border-color .5s cubic-bezier(.22,.61,.36,1), box-shadow .5s cubic-bezier(.22,.61,.36,1); }
+a[href^="/products/"]:hover, a[href^="/series/"]:hover { border-color: #c9c9c6 !important; opacity: 1; }
+a[href^="/products/"]:hover { box-shadow: 0 10px 30px rgba(20,20,20,.05); }
+a[href^="/products/"] img, a[href^="/series/"] img { transition: transform 1.2s cubic-bezier(.22,.61,.36,1); }
+a[href^="/products/"]:hover img, a[href^="/series/"]:hover img { transform: scale(1.025); }
+a[href^="/products/"] > div:last-child > span:last-child, a[data-c5-series-tile] > span:last-child { transition: text-decoration-color .5s cubic-bezier(.22,.61,.36,1); text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 5px; }
+a[href^="/products/"]:hover > div:last-child > span:last-child, a[data-c5-series-tile]:hover > span:last-child { text-decoration-color: #141414; }
+a[data-c5-series-tile] > span:first-child { transition: transform .6s cubic-bezier(.22,.61,.36,1); }
+a[data-c5-series-tile]:hover > span:first-child { transform: translateY(-2px); }

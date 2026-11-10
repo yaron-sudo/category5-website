@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>עולם המושגים – Category 5</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/category5/tokens.css">
+<link rel="stylesheet" href="site.css">
+<script src="site.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face{font-family:"C5 Sans";src:url(../assets/fonts/NotoSansHebrew-Regular.ttf);font-weight:400}
+@font-face{font-family:"C5 Sans";src:url(../assets/fonts/NotoSansHebrew-Bold.ttf);font-weight:700}
+body{margin:0}
+</style>
+</helmet>
+<div dir="rtl" style="font-family: 'C5 Sans', 'Noto Sans Hebrew', Arial, sans-serif; color: #141414; background: #ffffff; min-height: 100vh; font-size: 17px; line-height: 1.6">
+
+<div style="position: sticky; top: 0; z-index: 50">
+<dc-import name="Header" hint-size="100%,80px"></dc-import>
+</div>
+
+<main>
+<section style="max-width: 1280px; margin: 0 auto; padding: clamp(40px, 6vw, 88px) clamp(16px, 4vw, 48px) 24px; box-sizing: border-box">
+<h1 style="margin: 0">עולם המושגים</h1>
+</section>
+
+<section style="max-width: 1280px; margin: 0 auto; padding: 24px clamp(16px, 4vw, 48px) clamp(56px, 7vw, 112px); box-sizing: border-box">
+<div style="display: flex; flex-direction: column">
+<sc-for list="{{terms}}" as="t" hint-placeholder-count="14">
+<article id="{{t.id}}" style="display: flex; flex-wrap: wrap; gap: 8px 32px; padding: 20px 0; border-top: 1px solid #dcdcd9">
+<h3 style="margin: 0; flex: 1 1 240px">{{t.num}}. {{t.term}}</h3>
+<p style="flex: 2 1 400px; margin: 0">{{t.text}}</p>
+</article>
+</sc-for>
+</div>
+</section>
+</main>
+
+<dc-import name="Footer" hint-size="100%,520px"></dc-import>
+<dc-import name="Floating" hint-size="0px,0px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2200}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const t = [
+      ['liposome', 'ליפוזום', 'בועית זעירה העשויה משכבה כפולה של פוספוליפידים — אותם חומרים שמהם בנויים קרומי התאים. בתוספי תזונה משתמשים בליפוזומים כדי לעטוף את החומר הפעיל, להגן עליו במערכת העיכול ולסייע בספיגתו.'],
+      ['bioavailability', 'זמינות ביולוגית', 'החלק מתוך החומר הפעיל שנספג ומגיע למחזור הדם, וכך זמין לשימוש הגוף. היא מושפעת מהצורה הכימית של הרכיב, מהפורמולציה ומגורמים אישיים.'],
+      ['active-ingredient', 'חומר פעיל', 'הרכיב במוצר שאחראי להשפעה המיועדת שלו — בניגוד לרכיבי עזר כמו חומרי מילוי או מעטפת הכמוסה.'],
+      ['clinically-tested', 'חומר גלם שנבדק קלינית', 'חומר גלם, לרוב ממותג, שנבחן במחקרים קליניים בבני אדם במינון ובצורה מוגדרים.'],
+      ['bisglycinate', 'ביסגליצינאט', 'צורה של מינרל (למשל מגנזיום או ברזל) הקשור לשתי מולקולות של חומצת האמינו גליצין. צורה זו נחשבת עדינה למערכת העיכול ובעלת ספיגה טובה.'],
+      ['citrate', 'ציטראט', 'מלח של מינרל עם חומצת לימון. צורה מסיסה במים, נפוצה בתוספי מגנזיום, סידן ואשלגן.'],
+      ['taurate', 'טאורט', 'צורה של מינרל הקשור לחומצת האמינו טאורין, למשל מגנזיום טאורט. אצטיל טאורט היא צורה קרובה שבה הטאורין עבר אצטילציה.'],
+      ['nanoparticles', 'ננו חלקיקים', 'חלקיקים בגודל של ננומטרים בודדים עד מאות ננומטרים. הקטנת החלקיק מגדילה את שטח הפנים שלו ועשויה להשפיע על המסיסות והספיגה.'],
+      ['electron-microscope', 'מיקרוסקופ אלקטרוני', 'מיקרוסקופ שמשתמש באלומת אלקטרונים במקום באור ומאפשר הגדלה של עד מיליוני מונים. משמש, בין היתר, לאימות הגודל והמבנה של חלקיקים וליפוזומים.'],
+      ['antioxidants', 'נוגדי חמצון', 'חומרים המסייעים לנטרל רדיקלים חופשיים — מולקולות לא יציבות שנוצרות בתהליכים טבעיים בגוף ובחשיפה לגורמים סביבתיים. דוגמאות: ויטמין C, ויטמין E ופוליפנולים.'],
+      ['probiotics', 'פרוביוטיקה', 'מיקרואורגניזמים חיים — "חיידקים טובים" — שבכמות מספקת עשויים להועיל לבריאות.'],
+      ['digestive-enzymes', 'אנזימי עיכול', 'חלבונים המפרקים את המזון למרכיבים קטנים שהגוף יכול לספוג: עמילאז לפחמימות, פרוטאז לחלבונים וליפאז לשומנים.'],
+      ['complex', 'קומפלקס', 'פורמולה המשלבת כמה רכיבים פעילים, או כמה צורות של אותו רכיב, במוצר אחד.'],
+      ['gmo-free', 'GMO Free', 'מוצר שרכיביו אינם מהונדסים גנטית.']
+    ];
+    return { terms: t.map((x, i) => ({ id: x[0], term: x[1], text: x[2], num: i + 1 })) };
+  }
+}
+</script>
+</body>
+</html>

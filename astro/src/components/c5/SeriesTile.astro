@@ -1,0 +1,12 @@
+---
+// SeriesTile — ported from mockups/SeriesTile.dc.html (BRIEF §5.3): colour icon 96px, no backing square.
+import { seriesHref, type Series } from '@/c5/data'
+interface Props { series: Series }
+const { series: s } = Astro.props
+---
+<a href={seriesHref(s)} data-c5-series-tile dir="rtl" style="display: flex; flex-direction: column; align-items: center; gap: 20px; height: 100%; padding: 24px 12px; text-decoration: none; color: #141414; font-family: 'C5 Sans', 'Noto Sans Hebrew', Arial, sans-serif; box-sizing: border-box; text-align: center">
+<span style="width: 96px; height: 96px; display: flex; align-items: center; justify-content: center">
+<img src={s.icon} alt="" style="width: 96px; height: 96px">
+</span>
+<span style="font-size: 20px; line-height: 1.3">{s.name}</span>
+</a>

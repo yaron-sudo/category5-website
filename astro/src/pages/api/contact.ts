@@ -118,17 +118,19 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   try { ip = clientAddress } catch { ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? '' }
   if (ip && limited(ip)) return json({ ok: false, error: 'rate-limited' }, 429)
 
-  const name = clean(body.name, MAX.name)
+  // kind "newsletter": the footer's "בואו נהיה בקשר" signup (email only).
+  const newsletter = body.kind === 'newsletter'
   const email = clean(body.email, MAX.email)
-  const phone = clean(body.phone, MAX.phone)
-  const message = clean(body.message, MAX.message)
+  const name = newsletter ? 'הרשמה לרשימת התפוצה' : clean(body.name, MAX.name)
+  const phone = newsletter ? '—' : clean(body.phone, MAX.phone)
+  const message = newsletter ? `בקשת הרשמה לרשימת התפוצה: ${email}` : clean(body.message, MAX.message)
   if (!name || !email || !phone || !message || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return json({ ok: false, error: 'invalid' }, 422)
   }
 
   const source = clean(body._source, 300)
   const when = new Date().toLocaleString('he-IL', { timeZone: 'Asia/Jerusalem' })
-  const subject = `פנייה מהאתר — ${name}`
+  const subject = newsletter ? `הרשמה לרשימת התפוצה — ${email}` : `פנייה מהאתר — ${name}`
   const text = [`שם: ${name}`, `אימייל: ${email}`, `טלפון: ${phone}`, '', message, '', `— נשלח מ-${source || 'האתר'} ב-${when}`].join('\n')
   const html = `<div dir="rtl" style="font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#113021">
   <h2 style="margin:0 0 12px">פנייה חדשה מהאתר</h2>

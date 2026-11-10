@@ -1,549 +1,103 @@
 ---
-import Base from '@/layouts/Base.astro'
-import Carousel from '@/components/Carousel.astro'
-import VideoSection from '@/components/VideoSection.astro'
-import FeatureCard from '@/components/FeatureCard.astro'
-import Heading from '@/components/Heading.astro'
-import PortableText from '@/components/PortableText.astro'
-import {
-  getFeatures, getHomePage, getCategories, getAllProductCards,
-  urlFor, youtubeId, resolveSeo, plainText, type SanityImage,
-} from '@/lib/sanity'
-import { type Section } from '@/lib/sections'
-import { BRAND_NAME, BRAND_NAME_EN } from '@/lib/brand'
+// BRIEF §5 — home page, floor by floor, ported from mockups/Main.dc.html.
+import Site from '@/layouts/Site.astro'
+import SeriesTile from '@/components/c5/SeriesTile.astro'
+import { SERIES, CONTACT } from '@/c5/data'
+import { t } from '@/c5/i18n'
 
-const [features, home, categories, products] = await Promise.all([getFeatures(), getHomePage(), getCategories(), getAllProductCards()])
-const u = (image: SanityImage | undefined, w: number) =>
-  image?.asset ? urlFor(image).width(w).fit('max').auto('format').url() : undefined
-
-// Page builder: the page is the CMS sections[] list, in order.
-const sections: Section[] = (home?.sections as Section[] | undefined) ?? []
-
-// Split a story's text into two halves (two image+text rows).
-const storyHalves = (blocks: any[]) => {
-  const mid = Math.ceil((blocks?.length ?? 0) / 2)
-  return { lead: (blocks ?? []).slice(0, mid), rest: (blocks ?? []).slice(mid) }
-}
-const posterUrl = (poster?: SanityImage) =>
-  poster?.asset ? urlFor(poster).width(1920).height(1080).fit('crop').auto('format').url() : undefined
-
-// ---- SEO: CMS overrides (home.seo) win, else auto-derived from content ----
-const firstStory = sections.find((s) => s._type === 'storyDual') as Extract<Section, { _type: 'storyDual' }> | undefined
-const firstHero = sections.find((s) => s._type === 'heroCarousel') as Extract<Section, { _type: 'heroCarousel' }> | undefined
-const seo = resolveSeo(home?.seo, {
-  title: `${BRAND_NAME} | ${BRAND_NAME_EN}`,
-  description: plainText(firstStory?.text) || firstHero?.slides?.[0]?.text,
-  image: '/og-default.jpg',
-})
-const orgLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: BRAND_NAME_EN,
-  alternateName: BRAND_NAME,
-  url: Astro.site?.href,
-  logo: new URL('/media/2022/10/ES-LOGO-BLACK-SVG.svg', Astro.site).href,
-}
-
-const badgeIcon = (b: { icon?: SanityImage }) => (b.icon?.asset ? urlFor(b.icon).width(112).fit('max').url() : undefined)
-const cardImg = (c: { image?: SanityImage }) => (c.image?.asset ? urlFor(c.image).width(600).fit('max').auto('format').url() : undefined)
-const byCategory = (slug: string) => products.filter((p) => p.category?.slug === slug)
-const newProducts = products.filter((p) => p.isNew)
+// "בואו נדבר בריאות": 4 article teasers. No articles yet (BRIEF §17) → placeholders as in the mockup.
+const articles = Array.from({ length: 4 }, () => ({ title: 'כותרת הנושא', excerpt: 'תקציר טקסט…', href: '/articles' }))
+const bannerTitle = 'margin: 0; font-size: clamp(22px, 2.3vw, 36px); line-height: 1.2; font-weight: 400; letter-spacing: 0'
+const bannerLine = 'position: absolute; left: 50%; top: calc(clamp(28px, 3.2vw, 48px) + 1.2em + clamp(14px, 1.6vw, 24px)); width: 1px; height: clamp(70px, 9vw, 140px); background: #141414; z-index: 2; font-size: clamp(22px, 2.3vw, 36px)'
+const field = 'display: flex; flex-direction: column; gap: 2px; font-size: 15px'
 ---
-<Base
-  title={seo.title}
-  description={seo.description}
-  image={seo.image}
-  noindex={seo.noindex}
-  canonicalUrl={seo.canonical}
-  ogTitle={seo.ogTitle}
-  ogDescription={seo.ogDescription}
-  jsonLd={orgLd}
+<Site
+  title="Category 5 | Ethical Supplements"
+  description="קטגוריה 5 היא חברת תוספי תזונה ישראלית המשלבת ידע וניסיון מקצועי רב־שנים, יכולות מחקר ופיתוח מתקדמות ונגישות לחומרי גלם ייחודיים ולטכנולוגיות חדשניות."
 >
-  {sections.map((s, si) => {
-    // ===== HERO CAROUSEL (airy, floating accents) =====
-    if (s._type === 'heroCarousel') {
-      const slides = (s.slides ?? []).map((sl) => ({
-        imageUrl: u(sl.image, 1500) ?? '',
-        eyebrow: sl.eyebrow, title: sl.title, text: sl.text, ctaLabel: sl.ctaLabel, ctaHref: sl.ctaHref,
-      }))
-      return (
-        <div class="hero-wrap">
-          <span class="deco deco--a"></span>
-          <span class="pill-deco pill-deco--1" aria-hidden="true"></span>
-          <span class="pill-deco pill-deco--2" aria-hidden="true"></span>
-          <span class="pill-deco pill-deco--3" aria-hidden="true"></span>
-          <Carousel slides={slides} />
-          {s.kicker && <p class="hero-kicker" aria-hidden="true" dir="ltr">{s.kicker}</p>}
-        </div>
-      )
-    }
-    // ===== STATS =====
-    if (s._type === 'statsBand') return (
-      <section class="m-stats">
-        <div class="ns-container m-stats__row">
-          {(s.stats ?? []).map((st, i) => (
-            <div class="m-stat" data-reveal style={`transition-delay:${i * 70}ms`}>
-              <div class="m-stat__value" data-count>{st.value}</div><div class="m-stat__label">{st.label}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-    )
-    // ===== OUR STORY (research narrative, editorial two-part feature) =====
-    if (s._type === 'storyDual') {
-      const { lead, rest } = storyHalves(s.text as any[])
-      return (
-        <section id="story" class="m-section m-section--tint m-story">
-          <div class="ns-container">
-            <header class="m-head m-head--center" data-reveal>
-              {s.eyebrow && <span class="ns-eyebrow">{s.eyebrow}</span>}
-              <Heading value={s.title} level="h2" size="xl" class="m-h2" />
-            </header>
-            {!s.image?.asset ? (
-              <div class="m-story__solo" data-reveal><PortableText blocks={s.text} class="ns-prose m-rt" /></div>
-            ) : (<>
-            <div class="m-story__row m-story__row--text-first">
-              <div class="m-story__text m-story__text--lead anim-r" data-reveal style="transition-delay:170ms">
-                <PortableText blocks={lead} class="ns-prose m-rt" />
-              </div>
-              <div class="m-story__media anim-l" data-reveal><img src={u(s.image, 1300)} alt="" /></div>
-            </div>
-            {rest.length > 0 && (
-              <div class="m-story__row">
-                <div class="m-story__media anim-r" data-reveal style="transition-delay:170ms">{s.imageSecond?.asset && <img src={u(s.imageSecond, 1300)} alt="" />}</div>
-                <div class="m-story__text anim-tip" data-reveal>
-                  <PortableText blocks={rest} class="ns-prose m-rt" />
-                </div>
-              </div>
-            )}
-            </>)}
-          </div>
-        </section>
-      )
-    }
-    // ===== BRAND DIFFERENTIATORS (badge row) =====
-    if (s._type === 'badgeRow') return (
-      <section class="m-badges">
-        <div class="ns-container m-badges__row">
-          {(s.badges ?? []).filter((b) => b.text).map((b, i) => (
-            <div class="m-badge" data-reveal style={i ? `transition-delay:${i * 80}ms` : undefined}>
-              {badgeIcon(b) && <img src={badgeIcon(b)} alt="" aria-hidden="true" width="56" height="56" />}
-              <span>{b.text}</span>
-            </div>
-          ))}
-        </div>
-      </section>
-    )
-    // ===== FEATURES =====
-    if (s._type === 'featureGrid') return (
-      <section class="m-section">
-        <div class="ns-container">
-          <header class="m-head" data-reveal>
-            {s.eyebrow && <span class="ns-eyebrow">{s.eyebrow}</span>}
-            <Heading value={s.title} level="h2" size="xl" class="m-h2" />
-          </header>
-          <div class="ns-grid ns-grid--4">
-            {features.map((f, i) => <div class="m-cell" data-reveal style={`transition-delay:${(i % 4) * 70}ms`}><FeatureCard feature={f} /></div>)}
-          </div>
-        </div>
-      </section>
-    )
-    // ===== SPLIT PANEL (image + panel text) =====
-    if (s._type === 'splitPanel') return (
-      <section class="m-section m-section--tint">
-        <div class={`ns-container m-split${s.reverse ? ' m-split--rev' : ''}`}>
-          {s.reverse ? (
-            <>
-              <div class="m-split__text m-panel" data-reveal>
-                {s.eyebrow && <span class="ns-eyebrow">{s.eyebrow}</span>}
-                <Heading value={s.title} level="h2" size="xl" class="m-h2" />
-                <PortableText blocks={s.text} class="ns-prose m-rt" />
-              </div>
-              <div class="m-split__media" data-reveal style="transition-delay:100ms"><img src={u(s.image, 1300)} alt="" /></div>
-            </>
-          ) : (
-            <>
-              <div class="m-split__media" data-reveal><img src={u(s.image, 1300)} alt="" /></div>
-              <div class="m-split__text m-panel" data-reveal style="transition-delay:100ms">
-                {s.eyebrow && <span class="ns-eyebrow">{s.eyebrow}</span>}
-                <Heading value={s.title} level="h2" size="xl" class="m-h2" />
-                <PortableText blocks={s.text} class="ns-prose m-rt" />
-              </div>
-            </>
-          )}
-        </div>
-      </section>
-    )
-    // ===== HISTORY (full-bleed background) =====
-    if (s._type === 'historySection') return (
-      <section class="m-history">
-        <img class="m-history__bg" src={u(s.backgroundImage, 2560)} alt="" />
-        <div class="m-history__veil"></div>
-        <div class="ns-container m-history__inner" data-reveal>
-          {s.eyebrow && <span class="ns-eyebrow" style="color:var(--ns-immune-green)">{s.eyebrow}</span>}
-          <Heading value={s.title} level="h2" size="2xl" class="m-history__title" />
-          <PortableText blocks={s.text} class="ns-prose m-rt m-rt--light m-history__lede" />
-          {s.milestones?.length && (
-            <ol class="m-timeline">
-              {s.milestones.map((m, i) => (
-                <li class="m-mile" data-reveal style={`transition-delay:${i * 90}ms`}>
-                  <span class="m-mile__year">{m.year}</span><span class="m-mile__text">{m.text}</span>
-                </li>
-              ))}
-            </ol>
-          )}
-        </div>
-      </section>
-    )
-    // ===== VIDEO (full page width) =====
-    if (s._type === 'videoSection') {
-      const id = youtubeId(s.url)
-      return id ? <VideoSection youtubeId={id} posterUrl={posterUrl(s.poster)} title={s.videoTitle} /> : null
-    }
-    // ===== PRODUCTION (steps panel) =====
-    if (s._type === 'stepsPanel') return (
-      <section class="m-section m-section--tint">
-        <div class="ns-container m-split m-split--rev">
-          <div class="m-split__text m-panel" data-reveal>
-            {s.eyebrow && <span class="ns-eyebrow">{s.eyebrow}</span>}
-            <Heading value={s.title} level="h2" size="xl" class="m-h2" />
-            <PortableText blocks={s.text} class="ns-prose m-rt" />
-          </div>
-          <div class="m-split__media" data-reveal style="transition-delay:100ms"><img src={u(s.image, 1300)} alt="" /></div>
-        </div>
-        {s.steps?.length && (
-          <ol class="ns-container m-steps">
-            {s.steps.map((st, i) => (
-              <li class="m-step" data-reveal style={`transition-delay:${i * 80}ms`}>
-                <span class="m-step__badge">{st.number}</span>
-                <span class="m-step__t">{st.title}</span>
-                <span class="m-step__d">{st.detail}</span>
-              </li>
-            ))}
-          </ol>
-        )}
-      </section>
-    )
-    // ===== PRODUCTS =====
-    if (s._type === 'productGrid') {
-      const cards = s.cards ?? []
-      return (
-        <section class="m-section">
-          <div class="ns-container">
-            <header class="m-head m-head--row" data-reveal>
-              <div>{s.eyebrow && <span class="ns-eyebrow">{s.eyebrow}</span>}<Heading value={s.title} level="h2" size="xl" class="m-h2" /></div>
-              {s.ctaHref && <a class="ns-btn ns-btn--ghost" href={s.ctaHref}>{s.ctaLabel}</a>}
-            </header>
-            <div class="ns-grid ns-grid--4">
-              {cards.map((c, i) => (
-                <a class="m-prod" href={c.href || '#'} data-reveal style={`transition-delay:${i * 80}ms`}>
-                  <div class="m-prod__media">{cardImg(c) && <img src={cardImg(c)} alt={c.name} />}</div>
-                  <div class="m-prod__body"><h3 class="m-prod__name">{c.name}</h3></div>
-                </a>
-              ))}
-            </div>
-          </div>
-        </section>
-      )
-    }
-    // ===== CTA =====
-    if (s._type === 'ctaBand') return (
-      <section class="m-cta">
-        <div class="ns-container m-cta__inner" data-reveal>
-          <Heading value={s.title} level="h2" size="lg" class="m-cta__title" />
-          {s.buttonHref && <a class="ns-btn ns-btn--primary" href={s.buttonHref}>{s.buttonLabel}</a>}
-        </div>
-      </section>
-    )
-    // ===== PRODUCT FAMILIES (auto: categories grid + a product rail per family) =====
-    if (s._type === 'categoryShowcase') {
-      const rails = [
-        ...(s.showNew !== false && newProducts.length ? [{ key: 'new', title: 'מוצרים חדשים', color: 'var(--ns-field-green)', href: undefined, items: newProducts }] : []),
-        ...(s.showCarousels !== false ? categories.map((c) => ({ key: c.slug, title: c.title, color: c.color, href: `/category/${c.slug}`, items: byCategory(c.slug) })) : []),
-      ].filter((r) => r.items.length)
-      return (
-        <section id="families" class="m-section m-fam">
-          <div class="ns-container">
-            <header class="m-head m-head--center" data-reveal>
-              {s.eyebrow && <span class="ns-eyebrow">{s.eyebrow}</span>}
-              <Heading value={s.title} level="h2" size="xl" class="m-h2" />
-            </header>
-            <ul class="m-fam__grid">
-              {categories.map((c, i) => (
-                <li data-reveal style={`transition-delay:${i * 60}ms`}>
-                  <a class="m-fam__tile" href={`/category/${c.slug}`} style={`--fam:${c.color}`}>
-                    <span class="m-fam__ic">{c.icon?.asset && <img src={urlFor(c.icon).width(120).url()} alt="" width="56" height="56" />}</span>
-                    <span class="m-fam__t">{c.title}</span>
-                    <span class="m-fam__n">{byCategory(c.slug).length} מוצרים</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-            {rails.map((r) => (
-              <div class="m-rail" style={`--fam:${r.color}`} id={`rail-${r.key}`}>
-                <div class="m-rail__head">
-                  <h3 class="m-rail__t">{r.title}</h3>
-                  {r.href && <a class="m-rail__all" href={r.href}>לכל המוצרים ←</a>}
-                </div>
-                <div class="m-rail__track" data-rail tabindex="0" aria-label={r.title}>
-                  {r.items.map((p) => (
-                    <a class="m-card" href={`/products/${p.slug}`}>
-                      <span class="m-card__media">{cardImg(p) && <img src={cardImg(p)} alt="" loading="lazy" />}</span>
-                      {p.isNew && r.key !== 'new' && <span class="m-card__new">חדש</span>}
-                      <span class="m-card__name">{p.name}</span>
-                      {p.tagline && <span class="m-card__tag">{p.tagline}</span>}
-                    </a>
-                  ))}
-                </div>
-                <button class="m-rail__btn m-rail__btn--prev" type="button" data-rail-prev aria-label="הקודם">›</button>
-                <button class="m-rail__btn m-rail__btn--next" type="button" data-rail-next aria-label="הבא">‹</button>
-              </div>
-            ))}
-          </div>
-        </section>
-      )
-    }
-    // ===== FREE TEXT =====
-    if (s._type === 'richTextSection') return (
-      <section class="m-section">
-        <div class="ns-container"><PortableText blocks={s.content} class="ns-prose m-rt" /></div>
-      </section>
-    )
-    return null
-  })}
 
-  <script>
-    // Product rails: arrow buttons scroll one viewport of cards (RTL-aware).
-    document.querySelectorAll<HTMLElement>('.m-rail').forEach((rail) => {
-      const track = rail.querySelector<HTMLElement>('[data-rail]')!
-      const step = () => Math.max(track.clientWidth * 0.85, 240)
-      rail.querySelector('[data-rail-next]')?.addEventListener('click', () => track.scrollBy({ left: -step(), behavior: 'smooth' }))
-      rail.querySelector('[data-rail-prev]')?.addEventListener('click', () => track.scrollBy({ left: step(), behavior: 'smooth' }))
-    })
-  </script>
+<section aria-label={t('banner')} style="background: #ffffff; position: relative">
+<div style="position: relative; text-align: center; padding: clamp(28px, 3.2vw, 48px) 16px clamp(34px, 4.2vw, 64px)">
+<h1 class="c5-sr">Category 5 | Ethical Supplements</h1>
+<p class="c5-hero-title" style={bannerTitle}>תוספי תזונה <strong style="font-weight: 700">שעובדים</strong></p>
+<span aria-hidden="true" style={bannerLine}></span>
+</div>
+<img src="/assets/banners/home-banner-1-bottles.jpg" alt="" width="2600" height="1111" fetchpriority="high" style="display: block; width: 100%; height: auto">
+</section>
 
-  <style>
-    .m-story__solo { max-width: 72ch; margin-inline: auto; text-align: center; }
-    .m-fam__grid { list-style: none; padding: 0; margin: 0 0 var(--ns-space-9); display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
-    .m-fam__tile { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 22px 12px 18px; border-radius: var(--ns-radius-lg); background: #fff; border: 1px solid var(--ns-border); border-block-end: 4px solid var(--fam); text-decoration: none; color: var(--ns-fg); text-align: center; height: 100%; transition: transform var(--ns-dur-base) var(--ns-ease-out), box-shadow var(--ns-dur-base) var(--ns-ease-out); }
-    .m-fam__tile:hover { transform: translateY(-4px); box-shadow: var(--ns-shadow-md); }
-    .m-fam__ic { width: 64px; height: 64px; display: grid; place-items: center; border-radius: 50%; background: color-mix(in srgb, var(--fam) 12%, #fff); }
-    .m-fam__ic img { width: 44px; height: 44px; object-fit: contain; }
-    .m-fam__t { font-family: var(--ns-font-display); font-weight: 700; font-size: 17px; line-height: 1.25; }
-    .m-fam__n { font-size: 13px; color: var(--ns-fg-muted); }
-    .m-rail { position: relative; margin-block-end: var(--ns-space-8); }
-    .m-rail__head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; border-block-end: 2px solid var(--fam); padding-block-end: 8px; margin-block-end: 16px; }
-    .m-rail__t { margin: 0; font-family: var(--ns-font-display); font-size: clamp(20px, 2vw, 26px); font-weight: 700; color: var(--fam); }
-    .m-rail__all { font-weight: 600; font-size: 15px; color: var(--ns-fg); text-decoration: none; }
-    .m-rail__all:hover { color: var(--fam); }
-    .m-rail__track { display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 3 * 16px) / 4); gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-block: 4px 10px; }
-    .m-rail__track::-webkit-scrollbar { display: none; }
-    .m-card { position: relative; scroll-snap-align: start; display: flex; flex-direction: column; gap: 6px; padding: 14px 14px 18px; border-radius: var(--ns-radius-lg); background: #fff; border: 1px solid var(--ns-border); text-decoration: none; color: var(--ns-fg); transition: transform var(--ns-dur-base) var(--ns-ease-out), box-shadow var(--ns-dur-base) var(--ns-ease-out); }
-    .m-card:hover { transform: translateY(-4px); box-shadow: var(--ns-shadow-md); }
-    .m-card__media { aspect-ratio: 1; display: grid; place-items: center; border-radius: var(--ns-radius-md); background: color-mix(in srgb, var(--fam) 7%, #fff); overflow: hidden; margin-block-end: 6px; }
-    .m-card__media img { width: 86%; height: 86%; object-fit: contain; }
-    .m-card__new { position: absolute; inset-block-start: 22px; inset-inline-start: 22px; background: var(--fam); color: #fff; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 999px; }
-    .m-card__name { font-weight: 700; font-size: 16.5px; line-height: 1.3; }
-    .m-card__tag { font-size: 14px; color: var(--ns-fg-muted); line-height: 1.45; }
-    .m-rail__btn { position: absolute; inset-block-start: 45%; width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--ns-border); background: #fff; box-shadow: var(--ns-shadow-sm); font-size: 26px; line-height: 1; cursor: pointer; color: var(--ns-fg); }
-    .m-rail__btn--prev { inset-inline-start: -18px; }
-    .m-rail__btn--next { inset-inline-end: -18px; }
-    @media (max-width: 1024px) { .m-fam__grid { grid-template-columns: repeat(3, 1fr); } .m-rail__track { grid-auto-columns: calc((100% - 2 * 16px) / 3); } }
-    @media (max-width: 640px) { .m-fam__grid { grid-template-columns: repeat(2, 1fr); gap: 10px; } .m-rail__track { grid-auto-columns: 62%; } .m-rail__btn { display: none; } }
-    :root { --m-terra: color-mix(in srgb, var(--ns-pure-orange) 26%, var(--ns-sun-beige)); --m-terra-soft: color-mix(in srgb, var(--ns-pure-orange) 11%, var(--ns-sun-beige)); }
-    .m-section { padding-block: var(--ns-space-10); }
-    .m-section--soft { background: var(--ns-bg-alt); }
-    .m-section--tint { background: radial-gradient(130% 90% at 50% 0%, var(--m-terra-soft), var(--ns-sun-beige) 72%); }
-    .m-head .ns-eyebrow { margin-block-end: 14px; }
-    .m-h2 { font-family: var(--ns-font-display); font-weight: 500; font-size: clamp(30px,3.2vw,46px); line-height: 1.18; letter-spacing: -0.01em; margin: 8px 0 16px; color: var(--ns-field-green); }
-    .m-muted { color: var(--ns-fg); opacity: .82; font-size: var(--ns-text-md); line-height: 1.8; max-width: 54ch; margin: 0; }
-    .m-head { max-width: 60ch; margin-block-end: var(--ns-space-8); }
-    /* Grid cells stretch so every card in a row is equal height. */
-    .m-cell { display: flex; }
-    .m-cell > * { width: 100%; }
-    .m-head--row { display: flex; align-items: flex-end; justify-content: space-between; max-width: none; gap: 24px; }
+<section id="about" style="max-width: 1280px; margin: 0 auto; padding: clamp(48px, 6vw, 96px) clamp(16px, 4vw, 48px); box-sizing: border-box">
+<div style="max-width: 820px; display: flex; flex-direction: column; gap: 16px; text-align: right">
+<p style="margin: 0; font-weight: 700" dir="ltr"><span style="display: inline-block; direction: ltr">Category 5 | Ethical Supplements</span></p>
+<p style="margin: 0">קטגוריה 5 היא חברת תוספי תזונה ישראלית המשלבת ידע וניסיון מקצועי רב־שנים, יכולות מחקר ופיתוח מתקדמות ונגישות לחומרי גלם ייחודיים ולטכנולוגיות חדשניות.</p>
+<p style="margin: 0">החברה מתמחה בפיתוח פורמולות מורכבות וסדרות מוצרים מקצועיות, תוך התבססות על ידע מדעי ועל מנגנוני פעולה פיזיולוגיים מוכרים בגוף. הפורמולות משלבות רכיבים פעילים שנבחרו בקפידה, מתוך חשיבה מקצועית על הרכבם ועל אופן שילובם.</p>
+<p style="margin: 0">בלב העשייה עומדת תפיסת <strong>Ethical Supplements</strong> - מחויבות למקצועיות, לאיכות, לשקיפות, להגינות ולחדשנות בכל שלבי הפיתוח והייצור.</p>
+</div>
+</section>
 
-    /* airy accents + brochure "pill" line-art (from the 2026 brand book cover) */
-    .hero-wrap { position: relative; overflow: hidden; }
-    .deco { position: absolute; pointer-events: none; z-index: 1; opacity: .5; }
-    .deco--a { width: 220px; height: 220px; border-radius: 999px; background: var(--ns-immune-green); filter: blur(10px); opacity: .3; inset-block-start: -60px; inset-inline-start: -40px; animation: floaty 9s var(--ns-ease-out) infinite alternate; }
-    .deco--leaf { width: 64px; inset-block-start: 64px; inset-inline-end: 7%; opacity: .45; animation: floaty 7s var(--ns-ease-out) infinite alternate; }
-    /* thin outlined capsule shapes echoing the brochure cover */
-    .pill-deco { position: absolute; z-index: 1; border: 1.5px solid var(--ns-field-green); border-radius: 999px; opacity: .13; pointer-events: none; }
-    .pill-deco--1 { width: 340px; height: 138px; inset-block-start: -40px; inset-inline-end: 6%; transform: rotate(-8deg); }
-    .pill-deco--2 { width: 250px; height: 104px; inset-block-end: 56px; inset-inline-start: -64px; transform: rotate(7deg); }
-    .pill-deco--3 { width: 170px; height: 74px; inset-block-start: 44%; inset-inline-start: 11%; opacity: .09; }
-    .hero-kicker { position: absolute; z-index: 1; inset-block-end: 16px; inset-inline: 0; text-align: center; margin: 0; font-family: var(--ns-font-latin); font-size: 13px; letter-spacing: .08em; color: var(--ns-light-gray); opacity: .85; }
-    @keyframes floaty { from { transform: translateY(0) } to { transform: translateY(22px) } }
-    @media (prefers-reduced-motion: reduce) { .deco, .pill-deco { animation: none !important; } }
-    @media (max-width: 700px) { .deco--leaf, .pill-deco--3, .hero-kicker { display: none; } }
+<section id="series" style="background: #f7f7f5">
+<div style="max-width: 1280px; margin: 0 auto; padding: clamp(48px, 6vw, 96px) clamp(16px, 4vw, 48px); box-sizing: border-box">
+<h2 style="margin: 0 0 40px">הסדרות</h2>
+<div class="series-grid">
+{SERIES.map((s) => <SeriesTile series={s} />)}
+</div>
+</div>
+</section>
 
-    /* BRAND BADGES (immune-green band, brand-book icons) */
-    .m-badges { background: var(--ns-immune-green); padding-block: var(--ns-space-8); }
-    .m-badges__row { display: grid; grid-template-columns: repeat(3,1fr); gap: var(--ns-space-5); }
-    /* each differentiator sits in a cream card so it reads cleanly on the green band */
-    .m-badge { display: flex; align-items: center; gap: 16px; justify-content: flex-start; background: color-mix(in srgb, var(--ns-sun-beige) 90%, transparent); border: 1px solid color-mix(in srgb, var(--ns-field-green) 12%, transparent); border-radius: var(--ns-radius-lg); padding: 22px 24px; box-shadow: var(--ns-shadow-sm); transition: transform var(--ns-dur-base) var(--ns-ease-smooth), box-shadow var(--ns-dur-base) var(--ns-ease-smooth); }
-    .m-badge:hover { transform: translateY(-3px); box-shadow: var(--ns-shadow-md); }
-    .m-badge img { width: 50px; height: 50px; flex: none; }
-    .m-badge span { font-family: var(--ns-font-display); font-weight: 500; font-size: var(--ns-text-md); color: var(--ns-field-green); line-height: 1.3; }
-    @media (max-width: 800px) { .m-badges__row { grid-template-columns: 1fr; gap: 14px; } }
+<section aria-label={t('banner')} style="background: #ffffff; position: relative">
+<div style="position: relative; text-align: center; padding: clamp(28px, 3.2vw, 48px) 16px clamp(34px, 4.2vw, 64px)">
+<p class="c5-hero-title" style={bannerTitle}><strong style="font-weight: 700">פורצי גבולות</strong> בעולם תוספי התזונה</p>
+<span aria-hidden="true" style={bannerLine}></span>
+</div>
+<img src="/assets/banners/home-banner-2-lineup.jpg" alt="" width="2600" height="1110" loading="lazy" style="display: block; width: 100%; height: auto">
+</section>
 
-    /* STATS */
-    .m-stats { background: var(--ns-sun-beige); }
-    .m-stats__row { display: grid; grid-template-columns: repeat(4,1fr); border-block: 1px solid var(--ns-border); }
-    .m-stat { text-align: center; padding-block: 44px; border-inline-start: 1px solid var(--ns-border); transition: background var(--ns-dur-base) var(--ns-ease-out); }
-    .m-stat:first-child { border-inline-start: none; }
-    .m-stat:hover { background: color-mix(in srgb, var(--ns-pure-orange) 6%, transparent); }
-    .m-stat__value { font-family: var(--ns-font-display); font-weight: 900; font-size: 46px; line-height: 1; color: var(--ns-field-green); transition: color var(--ns-dur-base) var(--ns-ease-out); }
-    .m-stat:hover .m-stat__value { color: var(--ns-pure-orange); }
-    .m-stat__label { font-size: 13px; color: var(--ns-light-gray); margin-block-start: 10px; }
-    @media (max-width: 700px) {
-      .m-stats__row { grid-template-columns: repeat(2,1fr); }
-      .m-stat { border-inline-start: none; padding-block: 34px; }
-      .m-stat:nth-child(even) { border-inline-start: 1px solid var(--ns-border); }  /* center vertical line */
-      .m-stat:nth-child(n+3) { border-block-start: 1px solid var(--ns-border); }    /* divider between the two rows */
-    }
+<section id="articles" style="max-width: 1280px; margin: 0 auto; padding: clamp(48px, 6vw, 96px) clamp(16px, 4vw, 48px); box-sizing: border-box">
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 32px">
+<h2 style="margin: 0">בואו נדבר בריאות</h2>
+<a href="/articles" class="c5-soft" style="display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 22px; border: 1px solid #141414; color: #141414; text-decoration: none; border-radius: 4px">לכל המאמרים</a>
+</div>
+<div class="articles-grid">
+{articles.map((a) => (
+<article style="display: flex; flex-direction: column; gap: 12px">
+<div style="aspect-ratio: 4 / 3; background: #e9e9e7; display: flex; align-items: center; justify-content: center">{t('img')}</div>
+<h3 style="margin: 0">{a.title}</h3>
+<p style="margin: 0">{a.excerpt} <a href={a.href} style="color: #141414">קרא עוד</a></p>
+</article>
+))}
+</div>
+</section>
 
-    /* SPLIT */
-    .m-split { display: grid; grid-template-columns: 1fr 1fr; gap: var(--ns-space-8); align-items: center; }
-    /* brochure "pill panel" — beige card with one stadium-rounded short edge */
-    /* unified text box (see .ns-textbox in components.css): white card, hairline
-       border, soft shadow, orange accent rule — same as the product story cards */
-    .m-panel { background: var(--ns-bg-alt); border: 1px solid var(--ns-border); padding: clamp(28px,3.2vw,52px); border-radius: var(--ns-radius-lg); box-shadow: var(--ns-shadow-md); }
-    .m-split__media { border-radius: var(--ns-radius-xl); overflow: hidden; box-shadow: var(--ns-shadow-lg); }
-    .m-split__media img { width: 100%; display: block; transition: transform var(--ns-dur-slow) var(--ns-ease-out); }
-    .m-split__media:hover img { transform: scale(1.045); }
-    @media (max-width: 900px) { .m-split { grid-template-columns: 1fr; } .m-split__media { order: -1; } }
+<section aria-label={t('nav.stores')} class="c5-stores">
+<div style="max-width: 1280px; margin: 0 auto; padding: clamp(64px, 9vw, 140px) clamp(16px, 4vw, 48px); box-sizing: border-box; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 14px">
+<h2 style="margin: 0; font-weight: 400 !important; font-size: 28px !important"><strong style="font-weight: 700">Category 5</strong> - מחפשים אותנו?</h2>
+<p style="margin: 0; max-width: 520px">מצאו את החנויות הקרובות אליכם</p>
+<a href="/stores" style="display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 22px; border: 1px solid #141414; color: #141414; text-decoration: none; border-radius: 4px; margin-top: 10px">לחנויות</a>
+</div>
+</section>
 
-    /* OUR STORY — editorial two-part feature. Text & image sit side by side with
-       a page-standard gap; the image stretches to the text height so the two stay
-       proportional. Sides alternate: row 1 text-right/image-left, row 2 swapped. */
-    .m-head--center { margin-inline: auto; text-align: center; max-width: 70ch; margin-block-end: var(--ns-space-8); }
-    .m-head--center :global(.m-h2) { line-height: 1.34; }
-    .m-story__row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--ns-space-8); align-items: stretch; }
-    .m-story__row + .m-story__row { margin-block-start: clamp(64px,9vw,132px); }
-    /* choreographed scroll reveal: directional slides + a downward tip, staggered to
-       flow left image → right text, then down to left text (rotates in) → right image. */
-    .m-story__row { perspective: 1200px; }
-    .m-story [data-reveal] { transition: opacity .85s var(--ns-ease-out), transform .85s var(--ns-ease-out); }
-    .m-story [data-reveal].anim-l:not(.is-visible) { opacity: 0; transform: translateX(-54px) rotate(-2.5deg); }
-    .m-story [data-reveal].anim-r:not(.is-visible) { opacity: 0; transform: translateX(54px) rotate(2.5deg); }
-    .m-story [data-reveal].anim-tip { transform-origin: center top; }
-    .m-story [data-reveal].anim-tip:not(.is-visible) { opacity: 0; transform: translateX(-40px) translateY(26px) rotateX(16deg); }
-    .m-story__media { border-radius: var(--ns-radius-xl); overflow: hidden; box-shadow: var(--ns-shadow-lg); min-height: 320px; }
-    .m-story__media img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform var(--ns-dur-slow) var(--ns-ease-out); }
-    .m-story__media:hover img { transform: scale(1.045); }
-    /* story text in a cream card in the same design line as the page panels, with
-       the stadium-rounded edge hugging toward the image (explicit corners per row). */
-    .m-story__text { align-self: center; background: var(--ns-bg-alt); border: 1px solid var(--ns-border); padding: clamp(28px,3.2vw,52px); border-radius: var(--ns-radius-lg); box-shadow: var(--ns-shadow-md); }
-    /* default row: text on the left, image on the right → stadium on the right edge */
-    /* text-first row: text on the right, image on the left → stadium on the left edge */
-    /* lead-in paragraph gets a touch more presence (prose is in a child component → :global) */
-    .m-story__text--lead :global(.ns-prose > p:first-child) { font-size: 1.12em; line-height: 1.75; color: var(--ns-field-green); }
-    @media (max-width: 900px) {
-      .m-story__row, .m-story__row--text-first { grid-template-columns: 1fr; gap: var(--ns-space-6); }
-      .m-story__media { order: -1; min-height: 220px; }
-      /* stacked: full-width card, simple even corners */
-      .m-story__row .m-story__text, .m-story__row--text-first .m-story__text { border-radius: var(--ns-radius-lg); }
-    }
+<section id="contact" style="max-width: 1280px; margin: 0 auto; padding: clamp(48px, 6vw, 96px) clamp(16px, 4vw, 48px); box-sizing: border-box; display: flex; flex-wrap: wrap; gap: clamp(32px, 5vw, 80px)">
+<div style="flex: 1 1 320px; display: flex; flex-direction: column; gap: 14px">
+<h2 style="margin: 0; font-weight: 400 !important">יש לכם שאלה? <strong style="font-weight: 700">אנחנו כאן.</strong></h2>
+<p style="margin: 0">השאירו פרטים ונחזור אליכם</p>
+<p style="margin: 6px 0 0; display: flex; align-items: center; gap: 10px">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3.5 20.5l1.3-4.2A8.5 8.5 0 1 1 8 19.4z"></path><path d="M9 8.5c.3 2.6 2.4 5 5 5.6l1.3-1.3 2 1-.4 1.7c-4.2.3-8.3-3.6-8.4-7.8l1.7-.5 1 2z"></path></svg>
+<a href={`https://wa.me/${CONTACT.whatsappIntl}`} target="_blank" rel="noopener" aria-label={`WhatsApp ${CONTACT.whatsapp}`} dir="ltr" style="color: #141414">{CONTACT.whatsapp}</a><span>הודעות בלבד</span></p>
+<p style="margin: 0; display: flex; align-items: center; gap: 10px">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1.5"></rect><path d="M3 7l9 6 9-6"></path></svg>
+<a href={`mailto:${CONTACT.email}`} dir="ltr" style="color: #141414">{CONTACT.email}</a></p>
+</div>
+<form data-c5-form="contact" style="flex: 1 1 380px; display: flex; flex-direction: column; gap: 22px">
+<label style={field}>שם
+<input name="name" type="text" autocomplete="name" required class="c5-line"></label>
+<label style={field}>טלפון
+<input name="phone" type="tel" autocomplete="tel" required dir="ltr" class="c5-line" style="text-align: right"></label>
+<label style={field}>אימייל
+<input name="email" type="email" autocomplete="email" required dir="ltr" class="c5-line" style="text-align: right"></label>
+<label style={field}>הודעה
+<textarea name="message" rows="3" required class="c5-line" style="resize: vertical"></textarea></label>
+<button type="submit" style="align-self: flex-start; min-height: 44px; padding: 0 22px; border: 1px solid #141414; border-radius: 4px; background: #ffffff; color: #141414; font: inherit; cursor: pointer">שליחה</button>
+<p data-c5-form-status role="status" aria-live="polite" style="margin: 0; font-size: 15px; min-height: 1em"></p>
+</form>
+</section>
 
-    /* HISTORY */
-    .m-history { position: relative; padding-block: var(--ns-space-10); overflow: hidden; color: var(--ns-fg-inverse); }
-    .m-history__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-    .m-history__veil { position: absolute; inset: 0; background: radial-gradient(120% 90% at 50% 20%, rgba(17,48,33,.32), rgba(10,31,21,.70)); }
-    .m-history__inner { position: relative; text-align: center; max-width: 860px; margin-inline: auto; }
-    .m-history__title { color: var(--ns-sun-beige); font-family: var(--ns-font-display); font-weight: 500; font-size: clamp(30px,3.4vw,48px); line-height: 1.15; margin-block: 10px 16px; }
-    .m-history__lede { color: rgba(252,244,234,.92); font-size: var(--ns-text-md); max-width: 60ch; margin: 0 auto 40px; }
-    .m-timeline { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; }
-    .m-mile { display: flex; flex-direction: column; gap: 6px; padding-block-start: 18px; border-block-start: 2px solid rgba(186,230,203,.5); }
-    .m-mile__year { font-family: var(--ns-font-display); font-weight: 900; font-size: 28px; color: var(--ns-sun-beige); }
-    .m-mile__text { font-size: 14px; color: rgba(252,244,234,.85); }
-    @media (max-width: 700px) { .m-timeline { grid-template-columns: repeat(2,1fr); } }
-
-    /* EXPERTS */
-    .m-expert { position: relative; overflow: hidden; background: color-mix(in srgb, var(--ns-clary-purple) 38%, var(--ns-sun-beige)); border: 1px solid color-mix(in srgb, var(--ns-clary-purple) 52%, var(--ns-sun-beige)); border-radius: var(--ns-radius-lg); padding: 44px; margin: 0; transition: transform var(--ns-dur-base) var(--ns-ease-smooth), box-shadow var(--ns-dur-base) var(--ns-ease-smooth); }
-    .m-expert::before { content: "\201D"; position: absolute; inset-block-start: 6px; inset-inline-end: 30px; font-family: var(--ns-font-display); font-weight: 900; font-size: 110px; line-height: 1; color: color-mix(in srgb, var(--ns-clary-purple) 70%, var(--ns-field-green)); opacity: .28; pointer-events: none; }
-    .m-expert:hover { transform: translateY(-3px); box-shadow: var(--ns-shadow-lg); }
-    .m-expert blockquote { position: relative; z-index: 1; font-family: var(--ns-font-display); font-weight: 500; font-size: 22px; line-height: 1.7; margin: 0 0 20px; color: var(--ns-field-green); }
-    .m-expert__name { font-weight: 700; }
-    .m-expert__role { color: rgba(17,48,33,.6); font-size: 14px; }
-    .m-expert__bio { position: relative; z-index: 1; margin: 20px 0 0; padding-block-start: 20px; border-block-start: 1px solid color-mix(in srgb, var(--ns-clary-purple) 62%, transparent); font-size: 15px; line-height: 1.75; color: rgba(17,48,33,.78); }
-    .m-bio { margin: 36px auto 0; max-width: 70ch; text-align: center; color: var(--ns-fg); opacity: .8; line-height: 1.8; }
-
-    /* PRODUCTION steps */
-    .m-steps { list-style: none; padding: 0; margin-block-start: 82px; display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; position: relative; }
-    /* connector line linking the numbered badges into one sequence (RTL: flows right → left) */
-    .m-steps::before { content: ""; position: absolute; inset-block-start: -1px; inset-inline: 12.5%; height: 0; border-block-start: 2.5px dashed color-mix(in srgb, var(--ns-pure-orange) 60%, transparent); z-index: 0; }
-    /* direction chevron sitting on the line, in the gap pointing toward the next stage */
-    .m-step:not(:last-child)::before { content: ""; position: absolute; inset-block-start: -1px; left: -15px; width: 9px; height: 9px; border: solid var(--ns-pure-orange); border-width: 0 2.5px 2.5px 0; transform: translateY(-50%) rotate(135deg); z-index: 1; }
-    .m-step { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px; padding: 48px 22px 28px; background: var(--ns-bg-alt); border: 1px solid var(--ns-border); border-radius: var(--ns-radius-lg); transition: transform var(--ns-dur-base) var(--ns-ease-smooth), box-shadow var(--ns-dur-base) var(--ns-ease-smooth); }
-    .m-step:hover { transform: translateY(-4px); box-shadow: var(--ns-shadow-md); }
-    .m-step__badge { position: absolute; inset-block-start: -30px; inset-inline: 0; margin-inline: auto; width: 60px; height: 60px; border-radius: 999px; background: var(--ns-pure-orange); color: var(--ns-sun-beige); display: grid; place-items: center; font-family: var(--ns-font-display); font-weight: 900; font-size: 23px; box-shadow: 0 8px 18px -6px rgba(232,114,0,.5); border: 4px solid var(--ns-bg); }
-    .m-step__t { font-family: var(--ns-font-display); font-weight: 700; font-size: 20px; color: var(--ns-field-green); }
-    .m-step__d { font-size: 14px; color: var(--ns-light-gray); line-height: 1.5; max-width: 24ch; }
-    @media (max-width: 700px) { .m-steps { grid-template-columns: repeat(2,1fr); margin-block-start: 64px; } .m-steps::before, .m-step:not(:last-child)::before { display: none; } }
-
-    /* PRODUCTS */
-    .m-prod { display: flex; flex-direction: column; background: var(--ns-bg-alt); border: 1px solid var(--ns-border); border-radius: var(--ns-radius-lg); overflow: hidden; color: inherit; transition: transform var(--ns-dur-base) var(--ns-ease-smooth), box-shadow var(--ns-dur-base) var(--ns-ease-smooth); }
-    .m-prod:hover { transform: translateY(-4px); box-shadow: var(--ns-shadow-lg); }
-    .m-prod__media { aspect-ratio: 3/4; background: #fff; display: grid; place-items: center; padding: 22px; overflow: hidden; }
-    /* Cap the height so a portrait product shot (e.g. FortiPure) can't tower
-       over the square ones and read as oversized; square images already sit
-       below this cap so they're unaffected. */
-    .m-prod__media img { width: 100%; height: 100%; max-height: 78%; object-fit: contain; object-position: center; transition: transform var(--ns-dur-base) var(--ns-ease-out); }
-    .m-prod:hover .m-prod__media img { transform: scale(1.04); }
-    .m-prod__body { padding: 20px 22px 26px; text-align: center; }
-    .m-prod__name { font-family: var(--ns-font-display); font-weight: 700; font-size: 19px; color: var(--ns-field-green); margin: 0; line-height: 1.3; }
-    /* smaller, less dominant product images on phones (kept proportional via object-fit) */
-    @media (max-width: 600px) { .m-prod__media { aspect-ratio: 1 / 1; padding: 16px; } }
-
-    /* CTA */
-    .m-cta { background: var(--m-terra); }
-    .m-cta__inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-block: var(--ns-space-9); flex-wrap: wrap; }
-    .m-cta__title { font-family: var(--ns-font-display); font-weight: 500; font-size: clamp(28px,3vw,44px); margin: 0; color: var(--ns-field-green); }
-  </style>
-
-  <script>
-    // Animated stat counters — count up when the stats scroll into view.
-    // Progressive enhancement: server-rendered final value stays if JS is off.
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    const parse = (t: string) => {
-      // Skip ratios / fractions like "1:4" or "1/4" — count-up doesn't make sense.
-      if (/[:\/]/.test(t)) return null
-      const m = String(t).match(/^(\D*)(\d+(?:\.\d+)?)(.*)$/s)
-      if (!m) return null
-      return { pre: m[1], num: parseFloat(m[2]), dec: (m[2].split('.')[1] || '').length, suf: m[3] }
-    }
-    const els = Array.from(document.querySelectorAll('.m-stat__value[data-count]'))
-    els.forEach((el) => {
-      const final = (el.textContent || '').trim()
-      el.setAttribute('data-final', final)
-      const p = parse(final)
-      if (p && !reduce) el.textContent = p.pre + (0).toFixed(p.dec) + p.suf
-    })
-    const run = (el: Element) => {
-      const final = el.getAttribute('data-final') || ''
-      const p = parse(final)
-      if (!p || reduce) { el.textContent = final; return }
-      const dur = 1400
-      const ease = (x: number) => 1 - Math.pow(1 - x, 3)
-      let t0 = 0
-      const tick = (now: number) => {
-        if (!t0) t0 = now
-        const k = Math.min(1, (now - t0) / dur)
-        el.textContent = p.pre + (p.num * ease(k)).toFixed(p.dec) + p.suf
-        if (k < 1) requestAnimationFrame(tick)
-        else el.textContent = final
-      }
-      requestAnimationFrame(tick)
-    }
-    if ('IntersectionObserver' in window && els.length) {
-      const io = new IntersectionObserver((ents) => {
-        ents.forEach((e) => { if (e.isIntersecting) { run(e.target); io.unobserve(e.target) } })
-      }, { threshold: 0.5 })
-      els.forEach((el) => io.observe(el))
-    } else {
-      els.forEach((el) => { el.textContent = el.getAttribute('data-final') || el.textContent })
-    }
-  </script>
-</Base>
+</Site>

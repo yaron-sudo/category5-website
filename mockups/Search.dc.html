@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>חיפוש – Category 5</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/category5/tokens.css">
+<link rel="stylesheet" href="site.css">
+<script src="site.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face{font-family:"C5 Sans";src:url(../assets/fonts/NotoSansHebrew-Regular.ttf);font-weight:400}
+@font-face{font-family:"C5 Sans";src:url(../assets/fonts/NotoSansHebrew-Bold.ttf);font-weight:700}
+body{margin:0}
+</style>
+</helmet>
+<div dir="rtl" style="font-family: 'C5 Sans', 'Noto Sans Hebrew', Arial, sans-serif; color: #141414; background: #ffffff; min-height: 100vh; font-size: 17px; line-height: 1.6">
+
+<div style="position: sticky; top: 0; z-index: 50">
+<dc-import name="Header" hint-size="100%,80px"></dc-import>
+</div>
+
+<main>
+<section style="max-width: 960px; margin: 0 auto; padding: clamp(40px, 6vw, 88px) clamp(16px, 4vw, 48px) 24px; box-sizing: content-box; display: flex; flex-direction: column; gap: 16px">
+<h1 style="margin: 0">חיפוש</h1>
+<form role="search" style="display: flex; gap: 8px">
+<label for="q" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">חיפוש באתר</label>
+<input id="q" type="search" placeholder="שם מוצר, תחום, רכיב או שימוש" style="flex: 1 1 auto; min-width: 0; min-height: 48px; border: 1px solid #141414; border-radius: 4px; padding: 0 14px; font: inherit">
+<button type="button" style="min-height: 48px; padding: 0 22px; border: 1px solid #141414; border-radius: 4px; background: #ffffff; color: #141414; font: inherit; cursor: pointer">חיפוש</button>
+</form>
+<div role="group" aria-label="סינון" style="display: flex; flex-wrap: wrap; gap: 8px">
+<button type="button" aria-pressed="true" style="min-height: 40px; padding: 0 16px; border: 1px solid #141414; border-radius: 4px; background: #141414; color: #ffffff; font: inherit; cursor: pointer">הכל</button>
+<button type="button" aria-pressed="false" style="min-height: 40px; padding: 0 16px; border: 1px solid #141414; border-radius: 4px; background: #ffffff; color: #141414; font: inherit; cursor: pointer">סדרות</button>
+<button type="button" aria-pressed="false" style="min-height: 40px; padding: 0 16px; border: 1px solid #141414; border-radius: 4px; background: #ffffff; color: #141414; font: inherit; cursor: pointer">מה הצורך</button>
+<button type="button" aria-pressed="false" style="min-height: 40px; padding: 0 16px; border: 1px solid #141414; border-radius: 4px; background: #ffffff; color: #141414; font: inherit; cursor: pointer">מוצרים</button>
+</div>
+</section>
+
+<section style="max-width: 1280px; margin: 0 auto; padding: 24px clamp(16px, 4vw, 48px) clamp(56px, 7vw, 112px); box-sizing: border-box">
+<h2 style="margin: 0 0 16px">תוצאות</h2>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 24px">
+<dc-import name="ProductCard" title="שם מוצר" image="" series="vit" hint-size="100%,400px"></dc-import>
+<dc-import name="ProductCard" title="שם מוצר" image="" series="plants" hint-size="100%,400px"></dc-import>
+<dc-import name="ProductCard" title="שם מוצר" image="" series="probio" hint-size="100%,400px"></dc-import>
+<dc-import name="ProductCard" title="שם מוצר" image="" series="pro" hint-size="100%,400px"></dc-import>
+</div>
+</section>
+</main>
+
+<dc-import name="Footer" hint-size="100%,520px"></dc-import>
+<dc-import name="Floating" hint-size="0px,0px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1700}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

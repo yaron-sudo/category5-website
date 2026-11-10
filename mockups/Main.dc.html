@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>Category 5 – עמוד הבית</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/category5/tokens.css">
+<link rel="stylesheet" href="site.css">
+<script src="site.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face{font-family:"C5 Sans";src:url(../assets/fonts/NotoSansHebrew-Regular.ttf);font-weight:400}
+@font-face{font-family:"C5 Sans";src:url(../assets/fonts/NotoSansHebrew-Bold.ttf);font-weight:700}
+body{margin:0}
+.series-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;align-items:stretch}
+@media (max-width:1000px){.series-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.series-grid{grid-template-columns:minmax(0,1fr)}}
+.articles-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px}
+@media (max-width:1000px){.articles-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.articles-grid{grid-template-columns:minmax(0,1fr)}}
+.c5-line{border:0;border-bottom:1px solid #141414;border-radius:0;background:transparent;padding:10px 0;font:inherit;width:100%;box-sizing:border-box;outline:0;transition:border-color .5s cubic-bezier(.22,.61,.36,1)}
+.c5-line:focus{border-bottom-width:1.5px}
+.c5-stores{background:#efeee2 url(../assets/backgrounds/stores-banner-bg.jpg) center / cover no-repeat}
+</style>
+</helmet>
+<div dir="rtl" style="font-family: 'C5 Sans', 'Noto Sans Hebrew', Arial, sans-serif; color: #141414; background: #ffffff; min-height: 100vh; font-size: 17px; line-height: 1.6">
+
+<div style="position: sticky; top: 0; z-index: 50">
+<dc-import name="Header" hint-size="100%,80px"></dc-import>
+</div>
+
+<main>
+
+<section aria-label="באנר" style="background: #ffffff; position: relative">
+<div style="position: relative; text-align: center; padding: clamp(28px, 3.2vw, 48px) 16px clamp(34px, 4.2vw, 64px)">
+<p class="c5-hero-title" style="margin: 0; font-size: clamp(22px, 2.3vw, 36px); line-height: 1.2; font-weight: 400; letter-spacing: 0">תוספי תזונה <strong style="font-weight: 700">שעובדים</strong></p>
+<span aria-hidden="true" style="position: absolute; left: 50%; top: calc(clamp(28px, 3.2vw, 48px) + 1.2em + clamp(14px, 1.6vw, 24px)); width: 1px; height: clamp(70px, 9vw, 140px); background: #141414; z-index: 2; font-size: clamp(22px, 2.3vw, 36px)"></span>
+</div>
+<img src="../assets/banners/home-banner-1-bottles.jpg" alt="" style="display: block; width: 100%; height: auto">
+</section>
+
+<section id="about" style="max-width: 1280px; margin: 0 auto; padding: clamp(48px, 6vw, 96px) clamp(16px, 4vw, 48px); box-sizing: border-box">
+<div style="max-width: 820px; display: flex; flex-direction: column; gap: 16px; text-align: right">
+<p style="margin: 0; font-weight: 700" dir="ltr"><span style="display: inline-block; direction: ltr">Category 5 | Ethical Supplements</span></p>
+<p style="margin: 0">קטגוריה 5 היא חברת תוספי תזונה ישראלית המשלבת ידע וניסיון מקצועי רב־שנים, יכולות מחקר ופיתוח מתקדמות ונגישות לחומרי גלם ייחודיים ולטכנולוגיות חדשניות.</p>
+<p style="margin: 0">החברה מתמחה בפיתוח פורמולות מורכבות וסדרות מוצרים מקצועיות, תוך התבססות על ידע מדעי ועל מנגנוני פעולה פיזיולוגיים מוכרים בגוף. הפורמולות משלבות רכיבים פעילים שנבחרו בקפידה, מתוך חשיבה מקצועית על הרכבם ועל אופן שילובם.</p>
+<p style="margin: 0">בלב העשייה עומדת תפיסת <strong>Ethical Supplements</strong> - מחויבות למקצועיות, לאיכות, לשקיפות, להגינות ולחדשנות בכל שלבי הפיתוח והייצור.</p>
+</div>
+</section>
+
+<section id="series" style="background: #f7f7f5">
+<div style="max-width: 1280px; margin: 0 auto; padding: clamp(48px, 6vw, 96px) clamp(16px, 4vw, 48px); box-sizing: border-box">
+<h2 style="margin: 0 0 40px">הסדרות</h2>
+<div class="series-grid">
+<dc-import name="SeriesTile" series="vit" hint-size="100%,220px"></dc-import>
+<dc-import name="SeriesTile" series="plants" hint-size="100%,220px"></dc-import>
+<dc-import name="SeriesTile" series="probio" hint-size="100%,220px"></dc-import>
+<dc-import name="SeriesTile" series="pro" hint-size="100%,220px"></dc-import>
+</div>
+</div>
+</section>
+
+<section aria-label="באנר" style="background: #ffffff; position: relative">
+<div style="position: relative; text-align: center; padding: clamp(28px, 3.2vw, 48px) 16px clamp(34px, 4.2vw, 64px)">
+<p class="c5-hero-title" style="margin: 0; font-size: clamp(22px, 2.3vw, 36px); line-height: 1.2; font-weight: 400; letter-spacing: 0"><strong style="font-weight: 700">פורצי גבולות</strong> בעולם תוספי התזונה</p>
+<span aria-hidden="true" style="position: absolute; left: 50%; top: calc(clamp(28px, 3.2vw, 48px) + 1.2em + clamp(14px, 1.6vw, 24px)); width: 1px; height: clamp(70px, 9vw, 140px); background: #141414; z-index: 2; font-size: clamp(22px, 2.3vw, 36px)"></span>
+</div>
+<img src="../assets/banners/home-banner-2-lineup.jpg" alt="" style="display: block; width: 100%; height: auto">
+</section>
+
+<section id="articles" style="max-width: 1280px; margin: 0 auto; padding: clamp(48px, 6vw, 96px) clamp(16px, 4vw, 48px); box-sizing: border-box">
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 32px">
+<h2 style="margin: 0">בואו נדבר בריאות</h2>
+<a href="Articles.dc.html" class="c5-soft" style="display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 22px; border: 1px solid #141414; color: #141414; text-decoration: none; border-radius: 4px">לכל המאמרים</a>
+</div>
+<div class="articles-grid">
+<article style="display: flex; flex-direction: column; gap: 12px">
+<div style="aspect-ratio: 4 / 3; background: #e9e9e7; display: flex; align-items: center; justify-content: center">אימג׳</div>
+<h3 style="margin: 0">כותרת הנושא</h3>
+<p style="margin: 0">תקציר טקסט… <a href="Article.dc.html" style="color: #141414">קרא עוד</a></p>
+</article>
+<article style="display: flex; flex-direction: column; gap: 12px">
+<div style="aspect-ratio: 4 / 3; background: #e9e9e7; display: flex; align-items: center; justify-content: center">אימג׳</div>
+<h3 style="margin: 0">כותרת הנושא</h3>
+<p style="margin: 0">תקציר טקסט… <a href="Article.dc.html" style="color: #141414">קרא עוד</a></p>
+</article>
+<article style="display: flex; flex-direction: column; gap: 12px">
+<div style="aspect-ratio: 4 / 3; background: #e9e9e7; display: flex; align-items: center; justify-content: center">אימג׳</div>
+<h3 style="margin: 0">כותרת הנושא</h3>
+<p style="margin: 0">תקציר טקסט… <a href="Article.dc.html" style="color: #141414">קרא עוד</a></p>
+</article>
+<article style="display: flex; flex-direction: column; gap: 12px">
+<div style="aspect-ratio: 4 / 3; background: #e9e9e7; display: flex; align-items: center; justify-content: center">אימג׳</div>
+<h3 style="margin: 0">כותרת הנושא</h3>
+<p style="margin: 0">תקציר טקסט… <a href="Article.dc.html" style="color: #141414">קרא עוד</a></p>
+</article>
+</div>
+</section>
+
+<section aria-label="חנויות" class="c5-stores">
+<div style="max-width: 1280px; margin: 0 auto; padding: clamp(64px, 9vw, 140px) clamp(16px, 4vw, 48px); box-sizing: border-box; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 14px">
+<h2 style="margin: 0; font-weight: 400 !important; font-size: 28px !important"><strong style="font-weight: 700">Category 5</strong> - מחפשים אותנו?</h2>
+<p style="margin: 0; max-width: 520px">מצאו את החנויות הקרובות אליכם</p>
+<a href="Stores.dc.html" style="display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 22px; border: 1px solid #141414; color: #141414; text-decoration: none; border-radius: 4px; margin-top: 10px">לחנויות</a>
+</div>
+</section>
+
+<section id="contact" style="max-width: 1280px; margin: 0 auto; padding: clamp(48px, 6vw, 96px) clamp(16px, 4vw, 48px); box-sizing: border-box; display: flex; flex-wrap: wrap; gap: clamp(32px, 5vw, 80px)">
+<div style="flex: 1 1 320px; display: flex; flex-direction: column; gap: 14px">
+<h2 style="margin: 0; font-weight: 400 !important">יש לכם שאלה? <strong style="font-weight: 700">אנחנו כאן.</strong></h2>
+<p style="margin: 0">השאירו פרטים ונחזור אליכם</p>
+<p style="margin: 6px 0 0; display: flex; align-items: center; gap: 10px">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3.5 20.5l1.3-4.2A8.5 8.5 0 1 1 8 19.4z"></path><path d="M9 8.5c.3 2.6 2.4 5 5 5.6l1.3-1.3 2 1-.4 1.7c-4.2.3-8.3-3.6-8.4-7.8l1.7-.5 1 2z"></path></svg>
+<span dir="ltr">053-932-5888</span><span>הודעות בלבד</span></p>
+<p style="margin: 0; display: flex; align-items: center; gap: 10px">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1.5"></rect><path d="M3 7l9 6 9-6"></path></svg>
+<a href="mailto:info@ethical-supplements.com" dir="ltr" style="color: #141414">info@ethical-supplements.com</a></p>
+</div>
+<form style="flex: 1 1 380px; display: flex; flex-direction: column; gap: 22px">
+<label style="display: flex; flex-direction: column; gap: 2px; font-size: 15px">שם
+<input type="text" class="c5-line"></label>
+<label style="display: flex; flex-direction: column; gap: 2px; font-size: 15px">טלפון
+<input type="tel" dir="ltr" class="c5-line" style="text-align: right"></label>
+<label style="display: flex; flex-direction: column; gap: 2px; font-size: 15px">אימייל
+<input type="email" dir="ltr" class="c5-line" style="text-align: right"></label>
+<label style="display: flex; flex-direction: column; gap: 2px; font-size: 15px">הודעה
+<textarea rows="3" class="c5-line" style="resize: vertical"></textarea></label>
+<button type="button" style="align-self: flex-start; min-height: 44px; padding: 0 22px; border: 1px solid #141414; border-radius: 4px; background: #ffffff; color: #141414; font: inherit; cursor: pointer">שליחה</button>
+</form>
+</section>
+
+</main>
+
+<dc-import name="Footer" hint-size="100%,520px"></dc-import>
+<dc-import name="Floating" hint-size="0px,0px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":3700}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>חנויות – Category 5</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/category5/tokens.css">
+<link rel="stylesheet" href="site.css">
+<script src="site.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face{font-family:"C5 Sans";src:url(../assets/fonts/NotoSansHebrew-Regular.ttf);font-weight:400}
+@font-face{font-family:"C5 Sans";src:url(../assets/fonts/NotoSansHebrew-Bold.ttf);font-weight:700}
+body{margin:0}
+</style>
+</helmet>
+<div dir="rtl" style="font-family: 'C5 Sans', 'Noto Sans Hebrew', Arial, sans-serif; color: #141414; background: #ffffff; min-height: 100vh; font-size: 17px; line-height: 1.6">
+
+<div style="position: sticky; top: 0; z-index: 50">
+<dc-import name="Header" hint-size="100%,80px"></dc-import>
+</div>
+
+<main>
+<section style="max-width: 1280px; margin: 0 auto; padding: clamp(40px, 6vw, 88px) clamp(16px, 4vw, 48px) 24px; box-sizing: border-box">
+<h1 style="margin: 0">חנויות</h1>
+</section>
+
+<section aria-label="רכישה אונליין" style="max-width: 1280px; margin: 0 auto; padding: 24px clamp(16px, 4vw, 48px); box-sizing: border-box">
+<h2 style="margin: 0 0 16px">רכישה אונליין</h2>
+<div style="display: flex; flex-wrap: wrap; gap: 12px">
+<a href="https://shop.super-pharm.co.il/" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 22px; border: 1px solid #141414; border-radius: 4px; color: #141414; text-decoration: none">Super-Pharm</a>
+<a href="#" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 22px; border: 1px solid #141414; border-radius: 4px; color: #141414; text-decoration: none">ByBy</a>
+<a href="#" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 22px; border: 1px solid #141414; border-radius: 4px; color: #141414; text-decoration: none">ניצת הדובדבן</a>
+<a href="#" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 22px; border: 1px solid #141414; border-radius: 4px; color: #141414; text-decoration: none">עדן טבע מרקט</a>
+</div>
+</section>
+
+<section aria-label="חנויות לפי אזור" style="max-width: 1280px; margin: 0 auto; padding: clamp(32px, 4vw, 56px) clamp(16px, 4vw, 48px) clamp(56px, 7vw, 112px); box-sizing: border-box">
+<h2 style="margin: 0 0 24px">חנויות לפי אזורים</h2>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px 48px">
+<sc-for list="{{regions}}" as="r" hint-placeholder-count="6">
+<div>
+<h3 style="margin: 0 0 8px">{{r.name}}</h3>
+<ul style="list-style: none; margin: 0; padding: 0">
+<li style="padding: 10px 0; border-top: 1px solid #dcdcd9">שם חנות, כתובת</li>
+<li style="padding: 10px 0; border-top: 1px solid #dcdcd9">שם חנות, כתובת</li>
+<li style="padding: 10px 0; border-top: 1px solid #dcdcd9; border-bottom: 1px solid #dcdcd9">שם חנות, כתובת</li>
+</ul>
+</div>
+</sc-for>
+</div>
+</section>
+</main>
+
+<dc-import name="Footer" hint-size="100%,520px"></dc-import>
+<dc-import name="Floating" hint-size="0px,0px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { regions: [{ name: 'צפון' }, { name: 'חיפה והקריות' }, { name: 'השרון' }, { name: 'מרכז' }, { name: 'ירושלים' }, { name: 'דרום' }] };
+  }
+}
+</script>
+</body>
+</html>
