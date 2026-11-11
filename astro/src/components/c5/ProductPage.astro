@@ -12,6 +12,7 @@ import { SERIES, seriesHref } from '@/c5/data'
 import { t } from '@/c5/i18n'
 import { PRODUCT_PLACEHOLDERS as PH, productHref, type Product } from '@/c5/content/products'
 import { productsOfSeries } from '@/c5/content/catalog'
+import { imageFit } from '@/c5/content/imageFit'
 interface Props { product: Product }
 const { product: p } = Astro.props
 const s = SERIES.find((x) => x.slug === p.series) ?? SERIES[0]
@@ -24,7 +25,11 @@ const all = p.details ?? []
 const specs = all.map((d) => d.match(/^([^:]{2,30}):\s*(.+)$/)).filter(Boolean).map((m) => ({ label: m![1], value: m![2] }))
 const notes = all.filter((d) => !/^[^:]{2,30}:\s*.+$/.test(d))
 const pack = (p.contains || PH.contains).replace(/^מכיל\s+/, '')
-const gallery = [p.image && { src: p.image, alt: name }, p.labelImage && { src: p.labelImage, alt: `תווית המוצר – ${name}` }].filter(Boolean) as Array<{ src: string; alt: string }>
+// The product photo is framed uniformly (imageFit); the label scan keeps plain `contain`.
+const gallery = [
+  p.image && { src: p.image, alt: name, fit: await imageFit(p.image) },
+  p.labelImage && { src: p.labelImage, alt: `תווית המוצר – ${name}`, fit: undefined },
+].filter(Boolean) as Array<{ src: string; alt: string; fit?: string }>
 const related = (await productsOfSeries(p.series)).filter((x) => x.slug !== p.slug).slice(0, 4)
 const btn = 'display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 22px; border: 1px solid #141414; color: #141414; text-decoration: none; border-radius: 4px; background: #ffffff; font: inherit; cursor: pointer'
 ---
@@ -40,13 +45,13 @@ const btn = 'display: inline-flex; align-items: center; justify-content: center;
 {gallery.length > 1 && (
 <div class="pp-thumbs" role="group" aria-label="תמונות המוצר">
 {gallery.map((g, i) => (
-<button type="button" class="pp-thumb" data-pp-thumb data-src={g.src} data-alt={g.alt} aria-pressed={i === 0 ? 'true' : 'false'} aria-label={g.alt}><img src={g.src} alt="" loading="lazy"></button>
+<button type="button" class="pp-thumb" data-pp-thumb data-src={g.src} data-alt={g.alt} data-fit={g.fit ?? ''} aria-pressed={i === 0 ? 'true' : 'false'} aria-label={g.alt}><img src={g.src} alt="" loading="lazy" style={g.fit}></button>
 ))}
 </div>
 )}
 <div class="pp-stage">
 {gallery.length
-  ? <img data-pp-main src={gallery[0].src} alt={gallery[0].alt} fetchpriority="high">
+  ? <img data-pp-main src={gallery[0].src} alt={gallery[0].alt} style={gallery[0].fit} fetchpriority="high">
   : <span>{t('img')}</span>}
 </div>
 </div>
@@ -123,10 +128,10 @@ const btn = 'display: inline-flex; align-items: center; justify-content: center;
   .pp-top { display: grid; grid-template-columns: minmax(0, 1.9fr) minmax(300px, 1fr); gap: clamp(28px, 4vw, 64px); padding: clamp(24px, 3.5vw, 48px) 0 clamp(40px, 5vw, 72px); align-items: start; }
   .pp-gallery { display: flex; gap: 16px; align-items: flex-start; position: sticky; top: 96px; }
   .pp-thumbs { display: flex; flex-direction: column; gap: 10px; flex: 0 0 84px; }
-  .pp-thumb { padding: 0; border: 0; border-bottom: 3px solid transparent; background: #f7f7f5; aspect-ratio: 1 / 1; cursor: pointer; display: block; width: 100%; transition: border-color .4s cubic-bezier(.22,.61,.36,1); }
+  .pp-thumb { position: relative; overflow: hidden; padding: 0; border: 0; border-bottom: 3px solid transparent; background: #f7f7f5; aspect-ratio: 1 / 1; cursor: pointer; display: block; width: 100%; transition: border-color .4s cubic-bezier(.22,.61,.36,1); }
   .pp-thumb[aria-pressed="true"] { border-bottom-color: #141414; }
   .pp-thumb img { width: 100%; height: 100%; object-fit: contain; display: block; mix-blend-mode: multiply; }
-  .pp-stage { flex: 1 1 auto; min-width: 0; aspect-ratio: 1 / 1; background: #f7f7f5; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .pp-stage { position: relative; flex: 1 1 auto; min-width: 0; aspect-ratio: 1 / 1; background: #f7f7f5; display: flex; align-items: center; justify-content: center; overflow: hidden; }
   .pp-stage img { width: 100%; height: 100%; object-fit: contain; display: block; mix-blend-mode: multiply; }
   .pp-info { display: flex; flex-direction: column; gap: 16px; }
   .pp-series { display: inline-flex; align-items: center; gap: 10px; align-self: flex-start; color: #141414; text-decoration: none; }
@@ -163,7 +168,7 @@ const btn = 'display: inline-flex; align-items: center; justify-content: center;
   const thumbs = [...document.querySelectorAll<HTMLButtonElement>('[data-pp-thumb]')]
   thumbs.forEach((b) => b.addEventListener('click', () => {
     if (!main) return
-    main.src = b.dataset.src!; main.alt = b.dataset.alt || ''
+    main.src = b.dataset.src!; main.alt = b.dataset.alt || ''; main.style.cssText = b.dataset.fit || ''
     thumbs.forEach((x) => x.setAttribute('aria-pressed', String(x === b)))
   }))
   document.querySelector('[data-pp-ask]')?.addEventListener('click', () => document.querySelector<HTMLButtonElement>('[data-chat-open]')?.click())
