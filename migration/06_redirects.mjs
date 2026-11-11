@@ -14,7 +14,7 @@ const vercelPath = 'astro/vercel.json'
 const vercel = JSON.parse(readFileSync(vercelPath, 'utf8'))
 
 const FIXED = {
-  4920: '/', 2676: '/contact', 4686: '/stores', 8561: '/faq', 9250: '/privacy', 9259: '/terms',
+  4920: '/', 2676: '/contact', 4686: '/stores', 8561: '/contact', 9250: '/legal/privacy', 9259: '/legal/terms',
   7371: '/catalog', 3388: '/', 3462: '/', 8064: '/',
 }
 const map = new Map() // decoded source path (no trailing slash) → destination
@@ -57,7 +57,12 @@ redirects.push(
   { source: '/author/:rest*', destination: '/', permanent: true },
   { source: '/wp-admin/:rest*', destination: '/', permanent: false },
   { source: '/wp-login.php', destination: '/', permanent: false },
-  { source: '/', has: [{ type: 'query', key: 's' }], destination: '/faq', permanent: false },
+  { source: '/', has: [{ type: 'query', key: 's' }], destination: '/search', permanent: false },
+  // pages of the first build that moved in the new design
+  { source: '/privacy', destination: '/legal/privacy', permanent: true },
+  { source: '/terms', destination: '/legal/terms', permanent: true },
+  { source: '/accessibility', destination: '/legal/accessibility', permanent: true },
+  { source: '/faq', destination: '/contact', permanent: false },
   { source: '/', has: [{ type: 'query', key: 'p' }], destination: '/', permanent: true },
   { source: '/', has: [{ type: 'query', key: 'page_id' }], destination: '/', permanent: true },
 )

@@ -13,6 +13,8 @@ import { t } from '@/c5/i18n'
 import { PRODUCT_PLACEHOLDERS as PH, productHref, type Product } from '@/c5/content/products'
 import { productsOfSeries } from '@/c5/content/catalog'
 import { imageFit } from '@/c5/content/imageFit'
+import { linkTerms } from '@/c5/glossaryLinks'
+const used = new Set<string>()
 interface Props { product: Product }
 const { product: p } = Astro.props
 const s = SERIES.find((x) => x.slug === p.series) ?? SERIES[0]
@@ -61,7 +63,7 @@ const btn = 'display: inline-flex; align-items: center; justify-content: center;
 <span style={`width: 28px; height: 28px; background: ${s.color}; display: flex; align-items: center; justify-content: center; flex-shrink: 0`}><img src={s.iconWhite} alt="" style="width: 22px; height: 22px"></span>
 <span>{s.name}</span></a>
 <h1 style="margin: 0">{name}</h1>
-{intro.map((x) => <p style="margin: 0">{x}</p>)}
+{intro.map((x) => <p style="margin: 0" set:html={linkTerms(x, used)} />)}
 
 <div class="pp-ask">
 <p style="margin: 0; font-weight: 600">יש לכם שאלה?</p>
@@ -86,7 +88,7 @@ const btn = 'display: inline-flex; align-items: center; justify-content: center;
 <section aria-label="מידע על המוצר" class="pp pp-acc">
 <details open>
 <summary><h2 style="margin: 0">יתרונות המוצר ושימושים</h2><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></summary>
-<div class="pp-acc-body"><ul class="pp-box">{benefits.map((x) => <li>{x}</li>)}</ul></div>
+<div class="pp-acc-body"><ul class="pp-box">{benefits.map((x) => <li set:html={linkTerms(x, used)} />)}</ul></div>
 </details>
 <details>
 <summary><h2 style="margin: 0">המלצות שימוש</h2><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></summary>

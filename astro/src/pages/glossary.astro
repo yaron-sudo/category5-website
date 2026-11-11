@@ -1,0 +1,21 @@
+---
+// BRIEF §10 — glossary, ported from mockups/Glossary.dc.html.
+import Site from '@/layouts/Site.astro'
+import { GLOSSARY } from '@/c5/data'
+---
+<Site title="עולם המושגים" description={GLOSSARY[0].text}>
+<section style="max-width: 1280px; margin: 0 auto; padding: clamp(40px, 6vw, 88px) clamp(16px, 4vw, 48px) 24px; box-sizing: border-box">
+<h1 style="margin: 0">עולם המושגים</h1>
+</section>
+
+<section style="max-width: 1280px; margin: 0 auto; padding: 24px clamp(16px, 4vw, 48px) clamp(56px, 7vw, 112px); box-sizing: border-box">
+<div style="display: flex; flex-direction: column">
+{GLOSSARY.map((g, i) => (
+<article id={g.id} style="display: flex; flex-wrap: wrap; gap: 8px 32px; padding: 20px 0; border-top: 1px solid #dcdcd9; scroll-margin-top: 100px">
+<h3 style="margin: 0; flex: 1 1 240px">{i + 1}. {g.term}</h3>
+<p style="flex: 2 1 400px; margin: 0">{g.text}</p>
+</article>
+))}
+</div>
+</section>
+</Site>

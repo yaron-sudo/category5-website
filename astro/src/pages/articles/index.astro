@@ -1,0 +1,31 @@
+---
+// BRIEF §11 — articles list, ported from mockups/Articles.dc.html.
+import Site from '@/layouts/Site.astro'
+import { t } from '@/c5/i18n'
+import { ARTICLES } from '@/c5/content/articles'
+// No articles yet (BRIEF §17) → the mockup's six placeholder teasers.
+const items = ARTICLES.length
+  ? ARTICLES.map((a) => ({ title: a.title, excerpt: a.excerpt, image: a.image, href: `/articles/${a.slug}` as string | undefined }))
+  : Array.from({ length: 6 }, () => ({ title: 'כותרת', excerpt: 'טקסט תקציר', image: undefined, href: undefined }))
+const btn = 'align-self: flex-start; display: inline-flex; align-items: center; min-height: 44px; padding: 0 22px; border: 1px solid #141414; border-radius: 4px; color: #141414; text-decoration: none'
+---
+<Site title="מאמרים מקצועיים">
+<section style="max-width: 1280px; margin: 0 auto; padding: clamp(40px, 6vw, 88px) clamp(16px, 4vw, 48px) 24px; box-sizing: border-box">
+<h1 style="margin: 0">מאמרים מקצועיים</h1>
+</section>
+
+<section style="max-width: 1280px; margin: 0 auto; padding: 24px clamp(16px, 4vw, 48px) clamp(56px, 7vw, 112px); box-sizing: border-box">
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 40px 28px">
+{items.map((a) => (
+<article style="display: flex; flex-direction: column; gap: 12px">
+{a.image
+  ? <img src={a.image} alt="" loading="lazy" style="display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover">
+  : <div style="aspect-ratio: 4 / 3; background: #e9e9e7; display: flex; align-items: center; justify-content: center">{t('img')}</div>}
+<h3 style="margin: 0">{a.title}</h3>
+<p style="margin: 0">{a.excerpt}</p>
+{a.href ? <a href={a.href} style={btn}>קרא עוד</a> : <span style={btn}>קרא עוד</span>}
+</article>
+))}
+</div>
+</section>
+</Site>

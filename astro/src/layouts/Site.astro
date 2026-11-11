@@ -48,6 +48,9 @@ const fullTitle = title.includes('Category 5') ? title : `${title} | Category 5`
           e.preventDefault()
           if (!form.reportValidity()) return
           const data = Object.fromEntries(new FormData(form).entries())
+          // Contact page extras (topic / product) travel inside the message.
+          const extra = [data.topic && `נושא הפנייה: ${data.topic}`, data.product && `מוצר: ${data.product}`].filter(Boolean).join('\n')
+          if (extra) data.message = `${extra}\n\n${data.message ?? ''}`
           if (btn) btn.disabled = true
           try {
             const res = await fetch('/api/contact', {

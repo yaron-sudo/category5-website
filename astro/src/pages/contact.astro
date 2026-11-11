@@ -1,221 +1,27 @@
 ---
-import Base from '@/layouts/Base.astro'
-import PageHero from '@/components/PageHero.astro'
-import PortableText from '@/components/PortableText.astro'
-import { getPage, getSiteSettings, plainText, resolveSeo } from '@/lib/sanity'
-
-// Contact page: form + contact card (CMS contact details), office note, short FAQ.
-// The form posts to Web3Forms when PUBLIC_WEB3FORMS_KEY is set (free hosted
-// mailer, zero setup), else to /api/contact (src/pages/api/contact.ts — the
-// site's own mailer via Microsoft Graph / SMTP / Resend), or to
-// PUBLIC_CONTACT_ENDPOINT if set. No mail-client fallback: the visitor only
-// fills the form and presses send.
-const [doc, settings, faqPage] = await Promise.all([getPage('contact'), getSiteSettings(), getPage('faq')])
-const title = doc?.title || 'צרו קשר'
-const intro = doc?.body?.[0] ? plainText([doc.body[0]], 400) : 'נשמח לשמוע מכם. השאירו פרטים ונחזור אליכם בהקדם.'
-const notes = (doc?.body ?? []).slice(1)
-const contact = {
-  email: settings?.contact?.email || 'info@ethical-supplements.com',
-  phone: settings?.contact?.phone || '053-9325888',
-  whatsapp: settings?.contact?.whatsapp || '972539325888',
-  address: settings?.contact?.address,
-  hours: settings?.contact?.hours,
-}
-const endpoint = import.meta.env.PUBLIC_CONTACT_ENDPOINT || ''
-// Web3Forms (free, no account: web3forms.com emails an access key to the inbox).
-// When the key is set the form posts straight to their API; otherwise to /api/contact.
-const w3k = import.meta.env.PUBLIC_WEB3FORMS_KEY || ''
-const faqs = (faqPage?.faqs ?? []).filter((f) => f.question && f.answer).slice(0, 4)
-const seo = resolveSeo(doc?.seo, { title: 'צור קשר', description: 'יצירת קשר עם קטגוריה 5 תוספים אתיים: טופס פנייה, מייל או ווטסאפ.' })
+// BRIEF §13 — contact page, ported from mockups/Contact.dc.html.
+import Site from '@/layouts/Site.astro'
+import { SERIES, CONTACT } from '@/c5/data'
 ---
-<Base title={seo.title} description={seo.description} noindex={seo.noindex} canonicalUrl={seo.canonical} ogTitle={seo.ogTitle} ogDescription={seo.ogDescription}>
-  <PageHero eyebrow="צור קשר" title={title} lede={intro} />
-
-  <section class="ns-section ns-section--white ct-wrap">
-    <div class="ns-container ct">
-      <!-- form -->
-      <form class="ct__form ns-textbox" data-contact-form data-endpoint={endpoint} data-w3k={w3k} data-mailto={contact.email} novalidate>
-        <h2 class="ct__h">שלחו לנו הודעה</h2>
-        <p class="ct__p">מלאו את הפרטים ונחזור אליכם במייל. אנא ציינו כתובת מייל עדכנית.</p>
-        <div class="ct__grid">
-          <label class="ct__field"><span>שם מלא</span><input name="name" type="text" autocomplete="name" required /></label>
-          <label class="ct__field"><span>אימייל</span><input name="email" type="email" autocomplete="email" inputmode="email" required /></label>
-          <label class="ct__field"><span>טלפון</span><input name="phone" type="tel" autocomplete="tel" inputmode="tel" required dir="ltr" /></label>
-          <label class="ct__field ct__field--full"><span>הודעה</span><textarea name="message" rows="5" required></textarea></label>
-          <label class="ct__hp" aria-hidden="true"><input type="text" name="ns_hp_field" tabindex="-1" autocomplete="off" /></label>
-        </div>
-        <p class="ct__err" data-contact-error hidden>נא למלא את כל השדות (ואימייל תקין).</p>
-        <div class="ct__actions">
-          <button type="submit" class="ns-btn ns-btn--primary ct__btn" data-contact-submit>
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 3 10.5 13.5M21 3l-7 18-3.5-7.5L3 10z"/></svg>
-            שליחה
-          </button>
-          <span class="ct__privacy">הפרטים משמשים למענה בלבד. <a href="/privacy">מדיניות פרטיות</a></span>
-        </div>
-        <div class="ct__done" data-contact-done hidden>
-          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="m8 12.5 2.6 2.6L16 9.5"/></svg>
-          <div><strong>תודה! ההודעה נשלחה.</strong><br />נחזור אליכם בהקדם למייל שציינתם.</div>
-        </div>
-      </form>
-
-      <!-- contact card -->
-      <aside class="ct__side">
-        <div class="ct__card ns-textbox">
-          <h2 class="ct__h">פרטי התקשרות</h2>
-          <ul class="ct__list">
-            <li>
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
-              <div><span class="ct__k">אימייל</span><a href={`mailto:${contact.email}`} dir="ltr">{contact.email}</a></div>
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 18.8z"/><path d="M9 9.5c.3 1.6 1.7 3.6 3.6 4.6l1.2-1.1 2 1-.4 1.6c-3 .3-6.6-3-7-6.2l1.5-.6.9 1.9z"/></svg>
-              <div><span class="ct__k">ווטסאפ (הודעות בלבד)</span><a href={`https://wa.me/${contact.whatsapp}`} target="_blank" rel="noopener" dir="ltr">{contact.phone}</a></div>
-            </li>
-            {contact.address && (
-              <li>
-                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.4"/></svg>
-                <div><span class="ct__k">כתובת</span>{contact.address}</div>
-              </li>
-            )}
-            {contact.hours && (
-              <li>
-                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
-                <div><span class="ct__k">מענה</span>{contact.hours}</div>
-              </li>
-            )}
-          </ul>
-          {notes.length > 0 && <div class="ct__note"><PortableText blocks={notes} class="ct__note-prose" /></div>}
-          <div class="ct__links">
-            <a class="ns-btn ns-btn--ghost" href="/stores">איפה קונים? רשימת חנויות</a>
-            <a class="ns-btn ns-btn--ghost" href="/faq">שאלו את העוזר החכם</a>
-          </div>
-        </div>
-      </aside>
-    </div>
-  </section>
-
-  {faqs.length > 0 && (
-    <section class="ns-section ns-section--beige">
-      <div class="ns-container ct__faq">
-        <div class="ct__faq-head" data-reveal>
-          <span class="ns-eyebrow">לפני שכותבים</span>
-          <h2 class="ct__faq-h">שאלות שחוזרות על עצמן</h2>
-        </div>
-        <div class="ct__faq-list">
-          {faqs.map((f, i) => (
-            <details class="ct__qa" data-reveal style={`transition-delay:${i * 60}ms`}>
-              <summary><span>{f.question}</span><span class="ct__plus" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary>
-              <p>{f.answer}</p>
-            </details>
-          ))}
-        </div>
-        <p class="ct__faq-more"><a href="/faq">לכל השאלות והתשובות ←</a></p>
-      </div>
-    </section>
-  )}
-
-  <style>
-    .ct-wrap { padding-block: clamp(28px, 4vw, 56px) clamp(48px, 6vw, 80px); }
-    .ct { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(300px, .9fr); gap: 24px; align-items: start; }
-    .ct__h { font-family: var(--ns-font-display); font-weight: 600; font-size: clamp(22px, 2vw, 28px); line-height: 1.25; color: var(--ns-field-green); margin: 0 0 8px; }
-    .ct__p { margin: 0 0 20px; font-size: var(--ns-text-base); line-height: 1.7; color: var(--ns-fg); opacity: .85; }
-    .ct__form, .ct__card { position: relative; padding: clamp(24px, 3vw, 40px); }
-    .ct__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 16px; }
-    .ct__field { display: flex; flex-direction: column; gap: 6px; }
-    .ct__field--full { grid-column: 1 / -1; }
-    .ct__field span { font-size: 14.5px; font-weight: 700; color: var(--ns-field-green); }
-    .ct__field input, .ct__field textarea { width: 100%; font: inherit; font-size: 16px; color: var(--ns-fg); padding: 13px 16px; border: 1px solid var(--ns-border-strong); border-radius: 14px; background: var(--ns-sun-beige); outline: none; transition: border-color .2s var(--ns-ease-out), box-shadow .2s var(--ns-ease-out), background .2s var(--ns-ease-out); }
-    .ct__field textarea { resize: vertical; min-height: 140px; }
-    .ct__field input:focus, .ct__field textarea:focus { background: #fff; border-color: var(--ns-pure-orange); box-shadow: 0 0 0 4px color-mix(in srgb, var(--ns-pure-orange) 18%, transparent); }
-    .ct__field.is-invalid input, .ct__field.is-invalid textarea { border-color: #c0392b; }
-    /* honeypot: visually hidden without off-screen positioning (which widens the page in RTL) */
-    .ct__hp { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); opacity: 0; pointer-events: none; }
-    .ct__err { margin: 12px 0 0; color: #c0392b; font-weight: 600; }
-    .ct__err[hidden] { display: none; }
-    .ct__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-top: 22px; }
-    .ct__btn { min-height: 54px; display: inline-flex; align-items: center; gap: 10px; padding-inline: 30px; }
-    .ct__btn.is-busy { opacity: .6; pointer-events: none; }
-    .ct__privacy { font-size: 13.5px; color: var(--ns-fg-muted); }
-    .ct__privacy a { color: inherit; text-decoration: underline; }
-    .ct__done { display: flex; align-items: center; gap: 14px; margin-top: 22px; padding: 18px 20px; border-radius: var(--ns-radius-md); background: color-mix(in srgb, var(--ns-immune-green) 45%, #fff); color: var(--ns-field-green); font-size: var(--ns-text-base); line-height: 1.5; }
-    .ct__done[hidden] { display: none; }
-    .ct__form.is-sent .ct__grid, .ct__form.is-sent .ct__actions, .ct__form.is-sent .ct__p { display: none; }
-
-    .ct__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
-    .ct__list li { display: flex; gap: 14px; align-items: flex-start; font-size: var(--ns-text-base); line-height: 1.55; color: var(--ns-fg); }
-    .ct__list svg { flex: none; color: var(--ns-pure-orange); margin-top: 2px; }
-    .ct__list a { color: var(--ns-field-green); font-weight: 600; text-decoration: none; }
-    .ct__list a:hover { color: var(--ns-pure-orange); }
-    .ct__k { display: block; font-size: 13px; font-weight: 700; letter-spacing: .03em; color: var(--ns-fg-muted); margin-bottom: 2px; }
-    .ct__note { margin-top: 22px; padding: 16px 18px; border-radius: var(--ns-radius-md); background: var(--ns-sun-beige); border: 1px solid var(--ns-border); }
-    .ct__note :global(.ct__note-prose) { max-width: none; font-size: 15.5px; line-height: 1.65; color: var(--ns-fg); }
-    .ct__note :global(p) { margin: 0 0 8px; }
-    .ct__note :global(p:last-child) { margin: 0; }
-    .ct__links { display: grid; gap: 10px; margin-top: 22px; }
-    .ct__links .ns-btn { min-height: 50px; display: inline-flex; align-items: center; justify-content: center; }
-
-    .ct__faq { max-width: 880px; }
-    .ct__faq-head { margin-bottom: 20px; }
-    .ct__faq-head .ns-eyebrow { display: inline-flex; margin-bottom: 10px; }
-    .ct__faq-h { font-family: var(--ns-font-display); font-weight: 500; font-size: clamp(26px, 2.8vw, 36px); line-height: 1.15; color: var(--ns-field-green); margin: 0; }
-    .ct__faq-list { display: grid; gap: 12px; }
-    .ct__qa { background: var(--ns-bg-alt); border: 1px solid var(--ns-border); border-radius: var(--ns-radius-lg); overflow: hidden; }
-    .ct__qa[open] { box-shadow: var(--ns-shadow-md); }
-    .ct__qa summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 22px; font-family: var(--ns-font-display); font-weight: 600; font-size: clamp(17px, 1.5vw, 20px); color: var(--ns-field-green); }
-    .ct__qa summary::-webkit-details-marker { display: none; }
-    .ct__plus { flex: none; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 999px; background: color-mix(in srgb, var(--ns-field-green) 8%, transparent); transition: transform .3s var(--ns-ease-out), background .2s; }
-    .ct__qa[open] .ct__plus { transform: rotate(45deg); background: var(--ns-pure-orange); color: #fff; }
-    .ct__qa p { margin: 0; padding: 0 22px 20px; font-size: clamp(16.5px, 1.3vw, 19px); line-height: 1.85; color: var(--ns-fg); opacity: .92; }
-    .ct__faq-more { margin: 18px 0 0; text-align: center; }
-    .ct__faq-more a { color: var(--ns-pure-orange); font-weight: 700; text-decoration: none; }
-
-    @media (max-width: 900px) { .ct { grid-template-columns: 1fr; } }
-    @media (max-width: 600px) { .ct__grid { grid-template-columns: 1fr; } .ct__form, .ct__card { padding: 20px 18px; } }
-  </style>
-
-  <script>
-    const form = document.querySelector<HTMLFormElement>('[data-contact-form]')
-    if (form) {
-      const w3k = form.dataset.w3k || ''
-      const endpoint = form.dataset.endpoint || (w3k ? 'https://api.web3forms.com/submit' : '/api/contact')
-      const mailto = form.dataset.mailto || ''
-      const err = form.querySelector<HTMLElement>('[data-contact-error]')!
-      const done = form.querySelector<HTMLElement>('[data-contact-done]')!
-      const btn = form.querySelector<HTMLButtonElement>('[data-contact-submit]')!
-      const fields = ['name', 'email', 'phone', 'message'] as const
-      const get = (n: string) => form.elements.namedItem(n) as HTMLInputElement | HTMLTextAreaElement
-      const started = Date.now() // bots submit instantly; the mailer rejects sub-second submissions
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault()
-        if ((form.elements.namedItem('ns_hp_field') as HTMLInputElement).value) return // honeypot (name chosen so browser autofill never touches it)
-        let ok = true
-        fields.forEach((n) => {
-          const el = get(n)
-          const valid = el.value.trim() !== '' && (n !== 'email' || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value))
-          el.closest('.ct__field')?.classList.toggle('is-invalid', !valid)
-          if (!valid) ok = false
-        })
-        err.hidden = ok
-        if (!ok) return
-        const data = Object.fromEntries(fields.map((n) => [n, get(n).value.trim()]))
-        // Sent through the site's own mailer (/api/contact) — never the visitor's mail client.
-        btn.classList.add('is-busy')
-        try {
-          const subject = 'פנייה מהאתר — ' + data.name
-          // Web3Forms: access_key + from_name; their email uses `email` as reply-to and
-          // `botcheck` as the honeypot. Own mailer: honeypot + timing fields.
-          const payload = w3k
-            ? { access_key: w3k, subject, from_name: 'אתר קטגוריה 5', name: data.name, email: data.email, phone: data.phone, message: data.message, botcheck: '' }
-            : { ...data, ns_hp_field: '', subject, _source: location.href, _t: started }
-          const res = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(payload) })
-          const out = await res.json().catch(() => ({}))
-          if (!res.ok || out.ok === false || out.success === false) throw new Error(out.error || out.message || String(res.status))
-          form.classList.add('is-sent'); done.hidden = false
-        } catch {
-          err.textContent = 'השליחה נכשלה. נסו שוב בעוד רגע, או כתבו לנו ישירות למייל ' + mailto
-          err.hidden = false
-        } finally { btn.classList.remove('is-busy') }
-      })
-    }
-  </script>
-</Base>
+<Site title="צור קשר" description="יש לכם שאלה? אנחנו כאן. השאירו פרטים ונחזור אליכם בהקדם.">
+<section style="max-width: 1280px; margin: 0 auto; padding: clamp(40px, 6vw, 88px) clamp(16px, 4vw, 48px) clamp(56px, 7vw, 112px); box-sizing: border-box; display: flex; flex-wrap: wrap; gap: clamp(32px, 5vw, 80px)">
+<div style="flex: 1 1 320px; display: flex; flex-direction: column; gap: 12px">
+<h1 style="margin: 0">יש לכם שאלה? אנחנו כאן.</h1>
+<p style="margin: 0">השאירו פרטים ונחזור אליכם בהקדם.</p>
+<p style="margin: 0"><span dir="ltr">WhatsApp: <a href={`https://wa.me/${CONTACT.whatsappIntl}`} target="_blank" rel="noopener" style="color: #141414">{CONTACT.whatsapp}</a></span><br>הודעות בלבד</p>
+<p style="margin: 0">מייל: <a href={`mailto:${CONTACT.email}`} dir="ltr" style="color: #141414">{CONTACT.email}</a></p>
+</div>
+<form data-c5-form="contact" style="flex: 1 1 420px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px">
+<label class="c5-label">שם מלא<input class="c5-input" name="name" type="text" autocomplete="name" required></label>
+<label class="c5-label">טלפון<input class="c5-input" name="phone" type="tel" autocomplete="tel" required dir="ltr" style="text-align: right"></label>
+<label class="c5-label c5-full">אימייל<input class="c5-input" name="email" type="email" autocomplete="email" required dir="ltr" style="text-align: right"></label>
+<label class="c5-label">נושא הפנייה
+<select class="c5-input" name="topic"><option value="">בחרו נושא</option><option>שאלה על מוצר</option><option>איפה קונים</option><option>שיתוף פעולה</option><option>אחר</option></select></label>
+<label class="c5-label">מוצר
+<select class="c5-input" name="product"><option value="">בחרו מוצר</option>{SERIES.map((s) => <option>{s.name}</option>)}</select></label>
+<label class="c5-label c5-full">הודעה<textarea class="c5-input" name="message" rows="6" required style="padding: 12px; resize: vertical; min-height: 140px"></textarea></label>
+<button type="submit" style="justify-self: start; min-height: 44px; padding: 0 22px; border: 1px solid #141414; border-radius: 4px; background: #ffffff; color: #141414; font: inherit; cursor: pointer">שליחה</button>
+<p data-c5-form-status role="status" aria-live="polite" class="c5-full" style="margin: 0; font-size: 15px; min-height: 1em"></p>
+</form>
+</section>
+</Site>

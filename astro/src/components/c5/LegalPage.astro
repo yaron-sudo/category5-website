@@ -1,0 +1,49 @@
+---
+// BRIEF §14 — legal page, ported from mockups/Legal.dc.html: side nav "בעמוד זה",
+// breadcrumb, h1, "עודכן לאחרונה", numbered sections.
+import Seo from '@/components/Seo.astro'
+import Header from '@/components/c5/Header.astro'
+import Footer from '@/components/c5/Footer.astro'
+import Floating from '@/components/c5/Floating.astro'
+import '@/styles/c5-base.css'
+import '@/styles/c5-site.css'
+export interface LegalSection { title: string; paragraphs?: string[]; items?: string[]; html?: string }
+interface Props { title: string; updated?: string; sections: LegalSection[] }
+const { title, updated, sections } = Astro.props
+---
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" type="image/svg+xml" href="/assets/logo/category5-logo.svg" />
+<Seo title={`${title} | Category 5`} />
+</head>
+<body class="c5-site" style="line-height: 1.75">
+<div class="ns-page">
+<Header />
+<main style="max-width: 1280px; margin: 0 auto; padding: clamp(40px, 6vw, 80px) clamp(16px, 4vw, 48px) clamp(56px, 7vw, 112px); box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 48px; align-items: flex-start">
+<nav aria-label="תוכן העמוד" style="flex: 1 1 240px; max-width: 320px; display: flex; flex-direction: column; gap: 2px; border-top: 1.5px solid #141414; padding-top: 12px">
+<p style="margin: 0 0 8px; font-weight: 700; font-size: 15px">בעמוד זה</p>
+{sections.map((s, i) => <a href={`#s${i + 1}`} style="color: #141414; text-decoration: none; min-height: 36px; display: flex; align-items: center; font-size: 15px">{i + 1}. {s.title}</a>)}
+</nav>
+<article style="flex: 999 1 560px; min-width: 0; max-width: 760px; display: flex; flex-direction: column; gap: 20px">
+<nav aria-label="פירורי לחם" style="font-size: 14px; color: #141414"><a href="/" style="color: inherit">דף הבית</a> / {title}</nav>
+<h1 style="margin: 0">{title}</h1>
+<p style="margin: 0; font-size: 14px; color: #141414">עודכן לאחרונה: {updated ?? 'תאריך'}</p>
+{sections.map((s, i) => (
+<>
+<h2 id={`s${i + 1}`} style="margin: 16px 0 0; font-size: 24px; scroll-margin-top: 100px">{i + 1}. {s.title}</h2>
+{(s.paragraphs ?? []).map((p) => <p style="margin: 0">{p}</p>)}
+{s.items?.length ? <ol style="margin: 0; padding-inline-start: 22px; display: flex; flex-direction: column; gap: 6px">{s.items.map((x) => <li>{x}</li>)}</ol> : null}
+{s.html && <p style="margin: 0" set:html={s.html} />}
+</>
+))}
+</article>
+</main>
+<Footer />
+</div>
+<Floating />
+<script is:inline src="/c5/site.js"></script>
+</body>
+</html>

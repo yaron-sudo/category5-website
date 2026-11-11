@@ -1,0 +1,47 @@
+---
+// /legal/terms, /legal/privacy — the client's own texts (CMS pages "terms" / "privacy"),
+// /legal/accessibility — the accessibility statement. All in the Legal layout (BRIEF §14).
+import LegalPage, { type LegalSection } from '@/components/c5/LegalPage.astro'
+import { getPage, type PortableBlock } from '@/lib/sanity'
+import { CONTACT } from '@/c5/data'
+
+export function getStaticPaths() {
+  return ['terms', 'privacy', 'accessibility'].map((slug) => ({ params: { slug } }))
+}
+const { slug } = Astro.params
+const text = (b: PortableBlock) => ((b.children as Array<{ text?: string }>) ?? []).map((c) => c.text ?? '').join('')
+
+let title = ''
+let updated: string | undefined
+let sections: LegalSection[] = []
+if (slug === 'accessibility') {
+  title = 'הצהרת נגישות'
+  updated = '28.06.2026'
+  sections = [
+    { title: 'כללי', paragraphs: ['חברת קטגוריה 5 תוספים אתיים רואה חשיבות רבה במתן שירות שוויוני לכלל הגולשים, ופועלת להנגשת אתר האינטרנט שלה כך שיהיה זמין ונוח לשימוש גם עבור אנשים עם מוגבלות.'] },
+    { title: 'רמת הנגישות באתר', paragraphs: ['האתר הונגש בהתאם לתקנות שוויון זכויות לאנשים עם מוגבלות (התאמות נגישות לשירות), התשע"ג–2013, ובהתאם לתקן הישראלי ת"י 5568 המבוסס על הנחיות WCAG 2.0 ברמת התאמה AA.'] },
+    { title: 'התאמות הנגישות שבוצעו', items: [
+      'תפריט נגישות קבוע בכל עמודי האתר (לחצן נגישות בפינת המסך) המאפשר: הגדלה/הקטנה של הטקסט, ניגודיות גבוהה, גווני אפור, הדגשת קישורים, גופן קריא, הגדלת ריווח, עצירת אנימציות וסמן עכבר מוגדל.',
+      'מבנה סמנטי ותגיות כותרת היררכיות, וטקסט חלופי לתמונות.',
+      'ניווט מלא באמצעות מקלדת ומיקוד נראה לעין (focus).',
+      'כיבוד העדפת המשתמש להפחתת תנועה (prefers-reduced-motion).',
+      'שמירת העדפות הנגישות של המשתמש בין ביקורים.',
+    ] },
+    { title: 'החרגות ומגבלות ידועות', paragraphs: ['על אף מאמצינו להנגיש את כלל הדפים והרכיבים, ייתכן שיימצאו חלקים שטרם הונגשו במלואם. אנו ממשיכים לפעול לשיפור הנגישות באופן שוטף. אם נתקלתם בקושי, נשמח שתעדכנו אותנו ונטפל בכך בהקדם.'] },
+    { title: 'יצירת קשר', html: `לפניות בנושא נגישות: <a href="mailto:${CONTACT.email}" dir="ltr" style="color: #141414">${CONTACT.email}</a>` },
+  ]
+} else {
+  const doc = await getPage(slug!)
+  title = doc?.title ?? (slug === 'terms' ? 'תנאי שימוש' : 'מדיניות פרטיות')
+  for (const b of doc?.body ?? []) {
+    if (b._type !== 'block') continue
+    if (b.style === 'h2') { sections.push({ title: text(b), paragraphs: [], items: [] }); continue }
+    if (!sections.length) sections.push({ title: 'כללי', paragraphs: [], items: [] })
+    const cur = sections[sections.length - 1]
+    if ((b as { listItem?: string }).listItem) cur.items!.push(text(b)); else cur.paragraphs!.push(text(b))
+  }
+  // BRIEF §17: terms / privacy texts may still be missing → the mockup's placeholder.
+  if (!sections.length) sections = [{ title: 'כללי', paragraphs: ['טקסט משפטי'] }]
+}
+---
+<LegalPage title={title} updated={updated} sections={sections} />

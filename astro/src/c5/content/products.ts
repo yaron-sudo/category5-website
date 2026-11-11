@@ -26,6 +26,8 @@ export interface Product {
   details?: string[]
   /** "התוויה משפטית" text */
   legal?: string
+  /** Extra search words: everyday names, benefits, uses (BRIEF §12). */
+  keywords?: string[]
 }
 
 /** Placeholder texts of mockups/Product.dc.html, shown until a field is filled. */
