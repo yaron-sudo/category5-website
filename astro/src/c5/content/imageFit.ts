@@ -26,13 +26,19 @@ export function imageFit(src?: string): Promise<string | undefined> {
 async function measure(src: string): Promise<string | undefined> {
   const file = resolve(PUBLIC, decodeURIComponent(src.slice(1)))
   if (!existsSync(file)) return undefined
+  // Analysed as it is seen on a light page: transparent areas become white, so a
+  // semi-transparent black shadow reads as light grey (not as a dark product pixel).
   const N = 400 // analysis size (longest side)
-  const { data, info } = await sharp(file).resize(N, N, { fit: 'inside' }).ensureAlpha().raw().toBuffer({ resolveWithObject: true })
+  const { data, info } = await sharp(file).resize(N, N, { fit: 'inside' }).flatten({ background: '#ffffff' }).ensureAlpha().raw().toBuffer({ resolveWithObject: true })
   const { width: w, height: h } = info
   const isBg = (x: number, y: number) => { const i = (y * w + x) * 4; return data[i + 3] < 16 || (data[i] > WHITE && data[i + 1] > WHITE && data[i + 2] > WHITE) }
-  // Only studio shots (white / transparent in all four corners) are re-framed; a
-  // scene photo keeps `contain`, so none of its picture is ever clipped.
-  if (![[2, 2], [w - 3, 2], [2, h - 3], [w - 3, h - 3]].every(([x, y]) => isBg(x, y))) return undefined
+  // Only studio shots are re-framed: at least 70% of the image border must be plain
+  // white paper. A scene photo keeps `contain`, so none of its picture is clipped.
+  const paper = (x: number, y: number) => { const i = (y * w + x) * 4; return data[i] > 249 && data[i + 1] > 249 && data[i + 2] > 249 }
+  let border = 0, white = 0
+  for (let x = 0; x < w; x++) for (const y of [1, h - 2]) { border++; if (paper(x, y)) white++ }
+  for (let y = 0; y < h; y++) for (const x of [1, w - 2]) { border++; if (paper(x, y)) white++ }
+  if (white / border < 0.7) return undefined
   // Vertical extent: every non-background row.
   let y0 = h, y1 = -1
   for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) if (!isBg(x, y)) { if (y < y0) y0 = y; if (y > y1) y1 = y; break }

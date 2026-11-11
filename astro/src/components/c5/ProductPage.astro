@@ -32,7 +32,7 @@ const gallery = [
   p.image && { src: p.image, alt: name, fit: await imageFit(p.image) },
   p.labelImage && { src: p.labelImage, alt: `תווית המוצר – ${name}`, fit: undefined },
 ].filter(Boolean) as Array<{ src: string; alt: string; fit?: string }>
-const related = (await productsOfSeries(p.series)).filter((x) => x.slug !== p.slug).slice(0, 4)
+const related = (await productsOfSeries(p.series)).filter((x) => x.slug !== p.slug)
 const btn = 'display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 22px; border: 1px solid #141414; color: #141414; text-decoration: none; border-radius: 4px; background: #ffffff; font: inherit; cursor: pointer'
 ---
 <Site title={name} description={p.intro?.[0]} image={p.image}>
@@ -111,8 +111,13 @@ const btn = 'display: inline-flex; align-items: center; justify-content: center;
 {related.length > 0 && (
 <section aria-label={s.name} class="pp" style="padding-top: clamp(40px, 5vw, 72px)">
 <h2 style="margin: 0 0 28px"><a href={seriesHref(s)} style="color: #141414; text-decoration: none">{s.name}</a></h2>
-<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 24px">
-{related.map((r) => <ProductCard title={r.title} image={r.image} href={productHref(r)} series={r.series} />)}
+<div class="pp-car" data-pp-car>
+<div class="pp-car-track" data-pp-track tabindex="0" role="group" aria-label={s.name}>
+{related.map((r) => <div class="pp-car-item"><ProductCard title={r.title} image={r.image} href={productHref(r)} series={r.series} /></div>)}
+</div>
+<button type="button" class="pp-car-btn pp-car-prev" data-pp-prev aria-label="הקודם"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></button>
+<button type="button" class="pp-car-btn pp-car-next" data-pp-next aria-label="הבא"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg></button>
+<div class="pp-car-bar" aria-hidden="true"><span data-pp-bar></span></div>
 </div>
 </section>
 )}
@@ -162,6 +167,21 @@ const btn = 'display: inline-flex; align-items: center; justify-content: center;
   .pp-acc-body { padding: 0 0 clamp(28px, 3.5vw, 44px); padding-inline-start: min(200px, 16vw); max-width: 1000px; }
   .pp-box { margin: 0; padding: 22px 22px 22px 22px; padding-inline-start: 42px; background: #f7f7f5; }
   .pp-box li + li { margin-top: 6px; }
+  /* "More from the series" carousel (after The Ordinary): 4 cards in view, round
+     arrow buttons, a hairline with a black progress segment underneath. */
+  .pp-car { position: relative; }
+  .pp-car-track { display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 3 * 24px) / 4); gap: 24px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 2px; }
+  .pp-car-track::-webkit-scrollbar { display: none; }
+  .pp-car-item { scroll-snap-align: start; min-width: 0; }
+  .pp-car-btn { position: absolute; top: calc(50% - 60px); width: 40px; height: 40px; border-radius: 50%; border: 1px solid #dcdcd9; background: #ffffff; color: #141414; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 14px rgba(20,20,20,.08); transition: background-color .45s cubic-bezier(.22,.61,.36,1), color .45s cubic-bezier(.22,.61,.36,1), opacity .4s; z-index: 2; }
+  .pp-car-btn:hover { background: #141414; color: #ffffff; }
+  .pp-car-btn[disabled] { opacity: 0; pointer-events: none; }
+  .pp-car-prev { right: -12px; }
+  .pp-car-next { left: -12px; }
+  .pp-car-bar { position: relative; height: 1px; background: #dcdcd9; margin-top: 28px; }
+  .pp-car-bar span { position: absolute; top: -1px; right: 0; height: 3px; width: 25%; background: #141414; transition: right .5s cubic-bezier(.22,.61,.36,1), width .5s cubic-bezier(.22,.61,.36,1); }
+  @media (max-width: 1100px) { .pp-car-track { grid-auto-columns: calc((100% - 2 * 24px) / 3); } }
+  @media (max-width: 760px) { .pp-car-track { grid-auto-columns: 62%; gap: 16px; } .pp-car-btn { display: none; } }
   @media (max-width: 900px) {
     .pp-top { grid-template-columns: minmax(0, 1fr); }
     .pp-gallery { position: static; flex-direction: column-reverse; }
@@ -209,6 +229,43 @@ const btn = 'display: inline-flex; align-items: center; justify-content: center;
     stage.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); set(!on) } })
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && on) set(false) })
     thumbs.forEach((b) => b.addEventListener('click', () => set(false)))
+  }
+  // Series carousel: arrows page through, the bar shows the position, and it
+  // advances by itself every 5s (paused on hover / focus / reduced motion).
+  const car = document.querySelector<HTMLElement>('[data-pp-car]')
+  if (car) {
+    const track = car.querySelector<HTMLElement>('[data-pp-track]')!
+    const bar = car.querySelector<HTMLElement>('[data-pp-bar]')!
+    const prev = car.querySelector<HTMLButtonElement>('[data-pp-prev]')!
+    const next = car.querySelector<HTMLButtonElement>('[data-pp-next]')!
+    const max = () => track.scrollWidth - track.clientWidth
+    const pos = () => Math.abs(track.scrollLeft) // RTL: scrollLeft runs 0 → -max
+    const step = () => { const it = track.querySelector<HTMLElement>('.pp-car-item'); return it ? it.offsetWidth + parseFloat(getComputedStyle(track).columnGap || '0') : track.clientWidth }
+    const go = (dir: 1 | -1) => track.scrollBy({ left: -dir * step(), behavior: 'smooth' })
+    const update = () => {
+      const m = max(), share = m > 0 ? track.clientWidth / track.scrollWidth : 1
+      bar.style.width = `${share * 100}%`
+      bar.style.right = `${m > 0 ? (pos() / m) * (1 - share) * 100 : 0}%`
+      prev.disabled = pos() < 4
+      next.disabled = pos() > m - 4
+      car.classList.toggle('is-static', m <= 0)
+    }
+    prev.addEventListener('click', () => go(-1))
+    next.addEventListener('click', () => go(1))
+    track.addEventListener('scroll', update, { passive: true })
+    window.addEventListener('resize', update)
+    update()
+    let paused = false
+    for (const ev of ['pointerenter', 'focusin', 'touchstart']) car.addEventListener(ev, () => { paused = true }, { passive: true })
+    for (const ev of ['pointerleave', 'focusout']) car.addEventListener(ev, () => { paused = false })
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setInterval(() => {
+        if (paused || max() <= 0 || document.hidden) return
+        const r = car.getBoundingClientRect()
+        if (r.bottom < 0 || r.top > window.innerHeight) return
+        if (pos() > max() - 4) track.scrollTo({ left: 0, behavior: 'smooth' }); else go(1)
+      }, 5000)
+    }
   }
   document.querySelector('[data-pp-ask]')?.addEventListener('click', () => document.querySelector<HTMLButtonElement>('[data-chat-open]')?.click())
 </script>
