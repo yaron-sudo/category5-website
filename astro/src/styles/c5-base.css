@@ -52,3 +52,7 @@ a[href^="/products/"] > div:last-child > span:last-child, a[data-c5-series-tile]
 a[href^="/products/"]:hover > div:last-child > span:last-child, a[data-c5-series-tile]:hover > span:last-child { text-decoration-color: #141414; }
 a[data-c5-series-tile] > span:first-child { transition: transform .6s cubic-bezier(.22,.61,.36,1); }
 a[data-c5-series-tile]:hover > span:first-child { transform: translateY(-2px); }
+
+/* Product photos: the white studio background is dropped visually by blending the
+   image into the light tile behind it. The image files themselves are untouched. */
+.c5-cutout { mix-blend-mode: multiply; }
