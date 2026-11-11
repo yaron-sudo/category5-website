@@ -40,7 +40,7 @@ export const PRODUCT_PLACEHOLDERS = {
 /** The example products named in BRIEF §6 (with their images from assets/products/). */
 export const PRODUCTS: Product[] = [
   { slug: 'magnesium-bisglycinate-liposomal', title: 'מגנזיום ביסגליצינאט ליפוזומלי', series: 'vitamins-minerals', image: '/assets/products/magnesium-bisglycinate-liposomal.jpg' },
-  { slug: 'curcumin-complex', title: 'קומפלקס כורכומין', series: 'plants', image: '/assets/products/curcumin-complex.jpg' },
+  { slug: 'curcumin-complex', title: 'קומפלקס כורכומין', source: 'giallocur-nano-curcumin', series: 'plants', image: '/assets/products/curcumin-complex.jpg' },
   { slug: 'postbiotic', title: 'פוסטביוטיקה', series: 'probiotics', image: '/assets/products/postbiotic.jpg' },
   { slug: 'revival', title: 'רויוואל', source: 'revival-20', series: 'professional', image: '/assets/products/revival.jpg' },
   { slug: 'calcidex', title: 'קלצידקס', fullTitle: 'קלצידקס – סידן גליצרופוספט ואלוורה אורגנית', series: 'professional', image: '/assets/products/calcidex.png' },

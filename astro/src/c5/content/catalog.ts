@@ -70,6 +70,7 @@ function assetFor(dir: string, slug: string): string | undefined {
 }
 
 let cache: Promise<Product[]> | null = null
+let hiddenTo: Record<string, string> = {}
 export function getCatalog(): Promise<Product[]> {
   cache ??= build()
   return cache
@@ -93,10 +94,11 @@ async function build(): Promise<Product[]> {
     }),
     ...old.filter((o) => !manual.has(o.slug) && !replaced.has(o.slug)).map(fromOld),
   ]
+  hiddenTo = {}
   return merged
     .map((p) => {
       const { hidden, ...ov } = PRODUCT_OVERRIDES[p.slug] ?? {}
-      if (hidden) return null
+      if (hidden) { hiddenTo[p.slug] = `/series/${ov.series ?? p.series}`; return null }
       const out: Product = { ...p, ...ov }
       out.image = ov.image ?? assetFor('assets/products', p.slug) ?? out.image
       out.labelImage = ov.labelImage ?? assetFor('assets/products/labels', p.slug) ?? out.labelImage
@@ -108,3 +110,5 @@ async function build(): Promise<Product[]> {
 export const productsOfSeries = async (series: string) => (await getCatalog()).filter((p) => p.series === series)
 /** Old-site slugs replaced by a hand-entered product (`source`) → that product's slug, for redirects. */
 export const replacedSlugs = () => Object.fromEntries(PRODUCTS.filter((p) => p.source).map((p) => [p.source!, p.slug]))
+/** Hidden products (overrides.ts) → the series page their old URL should redirect to. */
+export const hiddenRedirects = async () => { await getCatalog(); return hiddenTo }

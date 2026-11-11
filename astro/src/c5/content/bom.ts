@@ -8,7 +8,7 @@ const V: S = 'vitamins-minerals', P: S = 'plants', B: S = 'probiotics', PRO: S =
 
 export const BOM_SERIES: Record<string, S> = {
   'lpldl-probiotic': B, 'bio-vera': B, 'geniflora-c15': B, 'umanaflora-daily': B, 'umanaflora-53': B, 'quick-daily-biotics': B,
-  'giallocur-nano-curcumin': P, lactoferr: P, natto: P, 'kalnozim-digestive-enzymes': P, kalnozin: P,
+  'giallocur-nano-curcumin': P, 'curcumin-complex': P, lactoferr: P, natto: P, 'kalnozim-digestive-enzymes': P, kalnozin: P,
   alyvium: PRO, winterguard: PRO, nootropinol: PRO, 'nemadrin-l6': PRO, fibrogen: PRO, 'protesterol-40': PRO,
   'cogni-bright': PRO, 'cogni-mg': PRO, 'cogni-zzz': PRO, calcidex: PRO, revival: PRO, 'revival-20': PRO, 'relacton-alpha': PRO,
   amorfolic: V, 'lipozamin-b12-spectrum': V, 'lipozamin-calcium': V, 'lipozamin-fe': V, 'lipozamin-mg-spectrum': V,

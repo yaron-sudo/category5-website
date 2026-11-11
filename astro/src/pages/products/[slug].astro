@@ -3,16 +3,17 @@
 // old site, see src/c5/content/catalog.ts) in the new design (BRIEF §8).
 // Old slugs replaced by a hand-entered product redirect to it.
 import ProductPage from '@/components/c5/ProductPage.astro'
-import { getCatalog, replacedSlugs } from '@/c5/content/catalog'
+import { getCatalog, replacedSlugs, hiddenRedirects } from '@/c5/content/catalog'
 import type { Product } from '@/c5/content/products'
 
 export async function getStaticPaths() {
   const pages = (await getCatalog()).map((product) => ({ params: { slug: product.slug }, props: { product } }))
-  const moved = Object.entries(replacedSlugs()).map(([from, to]) => ({ params: { slug: from }, props: { to } }))
-  return [...pages, ...moved]
+  const moved = Object.entries(replacedSlugs()).map(([from, to]) => ({ params: { slug: from }, props: { to: `/products/${to}` } }))
+  const hidden = Object.entries(await hiddenRedirects()).map(([from, to]) => ({ params: { slug: from }, props: { to } }))
+  return [...pages, ...moved, ...hidden]
 }
 const { product, to } = Astro.props as { product?: Product; to?: string }
-if (to) return Astro.redirect(`/products/${to}`, 301)
+if (to) return Astro.redirect(to, 301)
 if (!product) return new Response(null, { status: 404 })
 ---
 <ProductPage product={product} />
