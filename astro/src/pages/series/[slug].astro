@@ -7,7 +7,8 @@ import ProductCard from '@/components/c5/ProductCard.astro'
 import { SERIES, type Series } from '@/c5/data'
 import { t } from '@/c5/i18n'
 import { SERIES_CONTENT, SERIES_INTRO_PLACEHOLDER, PRODUCT_TITLE_PLACEHOLDER, PLACEHOLDER_GRID_SIZE } from '@/c5/content/series'
-import { productsOfSeries, productHref } from '@/c5/content/products'
+import { productHref } from '@/c5/content/products'
+import { productsOfSeries } from '@/c5/content/catalog'
 
 export function getStaticPaths() {
   return SERIES.map((s) => ({ params: { slug: s.slug }, props: { s } }))
@@ -15,7 +16,7 @@ export function getStaticPaths() {
 const { s } = Astro.props as { s: Series }
 const content = SERIES_CONTENT[s.slug] ?? { fillPlaceholders: true }
 const intro = content.intro?.length ? content.intro : [SERIES_INTRO_PLACEHOLDER]
-const products = productsOfSeries(s.slug).map((p) => ({ title: p.title, image: p.image, href: productHref(p) as string | undefined }))
+const products = (await productsOfSeries(s.slug)).map((p) => ({ title: p.title, image: p.image, href: productHref(p) as string | undefined }))
 const cards = content.fillPlaceholders
   ? [...products, ...Array.from({ length: Math.max(0, PLACEHOLDER_GRID_SIZE - products.length) }, () => ({ title: PRODUCT_TITLE_PLACEHOLDER, image: undefined, href: undefined }))]
   : products
