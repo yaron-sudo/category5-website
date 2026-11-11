@@ -11,10 +11,11 @@ import { fetchQ, urlFor, type SanityImage } from '@/lib/sanity'
 import { DISCLAIMER } from '@/lib/brand'
 import { PRODUCTS, type Product } from './products'
 import { PRODUCT_OVERRIDES } from './overrides'
+import { BOM_SERIES } from './bom'
 
 type SeriesSlug = Product['series']
 
-/** Old site family → new series (default; change per product in overrides.ts). */
+/** Old site family → new series: fallback only for products that are not in the BOM list (bom.ts). */
 const FAMILY_TO_SERIES: Record<string, SeriesSlug> = {
   'vitamins-and-minerals': 'vitamins-minerals',
   'liposomal-vitamin-c': 'vitamins-minerals',
@@ -49,7 +50,7 @@ function fromOld(o: OldProduct): Product {
   return {
     slug: o.slug,
     title: o.name,
-    series: PROBIOTIC_SLUGS.has(o.slug) ? 'probiotics' : FAMILY_TO_SERIES[o.family ?? ''] ?? 'professional',
+    series: BOM_SERIES[o.slug] ?? (PROBIOTIC_SLUGS.has(o.slug) ? 'probiotics' : FAMILY_TO_SERIES[o.family ?? ''] ?? 'professional'),
     image: photo ? urlFor(photo).width(1200).fit('max').auto('format').url() : undefined,
     intro: o.intro ? o.intro.split('\n').filter(Boolean) : undefined,
     contains: contains(o.keyStats),
@@ -87,7 +88,8 @@ async function build(): Promise<Product[]> {
   const merged: Product[] = [
     ...PRODUCTS.map((p) => {
       const src = p.source ? oldBySlug.get(p.source) : undefined
-      return src ? { ...fromOld(src), ...p } : p
+      const q = { ...p, series: BOM_SERIES[p.slug] ?? p.series }
+      return src ? { ...fromOld(src), ...q } : q
     }),
     ...old.filter((o) => !manual.has(o.slug) && !replaced.has(o.slug)).map(fromOld),
   ]

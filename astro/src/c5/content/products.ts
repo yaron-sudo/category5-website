@@ -44,6 +44,16 @@ export const PRODUCTS: Product[] = [
   { slug: 'postbiotic', title: 'פוסטביוטיקה', series: 'probiotics', image: '/assets/products/postbiotic.jpg' },
   { slug: 'revival', title: 'רויוואל', source: 'revival-20', series: 'professional', image: '/assets/products/revival.jpg' },
   { slug: 'calcidex', title: 'קלצידקס', fullTitle: 'קלצידקס – סידן גליצרופוספט ואלוורה אורגנית', series: 'professional', image: '/assets/products/calcidex.png' },
+  // Products of the BOM list that had no page on the old site (names and pack sizes from the BOM).
+  { slug: 'lipozamin-nac', title: 'ליפוזמין NAC', series: 'vitamins-minerals', contains: 'מכיל 60 כמוסות' },
+  { slug: 'lipozamin-alpha-lipoic-acid', title: 'ליפוזמין אלפא ליפואית אסיד', series: 'vitamins-minerals', contains: 'מכיל 60 כמוסות' },
+  { slug: 'lipozamin-magnesium-malate', title: 'ליפוזמין מגנזיום מאלאט', series: 'vitamins-minerals', contains: 'מכיל 60 כמוסות' },
+  { slug: 'lipozamin-creatine-complex', title: 'ליפוזמין קריאטין קומפלקס', series: 'vitamins-minerals', contains: 'מכיל 60 כמוסות' },
+  { slug: 'liposomal-multivitamin', title: 'מולטיויטמין ליפוזומלי', series: 'vitamins-minerals', contains: 'מכיל 60 כמוסות' },
+  { slug: 'liposomal-vitamin-b-complex', title: 'קומפלקס ויטמין B ליפוזומלי', series: 'vitamins-minerals', contains: 'מכיל 60 כמוסות' },
+  { slug: 'natto', title: 'נאטו', series: 'plants', contains: 'מכיל 60 כמוסות' },
+  { slug: 'fibrogen', title: 'פיברוגין', series: 'professional', contains: 'מכיל 30 כמוסות' },
+  { slug: 'quick-daily-biotics', title: 'קויק דיילי ביוטיקס', series: 'probiotics', contains: 'מכיל 30 כמוסות' },
 ]
 
 export const productHref = (p: Product) => `/products/${p.slug}`
