@@ -42,7 +42,19 @@ async function measure(src: string): Promise<string | undefined> {
   // product's height, where there is no shadow. Centring then follows the product.
   const yCut = y0 + Math.round((y1 - y0) * 0.62)
   let x0 = w, x1 = -1
-  for (let y = y0; y <= yCut; y++) for (let x = 0; x < w; x++) if (!isBg(x, y)) { if (x < x0) x0 = x; if (x > x1) x1 = x }
+  // Up there a stricter white test is safe (no shadow to pick up), and it is needed:
+  // a white bottle's outline on a white background is only a few shades off white.
+  const EDGE = 249
+  const isPaper = (x: number, y: number) => { const i = (y * w + x) * 4; return data[i + 3] < 16 || (data[i] > EDGE && data[i + 1] > EDGE && data[i + 2] > EDGE) }
+  for (let y = y0; y <= yCut; y++) for (let x = 0; x < w; x++) if (!isPaper(x, y)) { if (x < x0) x0 = x; if (x > x1) x1 = x }
+  // Lower part: count only pixels that cannot be shadow — coloured (label band) or
+  // dark. A cast shadow is a light neutral grey, so it never widens the product.
+  for (let y = yCut + 1; y <= y1; y++) for (let x = 0; x < w; x++) {
+    const i = (y * w + x) * 4
+    if (data[i + 3] < 16) continue
+    const mx = Math.max(data[i], data[i + 1], data[i + 2]), mn = Math.min(data[i], data[i + 1], data[i + 2])
+    if (mx - mn > 40 || mx < 120) { if (x < x0) x0 = x; if (x > x1) x1 = x }
+  }
   if (x1 < 0) return undefined
   const bw = (x1 - x0 + 1) / w, bh = (y1 - y0 + 1) / h // content box, as a share of the image
   if (bw > 0.94 && bh > 0.94) return undefined // scene photo: no margin to normalise

@@ -51,10 +51,11 @@ const btn = 'display: inline-flex; align-items: center; justify-content: center;
 ))}
 </div>
 )}
-<div class="pp-stage">
+<div class="pp-stage" data-pp-stage role="button" tabindex="0" aria-label="הגדלת התמונה" aria-pressed="false">
 {gallery.length
   ? <img data-pp-main src={gallery[0].src} alt={gallery[0].alt} style={gallery[0].fit} fetchpriority="high">
   : <span>{t('img')}</span>}
+{gallery.length > 0 && <span class="pp-lens" data-pp-lens aria-hidden="true"></span>}
 </div>
 </div>
 
@@ -133,8 +134,14 @@ const btn = 'display: inline-flex; align-items: center; justify-content: center;
   .pp-thumb { position: relative; overflow: hidden; padding: 0; border: 0; border-bottom: 3px solid transparent; background: #f7f7f5; aspect-ratio: 1 / 1; cursor: pointer; display: block; width: 100%; transition: border-color .4s cubic-bezier(.22,.61,.36,1); }
   .pp-thumb[aria-pressed="true"] { border-bottom-color: #141414; }
   .pp-thumb img { width: 100%; height: 100%; object-fit: contain; display: block; mix-blend-mode: multiply; }
-  .pp-stage { position: relative; flex: 1 1 auto; min-width: 0; aspect-ratio: 1 / 1; background: #f7f7f5; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .pp-stage { position: relative; touch-action: none; flex: 1 1 auto; min-width: 0; aspect-ratio: 1 / 1; background: #f7f7f5; display: flex; align-items: center; justify-content: center; overflow: hidden; }
   .pp-stage img { width: 100%; height: 100%; object-fit: contain; display: block; mix-blend-mode: multiply; }
+  .pp-stage[data-pp-stage] { cursor: zoom-in; }
+  .pp-stage.is-zoom { cursor: none; }
+  /* Magnifier: a round lens that follows the pointer and shows the same image enlarged. */
+  .pp-lens { position: absolute; left: 0; top: 0; width: 220px; height: 220px; border-radius: 50%; border: 1px solid #141414; background-color: #f7f7f5; background-repeat: no-repeat; background-blend-mode: multiply; box-shadow: 0 10px 30px rgba(20,20,20,.12); pointer-events: none; opacity: 0; transform: scale(.9); transition: opacity .3s cubic-bezier(.22,.61,.36,1), transform .3s cubic-bezier(.22,.61,.36,1); z-index: 3; will-change: left, top, background-position; }
+  .pp-stage.is-zoom .pp-lens { opacity: 1; transform: none; }
+  @media (max-width: 900px) { .pp-lens { width: 160px; height: 160px; } }
   .pp-info { display: flex; flex-direction: column; gap: 16px; }
   .pp-series { display: inline-flex; align-items: center; gap: 10px; align-self: flex-start; color: #141414; text-decoration: none; }
   .pp-series span { font-size: 15px !important; }
@@ -173,5 +180,35 @@ const btn = 'display: inline-flex; align-items: center; justify-content: center;
     main.src = b.dataset.src!; main.alt = b.dataset.alt || ''; main.style.cssText = b.dataset.fit || ''
     thumbs.forEach((x) => x.setAttribute('aria-pressed', String(x === b)))
   }))
+  // Magnifier: click (or tap / Enter) on the product image turns the lens on at
+  // that point; it follows the pointer; click again, Esc or leaving turns it off.
+  const stage = document.querySelector<HTMLElement>('[data-pp-stage]')
+  const lens = document.querySelector<HTMLElement>('[data-pp-lens]')
+  if (stage && lens && main) {
+    const ZOOM = 2.5
+    let on = false
+    const place = (cx: number, cy: number) => {
+      const s = stage.getBoundingClientRect(), r = main.getBoundingClientRect()
+      const half = lens.offsetWidth / 2
+      const x = Math.max(s.left, Math.min(cx, s.right)), y = Math.max(s.top, Math.min(cy, s.bottom))
+      lens.style.left = `${x - s.left - half}px`
+      lens.style.top = `${y - s.top - half}px`
+      lens.style.backgroundImage = `url("${main.currentSrc || main.src}")`
+      lens.style.backgroundSize = `${r.width * ZOOM}px ${r.height * ZOOM}px`
+      lens.style.backgroundPosition = `${-((x - r.left) * ZOOM - half)}px ${-((y - r.top) * ZOOM - half)}px`
+    }
+    const set = (v: boolean, cx?: number, cy?: number) => {
+      on = v
+      stage.classList.toggle('is-zoom', v)
+      stage.setAttribute('aria-pressed', String(v))
+      if (v) { const s = stage.getBoundingClientRect(); place(cx ?? s.left + s.width / 2, cy ?? s.top + s.height / 2) }
+    }
+    stage.addEventListener('click', (e) => set(!on, e.clientX, e.clientY))
+    stage.addEventListener('pointermove', (e) => { if (on) place(e.clientX, e.clientY) })
+    stage.addEventListener('pointerleave', (e) => { if (on && e.pointerType === 'mouse') set(false) })
+    stage.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); set(!on) } })
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && on) set(false) })
+    thumbs.forEach((b) => b.addEventListener('click', () => set(false)))
+  }
   document.querySelector('[data-pp-ask]')?.addEventListener('click', () => document.querySelector<HTMLButtonElement>('[data-chat-open]')?.click())
 </script>
