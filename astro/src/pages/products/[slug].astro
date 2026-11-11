@@ -1,125 +1,22 @@
 ---
-import ProductView, { type ProductViewModel } from '@/components/ProductView.astro'
-import { getProduct, getProductSlugs, getAllProductCards, urlFor, resolveSeo, type ProductDoc } from '@/lib/sanity'
-import { BADGE_LABELS, BADGE_ICONS, DISCLAIMER } from '@/lib/brand'
+// /products/[slug]
+//  • products of the new site (src/c5/content/products.ts) → new design (BRIEF §8)
+//  • the 41 products migrated from the old site → old-design page, until they are
+//    re-entered in the new catalogue (old URLs redirect to these slugs).
+import ProductPage from '@/components/c5/ProductPage.astro'
+import LegacyProduct from '@/components/LegacyProduct.astro'
+import { PRODUCTS, type Product } from '@/c5/content/products'
+import { getProduct, getProductSlugs, type ProductDoc } from '@/lib/sanity'
 
 export async function getStaticPaths() {
-  const slugs = await getProductSlugs()
-  const docs = await Promise.all(slugs.filter(Boolean).map((s) => getProduct(s)))
-  return docs.filter((d): d is ProductDoc => Boolean(d)).map((doc) => ({ params: { slug: doc.slug }, props: { doc } }))
+  const fresh = PRODUCTS.map((product) => ({ params: { slug: product.slug }, props: { product } }))
+  const taken = new Set(PRODUCTS.map((p) => p.slug))
+  const slugs = (await getProductSlugs()).filter((s) => s && !taken.has(s))
+  const docs = await Promise.all(slugs.map((s) => getProduct(s)))
+  const legacy = docs.filter((d): d is ProductDoc => Boolean(d)).map((doc) => ({ params: { slug: doc.slug }, props: { doc } }))
+  return [...fresh, ...legacy]
 }
-
-// Static builds get `doc` from getStaticPaths; the SSR preview resolves it from the URL.
-const slug = Astro.params.slug ?? ''
-const doc: ProductDoc | null = (Astro.props as { doc?: ProductDoc }).doc ?? (slug ? await getProduct(slug) : null)
-if (!doc) return new Response(null, { status: 404 })
-
-// Images: uncaptioned = product photos (hero gallery); captioned = label scans (lightbox).
-type DocImage = NonNullable<ProductDoc['images']>[number]
-const allImages = (doc.images ?? []).filter((i): i is DocImage => Boolean(i?.asset))
-const photos = allImages.filter((i) => !i.caption)
-const scans = allImages.filter((i) => i.caption)
-const heroImageUrl = photos[0] ? urlFor(photos[0]).width(1300).fit('max').auto('format').url() : undefined
-const gallery = photos.length
-  ? photos.map((i) => ({
-      url: urlFor(i).width(1100).fit('max').auto('format').url(),
-      zoomUrl: urlFor(i).width(2000).fit('max').auto('format').url(),
-      thumbUrl: urlFor(i).width(160).height(160).fit('crop').auto('format').url(),
-      alt: i.alt || doc.name,
-    }))
-  : undefined
-const labelLinks = scans.length ? scans.map((i) => ({ label: i.caption!, url: urlFor(i).width(1600).fit('max').auto('format').url() })) : undefined
-
-// Body split at its h2 headings → text cards; bodies without an h2 render as one prose block.
-type BodyBlock = NonNullable<ProductDoc['body']>[number]
-const blockText = (b: BodyBlock) => ((b.children as Array<{ text?: string }> | undefined) ?? []).map((c) => c.text ?? '').join('')
-const proseSections = (() => {
-  const body = doc.body ?? []
-  if (!body.some((b) => b._type === 'block' && b.style === 'h2')) return undefined
-  const out: Array<{ heading?: string; blocks: BodyBlock[] }> = []
-  let cur: { heading?: string; blocks: BodyBlock[] } | null = null
-  for (const b of body) {
-    if (b._type === 'block' && b.style === 'h2') { cur = { heading: blockText(b), blocks: [] }; out.push(cur); continue }
-    if (!cur) { cur = { blocks: [] }; out.push(cur) }
-    cur.blocks.push(b)
-  }
-  return out.filter((s) => s.blocks.length)
-})()
-
-const family = doc.category
-const allProducts = await getAllProductCards()
-const siblings = allProducts.filter((r) => r.slug !== doc.slug && r.category?.slug === family?.slug)
-const others = siblings.length >= 3 ? siblings : [...siblings, ...allProducts.filter((r) => r.slug !== doc.slug && r.category?.slug !== family?.slug)].slice(0, 8)
-
-const badges = (doc.badges ?? []).map((b) => BADGE_LABELS[b] ?? b)
-const badgeIcons = Object.fromEntries((doc.badges ?? []).filter((b) => BADGE_ICONS[b]).map((b) => [BADGE_LABELS[b] ?? b, BADGE_ICONS[b]]))
-
-const docs = [
-  ...(doc.leaflet ? [{ label: 'עלון המוצר (PDF)', href: doc.leaflet }] : []),
-  ...(doc.extraDocs ?? []),
-  { label: 'שאלו את העוזר החכם על המוצר', href: `/faq?q=${encodeURIComponent(`ספרו לי על ${doc.name}`)}` },
-]
-
-const vm: ProductViewModel = {
-  name: doc.name,
-  heroEyebrow: family?.title,
-  subheading: doc.tagline,
-  badges,
-  badgeIcons,
-  accent: family?.color,
-  buyUrl: '/stores',
-  buyLabel: 'היכן ניתן להשיג',
-  secondaryCta: doc.leaflet ? { label: 'עלון המוצר', href: doc.leaflet } : undefined,
-  heroImageUrl,
-  heroImageAlt: doc.name,
-  gallery,
-  labelLinks,
-  stats: doc.keyStats?.filter((s) => s.value),
-  research: doc.benefits?.length || doc.intro ? { eyebrow: 'יתרונות המוצר', title: `מה מייחד את ${doc.name}`, lede: doc.intro, points: doc.benefits ?? [] } : undefined,
-  bodyBlocks: proseSections ? undefined : doc.body,
-  proseSections,
-  video: doc.video,
-  narrative: doc.dosage || doc.details?.length || doc.warnings?.length
-    ? {
-        eyebrow: 'הוראות שימוש',
-        heading: doc.dosage ? `המלצות שימוש: ${doc.dosage}` : 'הוראות שימוש',
-        paragraphs: doc.warnings ?? [],
-        listCaption: 'פרטי המוצר',
-        list: doc.details,
-        footnote: DISCLAIMER,
-      }
-    : undefined,
-  docs,
-  faqs: doc.faqs,
-  productLine: others.length
-    ? {
-        eyebrow: 'מוצרים נוספים',
-        title: siblings.length ? `עוד ב${family?.title ?? 'סדרה'}` : 'מוצרים נוספים',
-        ctaLabel: family ? `לכל מוצרי ${family.title}` : undefined,
-        ctaHref: family ? `/category/${family.slug}` : undefined,
-        items: others.map((r) => ({
-          name: r.name,
-          href: `/products/${r.slug}`,
-          tag: r.tagline,
-          imageUrl: r.image?.asset ? urlFor(r.image).width(700).fit('max').auto('format').url() : undefined,
-        })),
-      }
-    : undefined,
-  seo: resolveSeo(doc.seo, {
-    title: `${doc.name} | קטגוריה 5 תוספים אתיים`,
-    description: [doc.tagline, doc.intro].filter(Boolean).join('. ').slice(0, 155),
-    image: heroImageUrl,
-  }),
-}
-
-vm.jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Product',
-  name: vm.name,
-  description: vm.seo.description,
-  image: heroImageUrl ? new URL(heroImageUrl, Astro.site).href : undefined,
-  brand: { '@type': 'Brand', name: 'Category 5 Ethical Supplements' },
-  category: family?.title,
-}
+const { product, doc } = Astro.props as { product?: Product; doc?: ProductDoc }
+if (!product && !doc) return new Response(null, { status: 404 })
 ---
-<ProductView {...vm} />
+{product ? <ProductPage product={product} /> : <LegacyProduct doc={doc!} />}
