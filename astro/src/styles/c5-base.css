@@ -72,6 +72,7 @@ a[data-c5-series-tile]:hover > span:first-child { transform: translateY(-2px); }
 /* (selector written to outrank site.css's inline-style button rule, which turns buttons black) */
 a.c5-soft.c5-soft[style*="border-radius: 4px"][style*="border: 1px solid"]:hover,
 button.c5-soft.c5-soft[style*="border-radius: 4px"][style*="border: 1px solid"]:hover,
+button.c5-soft.c5-soft[style*="position: fixed"]:hover,
 .c5-soft:hover { background: #efeeea !important; color: #141414 !important; border-color: #dcdcd9 !important; box-shadow: inset 0 0 0 1px #e9e9e7; opacity: 1 !important; }
 /* Footer sitemap: text colour black → grey on hover, nothing else. */
 .c5-sitemap a, .c5-sitemap a:hover { text-decoration: none !important; background: none !important; opacity: 1 !important; transform: none !important; }

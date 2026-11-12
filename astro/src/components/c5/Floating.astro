@@ -11,7 +11,7 @@ const strings = { he: dict('he'), en: dict('en') }
 
 <Accessibility variant="c5" label={t('a11y.open')} />
 
-<button type="button" data-chat-open aria-expanded="false" aria-controls="c5-chat" style="position: fixed; left: 20px; bottom: 20px; z-index: 80; min-height: 48px; padding: 0 22px; border-radius: 4px; border: 1px solid #141414; background: #ffffff; color: #141414; font: inherit; font-size: 16px; cursor: pointer">{t('chat.open')}</button>
+<button type="button" data-chat-open class="c5-soft" aria-expanded="false" aria-controls="c5-chat" style="position: fixed; left: 20px; bottom: 20px; z-index: 80; min-height: 48px; padding: 0 22px; border-radius: 4px; border: 1px solid #141414; background: #ffffff; color: #141414; font: inherit; font-size: 16px; cursor: pointer">{t('chat.open')}</button>
 
 <section id="c5-chat" role="dialog" aria-label={t('chat.title')} data-chat-panel hidden style="position: fixed; left: 16px; bottom: 16px; z-index: 90; width: min(380px, calc(100vw - 32px)); height: min(600px, calc(100vh - 32px)); background: #ffffff; border: 1px solid #141414; border-radius: 8px; display: flex; flex-direction: column; overflow: hidden">
 <div style="padding: 14px 16px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid #dcdcd9">
