@@ -16,7 +16,7 @@ interface Props {
   lang?: Lang
   jsonLd?: Record<string, unknown> | Record<string, unknown>[]
 }
-const { title, description, image = '/assets/banners/home-banner-1-bottles.jpg', lang = DEFAULT_LANG, jsonLd } = Astro.props
+const { title, description, image = '/assets/banners/home-banner-1.jpg', lang = DEFAULT_LANG, jsonLd } = Astro.props
 const fullTitle = title.includes('Category 5') ? title : `${title} | Category 5`
 ---
 <!doctype html>
