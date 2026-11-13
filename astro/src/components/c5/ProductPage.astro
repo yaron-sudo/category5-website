@@ -179,8 +179,9 @@ const btn = 'display: inline-flex; align-items: center; justify-content: center;
   .pp-acc-body { padding: 0 0 clamp(28px, 3.5vw, 44px); padding-inline-start: min(200px, 16vw); max-width: 1000px; }
   .pp-box { margin: 0; padding: 22px 22px 22px 22px; padding-inline-start: 42px; background: #f7f7f5; }
   .pp-mic { display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start; }
-  .pp-mic img { display: block; max-width: 100%; height: auto; flex: 0 1 auto; }
-  .pp-mic img:not(:only-child) { max-width: min(100%, 380px); }
+  /* Same height for every microscope photo (never upscaled, never cropped). */
+  .pp-mic img { display: block; width: auto; height: auto; max-width: 100%; max-height: 300px; flex: 0 1 auto; }
+  @media (max-width: 640px) { .pp-mic img { max-height: 220px; } }
   .pp-box li + li { margin-top: 6px; }
   /* "More from the series" carousel (after The Ordinary): 4 cards in view, round
      arrow buttons, a hairline with a black progress segment underneath. */
