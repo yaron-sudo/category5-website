@@ -37,6 +37,5 @@ export const PRODUCT_OVERRIDES: Record<string, ProductOverride> = {
   'nemadrin-soap': { hidden: true },
   'giallocur-soap': { hidden: true },
   'alyvium-cream': { hidden: true },
-  'lipozamin-mg-taurate': { hidden: true },
   'umanaflora-de111': { hidden: true },
 }
