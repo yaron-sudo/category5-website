@@ -98,3 +98,10 @@ cd astro && npm ci && npm run build
 ```
 Then look at the changed product pages (build output in `astro/.vercel/output/static`, or
 `npx astro dev`). Report in Hebrew: which products changed, what is still missing.
+
+## Electron-microscope photo (optional)
+
+When the product brochure shows an electron-microscope photo of the product's liposome,
+save it (as extracted, uncropped) to `astro/public/assets/products/microscope/<slug>.webp`
+(second photo: `<slug>-2.webp`). The product page then shows the accordion
+"צילום הליפוזום במיקרוסקופ אלקטרוני" under the label automatically.

@@ -104,6 +104,8 @@ async function build(): Promise<Product[]> {
       out.image = ov.image ?? assetFor('assets/products', p.slug) ?? out.image
       out.label = ov.label ?? LABELS[p.slug] ?? (p.source ? LABELS[p.source] : undefined) ?? (out.labelText?.length ? { notes: out.labelText } : undefined)
       out.labelImage = ov.labelImage ?? assetFor('assets/products/labels', p.slug) ?? out.labelImage
+      const mic = [p.slug, `${p.slug}-2`, `${p.slug}-3`].map((n) => assetFor('assets/products/microscope', n)).filter(Boolean) as string[]
+      out.microscope = ov.microscope ?? (mic.length ? mic : undefined)
       return out
     })
     .filter((p): p is Product => !!p)

@@ -110,6 +110,14 @@ const btn = 'display: inline-flex; align-items: center; justify-content: center;
   : <div style="aspect-ratio: 4 / 3; max-width: 640px; background: #e9e9e7; display: flex; align-items: center; justify-content: center">{t('img')}</div>}
 </div>
 </details>
+{p.microscope?.length && (
+<details>
+<summary><h2 style="margin: 0">צילום הליפוזום במיקרוסקופ אלקטרוני</h2><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></summary>
+<div class="pp-acc-body pp-mic">
+{p.microscope.map((src, i) => <img src={src} alt={`צילום הליפוזום במוצר במיקרוסקופ אלקטרוני – ${name}${p.microscope!.length > 1 ? ` (${i + 1})` : ''}`} loading="lazy">)}
+</div>
+</details>
+)}
 </section>
 
 {related.length > 0 && (
@@ -170,6 +178,9 @@ const btn = 'display: inline-flex; align-items: center; justify-content: center;
   .pp-acc details[open] summary svg { transform: rotate(180deg); }
   .pp-acc-body { padding: 0 0 clamp(28px, 3.5vw, 44px); padding-inline-start: min(200px, 16vw); max-width: 1000px; }
   .pp-box { margin: 0; padding: 22px 22px 22px 22px; padding-inline-start: 42px; background: #f7f7f5; }
+  .pp-mic { display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start; }
+  .pp-mic img { display: block; max-width: 100%; height: auto; flex: 0 1 auto; }
+  .pp-mic img:not(:only-child) { max-width: min(100%, 380px); }
   .pp-box li + li { margin-top: 6px; }
   /* "More from the series" carousel (after The Ordinary): 4 cards in view, round
      arrow buttons, a hairline with a black progress segment underneath. */
