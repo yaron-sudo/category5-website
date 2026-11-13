@@ -10,6 +10,7 @@ import { resolve } from 'node:path'
 import { fetchQ, urlFor, type SanityImage } from '@/lib/sanity'
 import { DISCLAIMER } from '@/lib/brand'
 import { PRODUCTS, type Product } from './products'
+import { LABELS } from './labels'
 import { PRODUCT_OVERRIDES } from './overrides'
 import { BOM_SERIES } from './bom'
 
@@ -101,6 +102,7 @@ async function build(): Promise<Product[]> {
       if (hidden) { hiddenTo[p.slug] = `/series/${ov.series ?? p.series}`; return null }
       const out: Product = { ...p, ...ov }
       out.image = ov.image ?? assetFor('assets/products', p.slug) ?? out.image
+      out.label = ov.label ?? LABELS[p.slug] ?? (p.source ? LABELS[p.source] : undefined)
       out.labelImage = ov.labelImage ?? assetFor('assets/products/labels', p.slug) ?? out.labelImage
       return out
     })

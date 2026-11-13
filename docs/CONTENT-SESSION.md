@@ -8,7 +8,7 @@
 
 | Session | May edit | Must not edit |
 |---|---|---|
-| **Content** (you) | `astro/src/c5/content/overrides.ts`, `products.ts`, `series.ts`, `needs.ts`, `articles.ts`, `stores.ts`, `bom.ts`; image files under `astro/public/assets/products/` (and `labels/`) | components, pages, layouts, styles, `catalog.ts`, `imageFit.ts`, `vercel.json`, anything under `mockups/` or `assets/` |
+| **Content** (you) | `astro/src/c5/content/overrides.ts`, `products.ts`, `series.ts`, `needs.ts`, `articles.ts`, `stores.ts`, `bom.ts`, `labels.ts`; image files under `astro/public/assets/products/` (and `labels/`) | components, pages, layouts, styles, `catalog.ts`, `imageFit.ts`, `vercel.json`, anything under `mockups/` or `assets/` |
 | **Design** (other session) | everything else | the content files above |
 
 Both sessions push to **`claude/admiring-curie-l85nyg`** (the repo's only branch; Vercel
@@ -49,7 +49,31 @@ Fill their fields there (same field names).
 
 ### Images
 - Product photo: `astro/public/assets/products/<slug>.(jpg|png|webp)`
-- Label image: `astro/public/assets/products/labels/<slug>.(jpg|png|webp)`
+- Label: **text only, never an image** — see "Product label" below.
+
+## Product label (required for every product)
+
+The label is shown on the product page as accessible text in one uniform table
+design (screen readers, enlarged text). Add an entry per product slug to
+`astro/src/c5/content/labels.ts` (`LABELS`); the page renders it automatically.
+
+```ts
+'my-product-slug': {
+  title: 'שם המוצר - שורת הפתיחה של התווית.',
+  ingredients: 'הרכיבים כפי שמודפסים על התווית.',
+  table: {
+    columns: ['רכיבים', 'כמות אלמנטלית בכמוסה', ...rda()],   // rda('51-70') for another age range; omit `columns` if the label table has no header row
+    rows: [['שם הרכיב (English name) **', '27 מ"ג', '180%', '270%']],   // first cell = ingredient
+  },
+  facts: [['אינו מכיל', '…'], ['משקל כמוסה', '…'], ['משקל נקי', '…'], ENERGY, ['הוראות שימוש', '…']],
+  notes: ['* אינו מהונדס גנטית | GMO FREE | מתאים לטבעונים', LIPOSOME],
+},
+```
+
+- Every part is optional — fill in only what is printed on the label.
+- Copy the label exactly: numbers, units, asterisks. Never add or "fix" data.
+- Do not upload a label image for new products; a product without a `LABELS` entry
+  shows a grey placeholder.
 
 A file with the product's slug replaces the old image on the next build; no code change.
 Only downscale large files (max ~2000px on the long side). **Never crop, recolour,

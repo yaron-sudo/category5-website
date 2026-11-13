@@ -99,3 +99,14 @@ Writes the local dataset. With `SANITY_PROJECT_ID` + `SANITY_WRITE_TOKEN` (Edito
 - `TrackingPixels.astro`: a script inside a conditional expression is emitted inline (no TypeScript compile), so it must be plain JS (fixed; this bug also exists in the template).
 - The AI assistant: knowledge text ~65K characters, cached (`cache_control`); `effort: low`; `fallbacks: "default"` (beta `server-side-fallback-2026-07-01`) re-runs a declined request on another model; web search capped at 3 queries; per-instance rate limit of 20/10 min/IP.
 - Development environment: `cdn.sanity.io`, `i.ytimg.com` and the geocoding services are blocked, so video posters and map tiles are missing from local screenshots.
+
+## Product label as text (2026-11-13)
+
+- `astro/src/c5/content/labels.ts` — label of each product as structured text; rendered by
+  `components/c5/ProductLabel.astro` (semantic tables) in the "תווית המוצר" accordion.
+  The label scan is no longer shown when a text label exists (fallback only).
+- 22 labels were transcribed from the old-site label scans — **must be proofread by the
+  client against the physical labels**. No label source: nemadrin-l6, cellinol-junior,
+  cellinol-liposomal-vitamin-c (old site attached BioVera's label to it), lipozamin-zn,
+  quick-fe, amorfolic, nootropinol, cogni-bright, cogni-zzz, alyvium, lactoferr, kalnozin
+  and the BOM-only products.

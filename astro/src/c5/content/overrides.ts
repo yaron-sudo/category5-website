@@ -19,7 +19,7 @@
 //
 // Replacing images needs NO entry here: drop a file named after the slug into
 //   astro/public/assets/products/<slug>.(jpg|png|webp)          → product image
-//   astro/public/assets/products/labels/<slug>.(jpg|png|webp)   → label image
+//   label text (shown instead of any label image): src/c5/content/labels.ts
 // and it replaces the old site's image on the next build.
 // ────────────────────────────────────────────────────────────────────────────
 import type { Product } from './products'

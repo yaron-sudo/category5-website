@@ -7,6 +7,7 @@
 // Content: src/c5/content/catalog.ts (old-site data + overrides); unfilled fields
 // show the mockup's placeholder texts.
 import Site from '@/layouts/Site.astro'
+import ProductLabel from '@/components/c5/ProductLabel.astro'
 import ProductCard from '@/components/c5/ProductCard.astro'
 import { SERIES, seriesHref } from '@/c5/data'
 import { t } from '@/c5/i18n'
@@ -27,10 +28,11 @@ const all = p.details ?? []
 const specs = all.map((d) => d.match(/^([^:]{2,30}):\s*(.+)$/)).filter(Boolean).map((m) => ({ label: m![1], value: m![2] }))
 const notes = all.filter((d) => !/^[^:]{2,30}:\s*.+$/.test(d))
 const pack = (p.contains || PH.contains).replace(/^מכיל\s+/, '')
-// The product photo is framed uniformly (imageFit); the label scan keeps plain `contain`.
+// The product photo is framed uniformly (imageFit). The label is text (ProductLabel);
+// a label scan is only shown while a product has no text label yet.
 const gallery = [
   p.image && { src: p.image, alt: name, fit: await imageFit(p.image) },
-  p.labelImage && { src: p.labelImage, alt: `תווית המוצר – ${name}`, fit: undefined },
+  !p.label && p.labelImage && { src: p.labelImage, alt: `תווית המוצר – ${name}`, fit: undefined },
 ].filter(Boolean) as Array<{ src: string; alt: string; fit?: string }>
 const related = (await productsOfSeries(p.series)).filter((x) => x.slug !== p.slug)
 const btn = 'display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 22px; border: 1px solid #141414; color: #141414; text-decoration: none; border-radius: 4px; background: #ffffff; font: inherit; cursor: pointer'
@@ -101,7 +103,9 @@ const btn = 'display: inline-flex; align-items: center; justify-content: center;
 <details>
 <summary><h2 style="margin: 0">תווית המוצר</h2><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></summary>
 <div class="pp-acc-body">
-{p.labelImage
+{p.label
+  ? <ProductLabel label={p.label} name={name} />
+  : p.labelImage
   ? <img src={p.labelImage} alt={`תווית המוצר – ${name}`} loading="lazy" style="display: block; width: 100%; max-width: 640px; height: auto">
   : <div style="aspect-ratio: 4 / 3; max-width: 640px; background: #e9e9e7; display: flex; align-items: center; justify-content: center">{t('img')}</div>}
 </div>

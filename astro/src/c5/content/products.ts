@@ -1,3 +1,4 @@
+import type { ProductLabel } from './labels'
 // Products entered by hand (BRIEF §6, §8). All old-site products are added
 // automatically by catalog.ts; edit those in overrides.ts.
 // Images: files in /assets/products/ (never cropped or edited; shown with object-fit: contain).
@@ -20,7 +21,9 @@ export interface Product {
   usage?: string[]
   /** "יתרונות המוצר ושימושים" bullets */
   benefits?: string[]
-  /** "תווית המוצר" image (file in /assets/…); grey "אימג׳" until supplied */
+  /** "תווית המוצר" as text (content/labels.ts) — the accessible form shown on the page. */
+  label?: ProductLabel
+  /** Label scan — only shown while a product has no text label yet. */
   labelImage?: string
   /** "תווית המוצר" as running text (transcribed from the pack label), one paragraph per item.
    *  Not rendered yet: the design session defines how it is shown. */

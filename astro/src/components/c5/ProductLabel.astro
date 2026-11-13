@@ -1,0 +1,70 @@
+---
+// "תווית המוצר" as text (src/c5/content/labels.ts): one uniform, accessible layout
+// for every product — opening line, ingredients, values table, facts, footnotes.
+// Real <table> markup with header cells so screen readers announce each value
+// with its row and column.
+import type { ProductLabel } from '@/c5/content/labels'
+interface Props { label: ProductLabel; name: string }
+const { label: l, name } = Astro.props
+const cols = l.table?.columns
+// Mixed Hebrew/Latin: isolate each Latin "(…)" run so brackets, numbers and
+// asterisks keep their printed order in the right-to-left line.
+const esc = (t: string) => t.replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[c]!)
+const bidi = (t: string) => esc(t).replace(/\([^()\u0590-\u05FF]*[A-Za-z][^()\u0590-\u05FF]*\)/g, (m) => `<bdi dir="ltr">${m}</bdi>&rlm;`)
+// Row header "name: long list" → the name stays bold, the list is set in regular weight
+// (left-to-right when it is all Latin, e.g. a list of strains).
+const rowHead = (t: string) => {
+  const i = t.indexOf(': ')
+  if (i < 0 || t.length - i < 80) return bidi(t)
+  const rest = t.slice(i + 2)
+  return `${bidi(t.slice(0, i + 1))} <span class="pl-sub"${/[\u0590-\u05FF]/.test(rest) ? '' : ' dir="ltr"'}>${esc(rest)}</span>`
+}
+---
+<div class="pl">
+{l.title && <p class="pl-title" set:html={bidi(l.title)} />}
+{l.ingredients && <p><strong>רכיבים:</strong> <Fragment set:html={bidi(l.ingredients)} /></p>}
+{l.table && (
+<div class="pl-scroll" role="region" aria-label={`טבלת רכיבים – ${name}`} tabindex="0">
+<table class="pl-table">
+<caption class={l.table.caption ? undefined : 'pl-sr'}>{l.table.caption ?? `טבלת רכיבים – ${name}`}</caption>
+{cols && <thead><tr>{cols.map((c) => <th scope="col">{c}</th>)}</tr></thead>}
+<tbody>
+{l.table.rows.map((r) => <tr>{r.map((c, i) => i === 0 ? <th scope="row" set:html={rowHead(c)} /> : <td dir="auto">{c}</td>)}</tr>)}
+</tbody>
+</table>
+</div>
+)}
+{l.facts?.length && (
+<table class="pl-table pl-facts">
+<caption class="pl-sr">{`פרטי התווית – ${name}`}</caption>
+<tbody>
+{l.facts.map(([k, v]) => <tr><th scope="row">{k}</th><td set:html={bidi(v)} /></tr>)}
+</tbody>
+</table>
+)}
+{l.notes?.length && <ul class="pl-notes">{l.notes.map((n) => <li set:html={bidi(n)} />)}</ul>}
+</div>
+
+<style is:global>
+  .pl { display: flex; flex-direction: column; gap: 18px; }
+  .pl p { margin: 0; }
+  .pl-title { font-weight: 600; }
+  .pl-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .pl-scroll { overflow-x: auto; }
+  .pl-scroll:focus-visible { outline: 2px solid #141414; outline-offset: 2px; }
+  .pl-table { width: 100%; border-collapse: collapse; border: 1px solid #141414; color: #141414; }
+  .pl-table caption:not(.pl-sr) { caption-side: top; text-align: start; padding: 0 0 8px; font-weight: 600; }
+  .pl-table th, .pl-table td { border: 1px solid #dcdcd9; padding: 12px 14px; text-align: right; vertical-align: top; font-weight: 400; line-height: 1.5; overflow-wrap: break-word; }
+  .pl-table thead th { background: #f7f7f5; font-weight: 600; border-bottom: 1px solid #141414; font-size: 15px; }
+  .pl-table tbody th { font-weight: 600; }
+  .pl-table td { min-width: 96px; }
+  .pl-sub { display: block; margin-top: 6px; font-weight: 400; font-size: 15px; }
+  .pl-sub[dir="ltr"] { text-align: left; }
+  .pl-facts tbody th { width: 30%; min-width: 110px; background: #f7f7f5; }
+  .pl-notes { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 4px; font-size: 15px; }
+  @media (max-width: 640px) {
+    .pl-table th, .pl-table td { padding: 10px; font-size: 15px; }
+    .pl-scroll .pl-table { min-width: 560px; }
+    .pl-scroll .pl-table tbody th { min-width: 200px; }
+  }
+</style>
