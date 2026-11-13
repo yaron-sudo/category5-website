@@ -4,10 +4,11 @@
 // to POST /api/ask (streamed); answers link to product pages and, for purchase
 // questions, to /stores or the online shops. Hebrew / English toggle.
 import Accessibility from '@/components/Accessibility.astro'
-import { t, dict } from '@/c5/i18n'
-const strings = { he: dict('he'), en: dict('en') }
+import { t, chatDict, CHAT_LANGS } from '@/c5/i18n'
+const strings = Object.fromEntries(CHAT_LANGS.map((l) => [l.code, chatDict(l.code)]))
+const dirs = Object.fromEntries(CHAT_LANGS.map((l) => [l.code, l.dir]))
 ---
-<div dir="rtl" data-c5-chat data-strings={JSON.stringify(strings)} style="font-family: 'C5 Sans', 'Noto Sans Hebrew', Arial, sans-serif; color: #141414; font-size: 15px; line-height: 1.5">
+<div dir="rtl" data-c5-chat data-strings={JSON.stringify(strings)} data-dirs={JSON.stringify(dirs)} style="font-family: 'C5 Sans', 'Noto Sans Hebrew', Arial, sans-serif; color: #141414; font-size: 15px; line-height: 1.5">
 
 <Accessibility variant="c5" label={t('a11y.open')} />
 
@@ -16,10 +17,11 @@ const strings = { he: dict('he'), en: dict('en') }
 <section id="c5-chat" role="dialog" aria-label={t('chat.title')} data-chat-panel hidden style="position: fixed; left: 16px; bottom: 16px; z-index: 90; width: min(380px, calc(100vw - 32px)); height: min(600px, calc(100vh - 32px)); background: #ffffff; border: 1px solid #141414; border-radius: 8px; display: flex; flex-direction: column; overflow: hidden">
 <div style="padding: 14px 16px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid #dcdcd9">
 <p data-chat-title style="margin: 0; flex: 1 1 auto; font-size: 17px">{t('chat.title')}</p>
-<div role="group" aria-label={t('chat.lang')} data-chat-langs style="display: flex; gap: 4px">
-<button type="button" data-lang="he" aria-pressed="true" style="min-width: 40px; min-height: 32px; border: 1px solid #141414; border-radius: 4px; background: #141414; color: #ffffff; font: inherit; font-size: 13px; cursor: pointer">עב</button>
-<button type="button" data-lang="en" aria-pressed="false" lang="en" style="min-width: 40px; min-height: 32px; border: 1px solid #141414; border-radius: 4px; background: #ffffff; color: #141414; font: inherit; font-size: 13px; cursor: pointer">EN</button>
-</div>
+<select data-chat-lang aria-label={t('chat.lang')} style="min-height: 36px; padding: 0 8px; border: 1px solid #141414; border-radius: 4px; background: #ffffff; color: #141414; font: inherit; font-size: 14px; cursor: pointer">
+{CHAT_LANGS.map((l) => <option value={l.code} lang={l.code} selected={l.code === 'he'}>{l.name}</option>)}
+</select>
+<button type="button" data-chat-size aria-pressed="false" aria-label={t('chat.expand')} style="width: 40px; height: 40px; border: 0; background: transparent; color: #141414; display: flex; align-items: center; justify-content: center; cursor: pointer">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path data-size-icon d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7"></path></svg></button>
 <button type="button" data-chat-close aria-label={t('chat.close')} style="width: 40px; height: 40px; border: 0; background: transparent; color: #141414; display: flex; align-items: center; justify-content: center; cursor: pointer">
 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
 </div>
@@ -38,11 +40,13 @@ const strings = { he: dict('he'), en: dict('en') }
   [data-chat-log] a { color: #141414; }
   [data-chat-log] p { margin: 0 0 6px; } [data-chat-log] p:last-child { margin: 0; }
   [data-chat-log] ul { margin: 4px 0; padding-inline-start: 18px; }
+  [data-chat-panel][data-large] { width: min(760px, calc(100vw - 32px)) !important; height: min(860px, calc(100vh - 32px)) !important; }
+  @media (max-width: 480px) { [data-chat-size] { display: none !important; } }
   @media (max-width: 480px) { [data-chat-panel] { left: 0 !important; right: 0; bottom: 0 !important; width: 100% !important; height: 100% !important; border-radius: 0 !important; } }
 </style>
 
 <script>
-  type Lang = 'he' | 'en'
+  type Lang = 'he' | 'en' | 'ar' | 'ru' | 'fr'
   type Turn = { role: 'user' | 'assistant'; content: string }
   const root = document.querySelector<HTMLElement>('[data-c5-chat]')
   if (root) {
@@ -53,7 +57,9 @@ const strings = { he: dict('he'), en: dict('en') }
     const form = root.querySelector<HTMLFormElement>('[data-chat-form]')!
     const input = form.querySelector('input')!
     const sendBtn = root.querySelector<HTMLButtonElement>('[data-chat-send]')!
-    const langBtns = [...root.querySelectorAll<HTMLButtonElement>('[data-lang]')]
+    const DIRS = JSON.parse(root.dataset.dirs || '{}') as Record<Lang, 'rtl' | 'ltr'>
+    const langSel = root.querySelector<HTMLSelectElement>('[data-chat-lang]')!
+    const sizeBtn = root.querySelector<HTMLButtonElement>('[data-chat-size]')!
     let lang: Lang = 'he'
     let busy = false
     const history: Turn[] = []
@@ -71,22 +77,28 @@ const strings = { he: dict('he'), en: dict('en') }
     const applyLang = (l: Lang) => {
       lang = l
       const s = S[l]
-      panel.setAttribute('dir', l === 'en' ? 'ltr' : 'rtl')
+      const ltr = DIRS[l] === 'ltr'
+      panel.setAttribute('dir', ltr ? 'ltr' : 'rtl')
+      panel.setAttribute('lang', l)
       panel.setAttribute('aria-label', s['chat.title'])
       root.querySelector('[data-chat-title]')!.textContent = s['chat.title']
       root.querySelector('[data-chat-label]')!.textContent = s['chat.inputLabel']
       input.placeholder = s['chat.placeholder']
       sendBtn.setAttribute('aria-label', s['chat.send'])
+      langSel.setAttribute('aria-label', s['chat.lang'])
       root.querySelector('[data-chat-close]')!.setAttribute('aria-label', s['chat.close'])
-      sendBtn.querySelector('svg')!.style.transform = l === 'en' ? 'scaleX(-1)' : ''
-      langBtns.forEach((b) => {
-        const on = b.dataset.lang === l
-        b.setAttribute('aria-pressed', String(on))
-        b.style.background = on ? '#141414' : '#ffffff'
-        b.style.color = on ? '#ffffff' : '#141414'
-      })
+      sizeBtn.setAttribute('aria-label', s[panel.hasAttribute('data-large') ? 'chat.shrink' : 'chat.expand'])
+      sendBtn.querySelector('svg')!.style.transform = ltr ? 'scaleX(-1)' : ''
     }
-    langBtns.forEach((b) => b.addEventListener('click', () => applyLang(b.dataset.lang as Lang)))
+    langSel.addEventListener('change', () => applyLang(langSel.value as Lang))
+    // Enlarge / reduce the window (desktop; on phones the chat is already full screen).
+    sizeBtn.addEventListener('click', () => {
+      const large = panel.toggleAttribute('data-large')
+      sizeBtn.setAttribute('aria-pressed', String(large))
+      sizeBtn.setAttribute('aria-label', S[lang][large ? 'chat.shrink' : 'chat.expand'])
+      sizeBtn.querySelector('[data-size-icon]')!.setAttribute('d', large ? 'M20 10h-6V4M4 14h6v6M14 10l7-7M10 14l-7 7' : 'M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7')
+      log.scrollTop = log.scrollHeight
+    })
 
     const esc = (s: string) => s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!)
     // Safe light markdown: escape, then links (site paths / https only), bold, bullets.

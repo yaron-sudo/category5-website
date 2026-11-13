@@ -1,18 +1,20 @@
-// Site knowledge for the AI Q&A assistant (/api/ask): every product family and
-// product, rendered as plain text from the same CMS data the pages use (local
-// dataset or Sanity). Deterministic order + no timestamps, so the text is a
-// stable prompt prefix and caches across requests.
+// Site knowledge ("product memory") for the AI chat (/api/ask), as plain text.
+// Per product, in this order of preference:
+//   1. its knowledge file  src/c5/knowledge/products/<slug>.md  (front matter + body;
+//      the "## פתוח" section — open contradictions — is never sent to the chat), or
+//   2. what the new site shows for it: the catalogue (c5/content/catalog.ts: old site +
+//      products.ts + overrides.ts) including the label as text.
+// Plus the old site's long scientific sections (ingredient background and studies),
+// which the new product page does not show. Hidden products are left out.
+// Deterministic order + no timestamps, so the text is a stable prompt prefix and caches.
 import { fetchQ, type PortableBlock } from './sanity'
-import { BADGE_LABELS } from './brand'
+import { getCatalog } from '@/c5/content/catalog'
+import { PRODUCTS, type Product } from '@/c5/content/products'
+import { SERIES, CONTACT } from '@/c5/data'
 
-interface KProduct {
-  name: string; slug: string; tagline?: string; intro?: string; benefits?: string[]
-  keyStats?: Array<{ value: string; label: string }>; badges?: string[]; body?: PortableBlock[]
-  dosage?: string; details?: Array<{ label: string; value: string }>; warnings?: string[]
-  faqs?: Array<{ question?: string; answer?: string }>; leaflet?: string
-  category?: { title: string; slug: string }
-}
-interface KCategory { title: string; slug: string; tagline?: string; body?: PortableBlock[] }
+const FILES = import.meta.glob('../c5/knowledge/products/*.md', { query: '?raw', import: 'default', eager: true }) as Record<string, string>
+
+interface OldExtra { slug: string; body?: PortableBlock[]; leaflet?: string }
 
 const text = (blocks?: PortableBlock[]) =>
   (blocks ?? [])
@@ -25,6 +27,40 @@ const text = (blocks?: PortableBlock[]) =>
     .join('\n')
     .trim()
 
+/** Knowledge file → text for the chat: keeps name/aliases from the front matter, drops the "פתוח" section and HTML comments. */
+function fromFile(raw: string): { slug?: string; body: string } {
+  const m = raw.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/)
+  const front = m?.[1] ?? '', rest = m ? m[2] : raw
+  const field = (k: string) => front.match(new RegExp(`^${k}:\\s*(.+)$`, 'm'))?.[1]?.replace(/\s+#.*$/, '').trim()
+  const body = rest.replace(/\n## פתוח[\s\S]*?(?=\n## |$)/, '\n').replace(/<!--[\s\S]*?-->/g, '').trim()
+  const aliases = field('aliases')
+  return { slug: field('slug'), body: (aliases ? `שמות נוספים: ${aliases.replace(/^\[|\]$/g, '')}\n` : '') + body }
+}
+
+function fromCatalog(p: Product): string {
+  const out: string[] = []
+  if (p.intro?.length) out.push(p.intro.join('\n'))
+  if (p.contains) out.push(`אריזה: ${p.contains}`)
+  if (p.benefits?.length) out.push('מאפייני המוצר (כלשון האתר):\n' + p.benefits.map((b) => `- ${b}`).join('\n'))
+  if (p.usage?.length) out.push('הוראות שימוש:\n' + p.usage.map((b) => `- ${b}`).join('\n'))
+  if (p.details?.length) out.push('פרטים ואזהרות:\n' + p.details.map((b) => `- ${b}`).join('\n'))
+  const l = p.label
+  if (l) {
+    out.push('תווית המוצר:')
+    if (l.title) out.push(l.title)
+    if (l.ingredients) out.push(`רכיבים: ${l.ingredients}`)
+    if (l.table) {
+      if (l.table.caption) out.push(l.table.caption)
+      if (l.table.columns?.length) out.push(l.table.columns.join(' | '))
+      for (const r of l.table.rows) out.push(r.join(' | '))
+    }
+    for (const [k, v] of l.facts ?? []) out.push(`${k}: ${v}`)
+    for (const n of l.notes ?? []) out.push(n)
+  }
+  if (p.keywords?.length) out.push(`מילות חיפוש: ${p.keywords.join(', ')}`)
+  return out.join('\n')
+}
+
 let cached: Promise<string> | null = null
 
 /** The full knowledge text (memoised per server instance). */
@@ -34,46 +70,34 @@ export function siteKnowledge(): Promise<string> {
 }
 
 async function build(): Promise<string> {
-  const [cats, prods, settings, storeStats] = await Promise.all([
-    fetchQ<KCategory[]>(`*[_type == "category" && defined(slug.current)] | order(orderRank asc){ title, "slug": slug.current, tagline, body }`),
-    fetchQ<KProduct[]>(`*[_type == "product" && defined(slug.current)] | order(orderRank asc){
-      name, "slug": slug.current, tagline, intro, benefits, keyStats, badges, body, dosage, details, warnings, faqs, leaflet,
-      "category": category->{ title, "slug": slug.current } }`),
-    fetchQ<{ contact?: { email?: string; phone?: string } } | null>(`*[_type == "siteSettings"][0]{ contact }`),
+  const [catalog, extras, storeStats] = await Promise.all([
+    getCatalog(),
+    fetchQ<OldExtra[]>(`*[_type == "product" && defined(slug.current)]{ "slug": slug.current, body, leaflet }`),
     fetchQ<Array<{ category?: string }>>(`*[_type == "store" && active != false]{ category }`),
   ])
   const chains: Record<string, string> = { health: 'בתי טבע', 'super-pharm': 'סופר-פארם', nitzat: 'ניצת הדובדבן', bd: 'B&D', online: 'חנויות אינטרנט' }
   const byChain = storeStats.reduce<Record<string, number>>((m, s) => ((m[s.category ?? 'health'] = (m[s.category ?? 'health'] ?? 0) + 1), m), {})
+  const extraBySlug = new Map(extras.map((e) => [e.slug, e]))
+  const sourceOf = new Map(PRODUCTS.filter((p) => p.source).map((p) => [p.slug, p.source!]))
+  const files = new Map(Object.keys(FILES).sort().map((k) => fromFile(FILES[k])).filter((f) => f.slug).map((f) => [f.slug!, f.body]))
+  const seriesName = (slug: string) => SERIES.find((s) => s.slug === slug)?.name ?? slug
 
   const out: string[] = []
   out.push('# קטגוריה 5 תוספים אתיים (Category 5 Ethical Supplements) — מידע מהאתר')
-  out.push(`יצירת קשר: ${settings?.contact?.email ?? 'info@ethical-supplements.com'}, ווטסאפ (הודעות בלבד) ${settings?.contact?.phone ?? '053-9325888'}, טופס בעמוד /contact.`)
-  out.push(`נקודות מכירה (${storeStats.length}): ${Object.entries(byChain).map(([k, n]) => `${chains[k] ?? k} ${n}`).join(', ')}. רשימה מלאה עם מפה וחיפוש לפי עיר: /stores. המוצרים אינם נמכרים ישירות באתר.`)
+  out.push(`יצירת קשר: ${CONTACT.email}, ווטסאפ (הודעות בלבד) ${CONTACT.whatsapp}, טופס בעמוד /contact.`)
+  out.push(`נקודות מכירה (${storeStats.length}): ${Object.entries(byChain).map(([k, n]) => `${chains[k] ?? k} ${n}`).join(', ')}. רשימה מלאה וחיפוש לפי עיר: /stores. המוצרים אינם נמכרים ישירות באתר.`)
 
-  out.push('\n# משפחות מוצרים')
-  for (const c of cats) {
-    out.push(`\n## ${c.title} (/category/${c.slug})`)
-    if (c.tagline) out.push(c.tagline)
-    const t = text(c.body)
-    if (t) out.push(t)
-    out.push(`מוצרים: ${prods.filter((p) => p.category?.slug === c.slug).map((p) => p.name).join(', ')}`)
-  }
+  out.push('\n# סדרות')
+  for (const s of SERIES) out.push(`- ${s.name} (/series/${s.slug}): ${catalog.filter((p) => p.series === s.slug).map((p) => p.title).join(', ')}`)
 
   out.push('\n# מוצרים')
-  for (const p of prods) {
-    out.push(`\n<product name="${p.name}" url="/products/${p.slug}" family="${p.category?.title ?? ''}">`)
-    if (p.tagline) out.push(p.tagline)
-    if (p.intro) out.push(p.intro)
-    if (p.benefits?.length) out.push('יתרונות:\n' + p.benefits.map((b) => `- ${b}`).join('\n'))
-    if (p.keyStats?.length) out.push('נתונים: ' + p.keyStats.map((s) => `${s.value} ${s.label}`.trim()).join(' · '))
-    if (p.badges?.length) out.push('תגים: ' + p.badges.map((b) => BADGE_LABELS[b] ?? b).join(', '))
-    if (p.dosage) out.push(`המלצות שימוש: ${p.dosage}`)
-    if (p.details?.length) out.push(p.details.map((d) => `${d.label}: ${d.value}`).join('\n'))
-    if (p.warnings?.length) out.push('אזהרות: ' + p.warnings.join(' '))
-    const t = text(p.body)
-    if (t) out.push(t)
-    for (const f of p.faqs ?? []) if (f.question && f.answer) out.push(`ש: ${f.question}\nת: ${f.answer}`)
-    if (p.leaflet) out.push(`עלון מוצר (PDF): ${p.leaflet}`)
+  for (const p of [...catalog].sort((a, b) => a.slug.localeCompare(b.slug))) {
+    const extra = extraBySlug.get(p.slug) ?? extraBySlug.get(sourceOf.get(p.slug) ?? '')
+    out.push(`\n<product name="${p.fullTitle || p.title}" url="/products/${p.slug}" series="${seriesName(p.series)}">`)
+    out.push(files.get(p.slug) ?? fromCatalog(p))
+    const background = text(extra?.body)
+    if (background) out.push(`<background note="רקע על הרכיבים ומחקרים, כלשון החברה. לא המלצה ולא התוויה.">\n${background}\n</background>`)
+    if (extra?.leaflet) out.push(`עלון מוצר (PDF): ${extra.leaflet}`)
     out.push('</product>')
   }
   return out.join('\n')

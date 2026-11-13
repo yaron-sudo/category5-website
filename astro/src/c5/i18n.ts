@@ -13,6 +13,7 @@ const he = {
   'footer.terms': 'תנאי שימוש', 'footer.privacy': 'מדיניות פרטיות', 'footer.legalTitle': 'התוויה משפטית', 'footer.legal': 'משפטי',
   'chat.open': 'דברו איתנו', 'chat.title': 'דברו איתנו', 'chat.lang': 'שפה', 'chat.close': 'סגירה',
   'chat.inputLabel': 'הקלידו שאלה', 'chat.placeholder': 'כתבו שאלה…', 'chat.send': 'שליחה', 'a11y.open': 'נגישות',
+  'chat.expand': 'הגדלת החלון', 'chat.shrink': 'הקטנת החלון',
   'chat.error': 'משהו השתבש. נסו שוב בעוד רגע.', 'chat.unavailable': 'הצ׳אט אינו זמין כרגע.', 'chat.rateLimited': 'שלחתם הרבה שאלות בזמן קצר. נסו שוב בעוד כמה דקות.',
   'form.sent': 'נשלח', 'form.error': 'השליחה נכשלה',
 } as const
@@ -20,6 +21,7 @@ export type UiKey = keyof typeof he
 const en: Partial<Record<UiKey, string>> = {
   'chat.open': 'Talk to us', 'chat.title': 'Talk to us', 'chat.lang': 'Language', 'chat.close': 'Close',
   'chat.inputLabel': 'Type a question', 'chat.placeholder': 'Write a question…', 'chat.send': 'Send',
+  'chat.expand': 'Enlarge window', 'chat.shrink': 'Reduce window',
   'chat.error': 'Something went wrong. Please try again shortly.', 'chat.unavailable': 'Chat is not available right now.', 'chat.rateLimited': 'Too many questions in a short time. Please try again in a few minutes.',
 }
 const DICT: Record<Lang, Partial<Record<UiKey, string>>> = { he, en }
@@ -29,3 +31,35 @@ export function t(key: UiKey, lang: Lang = DEFAULT_LANG): string {
 }
 /** All strings of a locale (for client-side scripts). */
 export const dict = (lang: Lang) => ({ ...he, ...DICT[lang] })
+
+// ---- Chat languages ("דברו איתנו"): the visitor picks one; the site itself stays he / en. ----
+export type ChatLang = Lang | 'ar' | 'ru' | 'fr'
+export const CHAT_LANGS: Array<{ code: ChatLang; name: string; dir: 'rtl' | 'ltr' }> = [
+  { code: 'he', name: 'עברית', dir: 'rtl' },
+  { code: 'en', name: 'English', dir: 'ltr' },
+  { code: 'ar', name: 'العربية', dir: 'rtl' },
+  { code: 'ru', name: 'Русский', dir: 'ltr' },
+  { code: 'fr', name: 'Français', dir: 'ltr' },
+]
+const CHAT_EXTRA: Record<Exclude<ChatLang, Lang>, Partial<Record<UiKey, string>>> = {
+  ar: {
+    'chat.open': 'تحدثوا معنا', 'chat.title': 'تحدثوا معنا', 'chat.lang': 'اللغة', 'chat.close': 'إغلاق',
+    'chat.inputLabel': 'اكتبوا سؤالاً', 'chat.placeholder': 'اكتبوا سؤالاً…', 'chat.send': 'إرسال',
+    'chat.expand': 'تكبير النافذة', 'chat.shrink': 'تصغير النافذة',
+    'chat.error': 'حدث خطأ. حاولوا مرة أخرى بعد قليل.', 'chat.unavailable': 'المحادثة غير متاحة حالياً.', 'chat.rateLimited': 'أرسلتم أسئلة كثيرة في وقت قصير. حاولوا مرة أخرى بعد بضع دقائق.',
+  },
+  ru: {
+    'chat.open': 'Напишите нам', 'chat.title': 'Напишите нам', 'chat.lang': 'Язык', 'chat.close': 'Закрыть',
+    'chat.inputLabel': 'Введите вопрос', 'chat.placeholder': 'Напишите вопрос…', 'chat.send': 'Отправить',
+    'chat.expand': 'Увеличить окно', 'chat.shrink': 'Уменьшить окно',
+    'chat.error': 'Что-то пошло не так. Попробуйте ещё раз чуть позже.', 'chat.unavailable': 'Чат сейчас недоступен.', 'chat.rateLimited': 'Слишком много вопросов за короткое время. Попробуйте снова через несколько минут.',
+  },
+  fr: {
+    'chat.open': 'Parlez-nous', 'chat.title': 'Parlez-nous', 'chat.lang': 'Langue', 'chat.close': 'Fermer',
+    'chat.inputLabel': 'Saisissez une question', 'chat.placeholder': 'Écrivez une question…', 'chat.send': 'Envoyer',
+    'chat.expand': 'Agrandir la fenêtre', 'chat.shrink': 'Réduire la fenêtre',
+    'chat.error': 'Une erreur est survenue. Réessayez dans un instant.', 'chat.unavailable': "Le chat n'est pas disponible pour le moment.", 'chat.rateLimited': 'Trop de questions en peu de temps. Réessayez dans quelques minutes.',
+  },
+}
+/** All strings of a chat language (for the chat's client-side script). */
+export const chatDict = (lang: ChatLang) => (lang === 'he' || lang === 'en' ? dict(lang) : { ...he, ...CHAT_EXTRA[lang] })
