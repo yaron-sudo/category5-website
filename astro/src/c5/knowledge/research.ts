@@ -16,7 +16,7 @@ export interface Study {
   /** Citation text without the link. */
   source?: string
   url?: string
-  /** true = from the "## מחקרים" section (verified randomized double-blind human trials). */
+  /** false = from "מחקרים נוספים (אינם כפולי-סמיות)" (open-label, animal, in-vitro …; the type line says which). */
   doubleBlind: boolean
   /** Section heading the study sits under. */
   section: string
@@ -48,7 +48,7 @@ function parseFile(full: string): { name: string; studies: Study[]; notes: strin
     if (s.title === 'הערות') { notes = s.body.split('\n').map((l) => l.replace(/^- */, '').trim()).filter((l) => l && !isAmountNote(l)); continue }
     for (const block of s.body.split(/^### +/m).slice(1)) {
       const lines = block.split('\n')
-      const st: Study = { title: lines[0].replace(/^\d+\.\s*/, '').trim(), type: '', doubleBlind: s.title === 'מחקרים', section: s.title }
+      const st: Study = { title: lines[0].replace(/^\d+\.\s*/, '').trim(), type: '', doubleBlind: !s.title.includes('אינם כפולי-סמיות'), section: s.title }
       for (const l of lines.slice(1)) {
         const m = /^- *([^:]+): *(.*)$/.exec(l.trim())
         const key = m && FIELDS[m[1].trim()]

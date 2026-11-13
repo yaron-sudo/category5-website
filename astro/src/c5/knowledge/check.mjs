@@ -65,10 +65,11 @@ for (const [id, r] of research) {
   for (const part of src.split(/^## +/m).slice(1)) {
     const title = part.split('\n')[0].trim()
     const blocks = part.split(/^### /m).slice(1)
-    if (title === 'מחקרים' && blocks.length > 3) errors.push(`research/${id}.md: יותר מ-3 מחקרים בפרק "מחקרים"`)
+    if (title === 'מחקרים' && blocks.filter((b) => !/^- הצגה: *לא/m.test(b)).length > 3) errors.push(`research/${id}.md: יותר מ-3 מחקרים בפרק "מחקרים"`)
     for (const b of blocks) {
       const name = b.split('\n')[0].slice(0, 60)
       if (!/PMID\s*\d+|DOI\s*10\./i.test(b)) errors.push(`research/${id}.md: מחקר בלי PMID/DOI: ${name}`)
+      if (!/^- הרכיב שנחקר:/m.test(b)) errors.push(`research/${id}.md: מחקר בלי שורת "הרכיב שנחקר": ${name}`)
       if (!/^- סוג המחקר:/m.test(b)) errors.push(`research/${id}.md: מחקר בלי שורת "סוג המחקר": ${name}`)
       if (title === 'מחקרים' && !/כפול(י|ת|ות)?[- ]סמיות|סמיות משולשת|משולש[- ]סמיות|double-masked/.test(b)) errors.push(`research/${id}.md: מחקר בפרק "מחקרים" בלי ציון כפול-סמיות: ${name}`)
     }
