@@ -5,6 +5,37 @@
 > (`yaron-sudo/naturesage-website`; read only, never edited).
 > The new site **replaces the old one on the same domain**.
 
+## UPDATE (2026-11-13): the site was redesigned; read this section first
+
+The first build (naturesage-style design, described below) was replaced by the **new
+Category 5 design** from the client's handoff: `BRIEF.md` + `CLAUDE.md` (hard rules) +
+`mockups/` + `assets/`. Sections below about Header/Footer/pages of the old design are history.
+
+**What exists now (all in `astro/src`):**
+- `layouts/Site.astro` + `components/c5/*` (Header, Footer, Floating chat + accessibility,
+  ProductCard, ProductPage, LegalPage, SeriesTile); `styles/c5-site.css` is `mockups/site.css` verbatim,
+  site additions in `styles/c5-base.css`; motion script `public/c5/site.js` (verbatim).
+- Pages: `/` · `/series/[slug]` ×4 · `/products/[slug]` (45) · `/needs/[slug]` ×6 · `/stores` ·
+  `/glossary` · `/articles` (+ template) · `/search` · `/contact` · `/legal/terms|privacy|accessibility`.
+- **Product page layout follows The Ordinary's product page** (client request; supersedes BRIEF §8):
+  gallery + info column, magnifier on click, accordions, series carousel.
+- **Content lives in `c5/content/`**: `catalog.ts` merges old-site products (dataset) + `products.ts`
+  + `overrides.ts` + images by file name; series per product from the BOM (`bom.ts`).
+  See `docs/CONTENT-SESSION.md` for how to add content.
+- Product images: white background dropped with CSS blend; uniform framing/centring computed at
+  build time (`c5/content/imageFit.ts`). Image files are never edited (only downscaled).
+- AI chat ("דברו איתנו") → `/api/ask` (needs `ANTHROPIC_API_KEY`); forms → `/api/contact`.
+- Old-design leftovers still in the repo (not in the brief, awaiting the client's decision):
+  `/community`, `/catalog`, `/cookies`, `/category/[slug]`, `layouts/Base.astro` and the `ns-*` components.
+
+**Working mode:** one branch, `claude/admiring-curie-l85nyg` (also the default branch). Two parallel
+sessions may run: design (components/pages/styles) and content (`c5/content/*`, product images);
+see the division table in `docs/CONTENT-SESSION.md`. Always `git pull --rebase` before pushing.
+
+**Open items:** Instagram/Facebook links · online-shop links (ByBy, ניצת הדובדבן, עדן טבע) ·
+products per need · articles · content + images for the 9 BOM products without an old page ·
+"עודכן לאחרונה" dates on legal pages · chat opening message · cookie consent for GA/Meta in the new design.
+
 ## Current state (2026-11-02)
 
 | Area | State |
