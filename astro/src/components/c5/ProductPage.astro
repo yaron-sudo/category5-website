@@ -178,7 +178,8 @@ const btn = 'display: inline-flex; align-items: center; justify-content: center;
   .pp-acc details[open] summary svg { transform: rotate(180deg); }
   .pp-acc-body { padding: 0 0 clamp(28px, 3.5vw, 44px); padding-inline-start: min(200px, 16vw); max-width: 1000px; }
   .pp-box { margin: 0; padding: 22px 22px 22px 22px; padding-inline-start: 42px; background: #f7f7f5; }
-  .pp-mic { display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start; }
+  .pp-mic { display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start; justify-content: flex-start; }
+  .pp-acc-body.pp-mic { padding-inline-start: 0; }
   /* Same height for every microscope photo (never upscaled, never cropped). */
   .pp-mic img { display: block; width: auto; height: auto; max-width: 100%; max-height: 300px; flex: 0 1 auto; }
   @media (max-width: 640px) { .pp-mic img { max-height: 220px; } }
