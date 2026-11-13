@@ -62,6 +62,7 @@ export function chatText(k: KnowledgeFile, skip: ReadonlySet<string> = new Set()
 export function parseResearch(src: string): { id: string; name: string; text: string; studies: number } {
   const k = parseKnowledge(src)
   const studies = (src.match(/^### /gm) ?? []).length
-  const text = k.sections.map((s) => `## ${s.title}\n${stripTags(s.body)}`).join('\n')
+  // For the chat: "מה נבדק" is dropped (the reported findings name the outcomes) to keep the context small.
+  const text = k.sections.map((s) => `## ${s.title}\n${stripTags(s.body).replace(/^- מה נבדק:.*\n/gm, '')}`).join('\n')
   return { id: k.meta.id ?? '', name: k.meta.name ?? '', text, studies }
 }

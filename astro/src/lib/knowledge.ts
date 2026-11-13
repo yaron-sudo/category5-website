@@ -24,7 +24,12 @@ const BY_SLUG = new Map(Object.entries(FILES).map(([path, src]) => [path.split('
 // research/<id>.md: verified double-blind studies per active ingredient (docs/KNOWLEDGE.md → "מחקרים").
 const RESEARCH_FILES = import.meta.glob<string>('../c5/knowledge/research/*.md', { query: '?raw', import: 'default', eager: true })
 const RESEARCH = new Map(Object.values(RESEARCH_FILES).map((src) => parseResearch(src)).filter((r) => r.id && r.studies > 0).map((r) => [r.id, r]))
-const SKIP = new Set([RESEARCH_SECTION])
+// Kept out of the product text: the research section is rendered separately, and the FAQ only
+// restates facts of the other sections (it stays in the files for people and for other sessions).
+const SKIP = new Set([RESEARCH_SECTION, 'שאלות נפוצות'])
+// ASK_RESEARCH=off leaves the studies out of the chat context (they are about half of its size).
+const env = (k: string): string | undefined => (import.meta.env as Record<string, string | undefined>)?.[k] ?? process.env[k]
+const WITH_RESEARCH = env('ASK_RESEARCH') !== 'off'
 
 let cached: Promise<string> | null = null
 
@@ -71,10 +76,11 @@ async function build(): Promise<string> {
     if (k) {
       out.push(chatText(k, SKIP))
       // Researched ingredients of this product, most important first; the studies themselves follow once, below.
-      const refs = researchRefs(k).filter((r) => RESEARCH.has(r.id))
+      const refs = WITH_RESEARCH ? researchRefs(k).filter((r) => RESEARCH.has(r.id)) : []
       if (refs.length) {
         out.push(`## ${RESEARCH_SECTION}`)
-        for (const r of refs) { used.add(r.id); out.push(`- ${RESEARCH.get(r.id)!.name} (research id: ${r.id}) | משקל במוצר: ${r.weight} | במוצר: ${r.inProduct} | במחקרים: ${r.inStudies}`) }
+        // A "זעום" ingredient is listed (so the chat can say the amount is far below the studied dose) but does not pull its studies in.
+        for (const r of refs) { if (r.weight !== 'זעום') used.add(r.id); out.push(`- ${RESEARCH.get(r.id)!.name} (research id: ${r.id}) | משקל במוצר: ${r.weight} | במוצר: ${r.inProduct} | במחקרים: ${r.inStudies}`) }
       }
     }
     else out.push(`${p.contains ? p.contains + '. ' : ''}אין עדיין מידע מפורט על המוצר בבסיס הידע.`)
