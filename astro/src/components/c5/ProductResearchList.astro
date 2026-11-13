@@ -1,0 +1,53 @@
+---
+// "מחקרים" accordion body on the product page. Data: src/c5/knowledge/research.ts
+// (owned by the knowledge session — text is shown exactly as stored). Styles: c5-base.css.
+// Per ingredient: name, in-product vs studied amount, double-blind studies first, then the
+// studies of any other section under that section's own heading, then the notes.
+import { productResearch, RESEARCH_DISCLAIMER, type Study } from '@/c5/knowledge/research'
+interface Props { slug: string }
+const items = productResearch(Astro.props.slug)
+const groups = (studies: Study[]) => {
+  const out: Array<{ heading?: string; studies: Study[] }> = []
+  const main = studies.filter((s) => s.doubleBlind)
+  if (main.length) out.push({ studies: main })
+  for (const s of studies.filter((x) => !x.doubleBlind)) {
+    const g = out.find((x) => x.heading === s.section)
+    g ? g.studies.push(s) : out.push({ heading: s.section, studies: [s] })
+  }
+  return out
+}
+const fields = (s: Study): Array<[string, string | undefined]> => [
+  ['סוג המחקר', s.type], ['אוכלוסייה', s.population], ['הרכיב והמינון במחקר', s.dose], ['מה נבדק', s.examined], ['מה דווח', s.reported],
+]
+---
+{items.length > 0 && (
+<div class="c5-research">
+<p class="c5-research-note">{RESEARCH_DISCLAIMER}</p>
+{items.map((ing) => (
+<section class="c5-research-ing">
+<h3>{ing.name}</h3>
+<dl class="c5-research-amounts">
+<div><dt>במוצר</dt><dd>{ing.inProduct}</dd></div>
+<div><dt>במחקרים</dt><dd>{ing.inStudies}</dd></div>
+</dl>
+{groups(ing.studies).map((g) => (
+<Fragment>
+{g.heading && <h4>{g.heading}</h4>}
+<ol class="c5-research-studies">
+{g.studies.map((s) => (
+<li>
+<p class="c5-research-title" lang="en" dir="ltr">{s.title}</p>
+<dl class="c5-research-fields">
+{fields(s).filter(([, v]) => v).map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}
+{(s.source || s.url) && <div><dt>מקור</dt><dd>{s.source} {s.url && <a href={s.url} target="_blank" rel="noopener noreferrer">PubMed</a>}</dd></div>}
+</dl>
+</li>
+))}
+</ol>
+</Fragment>
+))}
+{ing.notes.length > 0 && <ul class="c5-research-notes">{ing.notes.map((n) => <li>{n}</li>)}</ul>}
+</section>
+))}
+</div>
+)}
