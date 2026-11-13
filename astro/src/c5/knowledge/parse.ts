@@ -46,7 +46,10 @@ export function parseKnowledge(src: string): KnowledgeFile {
 const TAG = /[ \t]*\[(?:תווית|עלון|אתר ישן|אתר|BOM|מדריך מגנזיום|חוברת 2025)(?:,\s*(?:תווית|עלון|אתר ישן|אתר|BOM|מדריך מגנזיום|חוברת 2025))*\]/g
 
 /** Removes maintainer-only markup (HTML comments, source tags). */
-export const stripTags = (s: string) => s.replace(/<!--[\s\S]*?-->/g, '').replace(TAG, '').replace(/\n{3,}/g, '\n\n').trim()
+// "(טרם אומת מול התווית)" marks a dosage/amount taken from a brochure — a note for maintainers; the chat
+// states the value plainly (client decision, 13.11.2026).
+const UNVERIFIED = /[ \t]*\([^()\n]*טרם אומת[^()\n]*\)/g
+export const stripTags = (s: string) => s.replace(/<!--[\s\S]*?-->/g, '').replace(TAG, '').replace(UNVERIFIED, '').replace(/\n{3,}/g, '\n\n').trim()
 
 /** The text of one product as sent to the chat: no private sections, no empty sections, no source tags. */
 export function chatText(k: KnowledgeFile, skip: ReadonlySet<string> = new Set()): string {
@@ -59,10 +62,12 @@ export function chatText(k: KnowledgeFile, skip: ReadonlySet<string> = new Set()
 }
 
 /** A research file (research/<id>.md): studies on one active ingredient. `studies` is empty when none qualified. */
-export function parseResearch(src: string): { id: string; name: string; text: string; studies: number } {
+export function parseResearch(src: string): { id: string; name: string; text: string; studies: number; contexts: string[] } {
   const k = parseKnowledge(src)
   const studies = (src.match(/^### /gm) ?? []).length
   // For the chat: "מה נבדק" is dropped (the reported findings name the outcomes) to keep the context small.
   const text = k.sections.map((s) => `## ${s.title}\n${stripTags(s.body).replace(/^- מה נבדק:.*\n/gm, '')}`).join('\n')
-  return { id: k.meta.id ?? '', name: k.meta.name ?? '', text, studies }
+  // Who was studied (the "אוכלוסייה" line of each study): a one-line index of the research contexts.
+  const contexts = [...src.matchAll(/^- אוכלוסייה: *(.*)$/gm)].map((m) => m[1].replace(/\.$/, '').trim())
+  return { id: k.meta.id ?? '', name: k.meta.name ?? '', text, studies, contexts }
 }

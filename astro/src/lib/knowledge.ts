@@ -27,9 +27,13 @@ const RESEARCH = new Map(Object.values(RESEARCH_FILES).map((src) => parseResearc
 // Kept out of the product text: the research section is rendered separately, and the FAQ only
 // restates facts of the other sections (it stays in the files for people and for other sessions).
 const SKIP = new Set([RESEARCH_SECTION, 'שאלות נפוצות'])
-// ASK_RESEARCH=off leaves the studies out of the chat context (they are about half of its size).
-const env = (k: string): string | undefined => (import.meta.env as Record<string, string | undefined>)?.[k] ?? process.env[k]
-const WITH_RESEARCH = env('ASK_RESEARCH') !== 'off'
+// Research ("the local research memory", research/<id>.md) reaches the chat in two parts, both local — no
+// web search is needed for studies:
+//   1. in the cached knowledge text: per product the researched ingredients (weight, amount vs studied dose)
+//      and one index line per ingredient (who was studied);
+//   2. researchContext(): the full studies of the products / ingredients a question names, sent only with
+//      that question (ask.ts), so the big study texts are not re-sent with every call.
+// The product page shows the same data (c5/knowledge/research.ts → "מחקרים" accordion).
 
 let cached: Promise<string> | null = null
 
@@ -76,7 +80,7 @@ async function build(): Promise<string> {
     if (k) {
       out.push(chatText(k, SKIP))
       // Researched ingredients of this product, most important first; the studies themselves follow once, below.
-      const refs = WITH_RESEARCH ? researchRefs(k).filter((r) => RESEARCH.has(r.id)) : []
+      const refs = researchRefs(k).filter((r) => RESEARCH.has(r.id))
       if (refs.length) {
         out.push(`## ${RESEARCH_SECTION}`)
         // A "זעום" ingredient is listed (so the chat can say the amount is far below the studied dose) but does not pull its studies in.
@@ -87,12 +91,49 @@ async function build(): Promise<string> {
     out.push('</product>')
   }
   if (used.size) {
-    out.push('\n# מחקרים על חומרים פעילים')
-    out.push('מחקרים אקראיים כפולי-סמיות בבני אדם על חומרים פעילים שנמצאים במוצרים. המחקרים נעשו על החומר הפעיל ולא על מוצרי החברה, ולעיתים במינון או בצורה שונים מאלה שבמוצר.')
+    out.push('\n# מחקרים על חומרים פעילים — מפתח')
+    out.push('לכל חומר פעיל: האוכלוסיות שבהן נחקר (מחקרים בבני אדם; סוג כל מחקר מפורט בפרטי המחקר). פרטי המחקרים המלאים מצורפים לשאלה כשהיא מזכירה מוצר או חומר, ומופיעים גם בעמוד המוצר בפרק "מחקרים". המחקרים נעשו על החומר הפעיל ולא על מוצרי החברה.')
     for (const id of [...used].sort()) {
       const r = RESEARCH.get(id)!
-      out.push(`\n<research id="${id}" name="${attr(r.name)}">\n${r.text}\n</research>`)
+      out.push(`- ${r.name} (research id: ${id}) — נחקר ב: ${r.contexts.join(' | ')}`)
     }
+  }
+  return out.join('\n')
+}
+
+// ---- per-question research ---------------------------------------------------------------
+const norm = (t: string) => t.toLowerCase().replace(/[״"'׳’`\-–]/g, '').replace(/\s+/g, ' ')
+/** Names a visitor may use for a research ingredient: Hebrew name, English name, strain / brand codes. */
+function ingredientKeys(name: string): string[] {
+  const m = /^(.*?)\s*\((.*)\)\s*$/.exec(name)
+  const parts = m ? [m[1], ...m[2].split(/[,;/]/)] : [name]
+  const codes = name.match(/\b[A-Za-z]{1,6}[- ]?\d{2,5}\b/g) ?? []
+  return [...parts, ...codes].map((p) => norm(p.trim())).filter((p) => p.length >= 4)
+}
+const PRODUCT_KEYS = [...BY_SLUG].map(([slug, k]) => ({ slug, keys: [k.meta.name, ...k.aliases, slug].filter(Boolean).map(norm).filter((x) => x.length >= 4) }))
+const INGREDIENT_KEYS = [...RESEARCH].map(([id, r]) => ({ id, keys: ingredientKeys(r.name) }))
+const MAX_RESEARCH_CHARS = 30_000
+
+/**
+ * The full studies relevant to a question: those of the products and active ingredients named in `texts`
+ * (the question and the visitor's recent turns). Empty when nothing is named. Local data only.
+ */
+export function researchContext(texts: string[]): string {
+  const hay = norm(texts.join(' \n '))
+  const ids: string[] = []
+  const add = (id: string) => { if (RESEARCH.has(id) && !ids.includes(id)) ids.push(id) }
+  for (const p of PRODUCT_KEYS) {
+    if (!p.keys.some((k) => hay.includes(k))) continue
+    for (const r of researchRefs(BY_SLUG.get(p.slug)!)) if (r.weight !== 'זעום') add(r.id)
+  }
+  for (const i of INGREDIENT_KEYS) if (i.keys.some((k) => hay.includes(k))) add(i.id)
+  const out: string[] = []
+  let size = 0
+  for (const id of ids) {
+    const r = RESEARCH.get(id)!
+    const block = `<research id="${id}" name="${attr(r.name)}">\n${r.text}\n</research>`
+    if (size + block.length > MAX_RESEARCH_CHARS) break
+    out.push(block); size += block.length
   }
   return out.join('\n')
 }

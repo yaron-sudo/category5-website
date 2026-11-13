@@ -1,0 +1,41 @@
+---
+// "מחקרים" accordion body for the product page: studies on the product's main active ingredients.
+// Data: ./research.ts. Plain semantic HTML, no styles of its own (inherits the page typography);
+// the design session places and styles it. Renders nothing when the product has no studies.
+// Usage inside ProductPage.astro's accordion section:
+//   import ProductResearch from '@/c5/knowledge/ProductResearch.astro'
+//   import { productResearch } from '@/c5/knowledge/research'
+//   {productResearch(p.slug).length > 0 && (
+//     <details><summary><h2 style="margin: 0">מחקרים</h2>…chevron…</summary>
+//       <div class="pp-acc-body"><ProductResearch slug={p.slug} /></div></details>)}
+import { productResearch, RESEARCH_DISCLAIMER } from './research'
+interface Props { slug: string }
+const items = productResearch(Astro.props.slug)
+---
+{items.length > 0 && (
+<div class="c5-research">
+<p>{RESEARCH_DISCLAIMER}</p>
+{items.map((ing) => (
+<section>
+<h3>{ing.name}</h3>
+<p>במוצר: {ing.inProduct}. במחקרים: {ing.inStudies}.</p>
+<ol>
+{ing.studies.map((s) => (
+<li>
+<p lang="en" dir="ltr"><strong>{s.title}</strong></p>
+<dl>
+<dt>סוג המחקר</dt><dd>{s.type}</dd>
+{s.population && <><dt>אוכלוסייה</dt><dd>{s.population}</dd></>}
+{s.dose && <><dt>הרכיב והמינון במחקר</dt><dd>{s.dose}</dd></>}
+{s.examined && <><dt>מה נבדק</dt><dd>{s.examined}</dd></>}
+{s.reported && <><dt>מה דווח</dt><dd>{s.reported}</dd></>}
+{s.source && <><dt>מקור</dt><dd>{s.source} {s.url && <a href={s.url} target="_blank" rel="noopener noreferrer">PubMed</a>}</dd></>}
+</dl>
+</li>
+))}
+</ol>
+{ing.notes.length > 0 && <ul>{ing.notes.map((n) => <li>{n}</li>)}</ul>}
+</section>
+))}
+</div>
+)}

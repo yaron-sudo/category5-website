@@ -60,10 +60,19 @@ for (const slug of files) {
 
 for (const [id, r] of research) {
   if (r.id !== id) errors.push(`research/${id}.md: id בכותרת ("${r.id}") שונה משם הקובץ`)
-  if (r.studies > 3) errors.push(`research/${id}.md: יותר מ-3 מחקרים`)
   const src = readFileSync(resolve(rdir, `${id}.md`), 'utf8')
-  const blocks = src.split(/^### /m).slice(1)
-  for (const b of blocks) if (!/PMID\s*\d+|DOI\s*10\./i.test(b) || !/כפול(י|ת|ות)?[- ]סמיות|סמיות משולשת|double-masked/.test(b)) errors.push(`research/${id}.md: מחקר בלי PMID/DOI או בלי ציון כפול-סמיות: ${b.split('\n')[0].slice(0, 60)}`)
+  // "## מחקרים": double-blind only, at most 3. Other study sections (non-double-blind, by form): PMID/DOI and a stated study type.
+  for (const part of src.split(/^## +/m).slice(1)) {
+    const title = part.split('\n')[0].trim()
+    const blocks = part.split(/^### /m).slice(1)
+    if (title === 'מחקרים' && blocks.length > 3) errors.push(`research/${id}.md: יותר מ-3 מחקרים בפרק "מחקרים"`)
+    for (const b of blocks) {
+      const name = b.split('\n')[0].slice(0, 60)
+      if (!/PMID\s*\d+|DOI\s*10\./i.test(b)) errors.push(`research/${id}.md: מחקר בלי PMID/DOI: ${name}`)
+      if (!/^- סוג המחקר:/m.test(b)) errors.push(`research/${id}.md: מחקר בלי שורת "סוג המחקר": ${name}`)
+      if (title === 'מחקרים' && !/כפול(י|ת|ות)?[- ]סמיות|סמיות משולשת|משולש[- ]סמיות|double-masked/.test(b)) errors.push(`research/${id}.md: מחקר בפרק "מחקרים" בלי ציון כפול-סמיות: ${name}`)
+    }
+  }
 }
 const withStudies = [...research.values()].filter((r) => r.studies > 0).length
 console.log(`בסיס הידע: ${shown.length} מוצרים מוצגים · ${files.length} קובצי ידע · ${drafts} בסטטוס draft (טרם אומתו מול התווית הפיזית)`)
