@@ -8,6 +8,7 @@
 // show the mockup's placeholder texts.
 import Site from '@/layouts/Site.astro'
 import ProductLabel from '@/components/c5/ProductLabel.astro'
+import ProductHighlights from '@/components/c5/ProductHighlights.astro'
 import ProductCard from '@/components/c5/ProductCard.astro'
 import { SERIES, seriesHref } from '@/c5/data'
 import { t } from '@/c5/i18n'
@@ -87,6 +88,8 @@ const btn = 'display: inline-flex; align-items: center; justify-content: center;
 </div>
 </div>
 </section>
+
+<ProductHighlights slug={p.slug} />
 
 <section aria-label="מידע על המוצר" class="pp pp-acc">
 <details open>

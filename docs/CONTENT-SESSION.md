@@ -79,6 +79,12 @@ A file with the product's slug replaces the old image on the next build; no code
 Only downscale large files (max ~2000px on the long side). **Never crop, recolour,
 retouch or regenerate a product image.** Framing and centring are automatic (`imageFit.ts`).
 
+### Product highlights ("תכונות המוצר")
+`astro/src/c5/content/highlights.ts`: per slug, the attributes shown with a check mark
+(vegan, gluten-free, electron-microscope tested, contains dairy / egg, non-GMO, no
+preservatives, sugar-free for powders and tablets) and the kashrut type. List only what the
+product's sources state; a product with dairy or egg ingredients is never marked vegan.
+
 ### Other content files
 - `series.ts`: intro text per series. `needs.ts`: intro, banner image and product slugs per need.
 - `articles.ts`: articles (title, excerpt, body blocks). `stores.ts`: online-shop links.

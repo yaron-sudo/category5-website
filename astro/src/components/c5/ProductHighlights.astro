@@ -1,0 +1,42 @@
+---
+// "תכונות המוצר" — product attributes with a check mark, after The Ordinary's
+// "Highlights" box. Data: src/c5/content/highlights.ts (only attributes stated in the
+// product's sources). Renders nothing for a product without an entry.
+import { HIGHLIGHTS, HIGHLIGHT_LABELS } from '@/c5/content/highlights'
+import { linkTerms } from '@/c5/glossaryLinks'
+interface Props { slug: string }
+const h = HIGHLIGHTS[Astro.props.slug]
+const used = new Set<string>()
+type Item = { label: string; value?: string }
+const items: Item[] = []
+if (h) {
+  for (const [key, label] of HIGHLIGHT_LABELS) {
+    if (h.is.includes(key)) items.push({ label })
+    if (key === 'microscope' && h.kosher) items.push({ label: 'כשרות', value: h.kosher })
+  }
+}
+---
+{items.length > 0 && (
+<section aria-label="תכונות המוצר" class="pp pp-hl">
+<h2 style="margin: 0 0 20px">תכונות המוצר</h2>
+<ul class="pp-hl-box">
+{items.map((x) => (
+<li>
+<span class="pp-hl-label" set:html={linkTerms(x.label, used)} />
+{x.value
+  ? <span class="pp-hl-value">{x.value}</span>
+  : <svg width="22" height="22" viewBox="0 0 24 24" role="img" aria-label="כן"><circle cx="12" cy="12" r="11" fill="#141414"></circle><path d="M7 12.5l3.2 3.2L17 9" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>}
+</li>
+))}
+</ul>
+</section>
+)}
+
+<style is:global>
+  .pp-hl { padding-top: clamp(32px, 4vw, 56px); }
+  .pp-hl-box { list-style: none; margin: 0; padding: 28px 22px; background: #f7f7f5; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px 16px; }
+  .pp-hl-box li { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; font-size: 15px; }
+  .pp-hl-label a { color: #141414; }
+  .pp-hl-value { font-weight: 600; }
+  @media (max-width: 760px) { .pp-hl-box { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+</style>
