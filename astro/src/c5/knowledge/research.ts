@@ -2,14 +2,15 @@
 // active ingredients, as structured data. Source: research/<id>.md (one file per ingredient)
 // + the "מחקרים על הרכיבים" section of products/<slug>.md. Format and rules: docs/KNOWLEDGE.md.
 // Rendering: ProductResearch.astro (same folder) or any component of the design session.
-import { parseKnowledge, researchRefs } from './parse'
+import { parseKnowledge, researchRefs, isAmountNote } from './parse'
 
 export interface Study {
   title: string
   /** Study design as written in the file, e.g. "אקראי, כפול-סמיות, מבוקר פלצבו; 60 משתתפים; 12 שבועות." */
   type: string
   population?: string
-  dose?: string
+  /** The ingredient that was studied (form / strain / brand), as written in the file. */
+  studied?: string
   examined?: string
   reported?: string
   /** Citation text without the link. */
@@ -23,10 +24,8 @@ export interface Study {
 export interface IngredientResearch {
   id: string
   name: string
-  /** עיקרי | משני | זעום — how much of the ingredient the product holds relative to the studied doses. */
+  /** עיקרי | משני — for ordering only; never displayed. */
   weight: string
-  inProduct: string
-  inStudies: string
   studies: Study[]
   notes: string[]
 }
@@ -36,7 +35,7 @@ const RESEARCH_FILES = import.meta.glob<string>('./research/*.md', { query: '?ra
 const slugOf = (path: string) => path.split('/').pop()!.replace(/\.md$/, '')
 
 const FIELDS: Record<string, keyof Study> = {
-  'סוג המחקר': 'type', 'אוכלוסייה': 'population', 'הרכיב והמינון במחקר': 'dose', 'מה נבדק': 'examined', 'מה דווח': 'reported', 'מקור': 'source',
+  'סוג המחקר': 'type', 'אוכלוסייה': 'population', 'הרכיב והמינון במחקר': 'studied', 'מה נבדק': 'examined', 'מה דווח': 'reported', 'מקור': 'source',
 }
 
 function parseFile(src: string): { name: string; studies: Study[]; notes: string[] } {
@@ -44,7 +43,7 @@ function parseFile(src: string): { name: string; studies: Study[]; notes: string
   const studies: Study[] = []
   let notes: string[] = []
   for (const s of k.sections) {
-    if (s.title === 'הערות') { notes = s.body.split('\n').map((l) => l.replace(/^- */, '').trim()).filter(Boolean); continue }
+    if (s.title === 'הערות') { notes = s.body.split('\n').map((l) => l.replace(/^- */, '').trim()).filter((l) => l && !isAmountNote(l)); continue }
     for (const block of s.body.split(/^### +/m).slice(1)) {
       const lines = block.split('\n')
       const st: Study = { title: lines[0].replace(/^\d+\.\s*/, '').trim(), type: '', doubleBlind: s.title === 'מחקרים', section: s.title }
@@ -67,18 +66,19 @@ const ORDER: Record<string, number> = { 'עיקרי': 0, 'משני': 1, 'זעו�
 
 /**
  * Researched ingredients of a product, most important first, each with its studies.
- * Ingredients without any study are left out. "זעום" ingredients (amount in the product far below the
- * studied doses) are left out unless `includeMinor` is set — do not present their studies as product benefits.
+ * Ingredients without any study, and "זעום" ingredients, are left out.
+ * Client decision (legal): no amounts of the product and no product-vs-study comparison are exposed here —
+ * only the ingredient's name and, per study, the ingredient that was studied.
  */
-export function productResearch(slug: string, opts: { includeMinor?: boolean } = {}): IngredientResearch[] {
+export function productResearch(slug: string): IngredientResearch[] {
   const k = PRODUCTS.get(slug)
   if (!k) return []
   return researchRefs(k)
-    .filter((r) => (opts.includeMinor || r.weight !== 'זעום') && (RESEARCH.get(r.id)?.studies.length ?? 0) > 0)
+    .filter((r) => r.weight !== 'זעום' && (RESEARCH.get(r.id)?.studies.length ?? 0) > 0)
     .sort((a, b) => (ORDER[a.weight] ?? 9) - (ORDER[b.weight] ?? 9))
-    .map((r) => ({ id: r.id, weight: r.weight, inProduct: r.inProduct, inStudies: r.inStudies, ...RESEARCH.get(r.id)! }))
+    .map((r) => ({ id: r.id, weight: r.weight, ...RESEARCH.get(r.id)! }))
 }
 
 /** Shown above the studies; wording agreed in docs/KNOWLEDGE.md. */
 export const RESEARCH_DISCLAIMER =
-  'המחקרים נעשו על החומרים הפעילים ולא על המוצר עצמו, ולעיתים במינון או בצורה שונים מאלה שבמוצר. המידע מובא לידיעה בלבד, אינו המלצה רפואית ואינו תחליף להתייעצות עם רופא. תוסף תזונה אינו תרופה.'
+  'המחקרים נעשו על החומרים הפעילים ולא על המוצר עצמו. המידע מובא לידיעה בלבד, אינו המלצה רפואית ואינו תחליף להתייעצות עם רופא. תוסף תזונה אינו תרופה.'

@@ -61,12 +61,20 @@ export function chatText(k: KnowledgeFile, skip: ReadonlySet<string> = new Set()
     .join('\n')
 }
 
+/**
+ * Client decision (13.11.2026, legal): the site and the chat never compare the amount in a product with the
+ * dose used in a study. They only name the ingredient in the product and the ingredient that was studied.
+ * The "במוצר / במחקרים" fields and the weight stay in the files for maintainers (the weight decides which
+ * ingredients are shown at all). Notes that speak about amounts in the products are filtered out here.
+ */
+export const isAmountNote = (note: string) => /מוצר/.test(note) && /כמות|מינון|מנה|מ"ג|מק"ג|מיליארד|CFU|נמוכ|גבוה|זהה|קרוב/.test(note)
+
 /** A research file (research/<id>.md): studies on one active ingredient. `studies` is empty when none qualified. */
 export function parseResearch(src: string): { id: string; name: string; text: string; studies: number; contexts: string[] } {
   const k = parseKnowledge(src)
   const studies = (src.match(/^### /gm) ?? []).length
   // For the chat: "מה נבדק" is dropped (the reported findings name the outcomes) to keep the context small.
-  const text = k.sections.map((s) => `## ${s.title}\n${stripTags(s.body).replace(/^- מה נבדק:.*\n/gm, '')}`).join('\n')
+  const text = k.sections.map((s) => `## ${s.title}\n${stripTags(s.body).replace(/^- מה נבדק:.*\n/gm, '').replace(/^- הרכיב והמינון במחקר:/gm, '- הרכיב שנחקר:').split('\n').filter((l) => !(s.title === 'הערות' && isAmountNote(l))).join('\n')}`).join('\n')
   // Who was studied (the "אוכלוסייה" line of each study): a one-line index of the research contexts.
   const contexts = [...src.matchAll(/^- אוכלוסייה: *(.*)$/gm)].map((m) => m[1].replace(/\.$/, '').trim())
   return { id: k.meta.id ?? '', name: k.meta.name ?? '', text, studies, contexts }

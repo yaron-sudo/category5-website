@@ -29,7 +29,7 @@ const RESEARCH = new Map(Object.values(RESEARCH_FILES).map((src) => parseResearc
 const SKIP = new Set([RESEARCH_SECTION, 'שאלות נפוצות'])
 // Research ("the local research memory", research/<id>.md) reaches the chat in two parts, both local — no
 // web search is needed for studies:
-//   1. in the cached knowledge text: per product the researched ingredients (weight, amount vs studied dose)
+//   1. in the cached knowledge text: per product the names of its researched ingredients
 //      and one index line per ingredient (who was studied);
 //   2. researchContext(): the full studies of the products / ingredients a question names, sent only with
 //      that question (ask.ts), so the big study texts are not re-sent with every call.
@@ -80,11 +80,11 @@ async function build(): Promise<string> {
     if (k) {
       out.push(chatText(k, SKIP))
       // Researched ingredients of this product, most important first; the studies themselves follow once, below.
-      const refs = researchRefs(k).filter((r) => RESEARCH.has(r.id))
+      const refs = researchRefs(k).filter((r) => RESEARCH.has(r.id) && r.weight !== 'זעום')
       if (refs.length) {
         out.push(`## ${RESEARCH_SECTION}`)
-        // A "זעום" ingredient is listed (so the chat can say the amount is far below the studied dose) but does not pull its studies in.
-        for (const r of refs) { if (r.weight !== 'זעום') used.add(r.id); out.push(`- ${RESEARCH.get(r.id)!.name} (research id: ${r.id}) | משקל במוצר: ${r.weight} | במוצר: ${r.inProduct} | במחקרים: ${r.inStudies}`) }
+        // No amounts and no product-vs-study comparison here (client decision, legal). "זעום" ingredients are not listed.
+        for (const r of refs) { if (r.weight === 'זעום') continue; used.add(r.id); out.push(`- ${RESEARCH.get(r.id)!.name} (research id: ${r.id})`) }
       }
     }
     else out.push(`${p.contains ? p.contains + '. ' : ''}אין עדיין מידע מפורט על המוצר בבסיס הידע.`)
