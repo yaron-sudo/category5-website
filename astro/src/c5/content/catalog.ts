@@ -102,7 +102,7 @@ async function build(): Promise<Product[]> {
       if (hidden) { hiddenTo[p.slug] = `/series/${ov.series ?? p.series}`; return null }
       const out: Product = { ...p, ...ov }
       out.image = ov.image ?? assetFor('assets/products', p.slug) ?? out.image
-      out.label = ov.label ?? LABELS[p.slug] ?? (p.source ? LABELS[p.source] : undefined)
+      out.label = ov.label ?? LABELS[p.slug] ?? (p.source ? LABELS[p.source] : undefined) ?? (out.labelText?.length ? { notes: out.labelText } : undefined)
       out.labelImage = ov.labelImage ?? assetFor('assets/products/labels', p.slug) ?? out.labelImage
       return out
     })
