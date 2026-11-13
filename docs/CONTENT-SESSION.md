@@ -93,7 +93,8 @@ retouch or regenerate a product image.** Framing and centring are automatic (`im
 - Glossary terms are linked automatically; do not add links by hand.
 - Kashrut certifier ("נותן הכשרות"), client's rule: when sources differ, **בד״ץ בית יוסף** or
   **בד״ץ העדה החרדית ירושלים** wins; do not mention the regional rabbinate ("בהשגחת הרבנות
-  האזורית …"). If neither appears, or it is unclear, ask the client before publishing.
+  האזורית …"). Where the only certifier in the source is בד״ץ חתם סופר בני ברק or רבנות מעלה אדומים, keep it
+  (client confirmed). Anything else unclear: ask the client before publishing.
 
 ## Check before pushing
 ```bash
