@@ -15,11 +15,16 @@ import { SERIES, CONTACT, GLOSSARY } from '@/c5/data'
 import { SERIES_CONTENT } from '@/c5/content/series'
 import { ONLINE_SHOPS } from '@/c5/content/stores'
 import { fetchQ } from './sanity'
-import { parseKnowledge, chatText, stripTags } from '@/c5/knowledge/parse'
+import { parseKnowledge, parseResearch, researchRefs, chatText, stripTags, RESEARCH_SECTION } from '@/c5/knowledge/parse'
 import general from '@/c5/knowledge/general.md?raw'
 
 const FILES = import.meta.glob<string>('../c5/knowledge/products/*.md', { query: '?raw', import: 'default', eager: true })
 const BY_SLUG = new Map(Object.entries(FILES).map(([path, src]) => [path.split('/').pop()!.replace(/\.md$/, ''), parseKnowledge(src)]))
+
+// research/<id>.md: verified double-blind studies per active ingredient (docs/KNOWLEDGE.md → "מחקרים").
+const RESEARCH_FILES = import.meta.glob<string>('../c5/knowledge/research/*.md', { query: '?raw', import: 'default', eager: true })
+const RESEARCH = new Map(Object.values(RESEARCH_FILES).map((src) => parseResearch(src)).filter((r) => r.id && r.studies > 0).map((r) => [r.id, r]))
+const SKIP = new Set([RESEARCH_SECTION])
 
 let cached: Promise<string> | null = null
 
@@ -57,14 +62,31 @@ async function build(): Promise<string> {
   for (const g of GLOSSARY) out.push(`- ${g.term} (/glossary#${g.id}): ${g.text}`)
 
   out.push('\n# מוצרים')
+  const used = new Set<string>()
   for (const p of catalog) {
     const k = BY_SLUG.get(p.slug)
     const name = k?.meta.name || p.title
     const aliases = [...new Set([p.title, p.fullTitle, ...(k?.aliases ?? []), ...(p.keywords ?? [])].filter((a): a is string => !!a && a !== name))]
     out.push(`\n<product name="${attr(name)}" url="/products/${p.slug}" series="${seriesName(p.series)}"${aliases.length ? ` aliases="${attr(aliases.join(', '))}"` : ''}>`)
-    if (k) out.push(chatText(k))
+    if (k) {
+      out.push(chatText(k, SKIP))
+      // Researched ingredients of this product, most important first; the studies themselves follow once, below.
+      const refs = researchRefs(k).filter((r) => RESEARCH.has(r.id))
+      if (refs.length) {
+        out.push(`## ${RESEARCH_SECTION}`)
+        for (const r of refs) { used.add(r.id); out.push(`- ${RESEARCH.get(r.id)!.name} (research id: ${r.id}) | משקל במוצר: ${r.weight} | במוצר: ${r.inProduct} | במחקרים: ${r.inStudies}`) }
+      }
+    }
     else out.push(`${p.contains ? p.contains + '. ' : ''}אין עדיין מידע מפורט על המוצר בבסיס הידע.`)
     out.push('</product>')
+  }
+  if (used.size) {
+    out.push('\n# מחקרים על חומרים פעילים')
+    out.push('מחקרים אקראיים כפולי-סמיות בבני אדם על חומרים פעילים שנמצאים במוצרים. המחקרים נעשו על החומר הפעיל ולא על מוצרי החברה, ולעיתים במינון או בצורה שונים מאלה שבמוצר.')
+    for (const id of [...used].sort()) {
+      const r = RESEARCH.get(id)!
+      out.push(`\n<research id="${id}" name="${attr(r.name)}">\n${r.text}\n</research>`)
+    }
   }
   return out.join('\n')
 }
