@@ -15,6 +15,11 @@ const items = productResearch(Astro.props.slug)
 {items.length > 0 && (
 <div class="c5-research">
 <p>{RESEARCH_DISCLAIMER}</p>
+<table>
+<caption>החומרים הפעילים במוצר</caption>
+<thead><tr><th scope="col">רכיב</th><th scope="col">כמות במוצר</th></tr></thead>
+<tbody>{items.map((ing) => <tr><th scope="row">{ing.name}</th><td>{ing.inProduct}</td></tr>)}</tbody>
+</table>
 {items.map((ing) => (
 <section>
 <h3>{ing.name}</h3>

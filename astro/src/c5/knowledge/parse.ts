@@ -69,13 +69,23 @@ export function chatText(k: KnowledgeFile, skip: ReadonlySet<string> = new Set()
  */
 export const isAmountNote = (note: string) => /מוצר/.test(note) && /כמות|מינון|מנה|מ"ג|מק"ג|מיליארד|CFU|נמוכ|גבוה|זהה|קרוב/.test(note)
 
-/** A research file (research/<id>.md): studies on one active ingredient. `studies` is empty when none qualified. */
-export function parseResearch(src: string): { id: string; name: string; text: string; studies: number; contexts: string[] } {
+/**
+ * Client decision (13.11.2026): only studies that reported a significant favourable result for the ingredient
+ * are shown (site and chat). A study marked `- הצגה: לא` stays in the file as a record and is never shown.
+ */
+export const HIDDEN_STUDY = /^- הצגה: *לא/m
+/** Drops hidden study blocks (`### …` up to the next heading) from a research file's text. */
+export const visibleStudies = (src: string) => src.split(/^(?=###? )/m).filter((b) => !(b.startsWith('### ') && HIDDEN_STUDY.test(b))).join('')
+
+/** A research file (research/<id>.md): the SHOWN studies on one active ingredient. `studies` is 0 when none is shown. */
+export function parseResearch(full: string): { id: string; name: string; text: string; studies: number; contexts: string[] } {
+  const src = visibleStudies(full)
   const k = parseKnowledge(src)
   const studies = (src.match(/^### /gm) ?? []).length
-  // For the chat: "מה נבדק" is dropped (the reported findings name the outcomes) to keep the context small.
-  const text = k.sections.map((s) => `## ${s.title}\n${stripTags(s.body).replace(/^- מה נבדק:.*\n/gm, '').replace(/^- הרכיב והמינון במחקר:/gm, '- הרכיב שנחקר:').split('\n').filter((l) => !(s.title === 'הערות' && isAmountNote(l))).join('\n')}`).join('\n')
-  // Who was studied (the "אוכלוסייה" line of each study): a one-line index of the research contexts.
+  // For the chat: no notes (maintainers' remarks), no "מה נבדק" (the findings name the outcomes), sections left without a study are dropped.
+  const text = k.sections
+    .filter((s) => s.title !== 'הערות' && /^### /m.test(s.body))
+    .map((s) => `## ${s.title}\n${stripTags(s.body).replace(/^- מה נבדק:.*\n/gm, '').replace(/^- הרכיב והמינון במחקר:.*\n/gm, '').replace(/^- הצגה:.*\n?/gm, '')}`).join('\n')
   const contexts = [...src.matchAll(/^- אוכלוסייה: *(.*)$/gm)].map((m) => m[1].replace(/\.$/, '').trim())
   return { id: k.meta.id ?? '', name: k.meta.name ?? '', text, studies, contexts }
 }

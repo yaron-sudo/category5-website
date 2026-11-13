@@ -2,7 +2,7 @@
 // active ingredients, as structured data. Source: research/<id>.md (one file per ingredient)
 // + the "מחקרים על הרכיבים" section of products/<slug>.md. Format and rules: docs/KNOWLEDGE.md.
 // Rendering: ProductResearch.astro (same folder) or any component of the design session.
-import { parseKnowledge, researchRefs, isAmountNote } from './parse'
+import { parseKnowledge, researchRefs, isAmountNote, visibleStudies } from './parse'
 
 export interface Study {
   title: string
@@ -26,6 +26,8 @@ export interface IngredientResearch {
   name: string
   /** עיקרי | משני — for ordering only; never displayed. */
   weight: string
+  /** Amount of the ingredient in the product, as in the knowledge file (shown in the opening table). */
+  inProduct: string
   studies: Study[]
   notes: string[]
 }
@@ -35,11 +37,11 @@ const RESEARCH_FILES = import.meta.glob<string>('./research/*.md', { query: '?ra
 const slugOf = (path: string) => path.split('/').pop()!.replace(/\.md$/, '')
 
 const FIELDS: Record<string, keyof Study> = {
-  'סוג המחקר': 'type', 'אוכלוסייה': 'population', 'הרכיב והמינון במחקר': 'studied', 'מה נבדק': 'examined', 'מה דווח': 'reported', 'מקור': 'source',
+  'סוג המחקר': 'type', 'אוכלוסייה': 'population', 'הרכיב שנחקר': 'studied', 'מה נבדק': 'examined', 'מה דווח': 'reported', 'מקור': 'source',
 }
 
-function parseFile(src: string): { name: string; studies: Study[]; notes: string[] } {
-  const k = parseKnowledge(src)
+function parseFile(full: string): { name: string; studies: Study[]; notes: string[] } {
+  const k = parseKnowledge(visibleStudies(full)) // studies marked "הצגה: לא" are never shown
   const studies: Study[] = []
   let notes: string[] = []
   for (const s of k.sections) {
@@ -67,8 +69,8 @@ const ORDER: Record<string, number> = { 'עיקרי': 0, 'משני': 1, 'זעו�
 /**
  * Researched ingredients of a product, most important first, each with its studies.
  * Ingredients without any study, and "זעום" ingredients, are left out.
- * Client decision (legal): no amounts of the product and no product-vs-study comparison are exposed here —
- * only the ingredient's name and, per study, the ingredient that was studied.
+ * Client decision (legal): no product-vs-study comparison. The product's own amounts appear once, in an
+ * opening table (`inProduct`); each study names only the ingredient that was studied, without its dose.
  */
 export function productResearch(slug: string): IngredientResearch[] {
   const k = PRODUCTS.get(slug)
@@ -76,9 +78,9 @@ export function productResearch(slug: string): IngredientResearch[] {
   return researchRefs(k)
     .filter((r) => r.weight !== 'זעום' && (RESEARCH.get(r.id)?.studies.length ?? 0) > 0)
     .sort((a, b) => (ORDER[a.weight] ?? 9) - (ORDER[b.weight] ?? 9))
-    .map((r) => ({ id: r.id, weight: r.weight, ...RESEARCH.get(r.id)! }))
+    .map((r) => ({ id: r.id, weight: r.weight, inProduct: r.inProduct, ...RESEARCH.get(r.id)! }))
 }
 
 /** Shown above the studies; wording agreed in docs/KNOWLEDGE.md. */
 export const RESEARCH_DISCLAIMER =
-  'המחקרים נעשו על החומרים הפעילים ולא על המוצר עצמו. המידע מובא לידיעה בלבד, אינו המלצה רפואית ואינו תחליף להתייעצות עם רופא. תוסף תזונה אינו תרופה.'
+  'מוצגים מחקרים נבחרים. המחקרים נעשו על החומרים הפעילים ולא על המוצר עצמו. המידע מובא לידיעה בלבד, אינו המלצה רפואית ואינו תחליף להתייעצות עם רופא. תוסף תזונה אינו תרופה.'

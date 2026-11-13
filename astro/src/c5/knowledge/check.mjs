@@ -74,10 +74,10 @@ for (const [id, r] of research) {
     }
   }
 }
-const withStudies = [...research.values()].filter((r) => r.studies > 0).length
+const withStudies = [...research.values()].filter((r) => r.studies > 0).length // files with at least one SHOWN study
 console.log(`בסיס הידע: ${shown.length} מוצרים מוצגים · ${files.length} קובצי ידע · ${drafts} בסטטוס draft (טרם אומתו מול התווית הפיזית)`)
 for (const e of errors) console.log('  ✗ ' + e)
 for (const w of warnings) console.log('  ! ' + w)
 if (!errors.length) console.log('  ✓ לכל מוצר מוצג יש קובץ ידע תקין')
-console.log(`מחקרים: ${research.size} קובצי רכיב, ב-${withStudies} מהם יש מחקרים`)
+console.log(`מחקרים: ${research.size} קובצי רכיב, ב-${withStudies} מהם יש מחקרים מוצגים`)
 process.exit(errors.length || (process.argv.includes('--strict') && warnings.length) ? 1 : 0)
