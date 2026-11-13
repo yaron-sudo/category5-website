@@ -25,7 +25,7 @@ sources:
 
 [תווית]
 
-רשימת הזנים, כלשון התווית: @@STRAINS@@ [תווית]
+רשימת הזנים, כלשון התווית: B.bifidum BB02; B.bifidum SP9; B.adolescentis SP77; L.casei BGP93; L.casei LC10; L.casei LC11; L.reuteri LR92; B.breve Bbr8; B.breve BL10; L.crispatus SP28; L.rhamnosus SP1; L.rhamnosus LB21; L.rhamnosus IMC501; L.rhamnosus LR1; L.rhamnosus LRH01; L.rhamnosus LRH05; L.rhamnosus LRH14; L.rhamnosus LRH58; B.longum ssp.longum SP54; L.fermentum LF2; L.fermentum CS57; L.salivarius SP2; B.animalis lactis ssp lactis BLC1; B.animalis lactis ssp lactis Bi1; L.lactis ssp.lactis SP38; L.lactis ssp.lactis SP47; L.lactis ssp.lactis SD13; L.lactis ssp lactis SL97; L.helveticus SP27; helveticus LH102; St.thermophilus SP4; S.thermophilus Z57; S.thermophilus ST628; L.acidophilus LA3; L.acidophilus LA1; L.buchneri LBC01; L.delbrueckii ssp.bulgaricus LB2; L.delbrueckii ssp.bulgaricus LB284; L.plantarum 14D; L.plantarum LB931; L.plantarum BG112; L.plantarum LP48; Pd.acidilatici PA09; L.paracasei IMC502; L.paracasei 101/37; L.paracasei BGP1; L.paracasei BGP2; L.paracasei LPC43; Pd.pentosaceus PP02; L.brevis SP48; L.sakei LSK04; L.sakei LSK14; L.lactis LL82 [תווית]
 
 - יחידת המדידה של 150 מיליארד החיידקים: CFU. [עלון, אתר ישן]
 
