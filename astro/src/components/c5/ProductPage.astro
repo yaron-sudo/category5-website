@@ -112,9 +112,9 @@ const btn = 'display: inline-flex; align-items: center; justify-content: center;
 </details>
 {p.microscope?.length && (
 <details>
-<summary><h2 style="margin: 0">צילום הליפוזום במיקרוסקופ אלקטרוני</h2><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></summary>
+<summary><h2 style="margin: 0">{p.microscopeTitle ?? 'צילום הליפוזום במיקרוסקופ אלקטרוני'}</h2><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></summary>
 <div class="pp-acc-body pp-mic">
-{p.microscope.map((src, i) => <img src={src} alt={`צילום הליפוזום במוצר במיקרוסקופ אלקטרוני – ${name}${p.microscope!.length > 1 ? ` (${i + 1})` : ''}`} loading="lazy">)}
+{p.microscope.map((src, i) => <img src={src} alt={`${p.microscopeTitle ?? 'צילום הליפוזום במוצר במיקרוסקופ אלקטרוני'} – ${name}${p.microscope!.length > 1 ? ` (${i + 1})` : ''}`} loading="lazy">)}
 </div>
 </details>
 )}

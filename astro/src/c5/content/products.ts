@@ -26,6 +26,8 @@ export interface Product {
   /** Electron-microscope photos of the product's liposome (from the product brochure):
    *  files public/assets/products/microscope/<slug>.webp, <slug>-2.webp … picked up automatically. */
   microscope?: string[]
+  /** Heading of the microscope section when the photo is not of a liposome (e.g. MFM). */
+  microscopeTitle?: string
   /** Label scan — only shown while a product has no text label yet. */
   labelImage?: string
   /** "תווית המוצר" as running text (transcribed from the pack label), one paragraph per item.

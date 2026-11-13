@@ -70,6 +70,9 @@ function assetFor(dir: string, slug: string): string | undefined {
   return undefined
 }
 
+// Products whose microscope photo shows the MFM micro-capsule, not a liposome.
+const MFM_MICROSCOPE = new Set(['kalnozim-digestive-enzymes', 'kalnozin'])
+
 let cache: Promise<Product[]> | null = null
 let hiddenTo: Record<string, string> = {}
 export function getCatalog(): Promise<Product[]> {
@@ -105,6 +108,7 @@ async function build(): Promise<Product[]> {
       out.label = ov.label ?? LABELS[p.slug] ?? (p.source ? LABELS[p.source] : undefined) ?? (out.labelText?.length ? { notes: out.labelText } : undefined)
       out.labelImage = ov.labelImage ?? assetFor('assets/products/labels', p.slug) ?? out.labelImage
       const mic = [p.slug, `${p.slug}-2`, `${p.slug}-3`].map((n) => assetFor('assets/products/microscope', n)).filter(Boolean) as string[]
+      if (mic.length && MFM_MICROSCOPE.has(p.slug)) out.microscopeTitle ??= 'צילום מיקרוסקופ אלקטרוני של טכנולוגיית MFM במוצר'
       out.microscope = ov.microscope ?? (mic.length ? mic : undefined)
       return out
     })
