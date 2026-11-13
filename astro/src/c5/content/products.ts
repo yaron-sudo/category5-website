@@ -55,7 +55,34 @@ export const PRODUCTS: Product[] = [
   { slug: 'revival', title: 'רויוואל', source: 'revival-20', series: 'professional', image: '/assets/products/revival.jpg' },
   { slug: 'calcidex', title: 'קלצידקס', fullTitle: 'קלצידקס – סידן גליצרופוספט ואלוורה אורגנית', series: 'professional', image: '/assets/products/calcidex.png' },
   // Products of the BOM list that had no page on the old site (names and pack sizes from the BOM).
-  { slug: 'lipozamin-nac', title: 'ליפוזמין NAC', series: 'vitamins-minerals', contains: 'מכיל 60 כמוסות' },
+  {
+    slug: 'lipozamin-nac', title: 'ליפוזמין NAC', series: 'vitamins-minerals', contains: 'מכיל 60 כמוסות צמחיות',
+    // Text from the client's brochure (Lipozamin-NAC.pdf) and the pack label. No indications / target groups; dosage as on the label.
+    intro: [
+      'N-אצטיל-ציסטאין (NAC) ליפוזומלי. NAC הוא נגזרת פעילה של חומצת האמינו ציסטאין, המשמשת כחומר המוצא המרכזי לייצור גלוטתיון.',
+      'ה-NAC שבמוצר עטוף בליפוזום שהוקטן לגודל חלקיקים ננומטרי. הליפוזומים במוצר נבדקו במיקרוסקופ אלקטרוני.',
+    ],
+    benefits: [
+      'כמוסה אחת מכילה: 500 מ"ג N-אצטיל-L-ציסטאין (NAC) ליפוזומלי (200 מ"ג אלמנטלי).',
+      'N-אצטיל-L-ציסטאין (NAC) ליפוזומלי - לספיגה גבוהה.',
+      'N-אצטיל-L-ציסטאין (NAC) בגודל ננומטרי - (קטן יותר מכדורית דם).',
+      'הליפוזומים במוצר נבדקו במיקרוסקופ אלקטרוני.',
+      'מתאים לצמחונים וטבעונים.',
+      '60 כמוסות צמחיות נוחות לבליעה.',
+      'תווית נקיה - ללא סיליקון דאוקסיד, חומרים משמרים, חומרים מן החי, חומרים מהונדסים גנטית, חומרים מייצבים, חומרי טעם, חומרי ריח, ממתיקים, סוכר, חיטה, סויה, חלב ומוצריו.',
+    ],
+    usage: ['1 כמוסה ליום. יש ליטול לפי המינון המומלץ.'],
+    details: [
+      'סוג כשרות: כשר פרווה, בד״ץ.',
+      'נותן הכשרות: בד״ץ חתם סופר בני ברק.',
+      'אורך חיי מדף: 24 חודשים.',
+      'המלצת אחסון: יש לאחסן במקום קריר ויבש, הרחק מחום, אור ולחות.',
+      'לאחר הפתיחה אין צורך לשמור בקירור.',
+      'נשים בהריון, נשים מניקות, אנשים הנוטלים תרופות מרשם וילדים יש להיוועץ ברופא.',
+      'יש להרחיק את המוצר מהישג ידם של ילדים.',
+    ],
+    keywords: ['NAC', 'N-אצטיל-ציסטאין', 'אצטיל ציסטאין', 'ציסטאין', 'N-Acetyl Cysteine', 'נאק'],
+  },
   { slug: 'lipozamin-alpha-lipoic-acid', title: 'ליפוזמין אלפא ליפואית אסיד', series: 'vitamins-minerals', contains: 'מכיל 60 כמוסות' },
   { slug: 'lipozamin-magnesium-malate', title: 'ליפוזמין מגנזיום מאלאט', series: 'vitamins-minerals', contains: 'מכיל 60 כמוסות' },
   { slug: 'lipozamin-creatine-complex', title: 'ליפוזמין קריאטין קומפלקס', series: 'vitamins-minerals', contains: 'מכיל 60 כמוסות' },
