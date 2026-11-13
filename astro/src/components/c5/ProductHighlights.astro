@@ -20,12 +20,18 @@ if (h) {
 <section aria-label="תכונות המוצר" class="pp pp-hl">
 <h2 style="margin: 0 0 20px">תכונות המוצר</h2>
 <ul class="pp-hl-box">
-{items.map((x) => (
+{items.map((x) => x.value ? (
+<li class="pp-hl-more">
+<button type="button" data-hl-toggle aria-expanded="false">
+<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#141414"></circle><path d="M7 12.5l3.2 3.2L17 9" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span class="pp-hl-label">{x.label}</span>
+</button>
+<span class="pp-hl-value" data-hl-value hidden>{x.value}</span>
+</li>
+) : (
 <li>
+<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#141414"></circle><path d="M7 12.5l3.2 3.2L17 9" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
 <span class="pp-hl-label" set:html={linkTerms(x.label, used)} />
-{x.value
-  ? <span class="pp-hl-value">{x.value}</span>
-  : <svg width="22" height="22" viewBox="0 0 24 24" role="img" aria-label="כן"><circle cx="12" cy="12" r="11" fill="#141414"></circle><path d="M7 12.5l3.2 3.2L17 9" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>}
 </li>
 ))}
 </ul>
@@ -33,10 +39,31 @@ if (h) {
 )}
 
 <style is:global>
+  /* One uniform pattern for every attribute: check mark + text, in equal columns. */
   .pp-hl { padding-top: clamp(32px, 4vw, 56px); }
-  .pp-hl-box { list-style: none; margin: 0; padding: 28px 22px; background: #f7f7f5; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px 16px; }
-  .pp-hl-box li { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; font-size: 15px; }
+  .pp-hl-box { list-style: none; margin: 0; padding: 24px 28px; background: #f7f7f5; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px 32px; }
+  .pp-hl-box li { display: flex; align-items: center; gap: 12px; min-height: 28px; font-size: 16px; line-height: 1.4; }
+  .pp-hl-box svg { flex: 0 0 22px; }
   .pp-hl-label a { color: #141414; }
-  .pp-hl-value { font-weight: 600; }
-  @media (max-width: 760px) { .pp-hl-box { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  /* Kashrut: same look as the others; a click on the check shows the kashrut type. */
+  .pp-hl-box li.pp-hl-more { flex-wrap: wrap; row-gap: 4px; }
+  .pp-hl-more button { display: inline-flex; align-items: center; gap: 12px; padding: 0; border: 0; background: none; color: #141414; font: inherit; cursor: pointer; text-align: start; }
+  .pp-hl-more button .pp-hl-label { text-decoration: underline dotted; text-underline-offset: 4px; }
+  .pp-hl-more button:focus-visible { outline: 2px solid #141414; outline-offset: 3px; }
+  .pp-hl-value { flex: 0 0 100%; padding-inline-start: 34px; font-size: 15px; }
+  .pp-hl-value[hidden] { display: none; }
+  @media (max-width: 900px) { .pp-hl-box { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 560px) { .pp-hl-box { grid-template-columns: 1fr; padding: 20px; } }
 </style>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-hl-toggle]').forEach((btn) => {
+    const value = btn.parentElement?.querySelector<HTMLElement>('[data-hl-value]')
+    if (!value) return
+    btn.addEventListener('click', () => {
+      const open = btn.getAttribute('aria-expanded') !== 'true'
+      btn.setAttribute('aria-expanded', String(open))
+      value.hidden = !open
+    })
+  })
+</script>
