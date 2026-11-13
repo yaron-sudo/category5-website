@@ -27,9 +27,6 @@ import type { Product } from './products'
 export type ProductOverride = Partial<Omit<Product, 'slug'>> & { hidden?: boolean }
 
 export const PRODUCT_OVERRIDES: Record<string, ProductOverride> = {
-  // The brief's "פוסטביוטיקה" image is the new pack of the daily probiotic (56 strains, 20 billion).
-  'umanaflora-daily': { image: '/assets/products/postbiotic.jpg' },
-
   // Pack sizes updated to the BOM list.
   amorfolic: { contains: 'מכיל 120 כמוסות' },
   'cellinol-junior': { contains: 'מכיל 60 טבליות' },
