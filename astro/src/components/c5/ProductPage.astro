@@ -226,7 +226,10 @@ const btn = 'display: inline-flex; align-items: center; justify-content: center;
   @media (max-width: 760px) { .pp-car-track { grid-auto-columns: 62%; gap: 16px; } .pp-car-btn { display: none; } }
   @media (max-width: 900px) {
     .pp-top { grid-template-columns: minmax(0, 1fr); }
-    .pp-gallery { position: static; flex-direction: column-reverse; }
+    /* Stacked: the stage must take the full width (its image is absolutely positioned,
+       so without a width the box collapses to 0). */
+    .pp-gallery { position: static; flex-direction: column-reverse; align-items: stretch; }
+    .pp-stage { flex: 0 0 auto; width: 100%; }
     .pp-thumbs { flex-direction: row; flex: 0 0 auto; }
     .pp-thumb { width: 72px; }
     .pp-acc-body { padding-inline-start: 0; }
