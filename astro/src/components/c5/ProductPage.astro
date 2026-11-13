@@ -116,9 +116,17 @@ const btn = 'display: inline-flex; align-items: center; justify-content: center;
 {p.microscope?.length && (
 <details>
 <summary><h2 style="margin: 0">{p.microscopeTitle ?? 'צילום הליפוזום במיקרוסקופ אלקטרוני'}</h2><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></summary>
-<div class="pp-acc-body pp-mic">
+<figure class={`pp-acc-body pp-mic${p.microscopeTitle ? ' pp-mic-solo' : ''}`}>
+<div class="pp-mic-imgs">
 {p.microscope.map((src, i) => <img src={src} alt={`${p.microscopeTitle ?? 'צילום הליפוזום במוצר במיקרוסקופ אלקטרוני'} – ${name}${p.microscope!.length > 1 ? ` (${i + 1})` : ''}`} loading="lazy">)}
 </div>
+{!p.microscopeTitle && (
+<figcaption class="pp-mic-cap">
+<p class="pp-mic-lead">צילום במיקרוסקופ אלקטרוני של הליפוזומים שבמוצר בגודל חלקיקים ננומטרי.</p>
+<p>בתמונה נראה פיזור טוב וליפוזומים שלמים שמהווים הוכחה להמצאותם במוצר.</p>
+</figcaption>
+)}
+</figure>
 </details>
 )}
 </section>
@@ -181,11 +189,17 @@ const btn = 'display: inline-flex; align-items: center; justify-content: center;
   .pp-acc details[open] summary svg { transform: rotate(180deg); }
   .pp-acc-body { padding: 0 0 clamp(28px, 3.5vw, 44px); padding-inline-start: min(200px, 16vw); max-width: 1000px; }
   .pp-box { margin: 0; padding: 22px 22px 22px 22px; padding-inline-start: 42px; background: #f7f7f5; }
-  .pp-mic { display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start; justify-content: flex-start; }
-  .pp-acc-body.pp-mic { padding-inline-start: 0; }
+  /* Microscope section: photo(s) framed on the right, caption panel beside them. */
+  .pp-mic { margin: 0; display: flex; align-items: stretch; gap: 0; border: 1px solid #dcdcd9; max-width: none; }
+  .pp-acc-body.pp-mic { padding: 0; margin-bottom: clamp(28px, 3.5vw, 44px); max-width: 1000px; }
+  .pp-mic-imgs { flex: 0 1 auto; display: flex; flex-wrap: wrap; gap: 8px; padding: 16px; background: #141414; align-items: center; justify-content: center; }
   /* Same height for every microscope photo (never upscaled, never cropped). */
-  .pp-mic img { display: block; width: auto; height: auto; max-width: 100%; max-height: 300px; flex: 0 1 auto; }
-  @media (max-width: 640px) { .pp-mic img { max-height: 220px; } }
+  .pp-mic img { display: block; width: auto; height: auto; max-width: 100%; max-height: 280px; flex: 0 1 auto; }
+  .pp-acc-body.pp-mic.pp-mic-solo { width: fit-content; }
+  .pp-mic-cap { flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; justify-content: center; gap: 12px; padding: clamp(20px, 3vw, 36px); background: #f7f7f5; }
+  .pp-mic-cap p { margin: 0; }
+  .pp-mic-lead { font-size: 20px; font-weight: 600; line-height: 1.4; }
+  @media (max-width: 760px) { .pp-mic { flex-direction: column; } .pp-mic img { max-height: 220px; } .pp-mic-cap { flex-basis: auto; } }
   .pp-box li + li { margin-top: 6px; }
   /* "More from the series" carousel (after The Ordinary): 4 cards in view, round
      arrow buttons, a hairline with a black progress segment underneath. */
