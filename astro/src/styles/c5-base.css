@@ -86,8 +86,10 @@ button.c5-soft.c5-soft[style*="position: fixed"]:hover,
 .c5-research-ing { padding: 28px 0; border-bottom: 1px solid #dcdcd9; display: flex; flex-direction: column; gap: 16px; }
 .c5-research-ing:last-child { border-bottom: 0; padding-bottom: 0; }
 .c5-research-ing h3 { margin: 0; font-size: 20px; font-weight: 400; }
+.c5-research-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 20px; }
+.c5-research-weight { font-size: 15px; }
 .c5-research-ing h4 { margin: 8px 0 0; font-size: 17px; font-weight: 600; }
-.c5-research-amounts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border: 1px solid #dcdcd9; }
+.c5-research-amounts { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); border: 1px solid #dcdcd9; }
 .c5-research-amounts > div { padding: 14px 18px; display: flex; flex-direction: column; gap: 4px; }
 .c5-research-amounts > div + div { border-inline-start: 1px solid #dcdcd9; }
 .c5-research-amounts dt { font-size: 15px; }
@@ -103,7 +105,7 @@ button.c5-soft.c5-soft[style*="position: fixed"]:hover,
 .c5-research a:focus-visible { outline: 2px solid #141414; outline-offset: 3px; }
 .c5-research-notes { list-style: none; display: flex; flex-direction: column; gap: 6px; font-size: 15px; padding-top: 4px !important; }
 @media (max-width: 640px) {
-  .c5-research-amounts { grid-template-columns: 1fr; }
+  .c5-research-amounts { grid-auto-flow: row; }
   .c5-research-amounts > div + div { border-inline-start: 0; border-top: 1px solid #dcdcd9; }
   .c5-research-fields > div { grid-template-columns: 1fr; }
   .c5-research-fields dt { font-weight: 600; }
