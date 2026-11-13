@@ -6,9 +6,13 @@
 import Accessibility from '@/components/Accessibility.astro'
 import { t, chatDict, CHAT_LANGS } from '@/c5/i18n'
 const strings = Object.fromEntries(CHAT_LANGS.map((l) => [l.code, chatDict(l.code)]))
+// Product previews in answers: every /products/<slug> link the answer contains gets a
+// card (photo + name + button to the product page).
+import { getCatalog } from '@/c5/content/catalog'
+const products = Object.fromEntries((await getCatalog()).map((p) => [p.slug, { t: p.fullTitle || p.title, i: p.image ?? '' }]))
 const dirs = Object.fromEntries(CHAT_LANGS.map((l) => [l.code, l.dir]))
 ---
-<div dir="rtl" data-c5-chat data-strings={JSON.stringify(strings)} data-dirs={JSON.stringify(dirs)} style="font-family: 'C5 Sans', 'Noto Sans Hebrew', Arial, sans-serif; color: #141414; font-size: 15px; line-height: 1.5">
+<div dir="rtl" data-c5-chat data-strings={JSON.stringify(strings)} data-dirs={JSON.stringify(dirs)} data-products={JSON.stringify(products)} style="font-family: 'C5 Sans', 'Noto Sans Hebrew', Arial, sans-serif; color: #141414; font-size: 15px; line-height: 1.5">
 
 <Accessibility variant="c5" label={t('a11y.open')} />
 
@@ -38,6 +42,13 @@ const dirs = Object.fromEntries(CHAT_LANGS.map((l) => [l.code, l.dir]))
 <style is:global>
   [data-chat-panel][hidden], [data-chat-open][hidden] { display: none !important; }
   [data-chat-log] a { color: #141414; }
+  [data-chat-log] a.c5-chat-card { display: flex; align-items: center; gap: 12px; padding: 10px; border: 1px solid #dcdcd9; border-radius: 4px; background: #ffffff; text-decoration: none; }
+  [data-chat-log] a.c5-chat-card:hover, [data-chat-log] a.c5-chat-card:focus-visible { border-color: #141414; }
+  .c5-chat-card-img { flex: 0 0 72px; width: 72px; height: 72px; background: #f7f7f5; display: flex; align-items: center; justify-content: center; }
+  .c5-chat-card-img img { max-width: 100%; max-height: 100%; object-fit: contain; mix-blend-mode: multiply; }
+  .c5-chat-card-txt { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
+  .c5-chat-card-btn { display: inline-flex; align-items: center; min-height: 32px; padding: 0 12px; border: 1px solid #141414; border-radius: 4px; font-size: 14px; }
+  a.c5-chat-card:hover .c5-chat-card-btn { background: #efeeea; }
   [data-chat-log] p { margin: 0 0 6px; } [data-chat-log] p:last-child { margin: 0; }
   [data-chat-log] ul { margin: 4px 0; padding-inline-start: 18px; }
   [data-chat-panel][data-large] { width: min(760px, calc(100vw - 32px)) !important; height: min(860px, calc(100vh - 32px)) !important; }
@@ -102,6 +113,19 @@ const dirs = Object.fromEntries(CHAT_LANGS.map((l) => [l.code, l.dir]))
 
     const esc = (s: string) => s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!)
     // Safe light markdown: escape, then links (site paths / https only), bold, bullets.
+    const P = JSON.parse(root.dataset.products || '{}') as Record<string, { t: string; i: string }>
+    // One preview card per product page linked in the answer.
+    const cards = (src: string) => {
+      const seen = new Set<string>()
+      let html = ''
+      for (const m of src.matchAll(/\]\(\/products\/([a-z0-9-]+)\/?\)/g)) {
+        const p = P[m[1]]
+        if (!p || seen.has(m[1])) continue
+        seen.add(m[1])
+        html += `<a class="c5-chat-card" href="/products/${m[1]}"><span class="c5-chat-card-img">${p.i ? `<img src="${esc(p.i)}" alt="" loading="lazy">` : ''}</span><span class="c5-chat-card-txt"><strong>${esc(p.t)}</strong><span class="c5-chat-card-btn">${esc(S[lang]['chat.toProduct'] || '')}</span></span></a>`
+      }
+      return html
+    }
     const md = (src: string) => {
       let html = '', inList = false
       for (const raw of esc(src).split('\n')) {
@@ -155,7 +179,7 @@ const dirs = Object.fromEntries(CHAT_LANGS.map((l) => [l.code, l.dir]))
             if (ev.t === 'text') text += ev.v
             else if (ev.t === 'source') text += `\n- [${ev.title}](${ev.url})`
             else if (ev.t === 'error') text += (text ? '\n\n' : '') + s['chat.error']
-            out.innerHTML = md(text) || '…'
+            out.innerHTML = (md(text) || '…') + cards(text)
             log.scrollTop = log.scrollHeight
           }
         }
