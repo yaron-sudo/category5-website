@@ -1,56 +1,210 @@
 ---
-// BRIEF §9 — stores page (no map), ported from mockups/Stores.dc.html.
-// Store list: the client's points of sale (dataset), grouped into the mockup's six regions.
+// "חנויות" — store locator in The Ordinary's find-us layout (client request 14.11.2026,
+// supersedes the BRIEF §9 no-map list): search + chain filters + scrolling list beside an
+// OpenStreetMap map (Leaflet + clustering, as on the naturesage map page), in this site's
+// design language. Chains are told apart by monochrome inline icons.
 import Site from '@/layouts/Site.astro'
-import { getStores } from '@/lib/sanity'
-import { ONLINE_SHOPS, STORE_REGIONS } from '@/c5/content/stores'
+import { getStores, type StoreCategory } from '@/lib/sanity'
+import { ONLINE_SHOPS } from '@/c5/content/stores'
+import 'leaflet/dist/leaflet.css'
+import 'leaflet.markercluster/dist/MarkerCluster.css'
 
-const stores = (await getStores()).filter((s) => s.category !== 'online')
-// Dataset regions → the mockup's regions ("center" is split: Sharon = north of Herzliya's latitude).
-const regionOf = (s: (typeof stores)[number]): (typeof STORE_REGIONS)[number] => {
-  switch (s.region) {
-    case 'north': return 'צפון'
-    case 'haifa': return 'חיפה והקריות'
-    case 'jerusalem': return 'ירושלים'
-    case 'south': return 'דרום'
-    case 'tel-aviv': return 'מרכז'
-    default: return s.lat >= 32.15 ? 'השרון' : 'מרכז'
-  }
-}
-const groups = STORE_REGIONS.map((name) => ({
-  name,
-  stores: stores.filter((s) => regionOf(s) === name).sort((a, b) => a.city.localeCompare(b.city, 'he') || a.name.localeCompare(b.name, 'he')),
+const stores = (await getStores()).filter((s) => s.category !== 'online' && s.lat && s.lng)
+  .sort((a, b) => a.city.localeCompare(b.city, 'he') || a.name.localeCompare(b.name, 'he'))
+
+const CHAINS: Array<{ id: StoreCategory; label: string; icon: string }> = [
+  { id: 'health', label: 'בתי טבע', icon: 'M12 20C7 16 5 12.5 5 9.5A7 7 0 0 1 12 3a7 7 0 0 1 7 6.5c0 3-2 6.5-7 10.5Zm0 0V9m0 3 3-2.5M12 14l-3-2.5' },
+  { id: 'super-pharm', label: 'סופר-פארם', icon: 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Zm0 5v8M8 12h8' },
+  { id: 'nitzat', label: 'ניצת הדובדבן', icon: 'M9 15.5a3 3 0 1 0 0 6 3 3 0 0 0 0-6Zm7-1a3 3 0 1 0 0 6 3 3 0 0 0 0-6ZM9.5 15.5C9.5 10 13 5.5 18 3.5m-8.5 12C11 9 9.5 6 6.5 4m11.5-.5L21 5' },
+  { id: 'bd', label: 'B&D', icon: 'M4 9l1.2-5h13.6L20 9M4 9v11h16V9M4 9h16M9 20v-6h6v6' },
+]
+const chainOf = (c?: StoreCategory) => CHAINS.find((x) => x.id === c) ?? CHAINS[0]
+const data = stores.map((s) => ({
+  n: s.name, c: s.city, a: s.address ?? '', p: s.phone ?? '', k: chainOf(s.category).id, lat: s.lat, lng: s.lng,
 }))
-const btn = 'display: inline-flex; align-items: center; min-height: 44px; padding: 0 22px; border: 1px solid #141414; border-radius: 4px; color: #141414; text-decoration: none'
-const row = 'padding: 10px 0; border-top: 1px solid #dcdcd9'
+const btn = 'display: inline-flex; align-items: center; min-height: 44px; padding: 0 22px; border: 1px solid #141414; border-radius: 4px; background: #ffffff; color: #141414; text-decoration: none; font: inherit; cursor: pointer'
 ---
-<Site title="חנויות" description="רכישה אונליין וחנויות לפי אזורים.">
-<section style="max-width: 1280px; margin: 0 auto; padding: clamp(40px, 6vw, 88px) clamp(16px, 4vw, 48px) 24px; box-sizing: border-box">
+<Site title="חנויות" description="איפה קונים: חיפוש חנויות על המפה ורכישה אונליין.">
+<section style="max-width: 1280px; margin: 0 auto; padding: clamp(40px, 6vw, 72px) clamp(16px, 4vw, 48px) 0; box-sizing: border-box">
 <h1 style="margin: 0">חנויות</h1>
+<p style="margin: 14px 0 0; max-width: 640px">מצאו את החנות הקרובה אליכם, או הזמינו אונליין.</p>
 </section>
 
-<section aria-label="רכישה אונליין" style="max-width: 1280px; margin: 0 auto; padding: 24px clamp(16px, 4vw, 48px); box-sizing: border-box">
-<h2 style="margin: 0 0 16px">רכישה אונליין</h2>
-<div style="display: flex; flex-wrap: wrap; gap: 12px">
+<section aria-label="רכישה אונליין" style="max-width: 1280px; margin: 24px auto 0; padding: 0 clamp(16px, 4vw, 48px); box-sizing: border-box">
+<div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center">
+<h2 style="margin: 0; font-size: 17px; font-weight: 600">רכישה אונליין:</h2>
 {ONLINE_SHOPS.map((o) => o.href
-  ? <a href={o.href} target="_blank" rel="noopener" style={btn}>{o.name}</a>
+  ? <a href={o.href} target="_blank" rel="noopener" class="c5-soft" style={btn}>{o.name}</a>
   : <span style={btn}>{o.name}</span>)}
 </div>
 </section>
 
-<section aria-label="חנויות לפי אזור" style="max-width: 1280px; margin: 0 auto; padding: clamp(32px, 4vw, 56px) clamp(16px, 4vw, 48px) clamp(56px, 7vw, 112px); box-sizing: border-box">
-<h2 style="margin: 0 0 24px">חנויות לפי אזורים</h2>
-<div data-c5-regions style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px 48px; align-items: start">
-{groups.map((g) => (
-<div>
-<h3 style="margin: 0 0 8px">{g.name}</h3>
-<ul style="list-style: none; margin: 0; padding: 0; border-bottom: 1px solid #dcdcd9">
-{g.stores.length
-  ? g.stores.map((s) => <li style={row}>{s.name}, {[s.address, s.city].filter(Boolean).join(', ')}</li>)
-  : <li style={row}>שם חנות, כתובת</li>}
-</ul>
-</div>
+<section aria-label="איתור חנויות" class="c5-loc" data-c5-stores>
+<div class="c5-loc-panel">
+<div class="c5-loc-controls">
+<label for="store-q" class="c5-sr">חיפוש חנות לפי עיר, כתובת או שם</label>
+<input id="store-q" data-loc-q type="search" autocomplete="off" placeholder="חיפוש לפי עיר, כתובת או שם…">
+<div role="group" aria-label="סינון לפי רשת" class="c5-loc-chips">
+<button type="button" data-loc-chain="" aria-pressed="true">הכל</button>
+{CHAINS.map((c) => (
+<button type="button" data-loc-chain={c.id} aria-pressed="false">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={c.icon}></path></svg>
+{c.label}</button>
 ))}
 </div>
+<p data-loc-count role="status" style="margin: 0; font-size: 13px"></p>
+</div>
+<ul data-loc-list class="c5-loc-list">
+{data.map((s, i) => (
+<li>
+<button type="button" data-loc-store={i} data-k={s.k} data-text={`${s.n} ${s.c} ${s.a}`.toLowerCase()}>
+<span class="c5-loc-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={chainOf(s.k as StoreCategory).icon}></path></svg></span>
+<span class="c5-loc-txt">
+<strong>{s.n}</strong>
+<span>{[s.a, s.c].filter(Boolean).join(', ')}</span>
+<span class="c5-loc-sub">{chainOf(s.k as StoreCategory).label}{s.p && ` · ${s.p}`}</span>
+</span>
+</button>
+</li>
+))}
+</ul>
+</div>
+<div class="c5-loc-map"><div data-loc-map dir="ltr" style="position: absolute; inset: 0"></div></div>
+<div class="c5-loc-toggle" role="group" aria-label="תצוגה">
+<button type="button" data-loc-view="list" aria-pressed="true">רשימה</button>
+<button type="button" data-loc-view="map" aria-pressed="false">מפה</button>
+</div>
+<script type="application/json" data-loc-data set:html={JSON.stringify({ stores: data, icons: Object.fromEntries(CHAINS.map((c) => [c.id, c.icon])), labels: Object.fromEntries(CHAINS.map((c) => [c.id, c.label])) })}></script>
 </section>
 </Site>
+
+<style is:global>
+  .c5-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .c5-loc { max-width: 1280px; margin: clamp(28px, 4vw, 48px) auto clamp(56px, 7vw, 112px); padding: 0 clamp(16px, 4vw, 48px); box-sizing: border-box; display: grid; grid-template-columns: minmax(340px, 5fr) 7fr; border: 1px solid #141414; height: min(72vh, 760px); min-height: 480px; position: relative; overflow: hidden; color: #141414; }
+  .c5-loc-panel { display: flex; flex-direction: column; min-width: 0; border-inline-end: 1px solid #141414; background: #ffffff; }
+  .c5-loc-controls { padding: 18px 18px 14px; display: flex; flex-direction: column; gap: 12px; border-bottom: 1px solid #dcdcd9; }
+  .c5-loc-controls input { min-height: 46px; border: 1px solid #141414; border-radius: 4px; padding: 0 14px; font: inherit; width: 100%; box-sizing: border-box; background: #ffffff; }
+  .c5-loc-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .c5-loc-chips button { display: inline-flex; align-items: center; gap: 7px; min-height: 36px; padding: 0 14px; border: 1px solid #141414; border-radius: 4px; background: #ffffff; color: #141414; font: inherit; font-size: 14px; cursor: pointer; transition: background .3s cubic-bezier(.22,.61,.36,1), color .3s cubic-bezier(.22,.61,.36,1); }
+  .c5-loc-chips button[aria-pressed="true"] { background: #141414; color: #ffffff; }
+  .c5-loc-chips button:not([aria-pressed="true"]):hover { background: #efeeea; }
+  .c5-loc-list { list-style: none; margin: 0; padding: 0; overflow-y: auto; flex: 1 1 auto; overscroll-behavior: contain; }
+  .c5-loc-list li { border-bottom: 1px solid #dcdcd9; }
+  .c5-loc-list button { display: flex; gap: 14px; width: 100%; padding: 14px 18px; border: 0; background: none; color: #141414; font: inherit; text-align: start; cursor: pointer; }
+  .c5-loc-list button:hover, .c5-loc-list button[data-active] { background: #f7f7f5; }
+  .c5-loc-list button:focus-visible { outline: 2px solid #141414; outline-offset: -2px; }
+  .c5-loc-ic { flex: 0 0 34px; width: 34px; height: 34px; border: 1px solid #141414; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+  .c5-loc-txt { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  .c5-loc-txt strong { font-weight: 600; }
+  .c5-loc-txt span { font-size: 14px; }
+  .c5-loc-sub { color: #141414; opacity: 0.66; }
+  .c5-loc-map { position: relative; background: #f7f7f5; }
+  .c5-loc-toggle { display: none; }
+  /* Leaflet in the site's language */
+  .c5-loc .leaflet-container { font: inherit; }
+  .c5-pin { width: 34px; height: 34px; border: 1px solid #141414; border-radius: 50% 50% 50% 0; transform: rotate(0deg); background: #ffffff; color: #141414; display: flex; align-items: center; justify-content: center; box-shadow: 0 1px 4px rgba(20,20,20,.25); }
+  .c5-pin svg { display: block; }
+  .c5-cluster { width: 38px; height: 38px; border-radius: 50%; background: #141414; color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 14px; border: 2px solid #ffffff; box-shadow: 0 1px 4px rgba(20,20,20,.3); }
+  .c5-loc .leaflet-popup-content-wrapper { border-radius: 4px; border: 1px solid #141414; box-shadow: none; color: #141414; }
+  .c5-loc .leaflet-popup-content { margin: 14px 16px; font: inherit; direction: rtl; text-align: right; line-height: 1.5; }
+  .c5-loc .leaflet-popup-tip { border: 1px solid #141414; box-shadow: none; }
+  .c5-loc .leaflet-popup-content strong { display: block; margin-bottom: 2px; }
+  @media (max-width: 860px) {
+    .c5-loc { display: block; height: auto; min-height: 0; border: 1px solid #141414; }
+    .c5-loc-panel { border-inline-end: 0; }
+    .c5-loc-list { max-height: 52vh; }
+    .c5-loc-map { height: 62vh; display: none; }
+    .c5-loc[data-view="map"] .c5-loc-map { display: block; }
+    .c5-loc[data-view="map"] .c5-loc-list { display: none; }
+    /* Floating list/map switch (The Ordinary's pattern), centred so it never sits under the chat button. */
+    .c5-loc-toggle { position: sticky; bottom: 14px; z-index: 60; display: flex; width: max-content; margin: 14px auto; border: 1px solid #141414; border-radius: 4px; overflow: hidden; background: #ffffff; box-shadow: 0 2px 10px rgba(20,20,20,.18); }
+    .c5-loc-toggle button { min-height: 46px; min-width: 88px; padding: 0 18px; border: 0; background: #ffffff; color: #141414; font: inherit; cursor: pointer; }
+    .c5-loc-toggle button + button { border-inline-start: 1px solid #141414; }
+    .c5-loc-toggle button[aria-pressed="true"] { background: #141414; color: #ffffff; }
+  }
+</style>
+
+<script>
+  import L from 'leaflet'
+  import 'leaflet.markercluster'
+
+  const root = document.querySelector<HTMLElement>('[data-c5-stores]')
+  if (root) {
+    const D = JSON.parse(root.querySelector('[data-loc-data]')!.textContent || '{}') as {
+      stores: Array<{ n: string; c: string; a: string; p: string; k: string; lat: number; lng: number }>
+      icons: Record<string, string>; labels: Record<string, string>
+    }
+    const esc = (s: string) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]!)
+    const pin = (k: string) =>
+      L.divIcon({ className: '', html: `<span class="c5-pin"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="${D.icons[k] ?? ''}"></path></svg></span>`, iconSize: [34, 34], iconAnchor: [17, 30], popupAnchor: [0, -28] })
+
+    const map = L.map(root.querySelector<HTMLElement>('[data-loc-map]')!, { scrollWheelZoom: true, zoomControl: true })
+    map.setView([31.9, 35.0], 8)
+    map.attributionControl.setPrefix('Leaflet')
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 18, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    }).addTo(map)
+    const cluster = (L as any).markerClusterGroup({
+      showCoverageOnHover: false, maxClusterRadius: 44,
+      iconCreateFunction: (c: any) => L.divIcon({ className: '', html: `<span class="c5-cluster">${c.getChildCount()}</span>`, iconSize: [38, 38] }),
+    })
+    map.addLayer(cluster)
+
+    const rows = [...root.querySelectorAll<HTMLButtonElement>('[data-loc-store]')]
+    const markers = D.stores.map((s, i) => {
+      const m = L.marker([s.lat, s.lng], { icon: pin(s.k) })
+      m.bindPopup(`<strong>${esc(s.n)}</strong>${esc([s.a, s.c].filter(Boolean).join(', '))}<br>${esc(D.labels[s.k] ?? '')}${s.p ? ` · <a href="tel:${esc(s.p)}">${esc(s.p)}</a>` : ''}`)
+      m.on('click', () => {
+        rows.forEach((r) => r.removeAttribute('data-active'))
+        rows[i]?.setAttribute('data-active', '')
+        rows[i]?.scrollIntoView({ block: 'nearest' })
+      })
+      return m
+    })
+
+    const q = root.querySelector<HTMLInputElement>('[data-loc-q]')!
+    const chips = [...root.querySelectorAll<HTMLButtonElement>('[data-loc-chain]')]
+    const count = root.querySelector<HTMLElement>('[data-loc-count]')!
+    let chain = ''
+    const apply = () => {
+      const text = q.value.trim().toLowerCase()
+      const visible: L.Marker[] = []
+      let n = 0
+      rows.forEach((r, i) => {
+        const ok = (!chain || r.dataset.k === chain) && (!text || r.dataset.text!.includes(text))
+        r.parentElement!.style.display = ok ? '' : 'none'
+        if (ok) { visible.push(markers[i]); n++ }
+      })
+      cluster.clearLayers()
+      cluster.addLayers(visible)
+      count.textContent = `${n} חנויות`
+      if (text && visible.length) map.fitBounds(L.featureGroup(visible).getBounds().pad(0.2), { maxZoom: 13 })
+    }
+    q.addEventListener('input', apply)
+    chips.forEach((b) => b.addEventListener('click', () => {
+      chain = b.dataset.locChain ?? ''
+      chips.forEach((x) => x.setAttribute('aria-pressed', String(x === b)))
+      apply()
+    }))
+    rows.forEach((r, i) => r.addEventListener('click', () => {
+      root.dataset.view = 'map'
+      views.forEach((v) => v.setAttribute('aria-pressed', String(v.dataset.locView === 'map')))
+      map.invalidateSize()
+      map.setView(markers[i].getLatLng(), 14)
+      markers[i].openPopup()
+      rows.forEach((x) => x.removeAttribute('data-active'))
+      r.setAttribute('data-active', '')
+    }))
+
+    // Mobile: list / map toggle (The Ordinary's find-us pattern).
+    const views = [...root.querySelectorAll<HTMLButtonElement>('[data-loc-view]')]
+    views.forEach((v) => v.addEventListener('click', () => {
+      root.dataset.view = v.dataset.locView
+      views.forEach((x) => x.setAttribute('aria-pressed', String(x === v)))
+      if (v.dataset.locView === 'map') map.invalidateSize()
+    }))
+
+    new ResizeObserver(() => map.invalidateSize()).observe(root.querySelector('.c5-loc-map')!)
+    apply()
+  }
+</script>
