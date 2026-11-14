@@ -15,6 +15,10 @@ export interface Article {
   latin?: string
   /** Reading time in minutes. */
   minutes?: number
+  /** Topic tags shown on the list page (filterable). */
+  tags?: string[]
+  /** Credit line under the image (e.g. a CC BY study figure). */
+  imageCredit?: string
   /** Text-first article: no image and no grey placeholder. */
   noImage?: boolean
 }

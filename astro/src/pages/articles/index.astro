@@ -15,6 +15,24 @@ const btn = 'align-self: flex-start; display: inline-flex; align-items: center; 
 <p style="margin: 0">סקירות על חומרי גלם מהעולם המדעי: מה נבדק במחקרים ומה דווח בהם, בשפה נוחה. הסקירות עוסקות בחומרי הגלם בלבד.</p>
 </header>
 
+{ARTICLES.length > 0 && (
+<div class="c5-arts-bar" data-arts-bar>
+<label for="arts-q" class="c5-sr">חיפוש מאמר</label>
+<input id="arts-q" data-arts-q type="search" autocomplete="off" placeholder="חיפוש מאמר…">
+<label for="arts-sort" class="c5-sr">מיון</label>
+<select id="arts-sort" data-arts-sort>
+<option value="abc" selected>מיון: א׳–ב׳</option>
+<option value="time">מיון: קריאה קצרה תחילה</option>
+<option value="time-desc">מיון: קריאה ארוכה תחילה</option>
+</select>
+<div class="c5-arts-tags" role="group" aria-label="סינון לפי נושא">
+<button type="button" data-arts-tag="" aria-pressed="true">הכל</button>
+{[...new Set(ARTICLES.flatMap((a) => a.tags ?? []))].map((t) => <button type="button" data-arts-tag={t} aria-pressed="false">{t}</button>)}
+</div>
+<p data-arts-count role="status" style="margin: 0; font-size: 13px"></p>
+</div>
+)}
+
 {ARTICLES.length === 0 ? (
 <div class="c5-arts-grid">
 {Array.from({ length: 6 }).map(() => (
@@ -29,12 +47,13 @@ const btn = 'align-self: flex-start; display: inline-flex; align-items: center; 
 ) : (
 <div class="c5-arts-grid">
 {ARTICLES.map((a) => (
-<article class="c5-art-card">
+<article class="c5-art-card" data-arts-item data-tags={(a.tags ?? []).join('|')} data-text={`${a.title} ${a.latin ?? ''} ${a.excerpt}`.toLowerCase()} data-min={a.minutes ?? 0} data-title={a.title}>
 <a href={`/articles/${a.slug}`} class="c5-art-link">
 {a.image && <img src={a.image} alt="" loading="lazy" style="display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; margin-bottom: 14px">}
 {a.tag && <p class="c5-art-tag">{a.tag}</p>}
 <h3 class="c5-art-title">{a.title}</h3>
 {a.latin && <p class="c5-art-latin" lang="en" dir="ltr">{a.latin}</p>}
+{a.tags?.length ? <p class="c5-art-tags">{a.tags.join(' · ')}</p> : null}
 <p class="c5-art-excerpt">{a.excerpt}</p>
 <p class="c5-art-meta"><span class="c5-art-more">קרא עוד</span>{a.minutes && <span>{a.minutes} דק׳ קריאה</span>}</p>
 </a>
@@ -47,6 +66,14 @@ const btn = 'align-self: flex-start; display: inline-flex; align-items: center; 
 
 <style is:global>
   .c5-arts { max-width: 1280px; margin: 0 auto; padding: clamp(40px, 6vw, 88px) clamp(16px, 4vw, 48px) clamp(56px, 7vw, 112px); box-sizing: border-box; color: #141414; }
+  .c5-arts-bar { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; padding-bottom: 22px; }
+  .c5-arts-bar input[type="search"] { flex: 1 1 240px; max-width: 360px; min-height: 44px; border: 1px solid #141414; border-radius: 4px; padding: 0 14px; font: inherit; background: #ffffff; }
+  .c5-arts-bar select { min-height: 44px; border: 1px solid #141414; border-radius: 4px; padding: 0 12px; font: inherit; background: #ffffff; color: #141414; cursor: pointer; }
+  .c5-arts-tags { flex: 1 1 100%; display: flex; flex-wrap: wrap; gap: 8px; }
+  .c5-arts-tags button { min-height: 36px; padding: 0 14px; border: 1px solid #141414; border-radius: 4px; background: #ffffff; color: #141414; font: inherit; font-size: 14px; cursor: pointer; transition: background .3s cubic-bezier(.22,.61,.36,1), color .3s cubic-bezier(.22,.61,.36,1); }
+  .c5-arts-tags button[aria-pressed="true"] { background: #141414; color: #ffffff; }
+  .c5-arts-tags button:not([aria-pressed="true"]):hover { background: #efeeea; }
+  .c5-art-tags { margin: 0; font-size: 13px; }
   .c5-arts-head { max-width: 720px; display: flex; flex-direction: column; gap: 14px; padding-bottom: clamp(28px, 4vw, 56px); }
   .c5-arts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 0 clamp(24px, 3vw, 48px); border-top: 1px solid #141414; }
   .c5-art-card { border-bottom: 1px solid #dcdcd9; display: flex; }
@@ -61,3 +88,40 @@ const btn = 'align-self: flex-start; display: inline-flex; align-items: center; 
   .c5-art-link:hover .c5-art-more, .c5-art-link:focus-visible .c5-art-more { color: #8a8a88; }
   .c5-art-link:focus-visible { outline: 2px solid #141414; outline-offset: 4px; }
 </style>
+
+<script>
+  // Blog controls (The Ordinary's library pattern): search, topic filter, sort.
+  const bar = document.querySelector<HTMLElement>('[data-arts-bar]')
+  if (bar) {
+    const grid = document.querySelector<HTMLElement>('.c5-arts-grid')!
+    const items = [...document.querySelectorAll<HTMLElement>('[data-arts-item]')]
+    const q = bar.querySelector<HTMLInputElement>('[data-arts-q]')!
+    const sort = bar.querySelector<HTMLSelectElement>('[data-arts-sort]')!
+    const chips = [...bar.querySelectorAll<HTMLButtonElement>('[data-arts-tag]')]
+    const count = bar.querySelector<HTMLElement>('[data-arts-count]')!
+    let tag = new URLSearchParams(location.search).get('tag') ?? ''
+    if (tag && !chips.some((c) => c.dataset.artsTag === tag)) tag = ''
+    const apply = () => {
+      const text = q.value.trim().toLowerCase()
+      let n = 0
+      for (const el of items) {
+        const ok = (!tag || (el.dataset.tags ?? '').split('|').includes(tag)) && (!text || el.dataset.text!.includes(text))
+        el.style.display = ok ? '' : 'none'
+        if (ok) n++
+      }
+      const by = sort.value
+      items
+        .slice()
+        .sort((a, b) => by === 'abc'
+          ? a.dataset.title!.localeCompare(b.dataset.title!, 'he')
+          : (by === 'time' ? 1 : -1) * (Number(a.dataset.min) - Number(b.dataset.min)))
+        .forEach((el) => grid.appendChild(el))
+      count.textContent = `${n} מאמרים`
+      chips.forEach((c) => c.setAttribute('aria-pressed', String((c.dataset.artsTag ?? '') === tag)))
+    }
+    q.addEventListener('input', apply)
+    sort.addEventListener('change', apply)
+    chips.forEach((c) => c.addEventListener('click', () => { tag = c.dataset.artsTag ?? ''; apply() }))
+    apply()
+  }
+</script>

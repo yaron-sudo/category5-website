@@ -20,11 +20,16 @@ const md = (h: string) => h.replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g, '<a hre
 <Site title={a.title} description={a.excerpt} image={a.image}>
 <article class="c5-article">
 <nav aria-label="ניווט"><a href="/articles" class="c5-article-back">‹ לכל המאמרים</a></nav>
-{(a.tag || a.minutes) && <p class="c5-article-meta">{a.tag}{a.tag && a.minutes && ' · '}{a.minutes && `${a.minutes} דק׳ קריאה`}</p>}
+{(a.tag || a.minutes) && <p class="c5-article-meta">{[a.tag, ...(a.tags ?? [])].filter(Boolean).join(' · ')}{a.minutes && ` · ${a.minutes} דק׳ קריאה`}</p>}
 <h1 style="margin: 0">{a.title}</h1>
 {a.latin && <p class="c5-article-latin" lang="en" dir="ltr">{a.latin}</p>}
 {a.excerpt && <p class="c5-article-lead">{a.excerpt}</p>}
-{a.image ? <img src={a.image} alt="" style="display: block; width: 100%; height: auto"> : !a.noImage && <div style={grey}>{t('img')}</div>}
+{a.image ? (
+<figure style="margin: 10px 0 0">
+<img src={a.image} alt="" style="display: block; width: 100%; height: auto; border: 1px solid #dcdcd9">
+{a.imageCredit && <figcaption class="c5-article-credit">{a.imageCredit}</figcaption>}
+</figure>
+) : !a.noImage && <div style={grey}>{t('img')}</div>}
 <hr class="c5-article-rule">
 <div class="c5-article-body">
 {a.body.map((b, i) =>
@@ -42,6 +47,7 @@ const md = (h: string) => h.replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g, '<a hre
   .c5-article-meta { margin: 10px 0 0; font-size: 13px; letter-spacing: 0.08em; }
   .c5-article h1 { font-size: clamp(26px, 4vw, 34px); font-weight: 600; line-height: 1.25; }
   .c5-article-latin { margin: -6px 0 0; font-size: 14px; opacity: 0.66; direction: ltr; unicode-bidi: plaintext; text-align: right; }
+  .c5-article-credit { margin: 8px 0 0; font-size: 13px; opacity: 0.72; }
   .c5-article-lead { margin: 6px 0 0; font-size: 19px; line-height: 1.65; }
   .c5-article-rule { width: 64px; margin: 14px 0 6px; border: 0; border-top: 1px solid #141414; }
   .c5-article-body { display: flex; flex-direction: column; gap: 16px; }
