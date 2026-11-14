@@ -515,6 +515,24 @@ export const LABELS: Record<string, ProductLabel> = {
     notes: ['* אינו מהונדס גנטית | GMO FREE', 'מתאים לטבעונים וצמחונים | יבוש בהקפאה'],
   },
 
+  // Transcribed from the old site's label scan (media/2022/11/CogniBright-Label.webp); to be checked against the current pack.
+  'cogni-bright': {
+    ingredients: 'כמוסה - תאית צמחית, NEUMENTIX™ - קומפלקס פוליפנולים ייחודי מנענע קרחת (Mentha spicata D.E) - (24% פוליפנולים, 14.5% חומצה רוזמרינית). קורצטין 98%. תמצית פורסקולין - 20% (Coleus forskohlii D.E). ויטמין E. Maqui Bright® - תמצית מאקי ברי ייחודית - (Aristotelia chilensis D.E) (25% דלפינידין, 35% אנתוציאנינים). תמצית ארוניה - (Aronia melanocarpa D.E) (5% Cyanidin-3-O-Glycosides). אבץ. תמצית יופרזיה - (Euphrasia officinalis D.E) Eyebright. תמצית זרעי ענבים שחורים - Vitis Vinifera D.E (95% פרואנטוציאנידים). רוטין 95%. תמצית אוכמניות כחולות - (Vaccinium myrtillus D.E). AFFRON EYE® - תמצית זעפרן ייחודית (Crocus Sativus D.E) (3% CRUCIN). תמצית גזר הבר - Daucus carota D.E. לוטאין וזיאקסנטין ליפוזומלי. פיקוציאנין מתמצית אצת ספירולינה - (Arthrospira Platensis D.E). מגנזיום. ליקופן - Lycopene. אסטקסנטין - (Haematococcus Pluvialis D.E). נחושת. מתיל פולאט אמורפי. סלניום.',
+    table: {
+      columns: ['רכיבים: כל כמוסה מכילה', 'כמות אלמנטלית בכמוסה', 'אחוז מהקצובה היומית – נשים', 'אחוז מהקצובה היומית – גברים'],
+      rows: [
+        ['ויטמין E - טבעי *', '25 יב"ל', '208%', '166%'],
+        ['אבץ ציטראט *', '12.5 מ"ג', '104%', '83%'],
+        ['לוטאין וזיאקסנטין ליפוזומלי 66 מ"ג – Marigold - Tagetes erecta D.E * **', '6.6 מ"ג לוטאין', '-', '-'],
+        ['מגנזיום טאורט 33.3 מ"ג *', '2.6 מ"ג מגנזיום', '0.9%', '0.7%'],
+        ['נחושת גלוקונט *', '250 מק"ג', '8.3%', '8.3%'],
+        ['חומצה פולית - מתיל פולאט אמורפי (B9) – (6S)-Methyltetrahydrofolate -5 *', '133.3 מק"ג', '74%', '66.6%'],
+        ['סלניום *', '30 מק"ג', '54.5%', '42.8%'],
+      ],
+    },
+    notes: ['* GMO FREE | אינו מהונדס גנטית | מתאים לטבעונים'],
+  },
+
   'quick-daily-biotics': {
     title: 'קוויק Daily™ - קומפלקס פרוביוטיקה מזנים נחקרים לשימוש יום יומי.',
     ingredients: '* ממתיקים (סורביטול מטפיוקה, גליקוזידים של סטיביול מסטיביה), מלטודקסטרין (סכרידים מתירס שאינו מהונדס גנטית), אבקת בננות ירוקות (*NuBana™ RS65 Green Banana (Musa x paradisiaca)), פרוביוטיקה מסוג בצילוס קואגולנס - SMZ 1969, פרוביוטיקה מסוג בצילוס סובטיליס - DE111, מווסת חומציות (חומצה ציטרית), חומרי טעם וריח.',
