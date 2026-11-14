@@ -13,6 +13,7 @@ import { PRODUCTS, type Product } from './products'
 import { LABELS } from './labels'
 import { PRODUCT_OVERRIDES } from './overrides'
 import { BOM_SERIES } from './bom'
+import { SERIES_CONTENT } from './series'
 
 type SeriesSlug = Product['series']
 
@@ -115,7 +116,12 @@ async function build(): Promise<Product[]> {
     .filter((p): p is Product => !!p)
 }
 
-export const productsOfSeries = async (series: string) => (await getCatalog()).filter((p) => p.series === series)
+/** Products of a series, in the order set in series.ts (grouped by pack colour); unlisted ones follow. */
+export const productsOfSeries = async (series: string) => {
+  const order = SERIES_CONTENT[series]?.order ?? []
+  const rank = (slug: string) => { const i = order.indexOf(slug); return i < 0 ? order.length : i }
+  return (await getCatalog()).filter((p) => p.series === series).sort((a, b) => rank(a.slug) - rank(b.slug))
+}
 /** Old-site slugs replaced by a hand-entered product (`source`) → that product's slug, for redirects. */
 export const replacedSlugs = () => Object.fromEntries(PRODUCTS.filter((p) => p.source).map((p) => [p.source!, p.slug]))
 /** Hidden products (overrides.ts) → the series page their old URL should redirect to. */
