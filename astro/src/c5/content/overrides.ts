@@ -67,6 +67,7 @@ export const PRODUCT_OVERRIDES: Record<string, ProductOverride> = {
   // Not ready yet (client): hidden until content and images are supplied.
   'lipozamin-magnesium-malate': { hidden: true },
   'lipozamin-creatine-complex': { hidden: true },
+  'magnesium-bisglycinate-liposomal': { hidden: true },
 
   // Old-site products that are not in the BOM list: hidden (their URLs redirect to the series page).
   'cellinol-soap': { hidden: true },
