@@ -7,7 +7,7 @@
   requestAnimationFrame(function () { requestAnimationFrame(function () { html.classList.add('c5-loaded'); }); });
   setTimeout(function () { html.classList.add('c5-loaded'); }, 400); /* safety */
 
-  var SEL = 'main > section:not(:first-child), main > article:not(.c5-article) > *, main > div'; /* .c5-article: reading page, no per-paragraph reveal */
+  var SEL = 'main > section:not(:first-child), main > article > *, main > div';
   var GRID = '[style*="display: grid"], .series-grid';
   function show(el) { el.classList.remove('c5-pending'); el.classList.add('c5-in'); }
   function hide(el) { el.classList.remove('c5-in'); el.classList.add('c5-pending'); }
