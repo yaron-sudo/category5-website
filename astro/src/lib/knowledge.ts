@@ -35,6 +35,11 @@ const SKIP = new Set([RESEARCH_SECTION, 'שאלות נפוצות'])
 //      that question (ask.ts), so the big study texts are not re-sent with every call.
 // The product page shows the same data (c5/knowledge/research.ts → "מחקרים" accordion).
 
+// Client decision (14.11.2026): the research is hidden on the site — product page (SHOW_RESEARCH in
+// ProductPage.astro) and chat alike. The research files stay in the repository. ASK_RESEARCH=on (env)
+// puts it back into the chat: per-product ingredient list, the research index, and per-question studies.
+export const RESEARCH_IN_CHAT = ((import.meta.env as Record<string, string | undefined>)?.ASK_RESEARCH ?? process.env.ASK_RESEARCH) === 'on'
+
 let cached: Promise<string> | null = null
 
 /** The full knowledge text (memoised per server instance). */
@@ -80,7 +85,7 @@ async function build(): Promise<string> {
     if (k) {
       out.push(chatText(k, SKIP))
       // Researched ingredients of this product, most important first; the studies themselves follow once, below.
-      const refs = researchRefs(k).filter((r) => RESEARCH.has(r.id) && r.weight !== 'זעום')
+      const refs = RESEARCH_IN_CHAT ? researchRefs(k).filter((r) => RESEARCH.has(r.id) && r.weight !== 'זעום') : []
       if (refs.length) {
         out.push(`## ${RESEARCH_SECTION}`)
         // No amounts and no product-vs-study comparison here (client decision, legal). "זעום" ingredients are not listed.
@@ -119,6 +124,7 @@ const MAX_RESEARCH_CHARS = 30_000
  * (the question and the visitor's recent turns). Empty when nothing is named. Local data only.
  */
 export function researchContext(texts: string[]): string {
+  if (!RESEARCH_IN_CHAT) return ''
   const hay = norm(texts.join(' \n '))
   const ids: string[] = []
   const add = (id: string) => { if (RESEARCH.has(id) && !ids.includes(id)) ids.push(id) }
