@@ -18,6 +18,8 @@ import { PRODUCT_PLACEHOLDERS as PH, productHref, type Product } from '@/c5/cont
 import { productsOfSeries } from '@/c5/content/catalog'
 import { imageFit } from '@/c5/content/imageFit'
 import { linkTerms } from '@/c5/glossaryLinks'
+// "מחקרים" accordion: hidden on the product page (client decision 14.11.2026). Set to true to show it again.
+const SHOW_RESEARCH = false
 const used = new Set<string>()
 interface Props { product: Product }
 const { product: p } = Astro.props
@@ -116,7 +118,7 @@ const btn = 'display: inline-flex; align-items: center; justify-content: center;
   : <div style="aspect-ratio: 4 / 3; max-width: 640px; background: #e9e9e7; display: flex; align-items: center; justify-content: center">{t('img')}</div>}
 </div>
 </details>
-{productResearch(p.slug).some((i) => i.studies.some((x) => x.summary)) && (
+{SHOW_RESEARCH && productResearch(p.slug).some((i) => i.studies.some((x) => x.summary)) && (
 <details>
 <summary><h2 style="margin: 0">מחקרים</h2><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></summary>
 <div class="pp-acc-body"><ProductResearchList slug={p.slug} /></div>
