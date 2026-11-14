@@ -1,31 +1,63 @@
 ---
-// BRIEF §11 — articles list, ported from mockups/Articles.dc.html.
+// "מאמרים מקצועיים" — reading-first list in The Ordinary's visual language (client
+// request 14.11.2026, supersedes the BRIEF §11 teaser cards for review articles):
+// typographic cards separated by hairlines — tag, title, Latin name, excerpt, read time.
+// Articles with an image (manual ones) keep it; without there is no image at all.
 import Site from '@/layouts/Site.astro'
 import { t } from '@/c5/i18n'
 import { ARTICLES } from '@/c5/content/articles'
-// No articles yet (BRIEF §17) → the mockup's six placeholder teasers.
-const items = ARTICLES.length
-  ? ARTICLES.map((a) => ({ title: a.title, excerpt: a.excerpt, image: a.image, href: `/articles/${a.slug}` as string | undefined }))
-  : Array.from({ length: 6 }, () => ({ title: 'כותרת', excerpt: 'טקסט תקציר', image: undefined, href: undefined }))
-const btn = 'align-self: flex-start; display: inline-flex; align-items: center; min-height: 44px; padding: 0 22px; border: 1px solid #141414; border-radius: 4px; color: #141414; text-decoration: none'
+const btn = 'align-self: flex-start; display: inline-flex; align-items: center; min-height: 44px; padding: 0 22px; border: 1px solid #141414; border-radius: 4px; background: #ffffff; color: #141414; text-decoration: none'
 ---
-<Site title="מאמרים מקצועיים">
-<section style="max-width: 1280px; margin: 0 auto; padding: clamp(40px, 6vw, 88px) clamp(16px, 4vw, 48px) 24px; box-sizing: border-box">
+<Site title="מאמרים מקצועיים" description="סקירות מחקרים על חומרי גלם: מה נבדק ומה דווח, בשפה נוחה.">
+<section class="c5-arts">
+<header class="c5-arts-head">
 <h1 style="margin: 0">מאמרים מקצועיים</h1>
-</section>
+<p style="margin: 0">סקירות על חומרי גלם מהעולם המדעי: מה נבדק במחקרים ומה דווח בהם, בשפה נוחה. הסקירות עוסקות בחומרי הגלם בלבד.</p>
+</header>
 
-<section style="max-width: 1280px; margin: 0 auto; padding: 24px clamp(16px, 4vw, 48px) clamp(56px, 7vw, 112px); box-sizing: border-box">
-<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 40px 28px">
-{items.map((a) => (
+{ARTICLES.length === 0 ? (
+<div class="c5-arts-grid">
+{Array.from({ length: 6 }).map(() => (
 <article style="display: flex; flex-direction: column; gap: 12px">
-{a.image
-  ? <img src={a.image} alt="" loading="lazy" style="display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover">
-  : <div style="aspect-ratio: 4 / 3; background: #e9e9e7; display: flex; align-items: center; justify-content: center">{t('img')}</div>}
-<h3 style="margin: 0">{a.title}</h3>
-<p style="margin: 0">{a.excerpt}</p>
-{a.href ? <a href={a.href} style={btn}>קרא עוד</a> : <span style={btn}>קרא עוד</span>}
+<div style="aspect-ratio: 4 / 3; background: #e9e9e7; display: flex; align-items: center; justify-content: center">{t('img')}</div>
+<h3 style="margin: 0">כותרת</h3>
+<p style="margin: 0">טקסט תקציר</p>
+<span style={btn}>קרא עוד</span>
 </article>
 ))}
 </div>
+) : (
+<div class="c5-arts-grid">
+{ARTICLES.map((a) => (
+<article class="c5-art-card">
+<a href={`/articles/${a.slug}`} class="c5-art-link">
+{a.image && <img src={a.image} alt="" loading="lazy" style="display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; margin-bottom: 14px">}
+{a.tag && <p class="c5-art-tag">{a.tag}</p>}
+<h3 class="c5-art-title">{a.title}</h3>
+{a.latin && <p class="c5-art-latin" lang="en" dir="ltr">{a.latin}</p>}
+<p class="c5-art-excerpt">{a.excerpt}</p>
+<p class="c5-art-meta"><span class="c5-art-more">קרא עוד</span>{a.minutes && <span>{a.minutes} דק׳ קריאה</span>}</p>
+</a>
+</article>
+))}
+</div>
+)}
 </section>
 </Site>
+
+<style is:global>
+  .c5-arts { max-width: 1280px; margin: 0 auto; padding: clamp(40px, 6vw, 88px) clamp(16px, 4vw, 48px) clamp(56px, 7vw, 112px); box-sizing: border-box; color: #141414; }
+  .c5-arts-head { max-width: 720px; display: flex; flex-direction: column; gap: 14px; padding-bottom: clamp(28px, 4vw, 56px); }
+  .c5-arts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 0 clamp(24px, 3vw, 48px); border-top: 1px solid #141414; }
+  .c5-art-card { border-bottom: 1px solid #dcdcd9; display: flex; }
+  .c5-art-link { flex: 1 1 auto; display: flex; flex-direction: column; gap: 10px; padding: 26px 0 28px; color: #141414; text-decoration: none; }
+  .c5-art-tag { margin: 0; font-size: 13px; letter-spacing: 0.08em; }
+  .c5-art-title { margin: 0; font-size: 20px; font-weight: 600; line-height: 1.35; }
+  .c5-art-latin { margin: -4px 0 0; font-size: 13px; color: #141414; opacity: 0.66; text-align: right; }
+  .c5-art-latin[dir="ltr"] { text-align: right; direction: ltr; unicode-bidi: plaintext; }
+  .c5-art-excerpt { margin: 0; font-size: 15px; line-height: 1.6; }
+  .c5-art-meta { margin: auto 0 0; padding-top: 14px; display: flex; align-items: baseline; justify-content: space-between; gap: 16px; font-size: 14px; }
+  .c5-art-more { text-decoration: underline; text-underline-offset: 4px; transition: color .3s cubic-bezier(.22,.61,.36,1); }
+  .c5-art-link:hover .c5-art-more, .c5-art-link:focus-visible .c5-art-more { color: #8a8a88; }
+  .c5-art-link:focus-visible { outline: 2px solid #141414; outline-offset: 4px; }
+</style>

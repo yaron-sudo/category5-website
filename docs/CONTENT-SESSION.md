@@ -121,3 +121,11 @@ When the product brochure shows an electron-microscope photo of the product's li
 save it (as extracted, uncropped) to `astro/public/assets/products/microscope/<slug>.webp`
 (second photo: `<slug>-2.webp`). The product page then shows the accordion
 "צילום הליפוזום במיקרוסקופ אלקטרוני" under the label automatically.
+
+## Ingredient review articles ("מאמרים מקצועיים")
+
+One review per raw material, under `astro/src/c5/content/articles-ingredients/<research-id>.md`
+(frontmatter `title` / `latin` / `excerpt`; body: paragraphs, `## ` headings, `[text](url)` links).
+Written from `knowledge/research/<id>.md` — only studies with a `בקצרה` line; positive findings
+only; no company product names, no sales referral (legal). A fixed closing note is appended
+automatically. The articles pages are styled after The Ordinary (client request 14.11.2026).

@@ -2,6 +2,26 @@
 // mockup's placeholder teasers.
 // body blocks: { h2: '…' } | { p: '…' } | { image: '/assets/…' } (image without src → grey "אימג׳")
 export type ArticleBlock = { h2: string } | { p: string } | { image?: string; alt?: string }
-export interface Article { slug: string; title: string; excerpt: string; image?: string; body: ArticleBlock[] }
+export interface Article {
+  slug: string
+  title: string
+  excerpt: string
+  image?: string
+  body: ArticleBlock[]
+  // ---- review articles (ingredientArticles.ts) ----
+  /** Small label over the title, e.g. "סקירת רכיב". */
+  tag?: string
+  /** Latin / English name shown under the Hebrew title. */
+  latin?: string
+  /** Reading time in minutes. */
+  minutes?: number
+  /** Text-first article: no image and no grey placeholder. */
+  noImage?: boolean
+}
 
-export const ARTICLES: Article[] = []
+import { INGREDIENT_ARTICLES } from './ingredientArticles'
+
+/** Hand-entered articles (shown first). */
+const MANUAL: Article[] = []
+
+export const ARTICLES: Article[] = [...MANUAL, ...INGREDIENT_ARTICLES]
