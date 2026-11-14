@@ -12,12 +12,27 @@ import { resolve } from 'node:path'
 const FRAME = 0.74
 const WHITE = 236 // channels above this count as background (also skips faint shadows)
 
+// Hand-tuned placements where the automatic measurement is misled (e.g. a cast
+// shadow dark enough to read as product). Keyed by the image path, so the product
+// page, the cards and the series page all share the same framing.
+const FIT_OVERRIDES: Record<string, string> = {
+  // Calcidex: the shadow to the right of the bottle is almost as dark as the glass,
+  // so the measured box stretched into it and the bottle sat left of centre.
+  '/assets/products/calcidex.png':
+    'position: absolute; max-width: none; width: 101.05%; height: 100.80%; left: 0.74%; top: -6.72%',
+}
+
+/** Images whose cast shadow shows on the light box — softened with a gentle edge feather. */
+const FEATHER = new Set(['/assets/products/calcidex.png'])
+export const imageFeather = (src?: string) => !!src && FEATHER.has(src)
+
 const PUBLIC = [resolve(process.cwd(), 'public'), resolve(process.cwd(), 'astro/public')].find((d) => existsSync(d)) ?? 'public'
 const cache = new Map<string, Promise<string | undefined>>()
 
 /** Inline style for an <img> inside a square, `position: relative; overflow: hidden` box — or undefined to keep `contain`. */
 export function imageFit(src?: string): Promise<string | undefined> {
   if (!src || !src.startsWith('/')) return Promise.resolve(undefined)
+  if (FIT_OVERRIDES[src]) return Promise.resolve(FIT_OVERRIDES[src])
   let p = cache.get(src)
   if (!p) { p = measure(src).catch(() => undefined); cache.set(src, p) }
   return p

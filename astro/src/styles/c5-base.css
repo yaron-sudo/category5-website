@@ -131,3 +131,6 @@ html.c5-scrolling main { pointer-events: none; }
 
 /* Image-copy deterrent (right-click/drag are also blocked in Site.astro). */
 main img, footer img { user-select: none; -webkit-user-select: none; -webkit-user-drag: none; }
+
+/* Gentle edge feather: fades a cast shadow into the box without touching the file. */
+.c5-feather { -webkit-mask-image: radial-gradient(75% 105% at 50% 50%, #000 78%, transparent 99%); mask-image: radial-gradient(75% 105% at 50% 50%, #000 78%, transparent 99%); }

@@ -16,7 +16,7 @@ import { SERIES, seriesHref } from '@/c5/data'
 import { t } from '@/c5/i18n'
 import { PRODUCT_PLACEHOLDERS as PH, productHref, type Product } from '@/c5/content/products'
 import { productsOfSeries } from '@/c5/content/catalog'
-import { imageFit } from '@/c5/content/imageFit'
+import { imageFit, imageFeather } from '@/c5/content/imageFit'
 import { linkTerms } from '@/c5/glossaryLinks'
 // "מחקרים" accordion: hidden on the product page (client decision 14.11.2026). Set to true to show it again.
 const SHOW_RESEARCH = false
@@ -36,7 +36,7 @@ const pack = (p.contains || PH.contains).replace(/^מכיל\s+/, '')
 // The product photo is framed uniformly (imageFit). The label is text (ProductLabel);
 // a label scan is only shown while a product has no text label yet.
 const gallery = [
-  p.image && { src: p.image, alt: name, fit: await imageFit(p.image) },
+  p.image && { src: p.image, alt: name, fit: await imageFit(p.image), feather: imageFeather(p.image) },
   ...(await Promise.all((p.gallery ?? []).map(async (src) => ({ src, alt: name, fit: await imageFit(src) })))),
   !p.label && p.labelImage && { src: p.labelImage, alt: `תווית המוצר – ${name}`, fit: undefined },
 ].filter(Boolean) as Array<{ src: string; alt: string; fit?: string }>
@@ -55,13 +55,13 @@ const btn = 'display: inline-flex; align-items: center; justify-content: center;
 {gallery.length > 1 && (
 <div class="pp-thumbs" role="group" aria-label="תמונות המוצר">
 {gallery.map((g, i) => (
-<button type="button" class="pp-thumb" data-pp-thumb data-src={g.src} data-alt={g.alt} data-fit={g.fit ?? ''} aria-pressed={i === 0 ? 'true' : 'false'} aria-label={g.alt}><img src={g.src} alt="" loading="lazy" style={g.fit}></button>
+<button type="button" class="pp-thumb" data-pp-thumb data-src={g.src} data-alt={g.alt} data-fit={g.fit ?? ''} data-feather={g.feather ? '1' : ''} aria-pressed={i === 0 ? 'true' : 'false'} aria-label={g.alt}><img src={g.src} alt="" loading="lazy" class={g.feather ? 'c5-feather' : undefined} style={g.fit}></button>
 ))}
 </div>
 )}
 <div class="pp-stage" data-pp-stage role="button" tabindex="0" aria-label="הגדלת התמונה" aria-pressed="false">
 {gallery.length
-  ? <img data-pp-main src={gallery[0].src} alt={gallery[0].alt} style={gallery[0].fit} fetchpriority="high">
+  ? <img data-pp-main src={gallery[0].src} alt={gallery[0].alt} class={gallery[0].feather ? 'c5-feather' : undefined} style={gallery[0].fit} fetchpriority="high">
   : <span>{t('img')}</span>}
 {gallery.length > 0 && <span class="pp-lens" data-pp-lens aria-hidden="true"></span>}
 </div>
@@ -246,7 +246,7 @@ const btn = 'display: inline-flex; align-items: center; justify-content: center;
   const thumbs = [...document.querySelectorAll<HTMLButtonElement>('[data-pp-thumb]')]
   thumbs.forEach((b) => b.addEventListener('click', () => {
     if (!main) return
-    main.src = b.dataset.src!; main.alt = b.dataset.alt || ''; main.style.cssText = b.dataset.fit || ''
+    main.src = b.dataset.src!; main.alt = b.dataset.alt || ''; main.style.cssText = b.dataset.fit || ''; main.classList.toggle('c5-feather', b.dataset.feather === '1')
     thumbs.forEach((x) => x.setAttribute('aria-pressed', String(x === b)))
   }))
   // Magnifier: click (or tap / Enter) on the product image turns the lens on at
