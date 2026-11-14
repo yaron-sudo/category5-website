@@ -102,7 +102,7 @@ const btn = 'display: inline-flex; align-items: center; min-height: 44px; paddin
 
 <style is:global>
   .c5-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
-  .c5-loc { max-width: 1184px; width: calc(100% - 2 * clamp(16px, 4vw, 48px)); margin: clamp(28px, 4vw, 48px) auto clamp(56px, 7vw, 112px); padding: 0; box-sizing: border-box; display: grid; grid-template-columns: minmax(340px, 5fr) 7fr; border: 1px solid #141414; height: min(72vh, 760px); min-height: 480px; position: relative; overflow: hidden; color: #141414; }
+  .c5-loc { max-width: 1184px; width: calc(100% - 2 * clamp(16px, 4vw, 48px)); margin: clamp(28px, 4vw, 48px) auto clamp(56px, 7vw, 112px); padding: 0; box-sizing: border-box; display: grid; grid-template-columns: minmax(340px, 5fr) 7fr; border: 1px solid #141414; height: min(72vh, 760px); min-height: 480px; position: relative; overflow: hidden; isolation: isolate; z-index: 0; color: #141414; }
   .c5-loc-panel { display: flex; flex-direction: column; min-width: 0; min-height: 0; overflow: hidden; border-inline-end: 1px solid #141414; background: #ffffff; }
   .c5-loc-controls { padding: 18px 18px 14px; display: flex; flex-direction: column; gap: 12px; border-bottom: 1px solid #dcdcd9; }
   .c5-loc-controls input { min-height: 46px; border: 1px solid #141414; border-radius: 4px; padding: 0 14px; font: inherit; width: 100%; box-sizing: border-box; background: #ffffff; }

@@ -112,14 +112,12 @@ const mobileRow = 'display: flex; align-items: center; min-height: 52px; border-
       if (narrow && (state.open === 'series' || state.open === 'needs')) state.open = null
       if (!narrow && state.open === 'mobile') state.open = null
       const scrolled = state.y > 40
-      const compact = state.hidden && !state.hover && !state.open
-      const b = compact
-        ? { h: '44px', logo: '26px', shadow: '0 6px 20px rgba(0,0,0,0.05)' }
-        : scrolled ? { h: '64px', logo: '34px', shadow: '0 8px 24px rgba(0,0,0,0.06)' } : { h: '80px', logo: '40px', shadow: 'none' }
-      bar.style.height = b.h
-      logo.style.height = b.logo
-      header.style.boxShadow = b.shadow
-      header.classList.toggle('c5-compact', compact)
+      // Client 14.11.2026: the header no longer shrinks or hides on scroll — every height
+      // change shifted the whole page under the reader ("the site trembles"). Constant
+      // height; only the shadow marks the scrolled state.
+      bar.style.height = '80px'
+      logo.style.height = '40px'
+      header.style.boxShadow = scrolled ? '0 8px 24px rgba(0,0,0,0.06)' : 'none'
       for (const p of panels) p.hidden = p.dataset.c5Panel !== state.open
       for (const tg of toggles) tg.setAttribute('aria-expanded', String(tg.dataset.c5Toggle === state.open))
     }
