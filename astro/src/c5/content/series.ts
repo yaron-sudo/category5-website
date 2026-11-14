@@ -45,8 +45,8 @@ export const SERIES_CONTENT: Record<string, SeriesContent> = {
   professional: {
     order: [
       'nootropinol', 'cogni-bright', 'cogni-mg', 'cogni-zzz', 'relacton-alpha', 'winterguard', 'alyvium', // blue
-      'fibrogen', 'nemadrin-l6', 'protesterol-40', // red
-      'revival', 'calcidex', // purple
+      'fibrogen', 'nemadrin-l6', 'protesterol-40', 'revival', // red
+      'calcidex', // purple
     ],
     fillPlaceholders: false,
     intro: ['פתרונות ממוקדים. פורמולות מתקדמות. הסדרה משלבת רכיבים פעילים ייחודיים וחומרי גלם בלעדיים בפורמולות חדשניות ומורכבות, שפותחו על בסיס מנגנוני פעולה פיזיולוגיים מוכרים ובשיתוף אנשי מקצוע, כדי לתת מענה ממוקד לצרכים מוגדרים.'],

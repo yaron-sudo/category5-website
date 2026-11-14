@@ -517,9 +517,10 @@ export const PRODUCT_OVERRIDES: Record<string, ProductOverride> = {
     keywords: ['קויק Fe', 'קוויק ברזל', 'Quick Fe', 'ברזל', 'ברזל באבקה', 'ברזל ליפוזומלי', 'סטיק', 'ויטמין C'],
   },
 
-  // Client: the pack photo (Giallo-Curcumin bottle) replaces the brief's lifestyle image curcumin-complex.jpg,
+  // Client: the pack photos replace the brief's lifestyle images curcumin-complex.jpg / revival.jpg,
   // which would otherwise win by file name.
   'curcumin-complex': { image: '/assets/products/curcumin-complex-bottle.webp' },
+  revival: { image: '/assets/products/revival-bottle.webp' },
 
   // Not ready yet (client): hidden until content and images are supplied.
   'lipozamin-magnesium-malate': { hidden: true },
