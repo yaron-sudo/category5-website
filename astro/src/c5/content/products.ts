@@ -55,8 +55,8 @@ export const PRODUCT_PLACEHOLDERS = {
 /** The example products named in BRIEF §6 (with their images from assets/products/). */
 export const PRODUCTS: Product[] = [
   { slug: 'magnesium-bisglycinate-liposomal', title: 'מגנזיום ביסגליצינאט ליפוזומלי', series: 'vitamins-minerals', image: '/assets/products/magnesium-bisglycinate-liposomal.jpg' },
-  { slug: 'curcumin-complex', title: 'קומפלקס כורכומין', source: 'giallocur-nano-curcumin', series: 'plants', image: '/assets/products/curcumin-complex-bottle.webp' },
-  { slug: 'revival', title: 'רויוואל', source: 'revival-20', series: 'professional', image: '/assets/products/revival-bottle.webp' },
+  { slug: 'curcumin-complex', title: 'קומפלקס ג׳אלו-כורכומין', keywords: ['קומפלקס כורכומין', 'כורכומין', 'כורכום', 'ג׳אלוקור', 'Giallocur'], source: 'giallocur-nano-curcumin', series: 'plants', image: '/assets/products/curcumin-complex-bottle.webp' },
+  { slug: 'revival', title: 'רויוואל 20+', keywords: ['רויוואל', 'Revival', 'Revival 20+'], source: 'revival-20', series: 'professional', image: '/assets/products/revival-bottle.webp' },
   { slug: 'calcidex', title: 'קלצידקס', fullTitle: 'קלצידקס – סידן גליצרופוספט ואלוורה אורגנית', series: 'professional', image: '/assets/products/calcidex.png' },
   // Products of the BOM list that had no page on the old site (names and pack sizes from the BOM).
   {
