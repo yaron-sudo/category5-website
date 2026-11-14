@@ -1,9 +1,11 @@
 ---
 id: lactobacillus-rhamnosus-crl1505
 name: לקטובצילוס רמנוסוס CRL1505 (Lactobacillus rhamnosus CRL1505)
-updated: 2026-11-13
+updated: 2026-11-14
 ---
 ## מחקרים
+
+לא נמצאו מחקרים כפולי-סמיות העומדים בתנאים.
 
 ### 1. Randomized, Double-Blind, Placebo-Controlled Clinical Trial Assessing the Efficacy of Lacticaseibacillus rhamnosus CRL 1505 in Preventing Upper Respiratory Tract Infections in Healthy Adults (2026)
 - סוג המחקר: אקראי, כפול-סמיות, מבוקר פלצבו, בקבוצות מקבילות; מספר המשתתפים לא צוין בתקציר; 12 שבועות נטילה ועוד 4 שבועות מעקב.
@@ -22,3 +24,4 @@ updated: 2026-11-13
 - מחקר כפול-סמיות בילדים (Calapai et al., 2026, PMID 41897140) בדק תוסף משולב של ויטמינים, מינרלים, תמציות צמחים ו-CRL1505; הוא לא נכלל, משום שלא ניתן לבודד בו את חלקו של הזן.
 - הממצאים ספציפיים לזן CRL1505.
 - הוסתר (הנחיית הלקוח 14.11.2026, התאמה מדויקת לרכיב שבמוצר): 1. Randomized, Double-Blind, Placebo-Controlled Clinical Trial Ass — במחקר החיידק החי; במוצר הצורה המומתת (פוסטביוטיקה).
+- עדכון 14.11.2026 (חיפוש מחקרים על הצורה המומתת / הלא-חיה / הפוסטביוטית של CRL1505 בלבד): לא נמצא מחקר בבני אדם. המחקרים שאותרו על הצורה הלא-חיה של הזן ועל מרכיביו (למשל PMID 28848552, ‏36363777, ‏25744605, ‏26072063, ‏41993186) נערכו בעכברים, ומחקר Taverniti et al. 2026 בדק את החיידק החי (מוסתר).

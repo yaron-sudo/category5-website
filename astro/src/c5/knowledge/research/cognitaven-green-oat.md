@@ -1,7 +1,7 @@
 ---
 id: cognitaven-green-oat
-name: מיצוי שיבולת שועל ירוקה (Green oat extract, Avena sativa – Cognitaven / Neuravena)
-updated: 2026-11-13
+name: מיצוי שיבולת שועל ירוקה Cognitaven® (Green oat extract, Avena sativa – Cognitaven)
+updated: 2026-11-14
 ---
 ## מחקרים
 
@@ -55,3 +55,4 @@ updated: 2026-11-13
 - מחקר 4 קטן (20 משתתפים) ובדק מנה בודדת בלבד; הממצאים בו דווחו כשינוי בתוך כל קבוצה.
 - הוסתר (הנחיית הלקוח 14.11.2026, התאמה מדויקת לרכיב שבמוצר): 2. Dietary supplementation with a wild green oat extract (Avena sa — המחקר על Neuravena; במוצר Cognitaven.
 - הוסתר (הנחיית הלקוח 14.11.2026, התאמה מדויקת לרכיב שבמוצר): 4. Effects of a Green Oat Herb Extract on Cognitive Performance an — המחקר על Neuravena; במוצר Cognitaven.
+- עדכון 14.11.2026 (חיפוש מחקרים על Cognitaven בלבד): לא נמצאו מחקרים נוספים בבני אדם על מיצוי Cognitaven מלבד מחקר 1. מחקר Balakrishnan et al. 2025 (PMID 40580879) נערך בעכברים; מחקרים נוספים שאותרו על שיבולת שועל ירוקה (למשל PMID 26618715, ‏23221935) נערכו במיצוי Neuravena ואינם מוצגים.
