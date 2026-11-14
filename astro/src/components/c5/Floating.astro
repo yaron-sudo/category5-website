@@ -52,8 +52,22 @@ const dirs = Object.fromEntries(CHAT_LANGS.map((l) => [l.code, l.dir]))
   [data-chat-log] p { margin: 0 0 6px; } [data-chat-log] p:last-child { margin: 0; }
   [data-chat-log] ul { margin: 4px 0; padding-inline-start: 18px; }
   [data-chat-panel][data-large] { width: min(760px, calc(100vw - 32px)) !important; height: min(860px, calc(100vh - 32px)) !important; }
-  @media (max-width: 480px) { [data-chat-size] { display: none !important; } }
-  @media (max-width: 480px) { [data-chat-panel] { left: 0 !important; right: 0; bottom: 0 !important; width: 100% !important; height: 100% !important; border-radius: 0 !important; } }
+  @media (max-width: 640px) { [data-chat-size] { display: none !important; } }
+  /* Phones: the chat is a full-screen sheet sized to the visible viewport (so the keyboard and the
+     browser bars never cover the input), 16px text (iOS zooms the page on smaller inputs), and the
+     page behind does not scroll while it is open. */
+  @media (max-width: 640px) {
+    [data-chat-panel] { left: 0 !important; right: 0; top: 0; bottom: auto !important; width: 100% !important; height: var(--c5-chat-h, 100dvh) !important; border: 0 !important; border-radius: 0 !important; font-size: 16px; }
+    [data-chat-panel] > div:first-child { padding-top: calc(12px + env(safe-area-inset-top)) !important; }
+    [data-chat-form] { padding: 10px 12px calc(10px + env(safe-area-inset-bottom)) !important; }
+    [data-chat-form] input { font-size: 16px !important; min-height: 48px !important; }
+    [data-chat-send] { width: 48px !important; height: 48px !important; flex: 0 0 48px; }
+    [data-chat-log] { padding: 14px 12px !important; overscroll-behavior: contain; }
+    [data-chat-log] > div { max-width: 92% !important; }
+    [data-chat-langs] select, [data-chat-lang] { font-size: 16px !important; }
+    html.c5-chat-open, html.c5-chat-open body { overflow: hidden; }
+    [data-chat-open] { left: 12px !important; bottom: 12px !important; min-height: 44px !important; padding: 0 16px !important; font-size: 15px !important; }
+  }
 </style>
 
 <script>
@@ -75,8 +89,20 @@ const dirs = Object.fromEntries(CHAT_LANGS.map((l) => [l.code, l.dir]))
     let busy = false
     const history: Turn[] = []
 
+    // Phones: keep the sheet exactly as tall as the visible viewport (it shrinks when the keyboard opens).
+    const vv = window.visualViewport
+    const fit = () => {
+      if (!vv || panel.hidden) return
+      panel.style.setProperty('--c5-chat-h', `${Math.round(vv.height)}px`)
+      panel.style.setProperty('top', window.matchMedia('(max-width: 640px)').matches ? `${Math.round(vv.offsetTop)}px` : '')
+      log.scrollTop = log.scrollHeight
+    }
+    vv?.addEventListener('resize', fit)
+    vv?.addEventListener('scroll', fit)
     const setOpen = (open: boolean) => {
       panel.hidden = !open
+      document.documentElement.classList.toggle('c5-chat-open', open)
+      fit()
       openBtn.hidden = open
       openBtn.setAttribute('aria-expanded', String(open))
       if (open) input.focus(); else openBtn.focus()
