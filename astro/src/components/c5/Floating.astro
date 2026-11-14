@@ -66,6 +66,8 @@ const dirs = Object.fromEntries(CHAT_LANGS.map((l) => [l.code, l.dir]))
     [data-chat-log] > div { max-width: 92% !important; }
     [data-chat-langs] select, [data-chat-lang] { font-size: 16px !important; }
     html.c5-chat-open, html.c5-chat-open body { overflow: hidden; }
+    /* Nothing of the page shows around the sheet (e.g. between the input and the keyboard). */
+    html.c5-chat-open [data-c5-chat]::before { content: ''; position: fixed; inset: 0; z-index: 85; background: #ffffff; }
     [data-chat-open] { left: 12px !important; bottom: 12px !important; min-height: 44px !important; padding: 0 16px !important; font-size: 15px !important; }
   }
 </style>
@@ -90,12 +92,16 @@ const dirs = Object.fromEntries(CHAT_LANGS.map((l) => [l.code, l.dir]))
     const history: Turn[] = []
 
     // Phones: keep the sheet exactly as tall as the visible viewport (it shrinks when the keyboard opens).
+    const touch = window.matchMedia('(hover: none) and (pointer: coarse)').matches
+    // The current question stays at the top of the log, so the answer is read from its first line.
+    let turn: HTMLElement | null = null
+    const toTurn = () => { log.scrollTop = turn ? Math.max(0, turn.offsetTop - log.offsetTop - 12) : log.scrollHeight }
     const vv = window.visualViewport
     const fit = () => {
       if (!vv || panel.hidden) return
       panel.style.setProperty('--c5-chat-h', `${Math.round(vv.height)}px`)
       panel.style.setProperty('top', window.matchMedia('(max-width: 640px)').matches ? `${Math.round(vv.offsetTop)}px` : '')
-      log.scrollTop = log.scrollHeight
+      toTurn()
     }
     vv?.addEventListener('resize', fit)
     vv?.addEventListener('scroll', fit)
@@ -105,7 +111,7 @@ const dirs = Object.fromEntries(CHAT_LANGS.map((l) => [l.code, l.dir]))
       fit()
       openBtn.hidden = open
       openBtn.setAttribute('aria-expanded', String(open))
-      if (open) input.focus(); else openBtn.focus()
+      if (open) { if (!touch) input.focus() } else openBtn.focus()
     }
     openBtn.addEventListener('click', () => setOpen(true))
     root.querySelector('[data-chat-close]')!.addEventListener('click', () => setOpen(false))
@@ -180,10 +186,12 @@ const dirs = Object.fromEntries(CHAT_LANGS.map((l) => [l.code, l.dir]))
       const q = input.value.trim()
       if (!q || busy) return
       busy = true; sendBtn.disabled = true; input.value = ''
-      bubble('user').textContent = q
+      turn = bubble('user'); turn.textContent = q
+      // Touch screens: close the keyboard so the answer is visible.
+      if (touch) input.blur()
       const out = bubble('assistant')
       out.textContent = '…'
-      log.scrollTop = log.scrollHeight
+      toTurn()
       let text = ''
       const s = S[lang]
       try {
@@ -206,14 +214,14 @@ const dirs = Object.fromEntries(CHAT_LANGS.map((l) => [l.code, l.dir]))
             else if (ev.t === 'source') text += `\n- [${ev.title}](${ev.url})`
             else if (ev.t === 'error') text += (text ? '\n\n' : '') + s['chat.error']
             out.innerHTML = (md(text) || '…') + cards(text)
-            log.scrollTop = log.scrollHeight
+            toTurn()
           }
         }
         if (text) history.push({ role: 'user', content: q }, { role: 'assistant', content: text })
       } catch {
         out.textContent = s['chat.error']
       } finally {
-        busy = false; sendBtn.disabled = false; input.focus()
+        busy = false; sendBtn.disabled = false; if (!touch) input.focus()
       }
     })
   }
