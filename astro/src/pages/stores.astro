@@ -6,6 +6,8 @@
 import Site from '@/layouts/Site.astro'
 import { getStores, type StoreCategory } from '@/lib/sanity'
 import { ONLINE_SHOPS } from '@/c5/content/stores'
+import { existsSync } from 'node:fs'
+import { resolve } from 'node:path'
 import 'leaflet/dist/leaflet.css'
 import 'leaflet.markercluster/dist/MarkerCluster.css'
 
@@ -18,6 +20,17 @@ const CHAINS: Array<{ id: StoreCategory; label: string; icon: string }> = [
   { id: 'nitzat', label: 'ניצת הדובדבן', icon: 'M9 15.5a3 3 0 1 0 0 6 3 3 0 0 0 0-6Zm7-1a3 3 0 1 0 0 6 3 3 0 0 0 0-6ZM9.5 15.5C9.5 10 13 5.5 18 3.5m-8.5 12C11 9 9.5 6 6.5 4m11.5-.5L21 5' },
   { id: 'bd', label: 'B&D', icon: 'M4 9l1.2-5h13.6L20 9M4 9v11h16V9M4 9h16M9 20v-6h6v6' },
 ]
+// Original-colour chain logos (client request): drop files at
+// public/assets/stores/logos/<id>.(svg|png|webp) and they replace the monochrome icons
+// in the chips, the list and the map pins. Never recoloured.
+const logoOf = (id: string) => {
+  for (const ext of ['svg', 'png', 'webp']) {
+    const rel = `assets/stores/logos/${id}.${ext}`
+    if (existsSync(resolve('public', rel)) || existsSync(resolve('astro/public', rel))) return `/${rel}`
+  }
+  return undefined
+}
+const LOGOS = Object.fromEntries(CHAINS.map((c) => [c.id, logoOf(c.id)]))
 const chainOf = (c?: StoreCategory) => CHAINS.find((x) => x.id === c) ?? CHAINS[0]
 const data = stores.map((s) => ({
   n: s.name, c: s.city, a: s.address ?? '', p: s.phone ?? '', k: chainOf(s.category).id, lat: s.lat, lng: s.lng,
@@ -48,17 +61,26 @@ const btn = 'display: inline-flex; align-items: center; min-height: 44px; paddin
 <button type="button" data-loc-chain="" aria-pressed="true">הכל</button>
 {CHAINS.map((c) => (
 <button type="button" data-loc-chain={c.id} aria-pressed="false">
-<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={c.icon}></path></svg>
+{LOGOS[c.id]
+  ? <img src={LOGOS[c.id]} alt="" style="height: 20px; width: auto; display: block">
+  : <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={c.icon}></path></svg>}
 {c.label}</button>
 ))}
 </div>
+<button type="button" data-loc-near class="c5-loc-near">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v3m0 14v3M2 12h3m14 0h3"></path><circle cx="12" cy="12" r="8"></circle></svg>
+חנויות קרובות אליי</button>
 <p data-loc-count role="status" style="margin: 0; font-size: 13px"></p>
 </div>
 <ul data-loc-list class="c5-loc-list">
 {data.map((s, i) => (
 <li>
 <button type="button" data-loc-store={i} data-k={s.k} data-text={`${s.n} ${s.c} ${s.a}`.toLowerCase()}>
-<span class="c5-loc-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={chainOf(s.k as StoreCategory).icon}></path></svg></span>
+<span class="c5-loc-ic">
+{LOGOS[s.k]
+  ? <img src={LOGOS[s.k]} alt="" loading="lazy" style="max-width: 24px; max-height: 24px; display: block">
+  : <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={chainOf(s.k as StoreCategory).icon}></path></svg>}
+</span>
 <span class="c5-loc-txt">
 <strong>{s.n}</strong>
 <span>{[s.a, s.c].filter(Boolean).join(', ')}</span>
@@ -74,21 +96,23 @@ const btn = 'display: inline-flex; align-items: center; min-height: 44px; paddin
 <button type="button" data-loc-view="list" aria-pressed="true">רשימה</button>
 <button type="button" data-loc-view="map" aria-pressed="false">מפה</button>
 </div>
-<script type="application/json" data-loc-data set:html={JSON.stringify({ stores: data, icons: Object.fromEntries(CHAINS.map((c) => [c.id, c.icon])), labels: Object.fromEntries(CHAINS.map((c) => [c.id, c.label])) })}></script>
+<script type="application/json" data-loc-data set:html={JSON.stringify({ stores: data, logos: LOGOS, icons: Object.fromEntries(CHAINS.map((c) => [c.id, c.icon])), labels: Object.fromEntries(CHAINS.map((c) => [c.id, c.label])) })}></script>
 </section>
 </Site>
 
 <style is:global>
   .c5-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
   .c5-loc { max-width: 1280px; margin: clamp(28px, 4vw, 48px) auto clamp(56px, 7vw, 112px); padding: 0 clamp(16px, 4vw, 48px); box-sizing: border-box; display: grid; grid-template-columns: minmax(340px, 5fr) 7fr; border: 1px solid #141414; height: min(72vh, 760px); min-height: 480px; position: relative; overflow: hidden; color: #141414; }
-  .c5-loc-panel { display: flex; flex-direction: column; min-width: 0; border-inline-end: 1px solid #141414; background: #ffffff; }
+  .c5-loc-panel { display: flex; flex-direction: column; min-width: 0; min-height: 0; overflow: hidden; border-inline-end: 1px solid #141414; background: #ffffff; }
   .c5-loc-controls { padding: 18px 18px 14px; display: flex; flex-direction: column; gap: 12px; border-bottom: 1px solid #dcdcd9; }
   .c5-loc-controls input { min-height: 46px; border: 1px solid #141414; border-radius: 4px; padding: 0 14px; font: inherit; width: 100%; box-sizing: border-box; background: #ffffff; }
   .c5-loc-chips { display: flex; flex-wrap: wrap; gap: 8px; }
   .c5-loc-chips button { display: inline-flex; align-items: center; gap: 7px; min-height: 36px; padding: 0 14px; border: 1px solid #141414; border-radius: 4px; background: #ffffff; color: #141414; font: inherit; font-size: 14px; cursor: pointer; transition: background .3s cubic-bezier(.22,.61,.36,1), color .3s cubic-bezier(.22,.61,.36,1); }
   .c5-loc-chips button[aria-pressed="true"] { background: #141414; color: #ffffff; }
   .c5-loc-chips button:not([aria-pressed="true"]):hover { background: #efeeea; }
-  .c5-loc-list { list-style: none; margin: 0; padding: 0; overflow-y: auto; flex: 1 1 auto; overscroll-behavior: contain; }
+  .c5-loc-near { display: inline-flex; align-items: center; gap: 8px; align-self: flex-start; min-height: 40px; padding: 0 14px; border: 1px solid #141414; border-radius: 4px; background: #ffffff; color: #141414; font: inherit; font-size: 14px; cursor: pointer; }
+  .c5-loc-near:hover { background: #efeeea; }
+  .c5-loc-list { list-style: none; margin: 0; padding: 0; overflow-y: auto; flex: 1 1 auto; min-height: 0; overscroll-behavior: contain; }
   .c5-loc-list li { border-bottom: 1px solid #dcdcd9; }
   .c5-loc-list button { display: flex; gap: 14px; width: 100%; padding: 14px 18px; border: 0; background: none; color: #141414; font: inherit; text-align: start; cursor: pointer; }
   .c5-loc-list button:hover, .c5-loc-list button[data-active] { background: #f7f7f5; }
@@ -98,12 +122,13 @@ const btn = 'display: inline-flex; align-items: center; min-height: 44px; paddin
   .c5-loc-txt strong { font-weight: 600; }
   .c5-loc-txt span { font-size: 14px; }
   .c5-loc-sub { color: #141414; opacity: 0.66; }
-  .c5-loc-map { position: relative; background: #f7f7f5; }
+  .c5-loc-map { position: relative; min-height: 0; background: #f7f7f5; }
   .c5-loc-toggle { display: none; }
   /* Leaflet in the site's language */
   .c5-loc .leaflet-container { font: inherit; }
   .c5-pin { width: 34px; height: 34px; border: 1px solid #141414; border-radius: 50% 50% 50% 0; transform: rotate(0deg); background: #ffffff; color: #141414; display: flex; align-items: center; justify-content: center; box-shadow: 0 1px 4px rgba(20,20,20,.25); }
   .c5-pin svg { display: block; }
+  .c5-you { display: block; width: 16px; height: 16px; border-radius: 50%; background: #141414; border: 3px solid #ffffff; box-shadow: 0 0 0 1px #141414; }
   .c5-cluster { width: 38px; height: 38px; border-radius: 50%; background: #141414; color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 14px; border: 2px solid #ffffff; box-shadow: 0 1px 4px rgba(20,20,20,.3); }
   .c5-loc .leaflet-popup-content-wrapper { border-radius: 4px; border: 1px solid #141414; box-shadow: none; color: #141414; }
   .c5-loc .leaflet-popup-content { margin: 14px 16px; font: inherit; direction: rtl; text-align: right; line-height: 1.5; }
@@ -132,15 +157,23 @@ const btn = 'display: inline-flex; align-items: center; min-height: 44px; paddin
   if (root) {
     const D = JSON.parse(root.querySelector('[data-loc-data]')!.textContent || '{}') as {
       stores: Array<{ n: string; c: string; a: string; p: string; k: string; lat: number; lng: number }>
-      icons: Record<string, string>; labels: Record<string, string>
+      icons: Record<string, string>; labels: Record<string, string>; logos: Record<string, string | undefined>
     }
     const esc = (s: string) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]!)
     const pin = (k: string) =>
-      L.divIcon({ className: '', html: `<span class="c5-pin"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="${D.icons[k] ?? ''}"></path></svg></span>`, iconSize: [34, 34], iconAnchor: [17, 30], popupAnchor: [0, -28] })
+      L.divIcon({ className: '', html: `<span class="c5-pin">${D.logos[k] ? `<img src="${D.logos[k]}" alt="" style="max-width:22px;max-height:22px">` : `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="${D.icons[k] ?? ''}"></path></svg>`}</span>`, iconSize: [34, 34], iconAnchor: [17, 30], popupAnchor: [0, -28] })
 
-    const map = L.map(root.querySelector<HTMLElement>('[data-loc-map]')!, { scrollWheelZoom: true, zoomControl: true })
-    map.setView([31.9, 35.0], 8)
+    const map = L.map(root.querySelector<HTMLElement>('[data-loc-map]')!, { scrollWheelZoom: true, zoomControl: true, minZoom: 7 })
+    map.setView([31.9, 35.05], 8)
     map.attributionControl.setPrefix('Leaflet')
+    map.setMaxBounds([[28.8, 32.8], [34.0, 37.2]])
+    // The section fades in on scroll and fonts settle late; measured too early the tiles
+    // paint misaligned (grey band / open sea). Re-measure once everything is laid out.
+    const home = () => { map.invalidateSize(); if (!located) map.setView([31.9, 35.05], 8, { animate: false }) }
+    map.whenReady(() => setTimeout(home, 0))
+    window.addEventListener('load', () => setTimeout(home, 80))
+    setTimeout(home, 700)
+    let located = false
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     }).addTo(map)
@@ -186,15 +219,52 @@ const btn = 'display: inline-flex; align-items: center; min-height: 44px; paddin
       chips.forEach((x) => x.setAttribute('aria-pressed', String(x === b)))
       apply()
     }))
+    // A clicked store answers instantly: no long fly-over, and the marker is pulled out
+    // of its cluster before the popup opens (inside a cluster a popup never shows).
     rows.forEach((r, i) => r.addEventListener('click', () => {
       root.dataset.view = 'map'
       views.forEach((v) => v.setAttribute('aria-pressed', String(v.dataset.locView === 'map')))
-      map.invalidateSize()
-      map.setView(markers[i].getLatLng(), 14)
-      markers[i].openPopup()
       rows.forEach((x) => x.removeAttribute('data-active'))
       r.setAttribute('data-active', '')
+      const m = markers[i]
+      requestAnimationFrame(() => {
+        map.invalidateSize()
+        map.setView(m.getLatLng(), Math.max(map.getZoom(), 13), { animate: false })
+        cluster.zoomToShowLayer(m, () => m.openPopup())
+      })
     }))
+
+    // "חנויות קרובות אליי" — browser geolocation: centre the map and sort the list by distance.
+    const near = root.querySelector<HTMLButtonElement>('[data-loc-near]')!
+    let youPin: L.Marker | null = null
+    near.addEventListener('click', () => {
+      if (!('geolocation' in navigator)) { count.textContent = 'הדפדפן אינו תומך באיתור מיקום.'; return }
+      near.disabled = true
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          near.disabled = false
+          located = true
+          const here = L.latLng(pos.coords.latitude, pos.coords.longitude)
+          youPin?.remove()
+          youPin = L.marker(here, { icon: L.divIcon({ className: '', html: '<span class="c5-you" title="המיקום שלכם"></span>', iconSize: [16, 16], iconAnchor: [8, 8] }), zIndexOffset: 500 }).addTo(map)
+          const order = D.stores.map((st, i) => ({ i, d: here.distanceTo([st.lat, st.lng]) })).sort((a, b) => a.d - b.d)
+          const list = root.querySelector('[data-loc-list]')!
+          for (const o of order) {
+            const li = rows[o.i].parentElement!
+            const km = o.d / 1000
+            let tag = rows[o.i].querySelector<HTMLElement>('[data-loc-km]')
+            if (!tag) { tag = document.createElement('span'); tag.setAttribute('data-loc-km', ''); tag.className = 'c5-loc-sub'; rows[o.i].querySelector('.c5-loc-txt')!.appendChild(tag) }
+            tag.textContent = km < 10 ? `כ-${km.toFixed(1)} ק"מ מכם` : `כ-${Math.round(km)} ק"מ מכם`
+            list.appendChild(li)
+          }
+          map.setView(here, 12)
+          count.textContent = 'החנויות ממוינות לפי המרחק מכם.'
+          list.scrollTop = 0
+        },
+        () => { near.disabled = false; count.textContent = 'לא התקבל מיקום מהדפדפן. אפשר לחפש לפי עיר.' },
+        { enableHighAccuracy: false, timeout: 10000, maximumAge: 300000 },
+      )
+    })
 
     // Mobile: list / map toggle (The Ordinary's find-us pattern).
     const views = [...root.querySelectorAll<HTMLButtonElement>('[data-loc-view]')]
