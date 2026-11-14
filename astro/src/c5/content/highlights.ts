@@ -3,10 +3,10 @@
 // stated in its sources (label, brochure, old site — see knowledge/products/<slug>.md);
 // `kosher` is the kashrut type as shown on the page.
 // Rules (client): show only what the sources state. A product with dairy or egg ingredients
-// gets 'dairy' / 'egg' and never 'vegan'. 'sugarFree' is used only for powders and tablets.
+// gets 'dairy' / 'egg' and never 'vegan'. Soy ('soy') is an allergen mark only; soy products stay vegan. 'sugarFree' is used only for powders and tablets.
 // 'glutenFree' only where a source says "גלוטן" ("ללא חיטה" alone is not enough).
 // Never add an attribute that is not written in a source.
-export type HighlightKey = 'vegan' | 'glutenFree' | 'microscope' | 'dairy' | 'egg' | 'nonGmo' | 'noPreservatives' | 'sugarFree'
+export type HighlightKey = 'vegan' | 'glutenFree' | 'microscope' | 'dairy' | 'egg' | 'soy' | 'nonGmo' | 'noPreservatives' | 'sugarFree'
 
 /** Display order and Hebrew labels (kashrut is placed after the microscope item). */
 export const HIGHLIGHT_LABELS: Array<[HighlightKey, string]> = [
@@ -15,6 +15,7 @@ export const HIGHLIGHT_LABELS: Array<[HighlightKey, string]> = [
   ['microscope', 'נבדק במיקרוסקופ אלקטרוני'],
   ['dairy', 'מכיל רכיבי חלב'],
   ['egg', 'מכיל רכיבי ביצה'],
+  ['soy', 'מכיל רכיבי סויה'],
   ['nonGmo', 'אינו מהונדס גנטית'],
   ['noPreservatives', 'ללא חומרים משמרים'],
   ['sugarFree', 'אינו מכיל סוכר'],
@@ -54,7 +55,7 @@ export const HIGHLIGHTS: Record<string, ProductHighlights> = {
   'lipozamin-se': { is: ['vegan', 'microscope', 'nonGmo', 'noPreservatives'], kosher: 'כשר פרווה, בד״ץ' },
   'lipozamin-zn': { is: ['vegan', 'microscope', 'nonGmo', 'noPreservatives'], kosher: 'כשר פרווה, בד״ץ' },
   'lpldl-probiotic': { is: ['vegan', 'glutenFree', 'nonGmo', 'noPreservatives'], kosher: 'כשר פרווה, בד״ץ' },
-  natto: { is: ['vegan', 'nonGmo', 'noPreservatives'], kosher: 'כשר פרווה, בד״ץ' },
+  natto: { is: ['vegan', 'soy', 'nonGmo', 'noPreservatives'], kosher: 'כשר פרווה, בד״ץ' },
   'nemadrin-l6': { is: ['microscope', 'egg', 'nonGmo', 'noPreservatives'], kosher: 'כשר פרווה, בד״ץ' },
   nootropinol: { is: ['vegan', 'nonGmo', 'noPreservatives'], kosher: 'כשר פרווה, בד״ץ' },
   'protesterol-40': { is: ['vegan', 'nonGmo', 'noPreservatives'], kosher: 'כשר פרווה, בד״ץ' },
