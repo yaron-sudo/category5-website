@@ -64,6 +64,10 @@ export const PRODUCT_OVERRIDES: Record<string, ProductOverride> = {
     keywords: ['מגנזיום טאורט', 'מגנזיום טאוראט', 'טאורין', 'Mg Taurate', 'Magnesium Taurate', 'מגנזיום ליפוזומלי'],
   },
 
+  // Not ready yet (client): hidden until content and images are supplied.
+  'lipozamin-magnesium-malate': { hidden: true },
+  'lipozamin-creatine-complex': { hidden: true },
+
   // Old-site products that are not in the BOM list: hidden (their URLs redirect to the series page).
   'cellinol-soap': { hidden: true },
   'alyvium-soap': { hidden: true },
