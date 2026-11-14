@@ -22,6 +22,7 @@ updated: 2026-11-13
 - הרכיב שנחקר: כמוסת נאטוקינאז
 - מה נבדק: לחץ דם סיסטולי ודיאסטולי.
 - מה דווח: לעומת קבוצת הביקורת דווח על שינוי נטו של ‎-5.55 מ"מ כספית בלחץ הדם הסיסטולי (רווח בר-סמך 95%: ‎-10.5 עד ‎-0.57; p<0.05) ושל ‎-2.84 מ"מ כספית בדיאסטולי (‎-5.33 עד ‎-0.33; p<0.05) לאחר 8 שבועות.
+- בקצרה: במחקר נמדדה ירידה בלחץ הדם אצל מבוגרים עם לחץ דם גבוה במעט שנטלו את הרכיב, בהשוואה לקבוצת הביקורת.
 - מקור: Kim JY et al., Hypertension Research, 2008. PMID 18971533 / DOI 10.1291/hypres.31.1583. https://pubmed.ncbi.nlm.nih.gov/18971533/
 
 ### 3. Consumption of nattokinase is associated with reduced blood pressure and von Willebrand factor, a cardiovascular risk marker: results from a randomized, double-blind, placebo-controlled, multicenter North American clinical trial (2016)
@@ -31,6 +32,7 @@ updated: 2026-11-13
 - הרכיב שנחקר: נאטוקינאז NSK-SD (תמצית נאטו שממנה הוסר ויטמין K2)
 - מה נבדק: לחץ דם, גורם פון וילברנד ופעילות רנין בפלזמה.
 - מה דווח: לפי כותרת המאמר, צריכת נאטוקינאז נמצאה קשורה לירידה בלחץ הדם ובגורם פון וילברנד; הנתונים המספריים לא הופיעו בקטע התקציר שאוחזר.
+- בקצרה: במחקר, אצל מבוגרים עם לחץ דם מוגבר, נטילת הרכיב נמצאה קשורה לירידה בלחץ הדם ובחלבון המעורב בקרישת הדם.
 - מקור: Jensen GS et al., Integrated Blood Pressure Control, 2016. PMID 27785095 / DOI 10.2147/IBPC.S99553. https://pubmed.ncbi.nlm.nih.gov/27785095/
 
 ## הערות

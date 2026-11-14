@@ -12,6 +12,7 @@ updated: 2026-11-13
 - הרכיב שנחקר: פלבונואידים פיטואסטרוגניים שמקורם ב-Epimedium brevicornum (EPF)
 - מה נבדק: אובדן עצם (צפיפות עצם) ובטיחות לרירית הרחם.
 - מה דווח: המחברים דיווחו כי הפלבונואידים מאפימדיום הראו השפעה מיטיבה על אובדן העצם לעומת פלצבו, ללא היפרפלזיה ניתנת לזיהוי (לפי התקציר).
+- בקצרה: במחקר, אצל נשים אחרי גיל המעבר שנטלו את הרכיב דווח על אובדן עצם מתון יותר בהשוואה לקבוצת הביקורת.
 - מקור: Zhang et al., Journal of Bone and Mineral Research, 2007. PMID 17419678 / DOI 10.1359/jbmr.070405. https://pubmed.ncbi.nlm.nih.gov/17419678/
 
 ### 2. Randomized, double-blind, placebo-controlled trial to examine the safety, pharmacokinetics and effects of Epimedium prenylflavonoids, on bone specific alkaline phosphatase and the osteoclast adaptor protein TRAF6 in post-menopausal women (2021)
@@ -21,6 +22,7 @@ updated: 2026-11-13
 - הרכיב שנחקר: מיצוי פרנילפלבונואידים מאפימדיום (EP)
 - מה נבדק: בטיחות, רמות מטבוליטים של פרנילפלבונואידים בסרום, פוספטאז בסיסי ספציפי לעצם (BSAP) וחלבון TRAF6 במונוציטים בדם.
 - מה דווח: נטילה יומית במשך 6 שבועות דווחה כבטוחה; דווחה עלייה ברמות המטבוליטים בסרום, שינוי חיובי ב-BSAP ודיכוי של חלבון TRAF6 במונוציטים.
+- בקצרה: במחקר, אצל נשים בריאות אחרי גיל המעבר הנטילה דווחה כבטוחה, ונמדד שינוי חיובי במדד של בניית עצם.
 - מקור: Yong et al., Phytomedicine, 2021. PMID 34352588 / DOI 10.1016/j.phymed.2021.153680. https://pubmed.ncbi.nlm.nih.gov/34352588/
 
 ## הערות

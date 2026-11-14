@@ -13,6 +13,8 @@ export interface Study {
   studied?: string
   examined?: string
   reported?: string
+  /** "בקצרה": one plain-language sentence for the general public — what the site and the chat show. */
+  summary?: string
   /** Citation text without the link. */
   source?: string
   url?: string
@@ -37,7 +39,7 @@ const RESEARCH_FILES = import.meta.glob<string>('./research/*.md', { query: '?ra
 const slugOf = (path: string) => path.split('/').pop()!.replace(/\.md$/, '')
 
 const FIELDS: Record<string, keyof Study> = {
-  'סוג המחקר': 'type', 'אוכלוסייה': 'population', 'הרכיב שנחקר': 'studied', 'מה נבדק': 'examined', 'מה דווח': 'reported', 'מקור': 'source',
+  'סוג המחקר': 'type', 'אוכלוסייה': 'population', 'הרכיב שנחקר': 'studied', 'מה נבדק': 'examined', 'מה דווח': 'reported', 'בקצרה': 'summary', 'מקור': 'source',
 }
 
 function parseFile(full: string): { name: string; studies: Study[]; notes: string[] } {

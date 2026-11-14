@@ -12,6 +12,7 @@ updated: 2026-11-13
 - הרכיב שנחקר: אבקת שורש ג'ינסנג אדום (Panax ginseng) בגידול הידרופוני, עם רמה גבוהה של ג'ינסנוזידים נדירים
 - מה נבדק: לחץ נתפס (PSS), מדדים רגשיים (BDI, PANAS) ותפקוד קוגניטיבי (תת-מבחנים של CANTAB), בתחילת המחקר וביום 21.
 - מה דווח: בקבוצת הג'ינסנג נמדדה ירידה גדולה יותר מבפלצבו בציון ה-PSS ובציון הרגש השלילי (PANAS), וזמני תגובה קצרים יותר במטלת תכנון מרחבי (OTSC). בציון ה-BDI נמדדה ירידה גדולה יותר במעט, בגבול המובהקות.
+- בקצרה: במחקר, מבוגרים עם רמת לחץ בינונית שנטלו ג'ינסנג דיווחו על פחות לחץ ופחות רגשות שליליים, והגיבו מהר יותר במטלת חשיבה.
 - מקור: Dormal et al., Nutrients, 2025. PMID 40289951 / DOI 10.3390/nu17060955. https://pubmed.ncbi.nlm.nih.gov/40289951/
 
 ### 2. Efficacy of Panax ginseng Meyer Herbal Preparation HRG80 in Preventing and Mitigating Stress-Induced Failure of Cognitive Functions in Healthy Subjects: A Pilot, Randomized, Double-Blind, Placebo-Controlled Crossover Trial (2020)
@@ -21,6 +22,7 @@ updated: 2026-11-13
 - הרכיב שנחקר: תכשיר שורש ג'ינסנג אדום בגידול הידרופוני HRG80
 - מה נבדק: דיוק במבחן הקשב d2, ציון דיוק במבחן זיכרון ממוחשב וציון לחץ נתפס.
 - מה דווח: במבחני הקשב והזיכרון נמצאה אינטראקציה מובהקת בין זמן להתערבות (p < 0.0001) לטובת HRG80 לעומת פלצבו. ההבדל בין הג'ינסנג הלבן הסטנדרטי לפלצבו לא היה מובהק. נמצא הבדל מובהק בין HRG80 לג'ינסנג הלבן (p < 0.0001) לאחר מנה בודדת ולאחר 5 ו-12 ימים.
+- בקצרה: במחקר, מבוגרים בריאים שדיווחו על עייפות ונטלו את הרכיב השיגו תוצאות טובות יותר במבחני קשב וזיכרון בהשוואה לקבוצת הביקורת.
 - מקור: Mariage et al., Pharmaceuticals, 2020. PMID 32235339 / DOI 10.3390/ph13040057. https://pubmed.ncbi.nlm.nih.gov/32235339/
 
 ### 3. Effects of Red and White Ginseng Preparations on Electrical Activity of the Brain in Elderly Subjects: A Randomized, Double-Blind, Placebo-Controlled, Three-Armed Cross-Over Study (2021)

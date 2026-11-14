@@ -1,11 +1,13 @@
 ---
-// "מחקרים" accordion body on the product page. Data: src/c5/knowledge/research.ts
-// (owned by the knowledge session — text is shown exactly as stored). Styles: c5-base.css.
-// Per ingredient: name, in-product vs studied amount, double-blind studies first, then the
-// studies of any other section under that section's own heading, then the notes.
+// "מחקרים" accordion body on the product page. Data: src/c5/knowledge/research.ts.
+// Written for the general public (client decision 14.11.2026): per ingredient, each study is
+// one plain-language sentence ("בקצרה" in the research file) and a link to the paper.
+// A study without a "בקצרה" line is not shown; no study tables, statistics or maintainers' notes.
 import { productResearch, RESEARCH_DISCLAIMER, type Study } from '@/c5/knowledge/research'
 interface Props { slug: string }
 const items = productResearch(Astro.props.slug)
+  .map((ing) => ({ ...ing, studies: ing.studies.filter((s) => s.summary) }))
+  .filter((ing) => ing.studies.length > 0)
 const groups = (studies: Study[]) => {
   const out: Array<{ heading?: string; studies: Study[] }> = []
   const main = studies.filter((s) => s.doubleBlind)
@@ -16,9 +18,6 @@ const groups = (studies: Study[]) => {
   }
   return out
 }
-const fields = (s: Study): Array<[string, string | undefined]> => [
-  ['סוג המחקר', s.type], ['אוכלוסייה', s.population], ['הרכיב והמינון במחקר', s.dose], ['מה נבדק', s.examined], ['מה דווח', s.reported],
-]
 ---
 {items.length > 0 && (
 <div class="c5-research">
@@ -29,29 +28,22 @@ const fields = (s: Study): Array<[string, string | undefined]> => [
 <h3>{ing.name}</h3>
 {ing.weight && <p class="c5-research-weight">רכיב {ing.weight}</p>}
 </div>
-{(ing.inProduct || ing.inStudies) && (
-<dl class="c5-research-amounts">
-{ing.inProduct && <div><dt>במוצר</dt><dd>{ing.inProduct}</dd></div>}
-{ing.inStudies && <div><dt>במחקרים</dt><dd>{ing.inStudies}</dd></div>}
-</dl>
-)}
+{ing.inProduct && <p class="c5-research-inproduct">במוצר: {ing.inProduct}</p>}
 {groups(ing.studies).map((g) => (
 <Fragment>
 {g.heading && <h4>{g.heading}</h4>}
 <ol class="c5-research-studies">
 {g.studies.map((s) => (
 <li>
-<p class="c5-research-title" lang="en" dir="ltr">{s.title}</p>
-<dl class="c5-research-fields">
-{fields(s).filter(([, v]) => v).map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}
-{(s.source || s.url) && <div><dt>מקור</dt><dd>{s.source} {s.url && <a href={s.url} target="_blank" rel="noopener noreferrer">PubMed</a>}</dd></div>}
-</dl>
+<p>{s.summary}</p>
+{s.url
+  ? <a class="c5-research-title" lang="en" dir="ltr" href={s.url} target="_blank" rel="noopener noreferrer">{s.title}</a>
+  : <p class="c5-research-title" lang="en" dir="ltr">{s.title}</p>}
 </li>
 ))}
 </ol>
 </Fragment>
 ))}
-{ing.notes.length > 0 && <ul class="c5-research-notes">{ing.notes.map((n) => <li>{n}</li>)}</ul>}
 </section>
 ))}
 </div>

@@ -86,6 +86,8 @@ export function parseResearch(full: string): { id: string; name: string; text: s
   const text = k.sections
     .filter((s) => s.title !== 'הערות' && /^### /m.test(s.body))
     .map((s) => `## ${s.title}\n${stripTags(s.body).replace(/^- מה נבדק:.*\n/gm, '').replace(/^- הרכיב והמינון במחקר:.*\n/gm, '').replace(/^- הצגה:.*\n?/gm, '')}`).join('\n')
+    // A study with a plain-language summary ("בקצרה") reaches the chat as title + studied ingredient + summary + source only.
+    .split(/^(?=### )/m).map((b) => (/^- בקצרה:/m.test(b) ? b.replace(/^- (סוג המחקר|אוכלוסייה|מה דווח):.*\n/gm, '') : b)).join('')
   const contexts = [...src.matchAll(/^- אוכלוסייה: *(.*)$/gm)].map((m) => m[1].replace(/\.$/, '').trim())
   return { id: k.meta.id ?? '', name: k.meta.name ?? '', text, studies, contexts }
 }
