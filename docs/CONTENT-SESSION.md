@@ -96,6 +96,9 @@ product's sources state; a product with dairy or egg ingredients is never marked
 - Use only text the client supplies or that exists on the old site (`migration/out/products.json`
   has everything extracted, including the long scientific sections that the new page does not show).
   Never invent product facts.
+- Health claims (client, 2026-11-14): a claim printed on the product's own pack label may be used on the
+  product page (approved under Ministry of Health rules / the new EU-based claims rules), worded exactly as on
+  the pack. Brochure lists such as "מומלץ (בהתייעצות עם רופא)" are not label claims and stay out.
 - Glossary terms are linked automatically; do not add links by hand.
 - Kashrut certifier ("נותן הכשרות"), client's rule: when sources differ, **בד״ץ בית יוסף** or
   **בד״ץ העדה החרדית ירושלים** wins; do not mention the regional rabbinate ("בהשגחת הרבנות

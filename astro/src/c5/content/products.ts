@@ -122,12 +122,14 @@ export const PRODUCTS: Product[] = [
   {
     slug: 'liposomal-multivitamin', title: 'מולטיויטמין ליפוזומלי', series: 'vitamins-minerals', contains: 'מכיל 60 כמוסות צמחיות',
     // Text from the client's brochure (docs/brochures/Multivitamin Brochure.pdf) and the pack label.
-    // No indications / target groups; dosage as on the label (the brochure says 2 capsules a day).
+    // Health claims only as printed on the pack; dosage as on the label (the brochure says 2 capsules a day).
     intro: [
       'מולטי ויטמין ליפוזומלי לשימוש יומיומי: 17 ויטמינים ומינרלים ליפוזומליים בכמוסה צמחית.',
       'בניגוד לתערובות מולטי ויטמין סטנדרטיות, מולטי ויטמין ליפוזומלי משתמש בצורות הקו-אנזים הפעילות של ויטמיני B: תיאמין פירופוספט (B1), ריבופלבין 5-פוספט (B2), פירידוקסל 5-פוספט (B6), מתיל-פולאט (B9) ומתילקובלמין (B12), ויטמין B3 בצורת ניקוטינאמיד ריבוזיד (NR), וויטמין K2 בצורת MK-7. כלל הוויטמינים והמינרלים במוצר עטופים בליפוזומים בגודל חלקיקים ננומטרי.',
     ],
     benefits: [
+      'ביוטין תורם לשמירה על שיער ועור תקינים.',
+      'ריבופלבין תורם להפחתת עייפות ותשישות.',
       '17 ויטמינים ומינרלים ליפוזומליים.',
       'ויטמיני B בצורת קו-אנזים פעילה: B1 (תיאמין פירופוספט), B2 (ריבופלבין 5-פוספט), B6 (פירידוקסל 5-פוספט), B9 (מתיל פולאט), B12 (מתילקובלמין).',
       'ויטמין B3 בצורת ניקוטינאמיד ריבוזיד (NR), וויטמין K2 בצורת MK-7.',
@@ -148,12 +150,13 @@ export const PRODUCTS: Product[] = [
   },
   {
     slug: 'liposomal-vitamin-b-complex', title: 'קומפלקס ויטמין B ליפוזומלי', series: 'vitamins-minerals', contains: 'מכיל 60 כמוסות צמחיות',
-    // Text from the client's brochure (docs/brochures/קומפלקס B ליפוזומלי.pdf) and the pack label. No indications / target groups.
+    // Text from the client's brochure (docs/brochures/קומפלקס B ליפוזומלי.pdf) and the pack label. Health claims only as printed on the pack.
     intro: [
       'קומפלקס B ליפוזומלי בגודל חלקיקים ננומטרי: תוסף תזונה יומיומי המאגד שילוב של ויטמינים ממשפחת B.',
       'הפורמולה כוללת נגזרות ביו-אקטיביות של ויטמיני B בצורת קו-אנזים: ריבופלבין 5-פוספט (B2), פירידוקסל 5-פוספט (B6), מתיל-פולאט (B9) ומתילקובלמין (B12). ויטמין B3 מגיע בשתי צורות: אינוזיטול הקסאניקוטינאט וניקוטינאמיד ריבוזיד (NR). כל הוויטמינים במוצר עטופים בליפוזומים בגודל חלקיקים ננומטרי.',
     ],
     benefits: [
+      'ניאצין תורם להפחתת עייפות ותשישות ולתפקוד תקין של מערכת העצבים.',
       '8 ויטמיני B ליפוזומליים.',
       'ויטמיני B בצורת קו-אנזים: B2 (ריבופלבין 5-פוספט), B6 (פירידוקסל 5-פוספט), B9 (מתיל פולאט), B12 (מתילקובלמין).',
       'ויטמין B3 בשתי צורות: אינוזיטול הקסאניקוטינאט (ניאצין ללא Flush) וניקוטינאמיד ריבוזיד (NR).',
