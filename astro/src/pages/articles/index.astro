@@ -49,7 +49,7 @@ const btn = 'align-self: flex-start; display: inline-flex; align-items: center; 
 {ARTICLES.map((a) => (
 <article class="c5-art-card" data-arts-item data-tags={(a.tags ?? []).join('|')} data-text={`${a.title} ${a.latin ?? ''} ${a.excerpt}`.toLowerCase()} data-min={a.minutes ?? 0} data-title={a.title}>
 <a href={`/articles/${a.slug}`} class="c5-art-link">
-{a.image && <img src={a.image} alt="" loading="lazy" style="display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; margin-bottom: 14px">}
+{a.image && <div class="c5-art-fig"><img src={a.image} alt="" loading="lazy"></div>}
 {a.tag && <p class="c5-art-tag">{a.tag}</p>}
 <h3 class="c5-art-title">{a.title}</h3>
 {a.latin && <p class="c5-art-latin" lang="en" dir="ltr">{a.latin}</p>}
@@ -78,6 +78,8 @@ const btn = 'align-self: flex-start; display: inline-flex; align-items: center; 
   .c5-arts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 0 clamp(24px, 3vw, 48px); border-top: 1px solid #141414; }
   .c5-art-card { border-bottom: 1px solid #dcdcd9; display: flex; }
   .c5-art-link { flex: 1 1 auto; display: flex; flex-direction: column; gap: 10px; padding: 26px 0 28px; color: #141414; text-decoration: none; }
+  .c5-art-fig { aspect-ratio: 4 / 3; background: #f7f7f5; display: flex; align-items: center; justify-content: center; margin-bottom: 4px; overflow: hidden; }
+  .c5-art-fig img { max-width: 92%; max-height: 92%; object-fit: contain; display: block; }
   .c5-art-tag { margin: 0; font-size: 13px; letter-spacing: 0.08em; }
   .c5-art-title { margin: 0; font-size: 20px; font-weight: 600; line-height: 1.35; }
   .c5-art-latin { margin: -4px 0 0; font-size: 13px; color: #141414; opacity: 0.66; text-align: right; }

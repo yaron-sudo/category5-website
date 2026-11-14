@@ -7,7 +7,10 @@
   requestAnimationFrame(function () { requestAnimationFrame(function () { html.classList.add('c5-loaded'); }); });
   setTimeout(function () { html.classList.add('c5-loaded'); }, 400); /* safety */
 
-  var SEL = 'main > section:not(:first-child), main > article > *, main > div';
+  /* Client 14.11.2026: scroll-reveal is limited to article pages (the paragraph flow the
+     client asked to keep). Everywhere else content is simply there — the constant fading
+     of sections and grids while scrolling read as the page trembling. */
+  var SEL = 'main > article.c5-article > *';
   var GRID = '[style*="display: grid"], .series-grid';
   function show(el) { el.classList.remove('c5-pending'); el.classList.add('c5-in'); }
   function hide(el) { el.classList.remove('c5-in'); el.classList.add('c5-pending'); }
@@ -53,7 +56,7 @@
       io.observe(n);
       if (r.top < vh * 0.9) { enter(n, 120 + order * 110); order++; } else { n.classList.add('c5-pending'); }
     }
-    var main = document.querySelector('main'); if (main) prepGrids(main);
+    /* grid stagger off (same client decision) */
     var hero = document.querySelector('main > section:first-child img');
     if (hero && !hero.__c5p) { hero.__c5p = true; hero.classList.add('c5-parallax'); if (hero.parentElement) hero.parentElement.style.overflow = 'hidden'; }
   }

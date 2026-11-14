@@ -14,10 +14,23 @@ const { a } = Astro.props as { a: Article }
 const used = new Set<string>()
 const grey = 'aspect-ratio: 16 / 9; background: #e9e9e7; display: flex; align-items: center; justify-content: center'
 const last = a.body.length - 1
+// "דילוג לפרק" rail (The Ordinary's Jump to Section): the article's h2 headings.
+let sec = 0
+const blocks = a.body.map((b) => ('h2' in b ? { ...b, id: `sec-${++sec}` } : b)) as Array<(typeof a.body)[number] & { id?: string }>
+const toc = blocks.filter((b): b is { h2: string; id: string } => 'h2' in b && !!b.id)
 // Markdown links in article text → anchors (runs on linkTerms' escaped output).
 const md = (h: string) => h.replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>')
 ---
 <Site title={a.title} description={a.excerpt} image={a.image}>
+<div class="c5-article-wrap">
+{toc.length > 1 && (
+<aside class="c5-article-toc" data-toc>
+<p>דילוג לפרק</p>
+<nav aria-label="פרקי המאמר">
+{toc.map((x) => <a href={`#${x.id}`} data-toc-link={x.id}>{x.h2}</a>)}
+</nav>
+</aside>
+)}
 <article class="c5-article">
 <nav aria-label="ניווט"><a href="/articles" class="c5-article-back">‹ לכל המאמרים</a></nav>
 {(a.tag || a.minutes) && <p class="c5-article-meta">{[a.tag, ...(a.tags ?? [])].filter(Boolean).join(' · ')}{a.minutes && ` · ${a.minutes} דק׳ קריאה`}</p>}
@@ -26,21 +39,35 @@ const md = (h: string) => h.replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g, '<a hre
 {a.excerpt && <p class="c5-article-lead">{a.excerpt}</p>}
 {a.image ? (
 <figure style="margin: 10px 0 0">
-<img src={a.image} alt="" style="display: block; width: 100%; height: auto; border: 1px solid #dcdcd9">
+<img src={a.image} alt="" style="display: block; max-width: 100%; max-height: 320px; width: auto; height: auto; border: 1px solid #dcdcd9; background: #ffffff">
 {a.imageCredit && <figcaption class="c5-article-credit">{a.imageCredit}</figcaption>}
 </figure>
 ) : !a.noImage && <div style={grey}>{t('img')}</div>}
 <hr class="c5-article-rule">
 <div class="c5-article-body">
-{a.body.map((b, i) =>
-  'h2' in b ? <h2>{b.h2}</h2>
+{blocks.map((b, i) =>
+  'h2' in b ? <h2 id={(b as { id?: string }).id}>{b.h2}</h2>
   : 'p' in b ? <p class={i === last ? 'c5-article-note' : undefined} set:html={md(linkTerms(b.p, used))} />
   : b.image ? <img src={b.image} alt={b.alt ?? ''} loading="lazy" style="display: block; width: 100%; height: auto"> : <div style={grey}>{t('img')}</div>)}
 </div>
 </article>
+</div>
 </Site>
 
 <style is:global>
+  .c5-article-wrap { display: grid; grid-template-columns: minmax(0, 1fr); justify-content: center; }
+  @media (min-width: 1100px) {
+    .c5-article-wrap { grid-template-columns: 230px minmax(0, 816px); gap: 0 clamp(24px, 3vw, 56px); padding-inline: clamp(16px, 4vw, 48px); max-width: 1280px; margin: 0 auto; box-sizing: border-box; }
+    .c5-article-wrap .c5-article { padding-inline: 0; }
+  }
+  .c5-article-toc { align-self: start; margin: clamp(36px, 5vw, 72px) clamp(16px, 4vw, 48px) 0; background: #f7f7f5; padding: 20px 22px; }
+  @media (min-width: 1100px) { .c5-article-toc { position: sticky; top: 96px; margin-inline: 0; } }
+  .c5-article-toc > p { margin: 0 0 12px; font-weight: 600; }
+  .c5-article-toc nav { display: flex; flex-direction: column; gap: 8px; }
+  .c5-article-toc a { color: #141414; text-decoration: none; font-size: 14px !important; line-height: 1.5; border-inline-start: 2px solid transparent; padding-inline-start: 10px; margin-inline-start: -12px; transition: border-color .3s cubic-bezier(.22,.61,.36,1), opacity .3s cubic-bezier(.22,.61,.36,1); }
+  .c5-article-toc a:hover { opacity: .7; }
+  .c5-article-toc a[data-active] { border-inline-start-color: #141414; font-weight: 600; }
+  .c5-article-body h2 { scroll-margin-top: 110px; }
   .c5-article { max-width: 720px; margin: 0 auto; padding: clamp(36px, 5vw, 72px) clamp(16px, 4vw, 48px) clamp(56px, 7vw, 112px); box-sizing: content-box; display: flex; flex-direction: column; gap: 14px; color: #141414; }
   .c5-article-back { font-size: 14px; color: #141414; text-decoration: none; }
   .c5-article-back:hover, .c5-article-back:focus-visible { color: #8a8a88; }
@@ -57,3 +84,18 @@ const md = (h: string) => h.replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g, '<a hre
   .c5-article-body a:focus-visible { outline: 2px solid #141414; outline-offset: 3px; }
   .c5-article-note { margin-top: 14px !important; padding: 16px 20px; background: #f7f7f5; font-size: 14px; line-height: 1.7 !important; }
 </style>
+
+<script>
+  // Scrollspy for the "דילוג לפרק" rail: the heading nearest the top is marked active.
+  const links = [...document.querySelectorAll<HTMLAnchorElement>('[data-toc-link]')]
+  if (links.length) {
+    const heads = links.map((l) => document.getElementById(l.dataset.tocLink!)).filter(Boolean) as HTMLElement[]
+    const mark = () => {
+      let cur = heads[0]
+      for (const h of heads) if (h.getBoundingClientRect().top <= 140) cur = h
+      links.forEach((l) => (l.dataset.tocLink === cur.id ? l.setAttribute('data-active', '') : l.removeAttribute('data-active')))
+    }
+    addEventListener('scroll', mark, { passive: true })
+    mark()
+  }
+</script>
