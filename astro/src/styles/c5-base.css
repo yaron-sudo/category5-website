@@ -116,7 +116,9 @@ button.c5-soft.c5-soft[style*="position: fixed"]:hover,
    The hero's transform is driven by JS on every scroll frame; the banner-image
    transition (site.css) kept easing toward a moving target, which made the page
    shake while scrolling. The parallax image must follow the scroll instantly. */
-img.c5-parallax { transition: filter 1.2s cubic-bezier(.22, .61, .36, 1) !important; }
+/* Client 14.11.2026: "just fix the trembling" — the hero parallax was the last thing
+   moving with the scroll, so it is off entirely. The banner image is static. */
+img.c5-parallax { transform: none !important; transition: filter 1.2s cubic-bezier(.22, .61, .36, 1) !important; }
 
 /* Reveal = fade only (client 14.11.2026: the slide-up + image-zoom settle read as the page
    trembling while scrolling, on product and article pages too). Overrides site.css. */
