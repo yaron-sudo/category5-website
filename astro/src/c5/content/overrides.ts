@@ -320,18 +320,18 @@ export const PRODUCT_OVERRIDES: Record<string, ProductOverride> = {
     keywords: ['B12', 'ויטמין B12', 'בי 12', 'מתילקובלמין', 'אדנוזילקובלמין', 'הידרוקסיקובלמין', 'מתיל פולאט', 'חומצה פולית', 'ליפוזמין B12'],
   },
 
-  // Lipozamin Calcium: new pack label (amorphous calcium carbonate) and the client's brochure (Lipozamin Calcium.pdf).
-  // Dosage as on the label. Left out: brochure claims about arteries / kidney stones, and "natural mineral, not
-  // synthetic" (the brochure predates the amorphous form on the new label).
+  // Lipozamin Calcium: the pack label and the client's brochure (Lipozamin Calcium.pdf). Dosage as on the label.
+  // Client: do not write "אמורפי" on the site. Left out: brochure claims about arteries / kidney stones.
   'lipozamin-calcium': {
     contains: 'מכיל 60 כמוסות צמחיות',
     intro: [
-      'ליפוזמין Calcium - סידן קרבונט אמורפי ליפוזומלי בגודל חלקיקי ננו, בתוספת ויטמין D3 צמחי ודלפינידין.',
+      'ליפוזמין Calcium - סידן קרבונט ליפוזומלי בגודל חלקיקי ננו, בתוספת ויטמין D3 צמחי ודלפינידין.',
       'הסידן במוצר עטוף בליפוזום בגודל חלקיקים ננומטרי. הליפוזומים שבמוצר נבדקו במיקרוסקופ אלקטרוני.',
     ],
     benefits: [
-      'כמוסה אחת מכילה: 743 מ"ג סידן קרבונט אמורפי ליפוזומלי (149 מ"ג סידן אלמנטלי), 400IU ויטמין D3 - VegD3®, ותמצית מאקי ברי Delphinol®.',
+      'כמוסה אחת מכילה: 743 מ"ג סידן קרבונט ליפוזומלי (149 מ"ג סידן אלמנטלי), 400IU ויטמין D3 - VegD3®, ותמצית מאקי ברי Delphinol®.',
       'סידן קרבונט ליפוזומלי - לספיגה גבוהה.',
+      'סידן קרבונט ממינרל טבעי - לא סידן סינטטי.',
       'סידן קרבונט ננומטרי - (קטן יותר מכדורית דם) - גודל חלקיקי ננו.',
       'ללא תופעות לוואי במערכת העיכול - עטוף בליפוזום.',
       'הליפוזומים שבמוצר נבדקו במיקרוסקופ אלקטרוני.',
@@ -351,12 +351,12 @@ export const PRODUCT_OVERRIDES: Record<string, ProductOverride> = {
       'נשים בהריון, נשים מניקות, אנשים הנוטלים תרופות מרשם וילדים יש להיוועץ ברופא.',
       'יש להרחיק את המוצר מהישג ידם של ילדים.',
     ],
-    keywords: ['סידן', 'סידן ליפוזומלי', 'סידן קרבונט', 'סידן אמורפי', 'Calcium', 'ויטמין D3', 'ויטמין D', 'VegD3', 'דלפינול', 'Delphinol'],
+    keywords: ['סידן', 'סידן ליפוזומלי', 'סידן קרבונט', 'Calcium', 'ויטמין D3', 'ויטמין D', 'VegD3', 'דלפינול', 'Delphinol'],
   },
 
   // Lipozamin Mg Spectrum: the client's brochure (Lipozamin Mg Spectrum.pdf), the new pack (health claim printed on it)
-  // and the label (680 mg; the brochure says 700 mg). Certifier kept as on the site until the client confirms
-  // (the brochure names בד״ץ לנדא).
+  // and the label (680 mg; the brochure says 700 mg). Certifier: בד״ץ חתם סופר בני ברק (client confirmed;
+  // the brochure names בד״ץ לנדא).
   'lipozamin-mg-spectrum': {
     contains: 'מכיל 60 כמוסות צמחיות',
     intro: [
