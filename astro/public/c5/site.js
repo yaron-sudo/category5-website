@@ -1,4 +1,4 @@
-/* Category 5 — scroll flow: entrance on load, reveal on scroll down AND up (fail-safe) */
+/* Category 5 — scroll flow: entrance on load, reveal on scroll down (fail-safe); scrolling up never re-animates */
 (function () {
   if (typeof window === 'undefined' || !('IntersectionObserver' in window)) return;
   if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -15,9 +15,11 @@
     entries.forEach(function (e) {
       if (e.isIntersecting) { show(e.target); }
       else {
-        /* fully out of view (above or below) → reset so it flows in again when it returns */
+        /* reset only what dropped below the viewport, so it flows in again on the way down.
+           (Deviation from mockups/site.js: content that scrolled past the top keeps its state —
+           re-animating it on every scroll up made the page tremble.) */
         var r = e.boundingClientRect, vh = window.innerHeight || 0;
-        if (r.bottom < -40 || r.top > vh + 40) hide(e.target);
+        if (r.top > vh + 40) hide(e.target);
       }
     });
   }, { rootMargin: '0px 0px -8% 0px', threshold: 0.04 });
