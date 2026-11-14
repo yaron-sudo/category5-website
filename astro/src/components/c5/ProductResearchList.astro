@@ -31,7 +31,7 @@ const groups = (studies: Study[]) => {
 {ing.inProduct && <p class="c5-research-inproduct">במוצר: {ing.inProduct}</p>}
 {groups(ing.studies).map((g) => (
 <Fragment>
-{g.heading && <h4>{g.heading}</h4>}
+{g.heading && <h4>{g.heading.replace(/\s*\([^)]*\)\s*$/, '')}</h4>}
 <ol class="c5-research-studies">
 {g.studies.map((s) => (
 <li>
