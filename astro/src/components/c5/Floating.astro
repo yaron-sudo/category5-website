@@ -51,6 +51,18 @@ const dirs = Object.fromEntries(CHAT_LANGS.map((l) => [l.code, l.dir]))
   a.c5-chat-card:hover .c5-chat-card-btn { background: #efeeea; }
   [data-chat-log] p { margin: 0 0 6px; } [data-chat-log] p:last-child { margin: 0; }
   [data-chat-log] ul { margin: 4px 0; padding-inline-start: 18px; }
+  .c5-think { display: flex; align-items: center; gap: 10px; min-height: 24px; color: #141414; font-size: 14px; }
+  .c5-think-dots { display: inline-flex; gap: 4px; flex: 0 0 auto; }
+  .c5-think-dots i { width: 6px; height: 6px; border-radius: 50%; background: #141414; opacity: .25; animation: c5-think-dot 1.2s cubic-bezier(.22,.61,.36,1) infinite; }
+  .c5-think-dots i:nth-child(2) { animation-delay: .15s; } .c5-think-dots i:nth-child(3) { animation-delay: .3s; }
+  .c5-think-txt { opacity: 0; transform: translateY(4px); }
+  .c5-think-txt.is-in { opacity: 1; transform: none; transition: opacity .5s cubic-bezier(.22,.61,.36,1), transform .5s cubic-bezier(.22,.61,.36,1); }
+  .c5-think-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  @keyframes c5-think-dot { 0%, 80%, 100% { opacity: .25; transform: translateY(0); } 40% { opacity: 1; transform: translateY(-3px); } }
+  @media (prefers-reduced-motion: reduce) {
+    .c5-think-dots i { animation: none; opacity: .6; }
+    .c5-think-txt, .c5-think-txt.is-in { transition: none; transform: none; opacity: 1; }
+  }
   [data-chat-panel][data-large] { width: min(760px, calc(100vw - 32px)) !important; height: min(860px, calc(100vh - 32px)) !important; }
   @media (max-width: 640px) { [data-chat-size] { display: none !important; } }
   /* Phones: the chat is a full-screen sheet sized to the visible viewport (so the keyboard and the
@@ -172,6 +184,28 @@ const dirs = Object.fromEntries(CHAT_LANGS.map((l) => [l.code, l.dir]))
       }
       return inList ? html + '</ul>' : html
     }
+    // "Working" indicator while the answer is prepared: three pulsing dots and the current step
+    // ("reading the question", "searching the product information", …), one after another; a
+    // status from the server (e.g. a web search) is shown as the current step. Removed at the
+    // first text of the answer. Reduced motion: no pulsing, steps still change.
+    const thinking = (out: HTMLElement, s: Record<string, string>) => {
+      const steps = (s['chat.steps'] || '').split('|').filter(Boolean)
+      out.setAttribute('aria-busy', 'true')
+      out.innerHTML = '<div class="c5-think" role="status"><span class="c5-think-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="c5-think-txt" aria-hidden="true"></span><span class="c5-think-sr"></span></div>'
+      const txt = out.querySelector<HTMLElement>('.c5-think-txt')!
+      out.querySelector<HTMLElement>('.c5-think-sr')!.textContent = s['chat.working'] || ''
+      let i = 0, done = false
+      const show = (t: string) => {
+        txt.classList.remove('is-in'); void txt.offsetWidth
+        txt.textContent = t; txt.classList.add('is-in')
+      }
+      show(steps[0] || '…')
+      const timer = window.setInterval(() => { if (i < steps.length - 1) show(steps[++i]) }, 2200)
+      return {
+        status(t: string) { if (!done && t) show(t) },
+        stop() { if (done) return; done = true; window.clearInterval(timer); out.removeAttribute('aria-busy'); out.innerHTML = '' },
+      }
+    }
     const bubble = (role: 'user' | 'assistant') => {
       const el = document.createElement('div')
       el.style.cssText = role === 'user'
@@ -190,13 +224,14 @@ const dirs = Object.fromEntries(CHAT_LANGS.map((l) => [l.code, l.dir]))
       // Touch screens: close the keyboard so the answer is visible.
       if (touch) input.blur()
       const out = bubble('assistant')
-      out.textContent = '…'
+      const s = S[lang]
+      const think = thinking(out, s)
       toTurn()
       let text = ''
-      const s = S[lang]
       try {
         const res = await fetch('/api/ask', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ question: q, history, lang }) })
         if (!res.ok || !res.body) {
+          think.stop()
           out.textContent = res.status === 429 ? s['chat.rateLimited'] : res.status === 503 ? s['chat.unavailable'] : s['chat.error']
           return
         }
@@ -210,6 +245,8 @@ const dirs = Object.fromEntries(CHAT_LANGS.map((l) => [l.code, l.dir]))
             const line = buf.slice(0, nl); buf = buf.slice(nl + 1)
             if (!line.trim()) continue
             const ev = JSON.parse(line)
+            if (ev.t === 'status') { think.status(ev.v); continue }
+            think.stop()
             if (ev.t === 'text') text += ev.v
             else if (ev.t === 'source') text += `\n- [${ev.title}](${ev.url})`
             else if (ev.t === 'error') text += (text ? '\n\n' : '') + s['chat.error']
@@ -219,8 +256,10 @@ const dirs = Object.fromEntries(CHAT_LANGS.map((l) => [l.code, l.dir]))
         }
         if (text) history.push({ role: 'user', content: q }, { role: 'assistant', content: text })
       } catch {
+        think.stop()
         out.textContent = s['chat.error']
       } finally {
+        think.stop()
         busy = false; sendBtn.disabled = false; if (!touch) input.focus()
       }
     })
