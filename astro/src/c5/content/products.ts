@@ -10,6 +10,8 @@ export interface Product {
   image?: string
   /** Slug of an old-site product: its content is pulled in, and the old page redirects here. */
   source?: string
+  /** More product photos (files in /assets/products/), shown after `image` in the product page gallery. */
+  gallery?: string[]
   /** Longer name for the product page h1 (defaults to title). */
   fullTitle?: string
   // ---- product page content (BRIEF §8). Anything left out shows the brief's placeholder. ----
@@ -121,6 +123,7 @@ export const PRODUCTS: Product[] = [
   { slug: 'lipozamin-creatine-complex', title: 'ליפוזמין קריאטין קומפלקס', series: 'vitamins-minerals', contains: 'מכיל 60 כמוסות' },
   {
     slug: 'liposomal-multivitamin', title: 'מולטיויטמין ליפוזומלי', series: 'vitamins-minerals', contains: 'מכיל 60 כמוסות צמחיות',
+    gallery: ['/assets/products/liposomal-multivitamin-bottle.webp', '/assets/products/liposomal-multivitamin-box.png'],
     // Text from the client's brochure (docs/brochures/Multivitamin Brochure.pdf) and the pack label.
     // Health claims only as printed on the pack; dosage as on the label (the brochure says 2 capsules a day).
     intro: [
@@ -150,6 +153,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     slug: 'liposomal-vitamin-b-complex', title: 'קומפלקס ויטמין B ליפוזומלי', series: 'vitamins-minerals', contains: 'מכיל 60 כמוסות צמחיות',
+    gallery: ['/assets/products/liposomal-vitamin-b-complex-bottle.webp', '/assets/products/liposomal-vitamin-b-complex-box.png'],
     // Text from the client's brochure (docs/brochures/קומפלקס B ליפוזומלי.pdf) and the pack label. Health claims only as printed on the pack.
     intro: [
       'קומפלקס B ליפוזומלי בגודל חלקיקים ננומטרי: תוסף תזונה יומיומי המאגד שילוב של ויטמינים ממשפחת B.',

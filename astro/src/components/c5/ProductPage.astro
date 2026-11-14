@@ -35,6 +35,7 @@ const pack = (p.contains || PH.contains).replace(/^מכיל\s+/, '')
 // a label scan is only shown while a product has no text label yet.
 const gallery = [
   p.image && { src: p.image, alt: name, fit: await imageFit(p.image) },
+  ...(await Promise.all((p.gallery ?? []).map(async (src) => ({ src, alt: name, fit: await imageFit(src) })))),
   !p.label && p.labelImage && { src: p.labelImage, alt: `תווית המוצר – ${name}`, fit: undefined },
 ].filter(Boolean) as Array<{ src: string; alt: string; fit?: string }>
 const related = (await productsOfSeries(p.series)).filter((x) => x.slug !== p.slug)

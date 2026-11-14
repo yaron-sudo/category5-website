@@ -76,6 +76,9 @@ design (screen readers, enlarged text). Add an entry per product slug to
   shows a grey placeholder.
 
 A file with the product's slug replaces the old image on the next build; no code change.
+- More photos of the same product (bottle alone, box alone…): save them as
+  `astro/public/assets/products/<slug>-<name>.(jpg|png|webp)` and list them in the product's `gallery`
+  field (products.ts or overrides.ts). They appear as thumbnails after the main photo.
 Only downscale large files (max ~2000px on the long side). **Never crop, recolour,
 retouch or regenerate a product image.** Framing and centring are automatic (`imageFit.ts`).
 
