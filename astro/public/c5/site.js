@@ -64,6 +64,16 @@
   var mo = new MutationObserver(function () { scan(); });
   mo.observe(html, { childList: true, subtree: true });
 
+  /* While the page scrolls, hover effects under the wheel flick on and off and read as
+     trembling; pointer interaction is muted for a beat (client 14.11.2026). */
+  var hoverT;
+  function muteHover() {
+    html.classList.add('c5-scrolling');
+    clearTimeout(hoverT);
+    hoverT = setTimeout(function () { html.classList.remove('c5-scrolling'); }, 160);
+  }
+  window.addEventListener('scroll', muteHover, { passive: true });
+
   var ticking = false;
   function onScroll() {
     if (ticking) return; ticking = true;

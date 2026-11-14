@@ -125,3 +125,6 @@ img.c5-parallax { transform: none !important; transition: filter 1.2s cubic-bezi
 .c5-pending, .c5-stagger > * { transform: none !important; }
 .c5-pending img, .c5-pending > div > img { transform: none !important; }
 .c5-in img { transition: none !important; }
+
+/* While scrolling: no hover churn under the cursor (site.js toggles the class). */
+html.c5-scrolling main { pointer-events: none; }

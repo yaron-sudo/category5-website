@@ -102,15 +102,16 @@ const btn = 'display: inline-flex; align-items: center; min-height: 44px; paddin
 
 <style is:global>
   .c5-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
-  .c5-loc { max-width: 1280px; margin: clamp(28px, 4vw, 48px) auto clamp(56px, 7vw, 112px); padding: 0 clamp(16px, 4vw, 48px); box-sizing: border-box; display: grid; grid-template-columns: minmax(340px, 5fr) 7fr; border: 1px solid #141414; height: min(72vh, 760px); min-height: 480px; position: relative; overflow: hidden; color: #141414; }
+  .c5-loc { max-width: 1184px; width: calc(100% - 2 * clamp(16px, 4vw, 48px)); margin: clamp(28px, 4vw, 48px) auto clamp(56px, 7vw, 112px); padding: 0; box-sizing: border-box; display: grid; grid-template-columns: minmax(340px, 5fr) 7fr; border: 1px solid #141414; height: min(72vh, 760px); min-height: 480px; position: relative; overflow: hidden; color: #141414; }
   .c5-loc-panel { display: flex; flex-direction: column; min-width: 0; min-height: 0; overflow: hidden; border-inline-end: 1px solid #141414; background: #ffffff; }
   .c5-loc-controls { padding: 18px 18px 14px; display: flex; flex-direction: column; gap: 12px; border-bottom: 1px solid #dcdcd9; }
   .c5-loc-controls input { min-height: 46px; border: 1px solid #141414; border-radius: 4px; padding: 0 14px; font: inherit; width: 100%; box-sizing: border-box; background: #ffffff; }
-  .c5-loc-chips { display: flex; flex-wrap: wrap; gap: 8px; }
-  .c5-loc-chips button { display: inline-flex; align-items: center; gap: 7px; min-height: 36px; padding: 0 14px; border: 1px solid #141414; border-radius: 4px; background: #ffffff; color: #141414; font: inherit; font-size: 14px; cursor: pointer; transition: background .3s cubic-bezier(.22,.61,.36,1), color .3s cubic-bezier(.22,.61,.36,1); }
+  .c5-loc-chips { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  @media (min-width: 1150px) { .c5-loc-chips { grid-template-columns: repeat(3, minmax(0, 1fr)); } .c5-loc-chips button:first-child { grid-column: span 1; } }
+  .c5-loc-chips button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 40px; padding: 0 10px; white-space: nowrap; overflow: hidden; border: 1px solid #141414; border-radius: 4px; background: #ffffff; color: #141414; font: inherit; font-size: 14px; cursor: pointer; transition: background .3s cubic-bezier(.22,.61,.36,1), color .3s cubic-bezier(.22,.61,.36,1); }
   .c5-loc-chips button[aria-pressed="true"] { background: #141414; color: #ffffff; }
   .c5-loc-chips button:not([aria-pressed="true"]):hover { background: #efeeea; }
-  .c5-loc-near { display: inline-flex; align-items: center; gap: 8px; align-self: flex-start; min-height: 40px; padding: 0 14px; border: 1px solid #141414; border-radius: 4px; background: #ffffff; color: #141414; font: inherit; font-size: 14px; cursor: pointer; }
+  .c5-loc-near { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 42px; padding: 0 14px; border: 1px solid #141414; border-radius: 4px; background: #ffffff; color: #141414; font: inherit; font-size: 14px; cursor: pointer; }
   .c5-loc-near:hover { background: #efeeea; }
   .c5-loc-list { list-style: none; margin: 0; padding: 0; overflow-y: auto; flex: 1 1 auto; min-height: 0; overscroll-behavior: contain; }
   .c5-loc-list li { border-bottom: 1px solid #dcdcd9; }
@@ -136,6 +137,7 @@ const btn = 'display: inline-flex; align-items: center; min-height: 44px; paddin
   .c5-loc .leaflet-popup-content strong { display: block; margin-bottom: 2px; }
   @media (max-width: 860px) {
     .c5-loc { display: block; height: auto; min-height: 0; border: 1px solid #141414; }
+    .c5-loc { width: calc(100% - 32px); }
     .c5-loc-panel { border-inline-end: 0; }
     .c5-loc-list { max-height: 52vh; }
     .c5-loc-map { height: 62vh; display: none; }
@@ -166,7 +168,7 @@ const btn = 'display: inline-flex; align-items: center; min-height: 44px; paddin
     const map = L.map(root.querySelector<HTMLElement>('[data-loc-map]')!, { scrollWheelZoom: true, zoomControl: true, minZoom: 7 })
     map.setView([31.9, 35.05], 8)
     map.attributionControl.setPrefix('Leaflet')
-    map.setMaxBounds([[28.8, 32.8], [34.0, 37.2]])
+    map.setMaxBounds([[27.0, 29.0], [35.5, 41.0]])
     // The section fades in on scroll and fonts settle late; measured too early the tiles
     // paint misaligned (grey band / open sea). Re-measure once everything is laid out.
     const home = () => { map.invalidateSize(); if (!located) map.setView([31.9, 35.05], 8, { animate: false }) }
