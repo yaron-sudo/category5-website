@@ -38,7 +38,7 @@ export const HIGHLIGHTS: Record<string, ProductHighlights> = {
   'kalnozim-digestive-enzymes': { is: ['vegan', 'microscope', 'nonGmo', 'noPreservatives'], kosher: 'כשר פרווה, בד״ץ' },
   kalnozin: { is: ['vegan', 'microscope', 'nonGmo', 'noPreservatives'], kosher: 'כשר פרווה, בד״ץ' },
   lactoferr: { is: ['microscope', 'dairy', 'nonGmo', 'noPreservatives'], kosher: 'כשר לאוכלי חלב נוכרי' },
-  'liposomal-multivitamin': { is: ['vegan', 'microscope', 'nonGmo', 'noPreservatives'], kosher: 'כשר, חתם סופר בני ברק' },
+  'liposomal-multivitamin': { is: ['vegan', 'microscope', 'nonGmo', 'noPreservatives'], kosher: 'חתם סופר בני ברק' },
   'liposomal-vitamin-b-complex': { is: ['vegan', 'microscope', 'nonGmo', 'noPreservatives'], kosher: 'כשר, חתם סופר בני ברק' },
   'lipozamin-alpha-lipoic-acid': { is: ['vegan', 'microscope', 'nonGmo', 'noPreservatives'], kosher: 'כשר פרווה, בד״ץ' },
   'lipozamin-b12-spectrum': { is: ['vegan', 'microscope', 'nonGmo', 'noPreservatives'], kosher: 'כשר פרווה, בד״ץ' },
