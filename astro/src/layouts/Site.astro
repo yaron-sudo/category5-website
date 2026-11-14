@@ -38,6 +38,12 @@ const fullTitle = title.includes('Category 5') ? title : `${title} | Category 5`
     </div>
     <Floating />
     <script is:inline src="/c5/site.js"></script>
+    <script is:inline>
+      // Deterrent against casual image copying (client request): no right-click menu or
+      // drag on images. Text stays selectable (accessibility / IS 5568).
+      document.addEventListener('contextmenu', (e) => { if (e.target && e.target.tagName === 'IMG') e.preventDefault() })
+      document.addEventListener('dragstart', (e) => { if (e.target && e.target.tagName === 'IMG') e.preventDefault() })
+    </script>
     <script>
       // Contact + newsletter forms → POST /api/contact (the site's mailer).
       document.querySelectorAll<HTMLFormElement>('form[data-c5-form]').forEach((form) => {

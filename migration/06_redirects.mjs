@@ -67,6 +67,15 @@ redirects.push(
   { source: '/', has: [{ type: 'query', key: 'page_id' }], destination: '/', permanent: true },
 )
 
+// Hotlink protection: other sites embedding our images get the home page instead
+// (direct opens and same-site requests pass; PDFs are left alone — QR codes link them).
+redirects.push({
+  source: '/:path(.*\\.(?:jpg|jpeg|png|webp|gif|svg|avif))',
+  has: [{ type: 'header', key: 'referer', value: '^(?!$)(?!.*(?:ethical-supplements\\.com|category5|localhost|127\\.0\\.0\\.1)).*$' }],
+  destination: '/',
+  permanent: false,
+})
+
 vercel.redirects = redirects
 writeFileSync(vercelPath, JSON.stringify(vercel, null, 2) + '\n')
 console.log(`✓ ${redirects.length} redirects (${map.size} exact) → ${vercelPath}`)

@@ -128,3 +128,6 @@ img.c5-parallax { transform: none !important; transition: filter 1.2s cubic-bezi
 
 /* While scrolling: no hover churn under the cursor (site.js toggles the class). */
 html.c5-scrolling main { pointer-events: none; }
+
+/* Image-copy deterrent (right-click/drag are also blocked in Site.astro). */
+main img, footer img { user-select: none; -webkit-user-select: none; -webkit-user-drag: none; }
