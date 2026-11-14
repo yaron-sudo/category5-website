@@ -28,7 +28,7 @@ export const HIGHLIGHTS: Record<string, ProductHighlights> = {
   'bio-vera': { is: ['vegan', 'nonGmo', 'noPreservatives'], kosher: 'כשר פרווה, בד״ץ' },
   calcidex: { is: ['vegan', 'glutenFree', 'nonGmo', 'noPreservatives'], kosher: 'כשר פרווה, בד״ץ חתם סופר בני ברק' },
   'cellinol-junior': { is: ['sugarFree'], kosher: 'כשר פרווה, בד״ץ' },
-  'cellinol-liposomal-vitamin-c': { is: ['vegan', 'microscope', 'nonGmo', 'noPreservatives'], kosher: 'כשר פרווה, בד״ץ' },
+  'cellinol-liposomal-vitamin-c': { is: ['vegan', 'microscope', 'nonGmo', 'noPreservatives'], kosher: 'כשר פרווה, בד״ץ העדה החרדית ירושלים' },
   'cogni-bright': { is: ['vegan', 'glutenFree', 'microscope', 'nonGmo', 'noPreservatives'], kosher: 'כשר פרווה, בד״ץ' },
   'cogni-mg': { is: ['vegan', 'glutenFree', 'microscope', 'nonGmo', 'noPreservatives'], kosher: 'כשר פרווה, בד״ץ' },
   'cogni-zzz': { is: ['vegan', 'microscope', 'nonGmo', 'noPreservatives'], kosher: 'כשר פרווה, בד״ץ' },
