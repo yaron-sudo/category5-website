@@ -43,7 +43,7 @@ export function parseKnowledge(src: string): KnowledgeFile {
 }
 
 // Source tags at line ends: [תווית], [עלון, אתר ישן] … — for maintainers, not for the chat.
-const TAG = /[ \t]*\[(?:תווית|עלון|אתר ישן|אתר|BOM|מדריך מגנזיום|חוברת 2025)(?:,\s*(?:תווית|עלון|אתר ישן|אתר|BOM|מדריך מגנזיום|חוברת 2025))*\]/g
+const TAG = /[ \t]*\[(?:תווית|עלון|אתר ישן|אתר|BOM|מדריך מגנזיום|חוברת 2025|מסמך לקוח)(?:,\s*(?:תווית|עלון|אתר ישן|אתר|BOM|מדריך מגנזיום|חוברת 2025|מסמך לקוח))*\]/g
 
 /** Removes maintainer-only markup (HTML comments, source tags). */
 // "(טרם אומת מול התווית)" marks a dosage/amount taken from a brochure — a note for maintainers; the chat
