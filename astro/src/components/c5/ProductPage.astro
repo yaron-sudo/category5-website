@@ -33,6 +33,17 @@ const all = p.details ?? []
 const specs = all.map((d) => d.match(/^([^:]{2,30}):\s*(.+)$/)).filter(Boolean).map((m) => ({ label: m![1], value: m![2] }))
 const notes = all.filter((d) => !/^[^:]{2,30}:\s*.+$/.test(d))
 const pack = (p.contains || PH.contains).replace(/^מכיל\s+/, '')
+// Client notes, round 1 (14.11.2026): shelf life is a pill beside the pack size; kashrut,
+// certifier, storage and the warnings are a bullet list under the tabs.
+const shelf = specs.find((r) => /אורך חיי מדף/.test(r.label))?.value.replace(/\.$/, '')
+const facts = specs.filter((r) => !/אורך חיי מדף/.test(r.label)).map((r) => `${r.label} - ${r.value}`)
+if (notes.length) facts.push(`אזהרה: ${notes.join(' ')}`)
+const tabs = [
+  { id: 'benefits', title: 'יתרונות המוצר' },
+  { id: 'usage', title: 'המלצות לשימוש' },
+  { id: 'label', title: 'תווית המוצר' },
+  ...(p.microscope?.length ? [{ id: 'microscope', title: p.microscopeTitle ?? 'הליפוזום במיקרוסקופ אלקטרוני' }] : []),
+]
 // The product photo is framed uniformly (imageFit). The label is text (ProductLabel);
 // a label scan is only shown while a product has no text label yet.
 const gallery = [
@@ -74,60 +85,43 @@ const btn = 'display: inline-flex; align-items: center; justify-content: center;
 <h1 style="margin: 0">{name}</h1>
 {intro.map((x) => <p style="margin: 0" set:html={linkTerms(x, used)} />)}
 
-<div class="pp-ask">
-<p style="margin: 0; font-weight: 600">יש לכם שאלה?</p>
-<button type="button" data-pp-ask class="c5-soft" style={btn}>{t('chat.open')}</button>
-</div>
-
-<div class="pp-buy">
+<div class="pp-pills">
 <span class="pp-pill">{pack}</span>
-<a href="/stores" style={btn}>לחנויות</a>
+{shelf && <span class="pp-pill">אורך חיי מדף - {shelf}</span>}
 </div>
-<p style="margin: 0; font-size: 15px">מחפשים אותנו? מצאו את החנויות הקרובות אליכם.</p>
 
-{specs.length > 0 && (
-<dl class="pp-specs">
-{specs.map((r) => <div><dt>{r.label}</dt><dd>{r.value}</dd></div>)}
-</dl>
-)}
+<button type="button" data-pp-ask class="pp-ask"><strong>יש לכם שאלה?</strong> אנחנו כאן כדי לענות</button>
+
+<div class="pp-stores">
+<p style="margin: 0">מחפשים אותנו? מצאו את החנויות הקרובות אליכם.</p>
+<a href="/stores" class="c5-soft" style={btn}>לחנויות</a>
+</div>
 </div>
 </div>
 </section>
 
 <ProductHighlights slug={p.slug} />
 
-<section aria-label="מידע על המוצר" class="pp pp-acc">
-<details open>
-<summary><h2 style="margin: 0">יתרונות המוצר ושימושים</h2><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></summary>
-<div class="pp-acc-body"><ul class="pp-box">{benefits.map((x) => <li set:html={linkTerms(x, used)} />)}</ul></div>
-</details>
-<details>
-<summary><h2 style="margin: 0">המלצות שימוש</h2><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></summary>
-<div class="pp-acc-body">
-<ul style="margin: 0; padding-inline-start: 20px">{usage.map((x) => <li>{x}</li>)}</ul>
-{notes.length > 0 ? notes.map((x) => <p style="margin: 12px 0 0">{x}</p>) : !all.length && <p style="margin: 12px 0 0">{PH.details}</p>}
+<section aria-label="מידע על המוצר" class="pp pp-tabs" data-pp-tabs>
+<div class="pp-tablist" role="tablist" aria-label="מידע על המוצר">
+{tabs.map((tb, i) => <button type="button" role="tab" id={`tab-${tb.id}`} aria-controls={`panel-${tb.id}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1} data-pp-tab={tb.id}>{tb.title}</button>)}
 </div>
-</details>
-<details>
-<summary><h2 style="margin: 0">תווית המוצר</h2><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></summary>
-<div class="pp-acc-body">
+<div role="tabpanel" id="panel-benefits" aria-labelledby="tab-benefits" class="pp-panel" data-pp-panel="benefits">
+<ul class="pp-list">{benefits.map((x) => <li set:html={linkTerms(x, used)} />)}</ul>
+</div>
+<div role="tabpanel" id="panel-usage" aria-labelledby="tab-usage" class="pp-panel" data-pp-panel="usage" hidden>
+<ul class="pp-list">{usage.map((x) => <li>{x}</li>)}</ul>
+</div>
+<div role="tabpanel" id="panel-label" aria-labelledby="tab-label" class="pp-panel" data-pp-panel="label" hidden>
 {p.label
   ? <ProductLabel label={p.label} name={name} />
   : p.labelImage
   ? <img src={p.labelImage} alt={`תווית המוצר – ${name}`} loading="lazy" style="display: block; width: 100%; max-width: 640px; height: auto">
   : <div style="aspect-ratio: 4 / 3; max-width: 640px; background: #e9e9e7; display: flex; align-items: center; justify-content: center">{t('img')}</div>}
 </div>
-</details>
-{SHOW_RESEARCH && productResearch(p.slug).some((i) => i.studies.some((x) => x.summary)) && (
-<details>
-<summary><h2 style="margin: 0">מחקרים</h2><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></summary>
-<div class="pp-acc-body"><ProductResearchList slug={p.slug} /></div>
-</details>
-)}
 {p.microscope?.length && (
-<details>
-<summary><h2 style="margin: 0">{p.microscopeTitle ?? 'צילום הליפוזום במיקרוסקופ אלקטרוני'}</h2><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></summary>
-<figure class={`pp-acc-body pp-mic${p.microscopeTitle ? ' pp-mic-solo' : ''}`}>
+<div role="tabpanel" id="panel-microscope" aria-labelledby="tab-microscope" class="pp-panel" data-pp-panel="microscope" hidden>
+<figure class={`pp-mic${p.microscopeTitle ? ' pp-mic-solo' : ''}`}>
 <div class="pp-mic-imgs">
 {p.microscope.map((src, i) => <img src={src} alt={`${p.microscopeTitle ?? 'צילום הליפוזום במוצר במיקרוסקופ אלקטרוני'} – ${name}${p.microscope!.length > 1 ? ` (${i + 1})` : ''}`} loading="lazy">)}
 </div>
@@ -138,7 +132,10 @@ const btn = 'display: inline-flex; align-items: center; justify-content: center;
 </figcaption>
 )}
 </figure>
-</details>
+</div>
+)}
+{facts.length > 0 && (
+<ul class="pp-facts">{facts.map((x) => <li>{x}</li>)}</ul>
 )}
 </section>
 
@@ -167,7 +164,7 @@ const btn = 'display: inline-flex; align-items: center; justify-content: center;
   .pp-crumbs { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding: 22px 0; border-bottom: 1px solid #dcdcd9; }
   .pp-crumbs a, .pp-crumbs span { font-size: 13px !important; color: #141414; text-decoration: none; }
   .pp-crumbs a:hover { text-decoration: underline; }
-  .pp-top { display: grid; grid-template-columns: minmax(0, 1.9fr) minmax(300px, 1fr); gap: clamp(28px, 4vw, 64px); padding: clamp(24px, 3.5vw, 48px) 0 clamp(40px, 5vw, 72px); align-items: start; }
+  .pp-top { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(320px, 1fr); gap: clamp(28px, 4vw, 64px); padding: clamp(24px, 3.5vw, 48px) 0 clamp(40px, 5vw, 72px); align-items: start; }
   .pp-gallery { display: flex; gap: 16px; align-items: flex-start; position: sticky; top: 96px; }
   .pp-thumbs { display: flex; flex-direction: column; gap: 10px; flex: 0 0 84px; }
   .pp-thumb { position: relative; overflow: hidden; padding: 0; border: 0; border-bottom: 3px solid transparent; background: #f7f7f5; aspect-ratio: 1 / 1; cursor: pointer; display: block; width: 100%; transition: border-color .4s cubic-bezier(.22,.61,.36,1); }
@@ -185,34 +182,40 @@ const btn = 'display: inline-flex; align-items: center; justify-content: center;
   .pp-info { display: flex; flex-direction: column; gap: 16px; }
   .pp-series { display: inline-flex; align-items: center; gap: 10px; align-self: flex-start; color: #141414; text-decoration: none; }
   .pp-series span { font-size: 15px !important; }
-  .pp-ask { background: #f7f7f5; padding: 18px; display: flex; flex-direction: column; align-items: flex-start; gap: 12px; margin-top: 4px; }
-  .pp-buy { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding-top: 18px; border-top: 1px solid #dcdcd9; }
-  .pp-buy a { flex: 1 1 160px; }
-  .pp-pill { display: inline-flex; align-items: center; min-height: 32px; padding: 0 14px; border-radius: 999px; background: #141414; color: #ffffff !important; font-size: 15px !important; }
-  .pp-specs { margin: 8px 0 0; border-top: 1px solid #dcdcd9; }
-  .pp-specs div { display: flex; gap: 10px; padding: 12px 0; border-bottom: 1px solid #dcdcd9; font-size: 15px; }
-  .pp-specs dt { font-weight: 600; flex: 0 0 auto; }
-  .pp-specs dd { margin: 0; }
-  .pp-acc details { border-top: 1px solid #dcdcd9; }
-  .pp-acc details:last-child { border-bottom: 1px solid #dcdcd9; }
-  .pp-acc summary { list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: clamp(22px, 3vw, 36px) 0; cursor: pointer; }
-  .pp-acc summary::-webkit-details-marker { display: none; }
-  .pp-acc summary svg { transition: transform .5s cubic-bezier(.22,.61,.36,1); flex-shrink: 0; }
-  .pp-acc details[open] summary svg { transform: rotate(180deg); }
+  .pp-pills { display: flex; flex-wrap: wrap; gap: 10px; }
+  .pp-pill { display: inline-flex; align-items: center; min-height: 40px; padding: 0 18px; border: 1px solid #141414; border-radius: 4px; background: #ffffff; color: #141414 !important; font-size: 15px !important; }
+  /* "יש לכם שאלה?" — the whole sentence opens the chat; a soft underline grows on hover. */
+  .pp-ask { align-self: flex-start; margin: 2px 0 0; padding: 12px 16px; border: 0; background: #f7f7f5; color: #141414; font: inherit; text-align: start; cursor: pointer; }
+  .pp-ask strong { font-weight: 600; }
+  .pp-ask { background-image: linear-gradient(#141414, #141414); background-repeat: no-repeat; background-size: 0 1px; background-position: right calc(100% - 9px); transition: background-size .5s cubic-bezier(.22,.61,.36,1), transform .5s cubic-bezier(.22,.61,.36,1); }
+  .pp-ask:hover, .pp-ask:focus-visible { background-size: 100% 1px; transform: translateX(-2px); }
+  .pp-stores { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 18px; padding-top: 18px; border-top: 1px solid #dcdcd9; }
+  .pp-stores p { font-size: 15px !important; }
+  /* Tabs (client notes round 1): one horizontal row; the content below is plain, right-aligned, no frames. */
+  .pp-tabs { padding-top: clamp(28px, 4vw, 48px); }
+  .pp-tablist { display: flex; gap: 0 clamp(18px, 3vw, 40px); border-bottom: 1px solid #dcdcd9; overflow-x: auto; scrollbar-width: none; }
+  .pp-tablist::-webkit-scrollbar { display: none; }
+  .pp-tablist [role="tab"] { flex: 0 0 auto; margin: 0; padding: 16px 0 14px; border: 0; border-bottom: 2px solid transparent; background: none; color: #141414; font: inherit; font-size: 17px; cursor: pointer; white-space: nowrap; transition: border-color .4s cubic-bezier(.22,.61,.36,1), opacity .4s cubic-bezier(.22,.61,.36,1); opacity: .62; }
+  .pp-tablist [role="tab"]:hover { opacity: 1; }
+  .pp-tablist [role="tab"][aria-selected="true"] { opacity: 1; font-weight: 600; border-bottom-color: #141414; }
+  .pp-tablist [role="tab"]:focus-visible { outline: 2px solid #141414; outline-offset: -2px; }
+  .pp-panel { padding: clamp(24px, 3vw, 36px) 0 0; max-width: 1100px; text-align: start; }
+  .pp-panel[hidden] { display: none; }
+  .pp-list { margin: 0; padding-inline-start: 22px; display: flex; flex-direction: column; gap: 8px; }
+  .pp-facts { margin: clamp(28px, 3.5vw, 44px) 0 0; padding: clamp(22px, 3vw, 32px) 0 0 22px; padding-inline-start: 22px; border-top: 1px solid #dcdcd9; display: flex; flex-direction: column; gap: 8px; font-size: 15px; }
+  .pp-facts li { font-size: 15px !important; }
   .pp-acc-body { padding: 0 0 clamp(28px, 3.5vw, 44px); padding-inline-start: min(200px, 16vw); max-width: 1000px; }
-  .pp-box { margin: 0; padding: 22px 22px 22px 22px; padding-inline-start: 42px; background: #f7f7f5; }
   /* Microscope section: photo(s) framed on the right, caption panel beside them. */
   .pp-mic { margin: 0; display: flex; align-items: stretch; gap: 0; border: 1px solid #dcdcd9; max-width: none; }
-  .pp-acc-body.pp-mic { padding: 0; margin-bottom: clamp(28px, 3.5vw, 44px); max-width: 1000px; }
+  .pp-mic { padding: 0; max-width: 1000px; }
   .pp-mic-imgs { flex: 0 1 auto; display: flex; flex-wrap: wrap; gap: 8px; padding: 16px; background: #141414; align-items: center; justify-content: center; }
   /* Same height for every microscope photo (never upscaled, never cropped). */
   .pp-mic img { display: block; width: auto; height: auto; max-width: 100%; max-height: 280px; flex: 0 1 auto; }
-  .pp-acc-body.pp-mic.pp-mic-solo { width: fit-content; }
+  .pp-mic.pp-mic-solo { width: fit-content; }
   .pp-mic-cap { flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; justify-content: center; gap: 12px; padding: clamp(20px, 3vw, 36px); background: #f7f7f5; }
   .pp-mic-cap p { margin: 0; }
   .pp-mic-lead { font-size: 20px; font-weight: 600; line-height: 1.4; }
   @media (max-width: 760px) { .pp-mic { flex-direction: column; } .pp-mic img { max-height: 220px; } .pp-mic-cap { flex-basis: auto; } }
-  .pp-box li + li { margin-top: 6px; }
   /* "More from the series" carousel (after The Ordinary): 4 cards in view, round
      arrow buttons, a hairline with a black progress segment underneath. */
   .pp-car { position: relative; }
@@ -236,7 +239,7 @@ const btn = 'display: inline-flex; align-items: center; justify-content: center;
     .pp-stage { flex: 0 0 auto; width: 100%; }
     .pp-thumbs { flex-direction: row; flex: 0 0 auto; }
     .pp-thumb { width: 72px; }
-    .pp-acc-body { padding-inline-start: 0; }
+
   }
 </style>
 
@@ -317,4 +320,24 @@ const btn = 'display: inline-flex; align-items: center; justify-content: center;
     }
   }
   document.querySelector('[data-pp-ask]')?.addEventListener('click', () => document.querySelector<HTMLButtonElement>('[data-chat-open]')?.click())
+
+  // Tabs
+  const tabsRoot = document.querySelector<HTMLElement>('[data-pp-tabs]')
+  if (tabsRoot) {
+    const tabBtns = [...tabsRoot.querySelectorAll<HTMLButtonElement>('[data-pp-tab]')]
+    const panels = [...tabsRoot.querySelectorAll<HTMLElement>('[data-pp-panel]')]
+    const select = (id: string, focus = false) => {
+      tabBtns.forEach((b) => { const on = b.dataset.ppTab === id; b.setAttribute('aria-selected', String(on)); b.tabIndex = on ? 0 : -1; if (on && focus) b.focus() })
+      panels.forEach((pl) => { pl.hidden = pl.dataset.ppPanel !== id })
+    }
+    tabBtns.forEach((b, i) => {
+      b.addEventListener('click', () => select(b.dataset.ppTab!))
+      b.addEventListener('keydown', (e) => {
+        const dir = e.key === 'ArrowLeft' ? 1 : e.key === 'ArrowRight' ? -1 : 0 // RTL: right arrow = previous
+        if (!dir) return
+        e.preventDefault()
+        select(tabBtns[(i + dir + tabBtns.length) % tabBtns.length].dataset.ppTab!, true)
+      })
+    })
+  }
 </script>

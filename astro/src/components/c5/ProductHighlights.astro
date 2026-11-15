@@ -1,36 +1,50 @@
 ---
-// "תכונות המוצר" — product attributes with a check mark, after The Ordinary's
-// "Highlights" box. Data: src/c5/content/highlights.ts (only attributes stated in the
-// product's sources). Renders nothing for a product without an entry.
-import { HIGHLIGHTS, HIGHLIGHT_LABELS } from '@/c5/content/highlights'
+// "תכונות המוצר" — client notes round 1 (14.11.2026): thin line icons beside each
+// attribute, items in a row divided by hairlines (after the client's reference image).
+// Data: src/c5/content/highlights.ts (only attributes stated in the product's sources).
+// Kashrut: same look as the others; a click shows the kashrut type.
+import { HIGHLIGHTS, HIGHLIGHT_LABELS, type HighlightKey } from '@/c5/content/highlights'
 import { linkTerms } from '@/c5/glossaryLinks'
 interface Props { slug: string }
 const h = HIGHLIGHTS[Astro.props.slug]
 const used = new Set<string>()
-type Item = { label: string; value?: string }
+type Item = { key: HighlightKey | 'kosher'; label: string; value?: string }
 const items: Item[] = []
 if (h) {
   for (const [key, label] of HIGHLIGHT_LABELS) {
-    if (h.is.includes(key)) items.push({ label })
-    if (key === 'microscope' && h.kosher) items.push({ label: 'כשרות', value: h.kosher })
+    if (h.is.includes(key)) items.push({ key, label })
+    if (key === 'microscope' && h.kosher) items.push({ key: 'kosher', label: 'כשרות', value: h.kosher })
   }
 }
+// Line icons, 24px grid, 1.5 stroke — monochrome like the rest of the site's icons.
+const ICON: Record<string, string> = {
+  vegan: 'M20 4c-7 0-12 3-13 10 0 3 1 5 3 6 6 0 10-5 10-16Zm-13 16c2-5 5-8 9-11',
+  glutenFree: 'M12 21v-9m0 0c-3 0-4-2-4-4 2 0 4 1 4 4Zm0 0c3 0 4-2 4-4-2 0-4 1-4 4Zm0-5c-3 0-4-2-4-4 2 0 4 1 4 4Zm0 0c3 0 4-2 4-4-2 0-4 1-4 4ZM12 7c-2 0-3-2-3-4 2 0 3 2 3 4Zm0 0c2 0 3-2 3-4-2 0-3 2-3 4ZM4 4l16 16',
+  microscope: 'M9 3h4l-1 2-3 9-2-1 3-9-1-1Zm-2 9 2 1m1 1c3 1 5 3 5 6H5m0 2h14M14 7c3 1 5 3 5 7 0 2-1 3-2 4',
+  dairy: 'M9 3h6v3l2 3v11a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1V9l2-3V3Zm-2 9h10',
+  egg: 'M12 3c-4 0-7 6-7 11a7 7 0 0 0 14 0c0-5-3-11-7-11Z',
+  nonGmo: 'M7 4c0 4 10 6 10 10M7 20c0-4 10-6 10-10M7 4c0 4 10 6 10 10M9 7h6M9 17h6M4 4l16 16',
+  noPreservatives: 'M12 3s-6 6-6 11a6 6 0 0 0 12 0c0-5-6-11-6-11ZM5 5l14 14',
+  sugarFree: 'M4 8l8-4 8 4v8l-8 4-8-4V8Zm0 0 8 4 8-4m-8 4v8M4 4l16 16',
+  kosher: 'M12 3l2 1.8 2.6-.6.6 2.6L19.8 9 18.6 11.4 19.8 14l-2.6 1.2-.6 2.6-2.6-.6L12 19l-2-1.8-2.6.6-.6-2.6L4.2 14l1.2-2.6L4.2 9l2.6-1.2.6-2.6 2.6.6L12 3Zm-3 8 2 2 4-4',
+}
+const svg = (k: string) => `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${ICON[k]}"></path></svg>`
 ---
 {items.length > 0 && (
 <section aria-label="תכונות המוצר" class="pp pp-hl">
-<h2 style="margin: 0 0 20px">תכונות המוצר</h2>
+<h2 style="margin: 0 0 22px">תכונות המוצר</h2>
 <ul class="pp-hl-box">
 {items.map((x) => x.value ? (
 <li class="pp-hl-more">
 <button type="button" data-hl-toggle aria-expanded="false">
-<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#141414"></circle><path d="M7 12.5l3.2 3.2L17 9" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<Fragment set:html={svg(x.key)} />
 <span class="pp-hl-label">{x.label}</span>
 </button>
 <span class="pp-hl-value" data-hl-value hidden>{x.value}</span>
 </li>
 ) : (
 <li>
-<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#141414"></circle><path d="M7 12.5l3.2 3.2L17 9" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<Fragment set:html={svg(x.key)} />
 <span class="pp-hl-label" set:html={linkTerms(x.label, used)} />
 </li>
 ))}
@@ -39,21 +53,23 @@ if (h) {
 )}
 
 <style is:global>
-  /* One uniform pattern for every attribute: check mark + text, in equal columns. */
   .pp-hl { padding-top: clamp(32px, 4vw, 56px); }
-  .pp-hl-box { list-style: none; margin: 0; padding: 24px 28px; background: #f7f7f5; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px 32px; }
-  .pp-hl-box li { display: flex; align-items: center; gap: 12px; min-height: 28px; font-size: 16px; line-height: 1.4; }
-  .pp-hl-box svg { flex: 0 0 22px; }
+  .pp-hl-box { list-style: none; margin: 0; padding: 22px 8px; background: #f7f7f5; display: flex; flex-wrap: wrap; align-items: center; row-gap: 22px; }
+  .pp-hl-box li { display: flex; align-items: center; gap: 14px; padding: 2px clamp(18px, 2.4vw, 34px); font-size: 17px; line-height: 1.35; }
+  .pp-hl-box li + li { border-inline-start: 1px solid #c9c9c6; }
+  .pp-hl-box svg { flex: 0 0 26px; color: #141414; opacity: .8; }
   .pp-hl-label a { color: #141414; }
-  /* Kashrut: same look as the others; a click on the check shows the kashrut type. */
   .pp-hl-box li.pp-hl-more { flex-wrap: wrap; row-gap: 4px; }
-  .pp-hl-more button { display: inline-flex; align-items: center; gap: 12px; padding: 0; border: 0; background: none; color: #141414; font: inherit; cursor: pointer; text-align: start; }
+  .pp-hl-more button { display: inline-flex; align-items: center; gap: 14px; padding: 0; border: 0; background: none; color: #141414; font: inherit; cursor: pointer; text-align: start; }
   .pp-hl-more button .pp-hl-label { text-decoration: underline dotted; text-underline-offset: 4px; }
   .pp-hl-more button:focus-visible { outline: 2px solid #141414; outline-offset: 3px; }
-  .pp-hl-value { flex: 0 0 100%; padding-inline-start: 34px; font-size: 15px; }
+  .pp-hl-value { flex: 0 0 100%; padding-inline-start: 40px; font-size: 15px; }
   .pp-hl-value[hidden] { display: none; }
-  @media (max-width: 900px) { .pp-hl-box { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (max-width: 560px) { .pp-hl-box { grid-template-columns: 1fr; padding: 20px; } }
+  @media (max-width: 640px) {
+    .pp-hl-box { flex-direction: column; align-items: stretch; row-gap: 14px; padding: 18px 16px; }
+    .pp-hl-box li { padding: 0; }
+    .pp-hl-box li + li { border-inline-start: 0; }
+  }
 </style>
 
 <script>
