@@ -2,6 +2,8 @@
 title: לקטובצילוס רמנוסוס CA15
 latin: Lacticaseibacillus rhamnosus CA15 (DSM 33960)
 excerpt: זן פרוביוטי שנבדק בשני מחקרים קליניים כפולי-סמיות בתחום האיזון החיידקי הנשי — ומה דיווחו המשתתפות.
+image: /assets/articles/lactobacillus-rhamnosus-ca15.jpg
+credit: צילום: Claes IJJ, Schoofs G, Regulski K, Courtin P, Chapot-Chartier, Wikimedia Commons, רישיון CC BY 4.0
 ---
 לקטובצילוס רמנוסוס (ובשמו המדעי העדכני Lacticaseibacillus rhamnosus) הוא אחד ממיני חיידקי חומצת החלב המוכרים והנחקרים בעולם הפרוביוטיקה. חיידקים ממין זה חיים באופן טבעי במערכת העיכול ובמערכות נוספות בגוף האדם, והם ידועים ביכולתם לייצר חומצת חלב וליצור סביבה חומצית הנוחה לחיידקים ידידותיים. זנים ממין זה נחקרים ברחבי העולם כבר עשרות שנים, בהקשרים מגוונים של בריאות האדם.
 

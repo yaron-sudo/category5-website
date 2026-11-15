@@ -2,6 +2,8 @@
 title: לקטובצילוס רמנוסוס CRL1505
 latin: Lacticaseibacillus rhamnosus CRL1505
 excerpt: הכירו את הזן CRL1505 ואת עולם הפוסטביוטיקה — חיידקים ידידותיים בצורה מיוחדת, הנחקרים בהקשר של מערכת החיסון.
+image: /assets/articles/lactobacillus-rhamnosus-crl1505.jpg
+credit: צילום: Dr. Horst Neve, Max Rubner-Institut, Wikimedia Commons, רישיון CC BY-SA 3.0 de
 ---
 לקטובצילוס רמנוסוס (Lacticaseibacillus rhamnosus) הוא מין מוכר של חיידקי חומצת חלב, מהנפוצים בעולם הפרוביוטיקה. הזן CRL1505 בודד בארגנטינה ממקור חלבי, והפך לאחד הזנים המזוהים ביותר עם תחום המחקר של חיידקים ידידותיים ומערכת החיסון; בארגנטינה הוא אף שולב לאורך השנים בתוכניות תזונה ציבוריות לילדים.
 
