@@ -26,6 +26,15 @@ import type { Product } from './products'
 
 export type ProductOverride = Partial<Omit<Product, 'slug'>> & { hidden?: boolean }
 
+/** Products already in the new packaging: their cards on the series and needs pages
+ *  carry the "האריזה החדשה" tag (client brief 15.11.2026). Edit freely. */
+export const NEW_PACK: string[] = [
+  'calcidex', 'cellinol-liposomal-vitamin-c', 'curcumin-complex', 'fibrogen', 'liposomal-multivitamin',
+  'liposomal-vitamin-b-complex', 'lipozamin-alpha-lipoic-acid', 'lipozamin-nac', 'magnesium-bisglycinate-liposomal',
+  'natto', 'umanaflora-daily', 'quick-c', 'quick-daily-biotics', 'quick-fe', 'revival',
+  'lipozamin-nicotinamide', 'lipozamin-q10-spectrum', 'lipozamin-se',
+]
+
 export const PRODUCT_OVERRIDES: Record<string, ProductOverride> = {
   // Pack sizes updated to the BOM list.
   // Amorfolic: the new pack label (120 capsules, 1 a day) and the client's brochure (Amorfolic.pdf).

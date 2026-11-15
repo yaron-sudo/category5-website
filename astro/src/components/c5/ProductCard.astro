@@ -4,14 +4,19 @@
 import { SERIES } from '@/c5/data'
 import { t } from '@/c5/i18n'
 import { imageFit, imageFeather } from '@/c5/content/imageFit'
-interface Props { title: string; image?: string; href?: string; series: string }
-const { title, image, href, series } = Astro.props
+interface Props { title: string; image?: string; href?: string; series: string; newPack?: boolean }
+const { title, image, href, series, newPack = false } = Astro.props
 const s = SERIES.find((x) => x.slug === series) ?? SERIES[0]
 const Tag = href ? 'a' : 'div'
 const fit = await imageFit(image)
 ---
 <Tag href={href} dir="rtl" style="display: flex; flex-direction: column; height: 100%; text-decoration: none; color: #141414; font-family: 'C5 Sans', 'Noto Sans Hebrew', Arial, sans-serif; background: #ffffff; border: 1px solid #dcdcd9; box-sizing: border-box">
 <div style="position: relative; aspect-ratio: 1 / 1; background: #f7f7f5; display: flex; align-items: center; justify-content: center; overflow: hidden">
+{newPack && (
+<span class="c5-newpack" style={`border-color: ${s.color}`}>
+<svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c.6 5.4 4.6 9.4 10 10-5.4.6-9.4 4.6-10 10-.6-5.4-4.6-9.4-10-10 5.4-.6 9.4-4.6 10-10Z"></path></svg>
+האריזה החדשה</span>
+)}
 {image ? <img src={image} alt={title} loading="lazy" class={imageFeather(image) ? 'c5-cutout c5-feather' : 'c5-cutout'} style={fit ?? 'width: 100%; height: 100%; object-fit: contain'}> : <span>{t('img')}</span>}
 </div>
 <div style="padding: 16px; display: flex; flex-direction: column; gap: 8px">
@@ -19,3 +24,10 @@ const fit = await imageFit(image)
 <span style="font-size: 20px; line-height: 1.3">{title}</span>
 </div>
 </Tag>
+
+<style is:global>
+  /* "האריזה החדשה" tag (client brief 15.11.2026): top-left of the card, white, thin outline in
+     the series colour, regular black text, 4px corners, a small sparkle in its top-left corner. */
+  .c5-newpack { position: absolute; top: 10px; left: 10px; z-index: 2; display: inline-flex; align-items: center; gap: 6px; padding: 4px 9px 4px 8px; border: 1px solid; border-radius: 4px; background: #ffffff; color: #141414; font-size: 12px !important; font-weight: 400; line-height: 1.3; white-space: nowrap; }
+  .c5-newpack svg { flex: 0 0 10px; align-self: flex-start; margin-top: 1px; opacity: .85; }
+</style>

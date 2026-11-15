@@ -39,6 +39,8 @@ export interface Product {
   details?: string[]
   /** "התוויה משפטית" text */
   legal?: string
+  /** New packaging (brand refresh): series and needs pages show the "האריזה החדשה" tag on the card. */
+  newPack?: boolean
   /** Extra search words: everyday names, benefits, uses (BRIEF §12). */
   keywords?: string[]
 }

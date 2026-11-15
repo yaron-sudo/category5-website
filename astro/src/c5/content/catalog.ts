@@ -11,7 +11,7 @@ import { fetchQ, urlFor, type SanityImage } from '@/lib/sanity'
 import { DISCLAIMER } from '@/lib/brand'
 import { PRODUCTS, type Product } from './products'
 import { LABELS } from './labels'
-import { PRODUCT_OVERRIDES } from './overrides'
+import { PRODUCT_OVERRIDES, NEW_PACK } from './overrides'
 import { BOM_SERIES } from './bom'
 import { SERIES_CONTENT } from './series'
 
@@ -105,6 +105,7 @@ async function build(): Promise<Product[]> {
       const { hidden, ...ov } = PRODUCT_OVERRIDES[p.slug] ?? {}
       if (hidden) { hiddenTo[p.slug] = `/series/${ov.series ?? p.series}`; return null }
       const out: Product = { ...p, ...ov }
+      out.newPack = ov.newPack ?? (NEW_PACK.includes(p.slug) || !!p.newPack)
       out.image = ov.image ?? assetFor('assets/products', p.slug) ?? out.image
       out.label = ov.label ?? LABELS[p.slug] ?? (p.source ? LABELS[p.source] : undefined) ?? (out.labelText?.length ? { notes: out.labelText } : undefined)
       out.labelImage = ov.labelImage ?? assetFor('assets/products/labels', p.slug) ?? out.labelImage

@@ -129,3 +129,8 @@ One review per raw material, under `astro/src/c5/content/articles-ingredients/<r
 Written from `knowledge/research/<id>.md` — only studies with a `בקצרה` line; positive findings
 only; no company product names, no sales referral (legal). A fixed closing note is appended
 automatically. The articles pages are styled after The Ordinary (client request 14.11.2026).
+
+## "האריזה החדשה" tag
+
+Products in the new packaging are listed in `NEW_PACK` (astro/src/c5/content/overrides.ts). Their cards on the
+series and needs pages show a small white tag with the series-colour outline. Add/remove slugs there.

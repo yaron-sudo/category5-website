@@ -36,7 +36,7 @@ const used = new Set<string>()
 <section aria-label="מוצרים בתחום" style="max-width: 1280px; margin: 0 auto; padding: 24px clamp(16px, 4vw, 48px) clamp(56px, 7vw, 112px); box-sizing: border-box">
 <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px">
 {products.length
-  ? products.map((p) => <ProductCard title={p.title} image={p.image} href={productHref(p)} series={p.series} />)
+  ? products.map((p) => <ProductCard title={p.title} image={p.image} href={productHref(p)} series={p.series} newPack={p.newPack} />)
   : ['vitamins-minerals', 'professional', 'probiotics', 'plants'].map((s) => <ProductCard title={PRODUCT_TITLE_PLACEHOLDER} series={s} />)}
 </div>
 </section>
