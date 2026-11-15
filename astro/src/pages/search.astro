@@ -1,103 +1,173 @@
 ---
-// BRIEF §12 — search, ported from mockups/Search.dc.html. Client-side search over
-// products, series and needs. Each item's index includes names, series, short text,
-// benefits, usage and extra keywords (products.ts / overrides.ts `keywords`), so
-// everyday words, benefits and uses find the product too.
+// Search — client brief "מנגנון ותוצאות חיפוש, סבב 1" (15.11.2026), BRIEF §12 design kept.
+// The index (src/c5/search/index.ts) is embedded in the page; the engine (src/c5/search/engine.js)
+// ranks products and articles by name, everyday phrases (searchKeywords.ts), ingredients, text
+// and body, tolerates typos and Hebrew prefixes/plurals, autocompletes, and suggests a fix.
+// Results: two columns — products (right) and articles (left); a matching series / need
+// shows as a quick link above them.
 import Site from '@/layouts/Site.astro'
-import ProductCard from '@/components/c5/ProductCard.astro'
 import { SERIES, NEEDS, seriesHref, needHref } from '@/c5/data'
-import { t } from '@/c5/i18n'
-import { getCatalog } from '@/c5/content/catalog'
-import { productHref } from '@/c5/content/products'
-import { NEED_CONTENT } from '@/c5/content/needs'
-
-const catalog = await getCatalog()
-const seriesName = (slug: string) => SERIES.find((s) => s.slug === slug)?.name ?? ''
-const needsOf = (slug: string) => NEEDS.filter((n) => NEED_CONTENT[n.slug]?.products.includes(slug)).map((n) => n.label)
-const idx = (parts: Array<string | undefined>) => parts.filter(Boolean).join(' ').toLowerCase()
-const chip = 'min-height: 40px; padding: 0 16px; border: 1px solid #141414; border-radius: 4px; font: inherit; cursor: pointer'
-const tile = 'display: flex; flex-direction: column; height: 100%; text-decoration: none; color: #141414; background: #ffffff; border: 1px solid #dcdcd9; box-sizing: border-box'
+import { buildSearchDocs, SEARCH_SYNONYMS } from '@/c5/search/index'
+const docs = await buildSearchDocs()
+const quick = [
+  ...SERIES.map((s) => ({ kind: 'series', label: s.name, href: seriesHref(s), prefix: 'סדרה' })),
+  ...NEEDS.map((n) => ({ kind: 'needs', label: n.label, href: needHref(n), prefix: 'מה הצורך' })),
+]
+const btn = 'min-height: 48px; padding: 0 22px; border: 1px solid #141414; border-radius: 4px; background: #ffffff; color: #141414; font: inherit; cursor: pointer'
 ---
-<Site title="חיפוש">
-<section style="max-width: 960px; margin: 0 auto; padding: clamp(40px, 6vw, 88px) clamp(16px, 4vw, 48px) 24px; box-sizing: content-box; display: flex; flex-direction: column; gap: 16px">
+<Site title="חיפוש" description="חיפוש מוצרים ומאמרים לפי שם, רכיב, צורך או שפה יומיומית.">
+<section class="sr-head">
 <h1 style="margin: 0">חיפוש</h1>
-<form role="search" data-search-form style="display: flex; gap: 8px">
-<label for="q" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">חיפוש באתר</label>
-<input id="q" name="q" type="search" placeholder="שם מוצר, תחום, רכיב או שימוש" style="flex: 1 1 auto; min-width: 0; min-height: 48px; border: 1px solid #141414; border-radius: 4px; padding: 0 14px; font: inherit">
-<button type="submit" style="min-height: 48px; padding: 0 22px; border: 1px solid #141414; border-radius: 4px; background: #ffffff; color: #141414; font: inherit; cursor: pointer">חיפוש</button>
-</form>
-<div role="group" aria-label="סינון" style="display: flex; flex-wrap: wrap; gap: 8px">
-<button type="button" data-filter="all" aria-pressed="true" style={`${chip}; background: #141414; color: #ffffff`}>הכל</button>
-<button type="button" data-filter="series" aria-pressed="false" style={`${chip}; background: #ffffff; color: #141414`}>סדרות</button>
-<button type="button" data-filter="needs" aria-pressed="false" style={`${chip}; background: #ffffff; color: #141414`}>מה הצורך</button>
-<button type="button" data-filter="products" aria-pressed="false" style={`${chip}; background: #ffffff; color: #141414`}>מוצרים</button>
+<form role="search" data-sr-form class="sr-form" autocomplete="off">
+<div class="sr-combo">
+<label for="q" class="c5-sr">חיפוש באתר</label>
+<input id="q" name="q" type="search" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="sr-sugg" placeholder="מוצר, רכיב, צורך או פשוט מה שמרגישים…" data-sr-q>
+<ul id="sr-sugg" role="listbox" data-sr-sugg hidden></ul>
 </div>
+<button type="submit" style={btn}>חיפוש</button>
+</form>
+<p data-sr-dym role="status" aria-live="polite" class="sr-dym" hidden></p>
+<div data-sr-quick class="sr-quick" hidden></div>
 </section>
 
-<section style="max-width: 1280px; margin: 0 auto; padding: 24px clamp(16px, 4vw, 48px) clamp(56px, 7vw, 112px); box-sizing: border-box">
-<h2 style="margin: 0 0 16px">תוצאות</h2>
-<div data-search-results style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 24px">
-{SERIES.map((s) => (
-<div data-kind="series" data-index={idx([s.name])}>
-<a href={seriesHref(s)} style={tile}>
-<div style="aspect-ratio: 1 / 1; background: #f7f7f5; display: flex; align-items: center; justify-content: center"><img src={s.icon} alt="" style="width: 96px; height: 96px"></div>
-<div style="padding: 16px; display: flex; flex-direction: column; gap: 8px"><span style="font-size: 20px; line-height: 1.3">{s.name}</span></div>
-</a>
+<section class="sr-results">
+<div class="sr-cols">
+<div class="sr-col">
+<h2 style="margin: 0 0 16px"><span>מוצרים</span> <span data-sr-count="product" class="sr-count"></span></h2>
+<div data-sr-list="product" class="sr-grid"></div>
+<p data-sr-empty="product" class="sr-empty" hidden>לא נמצאו מוצרים מתאימים. נסו מילה אחרת, שם רכיב או תחום.</p>
 </div>
-))}
-{NEEDS.map((n) => (
-<div data-kind="needs" data-index={idx([n.label])}>
-<a href={needHref(n)} style={tile}>
-<div style="aspect-ratio: 1 / 1; background: #e9e9e7; display: flex; align-items: center; justify-content: center">{t('img')}</div>
-<div style="padding: 16px; display: flex; flex-direction: column; gap: 8px"><span style="font-size: 20px; line-height: 1.3">{n.label}</span></div>
-</a>
+<div class="sr-col">
+<h2 style="margin: 0 0 16px"><span>מאמרים</span> <span data-sr-count="article" class="sr-count"></span></h2>
+<div data-sr-list="article" class="sr-articles"></div>
+<p data-sr-empty="article" class="sr-empty" hidden>לא נמצאו מאמרים מתאימים לחיפוש הזה.</p>
 </div>
-))}
-{catalog.map((p) => (
-<div data-kind="products" data-index={idx([p.title, p.fullTitle, seriesName(p.series), ...needsOf(p.slug), ...(p.intro ?? []), ...(p.benefits ?? []), ...(p.usage ?? []), ...(p.keywords ?? [])])}>
-<ProductCard title={p.title} image={p.image} href={productHref(p)} series={p.series} />
 </div>
-))}
-</div>
+<p data-sr-idle class="sr-idle">הקלידו מה שמחפשים — שם מוצר, רכיב, צורך בריאותי או פשוט "קשה לי להירדם".</p>
 </section>
+
+<script type="application/json" data-sr-data set:html={JSON.stringify({ docs, synonyms: SEARCH_SYNONYMS, quick, series: SERIES.map((s) => ({ slug: s.slug, color: s.color })) })}></script>
+</Site>
+
+<style is:global>
+  .c5-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .sr-head { max-width: 960px; margin: 0 auto; padding: clamp(40px, 6vw, 88px) clamp(16px, 4vw, 48px) 8px; box-sizing: content-box; display: flex; flex-direction: column; gap: 16px; color: #141414; }
+  .sr-form { display: flex; gap: 8px; align-items: flex-start; }
+  .sr-combo { position: relative; flex: 1 1 auto; min-width: 0; }
+  .sr-combo input { width: 100%; box-sizing: border-box; min-height: 48px; border: 1px solid #141414; border-radius: 4px; padding: 0 14px; font: inherit; font-size: 17px; background: #ffffff; }
+  #sr-sugg { position: absolute; top: calc(100% + 4px); right: 0; left: 0; z-index: 30; margin: 0; padding: 6px 0; list-style: none; background: #ffffff; border: 1px solid #141414; border-radius: 4px; box-shadow: 0 10px 30px rgba(20,20,20,.08); }
+  #sr-sugg[hidden] { display: none; }
+  #sr-sugg li { padding: 10px 14px; cursor: pointer; font-size: 16px; }
+  #sr-sugg li[aria-selected="true"], #sr-sugg li:hover { background: #f7f7f5; }
+  .sr-dym { margin: 0; font-size: 15px; }
+  .sr-dym button { border: 0; background: none; padding: 0; font: inherit; color: #141414; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+  .sr-quick { display: flex; flex-wrap: wrap; gap: 8px; }
+  .sr-quick a { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; border: 1px solid #141414; border-radius: 4px; color: #141414; text-decoration: none; font-size: 15px; }
+  .sr-quick a:hover { background: #efeeea; }
+  .sr-results { max-width: 1280px; margin: 0 auto; padding: 24px clamp(16px, 4vw, 48px) clamp(56px, 7vw, 112px); box-sizing: border-box; color: #141414; }
+  .sr-cols { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 40px clamp(28px, 4vw, 56px); }
+  .sr-cols[hidden] { display: none; }
+  .sr-count { font-size: 15px !important; font-weight: 400 !important; }
+  .sr-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
+  .sr-articles { display: flex; flex-direction: column; border-top: 1px solid #141414; }
+  .sr-art { display: flex; flex-direction: column; gap: 6px; padding: 18px 0; border-bottom: 1px solid #dcdcd9; color: #141414; text-decoration: none; }
+  .sr-art strong { font-weight: 600; font-size: 18px; }
+  .sr-art .sr-latin { font-size: 13px; opacity: .66; direction: ltr; unicode-bidi: plaintext; text-align: right; }
+  .sr-art p { margin: 0; font-size: 15px; }
+  .sr-art .sr-more { font-size: 14px; text-decoration: underline; text-underline-offset: 4px; }
+  .sr-empty, .sr-idle { margin: 0; font-size: 15px; }
+  .sr-idle[hidden], .sr-empty[hidden] { display: none; }
+  /* product card (same markup as ProductCard.astro) */
+  .sr-card { display: flex; flex-direction: column; height: 100%; text-decoration: none; color: #141414; background: #ffffff; border: 1px solid #dcdcd9; box-sizing: border-box; }
+  .sr-card .sr-img { position: relative; aspect-ratio: 1 / 1; background: #f7f7f5; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .sr-card img { width: 86%; height: 86%; object-fit: contain; mix-blend-mode: multiply; }
+  .sr-card .sr-body { padding: 14px; display: flex; flex-direction: column; gap: 6px; }
+  .sr-card .sr-series { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; }
+  .sr-card .sr-series i { width: 12px; height: 12px; display: inline-block; }
+  .sr-card .sr-title { font-size: 18px; line-height: 1.3; }
+  @media (max-width: 900px) { .sr-cols { grid-template-columns: 1fr; } }
+</style>
 
 <script>
-  const form = document.querySelector<HTMLFormElement>('[data-search-form]')!
-  const input = form.querySelector('input')!
-  const items = [...document.querySelectorAll<HTMLElement>('[data-search-results] > [data-kind]')]
-  const chips = [...document.querySelectorAll<HTMLButtonElement>('[data-filter]')]
-  let filter = 'all'
-  // Hebrew: ignore niqqud / punctuation, and allow one-letter prefixes (ה/ב/ל/ו/מ/ש/כ) on query words.
-  const norm = (s: string) => s.toLowerCase().replace(/[֑-ׇ"'׳״.,\-–]/g, ' ').replace(/\s+/g, ' ').trim()
-  const apply = () => {
-    const words = norm(input.value).split(' ').filter(Boolean)
-    for (const el of items) {
-      const hay = norm(el.dataset.index || '')
-      const okKind = filter === 'all' || el.dataset.kind === filter
-      const okText = words.every((w) => hay.includes(w) || (w.length > 3 && /^[הבלומשכ]/.test(w) && hay.includes(w.slice(1))))
-      el.hidden = !(okKind && okText)
+  import { buildIndex, search, suggest, didYouMean, normalize, unfold } from '@/c5/search/engine.js'
+  type Doc = { id: string; kind: 'product' | 'article'; title: string; href: string; image?: string; meta?: string; fields: Record<string, string> }
+  const D = JSON.parse(document.querySelector('[data-sr-data]')!.textContent || '{}') as {
+    docs: Doc[]; synonyms: Array<{ name: string; words: string[] }>; quick: Array<{ kind: string; label: string; href: string; prefix: string }>; series: Array<{ slug: string; color: string }>
+  }
+  const index = buildIndex(D.docs, D.synonyms)
+  const form = document.querySelector<HTMLFormElement>('[data-sr-form]')!
+  const input = form.querySelector<HTMLInputElement>('[data-sr-q]')!
+  const sugg = document.querySelector<HTMLUListElement>('[data-sr-sugg]')!
+  const dym = document.querySelector<HTMLElement>('[data-sr-dym]')!
+  const quickEl = document.querySelector<HTMLElement>('[data-sr-quick]')!
+  const cols = document.querySelector<HTMLElement>('.sr-cols')!
+  const idle = document.querySelector<HTMLElement>('[data-sr-idle]')!
+  const lists = { product: document.querySelector<HTMLElement>('[data-sr-list="product"]')!, article: document.querySelector<HTMLElement>('[data-sr-list="article"]')! }
+  const empties = { product: document.querySelector<HTMLElement>('[data-sr-empty="product"]')!, article: document.querySelector<HTMLElement>('[data-sr-empty="article"]')! }
+  const counts = { product: document.querySelector<HTMLElement>('[data-sr-count="product"]')!, article: document.querySelector<HTMLElement>('[data-sr-count="article"]')! }
+  const esc = (s: string) => s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!)
+  const seriesColor = (name?: string) => { const s = D.quick.find((q) => q.kind === 'series' && q.label === name); const slug = s ? s.href.split('/').pop() : ''; return D.series.find((x) => x.slug === slug)?.color ?? '#141414' }
+
+  const card = (d: Doc) => d.kind === 'product'
+    ? `<a href="${d.href}" class="sr-card"><span class="sr-img">${d.image ? `<img src="${esc(d.image)}" alt="" loading="lazy">` : ''}</span><span class="sr-body"><span class="sr-series"><i style="background:${seriesColor(d.meta)}"></i>${esc(d.meta || '')}</span><span class="sr-title">${esc(d.title)}</span></span></a>`
+    : `<a href="${d.href}" class="sr-art"><strong>${esc(d.title)}</strong>${d.meta ? `<span class="sr-latin" lang="en">${esc(d.meta)}</span>` : ''}<p>${esc((d.fields.text || '').split(' ').slice(0, 28).join(' '))}</p><span class="sr-more">קרא עוד</span></a>`
+
+  const run = (q: string, push = true) => {
+    const nq = normalize(q)
+    if (push) history.replaceState(null, '', nq ? `?q=${encodeURIComponent(q.trim())}` : location.pathname)
+    if (!nq) { cols.hidden = true; idle.hidden = false; dym.hidden = true; quickEl.hidden = true; return }
+    cols.hidden = false; idle.hidden = true
+    // quick links: a series or need whose name matches
+    const ql = D.quick.filter((x) => { const n = normalize(x.label); return n.includes(nq) || nq.includes(n) || nq.split(' ').some((t) => t.length >= 3 && n.includes(t)) })
+    quickEl.innerHTML = ql.map((x) => `<a href="${x.href}">${esc(x.prefix)}: ${esc(x.label)}</a>`).join('')
+    quickEl.hidden = !ql.length
+    const r = search(index, q)
+    for (const kind of ['product', 'article'] as const) {
+      const hits = r.results.filter((x) => x.doc.kind === kind)
+      lists[kind].innerHTML = hits.map((x) => card(x.doc)).join('')
+      empties[kind].hidden = hits.length > 0
+      counts[kind].textContent = hits.length ? `(${hits.length})` : ''
     }
+    // a correction is offered only when the search came back (almost) empty
+    const fix = r.results.length < 3 ? didYouMean(index, q, r.unmatched) : null
+    if (fix && fix !== nq) { dym.innerHTML = `האם התכוונתם ל<button type="button" data-sr-fix>${esc(unfold(fix))}</button>?`; dym.hidden = false; dym.querySelector('button')!.addEventListener('click', () => { input.value = unfold(fix); closeSugg(); run(input.value) }) }
+    else dym.hidden = true
   }
-  const setFilter = (f: string) => {
-    filter = f
-    chips.forEach((c) => {
-      const on = c.dataset.filter === f
-      c.setAttribute('aria-pressed', String(on))
-      c.style.background = on ? '#141414' : '#ffffff'
-      c.style.color = on ? '#ffffff' : '#141414'
-    })
-    apply()
+
+  // autocomplete
+  let active = -1
+  const closeSugg = () => { sugg.hidden = true; sugg.innerHTML = ''; input.setAttribute('aria-expanded', 'false'); active = -1 }
+  const openSugg = () => {
+    const items = suggest(index, input.value) as string[]
+    if (!items.length) return closeSugg()
+    sugg.innerHTML = items.map((s, i) => `<li role="option" id="sr-opt-${i}" aria-selected="false">${esc(unfold(s))}</li>`).join('')
+    sugg.hidden = false; input.setAttribute('aria-expanded', 'true'); active = -1
+    sugg.querySelectorAll('li').forEach((li) => li.addEventListener('mousedown', (e) => { e.preventDefault(); input.value = li.textContent || ''; closeSugg(); run(input.value) }))
   }
-  chips.forEach((c) => c.addEventListener('click', () => setFilter(c.dataset.filter!)))
-  form.addEventListener('submit', (e) => { e.preventDefault(); apply(); history.replaceState(null, '', input.value ? `?q=${encodeURIComponent(input.value)}` : location.pathname) })
-  input.addEventListener('input', apply)
+  let timer: number | undefined
+  input.addEventListener('input', () => { openSugg(); clearTimeout(timer); timer = window.setTimeout(() => run(input.value), 160) })
+  input.addEventListener('keydown', (e) => {
+    const opts = [...sugg.querySelectorAll<HTMLElement>('li')]
+    if (sugg.hidden || !opts.length) { if (e.key === 'Escape') closeSugg(); return }
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      e.preventDefault()
+      active = (active + (e.key === 'ArrowDown' ? 1 : -1) + opts.length) % opts.length
+      opts.forEach((o, i) => o.setAttribute('aria-selected', String(i === active)))
+      input.setAttribute('aria-activedescendant', opts[active].id)
+    } else if (e.key === 'Enter' && active >= 0) { e.preventDefault(); input.value = opts[active].textContent || ''; closeSugg(); run(input.value) }
+    else if (e.key === 'Escape') closeSugg()
+  })
+  input.addEventListener('blur', () => setTimeout(closeSugg, 120))
+  form.addEventListener('submit', (e) => { e.preventDefault(); closeSugg(); run(input.value) })
+
   const params = new URLSearchParams(location.search)
-  input.value = params.get('q') || ''
-  setFilter(['series', 'needs', 'products'].includes(params.get('filter') || '') ? params.get('filter')! : 'all')
+  const q0 = params.get('q') || ''
+  const filter = params.get('filter')
+  input.value = q0
+  if (filter === 'needs' || filter === 'series') {
+    // header links /search?filter=needs: list the quick links of that kind
+    quickEl.innerHTML = D.quick.filter((x) => x.kind === filter).map((x) => `<a href="${x.href}">${esc(x.label)}</a>`).join('')
+    quickEl.hidden = false
+  }
+  run(q0, false)
 </script>
-<style is:global>
-  [data-search-results] > [hidden] { display: none !important; }
-  /* Results are filtered live: no position-based reveal delay here. */
-  [data-search-results].c5-stagger > * { opacity: 1 !important; transform: none !important; }
-</style>
-</Site>

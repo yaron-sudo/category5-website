@@ -9,7 +9,8 @@
     "build": "astro build && node scripts/patch-vercel-runtime.mjs",
     "build:preview": "PUBLIC_SANITY_VISUAL_EDITING_ENABLED=true astro build && node scripts/patch-vercel-runtime.mjs",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "astro check",
+    "search:test": "node scripts/search-test.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.3.0",

@@ -134,3 +134,13 @@ automatically. The articles pages are styled after The Ordinary (client request 
 
 Products in the new packaging are listed in `NEW_PACK` (astro/src/c5/content/overrides.ts). Their cards on the
 series and needs pages show a small white tag with the series-colour outline. Add/remove slugs there.
+
+## Search words (מנוע החיפוש)
+
+`astro/src/c5/content/searchKeywords.ts`:
+- `SYNONYMS` — groups of everyday phrases that mean the same thing ("קשה לי להירדם" → שינה …). A query
+  that touches a group searches for all its words.
+- `PRODUCT_KEYWORDS` / `ARTICLE_KEYWORDS` — extra search words per product slug / article id (needs,
+  nicknames, English). Ranked almost like the name.
+The engine also understands Hebrew prefixes, plurals, final letters and typos on its own.
+Check with `cd astro && npm run build && npm run search:test` (expected results listed in `scripts/search-test.mjs`).
