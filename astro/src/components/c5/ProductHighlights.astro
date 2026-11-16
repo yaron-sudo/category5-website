@@ -9,13 +9,19 @@ interface Props { slug: string }
 const h = HIGHLIGHTS[Astro.props.slug]
 const used = new Set<string>()
 type Item = { key: HighlightKey | 'kosher'; label: string; value?: string }
-const items: Item[] = []
+// Two rows (client notes round 2, 16.11.2026): row 1 — vegan, microscope, non-GMO;
+// row 2 — kosher, no preservatives, then any other trait the product carries.
+const all: Item[] = []
 if (h) {
-  for (const [key, label] of HIGHLIGHT_LABELS) {
-    if (h.is.includes(key)) items.push({ key, label })
-    if (key === 'microscope' && h.kosher) items.push({ key: 'kosher', label: 'כשרות', value: h.kosher })
-  }
+  for (const [key, label] of HIGHLIGHT_LABELS) if (h.is.includes(key)) all.push({ key, label })
+  if (h.kosher) all.push({ key: 'kosher', label: 'כשרות', value: h.kosher })
 }
+const ROW1: Array<Item['key']> = ['vegan', 'microscope', 'nonGmo']
+const ROW2: Array<Item['key']> = ['kosher', 'noPreservatives']
+const pick = (keys: Array<Item['key']>) => keys.map((k) => all.find((x) => x.key === k)).filter((x): x is Item => !!x)
+const rest = all.filter((x) => !ROW1.includes(x.key) && !ROW2.includes(x.key))
+const rows = [pick(ROW1), [...pick(ROW2), ...rest]].filter((r) => r.length)
+const items = all
 // Line icons, 24px grid, 1.5 stroke — monochrome like the rest of the site's icons.
 const ICON: Record<string, string> = {
   vegan: 'M20 4c-7 0-12 3-13 10 0 3 1 5 3 6 6 0 10-5 10-16Zm-13 16c2-5 5-8 9-11',
@@ -31,10 +37,11 @@ const ICON: Record<string, string> = {
 const svg = (k: string) => `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${ICON[k]}"></path></svg>`
 ---
 {items.length > 0 && (
-<section aria-label="תכונות המוצר" class="pp pp-hl">
-<h2 style="margin: 0 0 22px">תכונות המוצר</h2>
-<ul class="pp-hl-box">
-{items.map((x) => x.value ? (
+<section aria-label="תכונות המוצר" class="pp-hl">
+<h2 class="pp-hl-title">תכונות המוצר</h2>
+{rows.map((row) => (
+<ul class="pp-hl-row">
+{row.map((x) => x.value ? (
 <li class="pp-hl-more">
 <button type="button" data-hl-toggle aria-expanded="false">
 <Fragment set:html={svg(x.key)} />
@@ -49,26 +56,31 @@ const svg = (k: string) => `<svg width="26" height="26" viewBox="0 0 24 24" fill
 </li>
 ))}
 </ul>
+))}
 </section>
 )}
 
 <style is:global>
-  .pp-hl { padding-top: clamp(32px, 4vw, 56px); }
-  .pp-hl-box { list-style: none; margin: 0; padding: 22px 8px; background: #f7f7f5; display: flex; flex-wrap: wrap; align-items: center; row-gap: 22px; }
-  .pp-hl-box li { display: flex; align-items: center; gap: 14px; padding: 2px clamp(18px, 2.4vw, 34px); font-size: 17px; line-height: 1.35; }
-  .pp-hl-box li + li { border-inline-start: 1px solid #c9c9c6; }
-  .pp-hl-box svg { flex: 0 0 26px; color: #141414; opacity: .8; }
+  /* In the product's text column, after the "יש לכם שאלה?" banner: title right-aligned, two rows,
+     thin grey line icons right of the text, thin vertical dividers inside a row, no box, no rules. */
+  .pp-hl { display: flex; flex-direction: column; gap: 14px; }
+  .pp-hl-title { margin: 0; text-align: start; }
+  .pp-hl-row { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; align-items: center; row-gap: 12px; }
+  .pp-hl-row li { display: flex; align-items: center; gap: 10px; padding: 2px clamp(12px, 1.4vw, 20px); font-size: 16px; line-height: 1.35; }
+  .pp-hl-row li:first-child { padding-inline-start: 0; }
+  .pp-hl-row li + li { border-inline-start: 1px solid #c9c9c6; }
+  .pp-hl-row svg { flex: 0 0 22px; width: 22px; height: 22px; color: #8a8a88; }
   .pp-hl-label a { color: #141414; }
-  .pp-hl-box li.pp-hl-more { flex-wrap: wrap; row-gap: 4px; }
-  .pp-hl-more button { display: inline-flex; align-items: center; gap: 14px; padding: 0; border: 0; background: none; color: #141414; font: inherit; cursor: pointer; text-align: start; }
+  .pp-hl-row li.pp-hl-more { flex-wrap: wrap; row-gap: 4px; }
+  .pp-hl-more button { display: inline-flex; align-items: center; gap: 10px; padding: 0; border: 0; background: none; color: #141414; font: inherit; cursor: pointer; text-align: start; }
   .pp-hl-more button .pp-hl-label { text-decoration: underline dotted; text-underline-offset: 4px; }
   .pp-hl-more button:focus-visible { outline: 2px solid #141414; outline-offset: 3px; }
-  .pp-hl-value { flex: 0 0 100%; padding-inline-start: 40px; font-size: 15px; }
+  .pp-hl-value { flex: 0 0 100%; padding-inline-start: 32px; font-size: 15px; }
   .pp-hl-value[hidden] { display: none; }
-  @media (max-width: 640px) {
-    .pp-hl-box { flex-direction: column; align-items: stretch; row-gap: 14px; padding: 18px 16px; }
-    .pp-hl-box li { padding: 0; }
-    .pp-hl-box li + li { border-inline-start: 0; }
+  @media (max-width: 480px) {
+    .pp-hl-row { flex-direction: column; align-items: stretch; row-gap: 10px; }
+    .pp-hl-row li { padding: 0; }
+    .pp-hl-row li + li { border-inline-start: 0; }
   }
 </style>
 

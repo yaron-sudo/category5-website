@@ -50,8 +50,9 @@ a[href^="/products/"]:hover, a[href^="/series/"]:hover { border-color: #c9c9c6 !
 a[href^="/products/"]:hover { box-shadow: 0 10px 30px rgba(20,20,20,.05); }
 a[href^="/products/"] img, a[href^="/series/"] img { transition: transform 1.2s cubic-bezier(.22,.61,.36,1); }
 a[href^="/products/"]:hover img, a[href^="/series/"]:hover img { transform: scale(1.025); }
-a[href^="/products/"] > div:last-child > span:last-child, a[data-c5-series-tile] > span:last-child { transition: text-decoration-color .5s cubic-bezier(.22,.61,.36,1); text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 5px; }
-a[href^="/products/"]:hover > div:last-child > span:last-child, a[data-c5-series-tile]:hover > span:last-child { text-decoration-color: #141414; }
+/* Product name on hover (client 16.11.2026): no underline — a very gentle slide toward the reading start. */
+a[href^="/products/"] > div:last-child > span:nth-child(2), a[data-c5-series-tile] > span:last-child { display: inline-block; transition: transform .6s cubic-bezier(.22,.61,.36,1); text-decoration: none; }
+a[href^="/products/"]:hover > div:last-child > span:nth-child(2), a[data-c5-series-tile]:hover > span:last-child { transform: translateX(3px); }
 a[data-c5-series-tile] > span:first-child { transition: transform .6s cubic-bezier(.22,.61,.36,1); }
 a[data-c5-series-tile]:hover > span:first-child { transform: translateY(-2px); }
 

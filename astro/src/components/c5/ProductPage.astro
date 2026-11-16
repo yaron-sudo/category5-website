@@ -3,7 +3,8 @@
 // supersedes the BRIEF §8 mockup layout), in the Category 5 visual language:
 //   breadcrumb → gallery (thumbs + large image) beside an info column (series tag,
 //   name, short text, ask-the-AI box, pack-size pill, stores button, spec rows)
-//   → accordion sections (benefits / usage / label) → more from the series. (Legal disclaimer lives in the footer only.)
+//   → tabs (benefits / usage / label / microscope) → more from the series. Highlights and the stores
+//   banner sit in the text column under the ask banner (client notes round 2, 16.11.2026).
 // Content: src/c5/content/catalog.ts (old-site data + overrides); unfilled fields
 // show the mockup's placeholder texts.
 import Site from '@/layouts/Site.astro'
@@ -91,17 +92,17 @@ const btn = 'display: inline-flex; align-items: center; justify-content: center;
 {shelf && <span class="pp-pill">אורך חיי מדף - {shelf}</span>}
 </div>
 
-<button type="button" data-pp-ask class="pp-ask"><strong>יש לכם שאלה?</strong> אנחנו כאן כדי לענות</button>
+<button type="button" data-pp-ask class="pp-ask"><span class="pp-ask-text"><strong>יש לכם שאלה?</strong> אנחנו כאן כדי לענות</span></button>
+
+<ProductHighlights slug={p.slug} />
 
 <div class="pp-stores">
 <p style="margin: 0">מחפשים אותנו? מצאו את החנויות הקרובות אליכם.</p>
-<a href="/stores" class="c5-soft" style={btn}>לחנויות</a>
+<a href="/stores" class="c5-soft pp-stores-btn">לחנויות</a>
 </div>
 </div>
 </div>
 </section>
-
-<ProductHighlights slug={p.slug} />
 
 <section aria-label="מידע על המוצר" class="pp pp-tabs" data-pp-tabs>
 <div class="pp-tablist" role="tablist" aria-label="מידע על המוצר">
@@ -142,7 +143,9 @@ const btn = 'display: inline-flex; align-items: center; justify-content: center;
 
 {related.length > 0 && (
 <section aria-label={s.name} class="pp" style="padding-top: clamp(40px, 5vw, 72px)">
-<h2 style="margin: 0 0 28px"><a href={seriesHref(s)} style="color: #141414; text-decoration: none">{s.name}</a></h2>
+<h2 style="margin: 0 0 28px; font-size: inherit; font-weight: inherit"><a href={seriesHref(s)} class="pp-series">
+<span style={`width: 28px; height: 28px; background: ${s.color}; display: flex; align-items: center; justify-content: center; flex-shrink: 0`}><img src={s.iconWhite} alt="" style="width: 22px; height: 22px"></span>
+<span>{s.name}</span></a></h2>
 <div class="pp-car" data-pp-car>
 <div class="pp-car-track" data-pp-track tabindex="0" role="group" aria-label={s.name}>
 {related.map((r) => <div class="pp-car-item"><ProductCard title={r.title} summary={PRODUCT_SUMMARIES[r.slug]} image={r.image} href={productHref(r)} series={r.series} newPack={r.newPack} /></div>)}
@@ -157,11 +160,12 @@ const btn = 'display: inline-flex; align-items: center; justify-content: center;
 </Site>
 
 <style is:global>
-  .pp { max-width: 1280px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 48px); box-sizing: border-box; }
+  /* Near full width (client notes round 2): narrow, even side gutters instead of a centred container. */
+  .pp { max-width: none; margin: 0 auto; padding: 0 clamp(16px, 2.5vw, 40px); box-sizing: border-box; }
   .pp-crumbs { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding: 22px 0; border-bottom: 1px solid #dcdcd9; }
   .pp-crumbs a, .pp-crumbs span { font-size: 13px !important; color: #141414; text-decoration: none; }
   .pp-crumbs a:hover { text-decoration: underline; }
-  .pp-top { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(320px, 1fr); gap: clamp(28px, 4vw, 64px); padding: clamp(24px, 3.5vw, 48px) 0 clamp(40px, 5vw, 72px); align-items: start; }
+  .pp-top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 4vw, 64px); padding: clamp(24px, 3.5vw, 48px) 0 clamp(40px, 5vw, 72px); align-items: start; }
   .pp-gallery { display: flex; gap: 16px; align-items: flex-start; position: sticky; top: 96px; }
   .pp-thumbs { display: flex; flex-direction: column; gap: 10px; flex: 0 0 84px; }
   .pp-thumb { position: relative; overflow: hidden; padding: 0; border: 0; border-bottom: 3px solid transparent; background: #f7f7f5; aspect-ratio: 1 / 1; cursor: pointer; display: block; width: 100%; transition: border-color .4s cubic-bezier(.22,.61,.36,1); }
@@ -181,13 +185,16 @@ const btn = 'display: inline-flex; align-items: center; justify-content: center;
   .pp-series span { font-size: 15px !important; }
   .pp-pills { display: flex; flex-wrap: wrap; gap: 10px; }
   .pp-pill { display: inline-flex; align-items: center; min-height: 40px; padding: 0 18px; border: 1px solid #141414; border-radius: 4px; background: #ffffff; color: #141414 !important; font-size: 15px !important; }
-  /* "יש לכם שאלה?" — the whole sentence opens the chat; a soft underline grows on hover. */
-  .pp-ask { align-self: flex-start; margin: 2px 0 0; padding: 12px 16px; border: 0; background: #f7f7f5; color: #141414; font: inherit; text-align: start; cursor: pointer; }
+  /* "יש לכם שאלה?" — the whole sentence opens the chat. Full width of the text column, text centred;
+     on hover the text grows very slightly (no underline, no layout change). */
+  .pp-ask { align-self: stretch; margin: 2px 0 0; padding: 18px 16px; border: 0; background: #f7f7f5; color: #141414; font: inherit; text-align: center; cursor: pointer; display: flex; align-items: center; justify-content: center; }
   .pp-ask strong { font-weight: 600; }
-  .pp-ask { background-image: linear-gradient(#141414, #141414); background-repeat: no-repeat; background-size: 0 1px; background-position: right calc(100% - 9px); transition: background-size .5s cubic-bezier(.22,.61,.36,1), transform .5s cubic-bezier(.22,.61,.36,1); }
-  .pp-ask:hover, .pp-ask:focus-visible { background-size: 100% 1px; transform: translateX(-2px); }
-  .pp-stores { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 18px; padding-top: 18px; border-top: 1px solid #dcdcd9; }
+  .pp-ask-text { display: inline-block; transition: transform .6s cubic-bezier(.22,.61,.36,1); }
+  .pp-ask:hover .pp-ask-text, .pp-ask:focus-visible .pp-ask-text { transform: scale(1.04); }
+  /* Stores banner: same grey as the ask banner; sentence above a 30%-smaller "לחנויות" button, all centred. */
+  .pp-stores { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 20px 16px; background: #f7f7f5; text-align: center; }
   .pp-stores p { font-size: 15px !important; }
+  .pp-stores-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 31px; padding: 0 15px; border: 1px solid #141414; border-radius: 4px; background: #ffffff; color: #141414; text-decoration: none; font-size: 12px !important; line-height: 1; }
   /* Tabs (client notes round 1): one horizontal row; the content below is plain, right-aligned, no frames. */
   .pp-tabs { padding-top: clamp(28px, 4vw, 48px); }
   .pp-tablist { display: flex; gap: 0 clamp(18px, 3vw, 40px); border-bottom: 1px solid #dcdcd9; overflow-x: auto; scrollbar-width: none; }

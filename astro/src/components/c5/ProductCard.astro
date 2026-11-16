@@ -2,6 +2,8 @@
 // ProductCard — ported 1:1 from mockups/ProductCard.dc.html (BRIEF §6).
 // Without `href` (placeholder card: no product yet) it renders as a plain block, not a link.
 // `summary`: short description under the name (series grids; content in c5/content/summaries.ts).
+// Image square: same white as the card (client 16.11.2026 — one uniform background, no second tone);
+// the product is centred in it by imageFit().
 import { SERIES } from '@/c5/data'
 import { t } from '@/c5/i18n'
 import { imageFit, imageFeather } from '@/c5/content/imageFit'
@@ -12,7 +14,7 @@ const Tag = href ? 'a' : 'div'
 const fit = await imageFit(image)
 ---
 <Tag href={href} dir="rtl" style="display: flex; flex-direction: column; height: 100%; text-decoration: none; color: #141414; font-family: 'C5 Sans', 'Noto Sans Hebrew', Arial, sans-serif; background: #ffffff; border: 1px solid #dcdcd9; box-sizing: border-box">
-<div style="position: relative; aspect-ratio: 1 / 1; background: #f7f7f5; display: flex; align-items: center; justify-content: center; overflow: hidden">
+<div style="position: relative; aspect-ratio: 1 / 1; background: #ffffff; display: flex; align-items: center; justify-content: center; overflow: hidden">
 {newPack && (
 <span class="c5-newpack" style={`border-color: ${s.color}`}>
 <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c.6 5.4 4.6 9.4 10 10-5.4.6-9.4 4.6-10 10-.6-5.4-4.6-9.4-10-10 5.4-.6 9.4-4.6 10-10Z"></path></svg>
