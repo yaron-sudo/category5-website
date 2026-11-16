@@ -30,7 +30,7 @@ export type ProductOverride = Partial<Omit<Product, 'slug'>> & { hidden?: boolea
  *  carry the "האריזה החדשה" tag (client brief 15.11.2026). Edit freely. */
 export const NEW_PACK: string[] = [
   // New branding = carton box + glass jar. Only products photographed in that pack.
-  'liposomal-multivitamin', 'liposomal-vitamin-b-complex',
+  'liposomal-multivitamin', 'liposomal-vitamin-b-complex', 'lipozamin-mg-spectrum',
 ]
 
 export const PRODUCT_OVERRIDES: Record<string, ProductOverride> = {
