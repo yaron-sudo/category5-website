@@ -9,6 +9,7 @@ import { NEED_CONTENT } from '@/c5/content/needs'
 import { HIGHLIGHTS, HIGHLIGHT_LABELS } from '@/c5/content/highlights'
 import { ARTICLES } from '@/c5/content/articles'
 import { PRODUCT_KEYWORDS, ARTICLE_KEYWORDS, SYNONYMS } from '@/c5/content/searchKeywords'
+import { BLOCKED_TERMS } from '@/c5/content/searchBlocked'
 import { productResearch } from '@/c5/knowledge/research'
 import { parseKnowledge, stripTags } from '@/c5/knowledge/parse'
 
@@ -26,7 +27,11 @@ export async function buildSearchDocs(): Promise<SearchDoc[]> {
     const k = know.get(p.slug)
     const series = SERIES.find((s) => s.slug === p.series)
     const needs = NEEDS.filter((n) => NEED_CONTENT[n.slug]?.products.includes(p.slug)).map((n) => n.label)
-    const ing = k?.sections.find((s) => s.title === 'רכיבים וכמויות')?.body ?? ''
+    // Ingredient names only — the first cell of each table row of the knowledge section
+    // (never its prose, so no free text reaches the product index).
+    const ing = (k?.sections.find((s) => s.title === 'רכיבים וכמויות')?.body ?? '')
+      .split('\n').filter((l) => l.trim().startsWith('|'))
+      .map((l) => l.split('|')[1]?.trim() ?? '').filter((c) => c && c !== 'רכיב' && !/^-+$/.test(c)).join(' ')
     const research = productResearch(p.slug).map((r) => r.name).join(' ')
     const labelIng = [p.label?.ingredients, p.label?.title, ...(p.label?.table?.rows.map((r) => r[0]) ?? [])].filter(Boolean).join(' ')
     const hl = HIGHLIGHTS[p.slug]
@@ -37,8 +42,10 @@ export async function buildSearchDocs(): Promise<SearchDoc[]> {
         name: [p.title, p.fullTitle, ...(k?.aliases ?? []), p.slug.replace(/-/g, ' ')].filter(Boolean).join(' '),
         keywords: [...(p.keywords ?? []), ...(PRODUCT_KEYWORDS[p.slug] ?? []), ...needs, series?.name ?? ''].join(' '),
         ingredients: [stripTags(ing), labelIng, research].join(' '),
-        text: [...(p.intro ?? []), ...(p.benefits ?? []), traits].join(' '),
-        body: [...(p.usage ?? []), ...(p.details ?? [])].join(' '),
+        // Products are searchable by curated fields only (legal: no condition words from
+        // descriptions can surface a product). Intro / benefits / usage are not indexed.
+        text: traits,
+        body: '',
       },
     })
   }
@@ -60,3 +67,4 @@ export async function buildSearchDocs(): Promise<SearchDoc[]> {
 }
 
 export const SEARCH_SYNONYMS = SYNONYMS
+export const SEARCH_BLOCKED = BLOCKED_TERMS

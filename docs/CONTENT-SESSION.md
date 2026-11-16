@@ -137,10 +137,22 @@ series and needs pages show a small white tag with the series-colour outline. Ad
 
 ## Search words (מנוע החיפוש)
 
-`astro/src/c5/content/searchKeywords.ts`:
-- `SYNONYMS` — groups of everyday phrases that mean the same thing ("קשה לי להירדם" → שינה …). A query
-  that touches a group searches for all its words.
+Two editable files decide what the search (and the chat) may answer:
+
+`astro/src/c5/content/searchKeywords.ts` — the **approved vocabulary**:
+- `SYNONYMS` — groups of everyday words that mean the same thing ("קשה לי להירדם" → שינה). A query
+  that touches a group searches for all its words. Only well-being language the site already uses
+  on its series / needs pages — no disease, symptom or medicine words.
 - `PRODUCT_KEYWORDS` / `ARTICLE_KEYWORDS` — extra search words per product slug / article id (needs,
-  nicknames, English). Ranked almost like the name.
-The engine also understands Hebrew prefixes, plurals, final letters and typos on its own.
-Check with `cd astro && npm run build && npm run search:test` (expected results listed in `scripts/search-test.mjs`).
+  everyday phrases, nicknames, English). Products are found **only** through name, series, need,
+  ingredients and these keywords — never through their description, benefits or label text.
+
+`astro/src/c5/content/searchBlocked.ts` — the **blocked list** (legal):
+- `BLOCKED_TERMS` — diseases, conditions, symptoms, diagnoses, medicines (Hebrew + English). A search
+  or chat question containing one shows no products and no articles, only `BLOCKED_MESSAGE` and the
+  series / need links; the chat answers with `CHAT_BLOCKED_MESSAGE` without calling the model.
+  Prefixes (ה/ו/ב/ל/מ/ש/כ) and plural endings are tolerated ("לסוכרתיים" = "סוכרת").
+- Typo tolerance and prefix completion apply to product / ingredient names only.
+
+Check with `cd astro && npm run build && npm run search:test` (expected results, blocked and allowed
+queries listed in `scripts/search-test.mjs`).

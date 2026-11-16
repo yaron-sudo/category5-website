@@ -4,10 +4,12 @@
 // ranks products and articles by name, everyday phrases (searchKeywords.ts), ingredients, text
 // and body, tolerates typos and Hebrew prefixes/plurals, autocompletes, and suggests a fix.
 // Results: two columns — products (right) and articles (left); a matching series / need
-// shows as a quick link above them.
+// shows as a quick link above them. A query naming a disease, symptom or medicine
+// (content/searchBlocked.ts) shows no results at all — only BLOCKED_MESSAGE and the quick links.
 import Site from '@/layouts/Site.astro'
 import { SERIES, NEEDS, seriesHref, needHref } from '@/c5/data'
-import { buildSearchDocs, SEARCH_SYNONYMS } from '@/c5/search/index'
+import { buildSearchDocs, SEARCH_SYNONYMS, SEARCH_BLOCKED } from '@/c5/search/index'
+import { BLOCKED_MESSAGE } from '@/c5/content/searchBlocked'
 const docs = await buildSearchDocs()
 const quick = [
   ...SERIES.map((s) => ({ kind: 'series', label: s.name, href: seriesHref(s), prefix: 'סדרה' })),
@@ -27,6 +29,7 @@ const btn = 'min-height: 48px; padding: 0 22px; border: 1px solid #141414; borde
 <button type="submit" style={btn}>חיפוש</button>
 </form>
 <p data-sr-dym role="status" aria-live="polite" class="sr-dym" hidden></p>
+<p data-sr-blocked role="status" aria-live="polite" class="sr-blocked" hidden>{BLOCKED_MESSAGE.he}</p>
 <div data-sr-quick class="sr-quick" hidden></div>
 </section>
 
@@ -46,7 +49,7 @@ const btn = 'min-height: 48px; padding: 0 22px; border: 1px solid #141414; borde
 <p data-sr-idle class="sr-idle">הקלידו מה שמחפשים — שם מוצר, רכיב, צורך בריאותי או פשוט "קשה לי להירדם".</p>
 </section>
 
-<script type="application/json" data-sr-data set:html={JSON.stringify({ docs, synonyms: SEARCH_SYNONYMS, quick, series: SERIES.map((s) => ({ slug: s.slug, color: s.color })) })}></script>
+<script type="application/json" data-sr-data set:html={JSON.stringify({ docs, synonyms: SEARCH_SYNONYMS, blocked: SEARCH_BLOCKED, quick, series: SERIES.map((s) => ({ slug: s.slug, color: s.color })) })}></script>
 </Site>
 
 <style is:global>
@@ -61,6 +64,8 @@ const btn = 'min-height: 48px; padding: 0 22px; border: 1px solid #141414; borde
   #sr-sugg li[aria-selected="true"], #sr-sugg li:hover { background: #f7f7f5; }
   .sr-dym { margin: 0; font-size: 15px; }
   .sr-dym button { border: 0; background: none; padding: 0; font: inherit; color: #141414; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+  .sr-blocked { margin: 0; padding: 16px 18px; background: #e9e9e7; border-radius: 4px; font-size: 15px; max-width: 760px; }
+  .sr-blocked[hidden] { display: none; }
   .sr-quick { display: flex; flex-wrap: wrap; gap: 8px; }
   .sr-quick a { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; border: 1px solid #141414; border-radius: 4px; color: #141414; text-decoration: none; font-size: 15px; }
   .sr-quick a:hover { background: #efeeea; }
@@ -89,16 +94,17 @@ const btn = 'min-height: 48px; padding: 0 22px; border: 1px solid #141414; borde
 </style>
 
 <script>
-  import { buildIndex, search, suggest, didYouMean, normalize, unfold } from '@/c5/search/engine.js'
+  import { buildIndex, search, suggest, didYouMean, normalize, unfold, isBlocked } from '@/c5/search/engine.js'
   type Doc = { id: string; kind: 'product' | 'article'; title: string; href: string; image?: string; meta?: string; fields: Record<string, string> }
   const D = JSON.parse(document.querySelector('[data-sr-data]')!.textContent || '{}') as {
-    docs: Doc[]; synonyms: Array<{ name: string; words: string[] }>; quick: Array<{ kind: string; label: string; href: string; prefix: string }>; series: Array<{ slug: string; color: string }>
+    docs: Doc[]; synonyms: Array<{ name: string; words: string[] }>; blocked: string[]; quick: Array<{ kind: string; label: string; href: string; prefix: string }>; series: Array<{ slug: string; color: string }>
   }
   const index = buildIndex(D.docs, D.synonyms)
   const form = document.querySelector<HTMLFormElement>('[data-sr-form]')!
   const input = form.querySelector<HTMLInputElement>('[data-sr-q]')!
   const sugg = document.querySelector<HTMLUListElement>('[data-sr-sugg]')!
   const dym = document.querySelector<HTMLElement>('[data-sr-dym]')!
+  const blockedEl = document.querySelector<HTMLElement>('[data-sr-blocked]')!
   const quickEl = document.querySelector<HTMLElement>('[data-sr-quick]')!
   const cols = document.querySelector<HTMLElement>('.sr-cols')!
   const idle = document.querySelector<HTMLElement>('[data-sr-idle]')!
@@ -115,7 +121,15 @@ const btn = 'min-height: 48px; padding: 0 22px; border: 1px solid #141414; borde
   const run = (q: string, push = true) => {
     const nq = normalize(q)
     if (push) history.replaceState(null, '', nq ? `?q=${encodeURIComponent(q.trim())}` : location.pathname)
-    if (!nq) { cols.hidden = true; idle.hidden = false; dym.hidden = true; quickEl.hidden = true; return }
+    if (!nq) { cols.hidden = true; idle.hidden = false; dym.hidden = true; blockedEl.hidden = true; quickEl.hidden = true; return }
+    if (isBlocked(q, D.blocked)) {
+      // medical term: no results, no correction — the notice and the series / need links only
+      cols.hidden = true; idle.hidden = true; dym.hidden = true; blockedEl.hidden = false
+      quickEl.innerHTML = D.quick.map((x) => `<a href="${x.href}">${esc(x.prefix)}: ${esc(x.label)}</a>`).join('')
+      quickEl.hidden = false
+      return
+    }
+    blockedEl.hidden = true
     cols.hidden = false; idle.hidden = true
     // quick links: a series or need whose name matches
     const ql = D.quick.filter((x) => { const n = normalize(x.label); return n.includes(nq) || nq.includes(n) || nq.split(' ').some((t) => t.length >= 3 && n.includes(t)) })

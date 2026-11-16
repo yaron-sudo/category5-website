@@ -2,7 +2,7 @@
 //   node scripts/search-test.mjs
 // Each case: query → a product/article id that must appear in the top results of its column.
 import { readFileSync } from 'node:fs'
-import { buildIndex, search, didYouMean, unfold } from '../src/c5/search/engine.js'
+import { buildIndex, search, didYouMean, unfold, isBlocked } from '../src/c5/search/engine.js'
 
 const data = JSON.parse(readFileSync(new URL('../.vercel/output/static/search-index.json', import.meta.url), 'utf8'))
 const index = buildIndex(data.docs, data.synonyms)
@@ -14,7 +14,7 @@ const CASES = [
   // health needs / everyday language
   ['קשה לי להירדם', 'product', 'cogni-zzz'], ['אין לי אנרגיה', 'product', 'lipozamin-b12-spectrum'], ['שרירים תפוסים', 'product', 'lipozamin-mg-spectrum'],
   ['גיל המעבר', 'product', 'revival'], ['בטן נפוחה', 'product', 'kalnozim-digestive-enzymes'], ['קשה לי להתרכז', 'product', 'cogni-mg'],
-  ['הצטננות בחורף', 'product', 'winterguard'], ['ברזל לנשים', 'product', 'lipozamin-fe'], ['שינה', 'article', 'magnesium-bisglycinate'],
+  ['חורף', 'product', 'winterguard'], ['ברזל לנשים', 'product', 'lipozamin-fe'], ['שינה', 'article', 'magnesium-bisglycinate'],
   // typos
   ['מגנזיון', 'product', 'lipozamin-mg-spectrum'], ['פרוביוטיקא', 'product', 'umanaflora-53'], ['ליפוזומין', 'product', 'lipozamin-fe'],
   // words not in the product name
@@ -27,6 +27,26 @@ for (const [q, kind, want] of CASES) {
   const ok = ids.includes(want)
   if (!ok) fail++
   console.log(`${ok ? 'OK ' : 'FAIL'} ${q.padEnd(22)} → ${ids.slice(0, 4).join(', ')}${r.unmatched.length ? `  | unmatched: ${r.unmatched.join(' ')} → ${r.results.length < 3 ? unfold(didYouMean(index, q, r.unmatched) ?? '-') : '(results exist, no correction)'}` : ''}`)
+}
+// Legal guard: medical queries show nothing (isBlocked) — products, articles, corrections.
+const BLOCKED = ['סוכרת', 'יש לי סוכרת', 'לסוכרתיים', 'סרטן', 'דיכאון', 'חרדה', 'הפרעה נפשית', 'לחץ דם', 'כולסטרול גבוה', 'עליה במשקל', 'ירידה במשקל', 'השמנה', 'כאבי ראש', 'מיגרנה', 'דלקת פרקים', 'אנמיה', 'שפעת', 'הצטננות', 'אלרגיה', 'תרופות', 'אנטיביוטיקה', 'בלוטת התריס', 'עצירות', 'מה טוב למחלה', 'diabetes', 'weight loss', 'depression', 'blood pressure', 'cancer treatment']
+for (const q of BLOCKED) {
+  const ok = isBlocked(q, data.blocked)
+  if (!ok) fail++
+  console.log(`${ok ? 'OK ' : 'FAIL'} blocked ${q}`)
+}
+// Not blocked: everyday well-being language keeps working.
+for (const q of ['קשה לי להירדם', 'אין לי אנרגיה', 'בטן נפוחה', 'חורף', 'גיל המעבר', 'מגנזיום', 'קלנוזים']) {
+  const ok = !isBlocked(q, data.blocked)
+  if (!ok) fail++
+  console.log(`${ok ? 'OK ' : 'FAIL'} allowed ${q}`)
+}
+// No false product: words that used to leak through product text / prefixes.
+for (const [q, notId] of [['סוכריות', 'lipozamin-alpha-lipoic-acid'], ['משקל', 'revival'], ['משקל', 'quick-c']]) {
+  const ids = search(index, q).results.filter((x) => x.doc.kind === 'product').map((x) => x.doc.id)
+  const ok = !ids.includes(notId)
+  if (!ok) fail++
+  console.log(`${ok ? 'OK ' : 'FAIL'} no-false ${q} ↛ ${notId} (${ids.slice(0, 3).join(', ') || 'none'})`)
 }
 console.log(fail ? `${fail} failing` : 'all passed')
 process.exit(fail ? 1 : 0)

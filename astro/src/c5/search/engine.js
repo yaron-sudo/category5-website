@@ -2,11 +2,13 @@
 // scripts/search-test.mjs under node). Hebrew-aware: niqqud/punctuation ignored, final
 // letters folded, one- or two-letter prefixes (ו/ה/ב/ל/מ/ש/כ…) and plural/gender endings
 // stripped into light stems; everyday phrases expand through the SYNONYMS groups; typos are
-// tolerated by edit distance; "did you mean" and autocomplete come from the index vocabulary.
+// tolerated by edit distance (names only); "did you mean" and autocomplete come from the index
+// vocabulary. Products match only on curated fields; isBlocked() stops medical queries.
 
 const FINALS = { 'ך': 'כ', 'ם': 'מ', 'ן': 'נ', 'ף': 'פ', 'ץ': 'צ' }
 const PREFIXES = ['וכש', 'וש', 'וה', 'וב', 'ול', 'ומ', 'וכ', 'כש', 'שה', 'שב', 'של', 'שמ', 'מה', 'לכ', 'ו', 'ה', 'ב', 'ל', 'מ', 'ש', 'כ']
-const SUFFIXES = ['יות', 'ויות', 'יים', 'ים', 'ות', 'ית', 'ה', 'ת', 'י']
+// (written with final letters; folded below because normalize() folds them in every word)
+const SUFFIXES = ['יות', 'ויות', 'יים', 'ים', 'ות', 'ית', 'ה', 'ת', 'י'].map((x) => x.replace(/[ךםןףץ]/g, (c) => FINALS[c]))
 
 // Function words: never matched on their own, never expanded, never "corrected".
 const STOP = new Set(['לי', 'לך', 'לו', 'לה', 'לנו', 'אין', 'יש', 'את', 'של', 'עם', 'על', 'לא', 'אני', 'מה', 'איך', 'כל', 'גם', 'או', 'קשה', 'קצת', 'מאוד', 'מאד', 'הרבה', 'רוצה', 'צריך', 'צריכה', 'מחפש', 'מחפשת', 'משהו', 'בשביל', 'נגד', 'עבור', 'the', 'for', 'and', 'of', 'to', 'a'])
@@ -71,16 +73,27 @@ export function distance(a, b, max = 2) {
  *   doc = { id, kind: 'product'|'article', title, href, image?, meta?, fields: { name, keywords, ingredients, text, body } }
  */
 export function buildIndex(docs, synonyms) {
-  const WEIGHTS = { name: 10, keywords: 8, ingredients: 6, text: 4, body: 1 }
+  // Products are found only through curated fields (name, keywords, ingredients) — never
+  // through their description, benefits or label text, so a word in a product's body can't
+  // make it answer a query it was not written for. Articles keep their full text.
+  const WEIGHTS = { product: { name: 10, keywords: 8, ingredients: 6 }, article: { name: 10, keywords: 8, ingredients: 6, text: 4, body: 1 } }
+  // Prefix completion and typo tolerance apply to names and ingredients only (not to
+  // need words or text): "סוכר…" must not reach "סוכריות" in a keyword list.
+  const LOOSE = new Set(['name', 'ingredients'])
   const vocab = new Map() // token → frequency (for suggestions)
   const indexed = docs.map((doc) => {
-    const terms = new Map() // variant → best weight
-    const add = (word, w) => { for (const v of variants(word)) if ((terms.get(v) || 0) < w) terms.set(v, w) }
-    for (const [field, w] of Object.entries(WEIGHTS)) {
-      for (const tk of tokens(doc.fields[field] || '')) { add(tk, w); if (field !== 'body') vocab.set(tk, (vocab.get(tk) || 0) + 1) }
+    const terms = new Map() // variant → best weight (exact matches)
+    const loose = new Map() // variant → best weight (prefix / fuzzy matches)
+    const add = (map, word, w) => { for (const v of variants(word)) if ((map.get(v) || 0) < w) map.set(v, w) }
+    for (const [field, w] of Object.entries(WEIGHTS[doc.kind] || WEIGHTS.article)) {
+      for (const tk of tokens(doc.fields[field] || '')) {
+        add(terms, tk, w)
+        if (LOOSE.has(field)) add(loose, tk, w)
+        if (field !== 'body') vocab.set(tk, (vocab.get(tk) || 0) + 1)
+      }
     }
     const phrases = normalize(`${doc.title} ${doc.fields.name || ''} ${doc.fields.keywords || ''}`)
-    return { doc, terms, phrases }
+    return { doc, terms, loose, phrases }
   })
   // synonym groups → each word maps to its group's full word list
   const groups = []
@@ -93,6 +106,27 @@ export function buildIndex(docs, synonyms) {
   }
   const suggestionsPool = [...new Set(docs.map((d) => normalize(d.title)).concat(groups.flatMap((g) => g.phrases)))]
   return { indexed, vocab, groups, suggestionsPool }
+}
+
+/**
+ * Blocked-term check (content/searchBlocked.ts): true when the query names a disease,
+ * condition, symptom or medicine. Hebrew prefixes / endings are tolerated on both sides;
+ * multi-word terms must appear as a phrase (in any inflection of each word).
+ */
+export function isBlocked(q, blockedTerms) {
+  const qt = normalize(q).split(' ').filter(Boolean)
+  if (!qt.length) return false
+  // A query word matches a term word when, after an optional prefix (ה/ו/ב/ל/מ/ש/כ…), it is
+  // the term word itself or the term word plus a plural / gender ending. The term is never
+  // stemmed, so "סוכריות" (candy) is not "סוכרת" (diabetes).
+  const bases = qt.map((t) => { const out = [t]; for (const p of PREFIXES) if (t.startsWith(p) && t.length - p.length >= 3) out.push(t.slice(p.length)); return out })
+  const same = (i, w) => i < bases.length && bases[i].some((b) => b === w || SUFFIXES.some((sfx) => b === w + sfx))
+  for (const term of blockedTerms || []) {
+    const tt = normalize(term).split(' ').filter(Boolean)
+    if (!tt.length) continue
+    for (let i = 0; i + tt.length <= qt.length; i++) if (tt.every((w, k) => same(i + k, w))) return true
+  }
+  return false
 }
 
 /** Expand the query: original tokens + tokens of every synonym group it touches. */
@@ -108,18 +142,18 @@ export function expand(index, q) {
   return { base, extra: [...extra].filter((w) => !base.includes(w)) }
 }
 
-function matchTerm(terms, t, allowFuzzy) {
-  // exact (any variant), then prefix, then fuzzy
+function matchTerm(it, t, allowFuzzy) {
+  // exact (any variant) against every curated field; prefix and fuzzy against names only
   let best = 0
-  for (const v of variants(t)) { const w = terms.get(v); if (w && w > best) best = w }
+  for (const v of variants(t)) { const w = it.terms.get(v); if (w && w > best) best = w }
   if (best) return { score: best, how: 'exact' }
   if (t.length >= 3) {
-    for (const [k, w] of terms) if (k.startsWith(t) || (t.length >= 4 && t.startsWith(k) && k.length >= 4)) best = Math.max(best, w * 0.7)
+    for (const [k, w] of it.loose) if (k.startsWith(t) || (t.length >= 4 && t.startsWith(k) && k.length >= 4)) best = Math.max(best, w * 0.7)
     if (best) return { score: best, how: 'prefix' }
   }
   if (allowFuzzy && t.length >= 4) {
     const max = t.length >= 7 ? 2 : 1
-    for (const [k, w] of terms) if (Math.abs(k.length - t.length) <= max && distance(t, k, max) <= max) best = Math.max(best, w * 0.5)
+    for (const [k, w] of it.loose) if (Math.abs(k.length - t.length) <= max && distance(t, k, max) <= max) best = Math.max(best, w * 0.5)
     if (best) return { score: best, how: 'fuzzy' }
   }
   return { score: 0, how: 'none' }
@@ -136,10 +170,10 @@ export function search(index, q, { kind } = {}) {
     if (kind && it.doc.kind !== kind) continue
     let score = 0, hits = 0
     for (const t of base) {
-      const m = matchTerm(it.terms, t, true)
+      const m = matchTerm(it, t, true)
       if (m.score) { score += m.score; hits++; if (m.how !== 'fuzzy') matchedAnywhere.add(t) }
     }
-    for (const t of extra) { const m = matchTerm(it.terms, t, false); if (m.score) score += m.score * 0.6 }
+    for (const t of extra) { const m = matchTerm(it, t, false); if (m.score) score += m.score * 0.6 }
     if (nq.length >= 3 && it.phrases.includes(nq)) score += 12          // whole query as a phrase
     if (hits === base.length && base.length > 1) score *= 1.3            // every word matched
     if (score > 0) results.push({ doc: it.doc, score, hits })
