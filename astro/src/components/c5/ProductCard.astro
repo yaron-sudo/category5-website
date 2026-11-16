@@ -1,11 +1,12 @@
 ---
 // ProductCard — ported 1:1 from mockups/ProductCard.dc.html (BRIEF §6).
 // Without `href` (placeholder card: no product yet) it renders as a plain block, not a link.
+// `summary`: short description under the name (series grids; content in c5/content/summaries.ts).
 import { SERIES } from '@/c5/data'
 import { t } from '@/c5/i18n'
 import { imageFit, imageFeather } from '@/c5/content/imageFit'
-interface Props { title: string; image?: string; href?: string; series: string; newPack?: boolean }
-const { title, image, href, series, newPack = false } = Astro.props
+interface Props { summary?: string; title: string; image?: string; href?: string; series: string; newPack?: boolean }
+const { title, image, href, series, newPack = false, summary } = Astro.props
 const s = SERIES.find((x) => x.slug === series) ?? SERIES[0]
 const Tag = href ? 'a' : 'div'
 const fit = await imageFit(image)
@@ -22,6 +23,7 @@ const fit = await imageFit(image)
 <div style="padding: 16px; display: flex; flex-direction: column; gap: 8px">
 <span style="display: inline-flex; align-items: center; gap: 8px; font-size: 15px"><span style={`width: 14px; height: 14px; background: ${s.color}; display: inline-block`}></span>{s.name}</span>
 <span style="font-size: 20px; line-height: 1.3">{title}</span>
+{summary && <span style="font-size: 15px; line-height: 1.5">{summary}</span>}
 </div>
 </Tag>
 

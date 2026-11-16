@@ -9,6 +9,7 @@ import { t } from '@/c5/i18n'
 import { SERIES_CONTENT, SERIES_INTRO_PLACEHOLDER, PRODUCT_TITLE_PLACEHOLDER, PLACEHOLDER_GRID_SIZE } from '@/c5/content/series'
 import { productHref } from '@/c5/content/products'
 import { productsOfSeries } from '@/c5/content/catalog'
+import { PRODUCT_SUMMARIES } from '@/c5/content/summaries'
 import { linkTerms } from '@/c5/glossaryLinks'
 
 export function getStaticPaths() {
@@ -17,7 +18,7 @@ export function getStaticPaths() {
 const { s } = Astro.props as { s: Series }
 const content = SERIES_CONTENT[s.slug] ?? { fillPlaceholders: true }
 const intro = content.intro?.length ? content.intro : [SERIES_INTRO_PLACEHOLDER]
-const products = (await productsOfSeries(s.slug)).map((p) => ({ title: p.title, image: p.image, href: productHref(p) as string | undefined, newPack: p.newPack }))
+const products = (await productsOfSeries(s.slug)).map((p) => ({ summary: PRODUCT_SUMMARIES[p.slug], title: p.title, image: p.image, href: productHref(p) as string | undefined, newPack: p.newPack }))
 const cards = content.fillPlaceholders
   ? [...products, ...Array.from({ length: Math.max(0, PLACEHOLDER_GRID_SIZE - products.length) }, () => ({ title: PRODUCT_TITLE_PLACEHOLDER, image: undefined, href: undefined }))]
   : products
@@ -35,7 +36,7 @@ const cards = content.fillPlaceholders
 
 <section aria-label="מוצרי הסדרה" style="max-width: 1280px; margin: 0 auto; padding: 24px clamp(16px, 4vw, 48px) clamp(56px, 7vw, 112px); box-sizing: border-box">
 <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px">
-{cards.map((c) => <ProductCard title={c.title} image={c.image} href={c.href} series={s.slug} newPack={'newPack' in c ? c.newPack : false} />)}
+{cards.map((c) => <ProductCard summary={'summary' in c ? c.summary : undefined} title={c.title} image={c.image} href={c.href} series={s.slug} newPack={'newPack' in c ? c.newPack : false} />)}
 </div>
 </section>
 
