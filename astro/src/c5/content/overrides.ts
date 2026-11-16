@@ -362,7 +362,7 @@ export const PRODUCT_OVERRIDES: Record<string, ProductOverride> = {
   },
 
   // Lipozamin Mg Spectrum: the client's brochure (Lipozamin Mg Spectrum.pdf), the new pack (health claim printed on it)
-  // and the label (680 mg; the brochure says 700 mg). Certifier: בד״ץ חתם סופר בני ברק (client confirmed;
+  // and the new pack label (2 capsules a day; 680 mg per capsule, the brochure says 700 mg). Certifier: בד״ץ חתם סופר בני ברק (client confirmed;
   // the brochure names בד״ץ לנדא).
   'lipozamin-mg-spectrum': {
     contains: 'מכיל 60 כמוסות צמחיות',
@@ -383,7 +383,7 @@ export const PRODUCT_OVERRIDES: Record<string, ProductOverride> = {
       '60 כמוסות צמחיות נוחות לבליעה.',
       'תווית נקיה - ללא חומרים משמרים, מגנזיום אוקסיד, חומרים מן החי, פוטסיום סורבאט, חומצת לימון, גליצרין, נתרן אסקורבאט, אשלגן אסקורבאט, חומרים מהונדסים גנטית, חומרים מייצבים, חומרים מתחלבים, קסילטול, חומרי טעם, חומרי ריח, ממתיקים, סוכר, חיטה, סויה, חלב ומוצריו, BSE-Free, פוליאתילן גליקול (PEG).',
     ],
-    usage: ['1-2 כמוסה ליום.'],
+    usage: ['2 כמוסות ליום.'],
     details: [
       'סוג כשרות: כשר פרווה, בד״ץ.',
       'נותן הכשרות: בד״ץ חתם סופר בני ברק.',
