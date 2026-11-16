@@ -5,9 +5,10 @@
 // Matching ignores Hebrew prefixes (ה/ו/ב/ל/מ/ש/כ), final letters and plural endings, so
 // "לסוכרת", "סוכרתי", "הדיכאון" all count. English terms match whole words.
 //
-// Keep this list to diseases, conditions, symptoms, diagnoses and medicines. Everyday
-// well-being words the site already uses on its needs pages (שינה, עיכול, אנרגיה, חורף…)
-// stay in searchKeywords.ts.
+// Keep this list to diseases, diagnoses and medicines. Everyday well-being and functional
+// words the site answers for (שינה, חרדה, לחץ, מתח, ריכוז, זיכרון, מיקוד, לחץ דם, קצב לב,
+// כאבי פרקים, דלקות, שחיקת סחוס, עיכול, אנרגיה, חורף…) are NOT blocked — they live in
+// searchKeywords.ts (client decision 16.11.2026).
 
 export const BLOCKED_TERMS: string[] = [
   // metabolic / weight
@@ -16,14 +17,14 @@ export const BLOCKED_TERMS: string[] = [
   // cancer
   'סרטן', 'גידול', 'גידולים', 'כימותרפיה', 'הקרנות', 'cancer', 'tumor', 'tumour', 'chemotherapy', 'oncology',
   // heart / blood
-  'לחץ דם', 'יתר לחץ דם', 'כולסטרול', 'טריגליצרידים', 'מחלת לב', 'מחלות לב', 'התקף לב', 'אוטם', 'שבץ', 'קריש דם', 'קרישי דם', 'קרישה', 'אנמיה', 'דימום',
-  'blood pressure', 'hypertension', 'cholesterol', 'heart disease', 'heart attack', 'stroke', 'blood clot', 'anemia', 'anaemia',
+  'כולסטרול', 'טריגליצרידים', 'מחלת לב', 'מחלות לב', 'התקף לב', 'אוטם', 'שבץ', 'קריש דם', 'קרישי דם', 'קרישה', 'אנמיה', 'דימום',
+  'cholesterol', 'heart disease', 'heart attack', 'stroke', 'blood clot', 'anemia', 'anaemia',
   // mental health / neuro
-  'דיכאון', 'חרדה', 'התקף חרדה', 'הפרעה נפשית', 'הפרעות נפשיות', 'מחלת נפש', 'סכיזופרניה', 'ביפולרי', 'הפרעת קשב', 'הפרעות קשב', 'אוטיזם', 'אלצהיימר', 'דמנציה', 'פרקינסון', 'אפילפסיה', 'טרשת נפוצה', 'מיגרנה', 'כאב ראש', 'כאבי ראש', 'נדודי שינה', 'אינסומניה',
-  'depression', 'anxiety', 'adhd', 'autism', 'alzheimer', 'dementia', 'parkinson', 'epilepsy', 'multiple sclerosis', 'migraine', 'insomnia', 'bipolar', 'schizophrenia', 'mental illness',
+  'דיכאון', 'הפרעה נפשית', 'הפרעות נפשיות', 'מחלת נפש', 'סכיזופרניה', 'ביפולרי', 'הפרעת קשב', 'הפרעות קשב', 'אוטיזם', 'אלצהיימר', 'דמנציה', 'פרקינסון', 'אפילפסיה', 'טרשת נפוצה', 'מיגרנה', 
+  'depression', 'adhd', 'autism', 'alzheimer', 'dementia', 'parkinson', 'epilepsy', 'multiple sclerosis', 'migraine', 'bipolar', 'schizophrenia', 'mental illness',
   // pain / inflammation / joints as disease
-  'כאב', 'כאבים', 'דלקת', 'דלקות', 'דלקת פרקים', 'דלקת מפרקים', 'ארתריטיס', 'אוסטאופורוזיס', 'פיברומיאלגיה', 'גאוט', 'צנית',
-  'pain', 'inflammation', 'arthritis', 'osteoporosis', 'fibromyalgia', 'gout',
+  'אוסטאופורוזיס', 'פיברומיאלגיה', 'גאוט', 'צנית',
+  'osteoporosis', 'fibromyalgia', 'gout',
   // digestive diseases
   'קרוהן', 'קוליטיס', 'צליאק', 'מעי רגיז', 'כיב', 'אולקוס', 'ריפלוקס', 'צרבת', 'עצירות', 'שלשול', 'שלשולים', 'בחילות', 'הקאות', 'הליקובקטר',
   'crohn', 'colitis', 'celiac', 'coeliac', 'ibs', 'ulcer', 'reflux', 'constipation', 'diarrhea', 'diarrhoea', 'nausea',
@@ -31,10 +32,10 @@ export const BLOCKED_TERMS: string[] = [
   'זיהום', 'זיהומים', 'וירוס', 'וירוסים', 'חיידק', 'קורונה', 'קוביד', 'שפעת', 'הצטננות', 'התקררות', 'דלקת ריאות', 'אנטיביוטיקה', 'איידס', 'הפטיטיס', 'צהבת', 'אוטואימוני', 'אוטואימונית', 'לופוס', 'פסוריאזיס', 'אסטמה', 'אלרגיה', 'אלרגיות', 'אקזמה',
   'infection', 'virus', 'covid', 'corona', 'flu', 'influenza', 'cold', 'pneumonia', 'antibiotic', 'antibiotics', 'hiv', 'aids', 'hepatitis', 'autoimmune', 'lupus', 'psoriasis', 'asthma', 'allergy', 'allergies', 'eczema',
   // organs / endocrine
-  'בלוטת התריס', 'תת פעילות', 'יתר פעילות', 'כבד שומני', 'שחמת', 'אי ספיקה', 'אי ספיקת כליות', 'אבנים בכליות', 'מחלת כליות',
+  'בלוטת התריס', 'כבד שומני', 'שחמת', 'אי ספיקה', 'אי ספיקת כליות', 'אבנים בכליות', 'מחלת כליות',
   'thyroid', 'hypothyroid', 'hyperthyroid', 'fatty liver', 'cirrhosis', 'kidney disease', 'kidney stones', 'renal failure',
-  // sexual / urinary as disease
-  'אין אונות', 'אימפוטנציה', 'דלקת בדרכי השתן', 'זיהום בדרכי השתן', 'erectile dysfunction', 'impotence', 'uti',
+  // sexual as disease (urinary-tract and prostate words are allowed — client 16.11.2026)
+  'אין אונות', 'אימפוטנציה', 'erectile dysfunction', 'impotence', 
   // medicines / treatment
   'תרופה', 'תרופות', 'תרופתי', 'מרשם', 'טיפול תרופתי', 'אינטראקציה', 'אינטראקציות', 'תופעות לוואי', 'ניתוח', 'אחרי ניתוח', 'לפני ניתוח',
   'medication', 'medications', 'medicine', 'drug', 'drugs', 'prescription', 'interaction', 'interactions', 'side effects', 'surgery',

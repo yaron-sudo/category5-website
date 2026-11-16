@@ -17,6 +17,8 @@ const CASES = [
   ['חורף', 'product', 'winterguard'], ['ברזל לנשים', 'product', 'lipozamin-fe'], ['שינה', 'article', 'magnesium-bisglycinate'],
   // typos
   ['מגנזיון', 'product', 'lipozamin-mg-spectrum'], ['פרוביוטיקא', 'product', 'umanaflora-53'], ['ליפוזומין', 'product', 'lipozamin-fe'],
+  // functional words the client wants answered (16.11.2026)
+  ['חרדה', 'product', 'relacton-alpha'], ['לחץ דם', 'product', 'natto'], ['כאבי פרקים', 'product', 'curcumin-complex'], ['שחיקת סחוס', 'product', 'alyvium'], ['מיקוד', 'product', 'cogni-mg'], ['דלקות בדרכי השתן', 'product', 'geniflora-c15'], ['ערמונית מוגדלת', 'product', 'protesterol-40'], ['הפרעות קצב לב', 'product', 'natto'],
   // words not in the product name
   ['אנזימי עיכול', 'product', 'kalnozim-digestive-enzymes'], ['זעפרן', 'article', 'saffron-affron'], ['חומצה פולית', 'product', 'amorfolic'],
 ]
@@ -29,14 +31,14 @@ for (const [q, kind, want] of CASES) {
   console.log(`${ok ? 'OK ' : 'FAIL'} ${q.padEnd(22)} → ${ids.slice(0, 4).join(', ')}${r.unmatched.length ? `  | unmatched: ${r.unmatched.join(' ')} → ${r.results.length < 3 ? unfold(didYouMean(index, q, r.unmatched) ?? '-') : '(results exist, no correction)'}` : ''}`)
 }
 // Legal guard: medical queries show nothing (isBlocked) — products, articles, corrections.
-const BLOCKED = ['סוכרת', 'יש לי סוכרת', 'לסוכרתיים', 'סרטן', 'דיכאון', 'חרדה', 'הפרעה נפשית', 'לחץ דם', 'כולסטרול גבוה', 'עליה במשקל', 'ירידה במשקל', 'השמנה', 'כאבי ראש', 'מיגרנה', 'דלקת פרקים', 'אנמיה', 'שפעת', 'הצטננות', 'אלרגיה', 'תרופות', 'אנטיביוטיקה', 'בלוטת התריס', 'עצירות', 'מה טוב למחלה', 'diabetes', 'weight loss', 'depression', 'blood pressure', 'cancer treatment']
+const BLOCKED = ['סוכרת', 'יש לי סוכרת', 'לסוכרתיים', 'סרטן', 'דיכאון', 'הפרעה נפשית', 'כולסטרול גבוה', 'עליה במשקל', 'ירידה במשקל', 'השמנה', 'מיגרנה', 'אנמיה', 'שפעת', 'הצטננות', 'אלרגיה', 'תרופות', 'אנטיביוטיקה', 'בלוטת התריס', 'עצירות', 'מה טוב למחלה', 'diabetes', 'weight loss', 'cancer treatment', 'depression']
 for (const q of BLOCKED) {
   const ok = isBlocked(q, data.blocked)
   if (!ok) fail++
   console.log(`${ok ? 'OK ' : 'FAIL'} blocked ${q}`)
 }
 // Not blocked: everyday well-being language keeps working.
-for (const q of ['קשה לי להירדם', 'אין לי אנרגיה', 'בטן נפוחה', 'חורף', 'גיל המעבר', 'מגנזיום', 'קלנוזים']) {
+for (const q of ['קשה לי להירדם', 'אין לי אנרגיה', 'בטן נפוחה', 'חורף', 'גיל המעבר', 'מגנזיום', 'קלנוזים', 'חרדה', 'זיכרון', 'ריכוז', 'מיקוד', 'שינה', 'לחץ', 'מתח', 'לחץ דם', 'הפרעות קצב לב', 'כאבי פרקים', 'דלקות', 'שחיקת סחוס', 'שחיקת אגן', 'דלקות בדרכי השתן', 'ערמונית מוגדלת', 'ערמונית']) {
   const ok = !isBlocked(q, data.blocked)
   if (!ok) fail++
   console.log(`${ok ? 'OK ' : 'FAIL'} allowed ${q}`)

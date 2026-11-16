@@ -180,8 +180,10 @@ export function search(index, q, { kind } = {}) {
   }
   results.sort((a, b) => b.score - a.score || a.doc.title.localeCompare(b.doc.title, 'he'))
   // keep the strong tail only: at least a third of the top score, or every-word matches
-  const top = results[0]?.score || 0
-  const kept = results.filter((r) => r.hits === base.length || r.score >= top / 3)
+  // (per kind: a strong article must not hide the products of the same query)
+  const tops = {}
+  for (const r of results) tops[r.doc.kind] = Math.max(tops[r.doc.kind] || 0, r.score)
+  const kept = results.filter((r) => r.hits === base.length || r.score >= tops[r.doc.kind] / 3)
   return { results: kept, unmatched: base.filter((t) => !matchedAnywhere.has(t)), expanded: extra }
 }
 
