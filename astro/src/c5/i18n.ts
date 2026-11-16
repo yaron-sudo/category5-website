@@ -15,6 +15,9 @@ const he = {
   'chat.inputLabel': 'הקלידו שאלה', 'chat.placeholder': 'כתבו שאלה…', 'chat.send': 'שליחה', 'a11y.open': 'נגישות',
   'chat.toProduct': 'לעמוד המוצר', 'chat.expand': 'הגדלת החלון', 'chat.shrink': 'הקטנת החלון',
   'chat.steps': 'קורא את השאלה|מחפש במידע על המוצרים|בודק את המקורות|מעבד את התשובה|בודק שנית לפני שליחה', 'chat.working': 'הצ׳אט מכין תשובה',
+  'chat.productHi': 'שלום! הגעתם מעמוד המוצר **{name}**. מה תרצו לדעת עליו עוד — הרכיבים, הוראות השימוש, הכשרות או איפה אפשר להשיג אותו? ואם יש לכם שאלה אחרת, אפשר כמובן לשאול אותה כאן.',
+  'chat.productCtx': 'אני בעמוד המוצר {name} ({url}). השאלות הבאות שלי עוסקות במוצר הזה, אלא אם אציין אחרת.',
+  'chat.productPlaceholder': 'שאלה על {name}…',
   'chat.error': 'משהו השתבש. נסו שוב בעוד רגע.', 'chat.unavailable': 'הצ׳אט אינו זמין כרגע.', 'chat.rateLimited': 'שלחתם הרבה שאלות בזמן קצר. נסו שוב בעוד כמה דקות.',
   'form.sent': 'נשלח', 'form.error': 'השליחה נכשלה',
 } as const
@@ -24,6 +27,9 @@ const en: Partial<Record<UiKey, string>> = {
   'chat.inputLabel': 'Type a question', 'chat.placeholder': 'Write a question…', 'chat.send': 'Send',
   'chat.toProduct': 'View product', 'chat.expand': 'Enlarge window', 'chat.shrink': 'Reduce window',
   'chat.steps': 'Reading your question|Searching the product information|Checking the sources|Preparing the answer|Double-checking before sending', 'chat.working': 'Preparing an answer',
+  'chat.productHi': 'Hello! You came from the **{name}** product page. What would you like to know about it — ingredients, directions, kosher status or where to buy it? And if you have a different question, feel free to ask it here.',
+  'chat.productCtx': 'I am on the {name} product page ({url}). My next questions are about this product unless I say otherwise.',
+  'chat.productPlaceholder': 'A question about {name}…',
   'chat.error': 'Something went wrong. Please try again shortly.', 'chat.unavailable': 'Chat is not available right now.', 'chat.rateLimited': 'Too many questions in a short time. Please try again in a few minutes.',
 }
 const DICT: Record<Lang, Partial<Record<UiKey, string>>> = { he, en }
@@ -49,6 +55,9 @@ const CHAT_EXTRA: Record<Exclude<ChatLang, Lang>, Partial<Record<UiKey, string>>
     'chat.inputLabel': 'اكتبوا سؤالاً', 'chat.placeholder': 'اكتبوا سؤالاً…', 'chat.send': 'إرسال',
     'chat.toProduct': 'إلى صفحة المنتج', 'chat.expand': 'تكبير النافذة', 'chat.shrink': 'تصغير النافذة',
     'chat.steps': 'يقرأ سؤالك|يبحث في معلومات المنتجات|يتحقق من المصادر|يُعدّ الإجابة|يتحقق مرة أخرى قبل الإرسال', 'chat.working': 'يتم إعداد الإجابة',
+    'chat.productHi': 'مرحباً! وصلتم من صفحة المنتج **{name}**. ماذا تودون أن تعرفوا عنه أكثر — المكونات، طريقة الاستخدام، الكشروت أو أين يمكن شراؤه؟ وإن كان لديكم سؤال آخر، تفضلوا بطرحه هنا.',
+    'chat.productCtx': 'أنا في صفحة المنتج {name} ({url}). أسئلتي التالية تخص هذا المنتج ما لم أذكر غير ذلك.',
+    'chat.productPlaceholder': 'سؤال عن {name}…',
     'chat.error': 'حدث خطأ. حاولوا مرة أخرى بعد قليل.', 'chat.unavailable': 'المحادثة غير متاحة حالياً.', 'chat.rateLimited': 'أرسلتم أسئلة كثيرة في وقت قصير. حاولوا مرة أخرى بعد بضع دقائق.',
   },
   ru: {
@@ -56,6 +65,9 @@ const CHAT_EXTRA: Record<Exclude<ChatLang, Lang>, Partial<Record<UiKey, string>>
     'chat.inputLabel': 'Введите вопрос', 'chat.placeholder': 'Напишите вопрос…', 'chat.send': 'Отправить',
     'chat.toProduct': 'Страница продукта', 'chat.expand': 'Увеличить окно', 'chat.shrink': 'Уменьшить окно',
     'chat.steps': 'Читаю вопрос|Ищу в информации о продуктах|Проверяю источники|Готовлю ответ|Проверяю ещё раз перед отправкой', 'chat.working': 'Готовлю ответ',
+    'chat.productHi': 'Здравствуйте! Вы пришли со страницы продукта **{name}**. Что вы хотели бы узнать о нём — состав, способ применения, кашрут или где его купить? А если у вас другой вопрос, задайте его здесь.',
+    'chat.productCtx': 'Я на странице продукта {name} ({url}). Мои следующие вопросы касаются этого продукта, если я не укажу иное.',
+    'chat.productPlaceholder': 'Вопрос о {name}…',
     'chat.error': 'Что-то пошло не так. Попробуйте ещё раз чуть позже.', 'chat.unavailable': 'Чат сейчас недоступен.', 'chat.rateLimited': 'Слишком много вопросов за короткое время. Попробуйте снова через несколько минут.',
   },
   fr: {
@@ -63,6 +75,9 @@ const CHAT_EXTRA: Record<Exclude<ChatLang, Lang>, Partial<Record<UiKey, string>>
     'chat.inputLabel': 'Saisissez une question', 'chat.placeholder': 'Écrivez une question…', 'chat.send': 'Envoyer',
     'chat.toProduct': 'Voir le produit', 'chat.expand': 'Agrandir la fenêtre', 'chat.shrink': 'Réduire la fenêtre',
     'chat.steps': 'Lecture de votre question|Recherche dans les informations produits|Vérification des sources|Préparation de la réponse|Dernière vérification avant l’envoi', 'chat.working': 'Préparation de la réponse',
+    'chat.productHi': 'Bonjour ! Vous venez de la page du produit **{name}**. Que souhaitez-vous savoir de plus — les ingrédients, le mode d’emploi, la cacherout ou où l’acheter ? Et si vous avez une autre question, posez-la ici.',
+    'chat.productCtx': 'Je suis sur la page du produit {name} ({url}). Mes prochaines questions concernent ce produit, sauf indication contraire.',
+    'chat.productPlaceholder': 'Une question sur {name}…',
     'chat.error': 'Une erreur est survenue. Réessayez dans un instant.', 'chat.unavailable': "Le chat n'est pas disponible pour le moment.", 'chat.rateLimited': 'Trop de questions en peu de temps. Réessayez dans quelques minutes.',
   },
 }

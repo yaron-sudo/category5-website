@@ -126,6 +126,29 @@ const dirs = Object.fromEntries(CHAT_LANGS.map((l) => [l.code, l.dir]))
       if (open) { if (!touch) input.focus() } else openBtn.focus()
     }
     openBtn.addEventListener('click', () => setOpen(true))
+    // Product pages: "יש לכם שאלה?" opens the chat with a greeting about that product
+    // (the product is also put into the conversation so follow-ups refer to it).
+const bubble = (role: 'user' | 'assistant') => {
+      const el = document.createElement('div')
+      el.style.cssText = role === 'user'
+        ? 'align-self: flex-end; max-width: 85%; background: #ffffff; border: 1px solid #141414; padding: 10px 14px; border-radius: 4px'
+        : 'align-self: flex-start; max-width: 90%; background: #ffffff; border: 1px solid #dcdcd9; padding: 10px 14px; border-radius: 4px; display: flex; flex-direction: column; gap: 8px'
+      log.appendChild(el)
+      return el
+    }
+    let seeded = ''
+    window.addEventListener('c5:chat', (e) => {
+      const d = (e as CustomEvent<{ name?: string; url?: string }>).detail || {}
+      setOpen(true)
+      if (!d.name || seeded === d.name) return
+      seeded = d.name
+      const s = S[lang]
+      const fill = (k: string) => (s[k] || S.en[k] || '').replace(/\{name\}/g, d.name!).replace(/\{url\}/g, d.url || '')
+      const el = bubble('assistant'); el.innerHTML = md(fill('chat.productHi'))
+      history.push({ role: 'user', content: fill('chat.productCtx') }, { role: 'assistant', content: fill('chat.productHi').replace(/\*\*/g, '') })
+      input.placeholder = fill('chat.productPlaceholder')
+      log.scrollTop = log.scrollHeight
+    })
     root.querySelector('[data-chat-close]')!.addEventListener('click', () => setOpen(false))
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !panel.hidden) setOpen(false) })
 
@@ -206,15 +229,7 @@ const dirs = Object.fromEntries(CHAT_LANGS.map((l) => [l.code, l.dir]))
         stop() { if (done) return; done = true; window.clearInterval(timer); out.removeAttribute('aria-busy'); out.innerHTML = '' },
       }
     }
-    const bubble = (role: 'user' | 'assistant') => {
-      const el = document.createElement('div')
-      el.style.cssText = role === 'user'
-        ? 'align-self: flex-end; max-width: 85%; background: #ffffff; border: 1px solid #141414; padding: 10px 14px; border-radius: 4px'
-        : 'align-self: flex-start; max-width: 90%; background: #ffffff; border: 1px solid #dcdcd9; padding: 10px 14px; border-radius: 4px; display: flex; flex-direction: column; gap: 8px'
-      log.appendChild(el)
-      return el
-    }
-
+    
     form.addEventListener('submit', async (e) => {
       e.preventDefault()
       const q = input.value.trim()

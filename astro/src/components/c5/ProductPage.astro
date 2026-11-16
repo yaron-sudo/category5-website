@@ -92,7 +92,7 @@ const btn = 'display: inline-flex; align-items: center; justify-content: center;
 {shelf && <span class="pp-pill">אורך חיי מדף - {shelf}</span>}
 </div>
 
-<button type="button" data-pp-ask class="pp-ask"><span class="pp-ask-text"><strong>יש לכם שאלה?</strong> אנחנו כאן כדי לענות</span></button>
+<button type="button" data-pp-ask data-product={name} data-url={productHref(p)} class="pp-ask"><span class="pp-ask-text"><strong>יש לכם שאלה?</strong> אנחנו כאן כדי לענות</span></button>
 
 <ProductHighlights slug={p.slug} />
 
@@ -323,7 +323,9 @@ const btn = 'display: inline-flex; align-items: center; justify-content: center;
       }, 5000)
     }
   }
-  document.querySelector('[data-pp-ask]')?.addEventListener('click', () => document.querySelector<HTMLButtonElement>('[data-chat-open]')?.click())
+  // Opens the chat with a greeting about this product (Floating.astro listens for c5:chat).
+  const ask = document.querySelector<HTMLElement>('[data-pp-ask]')
+  ask?.addEventListener('click', () => window.dispatchEvent(new CustomEvent('c5:chat', { detail: { name: ask.dataset.product, url: ask.dataset.url } })))
 
   // Tabs
   const tabsRoot = document.querySelector<HTMLElement>('[data-pp-tabs]')
