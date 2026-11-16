@@ -23,8 +23,16 @@ const FIT_OVERRIDES: Record<string, string> = {
 }
 
 /** Images whose cast shadow shows on the light box — softened with a gentle edge feather. */
-const FEATHER = new Set(['/assets/products/calcidex.png'])
+// Values (share of the image width / height): where the left fade ends, and where the right and
+// bottom fades start. The semi-transparent shadow plate of these photos has hard edges; the fade
+// removes them just outside the product, so the product sits cleanly on the light tile.
+const FEATHER = new Map<string, [number, number, number]>([
+  ['/assets/products/calcidex.png', [10, 78, 78]],
+  ['/assets/products/calcidex-combo.png', [11.5, 79, 77]],
+  ['/assets/products/calcidex-jar.png', [31, 66, 80]],
+])
 export const imageFeather = (src?: string) => !!src && FEATHER.has(src)
+const featherVars = (src: string) => { const f = FEATHER.get(src); return f ? `--fl: ${f[0]}%; --fx: ${f[1]}%; --fy: ${f[2]}%` : '' }
 
 const PUBLIC = [resolve(process.cwd(), 'public'), resolve(process.cwd(), 'astro/public')].find((d) => existsSync(d)) ?? 'public'
 const cache = new Map<string, Promise<string | undefined>>()
@@ -32,10 +40,12 @@ const cache = new Map<string, Promise<string | undefined>>()
 /** Inline style for an <img> inside a square, `position: relative; overflow: hidden` box — or undefined to keep `contain`. */
 export function imageFit(src?: string): Promise<string | undefined> {
   if (!src || !src.startsWith('/')) return Promise.resolve(undefined)
-  if (FIT_OVERRIDES[src]) return Promise.resolve(FIT_OVERRIDES[src])
+  const fv = featherVars(src)
+  const add = (st?: string) => (fv ? `${st ? `${st}; ` : 'width: 100%; height: 100%; object-fit: contain; '}${fv}` : st)
+  if (FIT_OVERRIDES[src]) return Promise.resolve(add(FIT_OVERRIDES[src]))
   let p = cache.get(src)
   if (!p) { p = measure(src).catch(() => undefined); cache.set(src, p) }
-  return p
+  return p.then(add)
 }
 
 async function measure(src: string): Promise<string | undefined> {

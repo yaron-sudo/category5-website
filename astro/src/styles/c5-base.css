@@ -133,4 +133,11 @@ html.c5-scrolling main { pointer-events: none; }
 main img, footer img { user-select: none; -webkit-user-select: none; -webkit-user-drag: none; }
 
 /* Gentle edge feather: fades a cast shadow into the box without touching the file. */
-.c5-feather { -webkit-mask-image: radial-gradient(75% 105% at 50% 50%, #000 78%, transparent 99%); mask-image: radial-gradient(75% 105% at 50% 50%, #000 78%, transparent 99%); }
+/* Feather: the semi-transparent shadow plate of some photos has hard edges; it fades out just
+   outside the product on the left, right and bottom (--fl / --fx / --fy from imageFit.ts). */
+.c5-feather {
+  --c5-fh: linear-gradient(to right, transparent var(--fl, 0%), #000 calc(var(--fl, 0%) + 5%), #000 var(--fx, 85%), transparent calc(var(--fx, 85%) + 12%));
+  --c5-fv: linear-gradient(to bottom, #000 var(--fy, 85%), transparent calc(var(--fy, 85%) + 11%));
+  -webkit-mask-image: var(--c5-fh), var(--c5-fv); -webkit-mask-composite: source-in;
+  mask-image: var(--c5-fh), var(--c5-fv); mask-composite: intersect;
+}
