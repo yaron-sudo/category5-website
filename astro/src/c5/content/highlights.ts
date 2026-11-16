@@ -48,7 +48,7 @@ export const HIGHLIGHTS: Record<string, ProductHighlights> = {
   'lipozamin-glutathione': { is: ['vegan', 'microscope', 'nonGmo', 'noPreservatives'], kosher: 'כשר פרווה – בד״ץ חתם סופר בני ברק' },
   'lipozamin-mg-complex': { is: ['vegan', 'microscope', 'nonGmo', 'noPreservatives'], kosher: 'כשר פרווה – בד״ץ חתם סופר בני ברק' },
   'lipozamin-mg-spectrum': { is: ['vegan', 'microscope', 'nonGmo', 'noPreservatives'], kosher: 'כשר פרווה – בד״ץ חתם סופר בני ברק' },
-  'lipozamin-mg-taurate': { is: ['vegan', 'microscope', 'nonGmo', 'noPreservatives'], kosher: 'כשר פרווה – בד״ץ בית יוסף' },
+  'lipozamin-mg-taurate': { is: ['vegan', 'microscope', 'nonGmo', 'noPreservatives'], kosher: 'כשר פרווה – בד״ץ חתם סופר בני ברק' },
   'lipozamin-nac': { is: ['vegan', 'microscope', 'nonGmo', 'noPreservatives'], kosher: 'כשר פרווה – בד״ץ חתם סופר בני ברק' },
   'lipozamin-nicotinamide': { is: ['vegan', 'microscope', 'nonGmo', 'noPreservatives'], kosher: 'כשר פרווה – בד״ץ חתם סופר בני ברק' },
   'lipozamin-q10-spectrum': { is: ['vegan', 'microscope', 'nonGmo', 'noPreservatives'], kosher: 'כשר פרווה – בד״ץ חתם סופר בני ברק' },

@@ -108,43 +108,10 @@ product's sources state; a product with dairy or egg ingredients is never marked
   product page (approved under Ministry of Health rules / the new EU-based claims rules), worded exactly as on
   the pack. Brochure lists such as "מומלץ (בהתייעצות עם רופא)" are not label claims and stay out.
 - Glossary terms are linked automatically; do not add links by hand.
-- Kashrut certifier ("נותן הכשרות"), client's rule: when sources differ, **בד״ץ בית יוסף** or
-  **בד״ץ העדה החרדית ירושלים** wins; do not mention the regional rabbinate ("בהשגחת הרבנות
-  האזורית …"). Where the only certifier in the source is בד״ץ חתם סופר בני ברק or רבנות מעלה אדומים, keep it
-  (client confirmed). Anything else unclear: ask the client before publishing.
-
-## Check before pushing
-```bash
-cd astro && npm ci && npm run build
-```
-Then look at the changed product pages (build output in `astro/.vercel/output/static`, or
-`npx astro dev`). Report in Hebrew: which products changed, what is still missing.
-
-## Electron-microscope photo (optional)
-
-When the product brochure shows an electron-microscope photo of the product's liposome,
-save it (as extracted, uncropped) to `astro/public/assets/products/microscope/<slug>.webp`
-(second photo: `<slug>-2.webp`). The product page then shows the accordion
-"צילום הליפוזום במיקרוסקופ אלקטרוני" under the label automatically.
-
-## Ingredient review articles ("מאמרים מקצועיים")
-
-One review per raw material, under `astro/src/c5/content/articles-ingredients/<research-id>.md`
-(frontmatter `title` / `latin` / `excerpt`; body: paragraphs, `## ` headings, `[text](url)` links).
-Written from `knowledge/research/<id>.md` — only studies with a `בקצרה` line; positive findings
-only; no company product names, no sales referral (legal). A fixed closing note is appended
-automatically. The articles pages are styled after The Ordinary (client request 14.11.2026).
-
-## "האריזה החדשה" tag
-
-Products in the new packaging are listed in `NEW_PACK` (astro/src/c5/content/overrides.ts). Their cards on the
-series and needs pages show a small white tag with the series-colour outline. Add/remove slugs there.
-
-## Search words (מנוע החיפוש)
-
-Two editable files decide what the search (and the chat) may answer:
-
-`astro/src/c5/content/searchKeywords.ts` — the **approved vocabulary**:
+- Kashrut certifier ("נותן הכשרות"), client's rule (2026-11-16): one of בד״ץ חתם סופר בני ברק,
+  בד״ץ העדה החרדית ירושלים, or רבנות מעלה אדומים (dairy products), as on the label. Never mention the
+  regional rabbinate ("בהשגחת הרבנות האזורית …"). The product highlights show "type – certifier".
+  If unclear, ask the client.
 - `SYNONYMS` — groups of everyday words that mean the same thing ("קשה לי להירדם" → שינה). A query
   that touches a group searches for all its words. Only well-being language the site already uses
   on its series / needs pages — no disease, symptom or medicine words.
