@@ -29,6 +29,9 @@ export type ProductOverride = Partial<Omit<Product, 'slug'>> & { hidden?: boolea
 /** Products already in the new packaging: their cards on the series and needs pages
  *  carry the "האריזה החדשה" tag (client brief 15.11.2026). Edit freely. */
 export const NEW_PACK: string[] = [
+  // New branding = carton box + glass jar. Only products photographed in that pack.
+  'liposomal-multivitamin', 'liposomal-vitamin-b-complex',
+] = [
   'calcidex', 'cellinol-liposomal-vitamin-c', 'curcumin-complex', 'fibrogen', 'liposomal-multivitamin',
   'liposomal-vitamin-b-complex', 'lipozamin-alpha-lipoic-acid', 'lipozamin-nac', 'magnesium-bisglycinate-liposomal',
   'natto', 'umanaflora-daily', 'quick-c', 'quick-daily-biotics', 'quick-fe', 'revival',
