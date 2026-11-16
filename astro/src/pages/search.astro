@@ -7,7 +7,7 @@
 // shows as a quick link above them. A query naming a disease, symptom or medicine
 // (content/searchBlocked.ts) shows no results at all — only BLOCKED_MESSAGE and the quick links.
 import Site from '@/layouts/Site.astro'
-import { SERIES, NEEDS, seriesHref, needHref } from '@/c5/data'
+import { SERIES, NEEDS, CONTACT, seriesHref, needHref } from '@/c5/data'
 import { buildSearchDocs, SEARCH_SYNONYMS, SEARCH_BLOCKED } from '@/c5/search/index'
 import { BLOCKED_MESSAGE } from '@/c5/content/searchBlocked'
 const docs = await buildSearchDocs()
@@ -46,6 +46,15 @@ const btn = 'min-height: 48px; padding: 0 22px; border: 1px solid #141414; borde
 <p data-sr-empty="article" class="sr-empty" hidden>לא נמצאו מאמרים מתאימים לחיפוש הזה.</p>
 </div>
 </div>
+<div data-sr-none class="sr-none" hidden>
+<p class="sr-none-title">לא מצאנו תוצאות לחיפוש שלך</p>
+<p class="sr-none-sub">אפשר לנסות מילות חיפוש אחרות או להיעזר בנו כדי למצוא את מה שחיפשת.</p>
+<div class="sr-quick" data-sr-none-links></div>
+<div class="sr-quick">
+<button type="button" data-sr-none-chat>דברו איתנו</button>
+<a href={`https://wa.me/${CONTACT.whatsappIntl}`} rel="noopener" target="_blank">ווטסאפ</a>
+</div>
+</div>
 <p data-sr-idle class="sr-idle">הקלידו מה שמחפשים — שם מוצר, רכיב, צורך בריאותי או פשוט "קשה לי להירדם".</p>
 </section>
 
@@ -67,8 +76,13 @@ const btn = 'min-height: 48px; padding: 0 22px; border: 1px solid #141414; borde
   .sr-blocked { margin: 0; padding: 16px 18px; background: #e9e9e7; border-radius: 4px; font-size: 15px; max-width: 760px; }
   .sr-blocked[hidden] { display: none; }
   .sr-quick { display: flex; flex-wrap: wrap; gap: 8px; }
-  .sr-quick a { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; border: 1px solid #141414; border-radius: 4px; color: #141414; text-decoration: none; font-size: 15px; }
-  .sr-quick a:hover { background: #efeeea; }
+  .sr-none { display: grid; gap: 18px; max-width: 760px; }
+  .sr-none[hidden] { display: none; }
+  .sr-none-title { margin: 0; font-size: 20px; }
+  .sr-none-sub { margin: 0; font-size: 17px; }
+  .sr-quick a, .sr-quick button { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; border: 1px solid #141414; border-radius: 4px; color: #141414; text-decoration: none; font-size: 15px; }
+  .sr-quick a:hover, .sr-quick button:hover { background: #efeeea; }
+  .sr-quick button { background: #ffffff; font: inherit; cursor: pointer; }
   .sr-results { max-width: 1280px; margin: 0 auto; padding: 24px clamp(16px, 4vw, 48px) clamp(56px, 7vw, 112px); box-sizing: border-box; color: #141414; }
   .sr-cols { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 40px clamp(28px, 4vw, 56px); }
   .sr-cols[hidden] { display: none; }
@@ -105,6 +119,7 @@ const btn = 'min-height: 48px; padding: 0 22px; border: 1px solid #141414; borde
   const sugg = document.querySelector<HTMLUListElement>('[data-sr-sugg]')!
   const dym = document.querySelector<HTMLElement>('[data-sr-dym]')!
   const blockedEl = document.querySelector<HTMLElement>('[data-sr-blocked]')!
+  const noneEl = document.querySelector<HTMLElement>('[data-sr-none]')!
   const quickEl = document.querySelector<HTMLElement>('[data-sr-quick]')!
   const cols = document.querySelector<HTMLElement>('.sr-cols')!
   const idle = document.querySelector<HTMLElement>('[data-sr-idle]')!
@@ -112,6 +127,8 @@ const btn = 'min-height: 48px; padding: 0 22px; border: 1px solid #141414; borde
   const empties = { product: document.querySelector<HTMLElement>('[data-sr-empty="product"]')!, article: document.querySelector<HTMLElement>('[data-sr-empty="article"]')! }
   const counts = { product: document.querySelector<HTMLElement>('[data-sr-count="product"]')!, article: document.querySelector<HTMLElement>('[data-sr-count="article"]')! }
   const esc = (s: string) => s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!)
+  noneEl.querySelector<HTMLElement>('[data-sr-none-links]')!.innerHTML = D.quick.map((x) => `<a href="${x.href}">${esc(x.prefix)}: ${esc(x.label)}</a>`).join('')
+  noneEl.querySelector('[data-sr-none-chat]')!.addEventListener('click', () => document.querySelector<HTMLButtonElement>('[data-chat-open]')?.click())
   const seriesColor = (name?: string) => { const s = D.quick.find((q) => q.kind === 'series' && q.label === name); const slug = s ? s.href.split('/').pop() : ''; return D.series.find((x) => x.slug === slug)?.color ?? '#141414' }
 
   const card = (d: Doc) => d.kind === 'product'
@@ -121,10 +138,10 @@ const btn = 'min-height: 48px; padding: 0 22px; border: 1px solid #141414; borde
   const run = (q: string, push = true) => {
     const nq = normalize(q)
     if (push) history.replaceState(null, '', nq ? `?q=${encodeURIComponent(q.trim())}` : location.pathname)
-    if (!nq) { cols.hidden = true; idle.hidden = false; dym.hidden = true; blockedEl.hidden = true; quickEl.hidden = true; return }
+    if (!nq) { cols.hidden = true; idle.hidden = false; dym.hidden = true; blockedEl.hidden = true; noneEl.hidden = true; quickEl.hidden = true; return }
     if (isBlocked(q, D.blocked)) {
       // medical term: no results, no correction — the notice and the series / need links only
-      cols.hidden = true; idle.hidden = true; dym.hidden = true; blockedEl.hidden = false
+      cols.hidden = true; idle.hidden = true; dym.hidden = true; noneEl.hidden = true; blockedEl.hidden = false
       quickEl.innerHTML = D.quick.map((x) => `<a href="${x.href}">${esc(x.prefix)}: ${esc(x.label)}</a>`).join('')
       quickEl.hidden = false
       return
@@ -136,6 +153,9 @@ const btn = 'min-height: 48px; padding: 0 22px; border: 1px solid #141414; borde
     quickEl.innerHTML = ql.map((x) => `<a href="${x.href}">${esc(x.prefix)}: ${esc(x.label)}</a>`).join('')
     quickEl.hidden = !ql.length
     const r = search(index, q)
+    // nothing at all: the "no results" block replaces both columns
+    noneEl.hidden = r.results.length > 0
+    cols.hidden = r.results.length === 0
     for (const kind of ['product', 'article'] as const) {
       const hits = r.results.filter((x) => x.doc.kind === kind)
       lists[kind].innerHTML = hits.map((x) => card(x.doc)).join('')
