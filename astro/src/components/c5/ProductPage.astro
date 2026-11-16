@@ -3,7 +3,7 @@
 // supersedes the BRIEF §8 mockup layout), in the Category 5 visual language:
 //   breadcrumb → gallery (thumbs + large image) beside an info column (series tag,
 //   name, short text, ask-the-AI box, pack-size pill, stores button, spec rows)
-//   → accordion sections (benefits / usage / label) → more from the series → legal.
+//   → accordion sections (benefits / usage / label) → more from the series. (Legal disclaimer lives in the footer only.)
 // Content: src/c5/content/catalog.ts (old-site data + overrides); unfilled fields
 // show the mockup's placeholder texts.
 import Site from '@/layouts/Site.astro'
@@ -152,10 +152,6 @@ const btn = 'display: inline-flex; align-items: center; justify-content: center;
 </div>
 </section>
 )}
-
-<section aria-label="התוויה משפטית" class="pp" style="padding-top: clamp(40px, 5vw, 64px); padding-bottom: clamp(48px, 6vw, 88px)">
-<p style="margin: 0; font-size: 15px">{p.legal || PH.legal}</p>
-</section>
 
 </Site>
 
