@@ -30,7 +30,7 @@ export type ProductOverride = Partial<Omit<Product, 'slug'>> & { hidden?: boolea
  *  carry the "האריזה החדשה" tag (client brief 15.11.2026). Edit freely. */
 export const NEW_PACK: string[] = [
   // New branding = carton box + glass jar. Only products photographed in that pack.
-  'liposomal-multivitamin', 'liposomal-vitamin-b-complex', 'lipozamin-mg-spectrum',
+  'liposomal-multivitamin', 'liposomal-vitamin-b-complex', 'lipozamin-mg-spectrum', 'calcidex',
 ]
 
 export const PRODUCT_OVERRIDES: Record<string, ProductOverride> = {
@@ -568,6 +568,36 @@ export const PRODUCT_OVERRIDES: Record<string, ProductOverride> = {
       'פרוסמן (PROSMAN) הוא רכיב חדשני ובלעדי, המשולב בפורמולה של פרוטסטרול 40+ יחד עם רכיבים נוספים. פרוסמן נחקר בהקשר של הגדלת ערמונית. החומרים הפעילים שבו הם פרי מחקר של שנים רבות, ומופקים מעץ שזיף אירופאי ייחודי הגדל בחווה למרגלות הרי ההימלאיה.',
       'בנוסף, המנה היומית (2 כמוסות) מכילה רכיבים שנחקרו בהקשר של הערמונית ושל האנזים 5-אלפא רדוקטאז, ובהם: מיצוי דקל ננסי בסטנדרטיזציה גבוהה, מיצוי עלי דמיאנה (Liboost®), תמצית זרעי דלעת, אפימדיום, N-אצטיל-ציסטאין (NAC), חומצה אלפא ליפואית, ל-ארגינין, ל-ציטרולין, אצטיל-ל-קרניטין, אשווגנדה ליפוזומלית, קוורצטין 98%, רוטין 95%, מיצוי קטב מצוי, מיצוי סרפד, תמצית זרעי חילבה ליפוזומלית, תמצית קליפת עץ אורן, ליקופן, וקומפלקס ליפוזומלי של בטא קריופילן, ביסקורן ושורש כורכום.',
     ],
+  },
+
+  // Calcidex: new pack (carton + glass jar), label and the client's brochure (Kalcidex-Brochure.pdf).
+  // Left out: the brochure's research figures, symptom lists and "מומלץ" list.
+  calcidex: {
+    image: '/assets/products/calcidex-combo.png',
+    gallery: ['/assets/products/calcidex-jar.png'],
+    contains: 'מכיל 60 כמוסות צמחיות',
+    intro: [
+      'קלצידקס - קומפלקס סידן גליצרופוספט ואלוורה להפחתת חומציות מזונות ומשקאות חומציים.',
+      'הפעולה מתחילה במזון שאנו צורכים, ולא בדיכוי מנגנון ייצור החומצה בקיבה: כאשר סידן גליצרופוספט נלקח יחד עם מזון או משקה חומצי, הוא פועל על החומציות של המזון והמשקה עצמם.',
+    ],
+    benefits: [
+      'כמוסה אחת מכילה: 420 מ"ג סידן גליצרופוספט, 30 מ"ג אבקת ג׳ל אלוורה BiAloe®. במנה (2 כמוסות): 840 מ"ג סידן גליצרופוספט.',
+      'סידן גליצרופוספט (Calcium Glycerophosphate) יכול לקשור יוני מימן (H⁺), ובכך להפחית את החומציות של מזונות ומשקאות.',
+      'ג׳ל האלוורה BiAloe® מיוצר בתהליך של ייבוש בהקפאה (Freeze drying), תוך שמירה על הערכים הגבוהים של החומרים הפעילים. אינו מכיל אלואין (Aloin) ואלו-אמודין (Aloe-emodin), ומכיל לא פחות מ-15% פוליסכרידים.',
+      'מתאים לצמחונים וטבעונים.',
+      '60 כמוסות צמחיות קטנות ונוחות לבליעה.',
+      'ללא: חומרים מן החי, חומרים מהונדסים גנטית, סוכר, ממתיקים, תמציות טעם וריח, גלוטן, סויה, חלב ולקטוז, סיליקון דיאוקסיד, חומרים משמרים, PEG.',
+    ],
+    usage: ['2 כמוסות יחד עם הביס או הלגימה הראשונה של מזון או משקה חומצי.'],
+    details: [
+      'סוג כשרות: כשר פרווה, בד״ץ.',
+      'נותן הכשרות: בד״ץ חתם סופר בני ברק.',
+      'המלצת אחסון: יש לאחסן במקום קריר ויבש, הרחק מחום, אור ולחות.',
+      'נשים בהריון, נשים מיניקות, אנשים הנוטלים תרופות מרשם וילדים יש להיוועץ ברופא.',
+      'יש להרחיק מהישג ידם של ילדים.',
+      'תוסף תזונה. אינו תרופה ואינו מיועד לאבחון, לטיפול או לריפוי מחלה.',
+    ],
+    keywords: ['קלצידקס', 'Kalcidex', 'Calcidex', 'סידן גליצרופוספט', 'Calcium Glycerophosphate', 'אלוורה', 'BiAloe', 'חומציות'],
   },
 
   // Not ready yet (client): hidden until content and images are supplied.
