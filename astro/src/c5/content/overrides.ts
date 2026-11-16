@@ -31,11 +31,6 @@ export type ProductOverride = Partial<Omit<Product, 'slug'>> & { hidden?: boolea
 export const NEW_PACK: string[] = [
   // New branding = carton box + glass jar. Only products photographed in that pack.
   'liposomal-multivitamin', 'liposomal-vitamin-b-complex',
-] = [
-  'calcidex', 'cellinol-liposomal-vitamin-c', 'curcumin-complex', 'fibrogen', 'liposomal-multivitamin',
-  'liposomal-vitamin-b-complex', 'lipozamin-alpha-lipoic-acid', 'lipozamin-nac', 'magnesium-bisglycinate-liposomal',
-  'natto', 'umanaflora-daily', 'quick-c', 'quick-daily-biotics', 'quick-fe', 'revival',
-  'lipozamin-nicotinamide', 'lipozamin-q10-spectrum', 'lipozamin-se',
 ]
 
 export const PRODUCT_OVERRIDES: Record<string, ProductOverride> = {
