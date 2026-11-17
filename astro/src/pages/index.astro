@@ -5,10 +5,10 @@ import SeriesTile from '@/components/c5/SeriesTile.astro'
 import { SERIES, CONTACT } from '@/c5/data'
 import { t } from '@/c5/i18n'
 
-// "בואו נדבר בריאות": 4 article teasers chosen by the client (17.11.2026): creatine, lactoferrin,
-// iron, vitamin C. A slug without an article yet shows the grey placeholder from the mockup.
+// "בואו נדבר בריאות": 4 article teasers chosen by the client (home round 3, 17.11.2026), in
+// this order. A slug without an article yet shows the grey placeholder from the mockup.
 import { ARTICLES } from '@/c5/content/articles'
-const HOME_ARTICLES = ['creatine', 'lactoferrin', 'iron-bisglycinate', 'vitamin-c']
+const HOME_ARTICLES = ['epimedium-icariin', 'selenium-selenomethionine', 'elderberry', 'olive-polyphenols']
 const articles = HOME_ARTICLES.map((slug) => {
   const a = ARTICLES.find((x) => x.slug === slug)
   return a ? { title: a.title, excerpt: a.excerpt, href: `/articles/${a.slug}`, image: a.image } : { title: 'כותרת הנושא', excerpt: 'תקציר טקסט…', href: '/articles', image: undefined }
@@ -55,6 +55,10 @@ const field = 'display: flex; flex-direction: column; gap: 2px; font-size: 15px'
 <span aria-hidden="true" style={bannerLine}></span>
 </div>
 <img src="/assets/banners/home-banner-2.jpg" alt="" width="2600" height="1110" loading="lazy" style="display: block; width: 100%; height: auto">
+</section>
+
+<section aria-label={t('banner')} style="background: #ffffff; padding-top: clamp(48px, 6vw, 96px)">
+<img src="/assets/banners/home-banner-3.jpg" alt="New look – coming soon" width="2600" height="1110" loading="lazy" style="display: block; width: 100%; height: auto">
 </section>
 
 <section id="articles" style="max-width: 1280px; margin: 0 auto; padding: clamp(48px, 6vw, 96px) clamp(16px, 4vw, 48px); box-sizing: border-box">
