@@ -98,7 +98,8 @@ const data = stores.map((s) => ({
   .c5-loc-chips { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
   @media (min-width: 1150px) { .c5-loc-chips { grid-template-columns: repeat(3, minmax(0, 1fr)); } .c5-loc-chips button:first-child { grid-column: span 1; } }
   .c5-loc-chips button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 40px; padding: 0 10px; white-space: nowrap; overflow: hidden; border: 1px solid #141414; border-radius: 4px; background: #ffffff; color: #141414; font: inherit; font-size: 14px; cursor: pointer; transition: background .3s cubic-bezier(.22,.61,.36,1), color .3s cubic-bezier(.22,.61,.36,1); }
-  .c5-loc-chips button[aria-pressed="true"] { background: #141414; color: #ffffff; }
+  /* Active chip (client note 17.11.2026): the hover tone, much darker, not black. */
+  .c5-loc-chips button[aria-pressed="true"] { background: #cfccc3; color: #141414; }
   .c5-loc-chips button:not([aria-pressed="true"]):hover { background: #efeeea; }
   .c5-loc-near { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 42px; padding: 0 14px; border: 1px solid #141414; border-radius: 4px; background: #ffffff; color: #141414; font: inherit; font-size: 14px; cursor: pointer; }
   .c5-loc-near:hover { background: #efeeea; }
