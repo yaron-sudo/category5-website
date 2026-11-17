@@ -5,8 +5,11 @@
 // Kashrut: same look as the others; a click shows the kashrut type.
 import { HIGHLIGHTS, HIGHLIGHT_LABELS, type HighlightKey } from '@/c5/content/highlights'
 import { linkTerms } from '@/c5/glossaryLinks'
-interface Props { slug: string }
+import { SERIES } from '@/c5/data'
+interface Props { slug: string; series?: string }
 const h = HIGHLIGHTS[Astro.props.slug]
+// Icons in the product's series colour (client, product page round 3, 17.11.2026).
+const hlColor = SERIES.find((x) => x.slug === Astro.props.series)?.color ?? '#8a8a88'
 const used = new Set<string>()
 type Item = { key: HighlightKey | 'kosher'; label: string; value?: string }
 // Two rows (client notes round 2, 16.11.2026): row 1 — vegan, microscope, non-GMO;
@@ -22,7 +25,7 @@ const pick = (keys: Array<Item['key']>) => keys.map((k) => all.find((x) => x.key
 const rest = all.filter((x) => !ROW1.includes(x.key) && !ROW2.includes(x.key))
 const rows = [pick(ROW1), [...pick(ROW2), ...rest]].filter((r) => r.length)
 const items = all
-// Line icons, 24px grid, 1.5 stroke — monochrome like the rest of the site's icons.
+// Line icons, 24px grid, thin 1px outline, in the series colour (client, product page round 3).
 const ICON: Record<string, string> = {
   vegan: 'M20 4c-7 0-12 3-13 10 0 3 1 5 3 6 6 0 10-5 10-16Zm-13 16c2-5 5-8 9-11',
   glutenFree: 'M12 21v-9m0 0c-3 0-4-2-4-4 2 0 4 1 4 4Zm0 0c3 0 4-2 4-4-2 0-4 1-4 4Zm0-5c-3 0-4-2-4-4 2 0 4 1 4 4Zm0 0c3 0 4-2 4-4-2 0-4 1-4 4ZM12 7c-2 0-3-2-3-4 2 0 3 2 3 4Zm0 0c2 0 3-2 3-4-2 0-3 2-3 4ZM4 4l16 16',
@@ -34,10 +37,10 @@ const ICON: Record<string, string> = {
   sugarFree: 'M4 8l8-4 8 4v8l-8 4-8-4V8Zm0 0 8 4 8-4m-8 4v8M4 4l16 16',
   kosher: 'M12 3l2 1.8 2.6-.6.6 2.6L19.8 9 18.6 11.4 19.8 14l-2.6 1.2-.6 2.6-2.6-.6L12 19l-2-1.8-2.6.6-.6-2.6L4.2 14l1.2-2.6L4.2 9l2.6-1.2.6-2.6 2.6.6L12 3Zm-3 8 2 2 4-4',
 }
-const svg = (k: string) => `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${ICON[k]}"></path></svg>`
+const svg = (k: string) => `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${ICON[k]}"></path></svg>`
 ---
 {items.length > 0 && (
-<section aria-label="תכונות המוצר" class="pp-hl">
+<section aria-label="תכונות המוצר" class="pp-hl" style={`--hl-color: ${hlColor}`}>
 <h2 class="pp-hl-title">תכונות המוצר</h2>
 {rows.map((row) => (
 <ul class="pp-hl-row">
@@ -69,7 +72,7 @@ const svg = (k: string) => `<svg width="26" height="26" viewBox="0 0 24 24" fill
   .pp-hl-row li { display: flex; align-items: center; gap: 10px; padding: 2px clamp(12px, 1.4vw, 20px); font-size: 16px; line-height: 1.35; }
   .pp-hl-row li:first-child { padding-inline-start: 0; }
   .pp-hl-row li + li { border-inline-start: 1px solid #c9c9c6; }
-  .pp-hl-row svg { flex: 0 0 22px; width: 22px; height: 22px; color: #8a8a88; }
+  .pp-hl-row svg { flex: 0 0 22px; width: 22px; height: 22px; color: var(--hl-color, #8a8a88); }
   .pp-hl-label a { color: #141414; }
   .pp-hl-row li.pp-hl-more { flex-wrap: wrap; row-gap: 4px; }
   .pp-hl-more button { display: inline-flex; align-items: center; gap: 10px; padding: 0; border: 0; background: none; color: #141414; font: inherit; cursor: pointer; text-align: start; }

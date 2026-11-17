@@ -94,7 +94,7 @@ const btn = 'display: inline-flex; align-items: center; justify-content: center;
 
 <button type="button" data-pp-ask data-product={name} data-url={productHref(p)} class="pp-ask"><span class="pp-ask-text"><strong>יש לכם שאלה?</strong> אנחנו כאן כדי לענות</span></button>
 
-<ProductHighlights slug={p.slug} />
+<ProductHighlights slug={p.slug} series={p.series} />
 
 <div class="pp-stores">
 <p style="margin: 0">מחפשים אותנו? מצאו את החנויות הקרובות אליכם.</p>
@@ -191,10 +191,10 @@ const btn = 'display: inline-flex; align-items: center; justify-content: center;
   .pp-ask strong { font-weight: 600; }
   .pp-ask-text { display: inline-block; transition: transform .6s cubic-bezier(.22,.61,.36,1); }
   .pp-ask:hover .pp-ask-text, .pp-ask:focus-visible .pp-ask-text { transform: scale(1.04); }
-  /* Stores banner: same grey as the ask banner; sentence above a 30%-smaller "לחנויות" button, all centred. */
+  /* Stores banner: same grey as the ask banner; sentence above the "לחנויות" button (enlarged by 50%, client round 3), all centred. */
   .pp-stores { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 20px 16px; background: #f7f7f5; text-align: center; }
   .pp-stores p { font-size: 15px !important; }
-  .pp-stores-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 31px; padding: 0 15px; border: 1px solid #141414; border-radius: 4px; background: #ffffff; color: #141414; text-decoration: none; font-size: 12px !important; line-height: 1; }
+  .pp-stores-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 47px; padding: 0 23px; border: 1px solid #141414; border-radius: 4px; background: #ffffff; color: #141414; text-decoration: none; font-size: 18px !important; line-height: 1; }
   /* Tabs (client notes round 1): one horizontal row; the content below is plain, right-aligned, no frames. */
   .pp-tabs { padding-top: clamp(28px, 4vw, 48px); }
   .pp-tablist { display: flex; gap: 0 clamp(18px, 3vw, 40px); border-bottom: 1px solid #dcdcd9; overflow-x: auto; scrollbar-width: none; }
