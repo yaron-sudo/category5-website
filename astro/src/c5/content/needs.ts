@@ -56,7 +56,6 @@ export const NEED_CONTENT: Record<string, NeedContent> = {
       'liposomal-multivitamin',
       'amorfolic',
       'protesterol-40',
-      'revival',
     ],
   },
   sport: {
