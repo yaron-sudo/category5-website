@@ -65,7 +65,19 @@ export const PRODUCT_OVERRIDES: Record<string, ProductOverride> = {
     ],
     keywords: ['חומצה פולית', 'פולאט', 'מתיל פולאט', 'MTHF', '5-MTHF', 'B9', 'ויטמין B9', 'Amorfolic', 'אמורפוליק'],
   },
-  'cellinol-junior': { contains: 'מכיל 60 טבליות' },
+  // Cellinol Junior: shelf life 36 months (client, 17.11.2026); the old site's benefit said "two years".
+  'cellinol-junior': {
+    contains: 'מכיל 60 טבליות',
+    benefits: [
+      'ויטמין C ליפוזומלי באבקה לספיגה ויעילות מירבית.',
+      'מתאים לצעירים, טבליות ללעיסה בטעם וריח נהדרים בתוספת תמצית תפוז טבעית.',
+      'ללא ממתיק מלאכותי (מכיל אריתרטול טבעי).',
+      'ללא סוכר.',
+      'יציב להפליא עם חיי מדף של 36 חודשים ללא צורך בקירור.',
+      'ויטמין C המכיל 100% חומצה אסקורבית שאינה מהונדסת גנטית וללא ערבוב מלחים ומינרלים כגון נתרן ואשלגן אסקורבט.',
+      'הליפוזום שבמוצר מיוצר מלצטין חמניות ואינו מכיל סויה.',
+    ],
+  },
 
   // Lipozamin Mg Taurate: shown again at the client's request; text from the client's brochure
   // (Lipozamin Mg Taurat.pdf) and the pack label. No indications / target groups.
