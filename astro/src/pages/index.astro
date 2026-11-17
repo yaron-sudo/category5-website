@@ -5,8 +5,14 @@ import SeriesTile from '@/components/c5/SeriesTile.astro'
 import { SERIES, CONTACT } from '@/c5/data'
 import { t } from '@/c5/i18n'
 
-// "בואו נדבר בריאות": 4 article teasers. No articles yet (BRIEF §17) → placeholders as in the mockup.
-const articles = Array.from({ length: 4 }, () => ({ title: 'כותרת הנושא', excerpt: 'תקציר טקסט…', href: '/articles' }))
+// "בואו נדבר בריאות": 4 article teasers chosen by the client (17.11.2026): creatine, lactoferrin,
+// iron, vitamin C. A slug without an article yet shows the grey placeholder from the mockup.
+import { ARTICLES } from '@/c5/content/articles'
+const HOME_ARTICLES = ['creatine', 'lactoferrin', 'iron-bisglycinate', 'vitamin-c']
+const articles = HOME_ARTICLES.map((slug) => {
+  const a = ARTICLES.find((x) => x.slug === slug)
+  return a ? { title: a.title, excerpt: a.excerpt, href: `/articles/${a.slug}`, image: a.image } : { title: 'כותרת הנושא', excerpt: 'תקציר טקסט…', href: '/articles', image: undefined }
+})
 const bannerTitle = 'margin: 0; font-size: clamp(22px, 2.3vw, 36px); line-height: 1.2; font-weight: 400; letter-spacing: 0'
 const bannerLine = 'position: absolute; left: 50%; top: calc(clamp(28px, 3.2vw, 48px) + 1.2em + clamp(14px, 1.6vw, 24px)); width: 1px; height: clamp(70px, 9vw, 140px); background: #141414; z-index: 2; font-size: clamp(22px, 2.3vw, 36px)'
 const field = 'display: flex; flex-direction: column; gap: 2px; font-size: 15px'
@@ -59,8 +65,10 @@ const field = 'display: flex; flex-direction: column; gap: 2px; font-size: 15px'
 <div class="articles-grid">
 {articles.map((a) => (
 <article style="display: flex; flex-direction: column; gap: 12px">
-<div style="aspect-ratio: 4 / 3; background: #e9e9e7; display: flex; align-items: center; justify-content: center">{t('img')}</div>
-<h3 style="margin: 0">{a.title}</h3>
+{a.image
+  ? <a href={a.href} tabindex="-1" aria-hidden="true" style="display: block; aspect-ratio: 4 / 3; background: #f7f7f5; overflow: hidden"><img src={a.image} alt="" loading="lazy" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
+  : <div style="aspect-ratio: 4 / 3; background: #e9e9e7; display: flex; align-items: center; justify-content: center">{t('img')}</div>}
+<h3 style="margin: 0"><a href={a.href} style="color: #141414; text-decoration: none">{a.title}</a></h3>
 <p style="margin: 0">{a.excerpt} <a href={a.href} style="color: #141414">קרא עוד</a></p>
 </article>
 ))}
