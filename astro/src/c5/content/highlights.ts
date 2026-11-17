@@ -38,7 +38,7 @@ export const HIGHLIGHTS: Record<string, ProductHighlights> = {
   'geniflora-c15': { is: ['vegan', 'glutenFree', 'nonGmo', 'noPreservatives'], kosher: 'כשר פרווה – בד״ץ חתם סופר בני ברק' },
   'kalnozim-digestive-enzymes': { is: ['vegan', 'microscope', 'nonGmo', 'noPreservatives'], kosher: 'כשר פרווה – בד״ץ חתם סופר בני ברק' },
   kalnozin: { is: ['vegan', 'microscope', 'nonGmo', 'noPreservatives'], kosher: 'כשר פרווה – בד״ץ העדה החרדית ירושלים' },
-  lactoferr: { is: ['microscope', 'dairy', 'nonGmo', 'noPreservatives'], kosher: 'כשר לאוכלי חלב נוכרי – רבנות מעלה אדומים' },
+  lactoferr: { is: ['microscope', 'dairy', 'nonGmo', 'noPreservatives'], kosher: 'כשר חלבי לאוכלי אבקת חלב נוכרי – רבנות מעלה אדומים' },
   'liposomal-multivitamin': { is: ['vegan', 'microscope', 'nonGmo', 'noPreservatives'], kosher: 'בד״ץ חתם סופר בני ברק' },
   'liposomal-vitamin-b-complex': { is: ['vegan', 'microscope', 'nonGmo', 'noPreservatives'], kosher: 'בד״ץ חתם סופר בני ברק' },
   'lipozamin-alpha-lipoic-acid': { is: ['vegan', 'microscope', 'nonGmo', 'noPreservatives'], kosher: 'כשר פרווה – בד״ץ חתם סופר בני ברק' },
