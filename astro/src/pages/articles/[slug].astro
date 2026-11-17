@@ -45,7 +45,7 @@ const md = (h: string) => h.replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g, '<a hre
 {a.excerpt && <p class="c5-article-lead">{a.excerpt}</p>}
 {a.image ? (
 <figure style="margin: 10px 0 0">
-<img src={a.image} alt="" style="display: block; width: 100%; height: auto; border: 1px solid #dcdcd9; background: #ffffff">
+<img src={a.image} alt="" style="display: block; width: 100%; height: auto; max-height: min(62vh, 640px); object-fit: cover; border: 1px solid #dcdcd9; background: #ffffff">
 {a.imageCredit && <figcaption class="c5-article-credit">{a.imageCredit}</figcaption>}
 </figure>
 ) : !a.noImage && <div style={grey}>{t('img')}</div>}

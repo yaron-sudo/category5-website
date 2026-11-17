@@ -3,7 +3,7 @@ title: אשווגנדה
 latin: Withania somnifera
 excerpt: מסע אל אחד מצמחי האיורוודה המוכרים ביותר, והמחקרים שבדקו אותו בתחומי השינה, הזיכרון והרוגע.
 image: /assets/articles/ashwagandha.jpg
-credit: איור מתוך המחקר: Movva et al., Clocks & Sleep, 2026, רישיון CC BY
+credit: צילום: Roger Culos, Wikimedia Commons, רישיון CC BY-SA 3.0
 ---
 אשווגנדה, המכונה גם "ג'ינסנג הודי", היא שיח ממשפחת הסולניים הגדל בהודו, במזרח התיכון ובחלקים מאפריקה. שורש הצמח נמצא בשימוש ברפואה האיורוודית ההודית מזה אלפי שנים, ושמו הלטיני, Withania somnifera, מרמז על הקשר ההיסטורי שלו לעולם השינה: somnifera פירושו "מביאת שינה".
 
