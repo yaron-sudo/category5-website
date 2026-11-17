@@ -3,7 +3,7 @@
 // button (bottom right), ported from mockups/Floating.dc.html. The chat talks
 // to POST /api/ask (streamed); answers link to product pages and, for purchase
 // questions, to /stores or the online shops. Hebrew / English toggle.
-import Accessibility from '@/components/Accessibility.astro'
+import Accessibility from '@/components/c5/Accessibility.astro'
 import { t, chatDict, CHAT_LANGS } from '@/c5/i18n'
 const strings = Object.fromEntries(CHAT_LANGS.map((l) => [l.code, chatDict(l.code)]))
 // Product previews in answers: every /products/<slug> link the answer contains gets a
@@ -15,7 +15,7 @@ const dirs = Object.fromEntries(CHAT_LANGS.map((l) => [l.code, l.dir]))
 ---
 <div dir="rtl" data-c5-chat data-strings={JSON.stringify(strings)} data-dirs={JSON.stringify(dirs)} data-products={JSON.stringify(products)} style="font-family: 'C5 Sans', 'Noto Sans Hebrew', Arial, sans-serif; color: #141414; font-size: 15px; line-height: 1.5">
 
-<Accessibility variant="c5" label={t('a11y.open')} />
+<Accessibility label={t('a11y.open')} />
 
 <button type="button" data-chat-open class="c5-soft" aria-expanded="false" aria-controls="c5-chat" style="position: fixed; left: 20px; bottom: 20px; z-index: 80; min-height: 48px; padding: 0 22px; border-radius: 4px; border: 1px solid #141414; background: #ffffff; color: #141414; font: inherit; font-size: 16px; cursor: pointer">{t('chat.open')}</button>
 

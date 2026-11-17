@@ -1,0 +1,202 @@
+---
+// Accessibility widget — Category 5 design (client brief "רכיב נגישות", 17.11.2026).
+// A fixed button on every page (desktop and mobile) opens a panel of user adjustments per
+// IS 5568 / the Service Accessibility Regulations: text size, line spacing, contrast modes,
+// link and heading emphasis, readable font, stopped animations, enlarged cursor, hidden images,
+// keyboard shortcut (Alt+A), reset, and a link to the accessibility statement.
+// It only toggles classes on <html> (never touches the content), persists choices in
+// localStorage, and is re-applied before first paint by the bootstrap script in Site.astro.
+interface Props { label?: string }
+const { label = 'נגישות' } = Astro.props
+const TOGGLES = [
+  { key: 'links', label: 'הדגשת קישורים' },
+  { key: 'headings', label: 'הדגשת כותרות' },
+  { key: 'readable', label: 'גופן קריא' },
+  { key: 'stopAnim', label: 'עצירת אנימציות' },
+  { key: 'bigCursor', label: 'סמן עכבר גדול' },
+  { key: 'noImages', label: 'הסתרת תמונות' },
+]
+---
+<div data-a11y class="c5-a11y">
+<button type="button" data-a11y-toggle class="c5-a11y-btn" aria-label={label} aria-expanded="false" aria-controls="c5-a11y-panel" aria-keyshortcuts="Alt+A" title="נגישות (Alt+A)">
+<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="4.5" r="1.8" fill="currentColor"></circle><path d="M5 8.5l7 1.5 7-1.5M12 10v4.5M12 14.5l-3.5 6M12 14.5l3.5 6"></path></svg>
+</button>
+
+<section id="c5-a11y-panel" data-a11y-panel class="c5-a11y-panel" role="dialog" aria-label="התאמות נגישות" hidden>
+<div class="c5-a11y-head">
+<h2 class="c5-a11y-title">התאמות נגישות</h2>
+<button type="button" data-a11y-close class="c5-a11y-x" aria-label="סגירה"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+</div>
+
+<div class="c5-a11y-group" role="group" aria-labelledby="c5-a11y-font">
+<span id="c5-a11y-font" class="c5-a11y-lbl">גודל טקסט</span>
+<div class="c5-a11y-row">
+<button type="button" data-a11y-font="down" aria-label="הקטנת טקסט">A−</button>
+<output data-a11y-font-val aria-live="off">100%</output>
+<button type="button" data-a11y-font="up" aria-label="הגדלת טקסט">A+</button>
+</div>
+</div>
+
+<div class="c5-a11y-group" role="group" aria-labelledby="c5-a11y-lines">
+<span id="c5-a11y-lines" class="c5-a11y-lbl">ריווח שורות ואותיות</span>
+<div class="c5-a11y-row c5-a11y-seg">
+<button type="button" data-a11y-lines="1" aria-pressed="true">רגיל</button>
+<button type="button" data-a11y-lines="2" aria-pressed="false">מוגדל</button>
+<button type="button" data-a11y-lines="3" aria-pressed="false">גדול</button>
+</div>
+</div>
+
+<div class="c5-a11y-group" role="group" aria-labelledby="c5-a11y-contrast">
+<span id="c5-a11y-contrast" class="c5-a11y-lbl">ניגודיות וצבע</span>
+<div class="c5-a11y-row c5-a11y-seg">
+<button type="button" data-a11y-contrast="" aria-pressed="true">רגיל</button>
+<button type="button" data-a11y-contrast="high" aria-pressed="false">ניגודיות גבוהה</button>
+<button type="button" data-a11y-contrast="invert" aria-pressed="false">היפוך צבעים</button>
+<button type="button" data-a11y-contrast="mono" aria-pressed="false">גווני אפור</button>
+</div>
+</div>
+
+<ul class="c5-a11y-list" aria-label="התאמות נוספות">
+{TOGGLES.map((t) => (
+<li><button type="button" data-a11y-opt={t.key} aria-pressed="false"><span class="c5-a11y-check" aria-hidden="true"></span>{t.label}</button></li>
+))}
+</ul>
+
+<div class="c5-a11y-foot">
+<button type="button" data-a11y-reset class="c5-a11y-reset">איפוס הגדרות</button>
+<a href="/legal/accessibility" class="c5-a11y-stmt">הצהרת נגישות</a>
+</div>
+<p class="c5-a11y-hint">פתיחה וסגירה במקלדת: Alt + A</p>
+</section>
+<span data-a11y-live class="c5-sr" role="status" aria-live="polite"></span>
+</div>
+
+<style is:global>
+  .c5-a11y { font-family: 'C5 Sans', 'Noto Sans Hebrew', Arial, sans-serif; color: #141414; }
+  .c5-a11y-btn { position: fixed; right: 20px; bottom: 20px; z-index: 80; width: 48px; height: 48px; border-radius: 4px; border: 1px solid #141414; background: #ffffff; color: #141414; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0; }
+  .c5-a11y-btn:hover { background: #efeeea; }
+  .c5-a11y-btn:focus-visible, .c5-a11y-panel button:focus-visible, .c5-a11y-panel a:focus-visible { outline: 2px solid #141414; outline-offset: 2px; }
+  .c5-a11y-btn[aria-expanded="true"] { display: none; }
+  .c5-a11y-panel { position: fixed; right: 16px; bottom: 16px; z-index: 90; width: min(360px, calc(100vw - 32px)); max-height: calc(100vh - 32px); overflow-y: auto; box-sizing: border-box; padding: 18px 20px 16px; background: #ffffff; border: 1px solid #141414; border-radius: 8px; display: flex; flex-direction: column; gap: 16px; font-size: 15px; line-height: 1.4; }
+  .c5-a11y-panel[hidden] { display: none; }
+  .c5-a11y-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .c5-a11y-title { margin: 0; font-size: 17px !important; font-weight: 600; }
+  .c5-a11y-x { width: 36px; height: 36px; border: 0; background: transparent; color: #141414; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 4px; }
+  .c5-a11y-x:hover { background: #efeeea; }
+  .c5-a11y-group { display: flex; flex-direction: column; gap: 8px; }
+  .c5-a11y-lbl { font-size: 13px; color: #141414; }
+  .c5-a11y-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+  .c5-a11y-row button { min-height: 40px; padding: 0 14px; border: 1px solid #141414; border-radius: 4px; background: #ffffff; color: #141414; font: inherit; font-size: 15px; cursor: pointer; }
+  .c5-a11y-row button:hover { background: #efeeea; }
+  .c5-a11y-row button[aria-pressed="true"] { background: #141414; color: #ffffff; }
+  .c5-a11y-row output { min-width: 56px; text-align: center; font-variant-numeric: tabular-nums; }
+  .c5-a11y-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .c5-a11y-list button { width: 100%; min-height: 44px; display: flex; align-items: center; gap: 10px; padding: 0 12px; border: 1px solid #dcdcd9; border-radius: 4px; background: #ffffff; color: #141414; font: inherit; font-size: 15px; text-align: start; cursor: pointer; }
+  .c5-a11y-list button:hover { border-color: #141414; background: #efeeea; }
+  .c5-a11y-check { flex: 0 0 18px; width: 18px; height: 18px; border: 1px solid #141414; border-radius: 3px; background: #ffffff; position: relative; }
+  .c5-a11y-list button[aria-pressed="true"] { border-color: #141414; }
+  .c5-a11y-list button[aria-pressed="true"] .c5-a11y-check { background: #141414; }
+  .c5-a11y-list button[aria-pressed="true"] .c5-a11y-check::after { content: ''; position: absolute; left: 5px; top: 1px; width: 5px; height: 10px; border: solid #ffffff; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+  .c5-a11y-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 12px; border-top: 1px solid #dcdcd9; }
+  .c5-a11y-reset { min-height: 40px; padding: 0 16px; border: 1px solid #141414; border-radius: 4px; background: #ffffff; color: #141414; font: inherit; font-size: 15px; cursor: pointer; }
+  .c5-a11y-reset:hover { background: #141414; color: #ffffff; }
+  .c5-a11y-stmt { color: #141414; text-decoration: underline; text-underline-offset: 4px; font-size: 15px; }
+  .c5-a11y-hint { margin: 0; font-size: 12px; color: #141414; opacity: .7; }
+  @media (max-width: 640px) {
+    .c5-a11y-btn { right: 12px; bottom: 12px; width: 44px; height: 44px; }
+    .c5-a11y-panel { right: 8px; left: 8px; bottom: 8px; width: auto; max-height: calc(100vh - 16px); }
+    .c5-a11y-list { grid-template-columns: 1fr; }
+  }
+
+  /* ----- Global adjustments (classes on <html>; also set before first paint by Site.astro) ----- */
+  html.a11y-lines-2 body * { line-height: 1.8 !important; letter-spacing: .03em !important; word-spacing: .08em !important; }
+  html.a11y-lines-3 body * { line-height: 2.1 !important; letter-spacing: .06em !important; word-spacing: .16em !important; }
+  /* High contrast: black page, white text, yellow links */
+  html.a11y-contrast-high, html.a11y-contrast-high body { background: #000 !important; color: #fff !important; }
+  html.a11y-contrast-high *:not(img):not(svg):not(video) { background-color: #000 !important; color: #fff !important; border-color: #fff !important; box-shadow: none !important; }
+  html.a11y-contrast-high a, html.a11y-contrast-high a * { color: #ffeb3b !important; }
+  html.a11y-contrast-high img, html.a11y-contrast-high video { filter: none !important; }
+  /* black logos / line icons in the header and footer become white on the black page */
+  html.a11y-contrast-high header img, html.a11y-contrast-high footer img { filter: invert(1) !important; }
+  html.a11y-contrast-high .c5-a11y-row button[aria-pressed="true"], html.a11y-contrast-high .c5-a11y-list button[aria-pressed="true"] .c5-a11y-check { background-color: #ffeb3b !important; color: #000 !important; }
+  /* Invert / monochrome: filtered on the page wrapper, so the fixed widgets stay readable (counter-inverted). */
+  html.a11y-contrast-invert .ns-page { filter: invert(1) hue-rotate(180deg); }
+  html.a11y-contrast-invert .ns-page img, html.a11y-contrast-invert .ns-page video { filter: invert(1) hue-rotate(180deg); }
+  html.a11y-contrast-mono .ns-page { filter: grayscale(1); }
+  html.a11y-links a { text-decoration: underline !important; text-underline-offset: 3px; outline: 1px dashed currentColor; outline-offset: 2px; }
+  html.a11y-headings h1, html.a11y-headings h2, html.a11y-headings h3, html.a11y-headings h4 { outline: 2px dashed #141414; outline-offset: 3px; }
+  html.a11y-readable body, html.a11y-readable body * { font-family: Arial, "Helvetica Neue", "DejaVu Sans", sans-serif !important; }
+  html.a11y-stop-anim *, html.a11y-stop-anim *::before, html.a11y-stop-anim *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  html.a11y-stop-anim [data-reveal], html.a11y-stop-anim .c5-reveal { opacity: 1 !important; transform: none !important; }
+  html.a11y-bigcursor, html.a11y-bigcursor * { cursor: url('/a11y-cursor.svg') 4 2, auto !important; }
+  html.a11y-noimages .ns-page img, html.a11y-noimages .ns-page video { visibility: hidden !important; }
+  @media print {
+    html { zoom: 1 !important; }
+    html[class*="a11y-"] .ns-page { filter: none !important; }
+    html.a11y-contrast-high, html.a11y-contrast-high body, html.a11y-contrast-high * { background: #fff !important; color: #000 !important; }
+  }
+</style>
+
+<script>
+  const root = document.documentElement
+  const wrap = document.querySelector<HTMLElement>('[data-a11y]')
+  const toggleBtn = wrap?.querySelector<HTMLButtonElement>('[data-a11y-toggle]')
+  const panel = wrap?.querySelector<HTMLElement>('[data-a11y-panel]')
+  if (wrap && toggleBtn && panel) {
+    const KEY = 'c5-a11y-v2'
+    type State = { text: 100 | 115 | 130 | 150; lines: 1 | 2 | 3; contrast: '' | 'high' | 'invert' | 'mono'; flags: Record<string, boolean> }
+    const DEF: State = { text: 100, lines: 1, contrast: '', flags: {} }
+    const TEXT: State['text'][] = [100, 115, 130, 150]
+    const FLAG: Record<string, string> = { links: 'a11y-links', headings: 'a11y-headings', readable: 'a11y-readable', stopAnim: 'a11y-stop-anim', bigCursor: 'a11y-bigcursor', noImages: 'a11y-noimages' }
+    const live = wrap.querySelector<HTMLElement>('[data-a11y-live]')!
+    const announce = (m: string) => { live.textContent = ''; window.setTimeout(() => { live.textContent = m }, 30) }
+    let state: State = DEF
+    try { state = { ...DEF, ...JSON.parse(localStorage.getItem(KEY) || '{}') } } catch {}
+
+    const apply = () => {
+      // The site sets sizes in px, so text size is a document zoom (keeps the layout proportional).
+      ;(root.style as any).zoom = state.text === 100 ? '' : String(state.text / 100)
+      for (const l of [2, 3]) root.classList.toggle(`a11y-lines-${l}`, state.lines === l)
+      for (const c of ['high', 'invert', 'mono']) root.classList.toggle(`a11y-contrast-${c}`, state.contrast === c)
+      for (const k in FLAG) root.classList.toggle(FLAG[k], !!state.flags[k])
+      wrap.querySelector<HTMLElement>('[data-a11y-font-val]')!.textContent = `${state.text}%`
+      wrap.querySelectorAll<HTMLButtonElement>('[data-a11y-lines]').forEach((b) => b.setAttribute('aria-pressed', String(Number(b.dataset.a11yLines) === state.lines)))
+      wrap.querySelectorAll<HTMLButtonElement>('[data-a11y-contrast]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.a11yContrast === state.contrast)))
+      wrap.querySelectorAll<HTMLButtonElement>('[data-a11y-opt]').forEach((b) => b.setAttribute('aria-pressed', String(!!state.flags[b.dataset.a11yOpt!])))
+    }
+    const save = () => { try { localStorage.setItem(KEY, JSON.stringify(state)) } catch {} apply() }
+    apply()
+
+    const setOpen = (open: boolean) => {
+      panel.hidden = !open
+      toggleBtn.setAttribute('aria-expanded', String(open))
+      if (open) panel.querySelector<HTMLElement>('[data-a11y-close]')?.focus()
+      else toggleBtn.focus()
+    }
+    toggleBtn.addEventListener('click', () => setOpen(true))
+    panel.querySelector('[data-a11y-close]')!.addEventListener('click', () => setOpen(false))
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !panel.hidden) { setOpen(false); return }
+      // Alt+A from anywhere (physical key, so it works on every keyboard layout)
+      if (e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey && e.code === 'KeyA') { e.preventDefault(); setOpen(panel.hidden) }
+    })
+    document.addEventListener('click', (e) => { if (!panel.hidden && !wrap.contains(e.target as Node)) { panel.hidden = true; toggleBtn.setAttribute('aria-expanded', 'false') } })
+
+    wrap.querySelectorAll<HTMLButtonElement>('[data-a11y-font]').forEach((b) => b.addEventListener('click', () => {
+      const i = TEXT.indexOf(state.text)
+      state.text = TEXT[Math.max(0, Math.min(TEXT.length - 1, i + (b.dataset.a11yFont === 'up' ? 1 : -1)))]
+      save(); announce(`גודל טקסט ${state.text}%`)
+    }))
+    wrap.querySelectorAll<HTMLButtonElement>('[data-a11y-lines]').forEach((b) => b.addEventListener('click', () => {
+      state.lines = Number(b.dataset.a11yLines) as State['lines']; save(); announce(`ריווח: ${b.textContent}`)
+    }))
+    wrap.querySelectorAll<HTMLButtonElement>('[data-a11y-contrast]').forEach((b) => b.addEventListener('click', () => {
+      state.contrast = (b.dataset.a11yContrast || '') as State['contrast']; save(); announce(`ניגודיות: ${b.textContent}`)
+    }))
+    wrap.querySelectorAll<HTMLButtonElement>('[data-a11y-opt]').forEach((b) => b.addEventListener('click', () => {
+      const k = b.dataset.a11yOpt!
+      state.flags[k] = !state.flags[k]; save(); announce(`${b.textContent?.trim()}: ${state.flags[k] ? 'פעיל' : 'כבוי'}`)
+    }))
+    wrap.querySelector('[data-a11y-reset]')!.addEventListener('click', () => { state = { ...DEF, flags: {} }; save(); announce('הגדרות הנגישות אופסו') })
+  }
+</script>

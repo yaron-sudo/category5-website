@@ -10,7 +10,7 @@ const he = {
   'nav.main': 'ניווט ראשי', 'nav.search': 'חיפוש', 'nav.menu': 'תפריט', 'nav.home': 'Category 5 – לדף הבית',
   'nav.allNeeds': 'לכל התחומים', 'img': 'אימג׳', 'banner': 'באנר',
   'footer.keepInTouch': 'בואו נהיה בקשר', 'footer.email': 'כתובת אימייל', 'footer.signup': 'הרשמה',
-  'footer.terms': 'תנאי שימוש', 'footer.privacy': 'מדיניות פרטיות', 'footer.legalTitle': 'התוויה משפטית', 'footer.legal': 'משפטי',
+  'footer.terms': 'תנאי שימוש', 'footer.privacy': 'מדיניות פרטיות', 'footer.accessibility': 'הצהרת נגישות', 'footer.legalTitle': 'התוויה משפטית', 'footer.legal': 'משפטי',
   'chat.open': 'דברו איתנו', 'chat.title': 'דברו איתנו', 'chat.lang': 'שפה', 'chat.close': 'סגירה',
   'chat.inputLabel': 'הקלידו שאלה', 'chat.placeholder': 'כתבו שאלה…', 'chat.send': 'שליחה', 'a11y.open': 'נגישות',
   'chat.toProduct': 'לעמוד המוצר', 'chat.expand': 'הגדלת החלון', 'chat.shrink': 'הקטנת החלון',
@@ -31,6 +31,7 @@ const en: Partial<Record<UiKey, string>> = {
   'chat.productCtx': 'I am on the {name} product page ({url}). My next questions are about this product unless I say otherwise.',
   'chat.productPlaceholder': 'A question about {name}…',
   'chat.error': 'Something went wrong. Please try again shortly.', 'chat.unavailable': 'Chat is not available right now.', 'chat.rateLimited': 'Too many questions in a short time. Please try again in a few minutes.',
+  'footer.accessibility': 'Accessibility statement',
 }
 const DICT: Record<Lang, Partial<Record<UiKey, string>>> = { he, en }
 

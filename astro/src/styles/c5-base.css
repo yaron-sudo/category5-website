@@ -36,6 +36,10 @@ a.c5-term { color: #141414; text-decoration: underline dashed 1px; text-underlin
 
 /* visually hidden (labels) */
 .c5-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+/* Skip link: first focusable element; visible only on keyboard focus. */
+.c5-skip { position: absolute; top: 8px; inset-inline-start: -9999px; z-index: 200; padding: 10px 16px; background: #141414; color: #ffffff; border-radius: 4px; text-decoration: none; }
+.c5-skip:focus { inset-inline-start: 16px; outline: 2px solid #ffffff; outline-offset: 2px; }
+main:focus { outline: none; }
 
 /* Accessibility panel (shared widget) in the site's palette. */
 .c5-site { --ns-bg: #f7f7f5; --ns-bg-alt: #ffffff; --ns-border: #dcdcd9; --ns-field-green: #141414; --ns-pure-orange: #141414; --ns-sun-beige: #ffffff; --ns-light-gray: #8a8a88; --ns-radius-md: 4px; --ns-radius-lg: 8px; --ns-shadow-lg: 0 24px 40px rgba(0,0,0,.06); --ns-ease-out: cubic-bezier(.22,.61,.36,1); --ns-font-display: "C5 Sans", "Noto Sans Hebrew", Arial, sans-serif; }
