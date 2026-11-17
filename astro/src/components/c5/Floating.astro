@@ -1,8 +1,12 @@
 ---
-// BRIEF §15 — floating "דברו איתנו" AI chat (bottom left) + accessibility
-// button (bottom right), ported from mockups/Floating.dc.html. The chat talks
-// to POST /api/ask (streamed); answers link to product pages and, for purchase
-// questions, to /stores or the online shops. Hebrew / English toggle.
+// BRIEF §15 — floating "דברו איתנו" AI chat (bottom left) + accessibility button (bottom right).
+// Chat window per the client spec "אפיון עיצוב ופונקציונליות – צ׳אט דברו איתנו" (17.11.2026):
+// header "מה תרצו לדעת?" with a language button (5 languages, Hebrew on every page load),
+// enlarge / reduce / close in the top-right corner and a menu button that opens a side panel
+// (new conversation · my conversations · four messages about the products); input row with
+// file attachment, voice question and send; a fixed AI notice under the input. Answers stream
+// from POST /api/ask; when an answer names products their cards come first, then the text.
+// Conversations are kept only in this browser (localStorage), each one separately.
 import Accessibility from '@/components/c5/Accessibility.astro'
 import { t, chatDict, CHAT_LANGS } from '@/c5/i18n'
 const strings = Object.fromEntries(CHAT_LANGS.map((l) => [l.code, chatDict(l.code)]))
@@ -12,6 +16,8 @@ import { getCatalog } from '@/c5/content/catalog'
 import { PRODUCT_SUMMARIES } from '@/c5/content/summaries'
 const products = Object.fromEntries((await getCatalog()).map((p) => [p.slug, { t: p.fullTitle || p.title, i: p.image ?? '', s: PRODUCT_SUMMARIES[p.slug] ?? '', n: !!p.newPack }]))
 const dirs = Object.fromEntries(CHAT_LANGS.map((l) => [l.code, l.dir]))
+const he = chatDict('he')
+const KNOW = [he['chat.know1'], he['chat.know2'], he['chat.know3'], he['chat.know4']].map((x) => x.split('|'))
 ---
 <div dir="rtl" data-c5-chat data-strings={JSON.stringify(strings)} data-dirs={JSON.stringify(dirs)} data-products={JSON.stringify(products)} style="font-family: 'C5 Sans', 'Noto Sans Hebrew', Arial, sans-serif; color: #141414; font-size: 15px; line-height: 1.5">
 
@@ -19,29 +25,112 @@ const dirs = Object.fromEntries(CHAT_LANGS.map((l) => [l.code, l.dir]))
 
 <button type="button" data-chat-open class="c5-soft" aria-expanded="false" aria-controls="c5-chat" style="position: fixed; left: 20px; bottom: 20px; z-index: 80; min-height: 48px; padding: 0 22px; border-radius: 4px; border: 1px solid #141414; background: #ffffff; color: #141414; font: inherit; font-size: 16px; cursor: pointer">{t('chat.open')}</button>
 
-<section id="c5-chat" role="dialog" aria-label={t('chat.title')} data-chat-panel hidden style="position: fixed; left: 16px; bottom: 16px; z-index: 90; width: min(380px, calc(100vw - 32px)); height: min(600px, calc(100vh - 32px)); background: #ffffff; border: 1px solid #141414; border-radius: 8px; display: flex; flex-direction: column; overflow: hidden">
-<div style="padding: 14px 16px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid #dcdcd9">
-<p data-chat-title style="margin: 0; flex: 1 1 auto; font-size: 17px">{t('chat.title')}</p>
-<select data-chat-lang aria-label={t('chat.lang')} style="min-height: 36px; padding: 0 8px; border: 1px solid #141414; border-radius: 4px; background: #ffffff; color: #141414; font: inherit; font-size: 14px; cursor: pointer">
-{CHAT_LANGS.map((l) => <option value={l.code} lang={l.code} selected={l.code === 'he'}>{l.name}</option>)}
-</select>
-<button type="button" data-chat-size aria-pressed="false" aria-label={t('chat.expand')} style="width: 40px; height: 40px; border: 0; background: transparent; color: #141414; display: flex; align-items: center; justify-content: center; cursor: pointer">
-<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path data-size-icon d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7"></path></svg></button>
-<button type="button" data-chat-close aria-label={t('chat.close')} style="width: 40px; height: 40px; border: 0; background: transparent; color: #141414; display: flex; align-items: center; justify-content: center; cursor: pointer">
-<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+<section id="c5-chat" role="dialog" aria-label={t('chat.title')} data-chat-panel hidden class="c5c">
+<!-- Header: the controls stay in the top-right corner in every language. -->
+<div class="c5c-head" dir="rtl">
+<div class="c5c-ctrl">
+<button type="button" class="c5c-ib" data-chat-close aria-label={t('chat.close')}><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+<button type="button" class="c5c-ib c5c-size" data-chat-grow aria-label={t('chat.expand')}><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7"></path></svg></button>
+<button type="button" class="c5c-ib c5c-size" data-chat-shrink aria-label={t('chat.shrink')} disabled><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10h-6V4M4 14h6v6M14 10l7-7M10 14l-7 7"></path></svg></button>
 </div>
-<div data-chat-log aria-live="polite" style="flex: 1 1 auto; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; background: #f7f7f5"></div>
-<form data-chat-form style="border-top: 1px solid #dcdcd9; padding: 10px; display: flex; gap: 8px; align-items: center">
-<label for="chat-input" data-chat-label style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">{t('chat.inputLabel')}</label>
-<input id="chat-input" type="text" maxlength="800" autocomplete="off" placeholder={t('chat.placeholder')} style="flex: 1 1 auto; min-width: 0; min-height: 44px; border: 1px solid #141414; border-radius: 4px; padding: 0 12px; font: inherit">
-<button type="submit" data-chat-send aria-label={t('chat.send')} style="width: 44px; height: 44px; border: 1px solid #141414; border-radius: 4px; background: #ffffff; color: #141414; display: flex; align-items: center; justify-content: center; cursor: pointer">
-<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 12H5M11 6l-6 6 6 6"></path></svg></button>
+<p class="c5c-title" data-chat-title>{t('chat.title')}</p>
+<div class="c5c-tools">
+<div class="c5c-lang">
+<button type="button" class="c5c-langbtn" data-chat-langbtn aria-haspopup="listbox" aria-expanded="false" aria-label={t('chat.lang')}>
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3Z"></path></svg>
+<span data-chat-langname>{CHAT_LANGS[0].code.toUpperCase()}</span>
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>
+</button>
+<ul role="listbox" class="c5c-langlist" data-chat-langlist tabindex="-1" aria-label={t('chat.lang')} hidden>
+{CHAT_LANGS.map((l) => <li role="option" data-lang={l.code} lang={l.code} dir={l.dir} aria-selected={l.code === 'he' ? 'true' : 'false'} tabindex="-1">{l.name}</li>)}
+</ul>
+</div>
+<button type="button" class="c5c-ib" data-chat-menubtn aria-expanded="false" aria-controls="c5c-menu" aria-label={t('chat.menu')}><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></button>
+</div>
+</div>
+
+<div data-chat-log class="c5c-log" aria-live="polite"></div>
+
+<form data-chat-form class="c5c-form">
+<p data-chat-status class="c5c-status" role="status" hidden></p>
+<div data-chat-file class="c5c-file" hidden><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6v18h12V7z M14 3v4h4"></path></svg><span data-chat-filename></span><button type="button" class="c5c-ib c5c-ib-s" data-chat-fileremove aria-label={t('chat.fileRemove')}><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></div>
+<div class="c5c-box">
+<button type="button" class="c5c-ib" data-chat-attach aria-label={t('chat.attach')}><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 11.5l-8.4 8.4a5 5 0 0 1-7.1-7.1l8.4-8.4a3.4 3.4 0 0 1 4.8 4.8l-8.4 8.4a1.7 1.7 0 0 1-2.4-2.4l7.7-7.7"></path></svg></button>
+<input type="file" data-chat-fileinput accept="image/*,application/pdf,text/plain,.txt,.csv,.md" hidden tabindex="-1">
+<label for="chat-input" data-chat-label class="c5c-sr">{t('chat.inputLabel')}</label>
+<textarea id="chat-input" rows="1" maxlength="800" autocomplete="off" placeholder={t('chat.placeholder')}></textarea>
+<button type="button" class="c5c-ib" data-chat-mic aria-pressed="false" aria-label={t('chat.mic')}><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"></rect><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"></path></svg></button>
+<button type="submit" class="c5c-ib" data-chat-send aria-label={t('chat.send')}><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H5M11 6l-6 6 6 6"></path></svg></button>
+</div>
 </form>
+<p class="c5c-note" data-chat-note>{t('chat.aiNote')}</p>
+
+<div class="c5c-scrim" data-chat-scrim hidden></div>
+<aside id="c5c-menu" class="c5c-menu" data-chat-menu aria-label={t('chat.menu')} hidden>
+<div class="c5c-menu-head"><button type="button" class="c5c-ib" data-chat-menuclose aria-label={t('chat.menuClose')}><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></div>
+<button type="button" class="c5c-new" data-chat-new><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg><span data-s="chat.new">{t('chat.new')}</span></button>
+<h3 class="c5c-h" data-s="chat.mine">{t('chat.mine')}</h3>
+<ul class="c5c-convs" data-chat-convs></ul>
+<h3 class="c5c-h" data-s="chat.know">{t('chat.know')}</h3>
+<ul class="c5c-know" data-chat-know>
+{KNOW.map(([h, b]) => <li><strong>{h}</strong><span>{b}</span></li>)}
+</ul>
+</aside>
 </section>
 </div>
 
 <style is:global>
-  [data-chat-panel][hidden], [data-chat-open][hidden] { display: none !important; }
+  [data-chat-panel][hidden], [data-chat-open][hidden], .c5c [hidden] { display: none !important; }
+  .c5c { position: fixed; left: 16px; bottom: 16px; z-index: 90; width: min(420px, calc(100vw - 32px)); height: min(640px, calc(100vh - 32px)); background: #ffffff; border: 1px solid #141414; border-radius: 6px; display: flex; flex-direction: column; overflow: hidden; color: #141414; }
+  .c5c[data-large] { width: min(760px, calc(100vw - 32px)); height: min(860px, calc(100vh - 32px)); }
+  .c5c-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .c5c-ib { flex: 0 0 auto; width: 36px; height: 36px; border: 0; border-radius: 4px; background: transparent; color: #141414; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; padding: 0; transition: background .25s cubic-bezier(.22,.61,.36,1); }
+  .c5c-ib:hover:not(:disabled), .c5c-ib[aria-pressed="true"], .c5c-ib[aria-expanded="true"] { background: #efeeea; }
+  .c5c-ib:disabled { opacity: .3; cursor: default; }
+  .c5c-ib:focus-visible, .c5c-langbtn:focus-visible, .c5c-new:focus-visible, .c5c-convs button:focus-visible { outline: 2px solid #141414; outline-offset: 1px; }
+  .c5c-ib-s { width: 28px; height: 28px; }
+  .c5c-head { display: flex; align-items: center; gap: 8px; padding: 10px 10px 10px 10px; border-bottom: 1px solid #dcdcd9; }
+  .c5c-ctrl, .c5c-tools { display: flex; align-items: center; gap: 2px; flex: 0 0 auto; }
+  .c5c-title { margin: 0; flex: 1 1 auto; min-width: 0; font-size: 17px; font-weight: 600; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .c5c-lang { position: relative; }
+  .c5c-langbtn { display: inline-flex; align-items: center; gap: 5px; letter-spacing: .02em; min-height: 36px; padding: 0 8px; border: 1px solid #dcdcd9; border-radius: 4px; background: #ffffff; color: #141414; font: inherit; font-size: 13px; cursor: pointer; }
+  .c5c-langbtn:hover, .c5c-langbtn[aria-expanded="true"] { background: #efeeea; border-color: #141414; }
+  .c5c-langlist { position: absolute; top: calc(100% + 6px); left: 0; z-index: 5; min-width: 140px; margin: 0; padding: 4px; list-style: none; background: #ffffff; border: 1px solid #141414; border-radius: 4px; box-shadow: 0 6px 20px rgba(20,20,20,.12); }
+  .c5c-langlist li { padding: 8px 10px; border-radius: 4px; cursor: pointer; font-size: 14px; outline: none; }
+  .c5c-langlist li:hover, .c5c-langlist li:focus { background: #efeeea; }
+  .c5c-langlist li[aria-selected="true"] { font-weight: 600; }
+  .c5c-log { flex: 1 1 auto; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; background: #ffffff; }
+  .c5c-u { align-self: flex-end; max-width: 85%; background: #f7f7f5; border: 1px solid #dcdcd9; padding: 10px 14px; border-radius: 4px; white-space: pre-wrap; overflow-wrap: anywhere; }
+  .c5c-a { align-self: flex-start; max-width: 92%; background: #ffffff; border: 1px solid #dcdcd9; padding: 10px 14px; border-radius: 4px; display: flex; flex-direction: column; gap: 8px; overflow-wrap: anywhere; }
+  .c5c-u .c5c-tag { display: flex; align-items: center; gap: 6px; font-size: 13px; margin-top: 4px; }
+  .c5c-form { padding: 10px 12px 6px; display: flex; flex-direction: column; gap: 6px; border-top: 1px solid #dcdcd9; }
+  .c5c-status { margin: 0; font-size: 13px; }
+  .c5c-file { display: flex; align-items: center; gap: 6px; align-self: flex-start; max-width: 100%; padding: 2px 4px 2px 10px; border: 1px solid #dcdcd9; border-radius: 4px; font-size: 13px; }
+  .c5c-file span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .c5c-box { display: flex; align-items: flex-end; gap: 2px; padding: 4px; border: 1px solid #141414; border-radius: 6px; background: #ffffff; }
+  .c5c-box textarea { flex: 1 1 auto; min-width: 0; min-height: 36px; max-height: 132px; padding: 7px 6px; border: 0; outline: none; resize: none; background: transparent; color: #141414; font: inherit; line-height: 1.45; }
+  .c5c-box textarea:focus, .c5c-box textarea:focus-visible { outline: none !important; box-shadow: none !important; border: 0 !important; }
+  .c5c-box:focus-within { box-shadow: 0 0 0 1px #141414; }
+  [data-chat-mic][aria-pressed="true"] { background: #141414; color: #ffffff; }
+  .c5c-note { margin: 0; padding: 0 12px 10px; font-size: 12px; line-height: 1.45; color: #707070; }
+  .c5c-scrim { position: absolute; inset: 0; z-index: 6; background: rgba(20,20,20,.18); }
+  .c5c-menu { position: absolute; top: 0; bottom: 0; left: 0; z-index: 7; width: min(300px, 86%); background: #ffffff; border-right: 1px solid #141414; display: flex; flex-direction: column; overflow-y: auto; padding: 10px 16px 20px; box-sizing: border-box; animation: c5c-in .32s cubic-bezier(.22,.61,.36,1); }
+  @keyframes c5c-in { from { transform: translateX(-16px); opacity: 0; } to { transform: none; opacity: 1; } }
+  .c5c-menu-head { display: flex; justify-content: flex-end; margin-bottom: 6px; }
+  .c5c-new { display: flex; align-items: center; gap: 8px; width: 100%; min-height: 44px; padding: 0 14px; border: 1px solid #141414; border-radius: 4px; background: #ffffff; color: #141414; font: inherit; cursor: pointer; transition: background .25s cubic-bezier(.22,.61,.36,1); }
+  .c5c-new:hover { background: #efeeea; }
+  .c5c-h { margin: 22px 0 8px; font-size: 15px !important; font-weight: 600 !important; line-height: 1.4 !important; }
+  .c5c-convs { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .c5c-convs button { display: flex; flex-direction: column; align-items: flex-start; gap: 1px; width: 100%; padding: 8px 10px; border: 0; border-radius: 4px; background: transparent; color: #141414; font: inherit; font-size: 14px; text-align: start; cursor: pointer; }
+  .c5c-convs button:hover, .c5c-convs button[aria-current="true"] { background: #efeeea; }
+  .c5c-convs button span { width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .c5c-convs small { font-size: 12px; color: #707070; }
+  .c5c-convs p { margin: 0; padding: 4px 10px; font-size: 14px; }
+  .c5c-know { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .c5c-know li { display: flex; flex-direction: column; gap: 2px; padding: 10px 0; border-top: 1px solid #dcdcd9; font-size: 14px; line-height: 1.45; }
+  .c5c-know li:first-child { border-top: 0; padding-top: 2px; }
+  .c5c-know strong { font-weight: 600; }
+
   [data-chat-log] a { color: #141414; }
   [data-chat-log] a.c5-chat-card { display: flex; align-items: center; gap: 12px; padding: 10px; border: 1px solid #dcdcd9; border-radius: 4px; background: #ffffff; text-decoration: none; }
   [data-chat-log] a.c5-chat-card:hover, [data-chat-log] a.c5-chat-card:focus-visible { border-color: #141414; }
@@ -65,21 +154,20 @@ const dirs = Object.fromEntries(CHAT_LANGS.map((l) => [l.code, l.dir]))
   @media (prefers-reduced-motion: reduce) {
     .c5-think-dots i { animation: none; opacity: .6; }
     .c5-think-txt, .c5-think-txt.is-in { transition: none; transform: none; opacity: 1; }
+    .c5c-menu { animation: none; }
   }
-  [data-chat-panel][data-large] { width: min(760px, calc(100vw - 32px)) !important; height: min(860px, calc(100vh - 32px)) !important; }
-  @media (max-width: 640px) { [data-chat-size] { display: none !important; } }
   /* Phones: the chat is a full-screen sheet sized to the visible viewport (so the keyboard and the
      browser bars never cover the input), 16px text (iOS zooms the page on smaller inputs), and the
-     page behind does not scroll while it is open. */
+     page behind does not scroll while it is open. Enlarge / reduce are not needed there. */
   @media (max-width: 640px) {
-    [data-chat-panel] { left: 0 !important; right: 0; top: 0; bottom: auto !important; width: 100% !important; height: var(--c5-chat-h, 100dvh) !important; border: 0 !important; border-radius: 0 !important; font-size: 16px; }
-    [data-chat-panel] > div:first-child { padding-top: calc(12px + env(safe-area-inset-top)) !important; }
-    [data-chat-form] { padding: 10px 12px calc(10px + env(safe-area-inset-bottom)) !important; }
-    [data-chat-form] input { font-size: 16px !important; min-height: 48px !important; }
-    [data-chat-send] { width: 48px !important; height: 48px !important; flex: 0 0 48px; }
-    [data-chat-log] { padding: 14px 12px !important; overscroll-behavior: contain; }
-    [data-chat-log] > div { max-width: 92% !important; }
-    [data-chat-langs] select, [data-chat-lang] { font-size: 16px !important; }
+    .c5c-size { display: none !important; }
+    .c5c, .c5c[data-large] { left: 0 !important; right: 0; top: 0; bottom: auto !important; width: 100% !important; height: var(--c5-chat-h, 100dvh) !important; border: 0 !important; border-radius: 0 !important; font-size: 16px; }
+    .c5c-head { padding-top: calc(10px + env(safe-area-inset-top)); }
+    .c5c-note { padding-bottom: calc(10px + env(safe-area-inset-bottom)); }
+    .c5c-box textarea { font-size: 16px; }
+    .c5c-langbtn { font-size: 15px; }
+    .c5c-log { padding: 14px 12px; overscroll-behavior: contain; }
+    .c5c-ib { width: 40px; height: 40px; }
     html.c5-chat-open, html.c5-chat-open body { overflow: hidden; }
     /* Nothing of the page shows around the sheet (e.g. between the input and the keyboard). */
     html.c5-chat-open [data-c5-chat]::before { content: ''; position: fixed; inset: 0; z-index: 85; background: #ffffff; }
@@ -90,100 +178,71 @@ const dirs = Object.fromEntries(CHAT_LANGS.map((l) => [l.code, l.dir]))
 <script>
   type Lang = 'he' | 'en' | 'ar' | 'ru' | 'fr'
   type Turn = { role: 'user' | 'assistant'; content: string }
+  // One stored message: r = role, c = text, h = hidden context turn (sent to the model, not shown),
+  // f = name of a file attached to that question (the file itself is not stored).
+  type Msg = { r: 'u' | 'a'; c: string; h?: 1; f?: string }
+  type Conv = { id: string; t: string; u: number; p?: string; m: Msg[] }
+  type Attachment = { name: string; type: string; data: string }
+
   const root = document.querySelector<HTMLElement>('[data-c5-chat]')
   if (root) {
     const S = JSON.parse(root.dataset.strings || '{}') as Record<Lang, Record<string, string>>
-    const openBtn = root.querySelector<HTMLButtonElement>('[data-chat-open]')!
-    const panel = root.querySelector<HTMLElement>('[data-chat-panel]')!
-    const log = root.querySelector<HTMLElement>('[data-chat-log]')!
-    const form = root.querySelector<HTMLFormElement>('[data-chat-form]')!
-    const input = form.querySelector('input')!
-    const sendBtn = root.querySelector<HTMLButtonElement>('[data-chat-send]')!
     const DIRS = JSON.parse(root.dataset.dirs || '{}') as Record<Lang, 'rtl' | 'ltr'>
-    const langSel = root.querySelector<HTMLSelectElement>('[data-chat-lang]')!
-    const sizeBtn = root.querySelector<HTMLButtonElement>('[data-chat-size]')!
-    let lang: Lang = 'he'
-    let busy = false
-    const history: Turn[] = []
-
-    // Phones: keep the sheet exactly as tall as the visible viewport (it shrinks when the keyboard opens).
-    const touch = window.matchMedia('(hover: none) and (pointer: coarse)').matches
-    // The current question stays at the top of the log, so the answer is read from its first line.
-    let turn: HTMLElement | null = null
-    const toTurn = () => { log.scrollTop = turn ? Math.max(0, turn.offsetTop - log.offsetTop - 12) : log.scrollHeight }
-    const vv = window.visualViewport
-    const fit = () => {
-      if (!vv || panel.hidden) return
-      panel.style.setProperty('--c5-chat-h', `${Math.round(vv.height)}px`)
-      panel.style.setProperty('top', window.matchMedia('(max-width: 640px)').matches ? `${Math.round(vv.offsetTop)}px` : '')
-      toTurn()
-    }
-    vv?.addEventListener('resize', fit)
-    vv?.addEventListener('scroll', fit)
-    const setOpen = (open: boolean) => {
-      panel.hidden = !open
-      document.documentElement.classList.toggle('c5-chat-open', open)
-      fit()
-      openBtn.hidden = open
-      openBtn.setAttribute('aria-expanded', String(open))
-      if (open) { if (!touch) input.focus() } else openBtn.focus()
-    }
-    openBtn.addEventListener('click', () => setOpen(true))
-    // Product pages: "יש לכם שאלה?" opens the chat with a greeting about that product
-    // (the product is also put into the conversation so follow-ups refer to it).
-const bubble = (role: 'user' | 'assistant') => {
-      const el = document.createElement('div')
-      el.style.cssText = role === 'user'
-        ? 'align-self: flex-end; max-width: 85%; background: #ffffff; border: 1px solid #141414; padding: 10px 14px; border-radius: 4px'
-        : 'align-self: flex-start; max-width: 90%; background: #ffffff; border: 1px solid #dcdcd9; padding: 10px 14px; border-radius: 4px; display: flex; flex-direction: column; gap: 8px'
-      log.appendChild(el)
-      return el
-    }
-    let seeded = ''
-    window.addEventListener('c5:chat', (e) => {
-      const d = (e as CustomEvent<{ name?: string; url?: string }>).detail || {}
-      setOpen(true)
-      if (!d.name || seeded === d.name) return
-      seeded = d.name
-      const s = S[lang]
-      const fill = (k: string) => (s[k] || S.en[k] || '').replace(/\{name\}/g, d.name!).replace(/\{url\}/g, d.url || '')
-      const el = bubble('assistant'); el.innerHTML = md(fill('chat.productHi'))
-      history.push({ role: 'user', content: fill('chat.productCtx') }, { role: 'assistant', content: fill('chat.productHi').replace(/\*\*/g, '') })
-      input.placeholder = fill('chat.productPlaceholder')
-      log.scrollTop = log.scrollHeight
-    })
-    root.querySelector('[data-chat-close]')!.addEventListener('click', () => setOpen(false))
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !panel.hidden) setOpen(false) })
-
-    const applyLang = (l: Lang) => {
-      lang = l
-      const s = S[l]
-      const ltr = DIRS[l] === 'ltr'
-      panel.setAttribute('dir', ltr ? 'ltr' : 'rtl')
-      panel.setAttribute('lang', l)
-      panel.setAttribute('aria-label', s['chat.title'])
-      root.querySelector('[data-chat-title]')!.textContent = s['chat.title']
-      root.querySelector('[data-chat-label]')!.textContent = s['chat.inputLabel']
-      input.placeholder = s['chat.placeholder']
-      sendBtn.setAttribute('aria-label', s['chat.send'])
-      langSel.setAttribute('aria-label', s['chat.lang'])
-      root.querySelector('[data-chat-close]')!.setAttribute('aria-label', s['chat.close'])
-      sizeBtn.setAttribute('aria-label', s[panel.hasAttribute('data-large') ? 'chat.shrink' : 'chat.expand'])
-      sendBtn.querySelector('svg')!.style.transform = ltr ? 'scaleX(-1)' : ''
-    }
-    langSel.addEventListener('change', () => applyLang(langSel.value as Lang))
-    // Enlarge / reduce the window (desktop; on phones the chat is already full screen).
-    sizeBtn.addEventListener('click', () => {
-      const large = panel.toggleAttribute('data-large')
-      sizeBtn.setAttribute('aria-pressed', String(large))
-      sizeBtn.setAttribute('aria-label', S[lang][large ? 'chat.shrink' : 'chat.expand'])
-      sizeBtn.querySelector('[data-size-icon]')!.setAttribute('d', large ? 'M20 10h-6V4M4 14h6v6M14 10l7-7M10 14l-7 7' : 'M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7')
-      log.scrollTop = log.scrollHeight
-    })
-
-    const esc = (s: string) => s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!)
-    // Safe light markdown: escape, then links (site paths / https only), bold, bullets.
     const P = JSON.parse(root.dataset.products || '{}') as Record<string, { t: string; i: string; s?: string; n?: boolean }>
+    const $ = <T extends HTMLElement = HTMLElement>(sel: string) => root.querySelector<T>(sel)!
+    const openBtn = $<HTMLButtonElement>('[data-chat-open]')
+    const panel = $('[data-chat-panel]')
+    const log = $('[data-chat-log]')
+    const form = $<HTMLFormElement>('[data-chat-form]')
+    const input = $<HTMLTextAreaElement>('#chat-input')
+    const sendBtn = $<HTMLButtonElement>('[data-chat-send]')
+    const growBtn = $<HTMLButtonElement>('[data-chat-grow]')
+    const shrinkBtn = $<HTMLButtonElement>('[data-chat-shrink]')
+    const langBtn = $<HTMLButtonElement>('[data-chat-langbtn]')
+    const langList = $<HTMLUListElement>('[data-chat-langlist]')
+    const menuBtn = $<HTMLButtonElement>('[data-chat-menubtn]')
+    const menu = $('[data-chat-menu]')
+    const scrim = $('[data-chat-scrim]')
+    const convList = $('[data-chat-convs]')
+    const statusEl = $('[data-chat-status]')
+    const fileInput = $<HTMLInputElement>('[data-chat-fileinput]')
+    const fileChip = $('[data-chat-file]')
+    const micBtn = $<HTMLButtonElement>('[data-chat-mic]')
+    let lang: Lang = 'he' // every page load starts in Hebrew (client spec)
+    let busy = false
+    const s = () => S[lang]
+
+    // ---------- Stored conversations (this browser only) ----------
+    const KEY = 'c5-chat-convs-v1', CUR = 'c5-chat-current'
+    const MAX_CONVS = 30, MAX_MSGS = 80
+    const load = (): Conv[] => { try { const v = JSON.parse(localStorage.getItem(KEY) || '[]'); return Array.isArray(v) ? v : [] } catch { return [] } }
+    let convs = load()
+    const persist = () => {
+      convs.sort((a, b) => b.u - a.u)
+      convs = convs.slice(0, MAX_CONVS)
+      for (let i = 0; i < 5; i++) {
+        try { localStorage.setItem(KEY, JSON.stringify(convs)); return } catch { if (convs.length <= 1) return; convs.pop() }
+      }
+    }
+    const newConv = (): Conv => ({ id: Date.now().toString(36) + Math.random().toString(36).slice(2, 7), t: '', u: Date.now(), m: [] })
+    let conv: Conv = (() => {
+      let id = ''
+      try { id = sessionStorage.getItem(CUR) || '' } catch {}
+      return convs.find((c) => c.id === id) ?? newConv()
+    })()
+    const remember = () => { try { sessionStorage.setItem(CUR, conv.id) } catch {} }
+    const save = () => {
+      if (!conv.m.some((m) => !m.h)) return
+      conv.u = Date.now()
+      conv.m = conv.m.slice(-MAX_MSGS)
+      if (!conv.t) conv.t = conv.p || (conv.m.find((m) => m.r === 'u' && !m.h)?.c ?? '').slice(0, 70)
+      if (!convs.includes(conv)) convs.unshift(conv)
+      persist(); remember()
+    }
+    const history = (): Turn[] => conv.m.map((m) => ({ role: m.r === 'u' ? 'user' : 'assistant', content: m.f ? `${m.c}\n[${S.he['chat.fileTag']}: ${m.f}]` : m.c }))
+
+    // ---------- Rendering ----------
+    const esc = (x: string) => x.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!)
     // One preview card per product page linked in the answer.
     const cards = (src: string) => {
       const seen = new Set<string>()
@@ -192,10 +251,11 @@ const bubble = (role: 'user' | 'assistant') => {
         const p = P[m[1]]
         if (!p || seen.has(m[1])) continue
         seen.add(m[1])
-        html += `<a class="c5-chat-card" href="/products/${m[1]}"><span class="c5-chat-card-img">${p.i ? `<img src="${esc(p.i)}" alt="" loading="lazy">` : ''}</span><span class="c5-chat-card-txt">${p.n ? '<span class="c5-chat-card-new">אריזה חדשה</span>' : ''}<strong>${esc(p.t)}</strong>${p.s ? `<span class="c5-chat-card-sum">${esc(p.s)}</span>` : ''}<span class="c5-chat-card-btn">${esc(S[lang]['chat.toProduct'] || '')}</span></span></a>`
+        html += `<a class="c5-chat-card" href="/products/${m[1]}"><span class="c5-chat-card-img">${p.i ? `<img src="${esc(p.i)}" alt="" loading="lazy">` : ''}</span><span class="c5-chat-card-txt">${p.n ? '<span class="c5-chat-card-new">אריזה חדשה</span>' : ''}<strong>${esc(p.t)}</strong>${p.s ? `<span class="c5-chat-card-sum">${esc(p.s)}</span>` : ''}<span class="c5-chat-card-btn">${esc(s()['chat.toProduct'] || '')}</span></span></a>`
       }
       return html
     }
+    // Safe light markdown: escape, then links (site paths / https only), bold, bullets.
     const md = (src: string) => {
       let html = '', inList = false
       for (const raw of esc(src).split('\n')) {
@@ -210,47 +270,283 @@ const bubble = (role: 'user' | 'assistant') => {
       }
       return inList ? html + '</ul>' : html
     }
+    // Client spec §6: when an answer names products, their cards come first, then the text.
+    const answerHtml = (text: string) => cards(text) + (md(text) || '…')
+    const bubble = (role: 'u' | 'a') => {
+      const el = document.createElement('div')
+      el.className = role === 'u' ? 'c5c-u' : 'c5c-a'
+      el.dir = 'auto' // a Hebrew message stays right-to-left in an English conversation, and vice versa
+      log.appendChild(el)
+      return el
+    }
+    const userBubble = (text: string, file?: string) => {
+      const el = bubble('u')
+      el.textContent = text
+      if (file) {
+        const tag = document.createElement('span'); tag.className = 'c5c-tag'
+        tag.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 11.5l-8.4 8.4a5 5 0 0 1-7.1-7.1l8.4-8.4a3.4 3.4 0 0 1 4.8 4.8l-8.4 8.4a1.7 1.7 0 0 1-2.4-2.4l7.7-7.7"></path></svg>'
+        tag.appendChild(document.createTextNode(file)); el.appendChild(tag)
+      }
+      return el
+    }
+    let turn: HTMLElement | null = null
+    // The current question stays at the top of the log, so the answer is read from its first line.
+    const toTurn = () => { log.scrollTop = turn ? Math.max(0, turn.offsetTop - log.offsetTop - 12) : log.scrollHeight }
+    const renderConv = () => {
+      log.innerHTML = ''; turn = null
+      for (const m of conv.m) {
+        if (m.h) continue
+        if (m.r === 'u') turn = userBubble(m.c, m.f)
+        else bubble('a').innerHTML = answerHtml(m.c)
+      }
+      log.scrollTop = log.scrollHeight
+      input.placeholder = conv.p ? fill('chat.productPlaceholder', conv.p) : s()['chat.placeholder']
+    }
+    const fill = (k: string, name: string, url = '') => (s()[k] || S.en[k] || '').replace(/\{name\}/g, name).replace(/\{url\}/g, url)
+
+    // ---------- Open / close / size ----------
+    const touch = window.matchMedia('(hover: none) and (pointer: coarse)').matches
+    const vv = window.visualViewport
+    // Phones: keep the sheet exactly as tall as the visible viewport (it shrinks when the keyboard opens).
+    const fit = () => {
+      if (!vv || panel.hidden) return
+      panel.style.setProperty('--c5-chat-h', `${Math.round(vv.height)}px`)
+      panel.style.setProperty('top', window.matchMedia('(max-width: 640px)').matches ? `${Math.round(vv.offsetTop)}px` : '')
+      toTurn()
+    }
+    vv?.addEventListener('resize', fit)
+    vv?.addEventListener('scroll', fit)
+    let rendered = false
+    const setOpen = (open: boolean) => {
+      if (open && !rendered) { renderConv(); rendered = true }
+      panel.hidden = !open
+      document.documentElement.classList.toggle('c5-chat-open', open)
+      fit()
+      openBtn.hidden = open
+      openBtn.setAttribute('aria-expanded', String(open))
+      if (open) { if (!touch) input.focus() } else { setMenu(false); setLangList(false); stopMic(); openBtn.focus() }
+    }
+    openBtn.addEventListener('click', () => setOpen(true))
+    $('[data-chat-close]').addEventListener('click', () => setOpen(false))
+    const setLarge = (large: boolean) => {
+      panel.toggleAttribute('data-large', large)
+      growBtn.disabled = large; shrinkBtn.disabled = !large
+      ;(large ? shrinkBtn : growBtn).focus()
+      log.scrollTop = log.scrollHeight
+    }
+    growBtn.addEventListener('click', () => setLarge(true))
+    shrinkBtn.addEventListener('click', () => setLarge(false))
+
+    // ---------- Language ----------
+    const options = [...langList.querySelectorAll<HTMLLIElement>('[role="option"]')]
+    const setLangList = (open: boolean) => {
+      langList.hidden = !open
+      langBtn.setAttribute('aria-expanded', String(open))
+      if (open) (options.find((o) => o.dataset.lang === lang) ?? options[0]).focus()
+    }
+    const applyLang = (l: Lang) => {
+      lang = l
+      const x = s()
+      const ltr = DIRS[l] === 'ltr'
+      panel.setAttribute('lang', l)
+      for (const el of [log, form, menu, $('[data-chat-note]')]) el.setAttribute('dir', ltr ? 'ltr' : 'rtl')
+      panel.setAttribute('aria-label', x['chat.title'])
+      $('[data-chat-title]').textContent = x['chat.title']
+      $('[data-chat-title]').setAttribute('lang', l)
+      $('[data-chat-label]').textContent = x['chat.inputLabel']
+      $('[data-chat-note]').textContent = x['chat.aiNote']
+      $('[data-chat-langname]').textContent = l.toUpperCase()
+      $('[data-chat-title]').setAttribute('dir', ltr ? 'ltr' : 'rtl')
+      const label = (sel: string, k: string) => root.querySelectorAll(sel).forEach((el) => el.setAttribute('aria-label', x[k]))
+      label('[data-chat-close]', 'chat.close'); label('[data-chat-grow]', 'chat.expand'); label('[data-chat-shrink]', 'chat.shrink')
+      label('[data-chat-langbtn]', 'chat.lang'); label('[data-chat-langlist]', 'chat.lang'); label('[data-chat-menubtn]', 'chat.menu'); label('[data-chat-menu]', 'chat.menu')
+      label('[data-chat-menuclose]', 'chat.menuClose'); label('[data-chat-attach]', 'chat.attach'); label('[data-chat-fileremove]', 'chat.fileRemove')
+      label('[data-chat-send]', 'chat.send'); micBtn.setAttribute('aria-label', x[listening ? 'chat.micStop' : 'chat.mic'])
+      root.querySelectorAll<HTMLElement>('[data-s]').forEach((el) => { el.textContent = x[el.dataset.s!] })
+      root.querySelectorAll<HTMLElement>('[data-chat-know] li').forEach((li, i) => {
+        const [h, b] = (x[`chat.know${i + 1}`] || '').split('|')
+        li.querySelector('strong')!.textContent = h; li.querySelector('span')!.textContent = b
+      })
+      options.forEach((o) => o.setAttribute('aria-selected', String(o.dataset.lang === l)))
+      input.placeholder = conv.p ? fill('chat.productPlaceholder', conv.p) : x['chat.placeholder']
+      sendBtn.querySelector('svg')!.style.transform = ltr ? 'scaleX(-1)' : ''
+      renderConvList()
+      if (rendered) renderConv()
+    }
+    langBtn.addEventListener('click', () => setLangList(langList.hidden))
+    options.forEach((o) => o.addEventListener('click', () => { applyLang(o.dataset.lang as Lang); setLangList(false); langBtn.focus() }))
+    langList.addEventListener('keydown', (e) => {
+      const i = options.indexOf(document.activeElement as HTMLLIElement)
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); options[(i + (e.key === 'ArrowDown' ? 1 : options.length - 1)) % options.length].focus() }
+      else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); (document.activeElement as HTMLElement)?.click() }
+      else if (e.key === 'Tab') setLangList(false)
+    })
+    document.addEventListener('click', (e) => { if (!langList.hidden && !(e.target as Element).closest('.c5c-lang')) setLangList(false) })
+
+    // ---------- Side menu ----------
+    const renderConvList = () => {
+      const saved = convs.filter((c) => c.m.some((m) => !m.h)).sort((a, b) => b.u - a.u)
+      if (!saved.length) { convList.innerHTML = `<li><p>${esc(s()['chat.mineEmpty'])}</p></li>`; return }
+      const fmt = new Intl.DateTimeFormat(lang, { day: 'numeric', month: 'numeric', hour: '2-digit', minute: '2-digit' })
+      convList.innerHTML = saved.map((c) => `<li><button type="button" data-conv="${c.id}"${c.id === conv.id ? ' aria-current="true"' : ''}><span>${esc(c.t || s()['chat.untitled'])}</span><small>${esc(fmt.format(c.u))}</small></button></li>`).join('')
+    }
+    const setMenu = (open: boolean) => {
+      if (open) renderConvList()
+      menu.hidden = !open; scrim.hidden = !open
+      menuBtn.setAttribute('aria-expanded', String(open))
+      if (open) $<HTMLButtonElement>('[data-chat-new]').focus()
+    }
+    menuBtn.addEventListener('click', () => setMenu(menu.hidden))
+    $('[data-chat-menuclose]').addEventListener('click', () => { setMenu(false); menuBtn.focus() })
+    scrim.addEventListener('click', () => setMenu(false))
+    const startNew = () => {
+      if (busy) return
+      conv = newConv(); remember(); clearFile(); renderConv()
+    }
+    $('[data-chat-new]').addEventListener('click', () => { startNew(); setMenu(false); if (!touch) input.focus() })
+    convList.addEventListener('click', (e) => {
+      const id = (e.target as Element).closest<HTMLElement>('[data-conv]')?.dataset.conv
+      const c = id && convs.find((x) => x.id === id)
+      if (!c || busy) return
+      conv = c; remember(); clearFile(); renderConv(); setMenu(false); if (!touch) input.focus()
+    })
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape' || panel.hidden) return
+      if (!langList.hidden) { setLangList(false); langBtn.focus() }
+      else if (!menu.hidden) { setMenu(false); menuBtn.focus() }
+      else setOpen(false)
+    })
+
+    // ---------- Status line (file / voice messages) ----------
+    let statusTimer = 0
+    const status = (msg: string, ms = 5000) => {
+      window.clearTimeout(statusTimer)
+      statusEl.textContent = msg; statusEl.hidden = !msg
+      if (msg && ms) statusTimer = window.setTimeout(() => { statusEl.hidden = true }, ms)
+    }
+
+    // ---------- File attachment (image, PDF or text; sent with the next question only) ----------
+    let attached: Attachment | null = null
+    const MAX_FILE = 3 * 1024 * 1024
+    const clearFile = () => { attached = null; fileInput.value = ''; fileChip.hidden = true }
+    const toB64 = (blob: Blob) => new Promise<string>((res, rej) => { const r = new FileReader(); r.onload = () => res(String(r.result).split(',')[1] || ''); r.onerror = rej; r.readAsDataURL(blob) })
+    // Photos are scaled down to 1600px in the browser, so a phone picture fits the request.
+    const shrinkImage = async (f: File) => {
+      const bmp = await createImageBitmap(f)
+      const k = Math.min(1, 1600 / Math.max(bmp.width, bmp.height))
+      const c = document.createElement('canvas'); c.width = Math.round(bmp.width * k); c.height = Math.round(bmp.height * k)
+      const g = c.getContext('2d')!; g.fillStyle = '#ffffff'; g.fillRect(0, 0, c.width, c.height); g.drawImage(bmp, 0, 0, c.width, c.height)
+      const blob = await new Promise<Blob>((res) => c.toBlob((b) => res(b!), 'image/jpeg', 0.85))
+      return toB64(blob)
+    }
+    $('[data-chat-attach]').addEventListener('click', () => fileInput.click())
+    $('[data-chat-fileremove]').addEventListener('click', () => { clearFile(); input.focus() })
+    fileInput.addEventListener('change', async () => {
+      const f = fileInput.files?.[0]
+      if (!f) return
+      const isImg = f.type.startsWith('image/'), isPdf = f.type === 'application/pdf' || /\.pdf$/i.test(f.name)
+      const isTxt = f.type.startsWith('text/') || /\.(txt|csv|md)$/i.test(f.name)
+      try {
+        if (isImg) { if (f.size > 20 * 1024 * 1024) throw new Error('big'); attached = { name: f.name, type: 'image/jpeg', data: await shrinkImage(f) } }
+        else if (isPdf) { if (f.size > MAX_FILE) throw new Error('big'); attached = { name: f.name, type: 'application/pdf', data: await toB64(f) } }
+        else if (isTxt) { if (f.size > 200 * 1024) throw new Error('big'); attached = { name: f.name, type: 'text/plain', data: await f.text() } }
+        else { clearFile(); status(s()['chat.fileType']); return }
+      } catch (err) {
+        clearFile(); status(s()[(err as Error).message === 'big' ? 'chat.fileBig' : 'chat.fileType']); return
+      }
+      $('[data-chat-filename]').textContent = f.name
+      fileChip.hidden = false; status('')
+      if (!touch) input.focus()
+    })
+
+    // ---------- Voice question (the browser's speech recognition; sent when the speaker stops) ----------
+    const SR = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition
+    const SR_LANG: Record<Lang, string> = { he: 'he-IL', en: 'en-US', ar: 'ar-IL', ru: 'ru-RU', fr: 'fr-FR' }
+    let rec: any = null, listening = false
+    const stopMic = () => { if (rec && listening) rec.stop() }
+    micBtn.addEventListener('click', () => {
+      if (listening) { stopMic(); return }
+      if (!SR) { status(s()['chat.micNo'], 7000); return }
+      rec = new SR(); rec.lang = SR_LANG[lang]; rec.interimResults = true; rec.continuous = false; rec.maxAlternatives = 1
+      const before = input.value ? input.value.trimEnd() + ' ' : ''
+      let heard = ''
+      rec.onresult = (e: any) => {
+        heard = Array.from(e.results as ArrayLike<any>).map((r: any) => r[0].transcript).join('')
+        input.value = before + heard; autosize()
+      }
+      rec.onerror = (e: any) => { if (e.error === 'not-allowed' || e.error === 'service-not-allowed') status(s()['chat.micDenied'], 7000) }
+      rec.onend = () => {
+        listening = false; micBtn.setAttribute('aria-pressed', 'false'); micBtn.setAttribute('aria-label', s()['chat.mic'])
+        status('')
+        if (heard.trim()) form.requestSubmit()
+      }
+      try { rec.start() } catch { return }
+      listening = true; micBtn.setAttribute('aria-pressed', 'true'); micBtn.setAttribute('aria-label', s()['chat.micStop'])
+      status(s()['chat.listening'], 0)
+    })
+
+    // ---------- Input ----------
+    const autosize = () => { input.style.height = 'auto'; input.style.height = `${Math.min(input.scrollHeight, 132)}px` }
+    input.addEventListener('input', autosize)
+    input.addEventListener('keydown', (e) => { if (e.key === 'Enter' && !e.shiftKey && !e.isComposing && !touch) { e.preventDefault(); form.requestSubmit() } })
+
+    // Product pages: "יש לכם שאלה?" opens the chat with a greeting about that product
+    // (the product is also put into the conversation so follow-ups refer to it).
+    window.addEventListener('c5:chat', (e) => {
+      const d = (e as CustomEvent<{ name?: string; url?: string }>).detail || {}
+      if (d.name && conv.p !== d.name) {
+        if (conv.m.some((m) => !m.h)) { conv = newConv(); remember() }
+        conv.p = d.name
+        conv.m.push({ r: 'u', c: fill('chat.productCtx', d.name, d.url), h: 1 }, { r: 'a', c: fill('chat.productHi', d.name, d.url) })
+        save(); rendered = false
+      }
+      setOpen(true)
+    })
+
     // "Working" indicator while the answer is prepared: three pulsing dots and the current step
     // ("reading the question", "searching the product information", …), one after another; a
     // status from the server (e.g. a web search) is shown as the current step. Removed at the
     // first text of the answer. Reduced motion: no pulsing, steps still change.
-    const thinking = (out: HTMLElement, s: Record<string, string>) => {
-      const steps = (s['chat.steps'] || '').split('|').filter(Boolean)
+    const thinking = (out: HTMLElement, x: Record<string, string>) => {
+      const steps = (x['chat.steps'] || '').split('|').filter(Boolean)
       out.setAttribute('aria-busy', 'true')
       out.innerHTML = '<div class="c5-think" role="status"><span class="c5-think-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="c5-think-txt" aria-hidden="true"></span><span class="c5-think-sr"></span></div>'
       const txt = out.querySelector<HTMLElement>('.c5-think-txt')!
-      out.querySelector<HTMLElement>('.c5-think-sr')!.textContent = s['chat.working'] || ''
+      out.querySelector<HTMLElement>('.c5-think-sr')!.textContent = x['chat.working'] || ''
       let i = 0, done = false
-      const show = (t: string) => {
-        txt.classList.remove('is-in'); void txt.offsetWidth
-        txt.textContent = t; txt.classList.add('is-in')
-      }
+      const show = (v: string) => { txt.classList.remove('is-in'); void txt.offsetWidth; txt.textContent = v; txt.classList.add('is-in') }
       show(steps[0] || '…')
       const timer = window.setInterval(() => { if (i < steps.length - 1) show(steps[++i]) }, 2200)
       return {
-        status(t: string) { if (!done && t) show(t) },
+        status(v: string) { if (!done && v) show(v) },
         stop() { if (done) return; done = true; window.clearInterval(timer); out.removeAttribute('aria-busy'); out.innerHTML = '' },
       }
     }
-    
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault()
-      const q = input.value.trim()
-      if (!q || busy) return
-      busy = true; sendBtn.disabled = true; input.value = ''
-      turn = bubble('user'); turn.textContent = q
+      if (busy) return
+      const file = attached
+      const q = input.value.trim() || (file ? s()['chat.fileAsk'] : '')
+      if (!q) return
+      stopMic()
+      busy = true; sendBtn.disabled = true; input.value = ''; autosize(); clearFile(); status('')
+      const prior = history()
+      conv.m.push({ r: 'u', c: q, ...(file ? { f: file.name } : {}) })
+      save()
+      turn = userBubble(q, file?.name)
       // Touch screens: close the keyboard so the answer is visible.
       if (touch) input.blur()
-      const out = bubble('assistant')
-      const s = S[lang]
-      const think = thinking(out, s)
+      const out = bubble('a')
+      const x = s()
+      const think = thinking(out, x)
       toTurn()
       let text = ''
       try {
-        const res = await fetch('/api/ask', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ question: q, history, lang }) })
+        const res = await fetch('/api/ask', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ question: q, history: prior, lang, ...(file ? { attachment: file } : {}) }) })
         if (!res.ok || !res.body) {
           think.stop()
-          out.textContent = res.status === 429 ? s['chat.rateLimited'] : res.status === 503 ? s['chat.unavailable'] : s['chat.error']
+          out.textContent = res.status === 429 ? x['chat.rateLimited'] : res.status === 503 ? x['chat.unavailable'] : res.status === 413 ? x['chat.fileBig'] : x['chat.error']
           return
         }
         const reader = res.body.getReader(); const dec = new TextDecoder(); let buf = ''
@@ -267,15 +563,15 @@ const bubble = (role: 'user' | 'assistant') => {
             think.stop()
             if (ev.t === 'text') text += ev.v
             else if (ev.t === 'source') text += `\n- [${ev.title}](${ev.url})`
-            else if (ev.t === 'error') text += (text ? '\n\n' : '') + s['chat.error']
-            out.innerHTML = (md(text) || '…') + cards(text)
+            else if (ev.t === 'error') text += (text ? '\n\n' : '') + x['chat.error']
+            out.innerHTML = answerHtml(text)
             toTurn()
           }
         }
-        if (text) history.push({ role: 'user', content: q }, { role: 'assistant', content: text })
+        if (text) { conv.m.push({ r: 'a', c: text }); save() }
       } catch {
         think.stop()
-        out.textContent = s['chat.error']
+        out.textContent = x['chat.error']
       } finally {
         think.stop()
         busy = false; sendBtn.disabled = false; if (!touch) input.focus()
