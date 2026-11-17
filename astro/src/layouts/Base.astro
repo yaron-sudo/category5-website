@@ -3,6 +3,7 @@ import '@/styles/tokens.css'
 import '@/styles/components.css'
 import Header from '@/components/Header.astro'
 import Footer from '@/components/Footer.astro'
+import NewLookBanner from '@/components/c5/NewLookBanner.astro'
 import Seo from '@/components/Seo.astro'
 import Accessibility from '@/components/Accessibility.astro'
 import CookieConsent from '@/components/CookieConsent.astro'
@@ -95,6 +96,7 @@ const fonts = resolveFonts(settings?.typography)
         </button>
         <figure class="ns-glb__fig"><img data-glb-img src="" alt="" /><figcaption data-glb-cap></figcaption></figure>
       </dialog>
+      <NewLookBanner />
       <Footer />
     </div>
     <Accessibility />
