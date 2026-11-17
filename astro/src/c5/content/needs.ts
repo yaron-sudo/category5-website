@@ -1,34 +1,102 @@
 // "מה הצורך" pages (BRIEF §7) — fill in here. Keyed by need slug (../data.ts).
 // intro:    the opening paragraph (client texts, "טקסטים לעמודי תחומים סבב 1", 16.11.2026).
 // image:    the banner visual (a clean crop, to be supplied); grey "באנר" until then.
-// products: slugs of the products that belong to the need. While empty, the grid
-//           shows grey placeholder cards as in the mockup.
+// products: slugs of the products that belong to the need (client's table "needs-products.xlsx",
+//           17.11.2026), in the series colour order. While empty, the grid shows grey placeholder cards.
 export interface NeedContent { intro?: string[]; image?: string; products: string[] }
 
 export const NEED_CONTENT: Record<string, NeedContent> = {
   'healthy-winter': {
     intro: ['החורף מביא איתו ימים קרים, שהייה ממושכת בחללים סגורים וחשיפה מוגברת לנגיפים ולמחלות עונתיות. דווקא בתקופה הזו חשוב להקפיד על תזונה מאוזנת ולתת לגוף את התמיכה הדרושה לו לשמירה על מערכת חיסון בריאה. ב־Category 5 אנו מציעים מגוון תוספי תזונה המשלבים ויטמינים, מינרלים ורכיבים צמחיים איכותיים בפורמולות מתקדמות, לתמיכה במערכת החיסון ולהשלמת צרכים תזונתיים במהלך חודשי החורף.'],
-    products: [],
+    products: [
+      'lipozamin-nac',
+      'lipozamin-se',
+      'lipozamin-zn',
+      'cellinol-liposomal-vitamin-c',
+      'cellinol-junior',
+      'quick-c',
+      'lactoferr',
+      'bio-vera',
+      'umanaflora-53',
+      'umanaflora-daily',
+      'quick-daily-biotics',
+      'winterguard',
+    ],
   },
   women: {
     intro: ['להיות אישה זה גם להתמודד עם גוף שמשתנה לאורך החיים, ולעיתים אפילו מחודש לחודש. מתופעות קדם־וסתיות ושינויים הורמונליים ועד לאתגרים שמביא איתו גיל המעבר, לצד העייפות והעומס של שגרת היום־יום. לכל שלב יש צרכים משלו, וחשוב להעניק להם את תשומת הלב המתאימה. ב־Category 5 אנו מציעים מגוון תוספי תזונה המשלבים רכיבים איכותיים ופורמולות מתקדמות, לתמיכה בצרכים התזונתיים הייחודיים של האישה בכל שלב בחיים.'],
-    products: [],
+    products: [
+      'lipozamin-nicotinamide',
+      'lipozamin-calcium',
+      'lipozamin-fe',
+      'lipozamin-mg-taurate',
+      'lipozamin-mg-spectrum',
+      'lipozamin-mg-complex',
+      'lipozamin-q10-spectrum',
+      'lipozamin-zn',
+      'liposomal-multivitamin',
+      'quick-fe',
+      'amorfolic',
+      'lactoferr',
+      'geniflora-c15',
+      'revival',
+      'calcidex',
+    ],
   },
   men: {
     intro: ['גם הגוף הגברי עובר שינויים לאורך השנים, במיוחד אחרי גיל 40. שינויים הורמונליים, בריאות הערמונית, הידלדלות השיער ושמירה על מסת השריר והכושר הגופני הם חלק מהאתגרים שמעסיקים גברים בשלבים שונים בחיים. ב־Category 5 אנו מציעים מגוון תוספי תזונה המשלבים רכיבים איכותיים ופורמולות מתקדמות, לתמיכה בצרכים התזונתיים הייחודיים של הגבר ולשמירה על בריאותו ואיכות חייו.'],
-    products: [],
+    products: [
+      'lipozamin-nac',
+      'lipozamin-mg-taurate',
+      'lipozamin-mg-spectrum',
+      'lipozamin-mg-complex',
+      'lipozamin-q10-spectrum',
+      'lipozamin-se',
+      'lipozamin-zn',
+      'liposomal-multivitamin',
+      'amorfolic',
+      'protesterol-40',
+      'revival',
+    ],
   },
   sport: {
     intro: ['תנועה היא חלק בלתי נפרד מאורח חיים בריא, בין אם אתם עוסקים בספורט באופן קבוע ובין אם אתם פשוט אוהבים להישאר פעילים. פעילות גופנית מציבה בפני הגוף אתגרים שונים, החל מעומס על השרירים והמפרקים ועד לצורך בהתאוששות לאחר מאמץ. ב־Category 5 אנו מציעים מגוון תוספי תזונה המשלבים רכיבים איכותיים ופורמולות מתקדמות, לתמיכה בצרכים התזונתיים של הגוף ולשמירה על אורח חיים פעיל בכל גיל.'],
-    products: [],
+    products: [
+      'lipozamin-alpha-lipoic-acid',
+      'lipozamin-calcium',
+      'lipozamin-mg-spectrum',
+      'lipozamin-mg-complex',
+      'lipozamin-q10-spectrum',
+      'curcumin-complex',
+      'fibrogen',
+      'nemadrin-l6',
+    ],
   },
   kids: {
     intro: ['שנות הילדות הן תקופה של גדילה והתפתחות מואצת, שבה לתזונה תפקיד מרכזי בבניית העצמות, בתמיכה בקשב ובריכוז ובפעילות מערכת החיסון, במיוחד בחודשי החורף. באופן אידיאלי, תזונה מגוונת ומאוזנת מספקת לילדים את כל הרכיבים הדרושים להם, אבל בין בררנות באוכל לשגרת החיים העמוסה, זה לא תמיד פשוט. ב־Category 5 אנו מציעים מגוון תוספי תזונה המשלבים רכיבים איכותיים ופורמולות מתקדמות, להשלמת הצרכים התזונתיים בשלבי הילדות השונים.'],
-    products: [],
+    products: [
+      'quick-fe',
+      'cellinol-junior',
+      'quick-c',
+      'quick-daily-biotics',
+    ],
   },
   seniors: {
     intro: ['הגיל השלישי מביא איתו הזדמנויות חדשות ליהנות מהחיים, לצד שינויים טבעיים בגוף שמצריכים תשומת לב מיוחדת. שמירה על בריאות העצם, מסת השריר, הזיכרון והריכוז, לצד חיזוק מערכת החיסון, הופכים לחלק חשוב מהשמירה על עצמאות, חיוניות ואיכות חיים. ב־Category 5 אנו מציעים מגוון תוספי תזונה המשלבים רכיבים איכותיים ופורמולות מתקדמות, לתמיכה בצרכים התזונתיים המשתנים ולשמירה על אורח חיים פעיל ובריא.'],
-    products: [],
+    products: [
+      'lipozamin-nicotinamide',
+      'lipozamin-b12-spectrum',
+      'lipozamin-calcium',
+      'lipozamin-fe',
+      'lipozamin-mg-complex',
+      'lipozamin-q10-spectrum',
+      'liposomal-multivitamin',
+      'amorfolic',
+      'curcumin-complex',
+      'cogni-bright',
+      'cogni-mg',
+      'nemadrin-l6',
+    ],
   },
 }
 export const NEED_INTRO_PLACEHOLDER = 'פירוט קצר על התחום'
