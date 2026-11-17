@@ -5,7 +5,6 @@
 // design language. Chains are told apart by monochrome inline icons.
 import Site from '@/layouts/Site.astro'
 import { getStores, type StoreCategory } from '@/lib/sanity'
-import { ONLINE_SHOPS } from '@/c5/content/stores'
 import { existsSync } from 'node:fs'
 import { resolve } from 'node:path'
 import 'leaflet/dist/leaflet.css'
@@ -35,21 +34,11 @@ const chainOf = (c?: StoreCategory) => CHAINS.find((x) => x.id === c) ?? CHAINS[
 const data = stores.map((s) => ({
   n: s.name, c: s.city, a: s.address ?? '', p: s.phone ?? '', k: chainOf(s.category).id, lat: s.lat, lng: s.lng,
 }))
-const btn = 'display: inline-flex; align-items: center; min-height: 44px; padding: 0 22px; border: 1px solid #141414; border-radius: 4px; background: #ffffff; color: #141414; text-decoration: none; font: inherit; cursor: pointer'
 ---
-<Site title="חנויות" description="איפה קונים: חיפוש חנויות על המפה ורכישה אונליין.">
+<Site title="חנויות" description="איפה קונים: חיפוש חנויות על המפה.">
 <section style="max-width: 1280px; margin: 0 auto; padding: clamp(40px, 6vw, 72px) clamp(16px, 4vw, 48px) 0; box-sizing: border-box">
 <h1 style="margin: 0">חנויות</h1>
-<p style="margin: 14px 0 0; max-width: 640px">מצאו את החנות הקרובה אליכם, או הזמינו אונליין.</p>
-</section>
-
-<section aria-label="רכישה אונליין" style="max-width: 1280px; margin: 24px auto 0; padding: 0 clamp(16px, 4vw, 48px); box-sizing: border-box">
-<div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center">
-<h2 style="margin: 0; font-size: 17px; font-weight: 600">רכישה אונליין:</h2>
-{ONLINE_SHOPS.map((o) => o.href
-  ? <a href={o.href} target="_blank" rel="noopener" class="c5-soft" style={btn}>{o.name}</a>
-  : <span style={btn}>{o.name}</span>)}
-</div>
+<p style="margin: 14px 0 0; max-width: 640px">מצאו את החנות הקרובה אליכם.</p>
 </section>
 
 <section aria-label="איתור חנויות" class="c5-loc" data-c5-stores>
