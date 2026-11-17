@@ -9,7 +9,8 @@ const strings = Object.fromEntries(CHAT_LANGS.map((l) => [l.code, chatDict(l.cod
 // Product previews in answers: every /products/<slug> link the answer contains gets a
 // card (photo + name + button to the product page).
 import { getCatalog } from '@/c5/content/catalog'
-const products = Object.fromEntries((await getCatalog()).map((p) => [p.slug, { t: p.fullTitle || p.title, i: p.image ?? '' }]))
+import { PRODUCT_SUMMARIES } from '@/c5/content/summaries'
+const products = Object.fromEntries((await getCatalog()).map((p) => [p.slug, { t: p.fullTitle || p.title, i: p.image ?? '', s: PRODUCT_SUMMARIES[p.slug] ?? '', n: !!p.newPack }]))
 const dirs = Object.fromEntries(CHAT_LANGS.map((l) => [l.code, l.dir]))
 ---
 <div dir="rtl" data-c5-chat data-strings={JSON.stringify(strings)} data-dirs={JSON.stringify(dirs)} data-products={JSON.stringify(products)} style="font-family: 'C5 Sans', 'Noto Sans Hebrew', Arial, sans-serif; color: #141414; font-size: 15px; line-height: 1.5">
@@ -49,6 +50,8 @@ const dirs = Object.fromEntries(CHAT_LANGS.map((l) => [l.code, l.dir]))
   .c5-chat-card-txt { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
   .c5-chat-card-btn { display: inline-flex; align-items: center; min-height: 32px; padding: 0 12px; border: 1px solid #141414; border-radius: 4px; font-size: 14px; }
   a.c5-chat-card:hover .c5-chat-card-btn { background: #efeeea; }
+  .c5-chat-card-sum { font-size: 14px; line-height: 1.45; }
+  .c5-chat-card-new { display: inline-flex; padding: 2px 8px; border: 1px solid #141414; border-radius: 4px; font-size: 12px; line-height: 1.3; }
   [data-chat-log] p { margin: 0 0 6px; } [data-chat-log] p:last-child { margin: 0; }
   [data-chat-log] ul { margin: 4px 0; padding-inline-start: 18px; }
   .c5-think { display: flex; align-items: center; gap: 10px; min-height: 24px; color: #141414; font-size: 14px; }
@@ -180,7 +183,7 @@ const bubble = (role: 'user' | 'assistant') => {
 
     const esc = (s: string) => s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!)
     // Safe light markdown: escape, then links (site paths / https only), bold, bullets.
-    const P = JSON.parse(root.dataset.products || '{}') as Record<string, { t: string; i: string }>
+    const P = JSON.parse(root.dataset.products || '{}') as Record<string, { t: string; i: string; s?: string; n?: boolean }>
     // One preview card per product page linked in the answer.
     const cards = (src: string) => {
       const seen = new Set<string>()
@@ -189,7 +192,7 @@ const bubble = (role: 'user' | 'assistant') => {
         const p = P[m[1]]
         if (!p || seen.has(m[1])) continue
         seen.add(m[1])
-        html += `<a class="c5-chat-card" href="/products/${m[1]}"><span class="c5-chat-card-img">${p.i ? `<img src="${esc(p.i)}" alt="" loading="lazy">` : ''}</span><span class="c5-chat-card-txt"><strong>${esc(p.t)}</strong><span class="c5-chat-card-btn">${esc(S[lang]['chat.toProduct'] || '')}</span></span></a>`
+        html += `<a class="c5-chat-card" href="/products/${m[1]}"><span class="c5-chat-card-img">${p.i ? `<img src="${esc(p.i)}" alt="" loading="lazy">` : ''}</span><span class="c5-chat-card-txt">${p.n ? '<span class="c5-chat-card-new">אריזה חדשה</span>' : ''}<strong>${esc(p.t)}</strong>${p.s ? `<span class="c5-chat-card-sum">${esc(p.s)}</span>` : ''}<span class="c5-chat-card-btn">${esc(S[lang]['chat.toProduct'] || '')}</span></span></a>`
       }
       return html
     }
