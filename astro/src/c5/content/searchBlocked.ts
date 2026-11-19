@@ -20,10 +20,11 @@ export const BLOCKED_TERMS: string[] = [
   'כולסטרול', 'טריגליצרידים', 'מחלת לב', 'מחלות לב', 'התקף לב', 'אוטם', 'שבץ', 'קריש דם', 'קרישי דם', 'קרישה', 'אנמיה', 'דימום',
   'cholesterol', 'heart disease', 'heart attack', 'stroke', 'blood clot', 'anemia', 'anaemia',
   // mental health / neuro
-  'דיכאון', 'הפרעה נפשית', 'הפרעות נפשיות', 'מחלת נפש', 'סכיזופרניה', 'ביפולרי', 'הפרעת קשב', 'הפרעות קשב', 'אוטיזם', 'אלצהיימר', 'דמנציה', 'פרקינסון', 'אפילפסיה', 'טרשת נפוצה', 'מיגרנה', 
-  'depression', 'adhd', 'autism', 'alzheimer', 'dementia', 'parkinson', 'epilepsy', 'multiple sclerosis', 'migraine', 'bipolar', 'schizophrenia', 'mental illness',
+  'דיכאון', 'הפרעה נפשית', 'הפרעות נפשיות', 'מחלת נפש', 'סכיזופרניה', 'ביפולרי', 'אוטיזם', 'אלצהיימר', 'דמנציה', 'פרקינסון', 'אפילפסיה', 'טרשת נפוצה', 'מיגרנה', 
+  'depression', 'autism', 'alzheimer', 'dementia', 'parkinson', 'epilepsy', 'multiple sclerosis', 'migraine', 'bipolar', 'schizophrenia', 'mental illness',
   // mental disorders / psychiatric (client 19.11.2026). Everyday stress, anxiety (חרדה), worry,
   // tension and distraction stay answered; only diagnoses and psychiatric terms are blocked here.
+  // Attention disorders / ADHD are answered too (client 19.11.2026), with the concentration words.
   'מחלות נפש', 'מחלה נפשית', 'מחלות נפשיות', 'בריאות הנפש', 'פסיכוזה', 'פסיכוזות', 'פסיכוטי', 'פסיכוטית', 'דיכאון קליני', 'דפרסיה', 'דו קוטבי', 'דו קוטבית', 'מאניה', 'מאני דפרסיבי',
   'הפרעת אישיות', 'הפרעות אישיות', 'הפרעה טורדנית כפייתית', 'אובססיבית קומפולסיבית', 'פוסט טראומה', 'פוסט טראומטי', 'פוסט טראומטית', 'הפרעת דחק',
   'הפרעת חרדה', 'הפרעות חרדה', 'הפרעת פאניקה', 'הפרעת אכילה', 'הפרעה דיסוציאטיבית', 'הזיות', 'מחשבות שווא', 'פסיכיאטר', 'פסיכיאטרי', 'פסיכיאטרית', 'נוגדי דיכאון', 'תרופות פסיכיאטריות', 'ליתיום',

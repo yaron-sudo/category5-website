@@ -18,7 +18,7 @@ const CASES = [
   // typos
   ['מגנזיון', 'product', 'lipozamin-mg-spectrum'], ['פרוביוטיקא', 'product', 'umanaflora-53'], ['ליפוזומין', 'product', 'lipozamin-fe'],
   // functional words the client wants answered (16.11.2026)
-  ['חרדה', 'product', 'relacton-alpha'], ['לחץ דם', 'product', 'natto'], ['כאבי פרקים', 'product', 'curcumin-complex'], ['שחיקת סחוס', 'product', 'alyvium'], ['מיקוד', 'product', 'cogni-mg'], ['דלקות בדרכי השתן', 'product', 'geniflora-c15'], ['ערמונית מוגדלת', 'product', 'protesterol-40'], ['הפרעות קצב לב', 'product', 'natto'],
+  ['חרדה', 'product', 'relacton-alpha'], ['לחץ דם', 'product', 'natto'], ['כאבי פרקים', 'product', 'curcumin-complex'], ['שחיקת סחוס', 'product', 'alyvium'], ['מיקוד', 'product', 'cogni-mg'], ['הפרעת קשב', 'product', 'cogni-mg'], ['ADHD', 'product', 'cogni-mg'], ['דלקות בדרכי השתן', 'product', 'geniflora-c15'], ['ערמונית מוגדלת', 'product', 'protesterol-40'], ['הפרעות קצב לב', 'product', 'natto'],
   // words not in the product name
   ['אנזימי עיכול', 'product', 'kalnozim-digestive-enzymes'], ['זעפרן', 'article', 'saffron-affron'], ['חומצה פולית', 'product', 'amorfolic'],
 ]
@@ -38,7 +38,7 @@ for (const q of BLOCKED) {
   console.log(`${ok ? 'OK ' : 'FAIL'} blocked ${q}`)
 }
 // Not blocked: everyday well-being language keeps working.
-for (const q of ['קשה לי להירדם', 'אין לי אנרגיה', 'בטן נפוחה', 'חורף', 'גיל המעבר', 'מגנזיום', 'קלנוזים', 'חרדה', 'זיכרון', 'ריכוז', 'מיקוד', 'שינה', 'לחץ', 'מתח', 'לחץ דם', 'הפרעות קצב לב', 'כאבי פרקים', 'דלקות', 'שחיקת סחוס', 'שחיקת אגן', 'דלקות בדרכי השתן', 'ערמונית מוגדלת', 'ערמונית', 'חששות', 'דאגות', 'מוסחות', 'מוסח', 'קשה לי להתרכז', 'לחץ בעבודה', 'מתח לפני מבחן', 'התקפי חרדה', 'anxiety', 'stress', 'worry']) {
+for (const q of ['קשה לי להירדם', 'אין לי אנרגיה', 'בטן נפוחה', 'חורף', 'גיל המעבר', 'מגנזיום', 'קלנוזים', 'חרדה', 'זיכרון', 'ריכוז', 'מיקוד', 'שינה', 'לחץ', 'מתח', 'לחץ דם', 'הפרעות קצב לב', 'כאבי פרקים', 'דלקות', 'שחיקת סחוס', 'שחיקת אגן', 'דלקות בדרכי השתן', 'ערמונית מוגדלת', 'ערמונית', 'חששות', 'דאגות', 'מוסחות', 'מוסח', 'קשה לי להתרכז', 'לחץ בעבודה', 'מתח לפני מבחן', 'התקפי חרדה', 'anxiety', 'stress', 'worry', 'הפרעת קשב', 'הפרעות קשב וריכוז', 'adhd', 'ADHD']) {
   const ok = !isBlocked(q, data.blocked)
   if (!ok) fail++
   console.log(`${ok ? 'OK ' : 'FAIL'} allowed ${q}`)
