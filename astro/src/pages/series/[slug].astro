@@ -27,7 +27,11 @@ const cards = content.fillPlaceholders
 
 <section aria-label={t('banner')}>
 <h1 class="c5-sr">{s.name}</h1>
+<!-- A series with its own phone banner (now: plants, client 19.11.2026) shows it up to 640px. -->
+<picture>
+{s.bannerMobile && <source media="(max-width: 640px)" srcset={s.bannerMobile} width="1440" height="1800">}
 <img src={s.banner} alt={s.name} width="2576" height="1100" fetchpriority="high" style="display: block; width: 100%; height: auto">
+</picture>
 </section>
 
 <section style="max-width: 1280px; margin: 0 auto; padding: clamp(40px, 5vw, 72px) clamp(16px, 4vw, 48px) 24px; box-sizing: border-box">

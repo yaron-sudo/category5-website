@@ -1,10 +1,10 @@
 // Category 5 — shared site data, exactly as defined in BRIEF.md (do not add entries).
 
-export interface Series { slug: string; name: string; color: string; icon: string; iconWhite: string; banner: string }
+export interface Series { slug: string; name: string; color: string; icon: string; iconWhite: string; banner: string; bannerMobile?: string }
 /** BRIEF §1 routes + §2 series colours. Order = header, home grid, footer. */
 export const SERIES: Series[] = [
   { slug: 'vitamins-minerals', name: 'ויטמינים ומינרלים', color: '#003e21', icon: '/assets/icons/series-vitamins-minerals.svg', iconWhite: '/assets/icons/series-vitamins-minerals-white.svg', banner: '/assets/banners/series-vitamins-minerals.jpg' },
-  { slug: 'plants', name: 'צמחים', color: '#d5a425', icon: '/assets/icons/series-plants.svg', iconWhite: '/assets/icons/series-plants-white.svg', banner: '/assets/banners/series-plants.jpg' },
+  { slug: 'plants', name: 'צמחים', color: '#d5a425', icon: '/assets/icons/series-plants.svg', iconWhite: '/assets/icons/series-plants-white.svg', banner: '/assets/banners/series-plants.jpg', bannerMobile: '/assets/banners/series-plants-mobile.jpg' },
   { slug: 'probiotics', name: 'פרוביוטיקה', color: '#85bbe6', icon: '/assets/icons/series-probiotics.svg', iconWhite: '/assets/icons/series-probiotics-white.svg', banner: '/assets/banners/series-probiotics.jpg' },
   { slug: 'professional', name: 'הסדרה המקצועית', color: '#4d0333', icon: '/assets/icons/series-professional.svg', iconWhite: '/assets/icons/series-professional-white.svg', banner: '/assets/banners/series-professional.jpg' },
 ]
