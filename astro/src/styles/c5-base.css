@@ -20,6 +20,18 @@ img { max-width: 100%; }
 .articles-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; }
 @media (max-width: 1000px) { .articles-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 480px) { .articles-grid { grid-template-columns: minmax(0, 1fr); } }
+.articles-nav { display: none; }
+/* Phones: home articles as a horizontal carousel, one card per view, snapping on every card;
+   vertical swipes still scroll the page. */
+@media (max-width: 640px) {
+  .articles-grid { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 100%; gap: 16px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .articles-grid::-webkit-scrollbar { display: none; }
+  .articles-grid > article { scroll-snap-align: start; scroll-snap-stop: always; min-width: 0; }
+  .articles-nav { display: flex; justify-content: center; gap: 10px; margin-top: 20px; }
+  .articles-nav button { width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; padding: 0; border: 1px solid #dcdcd9; border-radius: 4px; background: #ffffff; color: #141414; cursor: pointer; transition: background .3s cubic-bezier(.22,.61,.36,1), border-color .3s cubic-bezier(.22,.61,.36,1); }
+  .articles-nav button:hover:not(:disabled) { background: #efeeea; border-color: #141414; }
+  .articles-nav button:disabled { opacity: .35; cursor: default; }
+}
 .c5-line { border: 0; border-bottom: 1px solid #141414; border-radius: 0; background: transparent; padding: 10px 0; font: inherit; width: 100%; box-sizing: border-box; outline: 0; transition: border-color .5s cubic-bezier(.22,.61,.36,1); }
 .c5-line:focus { border-bottom-width: 1.5px; }
 .c5-stores { background: #f4f4f2 url("/assets/backgrounds/stores-banner-bg-2.jpg") center / cover no-repeat; }
