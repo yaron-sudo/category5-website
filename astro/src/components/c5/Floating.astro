@@ -168,14 +168,17 @@ const products = Object.fromEntries(catalog.map((p) => [p.slug, { t: p.fullTitle
   .c5-chat-card-new { position: absolute; top: 8px; left: 8px; display: inline-flex; align-items: center; gap: 5px; padding: 2px 8px; border: 1px solid #141414; border-radius: 4px; background: #ffffff; font-size: 12px; line-height: 1.3; white-space: nowrap; }
   .c5-chat-card-new svg { flex: 0 0 10px; opacity: .85; }
   /* "No results": the search page's block (same texts, buttons, chat and WhatsApp lines). */
-  .c5c-none { display: grid; gap: 14px; justify-items: center; text-align: center; padding: 6px 0; }
-  .c5c-none-title { margin: 0 !important; font-size: 17px; }
-  .c5c-none-sub { margin: 0 !important; }
+  /* Same block, sizes and spacing as the search page's (.sr-none in pages/search.astro), and like
+     there it stands on the page itself: no answer frame around it. */
+  .c5c-a.is-none { align-self: stretch; max-width: none; border: 0; padding: 8px 0; background: transparent; }
+  .c5c-none { display: grid; gap: 18px; justify-items: center; text-align: center; }
+  [data-chat-log] .c5c-none-title { margin: 0 !important; font-size: 20px; line-height: 1.35; }
+  [data-chat-log] .c5c-none-sub { margin: 0 !important; font-size: 17px; }
   .c5c-none-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
-  [data-chat-log] .c5c-none-links a { display: inline-flex; align-items: center; min-height: 36px; padding: 0 12px; border: 1px solid #141414; border-radius: 4px; color: #141414; text-decoration: none; font-size: 14px; }
+  [data-chat-log] .c5c-none-links a { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; border: 1px solid #141414; border-radius: 4px; color: #141414; text-decoration: none; font-size: 15px; }
   [data-chat-log] .c5c-none-links a:hover { background: #efeeea; }
-  .c5c-none-contact { display: grid; gap: 12px; justify-items: center; padding-top: 4px; }
-  [data-chat-log] .c5c-none-contact a, .c5c-none-contact button { display: inline-flex; align-items: center; gap: 10px; padding: 0; border: 0; background: none; color: #141414; font: inherit; text-decoration: none; cursor: pointer; }
+  .c5c-none-contact { display: grid; gap: 14px; justify-items: center; padding-top: 6px; }
+  [data-chat-log] .c5c-none-contact a, .c5c-none-contact button { display: inline-flex; align-items: center; gap: 10px; padding: 0; border: 0; background: none; color: #141414; font: inherit; font-size: 16px; text-decoration: none; cursor: pointer; }
   .c5c-none-contact svg { flex: 0 0 22px; width: 22px; height: 22px; }
   [data-chat-log] .c5c-none-contact a:hover span, .c5c-none-contact button:hover span { text-decoration: underline; text-underline-offset: 4px; }
   [data-chat-log] p { margin: 0 0 6px; } [data-chat-log] p:last-child { margin: 0; }
@@ -353,7 +356,7 @@ const products = Object.fromEntries(catalog.map((p) => [p.slug, { t: p.fullTitle
       for (const m of conv.m) {
         if (m.h) continue
         if (m.r === 'u') { turn = userBubble(m.c, m.f); first ??= turn }
-        else bubble('a').innerHTML = answerHtml(m.c)
+        else { const el = bubble('a'); el.innerHTML = answerHtml(m.c); el.classList.toggle('is-none', m.c.includes(NO_RESULTS)) }
       }
       if (fromStart) { turn = first; log.scrollTop = first ? Math.max(0, first.offsetTop - log.offsetTop - 12) : 0 }
       else log.scrollTop = log.scrollHeight
@@ -619,6 +622,7 @@ const products = Object.fromEntries(catalog.map((p) => [p.slug, { t: p.fullTitle
             else if (ev.t === 'source') text += `\n- [${ev.title}](${ev.url})`
             else if (ev.t === 'error') text += (text ? '\n\n' : '') + x['chat.error']
             out.innerHTML = answerHtml(text)
+            out.classList.toggle('is-none', text.includes(NO_RESULTS))
             toTurn()
           }
         }
