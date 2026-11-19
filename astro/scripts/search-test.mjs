@@ -31,14 +31,14 @@ for (const [q, kind, want] of CASES) {
   console.log(`${ok ? 'OK ' : 'FAIL'} ${q.padEnd(22)} → ${ids.slice(0, 4).join(', ')}${r.unmatched.length ? `  | unmatched: ${r.unmatched.join(' ')} → ${r.results.length < 3 ? unfold(didYouMean(index, q, r.unmatched) ?? '-') : '(results exist, no correction)'}` : ''}`)
 }
 // Legal guard: medical queries show nothing (isBlocked) — products, articles, corrections.
-const BLOCKED = ['סוכרת', 'יש לי סוכרת', 'לסוכרתיים', 'סרטן', 'דיכאון', 'הפרעה נפשית', 'כולסטרול גבוה', 'עליה במשקל', 'ירידה במשקל', 'השמנה', 'מיגרנה', 'אנמיה', 'שפעת', 'הצטננות', 'אלרגיה', 'תרופות', 'אנטיביוטיקה', 'בלוטת התריס', 'עצירות', 'מה טוב למחלה', 'diabetes', 'weight loss', 'cancer treatment', 'depression']
+const BLOCKED = ['סוכרת', 'יש לי סוכרת', 'לסוכרתיים', 'סרטן', 'דיכאון', 'הפרעה נפשית', 'כולסטרול גבוה', 'עליה במשקל', 'ירידה במשקל', 'השמנה', 'מיגרנה', 'אנמיה', 'שפעת', 'הצטננות', 'אלרגיה', 'תרופות', 'אנטיביוטיקה', 'בלוטת התריס', 'עצירות', 'מה טוב למחלה', 'diabetes', 'weight loss', 'cancer treatment', 'depression', 'פסיכוזה', 'דיכאון קליני', 'מחלת נפש', 'מחלות נפש', 'הפרעה דו קוטבית', 'הפרעת חרדה', 'הפרעת פאניקה', 'פוסט טראומה', 'הפרעת אישיות', 'נוגדי דיכאון', 'psychosis', 'ptsd', 'anxiety disorder', 'antidepressants']
 for (const q of BLOCKED) {
   const ok = isBlocked(q, data.blocked)
   if (!ok) fail++
   console.log(`${ok ? 'OK ' : 'FAIL'} blocked ${q}`)
 }
 // Not blocked: everyday well-being language keeps working.
-for (const q of ['קשה לי להירדם', 'אין לי אנרגיה', 'בטן נפוחה', 'חורף', 'גיל המעבר', 'מגנזיום', 'קלנוזים', 'חרדה', 'זיכרון', 'ריכוז', 'מיקוד', 'שינה', 'לחץ', 'מתח', 'לחץ דם', 'הפרעות קצב לב', 'כאבי פרקים', 'דלקות', 'שחיקת סחוס', 'שחיקת אגן', 'דלקות בדרכי השתן', 'ערמונית מוגדלת', 'ערמונית']) {
+for (const q of ['קשה לי להירדם', 'אין לי אנרגיה', 'בטן נפוחה', 'חורף', 'גיל המעבר', 'מגנזיום', 'קלנוזים', 'חרדה', 'זיכרון', 'ריכוז', 'מיקוד', 'שינה', 'לחץ', 'מתח', 'לחץ דם', 'הפרעות קצב לב', 'כאבי פרקים', 'דלקות', 'שחיקת סחוס', 'שחיקת אגן', 'דלקות בדרכי השתן', 'ערמונית מוגדלת', 'ערמונית', 'חששות', 'דאגות', 'מוסחות', 'מוסח', 'קשה לי להתרכז', 'לחץ בעבודה', 'מתח לפני מבחן', 'התקפי חרדה', 'anxiety', 'stress', 'worry']) {
   const ok = !isBlocked(q, data.blocked)
   if (!ok) fail++
   console.log(`${ok ? 'OK ' : 'FAIL'} allowed ${q}`)

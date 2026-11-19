@@ -22,6 +22,14 @@ export const BLOCKED_TERMS: string[] = [
   // mental health / neuro
   'דיכאון', 'הפרעה נפשית', 'הפרעות נפשיות', 'מחלת נפש', 'סכיזופרניה', 'ביפולרי', 'הפרעת קשב', 'הפרעות קשב', 'אוטיזם', 'אלצהיימר', 'דמנציה', 'פרקינסון', 'אפילפסיה', 'טרשת נפוצה', 'מיגרנה', 
   'depression', 'adhd', 'autism', 'alzheimer', 'dementia', 'parkinson', 'epilepsy', 'multiple sclerosis', 'migraine', 'bipolar', 'schizophrenia', 'mental illness',
+  // mental disorders / psychiatric (client 19.11.2026). Everyday stress, anxiety (חרדה), worry,
+  // tension and distraction stay answered; only diagnoses and psychiatric terms are blocked here.
+  'מחלות נפש', 'מחלה נפשית', 'מחלות נפשיות', 'בריאות הנפש', 'פסיכוזה', 'פסיכוזות', 'פסיכוטי', 'פסיכוטית', 'דיכאון קליני', 'דפרסיה', 'דו קוטבי', 'דו קוטבית', 'מאניה', 'מאני דפרסיבי',
+  'הפרעת אישיות', 'הפרעות אישיות', 'הפרעה טורדנית כפייתית', 'אובססיבית קומפולסיבית', 'פוסט טראומה', 'פוסט טראומטי', 'פוסט טראומטית', 'הפרעת דחק',
+  'הפרעת חרדה', 'הפרעות חרדה', 'הפרעת פאניקה', 'הפרעת אכילה', 'הפרעה דיסוציאטיבית', 'הזיות', 'מחשבות שווא', 'פסיכיאטר', 'פסיכיאטרי', 'פסיכיאטרית', 'נוגדי דיכאון', 'תרופות פסיכיאטריות', 'ליתיום',
+  'mental disorder', 'mental disorders', 'mental health condition', 'psychosis', 'psychotic', 'clinical depression', 'major depression', 'depressive', 'bipolar disorder', 'mania', 'manic',
+  'personality disorder', 'ocd', 'obsessive compulsive', 'ptsd', 'post traumatic', 'anxiety disorder', 'panic disorder', 'eating disorder', 'hallucinations', 'delusions',
+  'psychiatric', 'psychiatrist', 'antidepressant', 'antidepressants', 'antipsychotic', 'antipsychotics', 'lithium',
   // pain / inflammation / joints as disease
   'אוסטאופורוזיס', 'פיברומיאלגיה', 'גאוט', 'צנית',
   'osteoporosis', 'fibromyalgia', 'gout',
@@ -48,6 +56,20 @@ export const BLOCKED_TERMS: string[] = [
 export const BLOCKED_MESSAGE: Record<'he' | 'en', string> = {
   he: 'תוספי תזונה אינם מיועדים לאבחון, לטיפול, לריפוי או למניעה של מחלה או מצב רפואי, ולכן האתר אינו מציג מוצרים או מאמרים לפי מצבים רפואיים. לשאלות על מצב בריאותי יש לפנות לרופא/ה המטפל/ת. אפשר לחפש כאן לפי שם מוצר, רכיב, סדרה או תחום.',
   en: 'Dietary supplements are not intended to diagnose, treat, cure or prevent any disease or medical condition, so this site does not show products or articles by medical condition. For questions about a health condition, please consult your physician. You can search here by product name, ingredient, series or area.',
+}
+
+/** Words about suicide or self-harm: the chat answers at once with where to get help now
+ *  (CHAT_CRISIS_MESSAGE), before anything else and without calling the model. */
+export const CRISIS_TERMS: string[] = [
+  'התאבדות', 'להתאבד', 'אובדנות', 'אובדני', 'אובדנית', 'מחשבות אובדניות', 'לפגוע בעצמי', 'פגיעה עצמית', 'לא רוצה לחיות', 'לשים קץ לחיי',
+  'suicide', 'suicidal', 'kill myself', 'self harm', 'self-harm', 'end my life',
+]
+export const CHAT_CRISIS_MESSAGE: Record<string, string> = {
+  he: 'אם את/ה במצוקה או חושב/ת לפגוע בעצמך, חשוב לפנות לעזרה עכשיו: ער"ן – עזרה ראשונה נפשית בטלפון 1201 (כל שעות היממה), סה"ר – סיוע והקשבה ברשת באתר sahar.org.il, ובמצב חירום מד"א 101. את/ה לא לבד.',
+  en: 'If you are in distress or thinking of harming yourself, please reach out for help now. In Israel: ERAN emotional first aid at 1201 (24/7), SAHAR online support at sahar.org.il, and in an emergency Magen David Adom at 101. You are not alone.',
+  ar: 'إذا كنتم في ضائقة أو تفكرون في إيذاء أنفسكم، توجهوا للمساعدة الآن: عيران – إسعاف نفسي أولي على الرقم 1201 (على مدار الساعة)، سهر – دعم عبر الإنترنت sahar.org.il، وفي حالة الطوارئ نجمة داود الحمراء 101. لستم وحدكم.',
+  ru: 'Если вам тяжело или вы думаете о том, чтобы причинить себе вред, обратитесь за помощью прямо сейчас: ЭРАН — эмоциональная первая помощь по телефону 1201 (круглосуточно), САХАР — поддержка в интернете sahar.org.il, а в экстренной ситуации — «Маген Давид Адом» 101. Вы не одни.',
+  fr: 'Si vous êtes en détresse ou pensez à vous faire du mal, demandez de l’aide maintenant : ERAN, premiers secours psychologiques au 1201 (24h/24), SAHAR, soutien en ligne sur sahar.org.il, et en cas d’urgence Magen David Adom au 101. Vous n’êtes pas seul(e).',
 }
 
 /** The chat's answer when a question is blocked (plain text, no model call). */
