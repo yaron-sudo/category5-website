@@ -21,6 +21,7 @@ import { productsOfSeries } from '@/c5/content/catalog'
 import { PRODUCT_SUMMARIES } from '@/c5/content/summaries'
 import { imageFit, imageFeather } from '@/c5/content/imageFit'
 import { linkTerms } from '@/c5/glossaryLinks'
+import { productShareImage } from '@/c5/og'
 // "מחקרים" accordion: hidden on the product page (client decision 14.11.2026). Set to true to show it again.
 const SHOW_RESEARCH = false
 const used = new Set<string>()
@@ -57,7 +58,7 @@ const gallery = [
 const related = (await productsOfSeries(p.series)).filter((x) => x.slug !== p.slug)
 const btn = 'display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 22px; border: 1px solid #141414; color: #141414; text-decoration: none; border-radius: 4px; background: #ffffff; font: inherit; cursor: pointer'
 ---
-<Site title={name} description={p.intro?.[0]} image={p.image}>
+<Site title={name} description={p.intro?.[0]} image={productShareImage(p)}>
 
 <section aria-label="מוצר" class="pp">
 <nav aria-label="פירורי לחם" class="pp-crumbs">
