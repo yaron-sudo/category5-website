@@ -1,9 +1,9 @@
 ---
 // "New look" banner (client, 17.11.2026): on every page, full width edge to edge like the
-// footer, right above it with a small even gap. Large version (client, 19.11.2026): original
+// footer, sitting directly on it (no gap, client 21.11.2026). Large version (client, 19.11.2026): original
 // 3000×1281 file, never cropped.
 import { t } from '@/c5/i18n'
 ---
-<section aria-label={t('banner')} style="margin: 0 0 clamp(16px, 2vw, 28px); padding: 0; background: #ffffff">
+<section aria-label={t('banner')} style="margin: 0; padding: 0">
 <img src="/assets/banners/new-look-large.jpg" alt="New look – coming soon" width="3000" height="1281" loading="lazy" style="display: block; width: 100%; height: auto">
 </section>
