@@ -120,7 +120,9 @@ export function isBlocked(q, blockedTerms) {
   // the term word itself or the term word plus a plural / gender ending. The term is never
   // stemmed, so "סוכריות" (candy) is not "סוכרת" (diabetes).
   const bases = qt.map((t) => { const out = [t]; for (const p of PREFIXES) if (t.startsWith(p) && t.length - p.length >= 3) out.push(t.slice(p.length)); return out })
-  const same = (i, w) => i < bases.length && bases[i].some((b) => b === w || SUFFIXES.some((sfx) => b === w + sfx))
+  // A term word ending in ה also matches its construct form (הפרעה → הפרעת נפש, מחלה → מחלת לב).
+  const forms = (w) => (w.length >= 4 && w.endsWith('ה') ? [w, w.slice(0, -1) + 'ת'] : [w])
+  const same = (i, w) => i < bases.length && bases[i].some((b) => forms(w).some((f) => b === f || SUFFIXES.some((sfx) => b === f + sfx)))
   for (const term of blockedTerms || []) {
     const tt = normalize(term).split(' ').filter(Boolean)
     if (!tt.length) continue
