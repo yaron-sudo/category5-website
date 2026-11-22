@@ -11,8 +11,19 @@
 //     SMTP_HOST, SMTP_PORT (465 or 587), SMTP_USER, SMTP_PASS, optional SMTP_FROM
 //   Resend (HTTP API, needs the sending domain verified at resend.com):
 //     RESEND_API_KEY, CONTACT_FROM (e.g. "Category 5 <site@ethical-supplements.com>")
+//   Brevo transactional email (the same account as the newsletter; the sender
+//   address must be verified in Brevo → Senders & IP):
+//     BREVO_API_KEY, CONTACT_FROM
 //
 // Without any of them, the endpoint answers 503 and the form shows its error text.
+//
+// Newsletter (kind "newsletter", the footer signup): with BREVO_API_KEY and
+// BREVO_LIST_ID set, the address is added to that Brevo list — through Brevo's
+// double opt-in (a confirmation email) when BREVO_DOI_TEMPLATE_ID is set, which
+// is the recommended setup (it documents consent). The list, unsubscribes,
+// statistics and campaigns are all managed in Brevo. No inbox email is sent for
+// a signup unless NEWSLETTER_NOTIFY=true. Without Brevo, a signup is emailed to
+// CONTACT_TO as before.
 import type { APIRoute } from 'astro'
 import nodemailer from 'nodemailer'
 
@@ -89,6 +100,66 @@ async function sendResend(m: Mail) {
   if (!res.ok) throw new Error(`resend ${res.status}: ${(await res.text()).slice(0, 200)}`)
 }
 
+const BREVO = () => env('BREVO_API_BASE') || 'https://api.brevo.com/v3'
+const brevoHeaders = () => ({ 'api-key': env('BREVO_API_KEY'), 'Content-Type': 'application/json', Accept: 'application/json' })
+
+async function sendBrevo(m: Mail) {
+  const [, fromName = '', fromAddr = m.from] = m.from.match(/^"?([^"<]*)"?\s*<([^>]+)>$/) ?? []
+  const [, replyName = '', replyAddr = m.replyTo] = m.replyTo.match(/^"?([^"<]*)"?\s*<([^>]+)>$/) ?? []
+  const res = await fetch(`${BREVO()}/smtp/email`, {
+    method: 'POST',
+    headers: brevoHeaders(),
+    body: JSON.stringify({
+      sender: { email: fromAddr.trim(), ...(fromName.trim() ? { name: fromName.trim() } : {}) },
+      to: [{ email: m.to }],
+      replyTo: { email: replyAddr.trim(), ...(replyName.trim() ? { name: replyName.trim() } : {}) },
+      subject: m.subject, htmlContent: m.html, textContent: m.text,
+    }),
+  })
+  if (!res.ok) throw new Error(`brevo send ${res.status}: ${(await res.text()).slice(0, 200)}`)
+}
+
+// Adds a newsletter signup to the Brevo list. Double opt-in when a DOI template
+// is configured (Brevo emails a confirmation link; the contact joins the list
+// only after clicking it); otherwise the contact is added (or updated) directly.
+async function subscribeBrevo(email: string, source: string) {
+  const listId = Number(env('BREVO_LIST_ID'))
+  const doiTemplate = Number(env('BREVO_DOI_TEMPLATE_ID'))
+  const site = env('SITE_URL') || 'https://www.ethical-supplements.com'
+  const attributes = { SOURCE: source.slice(0, 200) }
+  const doi = Number.isFinite(doiTemplate) && doiTemplate > 0
+  const res = doi
+    ? await fetch(`${BREVO()}/contacts/doubleOptinConfirmation`, {
+        method: 'POST',
+        headers: brevoHeaders(),
+        body: JSON.stringify({ email, includeListIds: [listId], templateId: doiTemplate, redirectionUrl: env('BREVO_DOI_REDIRECT') || site, attributes }),
+      })
+    : await fetch(`${BREVO()}/contacts`, {
+        method: 'POST',
+        headers: brevoHeaders(),
+        body: JSON.stringify({ email, listIds: [listId], updateEnabled: true, attributes }),
+      })
+  if (res.ok) return
+  const err = await res.text()
+  // An address that is already a contact is a success from the visitor's side.
+  if (res.status === 400 && /duplicate|already exist/i.test(err)) return
+  // SOURCE is a custom attribute; if it has not been created in Brevo, retry without it.
+  if (res.status === 400 && /attribute/i.test(err)) {
+    const retry = await fetch(`${BREVO()}${doi ? '/contacts/doubleOptinConfirmation' : '/contacts'}`, {
+      method: 'POST',
+      headers: brevoHeaders(),
+      body: JSON.stringify(doi
+        ? { email, includeListIds: [listId], templateId: doiTemplate, redirectionUrl: env('BREVO_DOI_REDIRECT') || site }
+        : { email, listIds: [listId], updateEnabled: true }),
+    })
+    if (retry.ok) return
+    const err2 = await retry.text()
+    if (retry.status === 400 && /duplicate|already exist/i.test(err2)) return
+    throw new Error(`brevo subscribe ${retry.status}: ${err2.slice(0, 200)}`)
+  }
+  throw new Error(`brevo subscribe ${res.status}: ${err.slice(0, 200)}`)
+}
+
 const ALLOWED_ORIGIN = /^https:\/\/((www\.)?ethical-supplements\.com|(www\.)?category-5\.xyz|[a-z0-9-]+\.vercel\.app)$|^http:\/\/localhost(:\d+)?$/
 
 export const POST: APIRoute = async ({ request, clientAddress }) => {
@@ -129,6 +200,18 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   }
 
   const source = clean(body._source, 300)
+
+  if (newsletter && env('BREVO_API_KEY') && env('BREVO_LIST_ID')) {
+    try {
+      await subscribeBrevo(email, source || '/')
+      console.log(`contact: newsletter signup added to Brevo list ${env('BREVO_LIST_ID')}`)
+    } catch (e) {
+      console.error('contact: newsletter signup failed', e)
+      return json({ ok: false, error: 'send-failed' }, 502)
+    }
+    if (env('NEWSLETTER_NOTIFY') !== 'true') return json({ ok: true })
+  }
+
   const when = new Date().toLocaleString('he-IL', { timeZone: 'Asia/Jerusalem' })
   const subject = newsletter ? `הרשמה לרשימת התפוצה — ${email}` : `פנייה מהאתר — ${name}`
   const text = [`שם: ${name}`, `אימייל: ${email}`, `טלפון: ${phone}`, '', message, '', `— נשלח מ-${source || 'האתר'} ב-${when}`].join('\n')
@@ -146,8 +229,10 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   const graphOk = env('MS_TENANT_ID') && env('MS_CLIENT_ID') && env('MS_CLIENT_SECRET') && env('MS_SENDER')
   const smtp = env('SMTP_HOST') && env('SMTP_USER') && env('SMTP_PASS')
   const resend = env('RESEND_API_KEY')
-  if (!graphOk && !smtp && !resend) {
-    console.error('contact: no mail transport configured (MS_* / SMTP_* / RESEND_API_KEY)')
+  const brevo = env('BREVO_API_KEY') && env('CONTACT_FROM')
+  if (!graphOk && !smtp && !resend && !brevo) {
+    if (newsletter && env('BREVO_API_KEY') && env('BREVO_LIST_ID')) return json({ ok: true }) // signed up; only the notification is skipped
+    console.error('contact: no mail transport configured (MS_* / SMTP_* / RESEND_API_KEY / BREVO_API_KEY + CONTACT_FROM)')
     return json({ ok: false, error: 'not-configured' }, 503)
   }
   const from = graphOk
@@ -155,11 +240,12 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     : smtp ? env('SMTP_FROM') || `"אתר קטגוריה 5" <${env('SMTP_USER')}>` : env('CONTACT_FROM') || 'Category 5 <onboarding@resend.dev>'
   const mail: Mail = { to: TO, from, replyTo: `"${name.replace(/"/g, '')}" <${email}>`, subject, text, html }
 
-  const transport = graphOk ? 'graph' : smtp ? 'smtp' : 'resend'
+  const transport = graphOk ? 'graph' : smtp ? 'smtp' : resend ? 'resend' : 'brevo'
   try {
     if (graphOk) await sendGraph(mail)
     else if (smtp) await sendSmtp(mail)
-    else await sendResend(mail)
+    else if (resend) await sendResend(mail)
+    else await sendBrevo(mail)
     console.log(`contact: sent via ${transport} to ${TO} (from ${email})`)
   } catch (e) {
     console.error('contact: send failed', e)
