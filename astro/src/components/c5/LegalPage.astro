@@ -8,8 +8,8 @@ import Floating from '@/components/c5/Floating.astro'
 import '@/styles/c5-base.css'
 import '@/styles/c5-site.css'
 export interface LegalSection { title: string; paragraphs?: string[]; items?: string[]; html?: string }
-interface Props { title: string; updated?: string; sections: LegalSection[] }
-const { title, updated, sections } = Astro.props
+interface Props { title: string; description?: string; updated?: string; sections: LegalSection[] }
+const { title, description, updated, sections } = Astro.props
 ---
 <!doctype html>
 <html lang="he" dir="rtl">
@@ -17,7 +17,7 @@ const { title, updated, sections } = Astro.props
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="icon" type="image/svg+xml" href="/assets/logo/category5-logo.svg" />
-<Seo title={`${title} | Category 5`} />
+<Seo title={`${title} | Category 5`} description={description} />
 </head>
 <body class="c5-site" style="line-height: 1.75">
 <div class="ns-page">

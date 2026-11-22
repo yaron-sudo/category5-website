@@ -18,7 +18,7 @@ import { SERIES_CONTENT } from './series'
 type SeriesSlug = Product['series']
 
 /** Old site family → new series: fallback only for products that are not in the BOM list (bom.ts). */
-const FAMILY_TO_SERIES: Record<string, SeriesSlug> = {
+export const FAMILY_TO_SERIES: Record<string, SeriesSlug> = {
   'vitamins-and-minerals': 'vitamins-minerals',
   'liposomal-vitamin-c': 'vitamins-minerals',
   'herbs-and-plants': 'plants',
