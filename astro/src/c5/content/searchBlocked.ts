@@ -31,6 +31,17 @@ export const BLOCKED_TERMS: string[] = [
   'mental disorder', 'mental disorders', 'mental health condition', 'psychosis', 'psychotic', 'clinical depression', 'major depression', 'depressive', 'bipolar disorder', 'mania', 'manic',
   'personality disorder', 'ocd', 'obsessive compulsive', 'ptsd', 'post traumatic', 'anxiety disorder', 'panic disorder', 'eating disorder', 'hallucinations', 'delusions',
   'psychiatric', 'psychiatrist', 'antidepressant', 'antidepressants', 'antipsychotic', 'antipsychotics', 'lithium',
+  // psychotic / mental-illness words in everyday wording (client 22.11.2026: no results for any of
+  // them, in the search and in the chat alike). Construct forms (הפרעת, מחלת) match the base words.
+  'הפרעת נפש', 'הפרעות נפש', 'חולה נפש', 'חולי נפש', 'חולת נפש', 'מצב נפשי', 'משבר נפשי', 'התמוטטות עצבים', 'התמוטטות נפשית',
+  'שגעון', 'שיגעון', 'משוגע', 'משוגעת', 'משוגעים', 'טירוף', 'מטורף', 'מטורפת', 'מטורפים', 'סכיזופרני', 'סכיזופרנית', 'סכיזואפקטיבי', 'סכיזואפקטיבית',
+  'פרנויה', 'פרנואיד', 'פרנואידי', 'פרנואידית', 'הזיה', 'הלוצינציה', 'הלוצינציות', 'דלוזיה', 'דלוזיות', 'קטטוניה', 'קטטוני',
+  'מצב פסיכוטי', 'התקף פסיכוטי', 'אפיזודה פסיכוטית', 'אשפוז פסיכיאטרי', 'בית חולים פסיכיאטרי', 'מחלקה פסיכיאטרית', 'טיפול פסיכיאטרי', 'פסיכיאטריה',
+  'מאניה דפרסיה', 'מאניה דיפרסיה', 'הפרעה דו קוטבית', 'אנטי פסיכוטי', 'אנטיפסיכוטי', 'אנטי פסיכוטיות', 'אנטיפסיכוטיות', 'נוירולפטיקה', 'נוירולפטי',
+  'דיסוציאציה', 'דיסוציאטיבי', 'דיסוציאטיבית', 'אובססיה', 'אובססיות', 'אובססיבי', 'אובססיבית', 'כפייתיות', 'כפייתי', 'כפייתית', 'פוביה', 'פוביות', 'פאניקה', 'התקף פאניקה', 'התקפי פאניקה',
+  'insanity', 'insane', 'madness', 'lunatic', 'paranoia', 'paranoid', 'schizophrenic', 'schizoaffective', 'psych ward', 'psychiatric ward', 'psychiatric hospital', 'psychiatry',
+  'nervous breakdown', 'mental breakdown', 'mentally ill', 'mental patient', 'hallucination', 'delusion', 'delusional', 'catatonia', 'catatonic',
+  'psychotic episode', 'manic depression', 'neuroleptic', 'neuroleptics', 'dissociation', 'dissociative', 'obsession', 'obsessive', 'compulsive', 'phobia', 'phobias', 'panic attack', 'panic attacks',
   // pain / inflammation / joints as disease
   'אוסטאופורוזיס', 'פיברומיאלגיה', 'גאוט', 'צנית',
   'osteoporosis', 'fibromyalgia', 'gout',
@@ -73,8 +84,7 @@ export const CHAT_CRISIS_MESSAGE: Record<string, string> = {
   fr: 'Si vous êtes en détresse ou pensez à vous faire du mal, demandez de l’aide maintenant : ERAN, premiers secours psychologiques au 1201 (24h/24), SAHAR, soutien en ligne sur sahar.org.il, et en cas d’urgence Magen David Adom au 101. Vous n’êtes pas seul(e).',
 }
 
-/** The chat's answer when a question is blocked (plain text, no model call). */
-export const CHAT_BLOCKED_MESSAGE: Record<string, string> = {
-  he: 'אין לי סמכות רפואית, ותוספי תזונה אינם מיועדים לאבחון, לטיפול, לריפוי או למניעה של מחלה או מצב רפואי, ולכן אינני עונה על שאלות שקשורות למצב רפואי, לתסמינים או לתרופות. לשאלות כאלה יש לפנות לרופא/ה המטפל/ת. אשמח לענות על שאלות על המוצרים עצמם: רכיבים, הוראות שימוש, כשרות, אריזה וזמינות בחנויות.',
-  en: 'I have no medical authority, and dietary supplements are not intended to diagnose, treat, cure or prevent any disease or medical condition, so I do not answer questions about medical conditions, symptoms or medicines. Please consult your physician. I am happy to answer questions about the products themselves: ingredients, directions, kosher status, packaging and where to buy.',
-}
+/** The chat's answer when a question is blocked: the search page's result, i.e. BLOCKED_MESSAGE
+ *  followed by this marker, which the widget renders as the series / need links (client 22.11.2026).
+ *  No model call. */
+export const CHAT_BLOCKED_MARKER = '[[BLOCKED]]'
