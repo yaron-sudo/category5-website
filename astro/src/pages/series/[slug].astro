@@ -12,6 +12,7 @@ import { productsOfSeries, FAMILY_TO_SERIES } from '@/c5/content/catalog'
 import { getCategories } from '@/lib/sanity'
 import { PRODUCT_SUMMARIES } from '@/c5/content/summaries'
 import { linkTerms } from '@/c5/glossaryLinks'
+import { breadcrumbLd } from '@/c5/seo'
 
 export function getStaticPaths() {
   return SERIES.map((s) => ({ params: { slug: s.slug }, props: { s } }))
@@ -27,7 +28,7 @@ const cards = content.fillPlaceholders
   ? [...products, ...Array.from({ length: Math.max(0, PLACEHOLDER_GRID_SIZE - products.length) }, () => ({ title: PRODUCT_TITLE_PLACEHOLDER, image: undefined, href: undefined }))]
   : products
 ---
-<Site title={s.name} description={content.intro?.[0]} image={s.banner}>
+<Site title={s.name} description={content.intro?.[0]} image={s.banner} jsonLd={breadcrumbLd([{ name: t('home'), href: '/' }, { name: s.name, href: `/series/${s.slug}` }], Astro.site)}>
 
 <section aria-label={t('banner')}>
 <h1 class="c5-sr">{s.name}</h1>

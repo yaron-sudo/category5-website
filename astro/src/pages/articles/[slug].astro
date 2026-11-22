@@ -6,6 +6,8 @@ import Site from '@/layouts/Site.astro'
 import { t } from '@/c5/i18n'
 import { ARTICLES, type Article } from '@/c5/content/articles'
 import { linkTerms } from '@/c5/glossaryLinks'
+import { articleLd, breadcrumbLd } from '@/c5/seo'
+import { getCatalog } from '@/c5/content/catalog'
 
 export function getStaticPaths() {
   return ARTICLES.map((a) => ({ params: { slug: a.slug }, props: { a } }))
@@ -20,9 +22,16 @@ let sec = 0
 const blocks = a.body.map((b) => ('h2' in b ? { ...b, id: `sec-${++sec}` } : b)) as Array<(typeof a.body)[number] & { id?: string }>
 const toc = blocks.filter((b): b is { h2: string; id: string } => 'h2' in b && !!b.id)
 // Markdown links in article text → anchors (runs on linkTerms' escaped output).
+// A product page with the same name (נאטו) would give two pages one <title>: the article adds its tag.
+const clash = (await getCatalog()).some((p) => (p.fullTitle || p.title) === a.title || p.title === a.title)
+const pageTitle = clash && a.tag ? `${a.title} – ${a.tag}` : a.title
+const jsonLd = [
+  articleLd(a, { url: `/articles/${a.slug}`, site: Astro.site }),
+  breadcrumbLd([{ name: t('home'), href: '/' }, { name: t('nav.articles'), href: '/articles' }, { name: a.title, href: `/articles/${a.slug}` }], Astro.site),
+]
 const md = (h: string) => h.replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>')
 ---
-<Site title={a.title} description={a.excerpt} image={a.image}>
+<Site title={pageTitle} description={a.excerpt} image={a.image} jsonLd={jsonLd}>
 <div class="c5-article-wrap">
 {toc.length > 1 && (
 <aside class="c5-article-toc" data-toc>
