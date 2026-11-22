@@ -55,7 +55,11 @@ const ogImage = shareImage(image)
       document.addEventListener('dragstart', (e) => { if (e.target && e.target.tagName === 'IMG') e.preventDefault() })
     </script>
     <script>
-      // Contact + newsletter forms → POST /api/contact (the site's mailer).
+      // Contact + newsletter forms. With PUBLIC_WEB3FORMS_KEY set (astro/.env.example),
+      // they post straight to Web3Forms, which emails the submission to the inbox the
+      // key was issued for (the same setup as the NatureSage site). Without the key
+      // they post to /api/contact, the site's own mailer (needs MS_* / SMTP_* / RESEND).
+      const WEB3FORMS_KEY = (import.meta.env.PUBLIC_WEB3FORMS_KEY as string | undefined)?.trim()
       document.querySelectorAll<HTMLFormElement>('form[data-c5-form]').forEach((form) => {
         const started = Date.now()
         const status = form.querySelector<HTMLElement>('[data-c5-form-status]')
@@ -63,18 +67,43 @@ const ogImage = shareImage(image)
         form.addEventListener('submit', async (e) => {
           e.preventDefault()
           if (!form.reportValidity()) return
-          const data = Object.fromEntries(new FormData(form).entries())
+          const data = Object.fromEntries(new FormData(form).entries()) as Record<string, string>
+          const kind = form.dataset.c5Form
           // Contact page extras (topic / product) travel inside the message.
           const extra = [data.topic && `נושא הפנייה: ${data.topic}`, data.product && `מוצר: ${data.product}`].filter(Boolean).join('\n')
           if (extra) data.message = `${extra}\n\n${data.message ?? ''}`
           if (btn) btn.disabled = true
           try {
-            const res = await fetch('/api/contact', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ ...data, kind: form.dataset.c5Form, _t: started, _source: location.pathname }),
-            })
-            const ok = res.ok && (await res.json().catch(() => ({}))).ok
+            let ok = false
+            if (WEB3FORMS_KEY) {
+              // A form "filled" in under a second is a bot: pretend it went through.
+              if (Date.now() - started < 1000) ok = true
+              else {
+                const newsletter = kind === 'newsletter'
+                const res = await fetch('https://api.web3forms.com/submit', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+                  body: JSON.stringify({
+                    access_key: WEB3FORMS_KEY,
+                    subject: newsletter ? `הרשמה לרשימת התפוצה — ${data.email}` : `פנייה מהאתר — ${data.name}`,
+                    from_name: 'אתר קטגוריה 5',
+                    replyto: data.email,
+                    ...(newsletter
+                      ? { 'סוג': 'הרשמה לרשימת התפוצה', 'אימייל': data.email }
+                      : { 'שם': data.name, 'טלפון': data.phone, 'אימייל': data.email, 'הודעה': data.message }),
+                    'עמוד': location.pathname,
+                  }),
+                })
+                ok = res.ok && !!(await res.json().catch(() => ({}))).success
+              }
+            } else {
+              const res = await fetch('/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ ...data, kind, _t: started, _source: location.pathname }),
+              })
+              ok = res.ok && !!(await res.json().catch(() => ({}))).ok
+            }
             if (status) status.textContent = ok ? form.dataset.sent || 'נשלח' : form.dataset.error || 'השליחה נכשלה'
             if (ok) form.reset()
           } catch {
