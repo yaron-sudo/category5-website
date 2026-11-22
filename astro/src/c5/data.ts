@@ -28,8 +28,8 @@ export const CONTACT = {
   whatsapp: '053-932-5888',
   whatsappIntl: '972539325888',
   email: 'info@ethical-supplements.com',
-  // BRIEF §17: Instagram / Facebook links still missing — the mockup's generic URLs until supplied.
-  instagram: 'https://instagram.com/',
+  // BRIEF §17: Instagram supplied by the client (22.11.2026); Facebook still the mockup's generic URL until supplied.
+  instagram: 'https://www.instagram.com/category.5.es/',
   facebook: 'https://facebook.com/',
 }
 
