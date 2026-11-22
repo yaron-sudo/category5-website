@@ -1,7 +1,8 @@
 ---
 // BRIEF §13 — contact page, ported from mockups/Contact.dc.html.
 import Site from '@/layouts/Site.astro'
-import { SERIES, CONTACT } from '@/c5/data'
+import { CONTACT } from '@/c5/data'
+import { t } from '@/c5/i18n'
 ---
 <Site title="צור קשר" description="יש לכם שאלה? אנחנו כאן. השאירו פרטים ונחזור אליכם בהקדם.">
 <section style="max-width: 1280px; margin: 0 auto; padding: clamp(40px, 6vw, 88px) clamp(16px, 4vw, 48px) clamp(56px, 7vw, 112px); box-sizing: border-box; display: flex; flex-wrap: wrap; gap: clamp(32px, 5vw, 80px)">
@@ -11,14 +12,12 @@ import { SERIES, CONTACT } from '@/c5/data'
 <p style="margin: 0"><span dir="ltr">WhatsApp: <a href={`https://wa.me/${CONTACT.whatsappIntl}`} target="_blank" rel="noopener" style="color: #141414">{CONTACT.whatsapp}</a></span><br>הודעות בלבד</p>
 <p style="margin: 0">מייל: <a href={`mailto:${CONTACT.email}`} dir="ltr" style="color: #141414">{CONTACT.email}</a></p>
 </div>
-<form data-c5-form="contact" style="flex: 1 1 420px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px">
+<form data-c5-form="contact" data-sent-title={t('form.sentTitle')} data-sent-text={t('form.sentText')} data-again={t('form.again')} data-error={t('form.error')} style="flex: 1 1 420px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px">
 <label class="c5-label">שם מלא<input class="c5-input" name="name" type="text" autocomplete="name" required></label>
 <label class="c5-label">טלפון<input class="c5-input" name="phone" type="tel" autocomplete="tel" required dir="ltr" style="text-align: right"></label>
 <label class="c5-label c5-full">אימייל<input class="c5-input" name="email" type="email" autocomplete="email" required dir="ltr" style="text-align: right"></label>
-<label class="c5-label">נושא הפנייה
+<label class="c5-label c5-full">נושא הפנייה
 <select class="c5-input" name="topic"><option value="">בחרו נושא</option><option>שאלה על מוצר</option><option>איפה קונים</option><option>שיתוף פעולה</option><option>אחר</option></select></label>
-<label class="c5-label">מוצר
-<select class="c5-input" name="product"><option value="">בחרו מוצר</option>{SERIES.map((s) => <option>{s.name}</option>)}</select></label>
 <label class="c5-label c5-full">הודעה<textarea class="c5-input" name="message" rows="6" required style="padding: 12px; resize: vertical; min-height: 140px"></textarea></label>
 <button type="submit" style="justify-self: start; min-height: 44px; padding: 0 22px; border: 1px solid #141414; border-radius: 4px; background: #ffffff; color: #141414; font: inherit; cursor: pointer">שליחה</button>
 <p data-c5-form-status role="status" aria-live="polite" class="c5-full" style="margin: 0; font-size: 15px; min-height: 1em"></p>
