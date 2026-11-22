@@ -88,10 +88,11 @@ const ogImage = shareImage(image)
                     subject: newsletter ? `הרשמה לרשימת התפוצה — ${data.email}` : `פנייה מהאתר — ${data.name}`,
                     from_name: 'אתר קטגוריה 5',
                     replyto: data.email,
+                    // Web3Forms' documented field names (rendered as labelled rows in their email).
                     ...(newsletter
-                      ? { 'סוג': 'הרשמה לרשימת התפוצה', 'אימייל': data.email }
-                      : { 'שם': data.name, 'טלפון': data.phone, 'אימייל': data.email, 'הודעה': data.message }),
-                    'עמוד': location.pathname,
+                      ? { name: 'הרשמה לרשימת התפוצה', email: data.email, message: `בקשת הרשמה לרשימת התפוצה: ${data.email}` }
+                      : { name: data.name, email: data.email, phone: data.phone, message: data.message }),
+                    page: location.href,
                   }),
                 })
                 ok = res.ok && !!(await res.json().catch(() => ({}))).success
