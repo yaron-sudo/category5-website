@@ -82,6 +82,20 @@ const ogImage = shareImage(image)
           form.querySelector<HTMLElement>('input, textarea')?.focus()
         })
       }
+      // mailto: opens a mail app only where one is set up; elsewhere a click does nothing visible.
+      // So a click also copies the address and says so (the mail app, when there is one, still opens).
+      document.querySelectorAll<HTMLAnchorElement>('a[href^="mailto:"][data-copied]').forEach((a) => {
+        let timer: number | undefined
+        a.addEventListener('click', async () => {
+          const addr = (a.getAttribute('href') || '').slice(7).split('?')[0]
+          try { await navigator.clipboard.writeText(addr) } catch { return }
+          let note = a.nextElementSibling instanceof HTMLElement && a.nextElementSibling.classList.contains('c5-copied') ? a.nextElementSibling : null
+          if (!note) { note = document.createElement('span'); note.className = 'c5-copied'; note.setAttribute('role', 'status'); note.setAttribute('aria-live', 'polite'); a.insertAdjacentElement('afterend', note) }
+          note.textContent = a.dataset.copied || ''
+          note.classList.add('is-in')
+          window.clearTimeout(timer); timer = window.setTimeout(() => note!.classList.remove('is-in'), 2500)
+        })
+      })
       document.querySelectorAll<HTMLFormElement>('form[data-c5-form]').forEach((form) => {
         const started = Date.now()
         const status = form.querySelector<HTMLElement>('[data-c5-form-status]')
