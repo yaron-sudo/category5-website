@@ -1,5 +1,5 @@
 // 06_redirects.mjs — old WordPress URLs → new routes, written into
-// astro/vercel.json (`redirects`, percent-encoded sources: raw Hebrew never
+// vercel.json (repo root) (`redirects`, percent-encoded sources: raw Hebrew never
 // matches on Vercel) and reused by astro/src/pages/[...path].astro as the
 // server-side fallback (decoded match, any case / trailing slash).
 //
@@ -10,7 +10,7 @@ import { readFileSync, writeFileSync } from 'node:fs'
 
 const inv = JSON.parse(readFileSync('migration/out/inventory.json', 'utf8'))
 const slugs = JSON.parse(readFileSync('migration/slugs.json', 'utf8'))
-const vercelPath = 'astro/vercel.json'
+const vercelPath = 'vercel.json'
 const vercel = JSON.parse(readFileSync(vercelPath, 'utf8'))
 
 const FIXED = {

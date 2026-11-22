@@ -12,7 +12,7 @@
 // (WordPress search, /?s=term, is a vercel.json rule: `/` itself is a static page and never
 // reaches this route.) Anything else renders the normal 404 page with a 404 status.
 import NotFound from './404.astro'
-import redirectsConfig from '../../vercel.json'
+import redirectsConfig from '../../../vercel.json' // the repo-root file: Vercel builds from the repo root, so only that one applies
 import mediaManifest from '@/c5/content/media-manifest.json'
 import { replacedSlugs, hiddenRedirects } from '@/c5/content/catalog'
 
