@@ -10,7 +10,7 @@ import { getSiteSettings, resolveSeo } from '@/lib/sanity'
 
 const settings = await getSiteSettings()
 // Instagram profile URL: siteSettings → socials.instagram (the client sends it).
-// Until it is set, the follow buttons point at Instagram's home page.
+// Until it is set, the follow buttons point at the brand account (category.5.es).
 const igUrl = settings?.socials?.instagram || 'https://www.instagram.com/category.5.es/'
 const handle = '@' + (igUrl.replace(/\/+$/, '').split('/').pop() || 'category.5.es')
 const seo = resolveSeo(undefined, {
