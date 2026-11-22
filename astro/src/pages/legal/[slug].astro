@@ -1,12 +1,13 @@
 ---
 // /legal/terms, /legal/privacy — the client's own texts (CMS pages "terms" / "privacy"),
-// /legal/accessibility — the accessibility statement. All in the Legal layout (BRIEF §14).
+// /legal/accessibility — the accessibility statement, /legal/cookies — the cookie policy (c5/content/cookiePolicy.ts). All in the Legal layout (BRIEF §14).
 import LegalPage, { type LegalSection } from '@/components/c5/LegalPage.astro'
 import { getPage, type PortableBlock } from '@/lib/sanity'
 import { CONTACT } from '@/c5/data'
+import { COOKIE_POLICY, COOKIE_POLICY_TITLE, COOKIE_POLICY_UPDATED } from '@/c5/content/cookiePolicy'
 
 export function getStaticPaths() {
-  return ['terms', 'privacy', 'accessibility'].map((slug) => ({ params: { slug } }))
+  return ['terms', 'privacy', 'accessibility', 'cookies'].map((slug) => ({ params: { slug } }))
 }
 const { slug } = Astro.params
 const text = (b: PortableBlock) => ((b.children as Array<{ text?: string }>) ?? []).map((c) => c.text ?? '').join('')
@@ -14,7 +15,11 @@ const text = (b: PortableBlock) => ((b.children as Array<{ text?: string }>) ?? 
 let title = ''
 let updated: string | undefined
 let sections: LegalSection[] = []
-if (slug === 'accessibility') {
+if (slug === 'cookies') {
+  title = COOKIE_POLICY_TITLE
+  updated = COOKIE_POLICY_UPDATED
+  sections = COOKIE_POLICY
+} else if (slug === 'accessibility') {
   title = 'הצהרת נגישות'
   updated = '17.11.2026'
   sections = [

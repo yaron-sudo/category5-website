@@ -38,5 +38,7 @@ export default defineConfig({
   // the redirect; this keeps the sitemap/canonicals identical to the served URLs).
   trailingSlash: 'never',
   build: { format: 'directory' },
+  // The old design's cookie page now lives with the other legal pages.
+  redirects: { '/cookies': '/legal/cookies' },
   integrations: [sitemap()],
 })
