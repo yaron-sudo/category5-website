@@ -52,5 +52,5 @@
 
 - `astro/src/layouts/Site.astro`: הסקריפט של הטפסים. אם `PUBLIC_WEB3FORMS_KEY` מוגדר הוא
   שולח JSON ל-`https://api.web3forms.com/submit`; אחרת ל-`/api/contact`.
-- `astro/vercel.json`: ה-CSP כבר מתיר `api.web3forms.com` (connect-src ו-form-action).
+- `vercel.json` (שורש הריפו): ה-CSP כבר מתיר `api.web3forms.com` (connect-src ו-form-action).
 - `astro/.env.example`: תיעוד המשתנה.

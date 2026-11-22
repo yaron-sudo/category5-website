@@ -5,7 +5,7 @@
 import { readFileSync } from 'node:fs'
 
 const base = (process.argv[2] || 'https://www.ethical-supplements.com').replace(/\/$/, '')
-const { redirects } = JSON.parse(readFileSync(new URL('../vercel.json', import.meta.url), 'utf8'))
+const { redirects } = JSON.parse(readFileSync(new URL('../../vercel.json', import.meta.url), 'utf8'))
 
 const head = async (url) => {
   const res = await fetch(url, { method: 'GET', redirect: 'manual', headers: { 'User-Agent': 'category5-redirect-check' } })
