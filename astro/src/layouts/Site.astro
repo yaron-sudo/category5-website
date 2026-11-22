@@ -60,6 +60,28 @@ const ogImage = shareImage(image)
       // key was issued for (the same setup as the NatureSage site). Without the key
       // they post to /api/contact, the site's own mailer (needs MS_* / SMTP_* / RESEND).
       const WEB3FORMS_KEY = (import.meta.env.PUBLIC_WEB3FORMS_KEY as string | undefined)?.trim()
+      const esc = (s: string) => s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!)
+      // Sent: the form gives way to a confirmation panel in the site's language (title, line,
+      // and for the contact forms a soft button that brings the empty form back).
+      const sent = (form: HTMLFormElement) => {
+        const panel = document.createElement('div')
+        panel.className = 'c5-form-done'
+        panel.setAttribute('role', 'status'); panel.setAttribute('aria-live', 'polite')
+        panel.style.flex = form.style.flex; panel.style.maxWidth = form.style.maxWidth // takes the form's place in its row
+        const again = form.dataset.again
+        panel.innerHTML = `<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10.5"></circle><path d="M7.5 12.5l3 3 6-7"></path></svg>`
+          + `<h3>${esc(form.dataset.sentTitle || 'נשלח')}</h3>${form.dataset.sentText ? `<p>${esc(form.dataset.sentText)}</p>` : ''}`
+          + (again ? `<button type="button" class="c5-soft">${esc(again)}</button>` : '')
+        // the forms set display inline, which beats the hidden attribute
+        form.dataset.display = form.style.display; form.style.display = 'none'; form.hidden = true
+        form.insertAdjacentElement('afterend', panel)
+        requestAnimationFrame(() => requestAnimationFrame(() => panel.classList.add('is-in')))
+        panel.querySelector('button')?.addEventListener('click', () => {
+          panel.remove(); form.style.display = form.dataset.display || ''; form.hidden = false; form.reset()
+          const st = form.querySelector<HTMLElement>('[data-c5-form-status]'); if (st) st.textContent = ''
+          form.querySelector<HTMLElement>('input, textarea')?.focus()
+        })
+      }
       document.querySelectorAll<HTMLFormElement>('form[data-c5-form]').forEach((form) => {
         const started = Date.now()
         const status = form.querySelector<HTMLElement>('[data-c5-form-status]')
@@ -105,8 +127,8 @@ const ogImage = shareImage(image)
               })
               ok = res.ok && !!(await res.json().catch(() => ({}))).ok
             }
-            if (status) status.textContent = ok ? form.dataset.sent || 'נשלח' : form.dataset.error || 'השליחה נכשלה'
-            if (ok) form.reset()
+            if (ok) { if (status) status.textContent = ''; form.reset(); sent(form) }
+            else if (status) status.textContent = form.dataset.error || 'השליחה נכשלה'
           } catch {
             if (status) status.textContent = form.dataset.error || 'השליחה נכשלה'
           } finally {

@@ -10,6 +10,8 @@ const he = {
   'nav.main': 'ניווט ראשי', 'nav.search': 'חיפוש', 'nav.menu': 'תפריט', 'nav.home': 'Category 5 – לדף הבית',
   'nav.allNeeds': 'לכל התחומים', 'img': 'אימג׳', 'banner': 'באנר',
   'footer.keepInTouch': 'בואו נהיה בקשר', 'footer.email': 'כתובת אימייל', 'footer.signup': 'הרשמה',
+  'form.sentTitle': 'ההודעה נשלחה', 'form.sentText': 'תודה שפניתם אלינו. נחזור אליכם בהקדם.', 'form.again': 'לשליחת הודעה נוספת',
+  'footer.sentTitle': 'נרשמתם בהצלחה', 'footer.sentText': 'נעדכן אתכם בחדשות ובמוצרים חדשים.',
   'footer.terms': 'תנאי שימוש', 'footer.privacy': 'מדיניות פרטיות', 'footer.accessibility': 'הצהרת נגישות', 'footer.legalTitle': 'התוויה משפטית', 'footer.legal': 'משפטי',
   'chat.open': 'דברו איתנו', 'chat.title': 'איך נוכל לעזור לכם היום?', 'chat.lang': 'שפה', 'chat.close': 'סגירה',
   'chat.inputLabel': 'הקלידו שאלה', 'chat.placeholder': 'כתבו שאלה…', 'chat.send': 'שליחה', 'a11y.open': 'נגישות',
@@ -47,7 +49,7 @@ const he = {
   'chat.micDenied': 'לא התקבלה גישה למיקרופון.',
   'chat.aiNote': 'השיחה מתנהלת באמצעות בינה מלאכותית. המידע המוצג הוא כללי ואינו מהווה ייעוץ רפואי או תחליף להתייעצות עם איש מקצוע.',
   'chat.untitled': 'שיחה',
-  'form.sent': 'נשלח', 'form.error': 'השליחה נכשלה',
+  'form.sent': 'נשלח', 'form.error': 'השליחה נכשלה. אפשר לנסות שוב או לכתוב לנו במייל.',
 } as const
 export type UiKey = keyof typeof he
 const en: Partial<Record<UiKey, string>> = {
@@ -88,6 +90,8 @@ const en: Partial<Record<UiKey, string>> = {
   'chat.aiNote': 'This conversation is conducted by artificial intelligence. The information shown is general and is not medical advice or a substitute for consulting a professional.',
   'chat.untitled': 'Conversation',
   'footer.accessibility': 'Accessibility statement',
+  'form.sentTitle': 'Message sent', 'form.sentText': 'Thank you for reaching out. We will get back to you shortly.', 'form.again': 'Send another message', 'form.error': 'Sending failed. Please try again or email us.',
+  'footer.sentTitle': 'You are signed up', 'footer.sentText': 'We will keep you posted on news and new products.',
 }
 const DICT: Record<Lang, Partial<Record<UiKey, string>>> = { he, en }
 
