@@ -5,6 +5,9 @@ import Seo from '@/components/Seo.astro'
 import Header from '@/components/c5/Header.astro'
 import Footer from '@/components/c5/Footer.astro'
 import Floating from '@/components/c5/Floating.astro'
+import CookieConsent from '@/components/c5/CookieConsent.astro'
+import TrackingPixels from '@/components/TrackingPixels.astro'
+import { getSiteSettings } from '@/lib/sanity'
 import { DEFAULT_LANG, DIR, type Lang } from '@/c5/i18n'
 import { shareImage } from '@/c5/og'
 import '@/styles/c5-base.css'
@@ -22,6 +25,8 @@ interface Props {
 const { title, description, image, lang = DEFAULT_LANG, jsonLd } = Astro.props
 const fullTitle = title.includes('Category 5') ? title : `${title} | Category 5`
 const ogImage = shareImage(image)
+// GA / Meta snippets from siteSettings.tracking; inert until the cookie consent grants them.
+const settings = await getSiteSettings()
 ---
 <!doctype html>
 <html lang={lang} dir={DIR[lang]}>
@@ -47,6 +52,8 @@ const ogImage = shareImage(image)
       <Footer />
     </div>
     <Floating />
+    <CookieConsent />
+    <TrackingPixels snippets={(settings as any)?.tracking} />
     <script is:inline src="/c5/site.js"></script>
     <script is:inline>
       // Deterrent against casual image copying (client request): no right-click menu or

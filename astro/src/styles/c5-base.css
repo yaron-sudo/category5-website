@@ -111,6 +111,9 @@ button.c5-soft.c5-soft[style*="position: fixed"]:hover,
 .c5-sitemap a, .c5-sitemap a:hover { text-decoration: none !important; background: none !important; opacity: 1 !important; transform: none !important; }
 .c5-sitemap a { transition: color .5s cubic-bezier(.22,.61,.36,1); }
 .c5-sitemap a:hover { color: #8a8a88 !important; }
+/* "הגדרות עוגיות" (opens the cookie dialog) looks like the sitemap links */
+.c5-sitemap-btn { align-self: flex-start; min-height: 32px; padding: 0; border: 0; background: none; color: #141414; font: inherit; font-size: 15px; line-height: 1.6; text-align: start; cursor: pointer; transition: color .5s cubic-bezier(.22,.61,.36,1); }
+.c5-sitemap-btn:hover { color: #8a8a88; }
 
 /* ---- Product page: "מחקרים" accordion (components/c5/ProductResearchList.astro) ---- */
 .c5-research { display: flex; flex-direction: column; color: #141414; }

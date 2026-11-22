@@ -1,0 +1,236 @@
+---
+// Cookie consent in the Category 5 design (same behaviour as the NatureSage site's consent,
+// Amendment 13 / GDPR-style): a bottom bar with equal-weight "reject all" / "accept all" and a
+// settings dialog with a switch per category. Nothing non-essential runs before consent:
+// TrackingPixels.astro keeps the GA / Meta snippets as inert <template>s until
+// window.nsConsent grants their category (it listens to the "ns:consent" event).
+// The choice is kept for 12 months in localStorage (+ a companion cookie for the edge);
+// "הגדרות עוגיות" in the footer ([data-cookie-settings]) reopens the dialog at any time.
+// Visual rules (CLAUDE.md): white surface, #141414 text, #dcdcd9 hairlines, white 1px-black
+// 4px buttons that invert on hover (soft button for "settings"), site easing, reduced motion.
+import { t } from '@/c5/i18n'
+const categories = [
+  { key: 'necessary', label: t('cc.necessary'), desc: t('cc.necessaryDesc'), always: true },
+  { key: 'analytics', label: t('cc.analytics'), desc: t('cc.analyticsDesc') },
+  { key: 'marketing', label: t('cc.marketing'), desc: t('cc.marketingDesc') },
+]
+---
+<div class="c5cc" data-cc hidden dir="rtl">
+<section class="c5cc-bar" data-cc-bar role="region" aria-label={t('cc.region')} tabindex="-1">
+<div class="c5cc-in">
+<div class="c5cc-text">
+<p class="c5cc-title">{t('cc.title')}</p>
+<p>{t('cc.text')} <a href="/legal/privacy">{t('cc.policy')}</a>.</p>
+</div>
+<div class="c5cc-actions">
+<button type="button" class="c5cc-btn c5-soft" data-cc-manage aria-haspopup="dialog">{t('cc.settings')}</button>
+<button type="button" class="c5cc-btn" data-cc-reject>{t('cc.reject')}</button>
+<button type="button" class="c5cc-btn" data-cc-accept>{t('cc.accept')}</button>
+</div>
+</div>
+</section>
+
+<div class="c5cc-modal" data-cc-modal hidden>
+<div class="c5cc-backdrop" data-cc-close></div>
+<div class="c5cc-dialog" role="dialog" aria-modal="true" aria-labelledby="c5cc-dtitle" tabindex="-1" data-cc-dialog>
+<div class="c5cc-dhead">
+<h2 id="c5cc-dtitle" class="c5cc-dtitle">{t('cc.dialog')}</h2>
+<button type="button" class="c5cc-x" data-cc-close aria-label={t('cc.close')}><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+</div>
+<div class="c5cc-cats">
+{categories.map((c) => (
+<label class="c5cc-cat">
+<span class="c5cc-cattext"><span class="c5cc-catname">{c.label}</span><span class="c5cc-catdesc">{c.desc}</span>{c.always && <span class="c5cc-always">{t('cc.always')}</span>}</span>
+<input type="checkbox" role="switch" data-cc-cat={c.key} checked={c.always} disabled={c.always} />
+<span class="c5cc-switch" aria-hidden="true"></span>
+</label>
+))}
+</div>
+<div class="c5cc-dactions">
+<button type="button" class="c5cc-btn c5-soft" data-cc-save>{t('cc.save')}</button>
+<button type="button" class="c5cc-btn" data-cc-accept>{t('cc.accept')}</button>
+</div>
+</div>
+</div>
+</div>
+
+<style is:global>
+  .c5cc[hidden], .c5cc-modal[hidden], .c5cc-bar[hidden] { display: none !important; }
+  .c5cc { font-family: "C5 Sans", "Noto Sans Hebrew", Arial, sans-serif; color: #141414; }
+  .c5cc p { margin: 0; }
+
+  /* bar: white strip with a hairline, rises in with the site easing */
+  .c5cc-bar { position: fixed; inset-inline: 0; bottom: 0; z-index: 85; background: #ffffff; border-top: 1px solid #dcdcd9; box-shadow: 0 -8px 24px rgba(0,0,0,.06); transform: translateY(100%); opacity: 0; transition: transform .7s cubic-bezier(.22,.61,.36,1), opacity .7s cubic-bezier(.22,.61,.36,1); }
+  .c5cc-bar.is-in { transform: none; opacity: 1; }
+  .c5cc-bar:focus { outline: none; }
+  .c5cc-in { max-width: 1280px; margin: 0 auto; box-sizing: border-box; padding: 20px clamp(16px, 4vw, 48px); display: flex; align-items: center; justify-content: space-between; gap: 20px 40px; flex-wrap: wrap; }
+  .c5cc-text { flex: 1 1 520px; max-width: 820px; display: flex; flex-direction: column; gap: 4px; }
+  .c5cc-title { font-size: 17px; font-weight: 600; line-height: 1.4; }
+  .c5cc-text p:not(.c5cc-title) { font-size: 15px; line-height: 1.6; }
+  .c5cc-text a { color: #141414; text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; transition: color .5s cubic-bezier(.22,.61,.36,1); }
+  .c5cc-text a:hover { color: #8a8a88; }
+  .c5cc-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+  /* buttons: the site button (white, 1px black, 4px) — hover inverts; .c5-soft hovers to stone */
+  .c5cc-btn { min-height: 44px; min-width: 132px; padding: 0 22px; border: 1px solid #141414; border-radius: 4px; background: #ffffff; color: #141414; font: inherit; font-size: 15px; font-weight: 500; cursor: pointer; transition: background-color .45s cubic-bezier(.22,.61,.36,1), color .45s cubic-bezier(.22,.61,.36,1), border-color .45s cubic-bezier(.22,.61,.36,1), box-shadow .45s cubic-bezier(.22,.61,.36,1), transform .3s cubic-bezier(.22,.61,.36,1); }
+  .c5cc-btn:not(.c5-soft):hover { background: #141414; color: #ffffff; }
+  .c5cc-btn:active { transform: scale(.99); }
+  .c5cc-btn:focus-visible, .c5cc-x:focus-visible, .c5cc-text a:focus-visible { outline: 2px solid #141414; outline-offset: 3px; }
+
+  /* the floating chat / accessibility buttons step up while the bar is open */
+  html.c5cc-open [data-chat-open], html.c5cc-open .c5-a11y-btn { bottom: calc(var(--c5cc-h, 0px) + 20px) !important; transition: bottom .7s cubic-bezier(.22,.61,.36,1), background-color .45s cubic-bezier(.22,.61,.36,1), color .45s cubic-bezier(.22,.61,.36,1); }
+
+  /* settings dialog: same frame as the accessibility panel */
+  .c5cc-modal { position: fixed; inset: 0; z-index: 95; display: grid; place-items: center; padding: 16px; }
+  .c5cc-backdrop { position: absolute; inset: 0; background: rgba(20,20,20,.32); opacity: 0; transition: opacity .45s cubic-bezier(.22,.61,.36,1); }
+  .c5cc-dialog { position: relative; z-index: 1; box-sizing: border-box; width: min(520px, 100%); max-height: calc(100vh - 32px); overflow-y: auto; background: #ffffff; border: 1px solid #141414; border-radius: 8px; padding: 22px 24px 20px; display: flex; flex-direction: column; gap: 8px; opacity: 0; transform: translateY(6px); transition: opacity .45s cubic-bezier(.22,.61,.36,1), transform .45s cubic-bezier(.22,.61,.36,1); }
+  .c5cc-modal.is-in .c5cc-backdrop { opacity: 1; }
+  .c5cc-modal.is-in .c5cc-dialog { opacity: 1; transform: none; }
+  .c5cc-dialog:focus { outline: none; }
+  .c5cc-dhead { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .c5cc .c5cc-dtitle { margin: 0; font-size: 22px !important; font-weight: 600 !important; line-height: 1.3 !important; }
+  .c5cc-x { width: 44px; height: 44px; margin-inline-end: -10px; display: inline-flex; align-items: center; justify-content: center; border: 0; border-radius: 4px; background: transparent; color: #141414; cursor: pointer; transition: background-color .5s cubic-bezier(.22,.61,.36,1); }
+  .c5cc-x:hover { background: #efeeea; }
+
+  .c5cc-cat { position: relative; display: flex; align-items: center; gap: 20px; padding: 16px 0; border-top: 1px solid #dcdcd9; cursor: pointer; }
+  .c5cc-cat:first-child { border-top: 0; }
+  .c5cc-cattext { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+  .c5cc-catname { font-size: 17px; line-height: 1.4; }
+  .c5cc-catdesc { font-size: 15px; line-height: 1.55; }
+  .c5cc-always { font-size: 13px; line-height: 1.6; margin-top: 2px; }
+  .c5cc-cat input { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; }
+  .c5cc-cat:has(input:disabled) { cursor: default; }
+
+  /* switch: hairline track, black when on */
+  .c5cc-switch { flex: none; position: relative; width: 44px; height: 24px; box-sizing: border-box; border: 1px solid #141414; border-radius: 999px; background: #ffffff; transition: background-color .45s cubic-bezier(.22,.61,.36,1); }
+  .c5cc-switch::after { content: ""; position: absolute; top: 3px; right: 3px; width: 16px; height: 16px; border-radius: 50%; background: #141414; transition: transform .45s cubic-bezier(.22,.61,.36,1), background-color .45s cubic-bezier(.22,.61,.36,1); }
+  .c5cc-cat input:checked + .c5cc-switch { background: #141414; }
+  .c5cc-cat input:checked + .c5cc-switch::after { background: #ffffff; transform: translateX(-20px); }
+  .c5cc-cat input:disabled + .c5cc-switch { opacity: .45; }
+  .c5cc-cat:hover input:not(:disabled):not(:checked) + .c5cc-switch { background: #efeeea; }
+  .c5cc-cat input:focus-visible + .c5cc-switch { outline: 2px solid #141414; outline-offset: 3px; }
+
+  .c5cc-dactions { display: flex; gap: 10px; justify-content: flex-end; flex-wrap: wrap; padding-top: 16px; border-top: 1px solid #dcdcd9; }
+
+  @media (max-width: 700px) {
+    .c5cc-in { padding: 16px; gap: 14px; }
+    .c5cc-text { flex-basis: 100%; }
+    .c5cc-actions { width: 100%; display: grid; grid-template-columns: 1fr 1fr; }
+    .c5cc-actions [data-cc-manage] { grid-column: 1 / -1; order: 3; }
+    .c5cc-btn { min-width: 0; padding: 0 12px; }
+    .c5cc-dactions .c5cc-btn { flex: 1 1 0; }
+    html.c5cc-open .c5-a11y-btn { bottom: calc(var(--c5cc-h, 0px) + 12px) !important; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .c5cc-bar, .c5cc-dialog, .c5cc-backdrop { transition: none !important; transform: none !important; opacity: 1 !important; }
+  }
+</style>
+
+<script>
+  const KEY = 'c5-cookie-consent'
+  const VERSION = 1 // bump when a tracker category is added → everyone is asked again
+  const TTL = 365 * 24 * 60 * 60 * 1000 // 12 months; stale consent is no consent
+  type Consent = Record<string, boolean>
+  const w = window as unknown as { nsConsent?: Consent }
+  const html = document.documentElement
+  const cc = document.querySelector<HTMLElement>('[data-cc]')
+  if (cc) {
+    const bar = cc.querySelector<HTMLElement>('[data-cc-bar]')!
+    const modal = cc.querySelector<HTMLElement>('[data-cc-modal]')!
+    const dialog = cc.querySelector<HTMLElement>('[data-cc-dialog]')!
+    const cats = Array.from(cc.querySelectorAll<HTMLInputElement>('[data-cc-cat]'))
+    const saved = (() => { try { return JSON.parse(localStorage.getItem(KEY) || 'null') } catch { return null } })()
+    const fresh = !!(saved && saved.v === VERSION && saved.at && Date.now() - Date.parse(saved.at) < TTL)
+    let returnFocus: HTMLElement | null = null
+
+    // Lifecycle events: TrackingPixels.astro activates the granted categories on every one.
+    const emit = (action: string, consent?: Consent) =>
+      document.dispatchEvent(new CustomEvent('ns:consent', { detail: { action, consent } }))
+
+    const persist = (consent: Consent, action: string) => {
+      try { localStorage.setItem(KEY, JSON.stringify({ consent, at: new Date().toISOString(), v: VERSION })) } catch {}
+      try {
+        const secure = location.protocol === 'https:' ? '; Secure' : ''
+        document.cookie = `c5_consent=${consent.analytics ? '1' : '0'}${consent.marketing ? '1' : '0'}; Path=/; Max-Age=${Math.floor(TTL / 1000)}; SameSite=Lax${secure}`
+      } catch {}
+      w.nsConsent = consent
+      emit(action, consent)
+    }
+
+    // The floating chat / accessibility buttons sit above the bar while it is open.
+    const syncOffset = () => html.style.setProperty('--c5cc-h', `${bar.hidden ? 0 : bar.offsetHeight}px`)
+    const ro = 'ResizeObserver' in window ? new ResizeObserver(syncOffset) : null
+
+    const showBar = () => {
+      cc.hidden = false; bar.hidden = false
+      html.classList.add('c5cc-open'); syncOffset(); ro?.observe(bar)
+      requestAnimationFrame(() => requestAnimationFrame(() => bar.classList.add('is-in')))
+    }
+    const hideBar = () => {
+      bar.classList.remove('is-in'); html.classList.remove('c5cc-open'); ro?.disconnect()
+      bar.hidden = true; syncOffset()
+    }
+    const openModal = (from?: HTMLElement | null) => {
+      returnFocus = from ?? (document.activeElement as HTMLElement | null)
+      cats.forEach((c) => { if (!c.disabled) c.checked = !!w.nsConsent?.[c.dataset.ccCat!] })
+      cc.hidden = false; modal.hidden = false
+      requestAnimationFrame(() => requestAnimationFrame(() => modal.classList.add('is-in')))
+      dialog.focus()
+    }
+    const closeModal = () => {
+      modal.classList.remove('is-in'); modal.hidden = true
+      if (bar.hidden) cc.hidden = true
+      const target = returnFocus && document.contains(returnFocus) && returnFocus.offsetParent ? returnFocus : null
+      target?.focus(); returnFocus = null
+    }
+    const done = (consent: Consent, action: string) => {
+      persist(consent, action); hideBar()
+      if (!modal.hidden) { returnFocus = returnFocus && bar.contains(returnFocus) ? null : returnFocus; closeModal() }
+      cc.hidden = true
+    }
+
+    const acceptAll = () => done({ necessary: true, analytics: true, marketing: true }, 'accepted')
+    const rejectAll = () => done({ necessary: true, analytics: false, marketing: false }, 'rejected')
+    const saveChoices = () => {
+      const consent: Consent = { necessary: true }
+      cats.forEach((c) => { consent[c.dataset.ccCat!] = c.checked })
+      done(consent, 'customized')
+    }
+
+    cc.querySelectorAll('[data-cc-accept]').forEach((b) => b.addEventListener('click', acceptAll))
+    cc.querySelector('[data-cc-reject]')?.addEventListener('click', rejectAll)
+    cc.querySelector<HTMLElement>('[data-cc-manage]')?.addEventListener('click', (e) => openModal(e.currentTarget as HTMLElement))
+    cc.querySelector('[data-cc-save]')?.addEventListener('click', saveChoices)
+    cc.querySelectorAll('[data-cc-close]').forEach((b) => b.addEventListener('click', closeModal))
+
+    document.addEventListener('keydown', (e) => {
+      if (modal.hidden) {
+        // Esc inside the bar = refusal (dismissing is not consent); elsewhere Esc belongs to the page.
+        if (e.key === 'Escape' && !bar.hidden && bar.contains(document.activeElement)) rejectAll()
+        return
+      }
+      if (e.key === 'Escape') { e.preventDefault(); closeModal(); return }
+      if (e.key !== 'Tab') return
+      // keep focus inside the dialog
+      const f = Array.from(dialog.querySelectorAll<HTMLElement>('button, input:not([disabled]), a[href]')).filter((el) => el.offsetParent)
+      if (!f.length) return
+      const first = f[0], last = f[f.length - 1]
+      if (e.shiftKey && (document.activeElement === first || document.activeElement === dialog)) { e.preventDefault(); last.focus() }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus() }
+    })
+
+    if (fresh) {
+      w.nsConsent = saved.consent
+      emit('restored', saved.consent) // returning visitor: start the trackers they agreed to
+    } else {
+      try { localStorage.removeItem(KEY) } catch {}
+      showBar()
+      emit('shown')
+    }
+
+    // "הגדרות עוגיות" in the footer: withdrawing is as easy as granting.
+    document.querySelectorAll<HTMLElement>('[data-cookie-settings]').forEach((el) => {
+      el.addEventListener('click', (e) => { e.preventDefault(); openModal(el); emit('reopened') })
+    })
+  }
+</script>

@@ -50,6 +50,14 @@ const he = {
   'chat.aiNote': 'השיחה מתנהלת באמצעות בינה מלאכותית. המידע המוצג הוא כללי ואינו מהווה ייעוץ רפואי או תחליף להתייעצות עם איש מקצוע.',
   'chat.untitled': 'שיחה',
   'form.sent': 'נשלח', 'form.error': 'השליחה נכשלה. אפשר לנסות שוב או לכתוב לנו במייל.',
+  'cc.region': 'הודעת עוגיות', 'cc.title': 'האתר משתמש בעוגיות',
+  'cc.text': 'אנחנו משתמשים בעוגיות (Cookies) כדי שהאתר יפעל כראוי, כדי להבין כיצד משתמשים בו וכדי לשפר אותו. אפשר לאשר את כולן, לדחות את מה שאינו הכרחי או לבחור בהגדרות. למידע נוסף:',
+  'cc.policy': 'מדיניות הפרטיות', 'cc.settings': 'הגדרות', 'cc.reject': 'דחיית הכל', 'cc.accept': 'אישור הכל',
+  'cc.dialog': 'הגדרות עוגיות', 'cc.save': 'שמירת ההעדפות', 'cc.close': 'סגירה', 'cc.always': 'תמיד פעילות',
+  'cc.necessary': 'הכרחיות', 'cc.necessaryDesc': 'נדרשות לתפקוד האתר ולשמירת ההעדפות שלכם, ולא ניתן לכבות אותן.',
+  'cc.analytics': 'ביצועים וסטטיסטיקה', 'cc.analyticsDesc': 'עוזרות לנו להבין כיצד משתמשים באתר ולשפר אותו (למשל Google Analytics).',
+  'cc.marketing': 'שיווק והתאמה אישית', 'cc.marketingDesc': 'משמשות להצגת תוכן ופרסום מותאמים ברשתות ובאתרים אחרים (למשל Meta).',
+  'cc.footer': 'הגדרות עוגיות',
 } as const
 export type UiKey = keyof typeof he
 const en: Partial<Record<UiKey, string>> = {
@@ -92,6 +100,14 @@ const en: Partial<Record<UiKey, string>> = {
   'footer.accessibility': 'Accessibility statement',
   'form.sentTitle': 'Message sent', 'form.sentText': 'Thank you for reaching out. We will get back to you shortly.', 'form.again': 'Send another message', 'form.error': 'Sending failed. Please try again or email us.',
   'mail.copied': 'Address copied', 'footer.sentTitle': 'You are signed up', 'footer.sentText': 'We will keep you posted on news and new products.',
+  'cc.region': 'Cookie notice', 'cc.title': 'This site uses cookies',
+  'cc.text': 'We use cookies so the site works properly, to understand how it is used and to improve it. You can accept them all, reject everything that is not essential, or choose in the settings. More information:',
+  'cc.policy': 'Privacy policy', 'cc.settings': 'Settings', 'cc.reject': 'Reject all', 'cc.accept': 'Accept all',
+  'cc.dialog': 'Cookie settings', 'cc.save': 'Save preferences', 'cc.close': 'Close', 'cc.always': 'Always on',
+  'cc.necessary': 'Essential', 'cc.necessaryDesc': 'Needed for the site to work and to keep your preferences; they cannot be switched off.',
+  'cc.analytics': 'Performance and statistics', 'cc.analyticsDesc': 'Help us understand how the site is used and improve it (e.g. Google Analytics).',
+  'cc.marketing': 'Marketing and personalisation', 'cc.marketingDesc': 'Used to show tailored content and ads on social networks and other sites (e.g. Meta).',
+  'cc.footer': 'Cookie settings',
 }
 const DICT: Record<Lang, Partial<Record<UiKey, string>>> = { he, en }
 
