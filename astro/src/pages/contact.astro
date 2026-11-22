@@ -10,7 +10,7 @@ import { t } from '@/c5/i18n'
 <h1 style="margin: 0">יש לכם שאלה? אנחנו כאן.</h1>
 <p style="margin: 0">השאירו פרטים ונחזור אליכם בהקדם.</p>
 <p style="margin: 0"><span dir="ltr">WhatsApp: <a href={`https://wa.me/${CONTACT.whatsappIntl}`} target="_blank" rel="noopener" style="color: #141414">{CONTACT.whatsapp}</a></span><br>הודעות בלבד</p>
-<p style="margin: 0">מייל: <a href={`mailto:${CONTACT.email}`} dir="ltr" style="color: #141414">{CONTACT.email}</a></p>
+<p style="margin: 0">מייל: <a href={`mailto:${CONTACT.email}`} dir="ltr" data-copied={t('mail.copied')} style="color: #141414">{CONTACT.email}</a></p>
 </div>
 <form data-c5-form="contact" data-sent-title={t('form.sentTitle')} data-sent-text={t('form.sentText')} data-again={t('form.again')} data-error={t('form.error')} style="flex: 1 1 420px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px">
 <label class="c5-label">שם מלא<input class="c5-input" name="name" type="text" autocomplete="name" required></label>

@@ -130,7 +130,7 @@ const field = 'display: flex; flex-direction: column; gap: 2px; font-size: 15px'
 <a href={`https://wa.me/${CONTACT.whatsappIntl}`} target="_blank" rel="noopener" aria-label={`WhatsApp ${CONTACT.whatsapp}`} dir="ltr" style="color: #141414">{CONTACT.whatsapp}</a><span>הודעות בלבד</span></p>
 <p style="margin: 0; display: flex; align-items: center; gap: 10px">
 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1.5"></rect><path d="M3 7l9 6 9-6"></path></svg>
-<a href={`mailto:${CONTACT.email}`} dir="ltr" style="color: #141414">{CONTACT.email}</a></p>
+<a href={`mailto:${CONTACT.email}`} dir="ltr" data-copied={t('mail.copied')} style="color: #141414">{CONTACT.email}</a></p>
 </div>
 <form data-c5-form="contact" data-sent-title={t('form.sentTitle')} data-sent-text={t('form.sentText')} data-again={t('form.again')} data-error={t('form.error')} style="flex: 1 1 380px; display: flex; flex-direction: column; gap: 12px">
 <label style={field}>שם
