@@ -189,7 +189,7 @@
     },
     {
       "source": "/%D7%95%D7%99%D7%98%D7%9E%D7%99%D7%9F-c-%D7%9C%D7%99%D7%A4%D7%95%D7%96%D7%95%D7%9E%D7%9C%D7%99/%D7%A1%D7%91%D7%95%D7%9F-%D7%A1%D7%9C%D7%99%D7%A0%D7%90%D7%95%D7%9C",
-      "destination": "/products/cellinol-soap",
+      "destination": "/series/vitamins-minerals",
       "permanent": true
     },
     {
@@ -264,7 +264,7 @@
     },
     {
       "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%93%D7%9C%D7%A7%D7%AA-%D7%95%D7%AA%D7%A0%D7%95%D7%A2%D7%94/%D7%A1%D7%91%D7%95%D7%9F-%D7%A0%D7%9E%D7%93%D7%A8%D7%99%D7%9F",
-      "destination": "/products/nemadrin-soap",
+      "destination": "/series/professional",
       "permanent": true
     },
     {
@@ -274,7 +274,7 @@
     },
     {
       "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%93%D7%9C%D7%A7%D7%AA-%D7%95%D7%AA%D7%A0%D7%95%D7%A2%D7%94/%D7%A8%D7%95%D7%99%D7%95%D7%95%D7%90%D7%9C",
-      "destination": "/products/revival-20",
+      "destination": "/products/revival",
       "permanent": true
     },
     {
@@ -389,7 +389,7 @@
     },
     {
       "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%9E%D7%A2%D7%A8%D7%9B%D7%AA-%D7%94%D7%97%D7%99%D7%A1%D7%95%D7%9F/%D7%94%D7%95%D7%9E%D7%A0%D7%A4%D7%9C%D7%95%D7%A8%D7%94-de111",
-      "destination": "/products/umanaflora-de111",
+      "destination": "/series/probiotics",
       "permanent": true
     },
     {
@@ -409,12 +409,12 @@
     },
     {
       "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%9E%D7%A2%D7%A8%D7%9B%D7%AA-%D7%94%D7%97%D7%99%D7%A1%D7%95%D7%9F/%D7%A1%D7%91%D7%95%D7%9F-%D7%90%D7%9C%D7%99%D7%95%D7%95%D7%99%D7%95%D7%9D",
-      "destination": "/products/alyvium-soap",
+      "destination": "/series/professional",
       "permanent": true
     },
     {
       "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%9E%D7%A2%D7%A8%D7%9B%D7%AA-%D7%94%D7%97%D7%99%D7%A1%D7%95%D7%9F/%D7%A7%D7%A8%D7%9D-%D7%90%D7%9C%D7%99%D7%95%D7%95%D7%99%D7%95%D7%9D",
-      "destination": "/products/alyvium-cream",
+      "destination": "/series/professional",
       "permanent": true
     },
     {
@@ -429,7 +429,7 @@
     },
     {
       "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%A6%D7%9E%D7%97%D7%99%D7%9D-%D7%95%D7%A2%D7%A9%D7%91%D7%99%D7%9D/%D7%92%D7%90%D7%9C%D7%95%D7%A7%D7%95%D7%A8-%D7%A0%D7%A0%D7%95-%D7%9B%D7%95%D7%A8%D7%9B%D7%95%D7%9E%D7%99%D7%9F",
-      "destination": "/products/giallocur-nano-curcumin",
+      "destination": "/products/curcumin-complex",
       "permanent": true
     },
     {
@@ -439,7 +439,7 @@
     },
     {
       "source": "/%D7%A2%D7%9E%D7%95%D7%93-%D7%94%D7%91%D7%99%D7%AA/%D7%A6%D7%9E%D7%97%D7%99%D7%9D-%D7%95%D7%A2%D7%A9%D7%91%D7%99%D7%9D/%D7%A1%D7%91%D7%95%D7%9F-%D7%92%D7%90%D7%9C%D7%95%D7%A7%D7%95%D7%A8",
-      "destination": "/products/giallocur-soap",
+      "destination": "/series/plants",
       "permanent": true
     },
     {
@@ -567,28 +567,6 @@
         }
       ],
       "destination": "/search?q=:term",
-      "permanent": true
-    },
-    {
-      "source": "/",
-      "has": [
-        {
-          "type": "query",
-          "key": "p"
-        }
-      ],
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/",
-      "has": [
-        {
-          "type": "query",
-          "key": "page_id"
-        }
-      ],
-      "destination": "/",
       "permanent": true
     },
     {
