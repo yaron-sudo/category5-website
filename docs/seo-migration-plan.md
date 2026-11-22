@@ -116,3 +116,30 @@
 - הדומין הערום עונה 308 ל-www מכל נקודת בדיקה, עם תעודה תקינה.
 - GSC: 0 שגיאות "Server error", "Redirect error"; "Not found" יורד לאפס תוך 30 יום למעט כתובות שנמחקו בכוונה (410).
 - Rich Results Test עובר ל-Product, Article, BreadcrumbList.
+
+## 7. סטטוס ביצוע (22.11.2026, אחרי הפריסה)
+
+| שלב | מצב |
+|---|---|
+| 1. דומין ערום | בוצע: רשומת ה-"Parked" נמחקה, `ethical-supplements.com` עונה 308 ל-www עם תעודה תקינה |
+| 2. 11 סלאגים ישנים | בוצע: 301 אמיתי (אין יותר עמודי meta refresh, לא בסייטמאפ, אין קישורים פנימיים אליהם) |
+| 3. עשרת העמודים בתבנית הישנה | בוצע: `/catalog`, `/community`, 404 ושישה `/category/*` בתבנית החדשה; `/cookies` → 301 `/legal/cookies`; עמודי `/category/*` מקושרים מעמודי הסדרה ("קריאה נוספת") וביניהם |
+| 4. היגיינת אינדוקס | בוצע: `/index.html` → 308 `/`; `/search` noindex ומחוץ לסייטמאפ; feed / author / wp-admin / wp-json / uncategorized → 410; `/?s=` → `/search?q=` |
+| 5. תמונות ישנות | בוצע: `/wp-content/uploads/X` → 301 `/media/X` כשהקובץ קיים (148 קבצים), אחרת 410 |
+| 6. מטא ונתונים מובנים | בוצע: meta description בכל עמוד, כותרת נפרדת למאמר נאטו, Product + BreadcrumbList + Article, sameAs ו-SearchAction. `lastmod` לא נוסף (אין תאריכי עדכון אמינים לכל עמוד; תאריך בנייה אחיד היה מטעה) |
+| 7. Google Search Console | ממתין לך: ראו למטה |
+| 8. בדיקת קבלה | בוצע מול הייצור: כל 86 ההפניות עונות 301/308 יחיד אל עמוד 200; כל 124 כתובות הסייטמאפ עונות 200; אין שגיאות CSP ב-11 תבניות שנבדקו בדפדפן |
+
+ממצא נוסף שתוקן בדרך: Vercel בונה מהשורש של הריפו, ולכן `astro/vercel.json` (הפניות, כותרות אבטחה,
+חוק hotlink) מעולם לא חל בייצור. ההגדרות עברו ל-`vercel.json` בשורש, ועכשיו גם כותרות האבטחה
+(CSP, X-Frame-Options ועוד) פעילות באתר החי.
+
+### מה נשאר לך (Google Search Console)
+1. להיכנס ל-search.google.com/search-console ולהוסיף **Domain property** `ethical-supplements.com`
+   (רשומת ה-TXT `google-site-verification` כבר קיימת ב-DNS, כך שהאימות אמור לעבור מיד).
+2. Sitemaps → להגיש `https://www.ethical-supplements.com/sitemap-index.xml`.
+3. URL Inspection → "Request indexing" לעשרה עמודים מרכזיים: הבית, ארבע הסדרות, `/stores`, `/articles`,
+   ושלושה מוצרים מובילים.
+4. אחרי שבוע: Pages (Coverage) → לוודא ש"Not found (404)" יורד ושאין "Redirect error".
+   כתובות שמופיעות כ-"Page with redirect" או 410 הן תקינות (ההפניות והמחיקות המכוונות).
+5. אופציונלי: Bing Webmaster Tools → "Import from GSC".
