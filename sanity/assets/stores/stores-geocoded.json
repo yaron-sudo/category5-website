@@ -28,9 +28,11 @@
   "website": "",
   "tags": "בית טבע",
   "geo": {
-   "lat": 31.891540374999998,
-   "lng": 34.987554274999994,
-   "precision": "city"
+   "lat": 31.8895148,
+   "lng": 34.9657961,
+   "precision": "ROOFTOP",
+   "source": "maps lookup",
+   "formatted": "שדרות המלאכות 121, מודיעין"
   }
  },
  {
@@ -598,13 +600,9 @@
   "geo": {
    "lat": 31.069419,
    "lng": 35.033363,
-   "precision": "APPROXIMATE",
-   "partial": true,
-   "formatted": "דימונה, ישראל",
-   "locality": "דימונה",
-   "area1": "מחוז הדרום",
-   "route": "",
-   "streetNumber": ""
+   "precision": "city",
+   "source": "nominatim city-level hit, kept but flagged approximate",
+   "formatted": "דימונה, ישראל"
   }
  },
  {
@@ -718,13 +716,9 @@
   "geo": {
    "lat": 32.6821176,
    "lng": 35.3229703,
-   "precision": "APPROXIMATE",
-   "partial": false,
-   "formatted": "אכסאל, ישראל",
-   "locality": "אכסאל",
-   "area1": "מחוז הצפון",
-   "route": "",
-   "streetNumber": ""
+   "precision": "city",
+   "source": "nominatim city-level hit, kept but flagged approximate",
+   "formatted": "אכסאל, ישראל"
   }
  },
  {
@@ -896,15 +890,11 @@
   "website": "",
   "tags": "בית טבע",
   "geo": {
-   "lat": 31.804381,
-   "lng": 34.655314,
-   "precision": "APPROXIMATE",
-   "partial": true,
-   "formatted": "אשדוד, ישראל",
-   "locality": "אשדוד",
-   "area1": "מחוז הדרום",
-   "route": "",
-   "streetNumber": ""
+   "lat": 31.7926214,
+   "lng": 34.6538899,
+   "precision": "GEOMETRIC_CENTER",
+   "source": "openstreetmap",
+   "formatted": "דב גור, אשדוד (רחוב)"
   }
  },
  {
@@ -976,15 +966,11 @@
   "website": "",
   "tags": "בית טבע",
   "geo": {
-   "lat": 31.784846,
-   "lng": 35.1733,
-   "precision": "APPROXIMATE",
-   "partial": true,
-   "formatted": "הר נוף, ירושלים, ישראל",
-   "locality": "ירושלים",
-   "area1": "מחוז ירושלים",
-   "route": "",
-   "streetNumber": ""
+   "lat": 31.7877961,
+   "lng": 35.1724948,
+   "precision": "ROOFTOP",
+   "source": "openstreetmap",
+   "formatted": "הרב שאולזון 31, ירושלים"
   }
  },
  {
@@ -1276,15 +1262,11 @@
   "website": "",
   "tags": "בית טבע",
   "geo": {
-   "lat": 31.7768831,
-   "lng": 35.22243460000001,
-   "precision": "APPROXIMATE",
-   "partial": true,
-   "formatted": "ירושלים, ישראל",
-   "locality": "ירושלים",
-   "area1": "מחוז ירושלים",
-   "route": "",
-   "streetNumber": ""
+   "lat": 31.8075593,
+   "lng": 35.2214592,
+   "precision": "ROOFTOP",
+   "source": "openstreetmap",
+   "formatted": "חזון איש 36, ירושלים"
   }
  },
  {
@@ -1616,9 +1598,11 @@
   "website": "",
   "tags": "בית טבע",
   "geo": {
-   "lat": 32.5275,
-   "lng": 35.3397,
-   "precision": "city"
+   "lat": 32.5378233,
+   "lng": 35.341979,
+   "precision": "GEOMETRIC_CENTER",
+   "source": "openstreetmap",
+   "formatted": "רקפת, גן נר (רחוב)"
   }
  },
  {
@@ -1652,13 +1636,9 @@
   "geo": {
    "lat": 32.721473,
    "lng": 35.4394617,
-   "precision": "APPROXIMATE",
-   "partial": true,
-   "formatted": "כפר כמא, ישראל",
-   "locality": "כפר כמא",
-   "area1": "מחוז הצפון",
-   "route": "",
-   "streetNumber": ""
+   "precision": "city",
+   "source": "nominatim city-level hit, kept but flagged approximate",
+   "formatted": "כפר כמא, ישראל"
   }
  },
  {
@@ -1670,15 +1650,11 @@
   "website": "",
   "tags": "בית טבע",
   "geo": {
-   "lat": 32.084932,
-   "lng": 34.835226,
-   "precision": "APPROXIMATE",
-   "partial": true,
-   "formatted": "בני ברק, ישראל",
-   "locality": "בני ברק",
-   "area1": "מחוז תל אביב",
-   "route": "",
-   "streetNumber": ""
+   "lat": 32.0860844,
+   "lng": 34.8299318,
+   "precision": "ROOFTOP",
+   "source": "openstreetmap",
+   "formatted": "ירושלים 14, בני ברק"
   }
  },
  {
@@ -1992,13 +1968,9 @@
   "geo": {
    "lat": 32.963764,
    "lng": 35.505188,
-   "precision": "APPROXIMATE",
-   "partial": true,
-   "formatted": "קרית חב\"ד, צפת, ישראל",
-   "locality": "צפת",
-   "area1": "מחוז הצפון",
-   "route": "",
-   "streetNumber": ""
+   "precision": "city",
+   "source": "nominatim city-level hit, kept but flagged approximate",
+   "formatted": "קרית חב\"ד, צפת, ישראל"
   }
  },
  {
@@ -2510,9 +2482,11 @@
   "website": "",
   "tags": "בית טבע",
   "geo": {
-   "lat": 31.80102868,
-   "lng": 34.65912324,
-   "precision": "city"
+   "lat": 31.7670441,
+   "lng": 34.631874,
+   "precision": "ROOFTOP",
+   "source": "openstreetmap",
+   "formatted": "שדרות תל חי 63, אשדוד"
   }
  },
  {
@@ -2666,13 +2640,9 @@
   "geo": {
    "lat": 32.933066,
    "lng": 35.434318,
-   "precision": "APPROXIMATE",
-   "partial": true,
-   "formatted": "פרוד, ישראל",
-   "locality": "פרוד",
-   "area1": "מחוז הצפון",
-   "route": "",
-   "streetNumber": ""
+   "precision": "city",
+   "source": "nominatim city-level hit, kept but flagged approximate",
+   "formatted": "פרוד, ישראל"
   }
  },
  {
@@ -2964,15 +2934,11 @@
   "website": "",
   "tags": "ניצת הדובדבן",
   "geo": {
-   "lat": 31.046051,
-   "lng": 34.851612,
-   "precision": "APPROXIMATE",
-   "partial": true,
-   "formatted": "ישראל",
-   "locality": "",
-   "area1": "",
-   "route": "",
-   "streetNumber": ""
+   "lat": 32.1053,
+   "lng": 35.1835,
+   "precision": "city",
+   "source": "town centre (hand-set; OSM has no IL result for this town)",
+   "formatted": "אריאל"
   }
  },
  {
@@ -2986,13 +2952,9 @@
   "geo": {
    "lat": 31.2521018,
    "lng": 34.7867691,
-   "precision": "APPROXIMATE",
-   "partial": true,
-   "formatted": "באר שבע, ישראל",
-   "locality": "באר שבע",
-   "area1": "מחוז הדרום",
-   "route": "",
-   "streetNumber": ""
+   "precision": "city",
+   "source": "nominatim city-level hit, kept but flagged approximate",
+   "formatted": "באר שבע, ישראל"
   }
  },
  {
@@ -3064,15 +3026,11 @@
   "website": "",
   "tags": "ניצת הדובדבן",
   "geo": {
-   "lat": 32.4340458,
-   "lng": 34.9196518,
-   "precision": "APPROXIMATE",
-   "partial": true,
-   "formatted": "חדרה, ישראל",
-   "locality": "חדרה",
-   "area1": "מחוז חיפה",
-   "route": "",
-   "streetNumber": ""
+   "lat": 32.4390189,
+   "lng": 34.8928138,
+   "precision": "ROOFTOP",
+   "source": "openstreetmap",
+   "formatted": "פרופ' דן שכטמן 10, חדרה"
   }
  },
  {
@@ -3464,15 +3422,11 @@
   "website": "",
   "tags": "ניצת הדובדבן",
   "geo": {
-   "lat": 32.7225564,
-   "lng": 35.1302145,
-   "precision": "APPROXIMATE",
-   "partial": true,
-   "formatted": "כיכר בן גוריון, קרית טבעון",
-   "locality": "קרית טבעון",
-   "area1": "מחוז חיפה",
-   "route": "",
-   "streetNumber": ""
+   "lat": 32.7224728,
+   "lng": 35.1300313,
+   "precision": "ROOFTOP",
+   "source": "openstreetmap",
+   "formatted": "כיכר בן גוריון 2, קריית טבעון"
   }
  },
  {
@@ -4004,15 +3958,11 @@
   "website": "",
   "tags": "בית טבע",
   "geo": {
-   "lat": 31.046051,
-   "lng": 34.851612,
-   "precision": "APPROXIMATE",
-   "partial": true,
-   "formatted": "ישראל",
-   "locality": "",
-   "area1": "",
-   "route": "",
-   "streetNumber": ""
+   "lat": 32.1715,
+   "lng": 35.096,
+   "precision": "city",
+   "source": "town centre (hand-set; OSM has no IL result for this town)",
+   "formatted": "קרני שומרון"
   }
  },
  {
@@ -4646,7 +4596,9 @@
   "geo": {
    "lat": 31.971067599999994,
    "lng": 34.79581617142857,
-   "precision": "city"
+   "precision": "city",
+   "source": "nominatim city-level hit, kept but flagged approximate",
+   "formatted": ""
   }
  },
  {
@@ -4714,9 +4666,11 @@
   "website": "",
   "tags": "B&D",
   "geo": {
-   "lat": 32.08610836666667,
-   "lng": 34.83393026666666,
-   "precision": "city"
+   "lat": 32.0777898,
+   "lng": 34.8402488,
+   "precision": "ROOFTOP",
+   "source": "maps lookup",
+   "formatted": "B&D, הרב בן יעקב 21, בני ברק"
   }
  },
  {
@@ -4728,9 +4682,11 @@
   "website": "",
   "tags": "B&D",
   "geo": {
-   "lat": 32.08610836666667,
-   "lng": 34.83393026666666,
-   "precision": "city"
+   "lat": 32.0868036,
+   "lng": 34.8267145,
+   "precision": "ROOFTOP",
+   "source": "maps lookup",
+   "formatted": "B&D, הרב קוק 13, בני ברק"
   }
  },
  {
@@ -4742,9 +4698,11 @@
   "website": "",
   "tags": "B&D",
   "geo": {
-   "lat": 32.053726,
-   "lng": 34.964993,
-   "precision": "city"
+   "lat": 32.0530067,
+   "lng": 34.9630472,
+   "precision": "ROOFTOP",
+   "source": "maps lookup",
+   "formatted": "B&D, רבי יהודה הנשיא 95, אלעד"
   }
  },
  {
@@ -4756,9 +4714,11 @@
   "website": "",
   "tags": "B&D",
   "geo": {
-   "lat": 31.9304948,
-   "lng": 35.0388026,
-   "precision": "city"
+   "lat": 31.934,
+   "lng": 35.041,
+   "precision": "city",
+   "source": "town centre (hand-set; OSM has no IL result for this town)",
+   "formatted": "מודיעין עילית"
   }
  },
  {
@@ -4770,9 +4730,11 @@
   "website": "",
   "tags": "B&D",
   "geo": {
-   "lat": 31.9304948,
-   "lng": 35.0388026,
-   "precision": "city"
+   "lat": 31.9377099,
+   "lng": 35.0443033,
+   "precision": "ROOFTOP",
+   "source": "maps lookup",
+   "formatted": "רבי שמעון בר יוחאי 35, מודיעין עילית"
   }
  },
  {
@@ -4784,9 +4746,11 @@
   "website": "",
   "tags": "B&D",
   "geo": {
-   "lat": 31.61,
-   "lng": 34.7642,
-   "precision": "city"
+   "lat": 31.6189178,
+   "lng": 34.754242,
+   "precision": "ROOFTOP",
+   "source": "maps lookup",
+   "formatted": "B&D, בית יוסף 68, קריית גת"
   }
  },
  {
@@ -4798,9 +4762,11 @@
   "website": "",
   "tags": "B&D",
   "geo": {
-   "lat": 31.88,
-   "lng": 35.24,
-   "precision": "city"
+   "lat": 31.878,
+   "lng": 35.244,
+   "precision": "city",
+   "source": "town centre (hand-set; OSM has no IL result for this town)",
+   "formatted": "כוכב יעקב"
   }
  },
  {
@@ -4812,9 +4778,11 @@
   "website": "",
   "tags": "B&D",
   "geo": {
-   "lat": 31.779259366666672,
-   "lng": 35.20542961666667,
-   "precision": "city"
+   "lat": 31.8087878,
+   "lng": 35.2245229,
+   "precision": "ROOFTOP",
+   "source": "openstreetmap",
+   "formatted": "אגרות משה 5, ירושלים"
   }
  },
  {
@@ -4826,9 +4794,11 @@
   "website": "",
   "tags": "B&D",
   "geo": {
-   "lat": 31.80102868,
-   "lng": 34.65912324,
-   "precision": "city"
+   "lat": 31.788847,
+   "lng": 34.66082,
+   "precision": "ROOFTOP",
+   "source": "maps lookup",
+   "formatted": "B&D, רבי מאיר בעל הנס 28, אשדוד"
   }
  },
  {
@@ -4840,9 +4810,11 @@
   "website": "",
   "tags": "B&D",
   "geo": {
-   "lat": 31.70344865,
-   "lng": 35.11778795,
-   "precision": "city"
+   "lat": 31.698,
+   "lng": 35.115,
+   "precision": "city",
+   "source": "town centre (hand-set; OSM has no IL result for this town)",
+   "formatted": "ביתר עילית"
   }
  },
  {
@@ -4854,9 +4826,11 @@
   "website": "",
   "tags": "B&D",
   "geo": {
-   "lat": 31.4243101,
-   "lng": 34.57848425,
-   "precision": "city"
+   "lat": 31.4267514,
+   "lng": 34.5916466,
+   "precision": "GEOMETRIC_CENTER",
+   "source": "openstreetmap",
+   "formatted": "בן גוריון, נתיבות (רחוב)"
   }
  },
  {
@@ -4868,9 +4842,11 @@
   "website": "",
   "tags": "B&D",
   "geo": {
-   "lat": 31.740207733333335,
-   "lng": 34.993809133333336,
-   "precision": "city"
+   "lat": 31.7013072,
+   "lng": 34.9729522,
+   "precision": "ROOFTOP",
+   "source": "maps lookup",
+   "formatted": "B&D, שדרות האמוראים 73, בית שמש"
   }
  },
  {
@@ -4882,9 +4858,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.871377999999996,
-   "lng": 34.733988933333336,
-   "precision": "city"
+   "lat": 31.866152,
+   "lng": 34.735763,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם יבנה הירוקה, הדוגית 16, יבנה"
   }
  },
  {
@@ -4896,9 +4874,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.971067599999994,
-   "lng": 34.79581617142857,
-   "precision": "city"
+   "lat": 31.984555,
+   "lng": 34.769931,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם גאלרי רשל\"צ, ילדי טהרן 7, ראשון לציון"
   }
  },
  {
@@ -4910,9 +4890,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.079862119444456,
-   "lng": 34.78712651944445,
-   "precision": "city"
+   "lat": 32.068317,
+   "lng": 34.784065,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם קניון TLV, החשמונאים 94, תל אביב - יפו"
   }
  },
  {
@@ -4924,9 +4906,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.27,
-   "lng": 34.8875,
-   "precision": "city"
+   "lat": 32.269489,
+   "lng": 34.8886233,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם אבן-יהודה, המייסדים 62 פינת ההסתדרות, אבן יהודה"
   }
  },
  {
@@ -4938,9 +4922,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.665833366666664,
-   "lng": 34.586678166666665,
-   "precision": "city"
+   "lat": 31.649616,
+   "lng": 34.567998,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם אגמים אשקלון, שד עמק האלה 49, אשקלון"
   }
  },
  {
@@ -4952,9 +4938,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.313994480000005,
-   "lng": 34.86196954,
-   "precision": "city"
+   "lat": 32.2904269,
+   "lng": 34.8521603,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם אגמים נתניה, אגם כינרת 6, נתניה"
   }
  },
  {
@@ -4966,9 +4954,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.802482266666665,
-   "lng": 35.01872092222223,
-   "precision": "city"
+   "lat": 32.80327,
+   "lng": 34.98665,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם אודיטוריום, שדרות הנשיא 134, חיפה"
   }
  },
  {
@@ -4980,9 +4970,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.5196,
-   "lng": 35.1532,
-   "precision": "city"
+   "lat": 32.532973,
+   "lng": 35.1494607,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם אום-אל-פאחם, מתחם SEVEN, אום אל פחם"
   }
  },
  {
@@ -4994,9 +4986,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.0636,
-   "lng": 34.8553,
-   "precision": "city"
+   "lat": 32.035003,
+   "lng": 34.864428,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם אונו פארק, שמירה אימבר גדיש 9 קרית אונו, קרית אונו"
   }
  },
  {
@@ -5008,9 +5002,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.1485728,
-   "lng": 34.8395049,
-   "precision": "city"
+   "lat": 32.14342,
+   "lng": 34.84421,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם אוסישקין רמה\"ש, אוסישקין 62, רמת השרון"
   }
  },
  {
@@ -5022,9 +5018,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.0306,
-   "lng": 34.8556,
-   "precision": "city"
+   "lat": 32.034993,
+   "lng": 34.8493787,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם אור יהודה, המפעל 11, אור יהודה"
   }
  },
  {
@@ -5036,9 +5034,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.07094668,
-   "lng": 34.80478151999999,
-   "precision": "city"
+   "lat": 32.08364,
+   "lng": 34.81491,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם אורדע, כיכר רמבם 3, רמת גן"
   }
  },
  {
@@ -5050,9 +5050,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.0901854,
-   "lng": 34.882469625,
-   "precision": "city"
+   "lat": 32.07572,
+   "lng": 34.88562,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם אורון, רוטשילד 182, פתח תקווה"
   }
  },
  {
@@ -5064,9 +5066,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.802482266666665,
-   "lng": 35.01872092222223,
-   "precision": "city"
+   "lat": 32.777294,
+   "lng": 35.000229,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם איינשטיין חיפה, איינשטיין 139, חיפה"
   }
  },
  {
@@ -5078,9 +5082,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.079862119444456,
-   "lng": 34.78712651944445,
-   "precision": "city"
+   "lat": 32.08146,
+   "lng": 34.78924,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם איכילוב, ויצמן 14 א, תל אביב - יפו"
   }
  },
  {
@@ -5092,9 +5098,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 29.5673879,
-   "lng": 34.9587889,
-   "precision": "city"
+   "lat": 29.54577,
+   "lng": 34.9336,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם שחמון אילת, ששת הימים 290-294, אילת"
   }
  },
  {
@@ -5106,9 +5114,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.779259366666672,
-   "lng": 35.20542961666667,
-   "precision": "city"
+   "lat": 31.72407,
+   "lng": 35.227003,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם אליהו קורן י-ם, אסתר רזיאל 6, ירושלים"
   }
  },
  {
@@ -5120,9 +5130,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.079862119444456,
-   "lng": 34.78712651944445,
-   "precision": "city"
+   "lat": 32.06257,
+   "lng": 34.77345,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם אלנבי, אלנבי 115, תל אביב - יפו"
   }
  },
  {
@@ -5134,9 +5146,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.0901854,
-   "lng": 34.882469625,
-   "precision": "city"
+   "lat": 32.099036,
+   "lng": 34.881383,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם אם-המושבות פ\"ת, יעל רום 8, פתח תקווה"
   }
  },
  {
@@ -5148,9 +5162,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.079862119444456,
-   "lng": 34.78712651944445,
-   "precision": "city"
+   "lat": 32.087022,
+   "lng": 34.774876,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם ארלוזורוב, דיזינגוף 208, תל אביב - יפו"
   }
  },
  {
@@ -5162,9 +5178,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.802482266666665,
-   "lng": 35.01872092222223,
-   "precision": "city"
+   "lat": 32.8133057,
+   "lng": 34.9958079,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם ארמון חיפה, נביאים 18, חיפה"
   }
  },
  {
@@ -5176,9 +5194,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 33.006591566666664,
-   "lng": 35.09548266666667,
-   "precision": "city"
+   "lat": 33.004818,
+   "lng": 35.102001,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם סטאר נהריה, שדרות בן צבי 1, נהריה"
   }
  },
  {
@@ -5190,9 +5210,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.80102868,
-   "lng": 34.65912324,
-   "precision": "city"
+   "lat": 31.79526,
+   "lng": 34.639699,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם אשדוד סיטי, הבנים 1, אשדוד"
   }
  },
  {
@@ -5204,9 +5226,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.9425,
-   "lng": 34.8344,
-   "precision": "city"
+   "lat": 31.941566,
+   "lng": 34.834133,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם קניון באר-יעקב, רחוב שא-נס 17, באר יעקב"
   }
  },
  {
@@ -5218,9 +5242,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.07021466,
-   "lng": 34.81405666,
-   "precision": "city"
+   "lat": 32.078888,
+   "lng": 34.809952,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם בורוכוב גבעתיים, בורוכוב 54, גבעתיים"
   }
  },
  {
@@ -5232,9 +5258,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.0306,
-   "lng": 34.8556,
-   "precision": "city"
+   "lat": 32.024664,
+   "lng": 34.870378,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם ביג אור-יהודה, יצחק רבין 5, אור יהודה, אור יהודה"
   }
  },
  {
@@ -5246,9 +5274,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 29.5673879,
-   "lng": 34.9587889,
-   "precision": "city"
+   "lat": 29.56627,
+   "lng": 34.96035,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם ביג אילת, הסתת 14 מרכז ביג א.ת., אילת"
   }
  },
  {
@@ -5260,15 +5290,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.2433919,
-   "lng": 34.8125699,
-   "precision": "GEOMETRIC_CENTER",
-   "partial": false,
-   "formatted": "מתחם B7, Heil Handasa St 2, באר שבע, ישראל",
-   "locality": "באר שבע",
-   "area1": "מחוז הדרום",
-   "route": "Heil Handasa Street",
-   "streetNumber": "2"
+   "lat": 31.24296,
+   "lng": 34.81063,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם ביג באר שבע, ביג באר שבע, באר שבע"
   }
  },
  {
@@ -5280,9 +5306,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.0333,
-   "lng": 34.8833,
-   "precision": "city"
+   "lat": 32.025883,
+   "lng": 34.899616,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם ביג יהוד, אלטלף 4, יהוד"
   }
  },
  {
@@ -5294,9 +5322,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.6426784,
-   "lng": 35.0927494,
-   "precision": "city"
+   "lat": 32.64352,
+   "lng": 35.09215,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם ביג-יקנעם, שד רבין 9, מתחם ביג, יקנעם"
   }
  },
  {
@@ -5308,9 +5338,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.6996,
-   "lng": 35.3035,
-   "precision": "city"
+   "lat": 32.696127,
+   "lng": 35.300973,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם ביג-נצרת, תופיק זיאד 53, נצרת"
   }
  },
  {
@@ -5322,9 +5354,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.608669899999995,
-   "lng": 35.289310300000004,
-   "precision": "city"
+   "lat": 32.606158,
+   "lng": 35.292978,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם ביג-עפולה, השוק 13, עפולה"
   }
  },
  {
@@ -5336,9 +5370,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.80102868,
-   "lng": 34.65912324,
-   "precision": "city"
+   "lat": 31.777128,
+   "lng": 34.663913,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם ביג-פאשן אשדוד, דרך הרכבת 1, מתחם ביג פאשן, אשדוד"
   }
  },
  {
@@ -5350,9 +5386,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.285,
-   "lng": 34.855,
-   "precision": "city"
+   "lat": 32.27649,
+   "lng": 34.8615,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם ביג פולג, גיבורי ישראל 5 א א.ת. נתניה דר, נתניה"
   }
  },
  {
@@ -5364,9 +5402,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.7895842,
-   "lng": 35.5379054,
-   "precision": "city"
+   "lat": 32.78491,
+   "lng": 35.49751,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם ביג-פוריה, המברג 1, טבריה"
   }
  },
  {
@@ -5378,9 +5418,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.48152266666667,
-   "lng": 34.9706872,
-   "precision": "city"
+   "lat": 32.487357,
+   "lng": 34.969836,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם ביג פרדס-חנה, תדהר 1, פרדס חנה כרכור"
   }
  },
  {
@@ -5392,9 +5434,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.802482266666665,
-   "lng": 35.01872092222223,
-   "precision": "city"
+   "lat": 32.786977,
+   "lng": 35.029231,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם ביג צ'ק פוסט, בר יהודה 111, חיפה"
   }
  },
  {
@@ -5406,9 +5450,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.725,
-   "lng": 34.74,
-   "precision": "city"
+   "lat": 31.728232,
+   "lng": 34.75469,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם ביג קסטינה, א.ת באר טוביה, מתחם ביג קסטינה, באר טוביה"
   }
  },
  {
@@ -5420,9 +5466,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.606988,
-   "lng": 34.7727972,
-   "precision": "city"
+   "lat": 31.60276,
+   "lng": 34.77212,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם ביג קרית-גת, הדרום 3, מרכז ביג, קרית גת"
   }
  },
  {
@@ -5434,9 +5482,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.86,
-   "lng": 34.775,
-   "precision": "city"
+   "lat": 31.86252,
+   "lng": 34.81622,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם בילו סנטר, קרית עקרון מתחם בילו סנטר, רחובות"
   }
  },
  {
@@ -5448,9 +5498,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.0901854,
-   "lng": 34.882469625,
-   "precision": "city"
+   "lat": 32.08771,
+   "lng": 34.88122,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם בית אמריקה, רוטשילד 72, פתח תקווה"
   }
  },
  {
@@ -5462,9 +5514,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.779259366666672,
-   "lng": 35.20542961666667,
-   "precision": "city"
+   "lat": 31.755532,
+   "lng": 35.221663,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם בית-האומות, דרך חברון 101, ירושלים"
   }
  },
  {
@@ -5476,9 +5530,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.16218955,
-   "lng": 34.89937595,
-   "precision": "city"
+   "lat": 32.160191,
+   "lng": 34.89444,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם בית-הבד, בית הבד 2, פינת רמתיים 27, הוד השרון"
   }
  },
  {
@@ -5490,9 +5546,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.779259366666672,
-   "lng": 35.20542961666667,
-   "precision": "city"
+   "lat": 31.77421,
+   "lng": 35.18675,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם בית הכרם, אביזוהר 8, ירושלים"
   }
  },
  {
@@ -5504,9 +5562,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.497,
-   "lng": 35.4969,
-   "precision": "city"
+   "lat": 32.49519,
+   "lng": 35.49596,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם בית-שאן, ירושלים הבירה פינת השחם, בית שאן"
   }
  },
  {
@@ -5518,9 +5578,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.740207733333335,
-   "lng": 34.993809133333336,
-   "precision": "city"
+   "lat": 31.756287,
+   "lng": 34.98946,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם בית שמש, יגאל אלון 3 מתחם ביג, בית שמש"
   }
  },
  {
@@ -5532,9 +5594,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.07094668,
-   "lng": 34.80478151999999,
-   "precision": "city"
+   "lat": 32.074538,
+   "lng": 34.818614,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם בן-גוריון, בן גוריון 183, רמת גן"
   }
  },
  {
@@ -5546,9 +5610,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.079862119444456,
-   "lng": 34.78712651944445,
-   "precision": "city"
+   "lat": 32.073553,
+   "lng": 34.765854,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם מגדל האופרה, אלנבי 1 תל אביב, תל אביב - יפו"
   }
  },
  {
@@ -5560,9 +5626,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.0901854,
-   "lng": 34.882469625,
-   "precision": "city"
+   "lat": 32.091361,
+   "lng": 34.860652,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם בסר סיטי פ\"ת, זבוטינסקי 61, פתח תקווה"
   }
  },
  {
@@ -5574,9 +5642,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.665833366666664,
-   "lng": 34.586678166666665,
-   "precision": "city"
+   "lat": 31.691051,
+   "lng": 34.575759,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם ברנע אשקלון, שד ירושלים 119, אשקלון"
   }
  },
  {
@@ -5588,9 +5658,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.01691905,
-   "lng": 34.7434274,
-   "precision": "city"
+   "lat": 32.01541,
+   "lng": 34.75566,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם גאלרי בת-ים, יוספטל 92, בת ים"
   }
  },
  {
@@ -5602,9 +5674,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.928656,
-   "lng": 35.150573,
-   "precision": "city"
+   "lat": 32.928196,
+   "lng": 35.144173,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם ג'דיידה מכר, רח 1001, גדיידה מכר"
   }
  },
  {
@@ -5616,9 +5690,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.83028720000001,
-   "lng": 35.0852959,
-   "precision": "city"
+   "lat": 32.84302,
+   "lng": 35.09155,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם גאלרי קריון, דרך עכו 192,קריון, קרית ביאליק"
   }
  },
  {
@@ -5630,9 +5706,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.0956,
-   "lng": 34.9566,
-   "precision": "city"
+   "lat": 32.09247,
+   "lng": 34.9657,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם גבעת טל, משה דיין 2 גבעת טל, ראש העין"
   }
  },
  {
@@ -5644,9 +5722,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.05,
-   "lng": 34.88,
-   "precision": "city"
+   "lat": 32.05698,
+   "lng": 34.86901,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם גבעת סביון, הגליל 78, גני תקווה"
   }
  },
  {
@@ -5658,15 +5738,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.7878319,
-   "lng": 35.1892063,
+   "lat": 31.78779,
+   "lng": 35.18799,
    "precision": "ROOFTOP",
-   "partial": false,
-   "formatted": "Kanfei Nesharim St 22, Jerusalem, ישראל",
-   "locality": "Jerusalem",
-   "area1": "Jerusalem District",
-   "route": "Kanfei Nesharim Street",
-   "streetNumber": "22"
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם גבעת שאול, כנפי נשרים 22 גבעת שאול, ירושלים"
   }
  },
  {
@@ -5678,9 +5754,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.0778,
-   "lng": 34.8481,
-   "precision": "city"
+   "lat": 32.077292,
+   "lng": 34.85402,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם גבעת-שמואל, מנחם בגין 23, גבעת שמואל"
   }
  },
  {
@@ -5692,9 +5770,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.8169109,
-   "lng": 34.7798188,
-   "precision": "city"
+   "lat": 31.80426,
+   "lng": 34.78369,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם גדרה, בן גוריון 105 מתחם המושבה, גדרה"
   }
  },
  {
@@ -5706,9 +5786,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.079862119444456,
-   "lng": 34.78712651944445,
-   "precision": "city"
+   "lat": 32.08161,
+   "lng": 34.77365,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם גורדון, דיזנגוף 129, פינת גורדון, תל אביב - יפו"
   }
  },
  {
@@ -5720,9 +5802,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.8145222,
-   "lng": 35.092010099999996,
-   "precision": "city"
+   "lat": 32.8254043,
+   "lng": 35.0786741,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם גושן קרית-מוצקין, שד גושן 20, קרית מוצקין"
   }
  },
  {
@@ -5734,9 +5818,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.779259366666672,
-   "lng": 35.20542961666667,
-   "precision": "city"
+   "lat": 31.732067,
+   "lng": 35.187092,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם גילה, צביה ויצחק 5, ירושלים"
   }
  },
  {
@@ -5748,9 +5834,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.665833366666664,
-   "lng": 34.586678166666665,
-   "precision": "city"
+   "lat": 31.626693,
+   "lng": 34.5840762,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם גלובוס אשקלון, א.ת. דרומי ת.ד. 7287 מיקוד 781, אשקלון"
   }
  },
  {
@@ -5762,9 +5850,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.1643791,
-   "lng": 34.84300833333333,
-   "precision": "city"
+   "lat": 32.162191,
+   "lng": 34.824705,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם גליל-ים הרצליה, יוסי שריד 6, הרצליה"
   }
  },
  {
@@ -5776,9 +5866,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.789297,
-   "lng": 34.7138776,
-   "precision": "city"
+   "lat": 31.7952815,
+   "lng": 34.704494,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם גן יבנה, המגינים 56, גן יבנה"
   }
  },
  {
@@ -5790,9 +5882,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.4469,
-   "lng": 34.9506,
-   "precision": "city"
+   "lat": 32.4483,
+   "lng": 34.9525,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם גן שמואל, מרכז מסחרי קיבוץ גן שמואל, גן שמואל"
   }
  },
  {
@@ -5804,9 +5898,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.245865575000003,
-   "lng": 34.801231724999994,
-   "precision": "city"
+   "lat": 31.250974,
+   "lng": 34.771138,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם גרנד באר-שבע, שדרות דוד טוביהו 125, באר שבע"
   }
  },
  {
@@ -5818,9 +5914,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.802482266666665,
-   "lng": 35.01872092222223,
-   "precision": "city"
+   "lat": 32.78927,
+   "lng": 35.00701,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם גרנד קניון, דרך שמחה גולן 54, חיפה"
   }
  },
  {
@@ -5832,9 +5930,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.6996,
-   "lng": 35.3035,
-   "precision": "city"
+   "lat": 32.717346,
+   "lng": 35.2982826,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם דושי סנטר נצרת, סאפוריה 700, נצרת"
   }
  },
  {
@@ -5846,9 +5946,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.079862119444456,
-   "lng": 34.78712651944445,
-   "precision": "city"
+   "lat": 32.07515,
+   "lng": 34.77569,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם דיזינגוף סנטר, דיזינגוף 50, דיזינגוף סנטר, תל אביב - יפו"
   }
  },
  {
@@ -5860,9 +5962,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.069419,
-   "lng": 35.033363,
-   "precision": "city"
+   "lat": 31.073218,
+   "lng": 35.032422,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם דימונה דימרי סנטר, מתחם דמרי סנטר דימונה, דימונה"
   }
  },
  {
@@ -5874,9 +5978,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.069419,
-   "lng": 35.033363,
-   "precision": "city"
+   "lat": 31.06055,
+   "lng": 35.01982,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם דימונה, אזור תעשיה 395, דימונה"
   }
  },
  {
@@ -5888,9 +5994,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.079862119444456,
-   "lng": 34.78712651944445,
-   "precision": "city"
+   "lat": 32.0471725,
+   "lng": 34.7992592,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם דרך בר-לב ת\"א, משה דיין 2, תל אביב - יפו"
   }
  },
  {
@@ -5902,9 +6010,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.245865575000003,
-   "lng": 34.801231724999994,
-   "precision": "city"
+   "lat": 31.258904,
+   "lng": 34.797186,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם דרך מצדה ב\"ש, ראובן רובין 1, באר שבע"
   }
  },
  {
@@ -5916,9 +6026,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.36,
-   "lng": 34.9,
-   "precision": "city"
+   "lat": 32.3475341,
+   "lng": 34.904686,
+   "precision": "GEOMETRIC_CENTER",
+   "source": "openstreetmap",
+   "formatted": "החריש, פארק תעשיות עמק חפר (רחוב)"
   }
  },
  {
@@ -5930,9 +6042,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.36,
-   "lng": 34.9,
-   "precision": "city"
+   "lat": 32.3475341,
+   "lng": 34.904686,
+   "precision": "GEOMETRIC_CENTER",
+   "source": "openstreetmap",
+   "formatted": "החריש, פארק תעשיות עמק חפר (רחוב)"
   }
  },
  {
@@ -5944,9 +6058,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.313994480000005,
-   "lng": 34.86196954,
-   "precision": "city"
+   "lat": 32.31181,
+   "lng": 34.87122,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם האר\"י נתניה, הארי פינת לנטוס, נתניה"
   }
  },
  {
@@ -5958,9 +6074,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.079862119444456,
-   "lng": 34.78712651944445,
-   "precision": "city"
+   "lat": 32.111996,
+   "lng": 34.787437,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם נופי ים תל אביב, איינשטיין 7, תל אביב - יפו"
   }
  },
  {
@@ -5972,9 +6090,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.9525,
-   "lng": 34.8125,
-   "precision": "city"
+   "lat": 31.766306,
+   "lng": 35.14854,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם הדסה עין כרם, הדסה עין כרם, קניון ישפרו סנטר, ירושלים"
   }
  },
  {
@@ -5986,9 +6106,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.0901854,
-   "lng": 34.882469625,
-   "precision": "city"
+   "lat": 32.068351,
+   "lng": 34.908924,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם הדר-גנים פ\"ת, רח הרב משורר ישעיהו 11, פתח תקווה"
   }
  },
  {
@@ -6000,9 +6122,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.16218955,
-   "lng": 34.89937595,
-   "precision": "city"
+   "lat": 32.14323,
+   "lng": 34.89282,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם הוד השרון, זבוטינסקי 3,קניון מרגליות, הוד השרון"
   }
  },
  {
@@ -6014,9 +6138,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.0871,
-   "lng": 34.8875,
-   "precision": "city"
+   "lat": 32.08594,
+   "lng": 34.88695,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם היכל, ההסתדרות 26, פתח תקווה"
   }
  },
  {
@@ -6028,9 +6154,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.971067599999994,
-   "lng": 34.79581617142857,
-   "precision": "city"
+   "lat": 31.970381,
+   "lng": 34.773173,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם המכללה ראשל\"צ, יצחק רבין 7 פינת מוטה גור, ראשון לציון"
   }
  },
  {
@@ -6042,9 +6170,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.16218955,
-   "lng": 34.89937595,
-   "precision": "city"
+   "lat": 32.163247,
+   "lng": 34.908681,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם הנשיאים הוד-השרון, רח הנשיאים 1, הוד השרון"
   }
  },
  {
@@ -6056,9 +6186,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.01691905,
-   "lng": 34.7434274,
-   "precision": "city"
+   "lat": 32.028216,
+   "lng": 34.748844,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם העצמאות בת-ים, שדרות העצמאות 67, בת ים"
   }
  },
  {
@@ -6070,9 +6202,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.811895,
-   "lng": 35.071818,
-   "precision": "city"
+   "lat": 32.80663,
+   "lng": 35.10385,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם העצמאות קרית-אתא, דרך העצמאות 61, קרית אתא"
   }
  },
  {
@@ -6084,9 +6218,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.871377999999996,
-   "lng": 34.733988933333336,
-   "precision": "city"
+   "lat": 31.88582,
+   "lng": 34.733952,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם הקישון יבנה, שד ירושלים פינת הקישון 9, יבנה"
   }
  },
  {
@@ -6098,9 +6234,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.0901854,
-   "lng": 34.882469625,
-   "precision": "city"
+   "lat": 32.09164,
+   "lng": 34.86533,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם הקניון הגדול - פ\"ת, זבוטינסקי 72 ,הקניון הגדול, פתח תקווה"
   }
  },
  {
@@ -6112,9 +6250,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.7165,
-   "lng": 35.3266,
-   "precision": "city"
+   "lat": 32.714592,
+   "lng": 35.336578,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם הר-יונה, הפריון 2, נוף הגליל"
   }
  },
  {
@@ -6126,9 +6266,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.971067599999994,
-   "lng": 34.79581617142857,
-   "precision": "city"
+   "lat": 31.96672,
+   "lng": 34.80274,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם הרצל ראשל\"צ, הרצל 52, ראשון לציון"
   }
  },
  {
@@ -6140,9 +6282,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.899118299999998,
-   "lng": 34.80685813333334,
-   "precision": "city"
+   "lat": 31.89687,
+   "lng": 34.810875,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם הרצל רחובות, הרצל 182, רחובות"
   }
  },
  {
@@ -6154,9 +6298,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.1626,
-   "lng": 34.8075,
-   "precision": "city"
+   "lat": 32.16173,
+   "lng": 34.80922,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם הרצליה-פיתוח, שד אבא אבן 8, הרצליה"
   }
  },
  {
@@ -6168,9 +6314,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 29.5673879,
-   "lng": 34.9587889,
-   "precision": "city"
+   "lat": 29.55463,
+   "lng": 34.95415,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם התמרים אילת, שדרות התמרים 9, אילת"
   }
  },
  {
@@ -6182,9 +6330,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.01477932,
-   "lng": 34.777234539999995,
-   "precision": "city"
+   "lat": 32.01862,
+   "lng": 34.77102,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם וייצמן חולון, וייצמן 43, חולון"
   }
  },
  {
@@ -6196,9 +6346,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.5715966,
-   "lng": 34.94273895,
-   "precision": "city"
+   "lat": 32.56896,
+   "lng": 34.95487,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם זכרון יעקב, הדגן 2, זכרון יעקב"
   }
  },
  {
@@ -6210,9 +6362,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.435058500000004,
-   "lng": 34.92023613333333,
-   "precision": "city"
+   "lat": 32.427574,
+   "lng": 34.933235,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם שכונת הפארק חדרה, גמלא 3 (סנטר פארק חדרה), חדרה"
   }
  },
  {
@@ -6224,9 +6378,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.435058500000004,
-   "lng": 34.92023613333333,
-   "precision": "city"
+   "lat": 32.441075,
+   "lng": 34.930151,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם חדרה-מזרח, צהל 35 מרכז MIXX, חדרה"
   }
  },
  {
@@ -6238,9 +6394,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.01477932,
-   "lng": 34.777234539999995,
-   "precision": "city"
+   "lat": 32.01225,
+   "lng": 34.77985,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם קניון חולון, גולדה מאיר 7, חולון"
   }
  },
  {
@@ -6252,9 +6410,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.665833366666664,
-   "lng": 34.586678166666665,
-   "precision": "city"
+   "lat": 31.661158,
+   "lng": 34.5894295,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם חוצות אשקלון, הנחל 1, אשקלון"
   }
  },
  {
@@ -6266,9 +6426,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.802482266666665,
-   "lng": 35.01872092222223,
-   "precision": "city"
+   "lat": 32.78437,
+   "lng": 34.98735,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם חורב, חורב 15, חיפה"
   }
  },
  {
@@ -6280,9 +6442,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.3,
-   "lng": 34.9333,
-   "precision": "city"
+   "lat": 31.292934,
+   "lng": 34.924805,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם חורה, אלסלם 1 (תחנת דלק סונול חורה), חורה"
   }
  },
  {
@@ -6294,9 +6458,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.46,
-   "lng": 35.0447,
-   "precision": "city"
+   "lat": 32.463552,
+   "lng": 35.042524,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם חריש בעיר, דרך ארץ 35, חריש"
   }
  },
  {
@@ -6308,9 +6474,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.46,
-   "lng": 35.0447,
-   "precision": "city"
+   "lat": 32.471111,
+   "lng": 35.039387,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם חריש, דרך ארץ 2, חריש"
   }
  },
  {
@@ -6322,9 +6490,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.7225564,
-   "lng": 35.1302145,
-   "precision": "city"
+   "lat": 32.730961,
+   "lng": 35.144389,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם טבעון, מרווה 1, טבעון"
   }
  },
  {
@@ -6336,9 +6506,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.7895842,
-   "lng": 35.5379054,
-   "precision": "city"
+   "lat": 32.78745,
+   "lng": 35.53787,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם טבריה, ירדן, פינת השילוח 1, טבריה"
   }
  },
  {
@@ -6350,9 +6522,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 29.5673879,
-   "lng": 34.9587889,
-   "precision": "city"
+   "lat": 29.549458,
+   "lng": 34.961906,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם טיילת אילת, טיילת מלכת שבא דרך פעמי השלום, אילת"
   }
  },
  {
@@ -6364,9 +6538,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.76,
-   "lng": 34.9714,
-   "precision": "city"
+   "lat": 32.759617,
+   "lng": 34.9727215,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם טירת-הכרמל, מלחמת ששת-הימים 1, טירת הכרמל"
   }
  },
  {
@@ -6378,9 +6554,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.079862119444456,
-   "lng": 34.78712651944445,
-   "precision": "city"
+   "lat": 32.06088,
+   "lng": 34.792,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם יד-אליהו, יגאל אלון 51, תל אביב - יפו"
   }
  },
  {
@@ -6392,9 +6570,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.608669899999995,
-   "lng": 35.289310300000004,
-   "precision": "city"
+   "lat": 32.616965,
+   "lng": 35.290042,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם יוקלר עפולה, חטיבה תשע 2, מתחם יוקלר, עפולה"
   }
  },
  {
@@ -6406,9 +6586,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.0901854,
-   "lng": 34.882469625,
-   "precision": "city"
+   "lat": 32.08765,
+   "lng": 34.86018,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם יכין-סנטר, דרך יצחק רבין 17, יכין סנטר, פתח תקווה"
   }
  },
  {
@@ -6420,9 +6602,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.779259366666672,
-   "lng": 35.20542961666667,
-   "precision": "city"
+   "lat": 31.7808363,
+   "lng": 35.2206174,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם גאלרי כיכר-ציון, הרברט סמואל 1, ירושלים"
   }
  },
  {
@@ -6434,9 +6618,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.802482266666665,
-   "lng": 35.01872092222223,
-   "precision": "city"
+   "lat": 32.689017,
+   "lng": 35.281271,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם יפיע, אל-ערבי כביש חיפה נצרת, נצרת"
   }
  },
  {
@@ -6448,9 +6634,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.9564,
-   "lng": 35.1947,
-   "precision": "city"
+   "lat": 32.956241,
+   "lng": 35.181984,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם ירכא, ביג ירכא, ירכא"
   }
  },
  {
@@ -6462,9 +6650,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.926611100000002,
-   "lng": 34.79800175,
-   "precision": "city"
+   "lat": 31.92208,
+   "lng": 34.793819,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם ישפרו נס-ציונה, הפטיש 6 מתחם ישפרו, נס ציונה"
   }
  },
  {
@@ -6476,9 +6666,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.2236,
-   "lng": 34.9969,
-   "precision": "city"
+   "lat": 32.22034,
+   "lng": 34.98255,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם כוכב-יאיר, א.ת צומת כוכב יאיר מתחם פז, כוכב יאיר"
   }
  },
  {
@@ -6490,9 +6682,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.07094668,
-   "lng": 34.80478151999999,
-   "precision": "city"
+   "lat": 32.07957,
+   "lng": 34.81505,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם כופר הישוב, ביאליק 10, רמת גן"
   }
  },
  {
@@ -6504,9 +6698,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.079862119444456,
-   "lng": 34.78712651944445,
-   "precision": "city"
+   "lat": 32.077635,
+   "lng": 34.773775,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם ככר דיזינגוף, פינסקר 69, תל אביב - יפו"
   }
  },
  {
@@ -6518,9 +6714,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.0901854,
-   "lng": 34.882469625,
-   "precision": "city"
+   "lat": 32.074822,
+   "lng": 34.8695,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם כפר-גנים, קניון מרכז גנים, העצמאות 65 פי, פתח תקווה"
   }
  },
  {
@@ -6532,9 +6730,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.9542,
-   "lng": 35.1622,
-   "precision": "city"
+   "lat": 32.955953,
+   "lng": 35.160315,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם כפר יאסיף, כפר יאסיף 15, כפר יאסיף"
   }
  },
  {
@@ -6546,9 +6746,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.3167,
-   "lng": 34.9333,
-   "precision": "city"
+   "lat": 32.320961,
+   "lng": 34.936249,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם כפר-יונה, שד בן גוריון, כפר יונה"
   }
  },
  {
@@ -6560,9 +6762,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.7469,
-   "lng": 35.3428,
-   "precision": "city"
+   "lat": 32.741046,
+   "lng": 35.3347,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם כפר כנא, כביש ראשי כפר כנא, שכונת פוק א, כפר כנא"
   }
  },
  {
@@ -6574,9 +6778,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.180279760000005,
-   "lng": 34.91308522,
-   "precision": "city"
+   "lat": 32.1924426,
+   "lng": 34.8919955,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם כפר-סבא הירוקה, רח רפפורט 3, כפר סבא"
   }
  },
  {
@@ -6588,9 +6794,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.180279760000005,
-   "lng": 34.91308522,
-   "precision": "city"
+   "lat": 32.17576,
+   "lng": 34.90559,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם כפר סבא, ויצמן 78, כפר סבא"
   }
  },
  {
@@ -6602,9 +6810,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.5039,
-   "lng": 35.0533,
-   "precision": "city"
+   "lat": 32.502135,
+   "lng": 35.060696,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם כפר-קרע, קניון סלמאה סנטר, כפר קרע"
   }
  },
  {
@@ -6616,9 +6826,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.917752533333335,
-   "lng": 35.3025462,
-   "precision": "city"
+   "lat": 32.927013,
+   "lng": 35.321925,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם כרמיאל, מעלה כמון 14, כרמיאל"
   }
  },
  {
@@ -6630,9 +6842,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.917752533333335,
-   "lng": 35.3025462,
-   "precision": "city"
+   "lat": 32.90831,
+   "lng": 35.29363,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם קניון לב כרמיאל, קניון לב כרמיאל, כרמיאל"
   }
  },
  {
@@ -6644,9 +6858,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.606988,
-   "lng": 34.7727972,
-   "precision": "city"
+   "lat": 31.60866,
+   "lng": 34.77308,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם לב העיר קרית גת, כיכר פז 3, קרית גת"
   }
  },
  {
@@ -6658,9 +6874,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.435058500000004,
-   "lng": 34.92023613333333,
-   "precision": "city"
+   "lat": 32.43743,
+   "lng": 34.92282,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם לב חדרה, רוטשילד 40, חדרה"
   }
  },
  {
@@ -6672,9 +6890,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.951,
-   "lng": 34.8881,
-   "precision": "city"
+   "lat": 31.94802,
+   "lng": 34.89089,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם לוד, שד דוד המלך 2, לוד"
   }
  },
  {
@@ -6686,9 +6906,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.079862119444456,
-   "lng": 34.78712651944445,
-   "precision": "city"
+   "lat": 32.07566,
+   "lng": 34.78221,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם לונדון מיניסטור, שד שאול המלך 4, תל אביב - יפו"
   }
  },
  {
@@ -6700,9 +6922,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.971067599999994,
-   "lng": 34.79581617142857,
-   "precision": "city"
+   "lat": 31.99061,
+   "lng": 34.76558,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם לישנסקי, לישנסקי 9, ראשון לציון"
   }
  },
  {
@@ -6714,9 +6938,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.6767,
-   "lng": 35.2397,
-   "precision": "city"
+   "lat": 32.67775,
+   "lng": 35.2433,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם מגדל העמק, שדרות שאול עמור 77 כיכר העיר, מגדל העמק"
   }
  },
  {
@@ -6728,9 +6954,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.07021466,
-   "lng": 34.81405666,
-   "precision": "city"
+   "lat": 32.06753,
+   "lng": 34.80287,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם מגדל הורד, דרך השלום 53, גבעתיים"
   }
  },
  {
@@ -6742,9 +6970,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.07094668,
-   "lng": 34.80478151999999,
-   "precision": "city"
+   "lat": 32.085091,
+   "lng": 34.801975,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם מגדל ספיר, תובל 40, רמת גן"
   }
  },
  {
@@ -6756,9 +6986,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.079862119444456,
-   "lng": 34.78712651944445,
-   "precision": "city"
+   "lat": 32.06377,
+   "lng": 34.77032,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם מגדל-שלום, אחד העם 9, תל אביב - יפו"
   }
  },
  {
@@ -6770,9 +7002,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.079862119444456,
-   "lng": 34.78712651944445,
-   "precision": "city"
+   "lat": 32.068727,
+   "lng": 34.793464,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם מגדלי אלון ת\"א, יגאל אלון 94 תא, תל אביב - יפו"
   }
  },
  {
@@ -6784,9 +7018,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.079862119444456,
-   "lng": 34.78712651944445,
-   "precision": "city"
+   "lat": 32.074575,
+   "lng": 34.798336,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם מגדלי תל-אביב, נחלת יצחק 20, תל אביב - יפו"
   }
  },
  {
@@ -6798,9 +7034,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.779259366666672,
-   "lng": 35.20542961666667,
-   "precision": "city"
+   "lat": 31.7814809,
+   "lng": 35.2170305,
+   "precision": "GEOMETRIC_CENTER",
+   "source": "openstreetmap",
+   "formatted": "ההסתדרות, ירושלים (רחוב)"
   }
  },
  {
@@ -6812,9 +7050,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.891540374999998,
-   "lng": 34.987554274999994,
-   "precision": "city"
+   "lat": 31.88905,
+   "lng": 34.96369,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם מודיעין ישפרו, אזור המלאכה, ישפרו סנטר, מודיעין-מכבים-רעות"
   }
  },
  {
@@ -6826,9 +7066,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.891540374999998,
-   "lng": 34.987554274999994,
-   "precision": "city"
+   "lat": 31.91156,
+   "lng": 35.00149,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם מודיעין שמשוני, עמק בית-שאן 29, מודיעין-מכבים-רעות"
   }
  },
  {
@@ -6840,9 +7082,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.435058500000004,
-   "lng": 34.92023613333333,
-   "precision": "city"
+   "lat": 32.441673,
+   "lng": 34.896071,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם מול-החוף חדרה, פרופסור שכטמן 10, חדרה"
   }
  },
  {
@@ -6854,9 +7098,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 29.5673879,
-   "lng": 34.9587889,
-   "precision": "city"
+   "lat": 29.54977,
+   "lng": 34.95396,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם גאלרי מול הים, קניון מול הים, אילת"
   }
  },
  {
@@ -6868,9 +7114,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.5715966,
-   "lng": 34.94273895,
-   "precision": "city"
+   "lat": 32.569399,
+   "lng": 34.933631,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם מול-זכרון, א.ת מערבי, כביש 4, זכרון יעקב"
   }
  },
  {
@@ -6882,9 +7130,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.7041008,
-   "lng": 35.58533,
-   "precision": "city"
+   "lat": 32.703976,
+   "lng": 35.584755,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם מול כנרת צמח, מתחם מול כנרת צומת צמח, דגניה א"
   }
  },
  {
@@ -6896,9 +7146,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.891540374999998,
-   "lng": 34.987554274999994,
-   "precision": "city"
+   "lat": 31.90426,
+   "lng": 34.98677,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם מורשת מודיעין, חיים ויצמן 24 מודיעין, מודיעין-מכבים-רעות"
   }
  },
  {
@@ -6910,9 +7162,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.8536,
-   "lng": 34.8458,
-   "precision": "city"
+   "lat": 31.850372,
+   "lng": 34.840211,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם מזכרת-בתיה, מנחם בגין 2, מזכרת בתיה"
   }
  },
  {
@@ -6924,9 +7178,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.08610836666667,
-   "lng": 34.83393026666666,
-   "precision": "city"
+   "lat": 32.091549,
+   "lng": 34.824757,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם מור, זבוטינסקי 7, בני ברק"
   }
  },
  {
@@ -6938,9 +7194,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.779259366666672,
-   "lng": 35.20542961666667,
-   "precision": "city"
+   "lat": 31.77747,
+   "lng": 35.225471,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם ממילא, שלמה המלך 9, ירושלים"
   }
  },
  {
@@ -6952,9 +7210,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.777,
-   "lng": 35.2981,
-   "precision": "city"
+   "lat": 31.7716641,
+   "lng": 35.2986515,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם מעלה אדומים, דרך קדם 5, מעלה אדומים"
   }
  },
  {
@@ -6966,9 +7226,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 33.012267,
-   "lng": 35.2885369,
-   "precision": "city"
+   "lat": 33.021128,
+   "lng": 35.28086,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם מעלות, שלמה שרירא 3, אזוהת מעלות, מעלות"
   }
  },
  {
@@ -6980,9 +7242,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.9293,
-   "lng": 34.8664,
-   "precision": "city"
+   "lat": 31.916307,
+   "lng": 34.872242,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם מצליח, שושנה דמארי 20, רמלה"
   }
  },
  {
@@ -6994,9 +7258,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.07094668,
-   "lng": 34.80478151999999,
-   "precision": "city"
+   "lat": 32.07091,
+   "lng": 34.8284,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם מרום נווה, לנדאו 7, רמת גן"
   }
  },
  {
@@ -7008,9 +7274,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.1626,
-   "lng": 34.8075,
-   "precision": "city"
+   "lat": 32.161998,
+   "lng": 34.79575,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם מרינה, יורדי ים 1, הרצליה"
   }
  },
  {
@@ -7022,9 +7290,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.665833366666664,
-   "lng": 34.586678166666665,
-   "precision": "city"
+   "lat": 31.673289,
+   "lng": 34.56795,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם מרכז דוד אפרידר, הנשיא 3, אשקלון"
   }
  },
  {
@@ -7036,9 +7306,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.079862119444456,
-   "lng": 34.78712651944445,
-   "precision": "city"
+   "lat": 32.07357,
+   "lng": 34.79183,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם קניון עזריאלי ת\"א, דרך מנחם בגין 132 תא, תל אביב - יפו"
   }
  },
  {
@@ -7050,9 +7322,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.245865575000003,
-   "lng": 34.801231724999994,
-   "precision": "city"
+   "lat": 31.25149,
+   "lng": 34.78598,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם משחררים, המשחררים 70, באר שבע"
   }
  },
  {
@@ -7064,9 +7338,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.9293,
-   "lng": 34.8664,
-   "precision": "city"
+   "lat": 31.930471,
+   "lng": 34.849796,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם נאות שמיר רמלה, משה לוי 17, רמלה"
   }
  },
  {
@@ -7078,9 +7354,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.971067599999994,
-   "lng": 34.79581617142857,
-   "precision": "city"
+   "lat": 31.97513,
+   "lng": 34.77368,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם נאות שקמה, מורשת ישראל 15 נאות שקמה, ראשון לציון"
   }
  },
  {
@@ -7092,9 +7370,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 33.006591566666664,
-   "lng": 35.09548266666667,
-   "precision": "city"
+   "lat": 33.007072,
+   "lng": 35.092426,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם נהריה געתון, ויצמן 62 פינת שדרות הגעתון 38, נהריה"
   }
  },
  {
@@ -7106,9 +7386,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 33.006591566666664,
-   "lng": 35.09548266666667,
-   "precision": "city"
+   "lat": 32.97608,
+   "lng": 35.09444,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם נהריה רגבה, חוצות רגבה מרכז ביג, רגבה"
   }
  },
  {
@@ -7120,9 +7402,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.245865575000003,
-   "lng": 34.801231724999994,
-   "precision": "city"
+   "lat": 31.2394,
+   "lng": 34.77434,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם נוה-זאב, יוהנה זבוטינסקי 28, באר שבע"
   }
  },
  {
@@ -7134,9 +7418,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.184418225,
-   "lng": 34.8742911,
-   "precision": "city"
+   "lat": 32.193455,
+   "lng": 34.865125,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם נווה-זמר רעננה, סשה ארגוב 23, רעננה"
   }
  },
  {
@@ -7148,9 +7434,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.802482266666665,
-   "lng": 35.01872092222223,
-   "precision": "city"
+   "lat": 32.783344,
+   "lng": 35.013405,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם נווה שאנן, טרומפלדור 54, חיפה"
   }
  },
  {
@@ -7162,9 +7450,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.779259366666672,
-   "lng": 35.20542961666667,
-   "precision": "city"
+   "lat": 31.76754,
+   "lng": 35.20187,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם ניות, בורלא 5, ירושלים"
   }
  },
  {
@@ -7176,9 +7466,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.079862119444456,
-   "lng": 34.78712651944445,
-   "precision": "city"
+   "lat": 32.098156,
+   "lng": 34.775673,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם נמל תל-אביב, התערוכה 3, תל אביב - יפו"
   }
  },
  {
@@ -7190,9 +7482,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.926611100000002,
-   "lng": 34.79800175,
-   "precision": "city"
+   "lat": 31.9304,
+   "lng": 34.79833,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם נס ציונה, אירוסים 53 ,קניותר, נס ציונה"
   }
  },
  {
@@ -7204,9 +7498,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.6996,
-   "lng": 35.3035,
-   "precision": "city"
+   "lat": 32.697605,
+   "lng": 35.292881,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם נצרת, פאולוס השישי, בנין קולנוע דיאנ, נצרת"
   }
  },
  {
@@ -7218,9 +7514,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.7165,
-   "lng": 35.3266,
-   "precision": "city"
+   "lat": 32.692888,
+   "lng": 35.30456,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם נוף הגליל, עופר סנטר נוף הגליל(נצרת עלית), נוף הגליל"
   }
  },
  {
@@ -7232,9 +7530,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.971067599999994,
-   "lng": 34.79581617142857,
-   "precision": "city"
+   "lat": 31.959631,
+   "lng": 34.828119,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם נרקיסים ראשון-לציון, ירושלים 116, ראשון לציון"
   }
  },
  {
@@ -7246,9 +7546,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.1643791,
-   "lng": 34.84300833333333,
-   "precision": "city"
+   "lat": 32.167364,
+   "lng": 34.8413622,
+   "precision": "ROOFTOP",
+   "source": "openstreetmap",
+   "formatted": "סופר-פארם, סוקולוב 25, הרצליה"
   }
  },
  {
@@ -7260,9 +7562,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.80102868,
-   "lng": 34.65912324,
-   "precision": "city"
+   "lat": 31.80871,
+   "lng": 34.65666,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם אשדוד סטאר-סנטר, זבוטינסקי 41, אשדוד"
   }
  },
  {
@@ -7274,9 +7578,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.802482266666665,
-   "lng": 35.01872092222223,
-   "precision": "city"
+   "lat": 32.82301,
+   "lng": 34.99267,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם סיטי סנטר, שדרות בן גוריון 6 פינת רחוב יפ, חיפה"
   }
  },
  {
@@ -7288,9 +7594,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.802482266666665,
-   "lng": 35.01872092222223,
-   "precision": "city"
+   "lat": 32.7935104,
+   "lng": 35.0373412,
+   "precision": "ROOFTOP",
+   "source": "openstreetmap",
+   "formatted": "סינמול, שדרות ההסתדרות 55, חיפה"
   }
  },
  {
@@ -7302,9 +7610,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.8636,
-   "lng": 35.2972,
-   "precision": "city"
+   "lat": 32.86087,
+   "lng": 35.31024,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם סכנין, רחוב אלגליל 1, סכנין"
   }
  },
  {
@@ -7316,9 +7626,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.779259366666672,
-   "lng": 35.20542961666667,
-   "precision": "city"
+   "lat": 31.849966,
+   "lng": 35.226035,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם עטרות, קניון עטרות, ירושלים"
   }
  },
  {
@@ -7330,9 +7642,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.313994480000005,
-   "lng": 34.86196954,
-   "precision": "city"
+   "lat": 32.277808,
+   "lng": 34.847131,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם עיר-ימים נתניה, בני ברמן 2, נתניה"
   }
  },
  {
@@ -7344,9 +7658,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.9281,
-   "lng": 35.082,
-   "precision": "city"
+   "lat": 32.924747,
+   "lng": 35.082246,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם עכו, בן עמי 67 פינת דוד רמז, עכו"
   }
  },
  {
@@ -7358,9 +7674,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.608669899999995,
-   "lng": 35.289310300000004,
-   "precision": "city"
+   "lat": 32.619002,
+   "lng": 35.312878,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם עמק-סנטר עפולה, שד רבין 18, מתחם ג בעמק, עפולה"
   }
  },
  {
@@ -7372,9 +7690,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.779259366666672,
-   "lng": 35.20542961666667,
-   "precision": "city"
+   "lat": 31.764469,
+   "lng": 35.220536,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם עמק רפאים, עמק רפאים 24, ירושלים"
   }
  },
  {
@@ -7386,9 +7706,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.608669899999995,
-   "lng": 35.289310300000004,
-   "precision": "city"
+   "lat": 32.60405,
+   "lng": 35.29395,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם עפולה, יהושע חנקין 14,קניון העמקים, עפולה"
   }
  },
  {
@@ -7400,9 +7722,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.2589,
-   "lng": 35.2128,
-   "precision": "city"
+   "lat": 31.25933,
+   "lng": 35.20847,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם ערד, רח הקנאים 27 קניון ערד, ערד"
   }
  },
  {
@@ -7414,9 +7738,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.245865575000003,
-   "lng": 34.801231724999994,
-   "precision": "city"
+   "lat": 31.223698,
+   "lng": 34.801582,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם ישפרו פלאנט ב\"ש, ברוך קטינקא 2, באר שבע"
   }
  },
  {
@@ -7428,9 +7754,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.07094668,
-   "lng": 34.80478151999999,
-   "precision": "city"
+   "lat": 32.089008,
+   "lng": 34.815623,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם פסגת-דן ר\"ג, זבוטינסקי 105, רמת גן"
   }
  },
  {
@@ -7442,9 +7770,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.779259366666672,
-   "lng": 35.20542961666667,
-   "precision": "city"
+   "lat": 31.824105,
+   "lng": 35.23746,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם פסגת זאב, שדרות משה דיין 106 קניון הפסגה, ירושלים"
   }
  },
  {
@@ -7456,9 +7786,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.180279760000005,
-   "lng": 34.91308522,
-   "precision": "city"
+   "lat": 32.171253,
+   "lng": 34.927704,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם פקר כפר-סבא, וייצמן 207, מתחם G, כפר סבא"
   }
  },
  {
@@ -7470,9 +7802,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.48152266666667,
-   "lng": 34.9706872,
-   "precision": "city"
+   "lat": 32.473989,
+   "lng": 34.973391,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם פרדס חנה, רח הגלעד 1, פרדס חנה כרכור"
   }
  },
  {
@@ -7484,9 +7818,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.01477932,
-   "lng": 34.777234539999995,
-   "precision": "city"
+   "lat": 32.0077791,
+   "lng": 34.7985537,
+   "precision": "GEOMETRIC_CENTER",
+   "source": "openstreetmap",
+   "formatted": "הכישור, חולון (רחוב)"
   }
  },
  {
@@ -7498,9 +7834,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.29,
-   "lng": 34.955,
-   "precision": "city"
+   "lat": 32.296217,
+   "lng": 34.936991,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם צורן, יצחק רבין 38, צורן"
   }
  },
  {
@@ -7512,9 +7850,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.0617,
-   "lng": 34.8733,
-   "precision": "city"
+   "lat": 32.064976,
+   "lng": 34.876228,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם צים גני-תקוה, ההדרים 7, גני תקווה"
   }
  },
  {
@@ -7526,9 +7866,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.2667,
-   "lng": 35.0103,
-   "precision": "city"
+   "lat": 32.247845,
+   "lng": 34.995749,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם צים טייבה, מתחם SEVEN טייבה, טייבה"
   }
  },
  {
@@ -7540,9 +7882,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.4243101,
-   "lng": 34.57848425,
-   "precision": "city"
+   "lat": 31.417043,
+   "lng": 34.594125,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם צים נתיבות, בעלי מלאכה 5, נתיבות"
   }
  },
  {
@@ -7554,9 +7898,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.1643791,
-   "lng": 34.84300833333333,
-   "precision": "city"
+   "lat": 32.15138,
+   "lng": 34.8434,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם צמרות, צמרות 2, הרצליה"
   }
  },
  {
@@ -7568,9 +7914,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.079862119444456,
-   "lng": 34.78712651944445,
-   "precision": "city"
+   "lat": 32.09048,
+   "lng": 34.79714,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם צמרת ת\"א, ניסים אלוני 10 ,פארק צמרת G, תל אביב - יפו"
   }
  },
  {
@@ -7582,9 +7930,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.966121349999995,
-   "lng": 35.49930715,
-   "precision": "city"
+   "lat": 32.971881,
+   "lng": 35.504779,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם צפת, הגדוד השלישי 1, צפת"
   }
  },
  {
@@ -7596,9 +7946,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.2783,
-   "lng": 34.9131,
-   "precision": "city"
+   "lat": 32.2759974,
+   "lng": 34.9201281,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם קדימה, האופה 1, קדימה"
   }
  },
  {
@@ -7610,9 +7962,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.505,
-   "lng": 34.92,
-   "precision": "city"
+   "lat": 32.501717,
+   "lng": 34.926861,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם קניון אורות, שד הנשיא וייצמן 1, אור עקיבא"
   }
  },
  {
@@ -7624,9 +7978,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.779259366666672,
-   "lng": 35.20542961666667,
-   "precision": "city"
+   "lat": 31.750994,
+   "lng": 35.215774,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם קניון האחים ישראל, יד חרוצים 18, ירושלים"
   }
  },
  {
@@ -7638,9 +7994,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.07094668,
-   "lng": 34.80478151999999,
-   "precision": "city"
+   "lat": 32.0860176,
+   "lng": 34.8111152,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם קניון ביאליק ר\"ג, ביאליק 76, רמת גן"
   }
  },
  {
@@ -7652,9 +8010,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.740207733333335,
-   "lng": 34.993809133333336,
-   "precision": "city"
+   "lat": 31.747355,
+   "lng": 34.993484,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם קניון בית-שמש, שדרות יצחק רבין 2, בית שמש"
   }
  },
  {
@@ -7666,9 +8026,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.07021466,
-   "lng": 34.81405666,
-   "precision": "city"
+   "lat": 32.06632,
+   "lng": 34.80998,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם קניון גבעתיים, דרך יצחק רבין 53, גבעתיים"
   }
  },
  {
@@ -7680,9 +8042,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.971067599999994,
-   "lng": 34.79581617142857,
-   "precision": "city"
+   "lat": 31.99012,
+   "lng": 34.77401,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם קניון הזהב, סחרוב 21, ראשון לציון"
   }
  },
  {
@@ -7694,9 +8058,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.245865575000003,
-   "lng": 34.801231724999994,
-   "precision": "city"
+   "lat": 31.24378,
+   "lng": 34.79504,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם קניון הנגב, קניון הנגב, באר שבע"
   }
  },
  {
@@ -7708,9 +8074,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.790487,
-   "lng": 35.142428,
-   "precision": "city"
+   "lat": 31.800116,
+   "lng": 35.148174,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם קניון הראל, שד הראל 1, מבשרת ציון"
   }
  },
  {
@@ -7722,9 +8090,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.313994480000005,
-   "lng": 34.86196954,
-   "precision": "city"
+   "lat": 32.32707,
+   "lng": 34.8621,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם קניון השרון, הרצל 58, קניון השרון, נתניה"
   }
  },
  {
@@ -7736,9 +8106,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.7895842,
-   "lng": 35.5379054,
-   "precision": "city"
+   "lat": 32.790301,
+   "lng": 35.5335,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם קניון טבריה, יהודה הלוי 1, טבריה"
   }
  },
  {
@@ -7750,9 +8122,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.790487,
-   "lng": 35.142428,
-   "precision": "city"
+   "lat": 31.796982,
+   "lng": 35.146292,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם קניון מבשרת, שדרות החוצבים 10, מבשרת ציון"
   }
  },
  {
@@ -7764,9 +8138,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.891540374999998,
-   "lng": 34.987554274999994,
-   "precision": "city"
+   "lat": 31.89877,
+   "lng": 35.00816,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם קניון-מודיעין, קניון מודיעין, מודיעין-מכבים-רעות"
   }
  },
  {
@@ -7778,9 +8154,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.9293,
-   "lng": 34.8664,
-   "precision": "city"
+   "lat": 31.9250946,
+   "lng": 34.8657141,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם קניון עזריאלי רמלה, דוד רזיאל 1, רמלה"
   }
  },
  {
@@ -7792,9 +8170,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.180279760000005,
-   "lng": 34.91308522,
-   "precision": "city"
+   "lat": 32.17671,
+   "lng": 34.90303,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם קניון-ערים, וייצמן 63 פינת כצנלסון, קניון, כפר סבא"
   }
  },
  {
@@ -7806,9 +8186,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.971067599999994,
-   "lng": 34.79581617142857,
-   "precision": "city"
+   "lat": 31.949998,
+   "lng": 34.8037492,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם קניון ראשונים, שדרות נים 2, ראשון לציון"
   }
  },
  {
@@ -7820,9 +8202,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.899118299999998,
-   "lng": 34.80685813333334,
-   "precision": "city"
+   "lat": 31.894019,
+   "lng": 34.808518,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם קניון רחובות, בילו 2, רחובות"
   }
  },
  {
@@ -7834,9 +8218,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.07094668,
-   "lng": 34.80478151999999,
-   "precision": "city"
+   "lat": 32.1005561,
+   "lng": 34.8285405,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם קניון איילון, אבא הלל 301 ,קניון אילון, רמת גן"
   }
  },
  {
@@ -7848,9 +8234,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.184418225,
-   "lng": 34.8742911,
-   "precision": "city"
+   "lat": 32.196953,
+   "lng": 34.878124,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם קניון רננים, המלאכה 2, קניון רננים, רעננה"
   }
  },
  {
@@ -7862,9 +8250,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.245865575000003,
-   "lng": 34.801231724999994,
-   "precision": "city"
+   "lat": 31.2575874,
+   "lng": 34.7679196,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם שאול המלך ב\"ש, רחוב שאול המלך 80, באר שבע"
   }
  },
  {
@@ -7876,9 +8266,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.0548391,
-   "lng": 34.8638919,
-   "precision": "city"
+   "lat": 32.0553,
+   "lng": 34.86382,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם קרית אונו, שלמה המלך 37 קניון קריית אונו, קרית אונו"
   }
  },
  {
@@ -7890,9 +8282,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.795,
-   "lng": 35.04,
-   "precision": "city"
+   "lat": 32.811314,
+   "lng": 35.072134,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם קרית אתא, ההסתדרות 248, מרכז ביג מפרץ חי, קרית אתא"
   }
  },
  {
@@ -7904,9 +8298,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.779259366666672,
-   "lng": 35.20542961666667,
-   "precision": "city"
+   "lat": 31.760722,
+   "lng": 35.170953,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם קרית היובל ירושלים, צ'ילה 8 קרית היובל, ירושלים"
   }
  },
  {
@@ -7918,9 +8314,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.313994480000005,
-   "lng": 34.86196954,
-   "precision": "city"
+   "lat": 32.295479,
+   "lng": 34.869228,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם קרית-השרון, שד טום לנטוס 60, נתניה"
   }
  },
  {
@@ -7932,9 +8330,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.825,
-   "lng": 35.0583,
-   "precision": "city"
+   "lat": 32.820031,
+   "lng": 35.072509,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם קרית חיים, אחי אילת 34, חיפה"
   }
  },
  {
@@ -7946,9 +8346,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.8497,
-   "lng": 35.0686,
-   "precision": "city"
+   "lat": 32.856497,
+   "lng": 35.078968,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם סי קרית ים, גולדה מאיר 2, קרית ים"
   }
  },
  {
@@ -7960,9 +8362,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.8497,
-   "lng": 35.0686,
-   "precision": "city"
+   "lat": 32.84301,
+   "lng": 35.06931,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם קרית-ים, שד ירושלים 51, קרית ים"
   }
  },
  {
@@ -7974,15 +8378,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.8040805,
-   "lng": 35.1058407,
+   "lat": 32.858048,
+   "lng": 35.091894,
    "precision": "ROOFTOP",
-   "partial": false,
-   "formatted": "Jerusalem St 1, Kiryat Motzkin, ישראל",
-   "locality": "Kiryat Motzkin",
-   "area1": "Haifa District",
-   "route": "Jerusalem Street",
-   "streetNumber": "1"
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם קרית-מוצקין, שדרות ירושלים 1, קרית מוצקין"
   }
  },
  {
@@ -7994,9 +8394,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.9293,
-   "lng": 34.8664,
-   "precision": "city"
+   "lat": 31.926198,
+   "lng": 34.876315,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם קרית רמלה, הרצל 91, רמלה"
   }
  },
  {
@@ -8008,9 +8410,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 33.1985377,
-   "lng": 35.5772925,
-   "precision": "city"
+   "lat": 33.22152,
+   "lng": 35.575708,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם קרית שמונה, הנשיא 4 צומת גיבור, קרית שמונה"
   }
  },
  {
@@ -8022,9 +8426,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.046051,
-   "lng": 34.851612,
-   "precision": "city"
+   "lat": 32.174709,
+   "lng": 35.0917,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם קרני שמרון, שדרות רחבעם 1 (קניון קרני שומר, קרני שומרון"
   }
  },
  {
@@ -8036,9 +8442,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.0956,
-   "lng": 34.9566,
-   "precision": "city"
+   "lat": 32.0986265,
+   "lng": 34.9419987,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם שבזי ראש-העין, שבזי 10, ראש העין"
   }
  },
  {
@@ -8050,9 +8458,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.9685935,
-   "lng": 35.5484237,
-   "precision": "city"
+   "lat": 32.970104,
+   "lng": 35.550354,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם ראש-פינה, דרך הגליל פינת התפוח, מתחם שופ, ראש פינה"
   }
  },
  {
@@ -8064,9 +8474,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.971067599999994,
-   "lng": 34.79581617142857,
-   "precision": "city"
+   "lat": 31.9758937,
+   "lng": 34.8077843,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם ראשון צפון, המכבים 16, ראשון לציון"
   }
  },
  {
@@ -8078,9 +8490,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.971067599999994,
-   "lng": 34.79581617142857,
-   "precision": "city"
+   "lat": 31.96381,
+   "lng": 34.80142,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם רוטשילד, רוטשילד 45, ראשון לציון"
   }
  },
  {
@@ -8092,9 +8506,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.899118299999998,
-   "lng": 34.80685813333334,
-   "precision": "city"
+   "lat": 31.880493,
+   "lng": 34.812508,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם רחובות החדשה, שד פנחס בן דוד קפרא 1, רחובות"
   }
  },
  {
@@ -8106,15 +8522,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.8942717,
-   "lng": 34.7901567,
+   "lat": 31.8941784,
+   "lng": 34.7913885,
    "precision": "ROOFTOP",
-   "partial": false,
-   "formatted": "Moti Kind St 10, Rehovot, 7638519, ישראל",
-   "locality": "Rehovot",
-   "area1": "Center District",
-   "route": "Moti Kind Street",
-   "streetNumber": "10"
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם סנטרו רחובות, מוטי קינד 10, רחובות"
   }
  },
  {
@@ -8126,9 +8538,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.608669899999995,
-   "lng": 35.289310300000004,
-   "precision": "city"
+   "lat": 32.614915,
+   "lng": 35.300141,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם רכבת עפולה, שד יצחק רבין 20, עפולה"
   }
  },
  {
@@ -8140,9 +8554,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.802482266666665,
-   "lng": 35.01872092222223,
-   "precision": "city"
+   "lat": 32.832088,
+   "lng": 34.984009,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם רמב\"ם חיפה, העליה השניה 8, חיפה"
   }
  },
  {
@@ -8154,9 +8570,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.9293,
-   "lng": 34.8664,
-   "precision": "city"
+   "lat": 31.928299,
+   "lng": 34.866371,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם רמבלס סנטר רמלה, דני מס 16, רמלה"
   }
  },
  {
@@ -8168,9 +8586,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.779259366666672,
-   "lng": 35.20542961666667,
-   "precision": "city"
+   "lat": 31.8176425,
+   "lng": 35.1947692,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם רמות ירושלים, גולדה מאיר 255, ירושלים"
   }
  },
  {
@@ -8182,9 +8602,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.245865575000003,
-   "lng": 34.801231724999994,
-   "precision": "city"
+   "lat": 31.283032,
+   "lng": 34.799866,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם רמות רכס, אוסקר שינדלר 21, באר שבע"
   }
  },
  {
@@ -8196,9 +8618,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.313994480000005,
-   "lng": 34.86196954,
-   "precision": "city"
+   "lat": 32.326984,
+   "lng": 34.853889,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם רמז נתניה, רמז 16 פינת סמילנסקי, נתניה"
   }
  },
  {
@@ -8210,9 +8634,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.9293,
-   "lng": 34.8664,
-   "precision": "city"
+   "lat": 31.9331438,
+   "lng": 34.8887199,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם רמלוד, צופית 40, רמלה"
   }
  },
  {
@@ -8224,9 +8650,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.079862119444456,
-   "lng": 34.78712651944445,
-   "precision": "city"
+   "lat": 32.125119,
+   "lng": 34.798682,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם רמת-אביב ג, אחימאיר 1 תל אביב, תל אביב - יפו"
   }
  },
  {
@@ -8238,9 +8666,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.1133,
-   "lng": 34.8044,
-   "precision": "city"
+   "lat": 32.11233,
+   "lng": 34.79574,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם רמת אביב, איינשטיין 40, תל אביב - יפו"
   }
  },
  {
@@ -8252,9 +8682,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.11,
-   "lng": 34.84,
-   "precision": "city"
+   "lat": 32.108946,
+   "lng": 34.839768,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם רמת החייל, הברזל 23, תל אביב - יפו"
   }
  },
  {
@@ -8266,9 +8698,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.802482266666665,
-   "lng": 35.01872092222223,
-   "precision": "city"
+   "lat": 32.8125867,
+   "lng": 34.9613583,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם רמת-הנשיא חיפה, רחוב שונית 12, רמת-הנשיא, חיפה"
   }
  },
  {
@@ -8280,9 +8714,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.7067881,
-   "lng": 35.1743402,
-   "precision": "city"
+   "lat": 32.707124,
+   "lng": 35.17393,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם רמת-ישי, האקליפטוס 3, רמת ישי"
   }
  },
  {
@@ -8294,9 +8730,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.184418225,
-   "lng": 34.8742911,
-   "precision": "city"
+   "lat": 32.1795,
+   "lng": 34.87843,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם רעננה אחוזה, אחוזה 83, רעננה"
   }
  },
  {
@@ -8308,9 +8746,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.184418225,
-   "lng": 34.8742911,
-   "precision": "city"
+   "lat": 32.18418,
+   "lng": 34.85336,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם רעננה פארק מול, אחוזה 267 מרכז מול, רעננה"
   }
  },
  {
@@ -8322,9 +8762,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.1643791,
-   "lng": 34.84300833333333,
-   "precision": "city"
+   "lat": 32.16495,
+   "lng": 34.82321,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם שבעת הכוכבים, שדרות שבעת הכוכבים 8, הרצליה"
   }
  },
  {
@@ -8336,9 +8778,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.525,
-   "lng": 34.5961,
-   "precision": "city"
+   "lat": 31.5214,
+   "lng": 34.59422,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם שדרות, סמטת הפלדה 1, שדרות"
   }
  },
  {
@@ -8350,9 +8794,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.9989,
-   "lng": 34.9461,
-   "precision": "city"
+   "lat": 31.99738,
+   "lng": 34.94733,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם שוהם, עמק איילון 30, מרכז מסחרי שוהם, שוהם"
   }
  },
  {
@@ -8364,15 +8810,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.114692,
-   "lng": 34.8260661,
+   "lat": 32.114589542,
+   "lng": 34.8253384638068,
    "precision": "ROOFTOP",
-   "partial": false,
-   "formatted": "Pinkhas Rosen St 72, Tel Aviv-Yafo, ישראל",
-   "locality": "Tel Aviv-Yafo",
-   "area1": "Tel Aviv District",
-   "route": "Pinkhas Rosen Street",
-   "streetNumber": "72"
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם שיכון דן, דרך פנחס רוזן 65, תל אביב - יפו"
   }
  },
  {
@@ -8384,9 +8826,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.01691905,
-   "lng": 34.7434274,
-   "precision": "city"
+   "lat": 32.007512,
+   "lng": 34.740611,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם שכונת הפארק בת-ים, הקוממיות 16 בת ים, בת ים"
   }
  },
  {
@@ -8398,9 +8842,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.01477932,
-   "lng": 34.777234539999995,
-   "precision": "city"
+   "lat": 32.022369,
+   "lng": 34.776347,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם שנקר חולון, אריה שנקר 49, חולון"
   }
  },
  {
@@ -8412,9 +8858,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.665833366666664,
-   "lng": 34.586678166666665,
-   "precision": "city"
+   "lat": 31.67485,
+   "lng": 34.60677,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם שער אשקלון, א.ת. צומת כפר סילבר, אשקלון"
   }
  },
  {
@@ -8426,9 +8874,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.811895,
-   "lng": 35.071818,
-   "precision": "city"
+   "lat": 32.8056147,
+   "lng": 35.0782778,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם שער-הצפון ק.אתא, דרך חיפה 30, קרית אתא"
   }
  },
  {
@@ -8440,9 +8890,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.971067599999994,
-   "lng": 34.79581617142857,
-   "precision": "city"
+   "lat": 31.967003,
+   "lng": 34.784737,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם שער ראשון, גולדה מאיר 1, ראשון לציון"
   }
  },
  {
@@ -8454,9 +8906,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.899118299999998,
-   "lng": 34.80685813333334,
-   "precision": "city"
+   "lat": 31.909358,
+   "lng": 34.80561,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם שער- רחובות, שער המדע, קומה תחתונה על יד טיב טעם, רחובות"
   }
  },
  {
@@ -8468,9 +8922,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.216586,
-   "lng": 34.822409,
-   "precision": "city"
+   "lat": 32.22033,
+   "lng": 34.8289,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם שפיים, קיבוץ שפיים, שפיים"
   }
  },
  {
@@ -8482,9 +8938,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.0956,
-   "lng": 34.9566,
-   "precision": "city"
+   "lat": 32.086361,
+   "lng": 34.979777,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם שפיר סנטר ראש-העין, יגאל אלון 22, ראש העין"
   }
  },
  {
@@ -8496,9 +8954,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.8056,
-   "lng": 35.17,
-   "precision": "city"
+   "lat": 32.81112,
+   "lng": 35.16506,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם שפרעם, ג`ונבלט, שכונת אל עיין, שפרעם"
   }
  },
  {
@@ -8510,9 +8970,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.079862119444456,
-   "lng": 34.78712651944445,
-   "precision": "city"
+   "lat": 32.071795,
+   "lng": 34.78936,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם שרונה ת''א, דרך מנחם בגין 121, תל אביב - יפו"
   }
  },
  {
@@ -8524,9 +8986,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.079862119444456,
-   "lng": 34.78712651944445,
-   "precision": "city"
+   "lat": 32.05544,
+   "lng": 34.78087,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם תחנה מרכזית, לוינסקי 108, תל אביב - יפו"
   }
  },
  {
@@ -8538,9 +9002,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.07094668,
-   "lng": 34.80478151999999,
-   "precision": "city"
+   "lat": 32.045612,
+   "lng": 34.841374,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם תל השומר, עמק האלה מרכז גימיון ביח תל השומר, רמת גן"
   }
  },
  {
@@ -8552,9 +9018,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 32.2582485,
-   "lng": 34.9037589,
-   "precision": "city"
+   "lat": 32.253241,
+   "lng": 34.917963,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם תל-מונד, הדקל 47, תל מונד"
   }
  },
  {
@@ -8566,9 +9034,11 @@
   "website": "",
   "tags": "סופר-פארם",
   "geo": {
-   "lat": 31.779259366666672,
-   "lng": 35.20542961666667,
-   "precision": "city"
+   "lat": 31.75342,
+   "lng": 35.21366,
+   "precision": "ROOFTOP",
+   "source": "super-pharm branch locator",
+   "formatted": "סופר-פארם תלפיות, פייר קניג 26 תלפיות, ירושלים"
   }
  },
  {

@@ -6,18 +6,22 @@ import Header from '@/components/c5/Header.astro'
 import Footer from '@/components/c5/Footer.astro'
 import Floating from '@/components/c5/Floating.astro'
 import { DEFAULT_LANG, DIR, type Lang } from '@/c5/i18n'
+import { shareImage } from '@/c5/og'
 import '@/styles/c5-base.css'
 import '@/styles/c5-site.css'
 
 interface Props {
   title: string
   description?: string
+  /** Share image (og:image). Product pages pass productShareImage(); anything that is not
+   *  share-ready falls back to the first home banner (src/c5/og.ts). */
   image?: string
   lang?: Lang
   jsonLd?: Record<string, unknown> | Record<string, unknown>[]
 }
-const { title, description, image = '/assets/banners/home-banner-1.jpg', lang = DEFAULT_LANG, jsonLd } = Astro.props
+const { title, description, image, lang = DEFAULT_LANG, jsonLd } = Astro.props
 const fullTitle = title.includes('Category 5') ? title : `${title} | Category 5`
+const ogImage = shareImage(image)
 ---
 <!doctype html>
 <html lang={lang} dir={DIR[lang]}>
@@ -26,7 +30,7 @@ const fullTitle = title.includes('Category 5') ? title : `${title} | Category 5`
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/assets/logo/category5-logo.svg" />
     <link rel="preload" href="/assets/fonts/NotoSansHebrew-Regular.ttf" as="font" type="font/ttf" crossorigin />
-    <Seo title={fullTitle} description={description} image={image} jsonLd={jsonLd} />
+    <Seo title={fullTitle} description={description} image={ogImage} jsonLd={jsonLd} />
     <script is:inline>
       // Accessibility preferences (components/c5/Accessibility.astro) applied before first paint.
       (function(){try{var p=JSON.parse(localStorage.getItem('c5-a11y-v2')||'{}'),c=document.documentElement.classList,F={links:'a11y-links',headings:'a11y-headings',readable:'a11y-readable',stopAnim:'a11y-stop-anim',bigCursor:'a11y-bigcursor',noImages:'a11y-noimages'};
@@ -51,7 +55,11 @@ const fullTitle = title.includes('Category 5') ? title : `${title} | Category 5`
       document.addEventListener('dragstart', (e) => { if (e.target && e.target.tagName === 'IMG') e.preventDefault() })
     </script>
     <script>
-      // Contact + newsletter forms → POST /api/contact (the site's mailer).
+      // Contact + newsletter forms. With PUBLIC_WEB3FORMS_KEY set (astro/.env.example),
+      // they post straight to Web3Forms, which emails the submission to the inbox the
+      // key was issued for (the same setup as the NatureSage site). Without the key
+      // they post to /api/contact, the site's own mailer (needs MS_* / SMTP_* / RESEND).
+      const WEB3FORMS_KEY = (import.meta.env.PUBLIC_WEB3FORMS_KEY as string | undefined)?.trim()
       document.querySelectorAll<HTMLFormElement>('form[data-c5-form]').forEach((form) => {
         const started = Date.now()
         const status = form.querySelector<HTMLElement>('[data-c5-form-status]')
@@ -59,18 +67,44 @@ const fullTitle = title.includes('Category 5') ? title : `${title} | Category 5`
         form.addEventListener('submit', async (e) => {
           e.preventDefault()
           if (!form.reportValidity()) return
-          const data = Object.fromEntries(new FormData(form).entries())
+          const data = Object.fromEntries(new FormData(form).entries()) as Record<string, string>
+          const kind = form.dataset.c5Form
           // Contact page extras (topic / product) travel inside the message.
           const extra = [data.topic && `נושא הפנייה: ${data.topic}`, data.product && `מוצר: ${data.product}`].filter(Boolean).join('\n')
           if (extra) data.message = `${extra}\n\n${data.message ?? ''}`
           if (btn) btn.disabled = true
           try {
-            const res = await fetch('/api/contact', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ ...data, kind: form.dataset.c5Form, _t: started, _source: location.pathname }),
-            })
-            const ok = res.ok && (await res.json().catch(() => ({}))).ok
+            let ok = false
+            if (WEB3FORMS_KEY) {
+              // A form "filled" in under a second is a bot: pretend it went through.
+              if (Date.now() - started < 1000) ok = true
+              else {
+                const newsletter = kind === 'newsletter'
+                const res = await fetch('https://api.web3forms.com/submit', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+                  body: JSON.stringify({
+                    access_key: WEB3FORMS_KEY,
+                    subject: newsletter ? `הרשמה לרשימת התפוצה — ${data.email}` : `פנייה מהאתר — ${data.name}`,
+                    from_name: 'אתר קטגוריה 5',
+                    replyto: data.email,
+                    // Web3Forms' documented field names (rendered as labelled rows in their email).
+                    ...(newsletter
+                      ? { name: 'הרשמה לרשימת התפוצה', email: data.email, message: `בקשת הרשמה לרשימת התפוצה: ${data.email}` }
+                      : { name: data.name, email: data.email, phone: data.phone, message: data.message }),
+                    page: location.href,
+                  }),
+                })
+                ok = res.ok && !!(await res.json().catch(() => ({}))).success
+              }
+            } else {
+              const res = await fetch('/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ ...data, kind, _t: started, _source: location.pathname }),
+              })
+              ok = res.ok && !!(await res.json().catch(() => ({}))).ok
+            }
             if (status) status.textContent = ok ? form.dataset.sent || 'נשלח' : form.dataset.error || 'השליחה נכשלה'
             if (ok) form.reset()
           } catch {

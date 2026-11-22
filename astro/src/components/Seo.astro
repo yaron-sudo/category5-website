@@ -30,10 +30,11 @@ const canonical =
 function canonicalRoot() { return SITE + '/' }
 const shareTitle = ogTitle || title
 const shareDescription = ogDescription || description
-// Share image: absolute URL; Sanity images are normalised to a 1200×630 JPEG
-// (WhatsApp/Facebook/LinkedIn's expected ratio, well under WhatsApp's size
-// limit) with the brand beige filling any free area instead of cropping the
-// product away.
+// Share image: absolute URL. Local images are the 1200×630 JPEGs rendered at build
+// time under /og/ (src/pages/og/, src/c5/og.ts); Sanity images are normalised to the
+// same 1200×630 JPEG on the CDN (WhatsApp/Facebook/LinkedIn's expected ratio, well
+// under WhatsApp's size limit) with white filling any free area instead of cropping
+// the product away.
 const shareImage = (src: string) => {
   const u = new URL(src, Astro.site ?? SITE)
   if (u.hostname === 'cdn.sanity.io') {
@@ -45,12 +46,13 @@ const shareImage = (src: string) => {
     const ratio = dims ? Number(dims[1]) / Number(dims[2]) : 1
     u.searchParams.set('w', '1200'); u.searchParams.set('h', '630')
     if (ratio >= 1.4) { u.searchParams.set('fit', 'crop'); u.searchParams.set('crop', 'entropy') }
-    else { u.searchParams.set('fit', 'fill'); u.searchParams.set('bg', 'f7f3ec') }
+    else { u.searchParams.set('fit', 'fill'); u.searchParams.set('bg', 'ffffff') }
     u.searchParams.set('fm', 'jpg'); u.searchParams.set('q', '82')
   }
   return u.href
 }
-const ogImage = image ? shareImage(image) : `${SITE}/og-default.jpg`
+// No image → the first home-page banner (client rule for every non-product page).
+const ogImage = shareImage(image || '/og/home.jpg')
 const ogImageAlt = shareTitle
 const robots = noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
 

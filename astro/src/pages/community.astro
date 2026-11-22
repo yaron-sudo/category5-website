@@ -10,9 +10,9 @@ import { getSiteSettings, resolveSeo } from '@/lib/sanity'
 
 const settings = await getSiteSettings()
 // Instagram profile URL: siteSettings → socials.instagram (the client sends it).
-// Until it is set, the follow buttons point at Instagram's home page.
-const igUrl = settings?.socials?.instagram || 'https://www.instagram.com/'
-const handle = settings?.socials?.instagram ? '@' + (igUrl.replace(/\/+$/, '').split('/').pop() || '') : 'קטגוריה 5'
+// Until it is set, the follow buttons point at the brand account (category.5.es).
+const igUrl = settings?.socials?.instagram || 'https://www.instagram.com/category.5.es/'
+const handle = '@' + (igUrl.replace(/\/+$/, '').split('/').pop() || 'category.5.es')
 const seo = resolveSeo(undefined, {
   title: 'קהילה — קטגוריה 5 באינסטגרם',
   description: 'הרילס והפוסטים של קטגוריה 5 תוספים אתיים ושל הקהילה: טיפים, מידע מקצועי וחדשות על המוצרים, מתעדכנים ישירות מאינסטגרם.',

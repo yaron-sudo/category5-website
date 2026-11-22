@@ -92,7 +92,7 @@ const DEMO: FeedItem[] = [
   { kind: 'post', poster: '/media/2022/10/Homepage1.webp', caption: 'דוגמה · תיוג מלקוח' },
   { kind: 'carousel', poster: '/media/2022/10/Cellinol.webp', caption: 'דוגמה · קרוסלה' },
   { kind: 'reel', poster: '/media/2022/10/Alyivium.webp', caption: 'דוגמה · ריל' },
-].map((d, i) => ({ id: `demo-${i}`, src: d.poster, permalink: 'https://www.instagram.com/', date: new Date(Date.now() - i * 86400e3 * 3).toISOString(), username: i % 2 ? 'category5' : 'customer_story', tagged: i % 2 === 1, ...d }))
+].map((d, i) => ({ id: `demo-${i}`, src: d.poster, permalink: 'https://www.instagram.com/category.5.es/', date: new Date(Date.now() - i * 86400e3 * 3).toISOString(), username: i % 2 ? 'category5' : 'customer_story', tagged: i % 2 === 1, ...d }))
 
 let cache: { at: number; items: FeedItem[] } | null = null
 
