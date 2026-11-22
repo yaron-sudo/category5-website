@@ -38,5 +38,7 @@ export default defineConfig({
   // the redirect; this keeps the sitemap/canonicals identical to the served URLs).
   trailingSlash: 'never',
   build: { format: 'directory' },
-  integrations: [sitemap()],
+  // Sitemap: indexable pages only. The site search is noindex, the cookie notice is reachable
+  // from the footer but not a landing page, and a 404 page never belongs in a sitemap.
+  integrations: [sitemap({ filter: (page) => !/\/(search|cookies|404)(\/|$)/.test(new URL(page).pathname) })],
 })

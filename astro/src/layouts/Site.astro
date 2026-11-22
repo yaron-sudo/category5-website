@@ -18,8 +18,10 @@ interface Props {
   image?: string
   lang?: Lang
   jsonLd?: Record<string, unknown> | Record<string, unknown>[]
+  /** Keep the page out of search engines (site search, 404). */
+  noindex?: boolean
 }
-const { title, description, image, lang = DEFAULT_LANG, jsonLd } = Astro.props
+const { title, description, image, lang = DEFAULT_LANG, jsonLd, noindex = false } = Astro.props
 const fullTitle = title.includes('Category 5') ? title : `${title} | Category 5`
 const ogImage = shareImage(image)
 ---
@@ -30,7 +32,7 @@ const ogImage = shareImage(image)
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/assets/logo/category5-logo.svg" />
     <link rel="preload" href="/assets/fonts/NotoSansHebrew-Regular.ttf" as="font" type="font/ttf" crossorigin />
-    <Seo title={fullTitle} description={description} image={ogImage} jsonLd={jsonLd} />
+    <Seo title={fullTitle} description={description} image={ogImage} jsonLd={jsonLd} noindex={noindex} />
     <script is:inline>
       // Accessibility preferences (components/c5/Accessibility.astro) applied before first paint.
       (function(){try{var p=JSON.parse(localStorage.getItem('c5-a11y-v2')||'{}'),c=document.documentElement.classList,F={links:'a11y-links',headings:'a11y-headings',readable:'a11y-readable',stopAnim:'a11y-stop-anim',bigCursor:'a11y-bigcursor',noImages:'a11y-noimages'};
