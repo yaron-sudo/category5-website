@@ -5,5 +5,9 @@
 import { t } from '@/c5/i18n'
 ---
 <section aria-label={t('banner')} style="margin: 0; padding: 0">
+<!-- Phones get their own version (client, 22.11.2026); wider screens keep the large banner. -->
+<picture>
+<source media="(max-width: 640px)" srcset="/assets/banners/new-look-mobile.jpg" width="1440" height="1600">
 <img src="/assets/banners/new-look-large.jpg" alt="New look – coming soon" width="3000" height="1281" loading="lazy" style="display: block; width: 100%; height: auto">
+</picture>
 </section>
