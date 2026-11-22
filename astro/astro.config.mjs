@@ -40,5 +40,7 @@ export default defineConfig({
   build: { format: 'directory' },
   // The old design's cookie page now lives with the other legal pages.
   redirects: { '/cookies': '/legal/cookies' },
-  integrations: [sitemap()],
+  // Sitemap: indexable pages only. The site search is noindex, /cookies is a redirect and a
+  // 404 page never belongs in a sitemap.
+  integrations: [sitemap({ filter: (page) => !/^\/(search|cookies|404)$/.test(new URL(page).pathname.replace(/\/$/, '')) })],
 })

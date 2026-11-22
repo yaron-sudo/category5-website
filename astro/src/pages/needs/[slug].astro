@@ -10,6 +10,7 @@ import { productHref } from '@/c5/content/products'
 import { getCatalog } from '@/c5/content/catalog'
 import { PRODUCT_SUMMARIES } from '@/c5/content/summaries'
 import { linkTerms } from '@/c5/glossaryLinks'
+import { breadcrumbLd } from '@/c5/seo'
 
 export function getStaticPaths() {
   return NEEDS.map((n) => ({ params: { slug: n.slug }, props: { n } }))
@@ -21,7 +22,7 @@ const catalog = await getCatalog()
 const products = content.products.map((slug) => catalog.find((p) => p.slug === slug)).filter(Boolean) as typeof catalog
 const used = new Set<string>()
 ---
-<Site title={n.label} description={content.intro?.[0]}>
+<Site title={n.label} description={content.intro?.[0]} jsonLd={breadcrumbLd([{ name: t('home'), href: '/' }, { name: n.label, href: `/needs/${n.slug}` }], Astro.site)}>
 
 <section aria-label={t('banner')} style={`background: ${content.image ? '#ffffff' : '#e9e9e7'}; min-height: clamp(260px, 30vw, 480px); display: flex; align-items: center; justify-content: center; position: relative`}>
 {content.image

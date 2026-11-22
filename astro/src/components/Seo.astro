@@ -1,5 +1,6 @@
 ---
 // Centralised SEO/meta head. Used by Base.astro on every page.
+import { SOCIAL_PROFILES } from '@/c5/seo'
 // Emits: canonical, description, robots, Open Graph, Twitter Card, JSON-LD.
 interface Props {
   title: string
@@ -64,8 +65,9 @@ const baseLd: Record<string, unknown>[] = [
     name: 'Category 5 Ethical Supplements',
     alternateName: 'קטגוריה 5 תוספים אתיים',
     url: SITE + '/',
-    logo: `${SITE}/brand/logo-wordmark-green.svg`,
+    logo: `${SITE}/assets/logo/category5-logo.png`,
     slogan: 'Where good gets better.',
+    sameAs: SOCIAL_PROFILES,
   },
   {
     '@context': 'https://schema.org',
@@ -73,6 +75,11 @@ const baseLd: Record<string, unknown>[] = [
     name: 'Category 5 Ethical Supplements',
     url: SITE + '/',
     inLanguage: 'he-IL',
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: { '@type': 'EntryPoint', urlTemplate: `${SITE}/search?q={search_term_string}` },
+      'query-input': 'required name=search_term_string',
+    },
   },
 ]
 const extraLd = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : []

@@ -8,7 +8,7 @@ const he = {
   'nav.about': 'אודות', 'nav.series': 'סדרות', 'nav.needs': 'מה הצורך', 'nav.stores': 'חנויות',
   'nav.glossary': 'עולם המושגים', 'nav.articles': 'מאמרים', 'nav.contact': 'צור קשר',
   'nav.main': 'ניווט ראשי', 'nav.search': 'חיפוש', 'nav.menu': 'תפריט', 'nav.home': 'Category 5 – לדף הבית',
-  'nav.allNeeds': 'לכל התחומים', 'img': 'אימג׳', 'banner': 'באנר',
+  'nav.allNeeds': 'לכל התחומים', 'img': 'אימג׳', 'banner': 'באנר', 'readMore': 'קריאה נוספת', 'home': 'דף הבית',
   'footer.keepInTouch': 'בואו נהיה בקשר', 'footer.email': 'כתובת אימייל', 'footer.signup': 'הרשמה',
   'form.sentTitle': 'ההודעה נשלחה', 'form.sentText': 'תודה שפניתם אלינו. נחזור אליכם בהקדם.', 'form.again': 'לשליחת הודעה נוספת',
   'mail.copied': 'הכתובת הועתקה', 'footer.sentTitle': 'נרשמתם בהצלחה', 'footer.sentText': 'נעדכן אתכם בחדשות ובמוצרים חדשים.',
@@ -61,6 +61,7 @@ const he = {
 } as const
 export type UiKey = keyof typeof he
 const en: Partial<Record<UiKey, string>> = {
+  'readMore': 'Further reading', 'home': 'Home',
   'chat.open': 'Talk to us', 'chat.title': 'How can we help you today?', 'chat.lang': 'Language', 'chat.close': 'Close',
   'chat.inputLabel': 'Type a question', 'chat.placeholder': 'Write a question…', 'chat.send': 'Send',
   'chat.toProduct': 'View product', 'chat.expand': 'Enlarge window', 'chat.shrink': 'Reduce window',

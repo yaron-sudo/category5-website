@@ -471,39 +471,8 @@
       "permanent": true
     },
     {
-      "source": "/feed/:rest*",
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/category/uncategorized/:rest*",
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/author/:rest*",
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/wp-admin/:rest*",
-      "destination": "/",
-      "permanent": false
-    },
-    {
       "source": "/wp-login.php",
       "destination": "/",
-      "permanent": false
-    },
-    {
-      "source": "/",
-      "has": [
-        {
-          "type": "query",
-          "key": "s"
-        }
-      ],
-      "destination": "/search",
       "permanent": false
     },
     {
@@ -525,6 +494,78 @@
       "source": "/faq",
       "destination": "/contact",
       "permanent": false
+    },
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/products/alyvium-cream",
+      "destination": "/series/professional",
+      "permanent": true
+    },
+    {
+      "source": "/products/alyvium-soap",
+      "destination": "/series/professional",
+      "permanent": true
+    },
+    {
+      "source": "/products/cellinol-soap",
+      "destination": "/series/vitamins-minerals",
+      "permanent": true
+    },
+    {
+      "source": "/products/giallocur-nano-curcumin",
+      "destination": "/products/curcumin-complex",
+      "permanent": true
+    },
+    {
+      "source": "/products/giallocur-soap",
+      "destination": "/series/plants",
+      "permanent": true
+    },
+    {
+      "source": "/products/lipozamin-creatine-complex",
+      "destination": "/series/vitamins-minerals",
+      "permanent": true
+    },
+    {
+      "source": "/products/lipozamin-magnesium-malate",
+      "destination": "/series/vitamins-minerals",
+      "permanent": true
+    },
+    {
+      "source": "/products/magnesium-bisglycinate-liposomal",
+      "destination": "/series/vitamins-minerals",
+      "permanent": true
+    },
+    {
+      "source": "/products/nemadrin-soap",
+      "destination": "/series/professional",
+      "permanent": true
+    },
+    {
+      "source": "/products/revival-20",
+      "destination": "/products/revival",
+      "permanent": true
+    },
+    {
+      "source": "/products/umanaflora-de111",
+      "destination": "/series/probiotics",
+      "permanent": true
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "query",
+          "key": "s",
+          "value": "(?<term>.*)"
+        }
+      ],
+      "destination": "/search?q=:term",
+      "permanent": true
     },
     {
       "source": "/",

@@ -1,29 +1,68 @@
 ---
-// Server fallback for every path that is not a built page: the old WordPress
-// URLs are Hebrew, and Vercel's static redirect matching proved unreliable
-// with them (percent-encoding), so this route decodes the request path,
-// looks it up in the same redirect map (vercel.json) and answers with a real
-// 301 itself. Anything unknown renders the normal 404 page.
+// Server fallback for every path that is not a built page (SEO migration plan, 22.11.2026):
+//   1. Old WordPress URLs (vercel.json `redirects`, Hebrew paths included): Vercel's static
+//      matching proved unreliable with percent-encoding, so the path is decoded here and
+//      answered with a real 301.
+//   2. Old product slugs (a replaced or hidden product): 301 to the product / series that
+//      took its place (src/c5/content/catalog.ts), so nothing is built as a meta-refresh stub.
+//   3. Old uploads (/wp-content/uploads/…): 301 to the same file under /media/ when it was
+//      carried over (media-manifest.json), otherwise 410 Gone.
+//   4. WordPress plumbing that no longer exists (feeds, author archives, wp-admin, wp-json…):
+//      410 Gone, never a redirect to the home page (Google treats that as a soft 404).
+// (WordPress search, /?s=term, is a vercel.json rule: `/` itself is a static page and never
+// reaches this route.) Anything else renders the normal 404 page with a 404 status.
 import NotFound from './404.astro'
 import redirectsConfig from '../../vercel.json'
+import mediaManifest from '@/c5/content/media-manifest.json'
+import { replacedSlugs, hiddenRedirects } from '@/c5/content/catalog'
 
 export const prerender = false
 
 const decode = (s: string) => { try { return decodeURIComponent(s) } catch { return s } }
 const norm = (s: string) => decode(s).normalize('NFC').replace(/\/+$/, '') || '/'
 const path = norm(Astro.url.pathname)
+const q = Astro.url.search || ''
 
-// exact (non-pattern) rules, decoded, without trailing slashes
-const rules = (redirectsConfig.redirects as Array<{ source: string; destination: string; has?: unknown }>)
-  .filter((r) => !r.has && !r.source.includes(':') && !r.source.includes('*'))
-const hit = rules.find((r) => norm(r.source) === path)
-if (hit) {
-  const r = Astro.redirect(hit.destination + (Astro.url.search || ''), 301)
+const redirect = (to: string, status: 301 | 302 = 301) => {
+  const r = Astro.redirect(to, status)
   r.headers.set('Cache-Control', 'public, s-maxage=86400, max-age=3600')
   return r
 }
+const gone = () => {
+  Astro.response.status = 410
+  Astro.response.headers.set('Cache-Control', 'public, s-maxage=86400, max-age=3600')
+}
 
-Astro.response.status = 404
-Astro.response.headers.set('Cache-Control', 'public, s-maxage=600, max-age=60')
+// 1. exact (non-pattern) rules of vercel.json, decoded, without trailing slashes
+const rules = (redirectsConfig.redirects as Array<{ source: string; destination: string; has?: unknown }>)
+  .filter((r) => !r.has && !r.source.includes(':') && !r.source.includes('*'))
+const hit = rules.find((r) => norm(r.source) === path)
+if (hit) return redirect(hit.destination + q)
+
+// 2. old product slugs
+const legacyProduct = path.match(/^\/products\/([^/]+)$/)?.[1]
+if (legacyProduct) {
+  const to = replacedSlugs()[legacyProduct] ? `/products/${replacedSlugs()[legacyProduct]}` : (await hiddenRedirects())[legacyProduct]
+  if (to) return redirect(to + q)
+}
+
+// 3. old uploads → /media (same relative path) or 410
+const upload = path.match(/^\/wp-content\/uploads(\/.+)$/)?.[1]
+let status: 404 | 410 = 404
+if (upload) {
+  const carried = (mediaManifest as string[]).includes(upload)
+  if (carried) return redirect(`/media${upload}`)
+  status = 410
+}
+
+// 4. WordPress plumbing → 410
+const WP_GONE = /^\/(feed|comments\/feed|author|tag|category\/uncategorized|wp-admin|wp-includes|wp-json|wp-login\.php|xmlrpc\.php|wp-cron\.php|wp-content\/(plugins|themes))(\/|$)/
+if (WP_GONE.test(path)) status = 410
+
+if (status === 410) gone()
+else {
+  Astro.response.status = 404
+  Astro.response.headers.set('Cache-Control', 'public, s-maxage=600, max-age=60')
+}
 ---
 <NotFound />
