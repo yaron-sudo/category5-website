@@ -115,7 +115,7 @@ const products = Object.fromEntries(catalog.map((p) => [p.slug, { t: p.fullTitle
   .c5c-langbtn { display: inline-flex; align-items: center; gap: 5px; letter-spacing: .02em; min-height: 36px; padding: 0 8px; border: 1px solid #dcdcd9; border-radius: 4px; background: #ffffff; color: #141414; font: inherit; font-size: 13px; cursor: pointer; }
   .c5c-langbtn:hover, .c5c-langbtn[aria-expanded="true"] { background: #efeeea; border-color: #141414; }
   .c5c-langlist { position: absolute; top: calc(100% + 6px); left: 0; z-index: 5; min-width: 140px; margin: 0; padding: 4px; list-style: none; background: #ffffff; border: 1px solid #141414; border-radius: 4px; box-shadow: 0 6px 20px rgba(20,20,20,.12); }
-  .c5c-langlist li { padding: 8px 10px; border-radius: 4px; cursor: pointer; font-size: 14px; outline: none; }
+  .c5c-langlist li { padding: 8px 10px; border-radius: 4px; cursor: pointer; font-size: 14px; line-height: 1.4; text-align: center; outline: none; }
   .c5c-langlist li:hover, .c5c-langlist li:focus { background: #efeeea; }
   .c5c-langlist li[aria-selected="true"] { font-weight: 600; }
   .c5c-log { flex: 1 1 auto; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; background: #ffffff; }
