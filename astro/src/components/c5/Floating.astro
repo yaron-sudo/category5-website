@@ -234,6 +234,9 @@ const products = Object.fromEntries(catalog.map((p) => [p.slug, { t: p.fullTitle
     const NONE = JSON.parse(root.dataset.none || '{}') as { links: Array<{ l: string; h: string }>; wa: string }
     const NO_RESULTS = '[[NO_RESULTS]]'
     const BLOCKED = '[[BLOCKED]]'
+    // A negative answer ("no, we don't have…") starts with NEG: its text comes first, then any
+    // alternative product cards (client 23.11.2026). Every other answer shows the cards first.
+    const NEG = '[[NEG]]'
     const $ = <T extends HTMLElement = HTMLElement>(sel: string) => root.querySelector<T>(sel)!
     const openBtn = $<HTMLButtonElement>('[data-chat-open]')
     const panel = $('[data-chat-panel]')
@@ -334,7 +337,8 @@ const products = Object.fromEntries(catalog.map((p) => [p.slug, { t: p.fullTitle
       const tt = text.trim()
       if (tt.includes(BLOCKED)) return blockedHtml(tt)
       if (tt.includes(NO_RESULTS)) return noneHtml()
-      if (tt && NO_RESULTS.startsWith(tt)) return '…'
+      if (tt && [NO_RESULTS, NEG, BLOCKED].some((m) => m.startsWith(tt))) return '…'
+      if (tt.startsWith(NEG)) { const body = text.replace(NEG, '').replace(/^\s+/, ''); return (md(body) || '…') + cards(body) }
       return cards(text) + (md(text) || '…')
     }
     log.addEventListener('click', (e) => { if ((e.target as Element).closest('[data-chat-none-chat]')) input.focus() })
