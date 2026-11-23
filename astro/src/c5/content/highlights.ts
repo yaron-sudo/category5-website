@@ -65,6 +65,6 @@ export const HIGHLIGHTS: Record<string, ProductHighlights> = {
   'relacton-alpha': { is: ['microscope', 'dairy', 'nonGmo', 'noPreservatives'], kosher: 'כשר חלבי לאוכלי אבקת חלב נוכרי – רבנות מעלה אדומים' },
   revival: { is: ['vegan', 'microscope', 'nonGmo', 'noPreservatives'], kosher: 'כשר פרווה – בד״ץ חתם סופר בני ברק' },
   'umanaflora-53': { is: ['dairy', 'nonGmo', 'noPreservatives'], kosher: 'כשר חלבי לאוכלי אבקת חלב נוכרי – רבנות מעלה אדומים' },
-  'umanaflora-daily': { is: ['dairy', 'nonGmo', 'noPreservatives'], kosher: 'כשר לאוכלי חלב נוכרי – רבנות מעלה אדומים' },
+  'umanaflora-daily': { is: ['dairy', 'nonGmo', 'noPreservatives'], kosher: 'כשר חלבי לאוכלי אבקת חלב נוכרי – רבנות מעלה אדומים' },
   winterguard: { is: ['vegan', 'microscope', 'nonGmo', 'noPreservatives'], kosher: 'כשר פרווה – בד״ץ העדה החרדית ירושלים' },
 }

@@ -63,6 +63,7 @@ export const LABELS: Record<string, ProductLabel> = {
         ['Lactobacillus acidophilus LA1 ****', '1 מיליארד חיידקים CELLS'],
       ],
     },
+    facts: [['משקל כמוסה', 'כ-500 מ"ג'], ['משקל נקי', 'כ-30 גר\''], ENERGY, ['הוראות שימוש', '2 כמוסות ליום.']],
     notes: [
       '** ג\'ל אלוורה ללא חלקי הקליפה של העלה | ** ג\'ל אלוורה ללא אלואין ALOINE FREE | ** הג\'ל מיוצר בייבוש בהקפאה FREEZE DRYING',
       '*** Microencapsulated Full Natural Matrix',
@@ -212,6 +213,7 @@ export const LABELS: Record<string, ProductLabel> = {
         ['מתיל פולאט (5-MTHF) *', '200 מיקרוגרם', '111%', '110%'],
       ],
     },
+    facts: [['משקל כמוסה', 'כ-510 מ"ג'], ['משקל נקי', 'כ-30.6 גר\''], ENERGY, ['הוראות שימוש', '1-2 כמוסה ליום עם השתייה.']],
     notes: [LIPOSOME],
   },
 
@@ -277,7 +279,7 @@ export const LABELS: Record<string, ProductLabel> = {
         ['COGNITAVEN® תמצית שיבולת שועל ירוקה. (Avena sativa DE) * **', '144 מ"ג', '-', '-'],
       ],
     },
-    facts: [ENERGY, ['משקל כמוסה', 'כ-600 מ"ג'], ['משקל נקי', 'כ-54 גר\'']],
+    facts: [ENERGY, ['משקל כמוסה', 'כ-600 מ"ג'], ['משקל נקי', 'כ-54 גר\''], ['הוראות שימוש', '3 כמוסות (יחד) ליום עם כוס מים 200 מ"ל.']],
     notes: ['* GMO FREE - אינו מהונדס גנטית | ** מתאים לטבעונים ולצמחוניים', '*** ליפוזום נבדק במיקרוסקופ אלקטרוני'],
   },
 
@@ -315,6 +317,7 @@ export const LABELS: Record<string, ProductLabel> = {
         ['* SNZ 1969 Bacillus Coagulans – בצילוס קואגולנס מזן נחקר', '2 מיליארד'],
       ],
     },
+    facts: [['משקל כמוסה', 'כ-500 מ"ג'], ['משקל נקי', 'כ-15 גר\''], ENERGY, ['הוראות שימוש', '1-2 כמוסות ליום.']],
   },
 
   winterguard: {
