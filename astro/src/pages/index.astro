@@ -85,6 +85,7 @@ const field = 'display: flex; flex-direction: column; gap: 2px; font-size: 15px'
      these two small arrows move it too. Hidden on wider screens, where the grid stays as is. -->
 <div class="articles-nav" role="group" aria-label="ניווט בין המאמרים">
 <button type="button" data-art-prev aria-label="המאמר הקודם" disabled><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></button>
+<span class="articles-dots" data-art-dots aria-hidden="true">{articles.map((_, i) => <i class={i === 0 ? 'on' : ''}></i>)}</span>
 <button type="button" data-art-next aria-label="המאמר הבא"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg></button>
 </div>
 </section>
@@ -97,12 +98,26 @@ const field = 'display: flex; flex-direction: column; gap: 2px; font-size: 15px'
   if (track && prev && next) {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const rtl = getComputedStyle(track).direction === 'rtl'
-    const step = () => track.clientWidth + parseFloat(getComputedStyle(track).columnGap || '0')
+    const cards = [...track.children] as HTMLElement[]
+    const dots = [...document.querySelectorAll<HTMLElement>('[data-art-dots] i')]
+    const step = () => (cards[0]?.offsetWidth || track.clientWidth) + parseFloat(getComputedStyle(track).columnGap || '0')
     const sync = () => {
       const max = track.scrollWidth - track.clientWidth
       const pos = Math.abs(track.scrollLeft)
       prev.disabled = pos <= 2
       next.disabled = pos >= max - 2
+      const at = pos >= max - 2 ? cards.length - 1 : Math.round(pos / step())
+      dots.forEach((d, i) => d.classList.toggle('on', i === at))
+    }
+    // A hint that the row scrolls sideways: the first time it comes into view on a phone, the
+    // cards slide a little towards the next article and settle back (not with reduced motion).
+    if (!reduce && 'IntersectionObserver' in window) {
+      new IntersectionObserver((es, io) => {
+        if (!es.some((e) => e.isIntersecting) || track.scrollWidth <= track.clientWidth + 2) return
+        io.disconnect()
+        window.setTimeout(() => { if (Math.abs(track.scrollLeft) < 2) track.classList.add('is-nudge') }, 500)
+        window.setTimeout(() => track.classList.remove('is-nudge'), 1900)
+      }, { threshold: 0.6 }).observe(track)
     }
     const go = (dir: 1 | -1) => track.scrollBy({ left: dir * step() * (rtl ? -1 : 1), behavior: reduce ? 'auto' : 'smooth' })
     prev.addEventListener('click', () => go(-1))
