@@ -115,7 +115,8 @@ async function build(): Promise<Product[]> {
       out.image = ov.image ?? assetFor('assets/products', p.slug) ?? out.image
       out.label = ov.label ?? LABELS[p.slug] ?? (p.source ? LABELS[p.source] : undefined) ?? (out.labelText?.length ? { notes: out.labelText } : undefined)
       const labelUsage = out.label?.facts?.find(([k]) => k === 'הוראות שימוש')?.[1]
-      if (labelUsage) out.usage = [labelUsage]
+      const labelHow = out.label?.facts?.find(([k]) => k === 'אופן השימוש')?.[1]
+      if (labelUsage) out.usage = [labelUsage, ...(labelHow ? [labelHow] : [])]
       else if (out.usage?.every((u) => OLD_USAGE_HEADING.test(u))) out.usage = undefined
       if (out.details) out.details = out.details.filter((d) => !USAGE_IN_WARNINGS.test(d))
       out.labelImage = ov.labelImage ?? assetFor('assets/products/labels', p.slug) ?? out.labelImage
