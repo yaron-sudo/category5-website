@@ -623,7 +623,7 @@ export const PRODUCT_OVERRIDES: Record<string, ProductOverride> = {
   // Left out: the brochure's research figures, symptom lists and "מומלץ" list.
   calcidex: {
     image: '/assets/products/calcidex-combo.png',
-    gallery: ['/assets/products/calcidex-jar.png'],
+    gallery: ['/assets/products/calcidex-jar.png', '/assets/products/calcidex-box.png'],
     contains: 'מכיל 60 כמוסות צמחיות',
     intro: [
       'קלצידקס - קומפלקס סידן גליצרופוספט ואלוורה להפחתת חומציות מזונות ומשקאות חומציים.',
