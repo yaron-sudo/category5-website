@@ -65,6 +65,7 @@ const TOGGLES = [
 <div class="c5-a11y-foot">
 <button type="button" data-a11y-reset class="c5-a11y-reset">איפוס הגדרות</button>
 <a href="/legal/accessibility" class="c5-a11y-stmt">הצהרת נגישות</a>
+<button type="button" data-a11y-close class="c5-a11y-done">סגירה</button>
 </div>
 <p class="c5-a11y-hint">פתיחה וסגירה במקלדת: Alt + A</p>
 </section>
@@ -79,7 +80,7 @@ const TOGGLES = [
   .c5-a11y-btn[aria-expanded="true"] { display: none; }
   .c5-a11y-panel { position: fixed; right: 16px; bottom: 16px; z-index: 90; width: min(360px, calc(100vw - 32px)); max-height: calc(100vh - 32px); overflow-y: auto; box-sizing: border-box; padding: 18px 20px 16px; background: #ffffff; border: 1px solid #141414; border-radius: 8px; display: flex; flex-direction: column; gap: 16px; font-size: 15px; line-height: 1.4; }
   .c5-a11y-panel[hidden] { display: none; }
-  .c5-a11y-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .c5-a11y-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; position: sticky; top: -18px; z-index: 1; margin: -18px -20px 0; padding: 18px 20px 8px; background: #ffffff; }
   .c5-a11y-title { margin: 0; font-size: 17px !important; font-weight: 600; }
   .c5-a11y-x { width: 36px; height: 36px; border: 0; background: transparent; color: #141414; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 4px; }
   .c5-a11y-x:hover { background: #efeeea; }
@@ -102,10 +103,17 @@ const TOGGLES = [
   .c5-a11y-reset:hover { background: #141414; color: #ffffff; }
   .c5-a11y-stmt { color: #141414; text-decoration: underline; text-underline-offset: 4px; font-size: 15px; }
   .c5-a11y-hint { margin: 0; font-size: 12px; color: #141414; opacity: .7; }
+  .c5-a11y-done { display: none; min-height: 48px; padding: 0 16px; border: 1px solid #141414; border-radius: 4px; background: #141414; color: #ffffff; font: inherit; font-size: 16px; cursor: pointer; }
+  .c5-a11y-done:hover { background: #ffffff; color: #141414; }
   @media (max-width: 640px) {
     .c5-a11y-btn { right: 12px; bottom: 12px; width: 44px; height: 44px; }
-    .c5-a11y-panel { right: 8px; left: 8px; bottom: 8px; width: auto; max-height: calc(100vh - 16px); }
+    .c5-a11y-panel { right: 8px; left: 8px; bottom: 8px; width: auto; max-height: calc(100vh - 16px); max-height: calc(100dvh - 16px); }
     .c5-a11y-list { grid-template-columns: 1fr; }
+    /* Phones: the panel is a long scrolling list, so the footer with a clear "סגירה" button stays
+       pinned at the bottom of the panel whatever was just set. */
+    .c5-a11y-foot { position: sticky; bottom: -16px; z-index: 1; display: grid; grid-template-columns: 1fr auto; align-items: center; margin: 0 -20px -16px; padding: 12px 20px 12px; background: #ffffff; border-top: 1px solid #dcdcd9; box-shadow: 0 -8px 16px rgba(255,255,255,.9); }
+    .c5-a11y-done { display: flex; align-items: center; justify-content: center; grid-column: 1 / -1; width: 100%; }
+    .c5-a11y-hint { display: none; }
   }
 
   /* ----- Global adjustments (classes on <html>; also set before first paint by Site.astro) ----- */
@@ -174,7 +182,7 @@ const TOGGLES = [
       else toggleBtn.focus()
     }
     toggleBtn.addEventListener('click', () => setOpen(true))
-    panel.querySelector('[data-a11y-close]')!.addEventListener('click', () => setOpen(false))
+    panel.querySelectorAll('[data-a11y-close]').forEach((b) => b.addEventListener('click', () => setOpen(false)))
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && !panel.hidden) { setOpen(false); return }
       // Alt+A from anywhere (physical key, so it works on every keyboard layout)
