@@ -1,6 +1,8 @@
 ---
 // Centralised SEO/meta head. Used by Base.astro on every page.
 import { SOCIAL_PROFILES } from '@/c5/seo'
+import { ABOUT } from '@/c5/content/about'
+import { CONTACT } from '@/c5/data'
 // Emits: canonical, description, robots, Open Graph, Twitter Card, JSON-LD.
 interface Props {
   title: string
@@ -67,6 +69,9 @@ const baseLd: Record<string, unknown>[] = [
     url: SITE + '/',
     logo: `${SITE}/assets/logo/category5-logo.png`,
     slogan: 'Where good gets better.',
+    description: ABOUT[0],
+    areaServed: 'IL',
+    contactPoint: [{ '@type': 'ContactPoint', contactType: 'customer service', email: CONTACT.email, telephone: `+${CONTACT.whatsappIntl}`, availableLanguage: ['he', 'en'] }],
     sameAs: SOCIAL_PROFILES,
   },
   {
