@@ -6,6 +6,9 @@
 import { SERIES, NEEDS, FEATURED_NEEDS, seriesHref, needHref } from '@/c5/data'
 import { t } from '@/c5/i18n'
 import { BLOCKED_MESSAGE } from '@/c5/content/searchBlocked'
+// "מה הצורך" is hidden in the header and the mobile menu until its banners are ready
+// (client, 24.11.2026). Set to true to bring it back; the need pages themselves stay online.
+const SHOW_NEEDS_MENU = false
 const featured = FEATURED_NEEDS.map((slug) => NEEDS.find((n) => n.slug === slug)!).filter(Boolean)
 const navLink = 'display: inline-flex; align-items: center; min-height: 44px; padding: 0 10px; color: #141414; text-decoration: none'
 const navBtn = 'display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 10px; border: 0; background: transparent; font: inherit; color: #141414; cursor: pointer'
@@ -23,8 +26,8 @@ const mobileRow = 'display: flex; align-items: center; min-height: 52px; border-
 <a href="/#about" data-c5-close class="c5-nav" style={navLink}>{t('nav.about')}</a>
 <button type="button" data-c5-toggle="series" aria-expanded="false" aria-controls="c5-mega-series" class="c5-nav" style={navBtn}>{t('nav.series')}
 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
-<button type="button" data-c5-toggle="needs" aria-expanded="false" aria-controls="c5-mega-needs" class="c5-nav" style={navBtn}>{t('nav.needs')}
-<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
+{SHOW_NEEDS_MENU && <button type="button" data-c5-toggle="needs" aria-expanded="false" aria-controls="c5-mega-needs" class="c5-nav" style={navBtn}>{t('nav.needs')}
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>}
 <a href="/stores" data-c5-close class="c5-nav" style={navLink}>{t('nav.stores')}</a>
 <a href="/glossary" data-c5-close class="c5-nav" style={navLink}>{t('nav.glossary')}</a>
 <a href="/articles" data-c5-close class="c5-nav" style={navLink}>{t('nav.articles')}</a>
@@ -65,6 +68,7 @@ const mobileRow = 'display: flex; align-items: center; min-height: 52px; border-
 </div>
 </div>
 
+{SHOW_NEEDS_MENU && (
 <div id="c5-mega-needs" data-c5-panel="needs" class="c5-drop c5-panel c5-wide" hidden style="position: absolute; top: 100%; left: 0; right: 0; background: #ffffff; border-bottom: 1px solid #dcdcd9; box-shadow: 0 24px 40px rgba(0,0,0,0.06); z-index: 60">
 <div style="max-width: 1280px; margin: 0 auto; padding: 36px clamp(16px, 4vw, 48px) 44px; display: flex; flex-wrap: wrap; gap: clamp(32px, 5vw, 96px); box-sizing: border-box">
 <div style="flex: 0 1 280px; display: flex; flex-direction: column">
@@ -85,6 +89,7 @@ const mobileRow = 'display: flex; align-items: center; min-height: 52px; border-
 </div>
 </div>
 </div>
+)}
 
 <div id="c5-mobile" data-c5-panel="mobile" class="c5-drop c5-panel c5-mobile-panel" hidden style="position: absolute; top: 100%; left: 0; right: 0; background: #ffffff; border-bottom: 1px solid #dcdcd9; z-index: 60; box-shadow: 0 24px 40px rgba(0,0,0,0.08); padding: 8px 16px 24px; display: flex; flex-direction: column; max-height: calc(100vh - 80px); overflow-y: auto">
 <a href="/#about" data-c5-close style={mobileRow}>{t('nav.about')}</a>
@@ -94,12 +99,14 @@ const mobileRow = 'display: flex; align-items: center; min-height: 52px; border-
 <a href={seriesHref(s)} data-c5-close class="c5-tile" style="display: flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 10px; color: #141414; border-radius: 4px; text-decoration: none; font-size: 14px"><span style={`width: 28px; height: 28px; flex-shrink: 0; background: ${s.color}; display: flex; align-items: center; justify-content: center`}><img src={s.iconWhite} alt="" style="width: 22px; height: 22px"></span>{s.name}</a>
 ))}
 </div>
+{SHOW_NEEDS_MENU && (<>
 <p style="margin: 20px 0 8px; font-size: 14px">{t('nav.needs')}</p>
 <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
 {NEEDS.map((n) => (
 <a href={needHref(n)} data-c5-close class="c5-tile" style="display: flex; align-items: center; min-height: 48px; padding: 0 10px; color: #141414; border-radius: 4px; text-decoration: none; font-size: 14px">{n.label}</a>
 ))}
 </div>
+</>)}
 <div style="display: flex; flex-direction: column; margin-top: 16px">
 <a href="/stores" data-c5-close style={mobileRow}>{t('nav.stores')}</a>
 <a href="/glossary" data-c5-close style={mobileRow}>{t('nav.glossary')}</a>
