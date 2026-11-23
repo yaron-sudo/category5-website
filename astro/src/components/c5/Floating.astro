@@ -96,8 +96,8 @@ const products = Object.fromEntries(catalog.map((p) => [p.slug, { t: p.fullTitle
 
 <style is:global>
   [data-chat-panel][hidden], [data-chat-open][hidden], .c5c [hidden] { display: none !important; }
-  .c5c { position: fixed; left: 16px; bottom: 16px; z-index: 90; width: min(440px, calc(100vw - 32px)); height: min(640px, calc(100vh - 32px)); background: #ffffff; border: 1px solid #141414; border-radius: 6px; display: flex; flex-direction: column; overflow: hidden; color: #141414; }
-  .c5c[data-large] { width: min(760px, calc(100vw - 32px)); height: min(860px, calc(100vh - 32px)); }
+  .c5c { position: fixed; left: 16px; bottom: 16px; z-index: 90; width: min(440px, calc(100vw - 32px)); height: min(640px, calc((100vh - 32px) / var(--a11y-zoom, 1))); background: #ffffff; border: 1px solid #141414; border-radius: 6px; display: flex; flex-direction: column; overflow: hidden; color: #141414; }
+  .c5c[data-large] { width: min(760px, calc(100vw - 32px)); height: min(860px, calc((100vh - 32px) / var(--a11y-zoom, 1))); }
   .c5c-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
   .c5c-ib { flex: 0 0 auto; width: 36px; height: 36px; border: 0; border-radius: 4px; background: transparent; color: #141414; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; padding: 0; transition: background .25s cubic-bezier(.22,.61,.36,1); }
   .c5c-ib:hover:not(:disabled), .c5c-ib[aria-pressed="true"], .c5c-ib[aria-expanded="true"] { background: #efeeea; }
@@ -203,7 +203,7 @@ const products = Object.fromEntries(catalog.map((p) => [p.slug, { t: p.fullTitle
      page behind does not scroll while it is open. Enlarge / reduce are not needed there. */
   @media (max-width: 640px) {
     .c5c-size { display: none !important; }
-    .c5c, .c5c[data-large] { left: 0 !important; right: 0; top: 0; bottom: auto !important; width: 100% !important; height: var(--c5-chat-h, 100dvh) !important; border: 0 !important; border-radius: 0 !important; font-size: 16px; }
+    .c5c, .c5c[data-large] { left: 0 !important; right: 0; top: 0; bottom: auto !important; width: 100% !important; height: calc(var(--c5-chat-h, 100dvh) / var(--a11y-zoom, 1)) !important; border: 0 !important; border-radius: 0 !important; font-size: 16px; }
     .c5c-head { padding-top: calc(10px + env(safe-area-inset-top)); }
     .c5c-note { padding-bottom: calc(10px + env(safe-area-inset-bottom)); }
     .c5c-box textarea { font-size: 16px; }

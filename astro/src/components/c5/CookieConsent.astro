@@ -83,7 +83,7 @@ const categories = [
   /* settings dialog: same frame as the accessibility panel */
   .c5cc-modal { position: fixed; inset: 0; z-index: 95; display: grid; place-items: center; padding: 16px; }
   .c5cc-backdrop { position: absolute; inset: 0; background: rgba(20,20,20,.32); opacity: 0; transition: opacity .45s cubic-bezier(.22,.61,.36,1); }
-  .c5cc-dialog { position: relative; z-index: 1; box-sizing: border-box; width: min(520px, 100%); max-height: calc(100vh - 32px); overflow-y: auto; background: #ffffff; border: 1px solid #141414; border-radius: 8px; padding: 22px 24px 20px; display: flex; flex-direction: column; gap: 8px; opacity: 0; transform: translateY(6px); transition: opacity .45s cubic-bezier(.22,.61,.36,1), transform .45s cubic-bezier(.22,.61,.36,1); }
+  .c5cc-dialog { position: relative; z-index: 1; box-sizing: border-box; width: min(520px, 100%); max-height: calc((100vh - 32px) / var(--a11y-zoom, 1)); overflow-y: auto; background: #ffffff; border: 1px solid #141414; border-radius: 8px; padding: 22px 24px 20px; display: flex; flex-direction: column; gap: 8px; opacity: 0; transform: translateY(6px); transition: opacity .45s cubic-bezier(.22,.61,.36,1), transform .45s cubic-bezier(.22,.61,.36,1); }
   .c5cc-modal.is-in .c5cc-backdrop { opacity: 1; }
   .c5cc-modal.is-in .c5cc-dialog { opacity: 1; transform: none; }
   .c5cc-dialog:focus { outline: none; }
