@@ -25,7 +25,9 @@ interface Props {
   noindex?: boolean
 }
 const { title, description, image, lang = DEFAULT_LANG, jsonLd, noindex = false } = Astro.props
-const fullTitle = title.includes('Category 5') ? title : `${title} | Category 5`
+// <title>: the page's own heading, then the brand in Hebrew (client, 23.11.2026). A title that
+// already carries the brand (the home page) is used as is.
+const fullTitle = /Category 5|קטגוריה 5/.test(title) ? title : `${title} | קטגוריה 5`
 const ogImage = shareImage(image)
 // GA / Meta snippets from siteSettings.tracking; inert until the cookie consent grants them.
 const settings = await getSiteSettings()
