@@ -45,7 +45,7 @@ const cards = content.fillPlaceholders
 </section>
 
 <section aria-label="מוצרי הסדרה" style="max-width: 1280px; margin: 0 auto; padding: 24px clamp(16px, 4vw, 48px) clamp(56px, 7vw, 112px); box-sizing: border-box">
-<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px">
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr)); gap: 24px">
 {cards.map((c) => <ProductCard summary={'summary' in c ? c.summary : undefined} title={c.title} image={c.image} href={c.href} series={s.slug} newPack={'newPack' in c ? c.newPack : false} />)}
 </div>
 </section>

@@ -204,5 +204,13 @@ main img, footer img { user-select: none; -webkit-user-select: none; -webkit-use
 .c5-newpack svg { flex: 0 0 10px; align-self: flex-start; margin-top: 1px; opacity: .85; }
 
 /* Standard button as a class (BRIEF: white, 1px black border, black text, 4px radius; hover inverts). */
-.c5-button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 0 22px; border: 1px solid #141414; border-radius: 4px; background: #ffffff; color: #141414; font: inherit; text-decoration: none; cursor: pointer; transition: background-color .45s cubic-bezier(.22,.61,.36,1), color .45s cubic-bezier(.22,.61,.36,1); }
+.c5-button { display: inline-flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px; min-height: 44px; max-width: 100%; box-sizing: border-box; padding: 8px 22px; text-align: center; border: 1px solid #141414; border-radius: 4px; background: #ffffff; color: #141414; font: inherit; text-decoration: none; cursor: pointer; transition: background-color .45s cubic-bezier(.22,.61,.36,1), color .45s cubic-bezier(.22,.61,.36,1); }
 .c5-button:hover, .c5-button:focus-visible { background: #141414; color: #ffffff; text-decoration: none; }
+
+/* Enlarged text (document zoom, components/c5/Accessibility.astro) leaves a phone with fewer CSS px
+   than any breakpoint assumes. Nothing in the flow may be wider than its container: forms, fields,
+   media and long words all shrink or wrap instead of pushing the page sideways. */
+.c5-site { overflow-wrap: break-word; }
+.c5-site main form, .c5-site footer form { min-width: 0 !important; max-width: 100%; }
+.c5-site input, .c5-site textarea, .c5-site select { min-width: 0; max-width: 100%; box-sizing: border-box; }
+.c5-site main img, .c5-site main video, .c5-site main iframe { max-width: 100%; }

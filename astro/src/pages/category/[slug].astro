@@ -87,7 +87,7 @@ const itemList = {
 {products.length > 0 && (
 <section aria-label="מוצרים" style="max-width: 1280px; margin: 0 auto; padding: 24px clamp(16px, 4vw, 48px) 24px; box-sizing: border-box">
 <h2 style="margin: 0 0 24px">המוצרים</h2>
-<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px">
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr)); gap: 24px">
 {products.map((p) => <ProductCard title={p.title} summary={PRODUCT_SUMMARIES[p.slug]} image={p.image} href={productHref(p)} series={p.series} newPack={p.newPack} />)}
 </div>
 </section>

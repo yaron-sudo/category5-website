@@ -101,7 +101,7 @@ const btn = 'min-height: 48px; padding: 0 22px; border: 1px solid #141414; borde
   .sr-cols { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 40px clamp(28px, 4vw, 56px); }
   .sr-cols[hidden] { display: none; }
   .sr-count { font-size: 15px !important; font-weight: 400 !important; }
-  .sr-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
+  .sr-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr)); gap: 20px; }
   .sr-articles { display: flex; flex-direction: column; border-top: 1px solid #141414; }
   .sr-art { display: flex; flex-direction: column; gap: 6px; padding: 18px 0; border-bottom: 1px solid #dcdcd9; color: #141414; text-decoration: none; }
   .sr-art strong { font-weight: 600; font-size: 18px; }
