@@ -11,6 +11,17 @@
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
 body { margin: 0; background: #ffffff; color: #141414; font-size: 17px; line-height: 1.6; }
+/* Nothing may widen the page sideways: on phones a wider page also widens every full-screen
+   layer (the chat sheet, menus) past the screen edge. `clip` keeps position: sticky working. */
+html, body { overflow-x: clip; }
+/* Very narrow phones (320–380px): the header's logo + three icons did not fit and pushed the
+   whole page 22px off screen. Slightly smaller logo, icons and gaps there. */
+@media (max-width: 380px) {
+  .c5-header [data-c5-bar] { gap: 8px !important; padding: 0 12px !important; }
+  .c5-header [data-c5-logo] { height: 32px !important; }
+  .c5-hicons { gap: 0 !important; }
+  .c5-hicons > a, .c5-hicons > button { width: 40px !important; height: 40px !important; }
+}
 img { max-width: 100%; }
 
 /* mockups/Main.dc.html helmet */
