@@ -75,7 +75,7 @@ function assetFor(dir: string, slug: string): string | undefined {
 // Usage instructions come from the product label only (client, 23.11.2026): the label's
 // "הוראות שימוש" row replaces any usage text from the old site. Old-site dosage lines that
 // were filed under the warnings (and so showed after "אזהרה:") are dropped.
-const USAGE_IN_WARNINGS = /^(\d|מניעה –|מוגבר –|להעלות את המינון|מומלץ לשלב עם|המוצר מתאים לשימוש|ניתן ליטול גם|מומלץ ליטול מספר ימים|הומנפלורה 53 הנו)/
+const USAGE_IN_WARNINGS = /^(\d|מניעה –|מוגבר –|להעלות את המינון|מומלץ לשלב עם|המוצר מתאים לשימוש|ניתן ליטול גם|מומלץ ליטול מספר ימים|הומנפלורה 53 הנו|(לאיכות שינה|במצבי מתח וחרדה|מינון מומלץ|למניעה|לטיפול|למתמודדים עם לחץ[^:]*|המלצה):)/
 const OLD_USAGE_HEADING = /^המלצות שימוש \(בהמלצת רופא מטפל\):?$/
 
 const MFM_MICROSCOPE = new Set(['kalnozim-digestive-enzymes', 'kalnozin'])

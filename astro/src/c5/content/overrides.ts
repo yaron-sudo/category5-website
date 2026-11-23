@@ -66,6 +66,19 @@ export const PRODUCT_OVERRIDES: Record<string, ProductOverride> = {
     keywords: ['חומצה פולית', 'פולאט', 'מתיל פולאט', 'MTHF', '5-MTHF', 'B9', 'ויטמין B9', 'Amorfolic', 'אמורפוליק'],
   },
   // Cellinol Junior: shelf life 36 months (client, 17.11.2026); the old site's benefit said "two years".
+  // Relacton Alpha: details from the old site without the stress-dosage rows and the
+  // cross-sell line; standard warning added (client, 23.11.2026).
+  'relacton-alpha': {
+    details: [
+      'אזהרת אלרגנים: המוצר מכיל רכיבי חלב',
+      'סוג כשרות: כשר חלבי לאוכלי אבקת חלב נוכרי.',
+      'נותן הכשרות: רבנות מעלה אדומים.',
+      'אורך חיי מדף: 36 חודשים.',
+      'נשים בהריון, נשים מיניקות, אנשים הנוטלים תרופות מרשם, ילדים, יש להיוועץ ברופא.',
+      'יש להרחיק מהישג ידם של ילדים.',
+    ],
+  },
+
   'cellinol-junior': {
     contains: 'מכיל 60 טבליות',
     benefits: [
@@ -76,6 +89,16 @@ export const PRODUCT_OVERRIDES: Record<string, ProductOverride> = {
       'יציב להפליא עם חיי מדף של 36 חודשים ללא צורך בקירור.',
       'ויטמין C המכיל 100% חומצה אסקורבית שאינה מהונדסת גנטית וללא ערבוב מלחים ומינרלים כגון נתרן ואשלגן אסקורבט.',
       'הליפוזום שבמוצר מיוצר מלצטין חמניות ואינו מכיל סויה.',
+    ],    // Details as on the old site plus the label's choking warning (label, 23.11.2026).
+    details: [
+      'סוג כשרות: כשר פרווה, בד״ץ.',
+      'נותן הכשרות: בד״ץ חתם סופר בני ברק.',
+      'אורך חיי מדף: 36 חודשים.',
+      'המלצת אחסון: יש לאחסן במקום קריר ויבש, הרחק מחום אור ולחות.',
+      'לאחר הפתיחה אין צורך לשמור בקירור.',
+      'סכנת חנק לילדים מתחת לגיל 5.',
+      'נשים בהריון, נשים מיניקות, אנשים הנוטלים תרופות מרשם, ילדים, יש להיוועץ ברופא.',
+      'יש להרחיק מהישג ידם של ילדים.',
     ],
   },
 

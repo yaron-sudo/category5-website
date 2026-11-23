@@ -28,7 +28,7 @@ export const HIGHLIGHTS: Record<string, ProductHighlights> = {
   amorfolic: { is: ['vegan', 'nonGmo', 'noPreservatives'], kosher: 'כשר פרווה – בד״ץ חתם סופר בני ברק' },
   'bio-vera': { is: ['vegan', 'nonGmo', 'noPreservatives'], kosher: 'כשר פרווה – בד״ץ חתם סופר בני ברק' },
   calcidex: { is: ['vegan', 'glutenFree', 'nonGmo', 'noPreservatives'], kosher: 'כשר פרווה – בד״ץ חתם סופר בני ברק' },
-  'cellinol-junior': { is: ['sugarFree'], kosher: 'כשר פרווה – בד״ץ חתם סופר בני ברק' },
+  'cellinol-junior': { is: ['vegan', 'microscope', 'nonGmo', 'sugarFree'], kosher: 'כשר פרווה – בד״ץ חתם סופר בני ברק' },
   'cellinol-liposomal-vitamin-c': { is: ['vegan', 'microscope', 'nonGmo', 'noPreservatives'], kosher: 'כשר פרווה – בד״ץ העדה החרדית ירושלים' },
   'cogni-bright': { is: ['vegan', 'glutenFree', 'microscope', 'nonGmo', 'noPreservatives'], kosher: 'כשר פרווה – בד״ץ חתם סופר בני ברק' },
   'cogni-mg': { is: ['vegan', 'glutenFree', 'microscope', 'nonGmo', 'noPreservatives'], kosher: 'כשר פרווה – בד״ץ חתם סופר בני ברק' },
