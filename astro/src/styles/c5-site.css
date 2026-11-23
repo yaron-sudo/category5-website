@@ -98,7 +98,11 @@ button[style*="position: fixed"]:hover { background: #141414 !important; color: 
 button[style*="position: fixed"]:active { transform: scale(.99); }
 
 /* compact header: thin strip while scrolling down; expands on hover or when scrolling up */
-.c5-logo { flex-shrink: 0; }
+/* The logo gives way before the icon row does: on a phone with the text enlarged (document zoom,
+   components/c5/Accessibility.astro) the bar has fewer CSS px, and a fixed-width logo pushed the
+   whole page wider than the screen (sideways scrolling). */
+.c5-logo { flex: 0 1 auto !important; min-width: 0; }
+.c5-logo img { max-width: 100%; object-fit: contain; object-position: right center; }
 header, header > div { overflow: visible; }
 .c5-nav, header a[aria-label]:not(.c5-logo), header button[aria-label] { transition: min-height .7s cubic-bezier(.22,.61,.36,1), height .7s cubic-bezier(.22,.61,.36,1), width .7s cubic-bezier(.22,.61,.36,1), font-size .7s cubic-bezier(.22,.61,.36,1), opacity .4s; }
 .c5-compact .c5-nav { min-height: 32px !important; font-size: 12px !important; }
