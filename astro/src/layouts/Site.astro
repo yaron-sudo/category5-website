@@ -41,7 +41,7 @@ const settings = await getSiteSettings()
     <script is:inline>
       // Accessibility preferences (components/c5/Accessibility.astro) applied before first paint.
       (function(){try{var p=JSON.parse(localStorage.getItem('c5-a11y-v2')||'{}'),c=document.documentElement.classList,F={links:'a11y-links',headings:'a11y-headings',readable:'a11y-readable',stopAnim:'a11y-stop-anim',bigCursor:'a11y-bigcursor',noImages:'a11y-noimages'};
-      if(p.text&&p.text!==100)document.documentElement.style.zoom=String(p.text/100);if(p.lines&&p.lines!==1)c.add('a11y-lines-'+p.lines);if(p.contrast)c.add('a11y-contrast-'+p.contrast);for(var k in F)if(p.flags&&p.flags[k])c.add(F[k])}catch(e){}})()
+      if(p.text&&p.text!==100){document.documentElement.style.zoom=String(p.text/100);document.documentElement.style.setProperty('--a11y-zoom',String(p.text/100))}if(p.lines&&p.lines!==1)c.add('a11y-lines-'+p.lines);if(p.contrast)c.add('a11y-contrast-'+p.contrast);for(var k in F)if(p.flags&&p.flags[k])c.add(F[k])}catch(e){}})()
     </script>
   </head>
   <body class="c5-site">
