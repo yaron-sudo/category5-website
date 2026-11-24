@@ -5,7 +5,8 @@ import Site from '@/layouts/Site.astro'
 
 const FLIPBOOK = 'https://www.paperturn-view.com/?pid=ODg8827543&v=10.1&bgcolor=%23FFFFFF&embed=script&shadow=1&flipSound=1&hardCover=1'
 ---
-<Site title="חוברת מוצרים" description="חוברת המוצרים של קטגוריה 5 תוספים אתיים: כל המוצרים, הרכיבים וההוראות בחוברת דיגיטלית אחת.">
+<!-- Not indexed (client, 24.11.2026): noindex + out of the sitemap (astro.config.mjs); still reachable by link. -->
+<Site title="חוברת מוצרים" description="חוברת המוצרים של קטגוריה 5 תוספים אתיים: כל המוצרים, הרכיבים וההוראות בחוברת דיגיטלית אחת." noindex>
 <section style="max-width: 1280px; margin: 0 auto; padding: clamp(40px, 5vw, 72px) clamp(16px, 4vw, 48px) 24px; box-sizing: border-box; display: flex; flex-direction: column; gap: 12px">
 <h1 style="margin: 0">חוברת מוצרים</h1>
 <p style="margin: 0; max-width: 64ch">כל מוצרי קטגוריה 5 בחוברת דיגיטלית אחת. אפשר לדפדף כאן או לפתוח במסך מלא.</p>

@@ -40,13 +40,13 @@ export default defineConfig({
   build: { format: 'directory' },
   // The old design's cookie page now lives with the other legal pages.
   redirects: { '/cookies': '/legal/cookies' },
-  // Sitemap: indexable pages only. The site search is noindex, /cookies is a redirect and a
-  // 404 page never belongs in a sitemap.
+  // Sitemap: indexable pages only. The site search and the catalogue flip-book are noindex,
+  // /cookies is a redirect and a 404 page never belongs in a sitemap.
   // Product pages also list their product photo as an image-sitemap entry (<image:image>), so
   // Google Images associates the photo with the page and search results can show it as the
   // thumbnail. The photo is read from the page the build just wrote (data-pp-main, ProductPage.astro).
   integrations: [sitemap({
-    filter: (page) => !/^\/(search|cookies|404)$/.test(new URL(page).pathname.replace(/\/$/, '')),
+    filter: (page) => !/^\/(search|cookies|404|catalog)$/.test(new URL(page).pathname.replace(/\/$/, '')),
     serialize(item) {
       const slug = new URL(item.url).pathname.match(/^\/products\/([^/]+)\/?$/)?.[1]
       if (slug) {

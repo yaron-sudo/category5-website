@@ -71,7 +71,6 @@ export async function buildLlmsTxt(full = false): Promise<string> {
 
   h(2, 'עמודים נוספים')
   li(`[איפה קונים: מפת חנויות ובתי מרקחת](${abs('/stores')}) (${stores} נקודות מכירה בישראל)`)
-  li(`[חוברת מוצרים](${abs('/catalog')})`)
   li(`[קהילה: אינסטגרם](${abs('/community')})`)
   li(`[צור קשר](${abs('/contact')}): דוא"ל ${CONTACT.email}, וואטסאפ ${CONTACT.whatsapp}`)
   li(`[אינסטגרם](${CONTACT.instagram}), [פייסבוק](${CONTACT.facebook})`)
