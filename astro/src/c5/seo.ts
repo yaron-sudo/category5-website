@@ -23,14 +23,14 @@ export function breadcrumbLd(items: Crumb[], site?: URL | string) {
 }
 
 /** Product: name, image, brand, description, series as category. */
-export function productLd(p: Product, opts: { url: string; image?: string; description?: string; site?: URL | string }) {
+export function productLd(p: Product, opts: { url: string; image?: string | string[]; description?: string; site?: URL | string }) {
   const series = SERIES.find((s) => s.slug === p.series)
   return {
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: p.fullTitle || p.title,
     url: abs(opts.url, opts.site),
-    ...(opts.image ? { image: abs(opts.image, opts.site) } : {}),
+    ...(opts.image ? { image: (Array.isArray(opts.image) ? opts.image : [opts.image]).filter(Boolean).map((i) => abs(i, opts.site)) } : {}),
     ...(opts.description ? { description: opts.description } : {}),
     brand: { '@type': 'Brand', name: BRAND_NAME },
     ...(series ? { category: series.name } : {}),
