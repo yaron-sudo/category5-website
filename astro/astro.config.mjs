@@ -42,5 +42,22 @@ export default defineConfig({
   redirects: { '/cookies': '/legal/cookies' },
   // Sitemap: indexable pages only. The site search is noindex, /cookies is a redirect and a
   // 404 page never belongs in a sitemap.
-  integrations: [sitemap({ filter: (page) => !/^\/(search|cookies|404)$/.test(new URL(page).pathname.replace(/\/$/, '')) })],
+  // Product pages also list their product photo as an image-sitemap entry (<image:image>), so
+  // Google Images associates the photo with the page and search results can show it as the
+  // thumbnail. The photo is read from the page the build just wrote (data-pp-main, ProductPage.astro).
+  integrations: [sitemap({
+    filter: (page) => !/^\/(search|cookies|404)$/.test(new URL(page).pathname.replace(/\/$/, '')),
+    serialize(item) {
+      const slug = new URL(item.url).pathname.match(/^\/products\/([^/]+)\/?$/)?.[1]
+      if (slug) {
+        try {
+          const html = readFileSync(fileURLToPath(new URL(`./.vercel/output/static/products/${slug}/index.html`, import.meta.url)), 'utf8')
+          const src = html.match(/<img data-pp-main src="([^"]+)"/)?.[1]
+          const title = html.match(/<img data-pp-main src="[^"]+" alt="([^"]*)"/)?.[1]
+          if (src) item.img = [{ url: new URL(src, SITE).href, title }, { url: `${SITE}/og/products/${slug}.jpg`, title }]
+        } catch { /* page not found: no image entry */ }
+      }
+      return item
+    },
+  })],
 })

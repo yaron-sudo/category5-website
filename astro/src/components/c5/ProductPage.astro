@@ -61,7 +61,8 @@ const related = (await productsOfSeries(p.series)).filter((x) => x.slug !== p.sl
 // else the short summary, else whatever intro there is.
 const description = p.intro?.find((l) => l.trim().length >= 50 && !/:\s*$/.test(l)) ?? PRODUCT_SUMMARIES[p.slug] ?? p.intro?.[0]
 const jsonLd = [
-  productLd(p, { url: productHref(p) as string, image: productShareImage(p), description, site: Astro.site }),
+  // image: the product photo shown on the page first (what Google should pair with the page), then the 1200×630 share image
+  productLd(p, { url: productHref(p) as string, image: [p.image as string, productShareImage(p)], description, site: Astro.site }),
   breadcrumbLd([{ name: t('home'), href: '/' }, { name: s.name, href: seriesHref(s) }, { name, href: productHref(p) as string }], Astro.site),
 ]
 const btn = 'display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 22px; border: 1px solid #141414; color: #141414; text-decoration: none; border-radius: 4px; background: #ffffff; font: inherit; cursor: pointer'

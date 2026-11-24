@@ -575,7 +575,7 @@
         {
           "type": "header",
           "key": "referer",
-          "value": "^(?!$)(?!.*(?:ethical-supplements\\.com|category5|localhost|127\\.0\\.0\\.1)).*$"
+          "value": "^(?!$)(?!.*(?:ethical-supplements\\.com|category5|localhost|127\\.0\\.0\\.1|google\\.|googleusercontent\\.com|gstatic\\.com|bing\\.com|duckduckgo\\.com|yandex\\.|ecosia\\.org)).*$"
         }
       ],
       "destination": "/",
