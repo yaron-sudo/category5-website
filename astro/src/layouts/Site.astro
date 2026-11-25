@@ -2,6 +2,7 @@
 // Category 5 site layout (BRIEF.md): Header + <main> + Footer + Floating, the
 // mockups' shared CSS (site.css verbatim) and motion script (site.js verbatim).
 import Seo from '@/components/Seo.astro'
+import GoogleTags from '@/components/GoogleTags.astro'
 import Header from '@/components/c5/Header.astro'
 import Footer from '@/components/c5/Footer.astro'
 import Floating from '@/components/c5/Floating.astro'
@@ -36,6 +37,7 @@ const settings = await getSiteSettings()
 <html lang={lang} dir={DIR[lang]}>
   <head>
     <meta charset="utf-8" />
+    <GoogleTags />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/assets/logo/category5-logo.svg" />
     <link rel="preload" href="/assets/fonts/NotoSansHebrew-Regular.ttf" as="font" type="font/ttf" crossorigin />
