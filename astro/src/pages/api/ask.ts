@@ -2,7 +2,7 @@ import type { APIRoute } from 'astro'
 import Anthropic from '@anthropic-ai/sdk'
 import { siteKnowledge, researchContext, RESEARCH_IN_CHAT } from '@/lib/knowledge'
 import { isBlocked } from '@/c5/search/engine.js'
-import { BLOCKED_TERMS, CHAT_BLOCKED_MESSAGE, CRISIS_TERMS, CHAT_CRISIS_MESSAGE } from '@/c5/content/searchBlocked'
+import { BLOCKED_TERMS, BLOCKED_MESSAGE, CHAT_BLOCKED_MARKER, CRISIS_TERMS, CHAT_CRISIS_MESSAGE } from '@/c5/content/searchBlocked'
 
 // AI chat ("דברו איתנו"; also /faq). Every question opens an AI turn that answers
 // from the product memory (lib/knowledge.ts: knowledge files + catalogue, in the
@@ -93,6 +93,7 @@ ${RESEARCH_IN_CHAT ? RESEARCH_RULES : ''}- כשפרט אינו מופיע אצל
 סגנון:
 - ענה/י בשפה שהגולש בחר (מצוינת בסוף כל שאלה: עברית, אנגלית, ערבית, רוסית או צרפתית). כל הכללים חלים באותה מידה בכל שפה. שם מוצר נכתב בעברית כפי שהוא בנתונים, אפשר להוסיף תעתיק. בקצרה ובבהירות: 2–6 משפטים או רשימה קצרה. בלי הקדמות.
 - כשמוזכר מוצר של החברה, צרף/י קישור לעמוד המוצר בפורמט [שם המוצר](/products/slug) לפי ה-url שבנתונים.
+- תשובה שלילית: כשהתשובה הישירה לשאלה היא "לא" (למשל אין לחברה מוצר כזה, המוצר אינו מכיל את הרכיב, אין לו כשרות או שאינו טבעוני), פתח/י את התשובה במחרוזת [[NEG]] ואחריה מיד את התשובה השלילית, במשפט ברור וישיר. רק אחרי התשובה השלילית, ואם יש בכך תועלת, אפשר להציע חלופות מהמוצרים של החברה עם קישור. אין להתחיל תשובה שלילית במוצרים, ואין להשתמש ב-[[NEG]] בתשובה שאינה שלילית.
 - אל תשווה/י למוצרים של חברות אחרות ואל תזכיר/י אותם.
 
 קובץ שהגולש צירף (תמונה, PDF או טקסט):
@@ -160,11 +161,13 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   try { ip = clientAddress } catch { ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? '' }
   if (ip && limited(ip)) return Response.json({ error: 'rate-limited' }, { status: 429 })
 
-  // A question naming a disease, symptom or medicine (content/searchBlocked.ts) is answered
-  // with the fixed notice, without calling the model — the same rule as the site search.
+  // A question naming a disease, symptom or medicine (content/searchBlocked.ts) gets exactly the
+  // search page's result — its notice plus the series / need links — without calling the model.
   const crisis = isBlocked(question, CRISIS_TERMS)
   if (crisis || isBlocked(question, BLOCKED_TERMS)) {
-    const text = crisis ? (CHAT_CRISIS_MESSAGE[lang] ?? CHAT_CRISIS_MESSAGE.he) : (CHAT_BLOCKED_MESSAGE[lang] ?? CHAT_BLOCKED_MESSAGE.en)
+    const text = crisis
+      ? (CHAT_CRISIS_MESSAGE[lang] ?? CHAT_CRISIS_MESSAGE.he)
+      : `${lang === 'he' ? BLOCKED_MESSAGE.he : BLOCKED_MESSAGE.en}\n${CHAT_BLOCKED_MARKER}`
     const body = [JSON.stringify({ t: 'text', v: text }), JSON.stringify({ t: 'done' })].join('\n') + '\n'
     return new Response(body, { headers: { 'Content-Type': 'application/x-ndjson; charset=utf-8', 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' } })
   }

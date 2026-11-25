@@ -46,7 +46,7 @@ products per need · articles · content + images for the 9 BOM products without
 | Stores | 514 points of sale from the client's `Stores_Locations.xlsx`. 235 have precise coordinates; **279 are approximate (city centre)** because no geocoding service is reachable from the development environment |
 | AI assistant | `/faq` + `POST /api/ask`. Answers from site content first, then the web. **Needs `ANTHROPIC_API_KEY` in Vercel**; until then it shows a "not active yet" message |
 | Community | `/community` is ready; waiting for Instagram details (`socials.instagram` + `INSTAGRAM_ACCESS_TOKEN`, guide: `docs/instagram-feed-setup.md`) |
-| Redirects | Every old URL (57 pages + short paths + WP archives) → 301. Map in `astro/vercel.json`, fallback in `src/pages/[...path].astro`. Regenerate: `node migration/06_redirects.mjs` |
+| Redirects | Every old URL (57 pages + short paths + WP archives) → 301. Map in `vercel.json` (repo root: the file Vercel reads), fallback in `src/pages/[...path].astro`. Regenerate: `node migration/06_redirects.mjs` |
 | 3D | Dropped at the client's request |
 
 ## Repo layout
@@ -78,10 +78,9 @@ Writes the local dataset. With `SANITY_PROJECT_ID` + `SANITY_WRITE_TOKEN` (Edito
 
 ## Next steps (in order)
 
-1. **Vercel**: new project connected to the repo. Works with Root Directory = repo root (the root
-   `vercel.json` + `package.json` install and build `astro/` and copy `.vercel/output` up) or
-   Root Directory = `astro` (`astro/vercel.json` sets `buildCommand: npm run build`, which includes the
-   mandatory `patch-vercel-runtime`). Env:
+1. **Vercel**: project connected to the repo, Root Directory = repo root (the root `vercel.json` +
+   `package.json` install and build `astro/` and copy `.vercel/output` up). The root `vercel.json` is
+   the only one Vercel reads: redirects, security headers, rewrites all live there (22.11.2026). Env:
    `SITE_URL=https://www.ethical-supplements.com`, `ANTHROPIC_API_KEY`, a mail option for the contact form (`PUBLIC_WEB3FORMS_KEY` is the simplest; see `astro/.env.example`).
 2. **Sanity**: create a project at sanity.io/manage → set `SANITY_PROJECT_ID` in `sanity/.env` + an Editor token → run both seeds → set
    `SANITY_STUDIO_PROJECT_ID` and run `npx sanity deploy` (category5.sanity.studio) → set `SANITY_PROJECT_ID` in Vercel (production **without** a token; see the CDN lesson in the brief).

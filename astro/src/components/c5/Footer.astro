@@ -22,7 +22,7 @@ const sitemapLink = 'color: #141414; text-decoration: none; min-height: 32px'
 </div>
 </div>
 
-<form data-c5-form="newsletter" novalidate style="flex: 1 1 360px; max-width: 460px; display: flex; flex-direction: column; gap: 10px">
+<form data-c5-form="newsletter" novalidate data-sent-title={t('footer.sentTitle')} data-sent-text={t('footer.sentText')} data-error={t('form.error')} style="flex: 1 1 360px; max-width: 460px; display: flex; flex-direction: column; gap: 10px">
 <label for="nl-email">{t('footer.keepInTouch')}</label>
 <div style="display: flex; align-items: flex-end; gap: 12px">
 <input id="nl-email" name="email" type="email" required autocomplete="email" placeholder={t('footer.email')} dir="ltr" style="flex: 1 1 auto; min-width: 0; min-height: 40px; border: 0; border-bottom: 1px solid #141414; border-radius: 0; padding: 8px 0; font: inherit; background: transparent; text-align: right">
@@ -45,6 +45,8 @@ const sitemapLink = 'color: #141414; text-decoration: none; min-height: 32px'
 <a href="/legal/terms" style={sitemapLink}>{t('footer.terms')}</a>
 <a href="/legal/privacy" style={sitemapLink}>{t('footer.privacy')}</a>
 <a href="/legal/accessibility" style={sitemapLink}>{t('footer.accessibility')}</a>
+<a href="/legal/cookies" style={sitemapLink}>{t('footer.cookies')}</a>
+<button type="button" data-cookie-settings aria-haspopup="dialog" class="c5-sitemap-btn">{t('cc.footer')}</button>
 </nav>
 </div>
 

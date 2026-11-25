@@ -65,10 +65,26 @@ const TOGGLES = [
 <div class="c5-a11y-foot">
 <button type="button" data-a11y-reset class="c5-a11y-reset">איפוס הגדרות</button>
 <a href="/legal/accessibility" class="c5-a11y-stmt">הצהרת נגישות</a>
+<button type="button" data-a11y-close class="c5-a11y-done">סגירה</button>
 </div>
 <p class="c5-a11y-hint">פתיחה וסגירה במקלדת: Alt + A</p>
 </section>
 <span data-a11y-live class="c5-sr" role="status" aria-live="polite"></span>
+
+<!-- First visit on a phone (client, 23.11.2026): a friendly text-size choice before anything else.
+     Shown once, after the cookie bar is answered; "enlarge" applies the widget's own text setting. -->
+<div data-a11y-intro class="c5-a11y-intro" role="dialog" aria-labelledby="c5-a11y-intro-title" hidden>
+<p id="c5-a11y-intro-title" class="c5-a11y-intro-title" data-a11y-intro-title>רגע לפני שמתחילים: איך הטקסט נראה לכם?</p>
+<div class="c5-a11y-intro-actions" data-a11y-intro-step="ask">
+<button type="button" data-a11y-intro-ok>אני רואה את הטקסט טוב</button>
+<button type="button" data-a11y-intro-big class="c5-a11y-intro-big">צריך משקפיים כדי לראות פה משהו – תגדילו לי</button>
+</div>
+<div class="c5-a11y-intro-actions" data-a11y-intro-step="done" hidden>
+<button type="button" data-a11y-intro-fine>כן, ככה טוב</button>
+<button type="button" data-a11y-intro-bigger class="c5-a11y-intro-big">עוד יותר גדול</button>
+</div>
+<button type="button" data-a11y-intro-more class="c5-a11y-intro-more">עוד אפשרויות נגישות</button>
+</div>
 </div>
 
 <style is:global>
@@ -77,9 +93,9 @@ const TOGGLES = [
   .c5-a11y-btn:hover { background: #efeeea; }
   .c5-a11y-btn:focus-visible, .c5-a11y-panel button:focus-visible, .c5-a11y-panel a:focus-visible { outline: 2px solid #141414; outline-offset: 2px; }
   .c5-a11y-btn[aria-expanded="true"] { display: none; }
-  .c5-a11y-panel { position: fixed; right: 16px; bottom: 16px; z-index: 90; width: min(360px, calc(100vw - 32px)); max-height: calc(100vh - 32px); overflow-y: auto; box-sizing: border-box; padding: 18px 20px 16px; background: #ffffff; border: 1px solid #141414; border-radius: 8px; display: flex; flex-direction: column; gap: 16px; font-size: 15px; line-height: 1.4; }
+  .c5-a11y-panel { position: fixed; right: 16px; bottom: 16px; z-index: 90; width: min(360px, calc(100vw - 32px)); max-height: calc((100vh - 32px) / var(--a11y-zoom, 1)); overflow-y: auto; box-sizing: border-box; padding: 18px 20px 16px; background: #ffffff; border: 1px solid #141414; border-radius: 8px; display: flex; flex-direction: column; gap: 16px; font-size: 15px; line-height: 1.4; }
   .c5-a11y-panel[hidden] { display: none; }
-  .c5-a11y-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .c5-a11y-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; position: sticky; top: -18px; z-index: 1; margin: -18px -20px 0; padding: 18px 20px 8px; background: #ffffff; }
   .c5-a11y-title { margin: 0; font-size: 17px !important; font-weight: 600; }
   .c5-a11y-x { width: 36px; height: 36px; border: 0; background: transparent; color: #141414; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 4px; }
   .c5-a11y-x:hover { background: #efeeea; }
@@ -102,10 +118,29 @@ const TOGGLES = [
   .c5-a11y-reset:hover { background: #141414; color: #ffffff; }
   .c5-a11y-stmt { color: #141414; text-decoration: underline; text-underline-offset: 4px; font-size: 15px; }
   .c5-a11y-hint { margin: 0; font-size: 12px; color: #141414; opacity: .7; }
+  .c5-a11y-done { display: none; min-height: 48px; padding: 0 16px; border: 1px solid #141414; border-radius: 4px; background: #141414; color: #ffffff; font: inherit; font-size: 16px; cursor: pointer; }
+  .c5-a11y-done:hover { background: #ffffff; color: #141414; }
+  /* first-visit text-size sheet: phones only (see the media query), bottom sheet in the panel's look */
+  .c5-a11y-intro { display: none; position: fixed; right: 8px; left: 8px; bottom: 8px; z-index: 88; box-sizing: border-box; padding: 20px 20px 16px; background: #ffffff; border: 1px solid #141414; border-radius: 8px; flex-direction: column; gap: 14px; font-size: 16px; line-height: 1.45; box-shadow: 0 12px 40px rgba(20,20,20,.12); transform: translateY(16px); opacity: 0; transition: transform .7s cubic-bezier(.22,.61,.36,1), opacity .7s cubic-bezier(.22,.61,.36,1); }
+  .c5-a11y-intro.is-in { transform: none; opacity: 1; }
+  .c5-a11y-intro-title { margin: 0; font-size: 18px !important; font-weight: 600; }
+  .c5-a11y-intro-actions { display: flex; flex-direction: column; gap: 10px; }
+  .c5-a11y-intro-actions[hidden] { display: none; }
+  .c5-a11y-intro-actions button { min-height: 52px; padding: 10px 16px; border: 1px solid #141414; border-radius: 4px; background: #ffffff; color: #141414; font: inherit; font-size: 16px; line-height: 1.3; cursor: pointer; transition: background .45s cubic-bezier(.22,.61,.36,1), color .45s cubic-bezier(.22,.61,.36,1); }
+  .c5-a11y-intro-actions button:hover, .c5-a11y-intro-actions button:focus-visible { background: #141414; color: #ffffff; }
+  .c5-a11y-intro-actions .c5-a11y-intro-big { font-size: 19px; }
+  .c5-a11y-intro-more { align-self: center; margin: 0; padding: 8px 4px; border: 0; background: none; color: #141414; font: inherit; font-size: 15px; text-decoration: underline; text-underline-offset: 4px; cursor: pointer; }
+  @media (prefers-reduced-motion: reduce) { .c5-a11y-intro { transition: none; transform: none; } }
   @media (max-width: 640px) {
+    .c5-a11y-intro:not([hidden]) { display: flex; }
     .c5-a11y-btn { right: 12px; bottom: 12px; width: 44px; height: 44px; }
-    .c5-a11y-panel { right: 8px; left: 8px; bottom: 8px; width: auto; max-height: calc(100vh - 16px); }
+    .c5-a11y-panel { right: 8px; left: 8px; bottom: 8px; width: auto; max-height: calc((100vh - 16px) / var(--a11y-zoom, 1)); max-height: calc((100dvh - 16px) / var(--a11y-zoom, 1)); }
     .c5-a11y-list { grid-template-columns: 1fr; }
+    /* Phones: the panel is a long scrolling list, so the footer with a clear "סגירה" button stays
+       pinned at the bottom of the panel whatever was just set. */
+    .c5-a11y-foot { position: sticky; bottom: -16px; z-index: 1; display: grid; grid-template-columns: 1fr auto; align-items: center; margin: 0 -20px -16px; padding: 12px 20px 12px; background: #ffffff; border-top: 1px solid #dcdcd9; box-shadow: 0 -8px 16px rgba(255,255,255,.9); }
+    .c5-a11y-done { display: flex; align-items: center; justify-content: center; grid-column: 1 / -1; width: 100%; }
+    .c5-a11y-hint { display: none; }
   }
 
   /* ----- Global adjustments (classes on <html>; also set before first paint by Site.astro) ----- */
@@ -156,6 +191,8 @@ const TOGGLES = [
     const apply = () => {
       // The site sets sizes in px, so text size is a document zoom (keeps the layout proportional).
       ;(root.style as any).zoom = state.text === 100 ? '' : String(state.text / 100)
+      // Fixed panels sized with vh/dvh divide by this, otherwise the zoom makes them taller than the screen.
+      root.style.setProperty('--a11y-zoom', String(state.text / 100))
       for (const l of [2, 3]) root.classList.toggle(`a11y-lines-${l}`, state.lines === l)
       for (const c of ['high', 'invert', 'mono']) root.classList.toggle(`a11y-contrast-${c}`, state.contrast === c)
       for (const k in FLAG) root.classList.toggle(FLAG[k], !!state.flags[k])
@@ -174,13 +211,53 @@ const TOGGLES = [
       else toggleBtn.focus()
     }
     toggleBtn.addEventListener('click', () => setOpen(true))
-    panel.querySelector('[data-a11y-close]')!.addEventListener('click', () => setOpen(false))
+    panel.querySelectorAll('[data-a11y-close]').forEach((b) => b.addEventListener('click', () => setOpen(false)))
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && !panel.hidden) { setOpen(false); return }
       // Alt+A from anywhere (physical key, so it works on every keyboard layout)
       if (e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey && e.code === 'KeyA') { e.preventDefault(); setOpen(panel.hidden) }
     })
     document.addEventListener('click', (e) => { if (!panel.hidden && !wrap.contains(e.target as Node)) { panel.hidden = true; toggleBtn.setAttribute('aria-expanded', 'false') } })
+
+    // ---- First visit on a phone: the text-size sheet ----
+    const intro = wrap.querySelector<HTMLElement>('[data-a11y-intro]')
+    const INTRO_KEY = 'c5-a11y-intro'
+    const introSeen = () => { try { return !!localStorage.getItem(INTRO_KEY) } catch { return true } }
+    const markIntro = () => { try { localStorage.setItem(INTRO_KEY, new Date().toISOString()) } catch {} }
+    const hideIntro = () => { if (!intro) return; intro.classList.remove('is-in'); window.setTimeout(() => { intro.hidden = true }, 400) }
+    if (intro && window.matchMedia('(max-width: 640px)').matches && !introSeen() && state.text === DEF.text) {
+      const title = intro.querySelector<HTMLElement>('[data-a11y-intro-title]')!
+      const stepAsk = intro.querySelector<HTMLElement>('[data-a11y-intro-step="ask"]')!
+      const stepDone = intro.querySelector<HTMLElement>('[data-a11y-intro-step="done"]')!
+      const bigger = intro.querySelector<HTMLButtonElement>('[data-a11y-intro-bigger]')!
+      const showIntro = () => {
+        if (introSeen() || !panel.hidden) return
+        intro.hidden = false
+        requestAnimationFrame(() => requestAnimationFrame(() => intro.classList.add('is-in')))
+      }
+      const finish = () => { markIntro(); hideIntro() }
+      const grow = (to: State['text']) => {
+        state.text = to; save(); announce(`גודל טקסט ${to}%`)
+        title.textContent = 'הגדלנו את הטקסט. ככה טוב יותר?'
+        stepAsk.hidden = true; stepDone.hidden = false
+        bigger.hidden = state.text >= TEXT[TEXT.length - 1]
+        stepDone.querySelector<HTMLButtonElement>('button')?.focus()
+      }
+      intro.querySelector('[data-a11y-intro-ok]')!.addEventListener('click', finish)
+      intro.querySelector('[data-a11y-intro-fine]')!.addEventListener('click', finish)
+      intro.querySelector('[data-a11y-intro-big]')!.addEventListener('click', () => grow(130))
+      bigger.addEventListener('click', () => grow(150))
+      intro.querySelector('[data-a11y-intro-more]')!.addEventListener('click', () => { markIntro(); intro.hidden = true; intro.classList.remove('is-in'); setOpen(true) })
+      // Wait for the cookie bar (CookieConsent.astro toggles html.c5cc-open) so the two never stack.
+      const whenQuiet = (fn: () => void) => {
+        if (!root.classList.contains('c5cc-open')) { window.setTimeout(fn, 1200); return }
+        const mo = new MutationObserver(() => { if (!root.classList.contains('c5cc-open')) { mo.disconnect(); window.setTimeout(fn, 700) } })
+        mo.observe(root, { attributes: true, attributeFilter: ['class'] })
+      }
+      window.setTimeout(() => whenQuiet(showIntro), 800)
+      // Opening the panel by hand counts as "seen".
+      toggleBtn.addEventListener('click', () => { if (!intro.hidden) { markIntro(); intro.hidden = true } })
+    }
 
     wrap.querySelectorAll<HTMLButtonElement>('[data-a11y-font]').forEach((b) => b.addEventListener('click', () => {
       const i = TEXT.indexOf(state.text)

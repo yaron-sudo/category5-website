@@ -20,6 +20,12 @@ const FIT_OVERRIDES: Record<string, string> = {
   // so the measured box stretched into it and the bottle sat left of centre.
   '/assets/products/calcidex.png':
     'position: absolute; max-width: none; width: 101.05%; height: 100.80%; left: 0.74%; top: -6.72%',
+  // Calcidex carton + jar, and the jar alone: the soft shadow plate pulled the measured box
+  // left and up. Same size as measured, moved so the product body (opaque pixels) is centred (23.11.2026).
+  '/assets/products/calcidex-combo.png':
+    'position: absolute; max-width: none; width: 90.80%; height: 90.57%; left: 7.23%; top: 5.62%',
+  '/assets/products/calcidex-jar.png':
+    'position: absolute; max-width: none; width: 101.37%; height: 101.12%; left: 0.73%; top: -0.15%',
 }
 
 /** Images whose cast shadow shows on the light box — softened with a gentle edge feather. */

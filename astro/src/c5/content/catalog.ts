@@ -18,7 +18,7 @@ import { SERIES_CONTENT } from './series'
 type SeriesSlug = Product['series']
 
 /** Old site family → new series: fallback only for products that are not in the BOM list (bom.ts). */
-const FAMILY_TO_SERIES: Record<string, SeriesSlug> = {
+export const FAMILY_TO_SERIES: Record<string, SeriesSlug> = {
   'vitamins-and-minerals': 'vitamins-minerals',
   'liposomal-vitamin-c': 'vitamins-minerals',
   'herbs-and-plants': 'plants',
@@ -72,6 +72,12 @@ function assetFor(dir: string, slug: string): string | undefined {
 }
 
 // Products whose microscope photo shows the MFM micro-capsule, not a liposome.
+// Usage instructions come from the product label only (client, 23.11.2026): the label's
+// "הוראות שימוש" row replaces any usage text from the old site. Old-site dosage lines that
+// were filed under the warnings (and so showed after "אזהרה:") are dropped.
+const USAGE_IN_WARNINGS = /^(\d|מניעה –|מוגבר –|להעלות את המינון|מומלץ לשלב עם|המוצר מתאים לשימוש|ניתן ליטול גם|מומלץ ליטול מספר ימים|הומנפלורה 53 הנו|(לאיכות שינה|במצבי מתח וחרדה|מינון מומלץ|למניעה|לטיפול|למתמודדים עם לחץ[^:]*|המלצה):)/
+const OLD_USAGE_HEADING = /^המלצות שימוש \(בהמלצת רופא מטפל\):?$/
+
 const MFM_MICROSCOPE = new Set(['kalnozim-digestive-enzymes', 'kalnozin'])
 
 let cache: Promise<Product[]> | null = null
@@ -108,6 +114,11 @@ async function build(): Promise<Product[]> {
       out.newPack = ov.newPack ?? (NEW_PACK.includes(p.slug) || !!p.newPack)
       out.image = ov.image ?? assetFor('assets/products', p.slug) ?? out.image
       out.label = ov.label ?? LABELS[p.slug] ?? (p.source ? LABELS[p.source] : undefined) ?? (out.labelText?.length ? { notes: out.labelText } : undefined)
+      const labelUsage = out.label?.facts?.find(([k]) => k === 'הוראות שימוש')?.[1]
+      const labelHow = out.label?.facts?.find(([k]) => k === 'אופן השימוש')?.[1]
+      if (labelUsage) out.usage = [labelUsage, ...(labelHow ? [labelHow] : [])]
+      else if (out.usage?.every((u) => OLD_USAGE_HEADING.test(u))) out.usage = undefined
+      if (out.details) out.details = out.details.filter((d) => !USAGE_IN_WARNINGS.test(d))
       out.labelImage = ov.labelImage ?? assetFor('assets/products/labels', p.slug) ?? out.labelImage
       const mic = [p.slug, `${p.slug}-2`, `${p.slug}-3`].map((n) => assetFor('assets/products/microscope', n)).filter(Boolean) as string[]
       if (mic.length && MFM_MICROSCOPE.has(p.slug)) out.microscopeTitle ??= 'צילום מיקרוסקופ אלקטרוני של טכנולוגיית MFM במוצר'

@@ -41,6 +41,11 @@ function parseCsv(t) {
 
 const rows = parseCsv(fs.readFileSync(csvPath, 'utf8').replace(/^﻿/, ''))
 const cache = fs.existsSync(CACHE) ? JSON.parse(fs.readFileSync(CACHE, 'utf8')) : {}
+// Hand-checked coordinates by store id (coordinate-overrides.json): the chain's own
+// branch locator for Super-Pharm, OpenStreetMap / Maps lookups for the rest. They win
+// over the cache and over Nominatim, so a re-run never moves a verified pin back.
+const OVERRIDES_PATH = path.join(DIR, 'coordinate-overrides.json')
+const OVERRIDES = fs.existsSync(OVERRIDES_PATH) ? JSON.parse(fs.readFileSync(OVERRIDES_PATH, 'utf8')) : {}
 
 // City centroids from cached exact hits ("street, city, ישראל").
 const byCity = {}
@@ -73,8 +78,10 @@ async function nominatim(address) {
 const out = []
 const stats = { cache: 0, nominatim: 0, city: 0, none: 0 }
 for (const r of rows) {
-  let g = cache[r.address]?.lat ? cache[r.address] : null
-  if (g) stats.cache++
+  const o = OVERRIDES[r.id]
+  let g = o?.lat ? { lat: o.lat, lng: o.lng, precision: o.precision || 'ROOFTOP', source: o.source, formatted: o.formatted } : null
+  if (g) stats.override = (stats.override || 0) + 1
+  else if (cache[r.address]?.lat) { g = cache[r.address]; stats.cache++ }
   else {
     const n = cache[r.address]?.status ? null : await nominatim(r.address)
     if (n) cache[r.address] = n

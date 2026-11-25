@@ -1,20 +1,26 @@
 ---
 // /legal/terms, /legal/privacy — the client's own texts (CMS pages "terms" / "privacy"),
-// /legal/accessibility — the accessibility statement. All in the Legal layout (BRIEF §14).
+// /legal/accessibility — the accessibility statement, /legal/cookies — the cookie policy (c5/content/cookiePolicy.ts). All in the Legal layout (BRIEF §14).
 import LegalPage, { type LegalSection } from '@/components/c5/LegalPage.astro'
-import { getPage, type PortableBlock } from '@/lib/sanity'
+import { getPage, plainText, type PortableBlock } from '@/lib/sanity'
 import { CONTACT } from '@/c5/data'
+import { COOKIE_POLICY, COOKIE_POLICY_TITLE, COOKIE_POLICY_UPDATED } from '@/c5/content/cookiePolicy'
 
 export function getStaticPaths() {
-  return ['terms', 'privacy', 'accessibility'].map((slug) => ({ params: { slug } }))
+  return ['terms', 'privacy', 'accessibility', 'cookies'].map((slug) => ({ params: { slug } }))
 }
 const { slug } = Astro.params
 const text = (b: PortableBlock) => ((b.children as Array<{ text?: string }>) ?? []).map((c) => c.text ?? '').join('')
 
 let title = ''
+let description: string | undefined
 let updated: string | undefined
 let sections: LegalSection[] = []
-if (slug === 'accessibility') {
+if (slug === 'cookies') {
+  title = COOKIE_POLICY_TITLE
+  updated = COOKIE_POLICY_UPDATED
+  sections = COOKIE_POLICY
+} else if (slug === 'accessibility') {
   title = 'הצהרת נגישות'
   updated = '17.11.2026'
   sections = [
@@ -33,6 +39,7 @@ if (slug === 'accessibility') {
   ]
 } else {
   const doc = await getPage(slug!)
+  description = plainText(doc?.body) || undefined
   title = doc?.title ?? (slug === 'terms' ? 'תנאי שימוש' : 'מדיניות פרטיות')
   for (const b of doc?.body ?? []) {
     if (b._type !== 'block') continue
@@ -45,4 +52,4 @@ if (slug === 'accessibility') {
   if (!sections.length) sections = [{ title: 'כללי', paragraphs: ['טקסט משפטי'] }]
 }
 ---
-<LegalPage title={title} updated={updated} sections={sections} />
+<LegalPage title={title} description={description ?? sections[0]?.paragraphs?.[0]?.slice(0, 155)} updated={updated} sections={sections} />

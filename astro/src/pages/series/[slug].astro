@@ -8,9 +8,11 @@ import { SERIES, type Series } from '@/c5/data'
 import { t } from '@/c5/i18n'
 import { SERIES_CONTENT, SERIES_INTRO_PLACEHOLDER, PRODUCT_TITLE_PLACEHOLDER, PLACEHOLDER_GRID_SIZE } from '@/c5/content/series'
 import { productHref } from '@/c5/content/products'
-import { productsOfSeries } from '@/c5/content/catalog'
+import { productsOfSeries, FAMILY_TO_SERIES } from '@/c5/content/catalog'
+import { getCategories } from '@/lib/sanity'
 import { PRODUCT_SUMMARIES } from '@/c5/content/summaries'
 import { linkTerms } from '@/c5/glossaryLinks'
+import { breadcrumbLd } from '@/c5/seo'
 
 export function getStaticPaths() {
   return SERIES.map((s) => ({ params: { slug: s.slug }, props: { s } }))
@@ -19,11 +21,20 @@ const { s } = Astro.props as { s: Series }
 const content = SERIES_CONTENT[s.slug] ?? { fillPlaceholders: true }
 const intro = content.intro?.length ? content.intro : [SERIES_INTRO_PLACEHOLDER]
 const products = (await productsOfSeries(s.slug)).map((p) => ({ summary: PRODUCT_SUMMARIES[p.slug], title: p.title, image: p.image, href: productHref(p) as string | undefined, newPack: p.newPack }))
+// The old site's family pages that now belong to this series (/category/*): linked here as
+// further reading so they are reachable from the navigation (SEO migration, 22.11.2026).
+const families = (await getCategories()).filter((c) => FAMILY_TO_SERIES[c.slug] === s.slug)
+const itemList = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: s.name,
+  itemListElement: products.filter((p) => p.href).map((p, i) => ({ '@type': 'ListItem', position: i + 1, name: p.title, url: new URL(p.href as string, Astro.site).href })),
+}
 const cards = content.fillPlaceholders
   ? [...products, ...Array.from({ length: Math.max(0, PLACEHOLDER_GRID_SIZE - products.length) }, () => ({ title: PRODUCT_TITLE_PLACEHOLDER, image: undefined, href: undefined }))]
   : products
 ---
-<Site title={s.name} description={content.intro?.[0]} image={s.banner}>
+<Site title={s.name} description={content.intro?.[0]} image={s.banner} jsonLd={[breadcrumbLd([{ name: t('home'), href: '/' }, { name: s.name, href: `/series/${s.slug}` }], Astro.site), itemList]}>
 
 <section aria-label={t('banner')}>
 <h1 class="c5-sr">{s.name}</h1>
@@ -36,10 +47,11 @@ const cards = content.fillPlaceholders
 
 <section style="max-width: 1280px; margin: 0 auto; padding: clamp(40px, 5vw, 72px) clamp(16px, 4vw, 48px) 24px; box-sizing: border-box">
 {intro.map((p, i) => <p style={`margin: ${i ? '16px' : '0'} 0 0`} set:html={linkTerms(p)} />)}
+{families.length > 0 && <p style="margin: 16px 0 0">{t('readMore')}: {families.map((c, i) => <>{i > 0 && ' · '}<a href={`/category/${c.slug}`} style="color: #141414">{c.title}</a></>)}</p>}
 </section>
 
 <section aria-label="מוצרי הסדרה" style="max-width: 1280px; margin: 0 auto; padding: 24px clamp(16px, 4vw, 48px) clamp(56px, 7vw, 112px); box-sizing: border-box">
-<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px">
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr)); gap: 24px">
 {cards.map((c) => <ProductCard summary={'summary' in c ? c.summary : undefined} title={c.title} image={c.image} href={c.href} series={s.slug} newPack={'newPack' in c ? c.newPack : false} />)}
 </div>
 </section>

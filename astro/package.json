@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "prebuild": "node scripts/media-manifest.mjs",
     "dev": "astro dev",
     "dev:preview": "PUBLIC_SANITY_VISUAL_EDITING_ENABLED=true astro dev",
     "build": "astro build && node scripts/patch-vercel-runtime.mjs",

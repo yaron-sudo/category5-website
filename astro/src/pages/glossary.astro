@@ -2,8 +2,17 @@
 // BRIEF §10 — glossary, ported from mockups/Glossary.dc.html.
 import Site from '@/layouts/Site.astro'
 import { GLOSSARY } from '@/c5/data'
+import { breadcrumbLd } from '@/c5/seo'
+import { t } from '@/c5/i18n'
+const terms = {
+  '@context': 'https://schema.org',
+  '@type': 'DefinedTermSet',
+  name: 'עולם המושגים',
+  url: new URL('/glossary', Astro.site).href,
+  hasDefinedTerm: GLOSSARY.map((g) => ({ '@type': 'DefinedTerm', name: g.term, description: g.text, url: new URL(`/glossary#${g.id}`, Astro.site).href })),
+}
 ---
-<Site title="עולם המושגים" description={GLOSSARY[0].text}>
+<Site title="עולם המושגים" description={GLOSSARY[0].text} jsonLd={[terms, breadcrumbLd([{ name: t('home'), href: '/' }, { name: 'עולם המושגים', href: '/glossary' }], Astro.site)]}>
 <section style="max-width: 1280px; margin: 0 auto; padding: clamp(40px, 6vw, 88px) clamp(16px, 4vw, 48px) 24px; box-sizing: border-box">
 <h1 style="margin: 0">עולם המושגים</h1>
 </section>

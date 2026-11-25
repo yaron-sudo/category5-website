@@ -29,7 +29,6 @@ export const SERIES_CONTENT: Record<string, SeriesContent> = {
     order: [
       'kalnozim-digestive-enzymes', 'kalnozin', 'curcumin-complex', // orange / yellow
       'natto', // red
-      'lactoferr', // blue
     ],
     fillPlaceholders: false,
     intro: ['הידע הצמחי פוגש חדשנות במחקר ובפיתוח. בסדרה פורמולות ייחודיות המבוססות על רכיבים ממקור צמחי ועל חומרי גלם בלעדיים שנבחרו בקפידה, בהרכב מדויק ובאיכות בלתי מתפשרת.'],
@@ -44,7 +43,7 @@ export const SERIES_CONTENT: Record<string, SeriesContent> = {
   },
   professional: {
     order: [
-      'nootropinol', 'cogni-bright', 'cogni-mg', 'cogni-zzz', 'relacton-alpha', 'winterguard', 'alyvium', // blue
+      'nootropinol', 'cogni-bright', 'cogni-mg', 'cogni-zzz', 'relacton-alpha', 'winterguard', 'alyvium', 'lactoferr', // blue
       'fibrogen', 'nemadrin-l6', 'protesterol-40', 'revival', // red
       'calcidex', // purple
     ],

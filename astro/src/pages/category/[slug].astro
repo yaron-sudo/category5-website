@@ -1,105 +1,103 @@
 ---
-import Base from '@/layouts/Base.astro'
-import PageHero from '@/components/PageHero.astro'
-import ContentSections from '@/components/ContentSections.astro'
-import { getCategories, getCategory, getAllProductCards, urlFor, resolveSeo, plainText, type CategoryDoc, type PortableBlock } from '@/lib/sanity'
+// /category/<family> — the old site's six product-family pages (ויטמין C ליפוזומלי, מערכת החיסון…),
+// kept as landing pages (they are the 301 targets of the WordPress categories and carry the
+// client's own texts), in the site layout, like a need page (BRIEF §7): banner area → text →
+// product grid. Products are the family's products as they exist in the new catalogue
+// (replaced slugs follow their replacement, hidden ones are left out). Linked from the
+// matching series pages ("קריאה נוספת") and between themselves, so none is an orphan.
+import Site from '@/layouts/Site.astro'
+import ProductCard from '@/components/c5/ProductCard.astro'
+import { getCategories, fetchQ, resolveSeo, plainText, type CategoryDoc, type PortableBlock } from '@/lib/sanity'
+import { getCatalog, replacedSlugs, FAMILY_TO_SERIES } from '@/c5/content/catalog'
+import { productHref } from '@/c5/content/products'
+import { PRODUCT_SUMMARIES } from '@/c5/content/summaries'
+import { SERIES, seriesHref } from '@/c5/data'
+import { linkTerms } from '@/c5/glossaryLinks'
+import { t } from '@/c5/i18n'
+import { breadcrumbLd } from '@/c5/seo'
 
-// Product family page: hero (family colour) → product grid → the family's text.
 export async function getStaticPaths() {
   const cats = await getCategories()
-  return cats.map((c) => ({ params: { slug: c.slug }, props: { cat: c } }))
+  return cats.map((c) => ({ params: { slug: c.slug }, props: { cat: c, cats } }))
 }
-const slug = Astro.params.slug ?? ''
-const cat: CategoryDoc | null = (Astro.props as { cat?: CategoryDoc }).cat ?? (await getCategory(slug))
-if (!cat) return new Response(null, { status: 404 })
+const { cat, cats } = Astro.props as { cat: CategoryDoc; cats: CategoryDoc[] }
 
-const products = (await getAllProductCards()).filter((p) => p.category?.slug === cat.slug)
-const others = (await getCategories()).filter((c) => c.slug !== cat.slug)
+// The family's products in the new catalogue, in the old order.
+const familySlugs = await getCatalogFamily(cat.slug)
+const catalog = await getCatalog()
+const bySlug = new Map(catalog.map((p) => [p.slug, p]))
+const replaced = replacedSlugs()
+const seen = new Set<string>()
+const products = familySlugs
+  .map((slug) => bySlug.get(replaced[slug] ?? slug))
+  .filter((p): p is NonNullable<typeof p> => !!p && !seen.has(p.slug) && !!seen.add(p.slug))
 
-// Body → text cards, one per h2.
-const blockText = (b: PortableBlock) => ((b.children as Array<{ text?: string }> | undefined) ?? []).map((c) => c.text ?? '').join('')
-const sections: Array<{ heading: string; blocks: PortableBlock[] }> = []
+function getCatalogFamily(family: string): Promise<string[]> {
+  return fetchQ<string[]>(`*[_type == "product" && defined(slug.current) && category->slug.current == $family] | order(orderRank asc).slug.current`, { family })
+}
+
+// Body (portable text: h2 / paragraphs / bullet lists, no marks) → HTML in the site's type.
+const text = (b: PortableBlock) => ((b.children as Array<{ text?: string }> | undefined) ?? []).map((c) => c.text ?? '').join('')
+const used = new Set<string>()
+type Node = { h2: string } | { p: string } | { ul: string[] }
+const nodes: Node[] = []
 for (const b of cat.body ?? []) {
-  if (b._type === 'block' && b.style === 'h2') { sections.push({ heading: blockText(b), blocks: [] }); continue }
-  if (!sections.length) sections.push({ heading: '', blocks: [] })
-  sections[sections.length - 1].blocks.push(b)
+  if (b._type !== 'block') continue
+  const s = text(b).trim()
+  if (!s) continue
+  if (b.style === 'h2') nodes.push({ h2: s })
+  else if ((b as { listItem?: string }).listItem) {
+    const last = nodes[nodes.length - 1]
+    if (last && 'ul' in last) last.ul.push(s); else nodes.push({ ul: [s] })
+  } else nodes.push({ p: s })
 }
-const heroImg = cat.image?.asset ? urlFor(cat.image).width(1000).fit('max').auto('format').url() : undefined
+
+const series = SERIES.find((s) => s.slug === FAMILY_TO_SERIES[cat.slug])
+const others = cats.filter((c) => c.slug !== cat.slug)
+// Title distinct from the series page of the same name (/series/vitamins-minerals).
 const seo = resolveSeo(cat.seo, {
-  title: `${cat.title} | קטגוריה 5 תוספים אתיים`,
-  description: cat.tagline?.slice(0, 155) || plainText(cat.body),
-  image: heroImg,
+  title: `${cat.title} – משפחת מוצרים`,
+  description: (cat.tagline || plainText(cat.body) || '').slice(0, 155),
 })
 const itemList = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
   name: cat.title,
-  itemListElement: products.map((p, i) => ({ '@type': 'ListItem', position: i + 1, url: new URL(`/products/${p.slug}`, Astro.site).href, name: p.name })),
+  itemListElement: products.map((p, i) => ({ '@type': 'ListItem', position: i + 1, url: new URL(productHref(p) as string, Astro.site).href, name: p.title })),
 }
 ---
-<Base title={seo.title} description={seo.description} image={seo.image} noindex={seo.noindex} canonicalUrl={seo.canonical} jsonLd={itemList}>
-  <div class="cat" style={cat.color ? `--fam:${cat.color};--ns-pure-orange:${cat.color}` : undefined}>
-    <PageHero eyebrow="משפחת מוצרים" title={cat.title} lede={cat.tagline} image={heroImg ? { src: heroImg, alt: cat.title } : null} />
+<Site title={seo.title} description={seo.description} noindex={seo.noindex} jsonLd={[itemList, breadcrumbLd([{ name: t('home'), href: '/' }, ...(series ? [{ name: series.name, href: seriesHref(series) }] : []), { name: cat.title, href: `/category/${cat.slug}` }], Astro.site)]}>
 
-    <section class="ns-section ns-section--tight">
-      <div class="ns-container">
-        <h2 class="cat__h">המוצרים ב{cat.title} <span>({products.length})</span></h2>
-        <ul class="cat__grid">
-          {products.map((p, i) => (
-            <li data-reveal style={`transition-delay:${Math.min(i, 8) * 50}ms`}>
-              <a class="cat__card" href={`/products/${p.slug}`}>
-                <span class="cat__media">{p.image?.asset && <img src={urlFor(p.image).width(600).fit('max').url()} alt="" loading={i < 4 ? 'eager' : 'lazy'} />}</span>
-                {p.isNew && <span class="cat__new">חדש</span>}
-                <span class="cat__name">{p.name}</span>
-                {p.tagline && <span class="cat__tag">{p.tagline}</span>}
-                <span class="cat__go">לפרטים ←</span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
+<section aria-label={t('banner')} style="background: #e9e9e7; min-height: clamp(220px, 26vw, 400px); display: flex; align-items: center; justify-content: center; position: relative">
+<p style="margin: 0; font-size: 20px">{t('banner')}</p>
+<h1 class="c5-banner-title" style="position: absolute; left: clamp(16px, 4vw, 64px); bottom: clamp(24px, 4vw, 48px); margin: 0; color: #141414">{cat.title}</h1>
+</section>
 
-    {sections.length > 0 && (
-      <section class="ns-section ns-section--white">
-        <div class="ns-container">
-          <ContentSections sections={sections} />
-        </div>
-      </section>
-    )}
+<section style="max-width: 1280px; margin: 0 auto; padding: clamp(40px, 5vw, 72px) clamp(16px, 4vw, 48px) 24px; box-sizing: border-box">
+<div style="max-width: 760px; display: flex; flex-direction: column; gap: 16px">
+{cat.tagline && <p style="margin: 0" set:html={linkTerms(cat.tagline, used)} />}
+{nodes.map((n) =>
+  'h2' in n ? <h2 style="margin: 16px 0 0">{n.h2}</h2>
+  : 'p' in n ? <p style="margin: 0" set:html={linkTerms(n.p, used)} />
+  : <ul style="margin: 0; padding-inline-start: 22px; display: flex; flex-direction: column; gap: 6px">{n.ul.map((x) => <li set:html={linkTerms(x, used)} />)}</ul>)}
+{series && <p style="margin: 8px 0 0">{t('readMore')}: <a href={seriesHref(series)} style="color: #141414">{series.name}</a></p>}
+</div>
+</section>
 
-    <section class="ns-section ns-section--tight">
-      <div class="ns-container">
-        <h2 class="cat__h">משפחות מוצרים נוספות</h2>
-        <ul class="cat__fams">
-          {others.map((c) => (
-            <li><a href={`/category/${c.slug}`} style={`--c:${c.color}`}>
-              {c.icon?.asset && <img src={urlFor(c.icon).width(80).url()} alt="" width="32" height="32" />}{c.title}
-            </a></li>
-          ))}
-        </ul>
-      </div>
-    </section>
-  </div>
+{products.length > 0 && (
+<section aria-label="מוצרים" style="max-width: 1280px; margin: 0 auto; padding: 24px clamp(16px, 4vw, 48px) 24px; box-sizing: border-box">
+<h2 style="margin: 0 0 24px">המוצרים</h2>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr)); gap: 24px">
+{products.map((p) => <ProductCard title={p.title} summary={PRODUCT_SUMMARIES[p.slug]} image={p.image} href={productHref(p)} series={p.series} newPack={p.newPack} />)}
+</div>
+</section>
+)}
 
-  <style>
-    .cat :global(.ph2) { border-block-end: 5px solid var(--fam); }
-    .cat__h { font-family: var(--ns-font-display); font-size: clamp(24px, 2.4vw, 32px); font-weight: 700; margin: 0 0 22px; }
-    .cat__h span { color: var(--ns-fg-muted); font-weight: 400; font-size: .7em; }
-    .cat__grid { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
-    .cat__card { position: relative; display: flex; flex-direction: column; gap: 6px; height: 100%; padding: 14px 14px 18px; background: #fff; border: 1px solid var(--ns-border); border-radius: var(--ns-radius-lg); color: var(--ns-fg); text-decoration: none; transition: transform var(--ns-dur-base) var(--ns-ease-out), box-shadow var(--ns-dur-base) var(--ns-ease-out); }
-    .cat__card:hover { transform: translateY(-4px); box-shadow: var(--ns-shadow-md); color: var(--ns-fg); }
-    .cat__media { aspect-ratio: 1; display: grid; place-items: center; background: color-mix(in srgb, var(--fam) 7%, #fff); border-radius: var(--ns-radius-md); margin-block-end: 6px; }
-    .cat__media img { width: 86%; height: 86%; object-fit: contain; }
-    .cat__new { position: absolute; inset-block-start: 22px; inset-inline-start: 22px; background: var(--fam); color: #fff; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 999px; }
-    .cat__name { font-weight: 700; font-size: 17px; line-height: 1.3; }
-    .cat__tag { font-size: 14.5px; color: var(--ns-fg-muted); line-height: 1.45; flex: 1; }
-    .cat__go { font-weight: 700; font-size: 14px; color: var(--fam); }
-    .cat__fams { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 10px; }
-    .cat__fams a { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px 8px 12px; border-radius: 999px; background: #fff; border: 1px solid var(--ns-border); border-inline-start: 4px solid var(--c); color: var(--ns-fg); font-weight: 600; text-decoration: none; }
-    .cat__fams a:hover { box-shadow: var(--ns-shadow-md); }
-    .cat__fams img { width: 26px; height: 26px; object-fit: contain; }
-    @media (max-width: 1024px) { .cat__grid { grid-template-columns: repeat(3, 1fr); } }
-    @media (max-width: 640px) { .cat__grid { grid-template-columns: repeat(2, 1fr); gap: 10px; } .cat__name { font-size: 15px; } .cat__tag { font-size: 13px; } }
-  </style>
-</Base>
+<nav aria-label="משפחות מוצרים נוספות" style="max-width: 1280px; margin: 0 auto; padding: 24px clamp(16px, 4vw, 48px) clamp(56px, 7vw, 112px); box-sizing: border-box">
+<h2 style="margin: 0 0 16px">משפחות מוצרים נוספות</h2>
+<ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px">
+{others.map((c) => <li><a class="c5-soft" href={`/category/${c.slug}`} style="display: inline-flex; align-items: center; min-height: 40px; padding: 0 16px; border: 1px solid #dcdcd9; border-radius: 4px; background: #ffffff; color: #141414; text-decoration: none; font-size: 15px">{c.title}</a></li>)}
+</ul>
+</nav>
+
+</Site>

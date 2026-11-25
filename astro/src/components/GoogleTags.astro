@@ -1,0 +1,32 @@
+---
+// Google Tag Manager + Search Console verification (client, 25.11.2026), first thing in <head>
+// of every page (Site.astro, LegalPage.astro).
+//
+// GTM loads on every page so Tag Assistant / Analytics / Ads can see the container. Nothing
+// inside it may set non-essential cookies before consent (Amendment 13): Google Consent Mode v2
+// starts with everything denied, and is updated from the site's cookie consent
+// (components/c5/CookieConsent.astro: window.nsConsent + the "ns:consent" event):
+//   analytics  → analytics_storage
+//   marketing  → ad_storage, ad_user_data, ad_personalization
+// Tags in the container that honour consent (GA4, Ads, Floodlight) therefore stay inert until
+// the visitor accepts; non-Google tags should be given a consent-aware trigger in GTM.
+// The script is a plain inline script (no define:vars, which would wrap it in a closure): the
+// container id is written in it, and `gtag` stays a global, as in Google's own snippet.
+const SEARCH_CONSOLE = 'ne0n-Xoyz5CUyURipC3X7XFyHA0ql_R1WMw56fStzow'
+---
+<meta name="google-site-verification" content={SEARCH_CONSOLE} />
+<script is:inline>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied', functionality_storage: 'granted', security_storage: 'granted', wait_for_update: 500 });
+  gtag('js', new Date());
+  // the site's cookie consent → Consent Mode
+  var c5Consent = function (c) {
+    if (!c) return;
+    gtag('consent', 'update', { analytics_storage: c.analytics ? 'granted' : 'denied', ad_storage: c.marketing ? 'granted' : 'denied', ad_user_data: c.marketing ? 'granted' : 'denied', ad_personalization: c.marketing ? 'granted' : 'denied' });
+    dataLayer.push({ event: 'c5_consent', consent_analytics: !!c.analytics, consent_marketing: !!c.marketing });
+  };
+  document.addEventListener('ns:consent', function (e) { c5Consent(e.detail && e.detail.consent); });
+  document.addEventListener('DOMContentLoaded', function () { setTimeout(function () { c5Consent(window.nsConsent); }, 0); });
+  var s = document.createElement('script'); s.async = true; s.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-MHWJCL36'; document.head.appendChild(s);
+</script>
