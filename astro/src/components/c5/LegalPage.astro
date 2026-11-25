@@ -2,6 +2,7 @@
 // BRIEF §14 — legal page, ported from mockups/Legal.dc.html: side nav "בעמוד זה",
 // breadcrumb, h1, "עודכן לאחרונה", numbered sections.
 import Seo from '@/components/Seo.astro'
+import GoogleTags from '@/components/GoogleTags.astro'
 import Header from '@/components/c5/Header.astro'
 import Footer from '@/components/c5/Footer.astro'
 import Floating from '@/components/c5/Floating.astro'
@@ -19,6 +20,7 @@ const settings = await getSiteSettings()
 <html lang="he" dir="rtl">
 <head>
 <meta charset="utf-8" />
+<GoogleTags />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="icon" type="image/svg+xml" href="/assets/logo/category5-logo.svg" />
 <Seo title={`${title} | קטגוריה 5`} description={description} />
