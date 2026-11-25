@@ -122,7 +122,7 @@ async function sendBrevo(m: Mail) {
 // Adds a newsletter signup to the Brevo list. Double opt-in when a DOI template
 // is configured (Brevo emails a confirmation link; the contact joins the list
 // only after clicking it); otherwise the contact is added (or updated) directly.
-async function subscribeBrevo(email: string, source: string) {
+async function subscribeBrevo(email: string, source: string): Promise<boolean> {
   const listId = Number(env('BREVO_LIST_ID'))
   const doiTemplate = Number(env('BREVO_DOI_TEMPLATE_ID'))
   const site = env('SITE_URL') || 'https://www.ethical-supplements.com'
@@ -139,10 +139,10 @@ async function subscribeBrevo(email: string, source: string) {
         headers: brevoHeaders(),
         body: JSON.stringify({ email, listIds: [listId], updateEnabled: true, attributes }),
       })
-  if (res.ok) return
+  if (res.ok) return doi
   const err = await res.text()
   // An address that is already a contact is a success from the visitor's side.
-  if (res.status === 400 && /duplicate|already exist/i.test(err)) return
+  if (res.status === 400 && /duplicate|already exist/i.test(err)) return false
   // SOURCE is a custom attribute; if it has not been created in Brevo, retry without it.
   if (res.status === 400 && /attribute/i.test(err)) {
     const retry = await fetch(`${BREVO()}${doi ? '/contacts/doubleOptinConfirmation' : '/contacts'}`, {
@@ -152,9 +152,9 @@ async function subscribeBrevo(email: string, source: string) {
         ? { email, includeListIds: [listId], templateId: doiTemplate, redirectionUrl: env('BREVO_DOI_REDIRECT') || site }
         : { email, listIds: [listId], updateEnabled: true }),
     })
-    if (retry.ok) return
+    if (retry.ok) return doi
     const err2 = await retry.text()
-    if (retry.status === 400 && /duplicate|already exist/i.test(err2)) return
+    if (retry.status === 400 && /duplicate|already exist/i.test(err2)) return false
     throw new Error(`brevo subscribe ${retry.status}: ${err2.slice(0, 200)}`)
   }
   throw new Error(`brevo subscribe ${res.status}: ${err.slice(0, 200)}`)
@@ -201,15 +201,16 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
 
   const source = clean(body._source, 300)
 
+  let confirm = false
   if (newsletter && env('BREVO_API_KEY') && env('BREVO_LIST_ID')) {
     try {
-      await subscribeBrevo(email, source || '/')
+      confirm = await subscribeBrevo(email, source || '/')
       console.log(`contact: newsletter signup added to Brevo list ${env('BREVO_LIST_ID')}`)
     } catch (e) {
       console.error('contact: newsletter signup failed', e)
       return json({ ok: false, error: 'send-failed' }, 502)
     }
-    if (env('NEWSLETTER_NOTIFY') !== 'true') return json({ ok: true })
+    if (env('NEWSLETTER_NOTIFY') !== 'true') return json({ ok: true, confirm })
   }
 
   const when = new Date().toLocaleString('he-IL', { timeZone: 'Asia/Jerusalem' })
@@ -231,7 +232,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   const resend = env('RESEND_API_KEY')
   const brevo = env('BREVO_API_KEY') && env('CONTACT_FROM')
   if (!graphOk && !smtp && !resend && !brevo) {
-    if (newsletter && env('BREVO_API_KEY') && env('BREVO_LIST_ID')) return json({ ok: true }) // signed up; only the notification is skipped
+    if (newsletter && env('BREVO_API_KEY') && env('BREVO_LIST_ID')) return json({ ok: true, confirm }) // signed up; only the notification is skipped
     console.error('contact: no mail transport configured (MS_* / SMTP_* / RESEND_API_KEY / BREVO_API_KEY + CONTACT_FROM)')
     return json({ ok: false, error: 'not-configured' }, 503)
   }
@@ -251,7 +252,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     console.error('contact: send failed', e)
     return json({ ok: false, error: 'send-failed' }, 502)
   }
-  return json({ ok: true })
+  return json({ ok: true, confirm })
 }
 
 export const GET: APIRoute = () => json({ ok: false, error: 'method' }, 405)

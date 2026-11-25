@@ -66,7 +66,8 @@ const ogImage = shareImage(image)
       // Contact + newsletter forms. With PUBLIC_WEB3FORMS_KEY set (astro/.env.example),
       // they post straight to Web3Forms, which emails the submission to the inbox the
       // key was issued for (the same setup as the NatureSage site). Without the key
-      // they post to /api/contact, the site's own mailer (needs MS_* / SMTP_* / RESEND).
+      // they post to /api/contact, the site's own mailer (needs MS_* / SMTP_* / RESEND / BREVO).
+      // The newsletter signup always tries /api/contact first (Brevo list).
       const WEB3FORMS_KEY = (import.meta.env.PUBLIC_WEB3FORMS_KEY as string | undefined)?.trim()
       const esc = (s: string) => s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!)
       // Sent: the form gives way to a confirmation panel in the site's language (title, line,
@@ -119,7 +120,25 @@ const ogImage = shareImage(image)
           if (btn) btn.disabled = true
           try {
             let ok = false
-            if (WEB3FORMS_KEY) {
+            let confirm = false
+            // Newsletter signups go to /api/contact first, which adds them to the Brevo list
+            // (BREVO_* in astro/.env.example). Only when the server has nothing configured
+            // (503) does a signup fall back to Web3Forms below.
+            let viaWeb3 = !!WEB3FORMS_KEY
+            if (kind === 'newsletter') {
+              const res = await fetch('/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ ...data, kind, _t: started, _source: location.pathname }),
+              })
+              const out = await res.json().catch(() => ({}))
+              ok = res.ok && !!out.ok
+              confirm = ok && !!out.confirm
+              viaWeb3 = !!WEB3FORMS_KEY && res.status === 503
+            }
+            if (kind === 'newsletter' && !viaWeb3) {
+              // handled above
+            } else if (WEB3FORMS_KEY) {
               // A form "filled" in under a second is a bot: pretend it went through.
               if (Date.now() - started < 1000) ok = true
               else {
@@ -149,7 +168,12 @@ const ogImage = shareImage(image)
               })
               ok = res.ok && !!(await res.json().catch(() => ({}))).ok
             }
-            if (ok) { if (status) status.textContent = ''; form.reset(); sent(form) }
+            if (ok) {
+              if (status) status.textContent = ''
+              // Double opt-in: the visitor still has to click the link in the confirmation email.
+              if (confirm && form.dataset.confirmTitle) { form.dataset.sentTitle = form.dataset.confirmTitle; form.dataset.sentText = form.dataset.confirmText || '' }
+              form.reset(); sent(form)
+            }
             else if (status) status.textContent = form.dataset.error || 'השליחה נכשלה'
           } catch {
             if (status) status.textContent = form.dataset.error || 'השליחה נכשלה'
