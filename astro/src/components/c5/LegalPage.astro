@@ -7,14 +7,11 @@ import Header from '@/components/c5/Header.astro'
 import Footer from '@/components/c5/Footer.astro'
 import Floating from '@/components/c5/Floating.astro'
 import CookieConsent from '@/components/c5/CookieConsent.astro'
-import TrackingPixels from '@/components/TrackingPixels.astro'
-import { getSiteSettings } from '@/lib/sanity'
 import '@/styles/c5-base.css'
 import '@/styles/c5-site.css'
 export interface LegalSection { title: string; paragraphs?: string[]; items?: string[]; html?: string }
 interface Props { title: string; description?: string; updated?: string; sections: LegalSection[] }
 const { title, description, updated, sections } = Astro.props
-const settings = await getSiteSettings()
 ---
 <!doctype html>
 <html lang="he" dir="rtl">
@@ -51,7 +48,6 @@ const settings = await getSiteSettings()
 </div>
 <Floating />
 <CookieConsent />
-<TrackingPixels snippets={(settings as any)?.tracking} />
 <script is:inline src="/c5/site.js"></script>
 </body>
 </html>

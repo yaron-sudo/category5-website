@@ -7,8 +7,6 @@ import Header from '@/components/c5/Header.astro'
 import Footer from '@/components/c5/Footer.astro'
 import Floating from '@/components/c5/Floating.astro'
 import CookieConsent from '@/components/c5/CookieConsent.astro'
-import TrackingPixels from '@/components/TrackingPixels.astro'
-import { getSiteSettings } from '@/lib/sanity'
 import { DEFAULT_LANG, DIR, type Lang } from '@/c5/i18n'
 import { shareImage } from '@/c5/og'
 import '@/styles/c5-base.css'
@@ -30,8 +28,6 @@ const { title, description, image, lang = DEFAULT_LANG, jsonLd, noindex = false 
 // already carries the brand (the home page) is used as is.
 const fullTitle = /Category 5|קטגוריה 5/.test(title) ? title : `${title} | קטגוריה 5`
 const ogImage = shareImage(image)
-// GA / Meta snippets from siteSettings.tracking; inert until the cookie consent grants them.
-const settings = await getSiteSettings()
 ---
 <!doctype html>
 <html lang={lang} dir={DIR[lang]}>
@@ -59,7 +55,6 @@ const settings = await getSiteSettings()
     </div>
     <Floating />
     <CookieConsent />
-    <TrackingPixels snippets={(settings as any)?.tracking} />
     <script is:inline src="/c5/site.js"></script>
     <script is:inline>
       // Deterrent against casual image copying (client request): no right-click menu or

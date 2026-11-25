@@ -224,11 +224,11 @@ const siteSettings = {
   footerDisclaimer: 'כל המידע באתר זה הוא לצורכי מידע כללי בלבד, ואינו מהווה תחליף לייעוץ, טיפול, אבחון והשגחה של רופא מוסמך. אם יש חשש לבעיה רפואית כלשהי, יש לפנות לרופא המטפל ולפעול לפי הנחיותיו. תוכן הקשור להשלמות תזונתיות לא נבחן ולא אושר על ידי משרד הבריאות. מומלץ להתייעץ עם רופא או מטפל לפני תחילת שימוש בתוספי תזונה. התמונות להמחשה בלבד.',
   tracking: [
     {
-      _key: key('t'), label: 'Google Analytics 4', category: 'analytics', enabled: true,
+      _key: key('t'), label: 'Google Analytics 4', category: 'analytics', enabled: false /* client 25.11.2026: tracking only through GTM (GoogleTags.astro) */,
       code: '<script async src="https://www.googletagmanager.com/gtag/js?id=G-KCGS4PLVXG"></script>\n<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-KCGS4PLVXG");</script>',
     },
     {
-      _key: key('t'), label: 'Meta Pixel', category: 'marketing', enabled: true,
+      _key: key('t'), label: 'Meta Pixel', category: 'marketing', enabled: false /* client 25.11.2026: tracking only through GTM (GoogleTags.astro) */,
       code: '<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version="2.0";n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");fbq("init","1029475088014781");fbq("track","PageView");</script>',
     },
   ],
