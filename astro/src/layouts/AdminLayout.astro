@@ -1,0 +1,41 @@
+---
+// Layout of the admin area (/admin/*). Not part of the public design brief: same font, colours
+// and button rules (CLAUDE.md), noindex, no site header/footer/tracking/chat.
+import '@/styles/admin.css'
+import { ROLE_LABEL } from '@/admin/auth'
+interface Props { title: string; nav?: string }
+const { title, nav = '' } = Astro.props
+const me = Astro.locals.admin
+const items = [
+  { id: 'home', href: '/admin', label: 'סקירה' },
+  { id: 'users', href: '/admin/users', label: 'משתמשים' },
+  { id: 'audit', href: '/admin/audit', label: 'יומן פעולות' },
+]
+---
+<!doctype html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" type="image/svg+xml" href="/assets/logo/category5-logo.svg" />
+    <link rel="preload" href="/assets/fonts/NotoSansHebrew-Regular.ttf" as="font" type="font/ttf" crossorigin />
+    <title>{title} | ניהול קטגוריה 5</title>
+  </head>
+  <body class="ad">
+    {me ? (
+      <header class="ad-bar">
+        <a class="ad-logo" href="/admin" aria-label="ניהול קטגוריה 5"><img src="/assets/logo/category5-logo.svg" alt="" height="32" /></a>
+        <nav aria-label="ניווט ראשי">
+          {items.map((i) => <a href={i.href} aria-current={nav === i.id ? 'page' : undefined}>{i.label}</a>)}
+        </nav>
+        <div class="ad-me">
+          <span class="ad-who" dir="ltr">{me.email}</span>
+          <span class="ad-role">{ROLE_LABEL[me.role]}</span>
+          <form method="post" action="/api/admin/logout"><button class="ad-btn" type="submit">התנתקות</button></form>
+        </div>
+      </header>
+    ) : null}
+    <main class="ad-main" id="main"><slot /></main>
+  </body>
+</html>

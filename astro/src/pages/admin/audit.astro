@@ -1,0 +1,22 @@
+---
+import AdminLayout from '@/layouts/AdminLayout.astro'
+import { q } from '@/admin/db'
+export const prerender = false
+const rows = await q<{ at: string; actor: string; action: string; target: string | null; meta: any }>('SELECT at, actor, action, target, meta FROM admin_audit ORDER BY at DESC, id DESC LIMIT 200')
+const LABEL: Record<string, string> = { login: 'התחברות', logout: 'התנתקות', 'login.denied': 'ניסיון כניסה נדחה', 'user.add': 'הוספת משתמש', 'user.role': 'שינוי תפקיד', 'user.remove': 'הסרת משתמש', 'user.bootstrap': 'יצירת בעלים ראשון' }
+const fmt = (d: string) => new Date(d).toLocaleString('he-IL', { timeZone: 'Asia/Jerusalem', dateStyle: 'short', timeStyle: 'medium' })
+---
+<AdminLayout title="יומן פעולות" nav="audit">
+  <h1>יומן פעולות</h1>
+  <p class="ad-muted">200 הפעולות האחרונות: התחברויות, ניסיונות כניסה נדחים ושינויים בהרשאות.</p>
+  <div class="ad-scroll">
+  <table class="ad-table">
+    <thead><tr><th>זמן</th><th>מי</th><th>פעולה</th><th>על</th><th>פרטים</th></tr></thead>
+    <tbody>
+      {rows.map((r) => (
+        <tr><td>{fmt(r.at)}</td><td class="ltr">{r.actor}</td><td>{LABEL[r.action] ?? r.action}</td><td class="ltr">{r.target ?? '—'}</td><td class="ltr">{r.meta ? JSON.stringify(r.meta) : '—'}</td></tr>
+      ))}
+    </tbody>
+  </table>
+  </div>
+</AdminLayout>

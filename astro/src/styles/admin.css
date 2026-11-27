@@ -1,0 +1,42 @@
+/* Admin area. Same font and colour rules as the site (CLAUDE.md): one font, all text #141414,
+   hairlines #dcdcd9, white buttons with a 1px black border and 4px radius that invert on hover. */
+@font-face { font-family: "C5 Sans"; src: url("/assets/fonts/NotoSansHebrew-Regular.ttf") format("truetype"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "C5 Sans"; src: url("/assets/fonts/NotoSansHebrew-Bold.ttf") format("truetype"); font-weight: 600 700; font-display: swap; }
+*, *::before, *::after { box-sizing: border-box; }
+body.ad { margin: 0; background: #f7f7f5; color: #141414; font: 400 17px/1.6 "C5 Sans", Arial, sans-serif; }
+.ad a { color: inherit; }
+.ad h1 { font-size: 22px; font-weight: 600; margin: 0 0 20px; }
+.ad h2 { font-size: 20px; font-weight: 400; margin: 32px 0 12px; }
+.ad-bar { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; background: #fff; border-bottom: 1px solid #dcdcd9; padding: 10px 24px; position: sticky; top: 0; z-index: 5; }
+.ad-bar nav { display: flex; gap: 22px; flex: 1; }
+.ad-bar nav a { text-decoration: none; font-size: 15px; padding: 6px 0; border-bottom: 1px solid transparent; transition: border-color .4s cubic-bezier(.22,.61,.36,1); }
+.ad-bar nav a:hover, .ad-bar nav a[aria-current] { border-bottom-color: #141414; }
+.ad-me { display: flex; align-items: center; gap: 12px; font-size: 15px; }
+.ad-me form { margin: 0; }
+.ad-role { background: #efeeea; padding: 2px 10px; border-radius: 4px; font-size: 13px; }
+.ad-main { max-width: 1100px; margin: 0 auto; padding: 32px 24px 80px; }
+.ad a:focus-visible, .ad button:focus-visible, .ad input:focus-visible, .ad select:focus-visible { outline: 2px solid #141414; outline-offset: 2px; }
+.ad-btn { background: #fff; color: #141414; border: 1px solid #141414; border-radius: 4px; min-height: 44px; padding: 0 22px; font: 500 15px/1 "C5 Sans", Arial, sans-serif; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; transition: background .45s cubic-bezier(.22,.61,.36,1), color .45s cubic-bezier(.22,.61,.36,1); }
+.ad-btn:hover { background: #141414; color: #fff; }
+.ad-btn:active { transform: scale(.99); }
+.ad-btn.soft { border-color: #dcdcd9; }
+.ad-btn.soft:hover { background: #efeeea; color: #141414; }
+.ad-panel { background: #fff; border: 1px solid #dcdcd9; border-radius: 4px; padding: 20px 24px; }
+.ad-table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #dcdcd9; }
+.ad-table th, .ad-table td { text-align: start; padding: 12px 16px; border-bottom: 1px solid #dcdcd9; font-size: 15px; vertical-align: middle; }
+.ad-table th { font-weight: 600; background: #f7f7f5; }
+.ad-table tr:last-child td { border-bottom: 0; }
+.ad-table .inline { display: inline-flex; gap: 8px; align-items: center; margin: 0; }
+.ad-table .ltr, .ltr { direction: ltr; unicode-bidi: plaintext; }
+.ad-scroll { overflow-x: auto; }
+.ad input[type=email], .ad select { min-height: 44px; border: 1px solid #141414; border-radius: 4px; padding: 0 12px; font: 400 15px "C5 Sans", Arial, sans-serif; color: #141414; background: #fff; }
+.ad-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: end; }
+.ad-row label { display: grid; gap: 4px; font-size: 14px; }
+.ad-note { padding: 12px 16px; border: 1px solid #141414; border-radius: 4px; background: #fff; margin-bottom: 20px; font-size: 15px; }
+.ad-muted { font-size: 14px; }
+.ad-login { min-height: 100vh; display: grid; place-items: center; padding: 24px; }
+.ad-login .ad-panel { width: min(420px, 100%); text-align: center; padding: 36px 28px; }
+.ad-login img { margin-bottom: 20px; }
+.ad-login p { margin: 0 0 20px; }
+@media (max-width: 700px) { .ad-bar { padding: 10px 16px; gap: 12px; } .ad-bar nav { order: 3; flex-basis: 100%; } .ad-main { padding: 24px 16px 64px; } .ad-who { display: none; } }
+@media (prefers-reduced-motion: reduce) { .ad *, .ad *::before { transition: none !important; } }

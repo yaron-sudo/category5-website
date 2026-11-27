@@ -1,0 +1,39 @@
+---
+import '@/styles/admin.css'
+import { safeNext } from '@/admin/auth'
+import { currentUser } from '@/admin/auth'
+export const prerender = false
+// Already signed in → straight to the area.
+try { if (await currentUser(Astro.cookies)) return Astro.redirect(safeNext(Astro.url.searchParams.get('next'))) } catch { /* DB/config problem: show the form */ }
+const next = safeNext(Astro.url.searchParams.get('next'))
+const MSG: Record<string, string> = {
+  denied: 'חשבון Google הזה אינו ברשימת המורשים. לבקשת גישה פנו לבעלי המערכת.',
+  unverified: 'כתובת האימייל של חשבון Google לא מאומתת.',
+  cancelled: 'ההתחברות בוטלה.',
+  state: 'ההתחברות פגה. נסו שוב.',
+  google: 'ההתחברות מול Google נכשלה. נסו שוב.',
+  config: 'ההתחברות אינה מוגדרת במלואה בשרת.',
+}
+const err = MSG[Astro.url.searchParams.get('e') ?? '']
+---
+<!doctype html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" type="image/svg+xml" href="/assets/logo/category5-logo.svg" />
+    <title>התחברות | ניהול קטגוריה 5</title>
+  </head>
+  <body class="ad">
+    <main class="ad-login" id="main">
+      <div class="ad-panel">
+        <img src="/assets/logo/category5-logo.svg" alt="Category 5" height="40" />
+        <h1>ניהול האתר</h1>
+        {err && <p class="ad-note" role="alert">{err}</p>}
+        <p>ההתחברות לאזור הניהול מתבצעת עם חשבון Google של כתובת מורשית.</p>
+        <a class="ad-btn" href={`/api/admin/auth/google?next=${encodeURIComponent(next)}`}>התחברות עם Google</a>
+      </div>
+    </main>
+  </body>
+</html>

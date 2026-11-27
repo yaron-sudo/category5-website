@@ -2,6 +2,8 @@
 # Allow all crawlers (including AI/answer engines) full access.
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /api/admin
 
 # Major AI / answer-engine crawlers (explicit allow for AI-SEO visibility).
 User-agent: GPTBot

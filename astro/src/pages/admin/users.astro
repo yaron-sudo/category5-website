@@ -1,0 +1,64 @@
+---
+import AdminLayout from '@/layouts/AdminLayout.astro'
+import { can, ROLE_LABEL, type Role } from '@/admin/auth'
+import { q } from '@/admin/db'
+export const prerender = false
+const me = Astro.locals.admin!
+const manage = can(me.role, 'users.manage')
+const users = await q<{ email: string; role: Role; name: string | null; created_at: string; last_login: string | null }>('SELECT email, role, name, created_at, last_login FROM admin_users ORDER BY created_at')
+const fmt = (d: string | null) => (d ? new Date(d).toLocaleString('he-IL', { timeZone: 'Asia/Jerusalem', dateStyle: 'short', timeStyle: 'short' }) : '—')
+const OK: Record<string, string> = { added: 'המשתמש נוסף.', role: 'התפקיד עודכן.', removed: 'המשתמש הוסר.' }
+const ERR: Record<string, string> = { forbidden: 'רק בעלים יכולים לנהל משתמשים.', email: 'כתובת אימייל לא תקינה.', role: 'תפקיד לא תקין.', exists: 'הכתובת כבר ברשימה.', missing: 'המשתמש לא נמצא.', lastowner: 'אי אפשר להסיר או להוריד את הבעלים האחרון.', action: 'פעולה לא מוכרת.' }
+const ok = OK[Astro.url.searchParams.get('ok') ?? ''], err = ERR[Astro.url.searchParams.get('e') ?? '']
+const roles = Object.entries(ROLE_LABEL) as [Role, string][]
+---
+<AdminLayout title="משתמשים" nav="users">
+  <h1>משתמשים והרשאות</h1>
+  {ok && <p class="ad-note" role="status">{ok}</p>}
+  {err && <p class="ad-note" role="alert">{err}</p>}
+  <p class="ad-muted">הגישה לאזור הניהול ניתנת רק לכתובות ברשימה, דרך התחברות עם Google. הסרה מהרשימה חוסמת גישה מיידית.</p>
+  <div class="ad-scroll">
+  <table class="ad-table">
+    <thead><tr><th>אימייל</th><th>שם</th><th>תפקיד</th><th>התחברות אחרונה</th>{manage && <th><span class="sr-only">פעולות</span></th>}</tr></thead>
+    <tbody>
+      {users.map((u) => (
+        <tr>
+          <td class="ltr">{u.email}</td>
+          <td>{u.name ?? '—'}</td>
+          <td>
+            {manage ? (
+              <form class="inline" method="post" action="/api/admin/users">
+                <input type="hidden" name="action" value="role" /><input type="hidden" name="email" value={u.email} />
+                <select name="role" aria-label={`תפקיד של ${u.email}`}>{roles.map(([v, l]) => <option value={v} selected={v === u.role}>{l}</option>)}</select>
+                <button class="ad-btn soft" type="submit">עדכון</button>
+              </form>
+            ) : ROLE_LABEL[u.role]}
+          </td>
+          <td>{fmt(u.last_login)}</td>
+          {manage && (
+            <td>
+              <form class="inline" method="post" action="/api/admin/users">
+                <input type="hidden" name="action" value="remove" /><input type="hidden" name="email" value={u.email} />
+                <button class="ad-btn" type="submit" aria-label={`הסרת ${u.email}`}>הסרה</button>
+              </form>
+            </td>
+          )}
+        </tr>
+      ))}
+    </tbody>
+  </table>
+  </div>
+  {manage && (
+    <>
+      <h2>הוספת משתמש</h2>
+      <form class="ad-panel ad-row" method="post" action="/api/admin/users">
+        <input type="hidden" name="action" value="add" />
+        <label>אימייל (חשבון Google)<input class="ltr" type="email" name="email" required autocomplete="off" /></label>
+        <label>תפקיד<select name="role">{roles.map(([v, l]) => <option value={v} selected={v === 'viewer'}>{l}</option>)}</select></label>
+        <button class="ad-btn" type="submit">הוספה</button>
+      </form>
+      <p class="ad-muted">בעלים: ניהול משתמשים וכל השאר · מנהל: כל הנתונים והפעולות, בלי ניהול משתמשים · צפייה בלבד: קריאה בלבד.</p>
+    </>
+  )}
+</AdminLayout>
+<style>.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}</style>
