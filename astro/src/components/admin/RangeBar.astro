@@ -1,0 +1,23 @@
+---
+import { RANGES } from '@/admin/stats'
+interface Props { days: number; base: string }
+const { days, base } = Astro.props
+---
+<nav class="ad-range" aria-label="טווח זמן">
+  {RANGES.map((r) => <a href={`${base}?d=${r}`} aria-current={r === days ? 'true' : undefined}>{r} ימים</a>)}
+</nav>
+<style is:global>
+  .ad-range { display: inline-flex; border: 1px solid #141414; border-radius: 4px; overflow: hidden; margin-bottom: 20px; background: #fff; }
+  .ad-range a { padding: 10px 18px; font-size: 15px; text-decoration: none; transition: background .4s cubic-bezier(.22,.61,.36,1), color .4s cubic-bezier(.22,.61,.36,1); }
+  .ad-range a + a { border-inline-start: 1px solid #141414; }
+  .ad-range a:hover { background: #efeeea; }
+  .ad-range a[aria-current] { background: #141414; color: #fff; }
+  .ad-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 16px; margin-bottom: 8px; }
+  .ad-kpi { background: #fff; border: 1px solid #dcdcd9; border-radius: 4px; padding: 16px 20px; }
+  .ad-kpi b { display: block; font-size: 28px; font-weight: 600; line-height: 1.2; }
+  .ad-kpi span { font-size: 14px; }
+  .ad-grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 24px; align-items: start; }
+  .ad-bars { width: 100%; height: auto; display: block; background: #fff; border: 1px solid #dcdcd9; border-radius: 4px; }
+  .ad-empty { color: #141414; background: #fff; border: 1px dashed #dcdcd9; border-radius: 4px; padding: 16px 20px; margin: 0; font-size: 15px; }
+  .ad-num { text-align: end; font-variant-numeric: tabular-nums; }
+</style>

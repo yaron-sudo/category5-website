@@ -159,6 +159,7 @@ const btn = 'min-height: 48px; padding: 0 22px; border: 1px solid #141414; borde
       cols.hidden = true; idle.hidden = true; dym.hidden = true; noneEl.hidden = true; blockedEl.hidden = false
       quickEl.innerHTML = D.quick.map((x) => `<a href="${x.href}">${esc(x.prefix)}: ${esc(x.label)}</a>`).join('')
       quickEl.hidden = false
+      window.dispatchEvent(new CustomEvent('c5:search', { detail: { blocked: true } }))
       return
     }
     blockedEl.hidden = true
@@ -181,6 +182,7 @@ const btn = 'min-height: 48px; padding: 0 22px; border: 1px solid #141414; borde
     if (nProd === 0 && nArt > 0) { slots.col.appendChild(noneEl); noneEl.hidden = false; cols.hidden = false }
     else if (nProd === 0) { slots.full.appendChild(noneEl); noneEl.hidden = false; cols.hidden = true }
     else { noneEl.hidden = true; cols.hidden = false }
+    window.dispatchEvent(new CustomEvent('c5:search', { detail: { q: q.trim(), n: nProd + nArt } }))
     // a correction is offered only when the search came back (almost) empty
     const fix = r.results.length < 3 ? didYouMean(index, q, r.unmatched) : null
     if (fix && fix !== nq) { dym.innerHTML = `האם התכוונתם ל<button type="button" data-sr-fix>${esc(unfold(fix))}</button>?`; dym.hidden = false; dym.querySelector('button')!.addEventListener('click', () => { input.value = unfold(fix); closeSugg(); run(input.value) }) }

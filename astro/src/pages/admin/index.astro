@@ -1,10 +1,92 @@
 ---
 import AdminLayout from '@/layouts/AdminLayout.astro'
+import RangeBar from '@/components/admin/RangeBar.astro'
+import { overview, parseRange } from '@/admin/stats'
 export const prerender = false
+const days = parseRange(Astro.url.searchParams.get('d'))
+const s = await overview(days)
+
+const SRC: Record<string, string> = { direct: 'ישיר', google: 'גוגל', bing: 'Bing', 'search-other': 'מנועי חיפוש אחרים', facebook: 'פייסבוק', instagram: 'אינסטגרם', x: 'X', tiktok: 'TikTok', youtube: 'YouTube', linkedin: 'LinkedIn', whatsapp: 'וואטסאפ', email: 'דוא״ל', ai: 'כלי AI', campaign: 'קמפיינים (UTM / גוגל אדס)', referral: 'אתרים מפנים' }
+const DEV: Record<string, string> = { mobile: 'מובייל', tablet: 'טאבלט', desktop: 'דסקטופ' }
+const mmss = (sec: number | null) => (sec == null ? '—' : sec >= 60 ? `${Math.floor(sec / 60)}:${String(sec % 60).padStart(2, '0')} דק׳` : `${sec} שנ׳`)
+const nf = (n: number) => n.toLocaleString('he-IL')
+
+// A bar for every day of the range (days without traffic show as 0).
+const today = new Date().toLocaleDateString('sv-SE', { timeZone: 'Asia/Jerusalem' })
+const byDay = new Map(s.daily.map((d) => [d.day, d]))
+const series = Array.from({ length: days }, (_, i) => { const dt = new Date(`${today}T12:00:00Z`); dt.setUTCDate(dt.getUTCDate() - (days - 1 - i)); const k = dt.toISOString().slice(0, 10); return { day: k, visitors: byDay.get(k)?.visitors ?? 0, pv: byDay.get(k)?.pv ?? 0 } })
+const max = Math.max(1, ...series.map((d) => d.visitors))
+const W = 1000, H = 220, pad = 24, bw = (W - pad * 2) / series.length
+const total = (a: { n: number }[]) => a.reduce((x, y) => x + y.n, 0)
+const srcTotal = total(s.sources) || 1
+const pct = (n: number, t: number) => `${Math.round((n / t) * 100)}%`
 ---
 <AdminLayout title="סקירה" nav="home">
   <h1>סקירה</h1>
-  <div class="ad-panel">
-    <p>אין עדיין נתונים להצגה. נתוני תנועה, מקורות הגעה, מפת חום וניהול הצ'אט יופיעו כאן עם הפעלת איסוף הנתונים.</p>
-  </div>
+  <RangeBar days={days} base="/admin" />
+  {s.pv === 0 ? (
+    <p class="ad-empty">אין עדיין נתונים בטווח הזה. הנתונים מתחילים להצטבר מרגע שהסקריפט פעיל באתר. מבקרים שביקשו שלא לעקוב אחריהם (Do Not Track / GPC) ובוטים אינם נספרים.</p>
+  ) : (
+    <>
+      <div class="ad-kpis">
+        <div class="ad-kpi"><b>{nf(s.visitors)}</b><span>מבקרים (ייחודיים לכל יום)</span></div>
+        <div class="ad-kpi"><b>{nf(s.pv)}</b><span>צפיות בעמודים</span></div>
+        <div class="ad-kpi"><b>{mmss(s.dwell)}</b><span>זמן גלישה ממוצע בעמוד</span></div>
+        <div class="ad-kpi"><b>{s.scroll == null ? '—' : `${s.scroll}%`}</b><span>עומק גלילה ממוצע</span></div>
+      </div>
+
+      <h2>מבקרים לפי יום</h2>
+      <svg class="ad-bars" viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`מבקרים לפי יום, ${days} ימים אחרונים, מקסימום ${max} ביום`}>
+        <line x1={pad} y1={H - 28} x2={W - pad} y2={H - 28} stroke="#dcdcd9" />
+        {series.map((d, i) => {
+          const h = Math.round((d.visitors / max) * (H - 70))
+          return <g><title>{`${d.day}: ${d.visitors} מבקרים, ${d.pv} צפיות`}</title><rect x={W - pad - (i + 1) * bw + 1.5} y={H - 28 - h} width={Math.max(bw - 3, 1)} height={h} fill="#141414" /></g>
+        })}
+        <text x={pad} y={H - 8} font-size="13" fill="#141414">{series[series.length - 1].day}</text>
+        <text x={W - pad} y={H - 8} font-size="13" fill="#141414" text-anchor="end">{series[0].day}</text>
+        <text x={W - pad} y="16" font-size="13" fill="#141414" text-anchor="end">{max}</text>
+      </svg>
+
+      <div class="ad-grid2">
+        <section>
+          <h2>מקורות הגעה</h2>
+          <div class="ad-scroll"><table class="ad-table"><thead><tr><th>מקור</th><th class="ad-num">מבקרים</th><th class="ad-num">חלק</th></tr></thead><tbody>
+            {s.sources.map((r) => <tr><td>{SRC[r.source] ?? r.source}</td><td class="ad-num">{nf(r.n)}</td><td class="ad-num">{pct(r.n, srcTotal)}</td></tr>)}
+          </tbody></table></div>
+        </section>
+        <section>
+          <h2>אתרים מפנים</h2>
+          {s.referrers.length ? <div class="ad-scroll"><table class="ad-table"><thead><tr><th>אתר</th><th class="ad-num">צפיות</th></tr></thead><tbody>
+            {s.referrers.map((r) => <tr><td class="ltr">{r.host}</td><td class="ad-num">{nf(r.n)}</td></tr>)}
+          </tbody></table></div> : <p class="ad-empty">אין הפניות מאתרים חיצוניים בטווח.</p>}
+        </section>
+      </div>
+
+      {s.campaigns.length > 0 && (
+        <section>
+          <h2>קמפיינים</h2>
+          <div class="ad-scroll"><table class="ad-table"><thead><tr><th>מקור</th><th>מדיום</th><th>קמפיין</th><th class="ad-num">צפיות</th></tr></thead><tbody>
+            {s.campaigns.map((r) => <tr><td class="ltr">{r.s}</td><td class="ltr">{r.m}</td><td class="ltr">{r.c}</td><td class="ad-num">{nf(r.n)}</td></tr>)}
+          </tbody></table></div>
+        </section>
+      )}
+
+      <h2>עמודים מובילים</h2>
+      <div class="ad-scroll"><table class="ad-table"><thead><tr><th>עמוד</th><th class="ad-num">צפיות</th><th class="ad-num">מבקרים</th><th class="ad-num">זמן ממוצע</th><th class="ad-num">גלילה</th></tr></thead><tbody>
+        {s.pages.map((r) => <tr><td class="ltr"><a href={r.path}>{r.path}</a></td><td class="ad-num">{nf(r.pv)}</td><td class="ad-num">{nf(r.visitors)}</td><td class="ad-num">{mmss(r.dwell)}</td><td class="ad-num">{r.scroll == null ? '—' : `${r.scroll}%`}</td></tr>)}
+      </tbody></table></div>
+
+      <div class="ad-grid2">
+        <section>
+          <h2>מכשירים</h2>
+          <div class="ad-scroll"><table class="ad-table"><tbody>{s.devices.map((r) => <tr><td>{DEV[r.device] ?? r.device}</td><td class="ad-num">{nf(r.n)}</td><td class="ad-num">{pct(r.n, total(s.devices) || 1)}</td></tr>)}</tbody></table></div>
+        </section>
+        <section>
+          <h2>מדינות</h2>
+          <div class="ad-scroll"><table class="ad-table"><tbody>{s.countries.map((r) => <tr><td class="ltr">{r.country}</td><td class="ad-num">{nf(r.n)}</td></tr>)}</tbody></table></div>
+        </section>
+      </div>
+      <p class="ad-muted">המבקר נספר לפי מזהה אנונימי שמתחלף מדי יום ואינו נשמר בעוגייה, ולכן אותו אדם בשני ימים נספר פעמיים. זמן הגלישה הוא זמן פעיל בלבד.</p>
+    </>
+  )}
 </AdminLayout>

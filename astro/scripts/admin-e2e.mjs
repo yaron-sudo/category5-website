@@ -31,7 +31,7 @@ const mock = http.createServer(async (req, res) => {
 }).listen(MOCK)
 
 const dev = spawn('npx', ['astro', 'dev', '--port', String(SITE)], { cwd: new URL('..', import.meta.url).pathname, env: { ...process.env,
-  ADMIN_DB: 'pglite', GOOGLE_CLIENT_ID: 'test-client', GOOGLE_CLIENT_SECRET: 'x', ADMIN_SESSION_SECRET: 'unit-test-secret-unit-test-secret-1234',
+  ADMIN_DB: 'pglite', ANALYTICS_ALLOW_HEADLESS: '1', GOOGLE_CLIENT_ID: 'test-client', GOOGLE_CLIENT_SECRET: 'x', ADMIN_SESSION_SECRET: 'unit-test-secret-unit-test-secret-1234',
   ADMIN_BOOTSTRAP_EMAILS: 'owner@example.test', ADMIN_OIDC_AUTH_URL: `http://localhost:${MOCK}/auth`, ADMIN_OIDC_TOKEN_URL: `http://localhost:${MOCK}/token`,
   ADMIN_OIDC_JWKS_URL: `http://localhost:${MOCK}/jwks`, ADMIN_OIDC_ISSUER: `http://localhost:${MOCK}` }, stdio: 'pipe' })
 let log = ''; dev.stdout.on('data', (d) => (log += d)); dev.stderr.on('data', (d) => (log += d))
@@ -81,6 +81,36 @@ try {
   await p.goto(`${BASE}/admin/audit`); const t = await p.locator('table').innerText()
   ok(/ניסיון כניסה נדחה/.test(t) && /הוספת משתמש/.test(t) && /הסרת משתמש/.test(t), 'audit log records denial, add and remove')
   const hdr = (await a.request.get(`${BASE}/admin`)).headers(); ok(/noindex/.test(hdr['x-robots-tag'] ?? '') && /no-store/.test(hdr['cache-control'] ?? ''), 'admin pages: noindex + no-store')
+  // ---- analytics: tracker → ingest → dashboards ------------------------------------------------
+  const pub = await browser.newContext({ userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124 Safari/537.36', viewport: { width: 1280, height: 800 } })
+  const pg = await pub.newPage()
+  await pg.route('**/*googletagmanager*', (r) => r.abort())
+  await pg.goto(`${BASE}/?utm_source=newsletter&utm_medium=email&utm_campaign=winter`, { waitUntil: 'load' })
+  await pg.waitForTimeout(2500); await pg.mouse.move(100, 100); await pg.evaluate(() => window.scrollTo(0, document.body.scrollHeight)); await pg.waitForTimeout(2200)
+  await pg.evaluate(() => { const a = document.createElement('a'); a.href = 'https://www.super-pharm.co.il/x?y=1'; a.textContent = 'x'; a.addEventListener('click', (e) => e.preventDefault()); document.body.appendChild(a); a.click() })
+  await pg.goto(`${BASE}/search?q=magnesium`, { waitUntil: 'load' })
+  await pg.fill('#q', 'zzzxqv'); await pg.waitForTimeout(3300)
+  await pg.goto(`${BASE}/old-wp-page-xyz`, { waitUntil: 'load' }); await pg.waitForTimeout(1500)
+  await pg.goto(`${BASE}/glossary`, { waitUntil: 'load' }); await pg.waitForTimeout(1200)
+  const dnt = await browser.newContext({ extraHTTPHeaders: {}, userAgent: 'Mozilla/5.0 Chrome/124 Safari/537.36' }); const dp = await dnt.newPage()
+  await dp.addInitScript(() => { Object.defineProperty(navigator, 'globalPrivacyControl', { value: true }) })
+  await dp.goto(`${BASE}/legal/privacy`, { waitUntil: 'load' }); await dp.waitForTimeout(1500)
+  const bot = await a.request.post(`${BASE}/api/c5/e`, { data: JSON.stringify({ t: 'pv', p: 'botbotbot1', u: '/bot-page' }), headers: { 'user-agent': 'Googlebot/2.1', 'content-type': 'text/plain' } })
+  ok(bot.status() === 204, 'ingest answers 204 to bots')
+  await pg.goto(`${BASE}/`, { waitUntil: 'load' }); await pg.waitForTimeout(500)
+  await pg.goto('about:blank'); await pg.waitForTimeout(800)
+  p = await login(await browser.newContext(), 'owner@example.test')
+  await p.goto(`${BASE}/admin?d=7`); const home = await p.locator('main').innerText()
+  ok(/צפיות בעמודים/.test(home) && !/אין עדיין נתונים/.test(home), 'overview shows data')
+  ok(/קמפיינים/.test(home) && /newsletter/.test(home), 'campaign (utm) attributed')
+  ok(!/bot-page/.test(home), 'bot not counted')
+  ok(!/legal\/privacy/.test(home), 'Global Privacy Control visitor not tracked')
+  ok(/\/search/.test(home) && /\/glossary/.test(home), 'pages listed')
+  ok(/[0-9]+\s*שנ׳|[0-9]:[0-9]{2}/.test(home), 'dwell time recorded')
+  await p.goto(`${BASE}/admin/behavior?d=7`); const beh = await p.locator('main').innerText()
+  ok(/super-pharm\.co\.il\/x/.test(beh) && !/y=1/.test(beh), 'outbound store click recorded without query string')
+  ok(/zzzxqv/.test(beh), 'zero-result search recorded')
+  ok(/old-wp-page-xyz/.test(beh), '404 recorded')
   await p.goto(`${BASE}/admin/users`); await p.click('button:has-text("התנתקות")'); await p.waitForLoadState('networkidle'); ok(p.url().includes('/admin/login'), 'logout works')
 } catch (e) { console.error(e); failed++ } finally { await browser.close(); dev.kill(); mock.close() }
 console.log(failed ? `\n${failed} FAILED` : '\nall passed'); if (failed) console.log(log.slice(-2500)); process.exit(failed ? 1 : 0)

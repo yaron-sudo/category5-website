@@ -43,6 +43,28 @@ const SCHEMA = [
      meta jsonb
    )`,
   `CREATE INDEX IF NOT EXISTS admin_audit_at ON admin_audit (at DESC)`,
+  `CREATE TABLE IF NOT EXISTS events (
+     id bigserial PRIMARY KEY,
+     at timestamptz NOT NULL DEFAULT now(),
+     day date NOT NULL DEFAULT ((now() AT TIME ZONE 'Asia/Jerusalem')::date),
+     type text NOT NULL,
+     pid text,
+     path text NOT NULL,
+     vid text,
+     source text,
+     ref_host text,
+     utm_source text,
+     utm_medium text,
+     utm_campaign text,
+     country text,
+     device text,
+     target text,
+     n int,
+     dwell_ms int,
+     scroll int
+   )`,
+  `CREATE INDEX IF NOT EXISTS events_day_type ON events (day, type)`,
+  `CREATE UNIQUE INDEX IF NOT EXISTS events_pid ON events (pid) WHERE type IN ('pv','nf')`,
 ]
 
 let ready: Promise<void> | null = null

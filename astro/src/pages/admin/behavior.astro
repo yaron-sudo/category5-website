@@ -1,0 +1,58 @@
+---
+import AdminLayout from '@/layouts/AdminLayout.astro'
+import RangeBar from '@/components/admin/RangeBar.astro'
+import { behavior, parseRange } from '@/admin/stats'
+export const prerender = false
+const days = parseRange(Astro.url.searchParams.get('d'))
+const b = await behavior(days)
+const nf = (n: number) => n.toLocaleString('he-IL')
+const CONTACT: Record<string, string> = { tel: 'חיוג לטלפון', mailto: 'פתיחת אימייל', whatsapp: 'וואטסאפ' }
+---
+<AdminLayout title="התנהגות" nav="behavior">
+  <h1>התנהגות גולשים</h1>
+  <RangeBar days={days} base="/admin/behavior" />
+
+  <h2>לחיצות החוצה: חנויות ויצירת קשר</h2>
+  {b.out.length ? (
+    <div class="ad-scroll"><table class="ad-table"><thead><tr><th>יעד</th><th class="ad-num">לחיצות</th><th class="ad-num">מעמודים</th></tr></thead><tbody>
+      {b.out.map((r) => <tr><td class={CONTACT[r.target] ? '' : 'ltr'}>{CONTACT[r.target] ?? r.target}</td><td class="ad-num">{nf(r.n)}</td><td class="ad-num">{nf(r.pages)}</td></tr>)}
+    </tbody></table></div>
+  ) : <p class="ad-empty">אין לחיצות בטווח.</p>}
+  {b.outFrom.length > 0 && (
+    <>
+      <h2>העמודים שמהם עוברים לחנויות</h2>
+      <div class="ad-scroll"><table class="ad-table"><tbody>{b.outFrom.map((r) => <tr><td class="ltr"><a href={r.path}>{r.path}</a></td><td class="ad-num">{nf(r.n)}</td></tr>)}</tbody></table></div>
+    </>
+  )}
+
+  <div class="ad-grid2">
+    <section>
+      <h2>חיפושים באתר</h2>
+      {b.search.length ? <div class="ad-scroll"><table class="ad-table"><thead><tr><th>חיפוש</th><th class="ad-num">פעמים</th><th class="ad-num">תוצאות</th></tr></thead><tbody>
+        {b.search.map((r) => <tr><td>{r.q}</td><td class="ad-num">{nf(r.n)}</td><td class="ad-num">{r.results}</td></tr>)}
+      </tbody></table></div> : <p class="ad-empty">אין חיפושים בטווח.</p>}
+    </section>
+    <section>
+      <h2>חיפושים בלי תוצאות</h2>
+      {b.zero.length ? <div class="ad-scroll"><table class="ad-table"><thead><tr><th>חיפוש</th><th class="ad-num">פעמים</th></tr></thead><tbody>
+        {b.zero.map((r) => <tr><td>{r.q}</td><td class="ad-num">{nf(r.n)}</td></tr>)}
+      </tbody></table></div> : <p class="ad-empty">כל החיפושים החזירו תוצאות.</p>}
+      <p class="ad-muted">אלה מילים שגולשים מחפשים ואין להן התאמה. מועמדות להוספה ל-<span class="ltr">searchKeywords.ts</span> (BRIEF §12).</p>
+      {b.blocked > 0 && <p class="ad-muted">{nf(b.blocked)} חיפושים נחסמו כמונחים רפואיים. הטקסט שלהם לא נשמר.</p>}
+    </section>
+  </div>
+
+  <div class="ad-grid2">
+    <section>
+      <h2>עמודים שלא נמצאו (404)</h2>
+      {b.nf.length ? <div class="ad-scroll"><table class="ad-table"><thead><tr><th>כתובת</th><th class="ad-num">פעמים</th><th>מקור</th></tr></thead><tbody>
+        {b.nf.map((r) => <tr><td class="ltr">{r.path}</td><td class="ad-num">{nf(r.n)}</td><td class="ltr">{r.ref ?? 'ישיר'}</td></tr>)}
+      </tbody></table></div> : <p class="ad-empty">לא נרשמו עמודי 404.</p>}
+      <p class="ad-muted">כתובות ישנות מ-WordPress שעדיין מקבלות תנועה. מועמדות להוספת הפניה (redirect).</p>
+    </section>
+    <section>
+      <h2>מושגים שנלחצו בעולם המושגים</h2>
+      {b.gl.length ? <div class="ad-scroll"><table class="ad-table"><tbody>{b.gl.map((r) => <tr><td class="ltr">{r.id}</td><td class="ad-num">{nf(r.n)}</td></tr>)}</tbody></table></div> : <p class="ad-empty">אין לחיצות בטווח.</p>}
+    </section>
+  </div>
+</AdminLayout>
