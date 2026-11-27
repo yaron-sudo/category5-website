@@ -1,0 +1,58 @@
+---
+import AdminLayout from '@/layouts/AdminLayout.astro'
+import ChatTabs from '@/components/admin/ChatTabs.astro'
+import { can } from '@/admin/auth'
+import { q } from '@/admin/db'
+export const prerender = false
+const me = Astro.locals.admin!
+if (!can(me.role, 'chat.read')) return Astro.redirect('/admin?e=forbidden')
+const rows = await q<any>(`SELECT id, question, answer, status, created_by, approved_by, source_turn, updated_at FROM chat_answers ORDER BY (status='draft') DESC, updated_at DESC`)
+const owner = can(me.role, 'chat.approve'), canWrite = can(me.role, 'content.write')
+const sp = Astro.url.searchParams
+const OK: Record<string, string> = { saved: 'נשמר כטיוטה, ממתין לאישור בעלים.', approved: 'התשובה אושרה והצ׳אט משתמש בה.', draft: 'הוחזרה לטיוטה.', deleted: 'נמחק.' }
+const ERR: Record<string, string> = { forbidden: 'אין הרשאה לפעולה הזו.', empty: 'שאלה ותשובה הן חובה.', missing: 'לא נמצא.' }
+const ok = OK[sp.get('ok') ?? ''], err = ERR[sp.get('e') ?? '']
+const fmt = (d: string) => new Date(d).toLocaleString('he-IL', { timeZone: 'Asia/Jerusalem', dateStyle: 'short', timeStyle: 'short' })
+const edit = Number(sp.get('edit')) || 0
+const input = 'width:100%;min-height:44px;border:1px solid #141414;border-radius:4px;padding:0 12px;font:inherit'
+---
+<AdminLayout title="תשובות מאושרות" nav="chat">
+  <h1>תשובות מאושרות</h1>
+  <ChatTabs active="answers" />
+  {ok && <p class="ad-note" role="status">{ok}</p>}{err && <p class="ad-note" role="alert">{err}</p>}
+  <p class="ad-muted">תשובות שהצוות ניסח לשאלות נפוצות. רק תשובה מאושרת נכנסת לידע של הצ'אט, והיא כפופה לכללי הבטיחות שלו: אם היא סותרת אותם, הצ'אט לא ישתמש בה. אחרי אישור, השינוי נכנס לתוקף תוך כדקה.</p>
+  {canWrite && (
+    <>
+      <h2>{edit ? 'עריכה' : 'הוספת תשובה'}</h2>
+      <form class="ad-panel" method="post" action="/api/admin/chat" style="display:grid;gap:12px">
+        <input type="hidden" name="action" value="answer.save" />
+        {edit > 0 && <input type="hidden" name="id" value={edit} />}
+        <label>שאלה<input type="text" name="question" maxlength="500" required value={rows.find((r: any) => Number(r.id) === edit)?.question ?? ''} style={input} /></label>
+        <label>תשובה<textarea name="answer" rows="5" maxlength="3000" required style="width:100%;border:1px solid #141414;border-radius:4px;padding:12px;font:inherit">{rows.find((r: any) => Number(r.id) === edit)?.answer ?? ''}</textarea></label>
+        {owner && <label><input type="checkbox" name="approve" value="1" /> לאשר מיד</label>}
+        <div><button class="ad-btn" type="submit">שמירה</button></div>
+      </form>
+    </>
+  )}
+  <h2>הרשימה</h2>
+  {rows.length ? (
+    <div class="ad-scroll"><table class="ad-table"><thead><tr><th>שאלה</th><th>תשובה</th><th>סטטוס</th><th>עודכן</th><th></th></tr></thead><tbody>
+      {rows.map((r: any) => (
+        <tr>
+          <td>{r.question}{r.source_turn && <> · <a href={`/admin/chat/${r.source_turn}`}>מקור</a></>}</td>
+          <td style="max-width:360px;white-space:pre-wrap">{r.answer}</td>
+          <td>{r.status === 'approved' ? <>מאושרת<br /><span class="ad-muted ltr">{r.approved_by}</span></> : <>טיוטה<br /><span class="ad-muted ltr">{r.created_by}</span></>}</td>
+          <td>{fmt(r.updated_at)}</td>
+          <td>
+            <div class="inline" style="display:flex;gap:8px;flex-wrap:wrap">
+              {canWrite && <a class="ad-btn soft" href={`/admin/chat/answers?edit=${r.id}`}>עריכה</a>}
+              {owner && r.status === 'draft' && <form method="post" action="/api/admin/chat" style="margin:0"><input type="hidden" name="action" value="answer.approve" /><input type="hidden" name="id" value={r.id} /><input type="hidden" name="next" value="/admin/chat/answers" /><button class="ad-btn" type="submit">אישור</button></form>}
+              {owner && r.status === 'approved' && <form method="post" action="/api/admin/chat" style="margin:0"><input type="hidden" name="action" value="answer.draft" /><input type="hidden" name="id" value={r.id} /><input type="hidden" name="next" value="/admin/chat/answers" /><button class="ad-btn soft" type="submit">הוצאה מהצ'אט</button></form>}
+              {(owner || (canWrite && r.status === 'draft' && r.created_by === me.email)) && <form method="post" action="/api/admin/chat" style="margin:0"><input type="hidden" name="action" value="answer.delete" /><input type="hidden" name="id" value={r.id} /><input type="hidden" name="next" value="/admin/chat/answers" /><button class="ad-btn soft" type="submit">מחיקה</button></form>}
+            </div>
+          </td>
+        </tr>
+      ))}
+    </tbody></table></div>
+  ) : <p class="ad-empty">אין עדיין תשובות. אפשר להוסיף מכאן או מתוך שאלה בצ'אט.</p>}
+</AdminLayout>

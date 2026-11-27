@@ -1,0 +1,58 @@
+---
+import AdminLayout from '@/layouts/AdminLayout.astro'
+import RangeBar from '@/components/admin/RangeBar.astro'
+import ChatTabs from '@/components/admin/ChatTabs.astro'
+import { can } from '@/admin/auth'
+import { chatOverview, chatTurns, type TurnFilter } from '@/admin/chat'
+import { parseRange } from '@/admin/stats'
+export const prerender = false
+const me = Astro.locals.admin!
+if (!can(me.role, 'chat.read')) return Astro.redirect('/admin?e=forbidden')
+const days = parseRange(Astro.url.searchParams.get('d'))
+const fv = Astro.url.searchParams.get('f') ?? 'todo'
+const filter: TurnFilter = (['all', 'todo', 'gap', 'bad', 'good'] as const).includes(fv as any) ? (fv as TurnFilter) : 'todo'
+const [o, turns] = await Promise.all([chatOverview(days), chatTurns(days, filter)])
+const nf = (n: number) => n.toLocaleString('he-IL')
+const ST: Record<string, string> = { answered: 'נענתה', web: 'נענתה (כולל חיפוש ברשת)', no_results: 'אין תוצאות', blocked: 'נחסמה (מונח רפואי)', crisis: 'מצוקה', declined: 'סורבה', error: 'שגיאה' }
+const FILTERS: [string, string][] = [['todo', 'דורשות בדיקה'], ['gap', 'חוסרי מידע'], ['bad', 'סומנו כבעייתיות'], ['good', 'סומנו כתקינות'], ['all', 'הכול']]
+const fmt = (d: string) => new Date(d).toLocaleString('he-IL', { timeZone: 'Asia/Jerusalem', dateStyle: 'short', timeStyle: 'short' })
+const max = Math.max(1, ...o.daily.map((d) => d.n))
+const W = 1000, H = 160, pad = 24, bw = (W - pad * 2) / Math.max(o.daily.length, 1)
+---
+<AdminLayout title="צ'אט" nav="chat">
+  <h1>ניהול הצ'אט</h1>
+  <ChatTabs active="overview" />
+  <br />
+  <RangeBar days={days} base="/admin/chat" />
+  {o.total === 0 ? <p class="ad-empty">אין עדיין שאלות בטווח הזה. שאלות נשמרות מרגע שהצ'אט פעיל, בלי כתובת IP, ונמחקות אחרי 90 יום.</p> : (
+    <>
+      <div class="ad-kpis">
+        <div class="ad-kpi"><b>{nf(o.total)}</b><span>שאלות</span></div>
+        <div class="ad-kpi"><b>{nf(o.convs)}</b><span>שיחות</span></div>
+        <div class="ad-kpi"><b>{nf(o.gaps)}</b><span>חוסרי מידע (התשובה לא הכילה את המידע)</span></div>
+        <div class="ad-kpi"><b>{nf(o.todo)}</b><span>ממתינות לבדיקה</span></div>
+        <div class="ad-kpi"><b>{o.ms == null ? '—' : `${(o.ms / 1000).toFixed(1)} שנ׳`}</b><span>זמן תשובה ממוצע</span></div>
+      </div>
+      <h2>שאלות לפי יום</h2>
+      <svg class="ad-bars" viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`שאלות לפי יום, מקסימום ${max}`}>
+        <line x1={pad} y1={H - 24} x2={W - pad} y2={H - 24} stroke="#dcdcd9" />
+        {o.daily.map((d, i) => <rect aria-label={d.day + ': ' + d.n} x={W - pad - (i + 1) * bw + 1.5} y={H - 24 - Math.round((d.n / max) * (H - 50))} width={Math.max(bw - 3, 1)} height={Math.round((d.n / max) * (H - 50))} fill="#141414" />)}
+      </svg>
+      <div class="ad-grid2">
+        <section><h2>סטטוס תשובות</h2><div class="ad-scroll"><table class="ad-table"><tbody>{o.byStatus.map((r) => <tr><td>{ST[r.status] ?? r.status}</td><td class="ad-num">{nf(r.n)}</td></tr>)}</tbody></table></div></section>
+        <section><h2>מוצרים שהומלצו</h2>{o.products.length ? <div class="ad-scroll"><table class="ad-table"><tbody>{o.products.map((r) => <tr><td class="ltr"><a href={`/products/${r.slug}`}>{r.slug}</a></td><td class="ad-num">{nf(r.n)}</td></tr>)}</tbody></table></div> : <p class="ad-empty">עוד לא הומלצו מוצרים.</p>}</section>
+      </div>
+      {o.frequent.length > 0 && <section><h2>שאלות שחוזרות</h2><div class="ad-scroll"><table class="ad-table"><tbody>{o.frequent.map((r) => <tr><td>{r.q}</td><td class="ad-num">{nf(r.n)}</td></tr>)}</tbody></table></div><p class="ad-muted">מועמדות לתשובה מאושרת.</p></section>}
+      <p class="ad-muted">שימוש בטוקנים בטווח: קלט {nf(o.tin)}, מתוכו ממטמון {nf(o.tcache)}, פלט {nf(o.tout)}. העלות תלויה בתעריף של Anthropic לדגם שמוגדר.</p>
+    </>
+  )}
+  <h2>שאלות</h2>
+  <nav class="ad-range" aria-label="סינון">{FILTERS.map(([v, l]) => <a href={`/admin/chat?d=${days}&f=${v}`} aria-current={v === filter ? 'true' : undefined}>{l}</a>)}</nav>
+  {turns.length ? (
+    <div class="ad-scroll"><table class="ad-table"><thead><tr><th>זמן</th><th>שאלה</th><th>סטטוס</th><th>בדיקה</th></tr></thead><tbody>
+      {turns.map((t: any) => (
+        <tr><td>{fmt(t.at)}</td><td><a href={`/admin/chat/${t.id}`}>{t.q}</a></td><td>{ST[t.status] ?? t.status}{t.gap && t.status !== 'no_results' ? ' · חוסר מידע' : ''}</td><td>{t.review === 'good' ? 'תקינה' : t.review === 'bad' ? 'בעייתית' : '—'}</td></tr>
+      ))}
+    </tbody></table></div>
+  ) : <p class="ad-empty">אין שאלות בסינון הזה.</p>}
+</AdminLayout>

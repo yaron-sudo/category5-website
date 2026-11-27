@@ -2,6 +2,7 @@ import type { APIRoute } from 'astro'
 import Anthropic from '@anthropic-ai/sdk'
 import { siteKnowledge, researchContext, RESEARCH_IN_CHAT } from '@/lib/knowledge'
 import { isBlocked } from '@/c5/search/engine.js'
+import { logTurn, chatLimited, approvedAnswersBlock, type ChatStatus } from '@/admin/chat'
 import { BLOCKED_TERMS, BLOCKED_MESSAGE, CHAT_BLOCKED_MARKER, CRISIS_TERMS, CHAT_CRISIS_MESSAGE } from '@/c5/content/searchBlocked'
 
 // AI chat ("דברו איתנו"; also /faq). Every question opens an AI turn that answers
@@ -132,12 +133,13 @@ function attachmentBlock(a: unknown): Anthropic.Beta.BetaContentBlockParam | nul
 }
 
 export const POST: APIRoute = async ({ request, clientAddress }) => {
+  const t0 = Date.now()
   const origin = request.headers.get('origin') || ''
   if (!ALLOWED_ORIGIN.test(origin)) return new Response('forbidden', { status: 403 })
   const apiKey = env('ANTHROPIC_API_KEY')
   if (!apiKey) return Response.json({ error: 'not-configured' }, { status: 503 })
 
-  let body: { question?: unknown; history?: unknown; lang?: unknown; attachment?: unknown }
+  let body: { question?: unknown; history?: unknown; lang?: unknown; attachment?: unknown; sid?: unknown }
   try {
     const raw = await request.text()
     if (raw.length > MAX_BODY) return Response.json({ error: 'too-large' }, { status: 413 })
@@ -160,6 +162,17 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   let ip = ''
   try { ip = clientAddress } catch { ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? '' }
   if (ip && limited(ip)) return Response.json({ error: 'rate-limited' }, { status: 429 })
+  const ua = request.headers.get('user-agent') || ''
+  const sid = typeof body.sid === 'string' ? body.sid : ''
+  const hasFile = attachment != null
+  // Admin module (admin/chat.ts): the same limit, shared between serverless instances, and the
+  // log of every question for /admin/chat. Failures here never affect the visitor.
+  try { if (ip && (await chatLimited(ip, ua))) return Response.json({ error: 'rate-limited' }, { status: 429 }) } catch { /* no database: per-instance limit only */ }
+  let logWarned = false
+  const record = async (answer: string, status: ChatStatus, extra: { web?: boolean; sources?: number; tokensIn?: number; tokensOut?: number; tokensCached?: number } = {}) => {
+    try { await logTurn({ sid, ip, ua, lang, question, answer, status, web: !!extra.web, sources: extra.sources ?? 0, attach: hasFile, ms: Date.now() - t0, tokensIn: extra.tokensIn, tokensOut: extra.tokensOut, tokensCached: extra.tokensCached }) }
+    catch (e) { if (!logWarned) { logWarned = true; console.warn('[chat log] not stored:', (e as Error).message) } }
+  }
 
   // A question naming a disease, symptom or medicine (content/searchBlocked.ts) gets exactly the
   // search page's result — its notice plus the series / need links — without calling the model.
@@ -168,11 +181,13 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     const text = crisis
       ? (CHAT_CRISIS_MESSAGE[lang] ?? CHAT_CRISIS_MESSAGE.he)
       : `${lang === 'he' ? BLOCKED_MESSAGE.he : BLOCKED_MESSAGE.en}\n${CHAT_BLOCKED_MARKER}`
+    await record(text, crisis ? 'crisis' : 'blocked')
     const body = [JSON.stringify({ t: 'text', v: text }), JSON.stringify({ t: 'done' })].join('\n') + '\n'
     return new Response(body, { headers: { 'Content-Type': 'application/x-ndjson; charset=utf-8', 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' } })
   }
 
   const knowledge = await siteKnowledge()
+  const approved = await approvedAnswersBlock()
   // Studies from the local research memory for the products / ingredients this conversation names (not cached: it varies per question).
   const research = researchContext([question, ...history.filter((t) => t.role === 'user').slice(-2).map((t) => t.content)])
   const client = new Anthropic({ apiKey })
@@ -190,6 +205,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     async start(controller) {
       const send = (o: Record<string, unknown>) => controller.enqueue(encoder.encode(JSON.stringify(o) + '\n'))
       const seen = new Set<string>()
+      let answer = '', web = false, status: ChatStatus = 'answered', tIn = 0, tOut = 0, tCache = 0
       try {
         // Server-side web search can pause a long turn (pause_turn): resume by
         // re-sending the assistant content, at most twice.
@@ -203,6 +219,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
             system: [
               { type: 'text', text: INSTRUCTIONS },
               { type: 'text', text: `<site>\n${knowledge}\n</site>`, cache_control: { type: 'ephemeral' } },
+              ...(approved ? [{ type: 'text' as const, text: approved, cache_control: { type: 'ephemeral' as const } }] : []),
               ...(research ? [{ type: 'text' as const, text: `<studies>\n${research}\n</studies>` }] : []),
             ],
             tools: [{ type: 'web_search_20260209', name: 'web_search', max_uses: 3 }],
@@ -210,8 +227,10 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
           })
           for await (const ev of s) {
             if (ev.type === 'content_block_start' && ev.content_block.type === 'server_tool_use') {
+              web = true
               send({ t: 'status', v: L.searching })
             } else if (ev.type === 'content_block_delta' && ev.delta.type === 'text_delta') {
+              answer += ev.delta.text
               send({ t: 'text', v: ev.delta.text })
             } else if (ev.type === 'content_block_delta' && ev.delta.type === 'citations_delta') {
               const c = ev.delta.citation
@@ -222,7 +241,10 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
             }
           }
           const final = await s.finalMessage()
+          tIn += final.usage?.input_tokens ?? 0; tOut += final.usage?.output_tokens ?? 0; tCache += final.usage?.cache_read_input_tokens ?? 0
           if (final.stop_reason === 'refusal') {
+            status = 'declined'
+            answer += `\n\n${L.declined}`
             send({ t: 'text', v: `\n\n${L.declined}` })
             break
           }
@@ -233,8 +255,10 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
       } catch (e) {
         console.error('ask:', e instanceof Anthropic.APIError ? `${e.status} ${e.message}` : e)
         const busy = e instanceof Anthropic.RateLimitError || (e instanceof Anthropic.APIError && (e.status ?? 0) >= 500)
+        status = 'error'
         send({ t: 'error', v: busy ? 'busy' : 'failed' })
       } finally {
+        await record(answer, status, { web, sources: seen.size, tokensIn: tIn, tokensOut: tOut, tokensCached: tCache })
         controller.close()
       }
     },

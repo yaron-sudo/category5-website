@@ -233,6 +233,8 @@ const products = Object.fromEntries(catalog.map((p) => [p.slug, { t: p.fullTitle
     const P = JSON.parse(root.dataset.products || '{}') as Record<string, { t: string; i: string; s?: string; n?: boolean; c?: string }>
     const NONE = JSON.parse(root.dataset.none || '{}') as { links: Array<{ l: string; h: string }>; wa: string }
     const NO_RESULTS = '[[NO_RESULTS]]'
+    // Random id of this page's conversation (memory only, no storage): groups the questions of one chat in /admin/chat.
+    const chatSid = Math.random().toString(36).slice(2, 12) + Date.now().toString(36).slice(-4)
     const BLOCKED = '[[BLOCKED]]'
     // A negative answer ("no, we don't have…") starts with NEG: its text comes first, then any
     // alternative product cards (client 23.11.2026). Every other answer shows the cards first.
@@ -613,7 +615,7 @@ const products = Object.fromEntries(catalog.map((p) => [p.slug, { t: p.fullTitle
       toTurn()
       let text = ''
       try {
-        const res = await fetch('/api/ask', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ question: q, history: prior, lang, ...(file ? { attachment: file } : {}) }) })
+        const res = await fetch('/api/ask', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ question: q, history: prior, lang, sid: chatSid, ...(file ? { attachment: file } : {}) }) })
         if (!res.ok || !res.body) {
           think.stop()
           out.textContent = res.status === 429 ? x['chat.rateLimited'] : res.status === 503 ? x['chat.unavailable'] : res.status === 413 ? x['chat.fileBig'] : x['chat.error']

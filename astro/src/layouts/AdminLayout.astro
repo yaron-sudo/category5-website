@@ -2,13 +2,14 @@
 // Layout of the admin area (/admin/*). Not part of the public design brief: same font, colours
 // and button rules (CLAUDE.md), noindex, no site header/footer/tracking/chat.
 import '@/styles/admin.css'
-import { ROLE_LABEL } from '@/admin/auth'
+import { ROLE_LABEL, can } from '@/admin/auth'
 interface Props { title: string; nav?: string }
 const { title, nav = '' } = Astro.props
 const me = Astro.locals.admin
 const items = [
   { id: 'home', href: '/admin', label: 'סקירה' },
   { id: 'behavior', href: '/admin/behavior', label: 'התנהגות' },
+  ...(me && can(me.role, 'chat.read') ? [{ id: 'chat', href: '/admin/chat', label: 'צ׳אט' }] : []),
   { id: 'users', href: '/admin/users', label: 'משתמשים' },
   { id: 'audit', href: '/admin/audit', label: 'יומן פעולות' },
 ]

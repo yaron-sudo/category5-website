@@ -1,0 +1,62 @@
+---
+import AdminLayout from '@/layouts/AdminLayout.astro'
+import { can } from '@/admin/auth'
+import { q } from '@/admin/db'
+export const prerender = false
+const me = Astro.locals.admin!
+if (!can(me.role, 'chat.read')) return Astro.redirect('/admin?e=forbidden')
+const id = Number(Astro.params.id)
+const t = Number.isInteger(id) ? (await q<any>('SELECT * FROM chat_turns WHERE id=$1', [id]))[0] : null
+if (!t) return Astro.redirect('/admin/chat?e=missing')
+const thread = t.sid ? await q<any>('SELECT id, at, left(q,120) AS q, status FROM chat_turns WHERE sid=$1 ORDER BY at', [t.sid]) : []
+const ST: Record<string, string> = { answered: 'נענתה', web: 'נענתה (כולל חיפוש ברשת)', no_results: 'אין תוצאות', blocked: 'נחסמה (מונח רפואי)', crisis: 'מצוקה', declined: 'סורבה', error: 'שגיאה' }
+const fmt = (d: string) => new Date(d).toLocaleString('he-IL', { timeZone: 'Asia/Jerusalem', dateStyle: 'short', timeStyle: 'medium' })
+const OK: Record<string, string> = { review: 'הבדיקה נשמרה.' }
+const sp = Astro.url.searchParams
+const ok = OK[sp.get('ok') ?? ''], err = sp.get('e') ? 'הפעולה נכשלה.' : ''
+const canWrite = can(me.role, 'content.write'), owner = can(me.role, 'chat.approve')
+const me_ = `/admin/chat/${id}`
+---
+<AdminLayout title="שאלה בצ'אט" nav="chat">
+  <p><a href="/admin/chat">← כל השאלות</a></p>
+  <h1>שאלה בצ'אט</h1>
+  {ok && <p class="ad-note" role="status">{ok}</p>}{err && <p class="ad-note" role="alert">{err}</p>}
+  <p class="ad-muted">{fmt(t.at)} · {ST[t.status] ?? t.status}{t.gap ? ' · חוסר מידע' : ''}{t.web ? ` · חיפוש ברשת (${t.sources} מקורות)` : ''}{t.attach ? ' · צורף קובץ (התוכן לא נשמר)' : ''} · שפה: {t.lang} · {t.ms ? `${(t.ms / 1000).toFixed(1)} שנ׳` : ''}</p>
+  <h2>שאלה</h2><div class="ad-panel" style="white-space:pre-wrap">{t.q}</div>
+  <h2>תשובה</h2><div class="ad-panel" style="white-space:pre-wrap">{t.a || '—'}</div>
+  {t.products && <p class="ad-muted">מוצרים שהוזכרו: {t.products.split(',').map((s: string) => <a class="ltr" href={`/products/${s}`}>{s} </a>)}</p>}
+  {canWrite && (
+    <>
+      <h2>בדיקה</h2>
+      <form class="ad-panel ad-row" method="post" action="/api/admin/chat">
+        <input type="hidden" name="action" value="review" /><input type="hidden" name="id" value={id} /><input type="hidden" name="next" value={me_} />
+        <label style="flex:1;min-width:240px">הערה (לא חובה)<input type="text" name="note" value={t.note ?? ''} maxlength="1000" style="min-height:44px;border:1px solid #141414;border-radius:4px;padding:0 12px;font:inherit" /></label>
+        <button class="ad-btn" name="value" value="good" type="submit">תקינה</button>
+        <button class="ad-btn" name="value" value="bad" type="submit">בעייתית</button>
+        <button class="ad-btn soft" name="value" value="clear" type="submit">ניקוי</button>
+      </form>
+      {t.review && <p class="ad-muted">סומנה כ{t.review === 'good' ? 'תקינה' : 'בעייתית'} על ידי <span class="ltr">{t.reviewed_by}</span>.</p>}
+      <h2>תשובה מאושרת</h2>
+      <p class="ad-muted">כתוב את התשובה הנכונה לשאלה הזו. {owner ? 'כבעלים אפשר לאשר מיד, ומאותו רגע הצ׳אט משתמש בה.' : 'התשובה נשמרת כטיוטה ומחכה לאישור של בעלים.'}</p>
+      <form class="ad-panel" method="post" action="/api/admin/chat" style="display:grid;gap:12px">
+        <input type="hidden" name="action" value="answer.save" /><input type="hidden" name="source" value={id} />
+        <label>שאלה<input type="text" name="question" value={t.q} maxlength="500" required style="width:100%;min-height:44px;border:1px solid #141414;border-radius:4px;padding:0 12px;font:inherit" /></label>
+        <label>תשובה<textarea name="answer" rows="6" maxlength="3000" required style="width:100%;border:1px solid #141414;border-radius:4px;padding:12px;font:inherit"></textarea></label>
+        {owner && <label><input type="checkbox" name="approve" value="1" /> לאשר מיד</label>}
+        <div><button class="ad-btn" type="submit">שמירה</button></div>
+      </form>
+    </>
+  )}
+  {thread.length > 1 && (
+    <>
+      <h2>שאר השיחה</h2>
+      <div class="ad-scroll"><table class="ad-table"><tbody>{thread.map((r: any) => <tr><td>{fmt(r.at)}</td><td>{r.id === id ? <b>{r.q}</b> : <a href={`/admin/chat/${r.id}`}>{r.q}</a>}</td><td>{ST[r.status] ?? r.status}</td></tr>)}</tbody></table></div>
+    </>
+  )}
+  {owner && (
+    <form method="post" action="/api/admin/chat" style="margin-top:32px" onsubmit="return confirm('למחוק את השאלה הזו לצמיתות?')">
+      <input type="hidden" name="action" value="turn.delete" /><input type="hidden" name="id" value={id} />
+      <button class="ad-btn soft" type="submit">מחיקת השאלה (בקשת פרטיות)</button>
+    </form>
+  )}
+</AdminLayout>

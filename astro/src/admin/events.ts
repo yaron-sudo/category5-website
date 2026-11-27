@@ -17,7 +17,8 @@ const BOT = /bot|crawl|spider|slurp|headless|lighthouse|pagespeed|preview|monito
 export const isBot = (ua: string) => BOT.test(ua.replace(!PROD && env('ANALYTICS_ALLOW_HEADLESS') ? /headless/gi : /$^/, ''))
 
 const clip = (v: unknown, n: number) => (typeof v === 'string' ? v.slice(0, n) : '')
-export const redact = (s: string) => s.replace(/[\w.+-]+@[\w-]+\.[\w.-]+/g, '[email]').replace(/\d[\d\s\-().]{4,}\d/g, '[num]').replace(/\s+/g, ' ').trim().slice(0, 80)
+export const redactText = (s: string, max: number) => s.replace(/[\w.+-]+@[\w-]+\.[\w.-]+/g, '[email]').replace(/\d[\d\s\-().]{4,}\d/g, '[num]').replace(/[ \t]+/g, ' ').trim().slice(0, max)
+export const redact = (s: string) => redactText(s, 80).replace(/\s+/g, ' ')
 
 const AI = /(^|\.)(chatgpt\.com|openai\.com|perplexity\.ai|claude\.ai|gemini\.google\.com|copilot\.microsoft\.com|you\.com)$/
 const SOURCES: Array<[RegExp, string]> = [
@@ -35,13 +36,19 @@ export function classify(refHost: string, ownHost: string, utmSource: string, ut
   return 'referral'
 }
 
-const sha = async (s: string) => Buffer.from(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s))).toString('hex').slice(0, 20)
+export const sha = async (s: string) => Buffer.from(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s))).toString('hex').slice(0, 20)
 
 const seen = new Map<string, { t: number; n: number }>()
 const flood = (vid: string) => { // per-instance guard: > 120 events a minute from one visitor-day is not a person
   const now = Date.now(), e = seen.get(vid)
   if (!e || now - e.t > 60_000) { seen.set(vid, { t: now, n: 1 }); if (seen.size > 5000) seen.clear(); return false }
   return ++e.n > 120
+}
+
+/** Today's anonymous visitor id (changes daily; the IP itself is never stored). */
+export async function visitorId(ip: string, ua: string) {
+  const day = new Date().toLocaleDateString('sv-SE', { timeZone: 'Asia/Jerusalem' })
+  return sha(`${env('ANALYTICS_SALT') || env('ADMIN_SESSION_SECRET') || 'c5'}|${day}|${ip}|${ua}`)
 }
 
 export interface Ctx { ip: string; ua: string; ownHost: string; country: string }

@@ -1,0 +1,8 @@
+---
+interface Props { active: 'overview' | 'answers' }
+const { active } = Astro.props
+---
+<nav class="ad-range" aria-label="ניהול הצ'אט">
+  <a href="/admin/chat" aria-current={active === 'overview' ? 'true' : undefined}>שאלות ושיחות</a>
+  <a href="/admin/chat/answers" aria-current={active === 'answers' ? 'true' : undefined}>תשובות מאושרות</a>
+</nav>

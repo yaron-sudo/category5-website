@@ -31,7 +31,7 @@ const mock = http.createServer(async (req, res) => {
 }).listen(MOCK)
 
 const dev = spawn('npx', ['astro', 'dev', '--port', String(SITE)], { cwd: new URL('..', import.meta.url).pathname, env: { ...process.env,
-  ADMIN_DB: 'pglite', ANALYTICS_ALLOW_HEADLESS: '1', GOOGLE_CLIENT_ID: 'test-client', GOOGLE_CLIENT_SECRET: 'x', ADMIN_SESSION_SECRET: 'unit-test-secret-unit-test-secret-1234',
+  ADMIN_DB: 'pglite', ANTHROPIC_API_KEY: 'test-key', ANALYTICS_ALLOW_HEADLESS: '1', GOOGLE_CLIENT_ID: 'test-client', GOOGLE_CLIENT_SECRET: 'x', ADMIN_SESSION_SECRET: 'unit-test-secret-unit-test-secret-1234',
   ADMIN_BOOTSTRAP_EMAILS: 'owner@example.test', ADMIN_OIDC_AUTH_URL: `http://localhost:${MOCK}/auth`, ADMIN_OIDC_TOKEN_URL: `http://localhost:${MOCK}/token`,
   ADMIN_OIDC_JWKS_URL: `http://localhost:${MOCK}/jwks`, ADMIN_OIDC_ISSUER: `http://localhost:${MOCK}` }, stdio: 'pipe' })
 let log = ''; dev.stdout.on('data', (d) => (log += d)); dev.stderr.on('data', (d) => (log += d))
@@ -111,6 +111,30 @@ try {
   ok(/super-pharm\.co\.il\/x/.test(beh) && !/y=1/.test(beh), 'outbound store click recorded without query string')
   ok(/zzzxqv/.test(beh), 'zero-result search recorded')
   ok(/old-wp-page-xyz/.test(beh), '404 recorded')
+  // ---- chat management ---------------------------------------------------------------------------
+  const ask = await a.request.post(`${BASE}/api/ask`, { data: { question: 'what helps diabetes? mail me at jane@example.com 0501234567', lang: 'en', sid: 'sid-test-1', history: [] }, headers: { origin: BASE, 'content-type': 'application/json', 'user-agent': 'Mozilla/5.0 Chrome/124 Safari/537.36' } })
+  ok(ask.status() === 200, `/api/ask answers a blocked question (${ask.status()})`)
+  await p.goto(`${BASE}/admin/chat?d=7&f=all`); const chat = await p.locator('main').innerText()
+  ok(/נחסמה/.test(chat) && /what helps diabetes/.test(chat), 'chat question is logged')
+  ok(!/jane@example\.com|0501234567/.test(chat), 'e-mail and phone are redacted in the log')
+  await p.click('a:has-text("what helps diabetes")'); await p.waitForLoadState('networkidle')
+  await p.click('button[value=bad]'); await p.waitForLoadState('networkidle')
+  ok(await p.locator('text=סומנה כבעייתית').count() > 0, 'admin can review a turn')
+  await p.fill('form[action="/api/admin/chat"] input[name=question]', 'האם המוצר טבעוני?'); await p.fill('textarea[name=answer]', 'כן, ראו את התווית.'); await p.check('input[name=approve]'); await p.click('form:has(textarea[name=answer]) button[type=submit]'); await p.waitForLoadState('networkidle')
+  ok(/אושרה/.test(await p.locator('main').innerText()) && /האם המוצר טבעוני/.test(await p.locator('main').innerText()), 'owner approves an answer')
+  const vp2 = await login(await browser.newContext(), 'owner@example.test')
+  await vp2.goto(`${BASE}/admin/chat/answers`)
+  await vp2.fill('input[name=question]', 'שאלת טיוטה'); await vp2.fill('textarea[name=answer]', 'טיוטה'); await vp2.click('form:has(textarea[name=answer]) button[type=submit]'); await vp2.waitForLoadState('networkidle')
+  ok(await vp2.locator('tr:has-text("שאלת טיוטה") >> text=טיוטה').count() > 0, 'draft saved')
+  await setWho('adm@example.test'); await p.goto(`${BASE}/admin/users`)
+  await p.fill('form.ad-row input[name=email]', 'adm@example.test'); await p.selectOption('form.ad-row select[name=role]', 'admin'); await p.click('form.ad-row button'); await p.waitForLoadState('networkidle')
+  await p.fill('form.ad-row input[name=email]', 'view2@example.test'); await p.selectOption('form.ad-row select[name=role]', 'viewer'); await p.click('form.ad-row button'); await p.waitForLoadState('networkidle')
+  const ad = await login(await browser.newContext(), 'adm@example.test')
+  await ad.goto(`${BASE}/admin/chat/answers`); ok(await ad.locator('button:has-text("אישור")').count() === 0, 'admin cannot approve answers')
+  const r4 = await ad.request.post(`${BASE}/api/admin/chat`, { form: { action: 'answer.approve', id: '2' }, headers: { origin: BASE }, maxRedirects: 0 })
+  ok((r4.headers().location ?? '').length > 0, 'admin approve request is refused (redirect)'); await vp2.goto(`${BASE}/admin/chat/answers`)
+  ok(await vp2.locator('tr:has-text("שאלת טיוטה") >> text=טיוטה').count() > 0, 'draft is still a draft after the admin attempt')
+  const vw = await login(await browser.newContext(), 'view2@example.test'); await vw.goto(`${BASE}/admin/chat`); ok(!vw.url().endsWith('/admin/chat'), 'viewer cannot open chat transcripts')
   await p.goto(`${BASE}/admin/users`); await p.click('button:has-text("התנתקות")'); await p.waitForLoadState('networkidle'); ok(p.url().includes('/admin/login'), 'logout works')
 } catch (e) { console.error(e); failed++ } finally { await browser.close(); dev.kill(); mock.close() }
 console.log(failed ? `\n${failed} FAILED` : '\nall passed'); if (failed) console.log(log.slice(-2500)); process.exit(failed ? 1 : 0)
