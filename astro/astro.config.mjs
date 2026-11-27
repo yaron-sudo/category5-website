@@ -46,7 +46,7 @@ export default defineConfig({
   // Google Images associates the photo with the page and search results can show it as the
   // thumbnail. The photo is read from the page the build just wrote (data-pp-main, ProductPage.astro).
   integrations: [sitemap({
-    filter: (page) => !/^\/(search|cookies|404|catalog)$/.test(new URL(page).pathname.replace(/\/$/, '')),
+    filter: (page) => { const path = new URL(page).pathname.replace(/\/$/, ''); return !/^\/(search|cookies|404|catalog)$/.test(path) && !/^\/admin(\/|$)/.test(path) },
     serialize(item) {
       const slug = new URL(item.url).pathname.match(/^\/products\/([^/]+)\/?$/)?.[1]
       if (slug) {
