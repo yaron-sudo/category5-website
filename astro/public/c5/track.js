@@ -1,12 +1,14 @@
 /* Category 5 — first-party analytics beacon. No cookies, no storage, no IP kept (see
    src/admin/events.ts). Reports: page view (+ source), active time and scroll depth, clicks that
    leave the site (store links, phone, e-mail, WhatsApp — never the number itself), glossary links,
-   and site searches (text sanitised on the server). Does nothing for Do Not Track / Global Privacy
+   site searches (text sanitised on the server) and, only after analytics consent, click
+   positions for the admin heat map (coordinates only). Does nothing for Do Not Track / Global Privacy
    Control visitors. */
 (function () {
   try {
     if (navigator.doNotTrack === '1' || window.doNotTrack === '1' || navigator.globalPrivacyControl) return;
     if (/^\/(admin|api)(\/|$)/.test(location.pathname)) return;
+    if (window.top !== window.self) return; // the admin heat-map preview frames the page: never count that
     var ENDPOINT = '/api/c5/e';
     var pid = Math.random().toString(36).slice(2, 12) + Date.now().toString(36).slice(-4);
     function send(o) {
@@ -35,7 +37,20 @@
       maxScroll = Math.max(maxScroll, Math.min(100, Math.round(((window.scrollY || h.scrollTop) + window.innerHeight) / total * 100)));
     }, { passive: true });
     setInterval(function () { if (document.visibilityState === 'visible' && Date.now() - last < 30000) active += 1000; }, 1000);
-    function flush() { if (sentPv && active > 0) send({ t: 'eng', d: active, s: maxScroll }); }
+    // ---- click positions for the heat map: only after analytics consent (the cookie banner) --------
+    var clicks = [];
+    function consented() { return !!(window.nsConsent && window.nsConsent.analytics); }
+    function flushClicks() {
+      if (!clicks.length) return;
+      send({ t: 'clk', c: clicks, w: window.innerWidth, h: Math.round(document.documentElement.scrollHeight) }); clicks = [];
+    }
+    document.addEventListener('click', function (e) {
+      if (!consented() || typeof e.pageX !== 'number') return;
+      var w = document.documentElement.clientWidth || window.innerWidth;
+      clicks.push([Math.round(e.pageX / w * 1000), Math.round(e.pageY)]);
+      if (clicks.length >= 20) flushClicks();
+    }, true);
+    function flush() { flushClicks(); if (sentPv && active > 0) send({ t: 'eng', d: active, s: maxScroll }); }
     document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'hidden') flush(); });
     window.addEventListener('pagehide', flush);
 

@@ -78,12 +78,29 @@ export async function ingest(raw: any, c: Ctx) {
        VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11) ON CONFLICT DO NOTHING`,
       [t, pid, path, vid, source, refHost && source !== 'internal' ? refHost.slice(0, 120) : null, us || null, um || null, uc || null, country, device],
     )
-    if (Math.random() < 0.01) await q(`DELETE FROM events WHERE day < (now() AT TIME ZONE 'Asia/Jerusalem')::date - $1::int`, [RETENTION_DAYS])
+    if (Math.random() < 0.01) {
+      await q(`DELETE FROM events WHERE day < (now() AT TIME ZONE 'Asia/Jerusalem')::date - $1::int`, [RETENTION_DAYS])
+      await q(`DELETE FROM clicks WHERE day < (now() AT TIME ZONE 'Asia/Jerusalem')::date - $1::int`, [180])
+    }
     return
   }
   if (t === 'eng') {
     const dwell = Math.min(Math.max(0, Math.round(Number(raw.d) || 0)), 30 * 60_000), scroll = Math.min(100, Math.max(0, Math.round(Number(raw.s) || 0)))
     await q(`UPDATE events SET dwell_ms = GREATEST(COALESCE(dwell_ms,0), $2), scroll = GREATEST(COALESCE(scroll,0), $3) WHERE pid = $1 AND type = 'pv'`, [pid, dwell, scroll])
+    return
+  }
+  if (t === 'clk') {
+    // Click positions for the heat map: coordinates only (x in per-mille of the page width, y in px),
+    // never an element, text or form content. The tracker sends them only after analytics consent.
+    const w = Number(raw.w) || 0
+    const device = w && w < 700 ? 'mobile' : w && w < 1100 ? 'tablet' : 'desktop'
+    const h = Math.min(Math.max(0, Math.round(Number(raw.h) || 0)), 60000)
+    const pts = (Array.isArray(raw.c) ? raw.c : []).slice(0, 20)
+      .map((p: unknown) => [Math.round(Number((p as number[])?.[0])), Math.round(Number((p as number[])?.[1]))])
+      .filter(([x, y]: number[]) => x >= 0 && x <= 1000 && y >= 0 && y <= 60000)
+    if (!pts.length) return
+    const rows = pts.map((_: number[], i: number) => `($1,$2,$3,$${i * 2 + 4},$${i * 2 + 5})`).join(',')
+    await q(`INSERT INTO clicks (path, device, h, x, y) VALUES ${rows}`, [path, device, h || null, ...pts.flat()])
     return
   }
   if (t === 'out' || t === 'gl') {

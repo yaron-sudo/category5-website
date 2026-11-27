@@ -1,0 +1,159 @@
+---
+import AdminLayout from '@/layouts/AdminLayout.astro'
+import RangeBar from '@/components/admin/RangeBar.astro'
+import { q } from '@/admin/db'
+import { parseRange } from '@/admin/stats'
+export const prerender = false
+
+const days = parseRange(Astro.url.searchParams.get('d'))
+const DEVICES: Record<string, { label: string; w: number }> = { desktop: { label: 'דסקטופ', w: 1280 }, tablet: { label: 'טאבלט', w: 820 }, mobile: { label: 'מובייל', w: 390 } }
+const dv = Astro.url.searchParams.get('device') ?? 'desktop'
+const device = dv in DEVICES ? dv : 'desktop'
+const SINCE = `(now() AT TIME ZONE 'Asia/Jerusalem')::date - ($1::int - 1)`
+const clicked = await q<{ path: string; n: string }>(`SELECT path, count(*) AS n FROM clicks WHERE device = $2 AND day >= ${SINCE} GROUP BY path ORDER BY n DESC LIMIT 40`, [days, device])
+const viewed = await q<{ path: string; n: string }>(`SELECT path, count(*) AS n FROM events WHERE type = 'pv' AND device = $2 AND day >= ${SINCE} GROUP BY path ORDER BY n DESC LIMIT 40`, [days, device])
+const paths = [...new Set([...clicked.map((r) => r.path), ...viewed.map((r) => r.path)])]
+const cp = Astro.url.searchParams.get('path') ?? ''
+const path = paths.includes(cp) ? cp : paths[0] ?? ''
+const click = new Map(clicked.map((r) => [r.path, Number(r.n)]))
+const view = new Map(viewed.map((r) => [r.path, Number(r.n)]))
+---
+<AdminLayout title="מפת חום" nav="heatmap">
+  <h1>מפת חום</h1>
+  <RangeBar days={days} base="/admin/heatmap" />
+  <p class="ad-muted">מפת הלחיצות נבנית ממבקרים שהסכימו לעוגיות אנליטיקס, ומוצגת רק כמיקומים ללא תוכן. מפת הגלילה כוללת את כל המבקרים. אין הקלטת מסך.</p>
+  {paths.length === 0 ? (
+    <p class="ad-empty">אין עדיין נתונים. מפת הלחיצות תתמלא אחרי שמבקרים יאשרו עוגיות אנליטיקס ויגלשו באתר.</p>
+  ) : (
+    <>
+      <form class="ad-row" method="get" action="/admin/heatmap" style="margin-bottom:16px">
+        <input type="hidden" name="d" value={days} />
+        <label>עמוד
+          <select name="path" onchange="this.form.submit()" style="min-width:260px">
+            {paths.map((p) => <option value={p} selected={p === path}>{'\u2066' + p + '\u2069'} · {view.get(p) ?? 0} צפיות · {click.get(p) ?? 0} לחיצות</option>)}
+          </select>
+        </label>
+        <label>מכשיר
+          <select name="device" onchange="this.form.submit()">
+            {Object.entries(DEVICES).map(([k, v]) => <option value={k} selected={k === device}>{v.label}</option>)}
+          </select>
+        </label>
+        <noscript><button class="ad-btn" type="submit">הצגה</button></noscript>
+      </form>
+
+      <div class="ad-row" style="margin-bottom:12px" role="group" aria-label="סוג מפה">
+        <button class="ad-btn" type="button" data-mode="clicks" aria-pressed="true">לחיצות</button>
+        <button class="ad-btn soft" type="button" data-mode="scroll" aria-pressed="false">גלילה</button>
+        <span class="ad-muted" data-stats role="status"></span>
+      </div>
+      <div id="hm" data-path={path} data-device={device} data-days={days} data-w={DEVICES[device].w}>
+        <div class="hm-wrap" dir="ltr">
+          <div class="hm-inner">
+            <iframe class="hm-frame" title={`תצוגה מקדימה של ${path}`} src={path} loading="eager" tabindex="-1"></iframe>
+            <canvas class="hm-canvas" aria-hidden="true"></canvas>
+          </div>
+        </div>
+      </div>
+      <p class="ad-muted">המיקומים נמדדים ברוחב המכשיר שנבחר. תוכן שמשתנה בין ביקורים (למשל קרוסלות) עלול להיות מוזז מעט.</p>
+    </>
+  )}
+</AdminLayout>
+
+<style is:global>
+  .hm-wrap { position: relative; overflow: hidden; background: #fff; border: 1px solid #dcdcd9; border-radius: 4px; max-width: 100%; }
+  .hm-inner { position: absolute; top: 0; left: 0; transform-origin: 0 0; }
+  .hm-frame { display: block; border: 0; background: #fff; }
+  .hm-canvas { position: absolute; top: 0; left: 0; pointer-events: none; }
+  .ad-btn[aria-pressed="true"] { background: #141414; color: #fff; }
+</style>
+
+<script is:inline>
+(function () {
+  var root = document.getElementById('hm'); if (!root) return;
+  var W = +root.dataset.w, wrap = root.querySelector('.hm-wrap'), inner = root.querySelector('.hm-inner');
+  var frame = root.querySelector('iframe'), canvas = root.querySelector('canvas'), stats = document.querySelector('[data-stats]');
+  var mode = 'clicks', data = null, docH = 900, scale = 1;
+
+  function layout() {
+    scale = Math.min(1, (wrap.parentElement.clientWidth - 2) / W);
+    inner.style.width = W + 'px'; inner.style.height = docH + 'px'; inner.style.transform = 'scale(' + scale + ')';
+    wrap.style.width = Math.round(W * scale) + 'px'; wrap.style.height = Math.round(docH * scale) + 'px';
+    frame.style.width = W + 'px'; frame.style.height = docH + 'px';
+    canvas.width = W; canvas.height = docH; canvas.style.width = W + 'px'; canvas.style.height = docH + 'px';
+    draw();
+  }
+  // Same-origin frame: freeze motion and hide the cookie banner / chat so the page shows as laid out.
+  function prepare() {
+    try {
+      var d = frame.contentDocument; if (!d || !d.head) return;
+      if (!d.getElementById('hm-style')) {
+        var st = d.createElement('style'); st.id = 'hm-style';
+        st.textContent = '*,*::before,*::after{animation:none!important;transition:none!important}main>section,main>section *{opacity:1!important;transform:none!important}body>:not(.ns-page){display:none!important}html{scroll-behavior:auto!important}';
+        d.head.appendChild(st);
+      }
+      var h = Math.max(d.documentElement.scrollHeight, (data && data.docH) || 0, 600);
+      if (h !== docH) { docH = h; layout(); }
+    } catch (e) {}
+  }
+  var ticks = 0; var poll = setInterval(function () { prepare(); if (++ticks > 16) clearInterval(poll); }, 500);
+  frame.addEventListener('load', function () { prepare(); layout(); });
+
+  function lut() {
+    var c = document.createElement('canvas'); c.width = 1; c.height = 256; var g = c.getContext('2d'), gr = g.createLinearGradient(0, 0, 0, 256);
+    gr.addColorStop(0.0, 'rgba(0,0,255,0)'); gr.addColorStop(0.2, 'rgba(43,108,255,.55)'); gr.addColorStop(0.45, 'rgba(32,201,151,.7)'); gr.addColorStop(0.7, 'rgba(255,214,10,.8)'); gr.addColorStop(1, 'rgba(230,30,30,.9)');
+    g.fillStyle = gr; g.fillRect(0, 0, 1, 256); return g.getImageData(0, 0, 1, 256).data;
+  }
+  var PAL = lut();
+
+  function draw() {
+    var ctx = canvas.getContext('2d'); ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if (!data) return;
+    if (mode === 'clicks') {
+      if (!data.clicks.length) return;
+      var r = Math.max(22, W * 0.022), max = data.clicks[0][2];
+      var off = document.createElement('canvas'); off.width = canvas.width; off.height = canvas.height; var o = off.getContext('2d');
+      data.clicks.forEach(function (p) {
+        var x = p[0] / 1000 * W, y = p[1], a = Math.min(1, Math.max(0.06, p[2] / max * 0.9));
+        var g = o.createRadialGradient(x, y, 0, x, y, r); g.addColorStop(0, 'rgba(0,0,0,' + a + ')'); g.addColorStop(1, 'rgba(0,0,0,0)');
+        o.fillStyle = g; o.fillRect(x - r, y - r, r * 2, r * 2);
+      });
+      var img = o.getImageData(0, 0, off.width, off.height), px = img.data;
+      for (var i = 0; i < px.length; i += 4) { var al = px[i + 3]; if (al) { var k = al * 4; px[i] = PAL[k]; px[i + 1] = PAL[k + 1]; px[i + 2] = PAL[k + 2]; px[i + 3] = Math.min(255, PAL[k + 3] * (al / 255) * 1.6 + al * 0.2); } }
+      ctx.putImageData(img, 0, 0);
+    } else {
+      var bands = data.scroll.length - 1;
+      for (var b = 0; b < bands; b++) {
+        var share = data.scroll[b], k2 = Math.round(share * 255) * 4;
+        // warm = most visitors saw this part, cold = few did
+        ctx.fillStyle = 'rgba(' + PAL[k2] + ',' + PAL[k2 + 1] + ',' + PAL[k2 + 2] + ',' + Math.max(0.12, Math.min(0.55, PAL[k2 + 3] / 255 * 0.7)) + ')';
+        ctx.fillRect(0, b * docH / bands, canvas.width, Math.ceil(docH / bands) + 1);
+      }
+      ctx.font = '600 22px "C5 Sans", Arial, sans-serif'; ctx.textBaseline = 'middle';
+      [25, 50, 75, 100].forEach(function (d) {
+        var y = Math.min(docH - 14, d / 100 * docH - (d === 100 ? 0 : 0)); var pct = Math.round(data.scroll[d / 5] * 100);
+        ctx.fillStyle = 'rgba(20,20,20,.85)'; ctx.fillRect(0, y - 1, canvas.width, 2);
+        ctx.fillStyle = '#141414'; ctx.fillRect(12, y - 16 > 0 ? y - 32 : y + 4, 230, 28); ctx.fillStyle = '#fff';
+        ctx.fillText(pct + '% הגיעו עד ' + d + '% מהעמוד', 22, (y - 16 > 0 ? y - 32 : y + 4) + 14);
+      });
+    }
+  }
+
+  document.querySelectorAll('[data-mode]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      mode = b.dataset.mode;
+      document.querySelectorAll('[data-mode]').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); x.classList.toggle('soft', x !== b); });
+      draw();
+    });
+  });
+  window.addEventListener('resize', layout);
+
+  fetch('/api/admin/heat?path=' + encodeURIComponent(root.dataset.path) + '&device=' + root.dataset.device + '&d=' + root.dataset.days, { credentials: 'same-origin' })
+    .then(function (r) { return r.json(); })
+    .then(function (j) {
+      data = j; if (j.docH) docH = Math.max(docH, j.docH);
+      stats.textContent = j.total + ' לחיצות · ' + j.views + ' צפיות';
+      layout();
+    }).catch(function () { stats.textContent = 'טעינת הנתונים נכשלה'; });
+  layout();
+})();
+</script>

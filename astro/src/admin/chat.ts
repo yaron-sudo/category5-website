@@ -65,7 +65,7 @@ const n = (v: unknown) => Number(v ?? 0)
 export async function chatOverview(days: number) {
   const [k] = await q(`SELECT count(*) AS total, count(DISTINCT sid) FILTER (WHERE sid IS NOT NULL) AS convs,
       count(*) FILTER (WHERE gap) AS gaps, count(*) FILTER (WHERE review IS NULL AND (gap OR status IN ('no_results','declined','error'))) AS todo,
-      avg(ms) AS ms, sum(tokens_in) AS tin, sum(tokens_out) AS tout, sum(tokens_cached) AS tcache
+      avg(ms) FILTER (WHERE status NOT IN ('blocked','crisis')) AS ms, sum(tokens_in) AS tin, sum(tokens_out) AS tout, sum(tokens_cached) AS tcache
     FROM chat_turns WHERE day >= ${SINCE}`, [days])
   const byStatus = await q(`SELECT status, count(*) AS n FROM chat_turns WHERE day >= ${SINCE} GROUP BY status ORDER BY n DESC`, [days])
   const daily = await q(`SELECT day::text AS day, count(*) AS n FROM chat_turns WHERE day >= ${SINCE} GROUP BY day ORDER BY day`, [days])

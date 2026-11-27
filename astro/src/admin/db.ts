@@ -103,6 +103,16 @@ const SCHEMA = [
      created_at timestamptz NOT NULL DEFAULT now(),
      updated_at timestamptz NOT NULL DEFAULT now()
    )`,
+  `CREATE TABLE IF NOT EXISTS clicks (
+     id bigserial PRIMARY KEY,
+     day date NOT NULL DEFAULT ((now() AT TIME ZONE 'Asia/Jerusalem')::date),
+     path text NOT NULL,
+     device text NOT NULL,
+     x smallint NOT NULL,
+     y int NOT NULL,
+     h int
+   )`,
+  `CREATE INDEX IF NOT EXISTS clicks_path ON clicks (path, device, day)`,
 ]
 
 let ready: Promise<void> | null = null

@@ -16,8 +16,11 @@ const nf = (n: number) => n.toLocaleString('he-IL')
 const ST: Record<string, string> = { answered: 'נענתה', web: 'נענתה (כולל חיפוש ברשת)', no_results: 'אין תוצאות', blocked: 'נחסמה (מונח רפואי)', crisis: 'מצוקה', declined: 'סורבה', error: 'שגיאה' }
 const FILTERS: [string, string][] = [['todo', 'דורשות בדיקה'], ['gap', 'חוסרי מידע'], ['bad', 'סומנו כבעייתיות'], ['good', 'סומנו כתקינות'], ['all', 'הכול']]
 const fmt = (d: string) => new Date(d).toLocaleString('he-IL', { timeZone: 'Asia/Jerusalem', dateStyle: 'short', timeStyle: 'short' })
-const max = Math.max(1, ...o.daily.map((d) => d.n))
-const W = 1000, H = 160, pad = 24, bw = (W - pad * 2) / Math.max(o.daily.length, 1)
+const today = new Date().toLocaleDateString('sv-SE', { timeZone: 'Asia/Jerusalem' })
+const byDay = new Map(o.daily.map((d) => [d.day, d.n]))
+const series = Array.from({ length: days }, (_, i) => { const dt = new Date(`${today}T12:00:00Z`); dt.setUTCDate(dt.getUTCDate() - (days - 1 - i)); const k = dt.toISOString().slice(0, 10); return { day: k, n: byDay.get(k) ?? 0 } })
+const max = Math.max(1, ...series.map((d) => d.n))
+const W = 1000, H = 160, pad = 24, bw = (W - pad * 2) / series.length
 ---
 <AdminLayout title="צ'אט" nav="chat">
   <h1>ניהול הצ'אט</h1>
@@ -36,7 +39,7 @@ const W = 1000, H = 160, pad = 24, bw = (W - pad * 2) / Math.max(o.daily.length,
       <h2>שאלות לפי יום</h2>
       <svg class="ad-bars" viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`שאלות לפי יום, מקסימום ${max}`}>
         <line x1={pad} y1={H - 24} x2={W - pad} y2={H - 24} stroke="#dcdcd9" />
-        {o.daily.map((d, i) => <rect aria-label={d.day + ': ' + d.n} x={W - pad - (i + 1) * bw + 1.5} y={H - 24 - Math.round((d.n / max) * (H - 50))} width={Math.max(bw - 3, 1)} height={Math.round((d.n / max) * (H - 50))} fill="#141414" />)}
+        {series.map((d, i) => <rect aria-label={d.day + ': ' + d.n} x={W - pad - (i + 1) * bw + 1.5} y={H - 24 - Math.round((d.n / max) * (H - 50))} width={Math.max(bw - 3, 1)} height={Math.round((d.n / max) * (H - 50))} fill="#141414" />)}
       </svg>
       <div class="ad-grid2">
         <section><h2>סטטוס תשובות</h2><div class="ad-scroll"><table class="ad-table"><tbody>{o.byStatus.map((r) => <tr><td>{ST[r.status] ?? r.status}</td><td class="ad-num">{nf(r.n)}</td></tr>)}</tbody></table></div></section>
