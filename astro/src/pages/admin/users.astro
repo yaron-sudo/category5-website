@@ -5,9 +5,9 @@ import { q } from '@/admin/db'
 export const prerender = false
 const me = Astro.locals.admin!
 const manage = can(me.role, 'users.manage')
-const users = await q<{ email: string; role: Role; name: string | null; created_at: string; last_login: string | null }>('SELECT email, role, name, created_at, last_login FROM admin_users ORDER BY created_at')
+const users = await q<{ email: string; role: Role; name: string | null; created_at: string; last_login: string | null; digest: boolean }>('SELECT email, role, name, created_at, last_login, digest FROM admin_users ORDER BY created_at')
 const fmt = (d: string | null) => (d ? new Date(d).toLocaleString('he-IL', { timeZone: 'Asia/Jerusalem', dateStyle: 'short', timeStyle: 'short' }) : '—')
-const OK: Record<string, string> = { added: 'המשתמש נוסף.', role: 'התפקיד עודכן.', removed: 'המשתמש הוסר.' }
+const OK: Record<string, string> = { added: 'המשתמש נוסף.', role: 'התפקיד עודכן.', removed: 'המשתמש הוסר.', digest: 'הגדרת הדוח השבועי עודכנה.' }
 const ERR: Record<string, string> = { forbidden: 'רק בעלים יכולים לנהל משתמשים.', email: 'כתובת אימייל לא תקינה.', role: 'תפקיד לא תקין.', exists: 'הכתובת כבר ברשימה.', missing: 'המשתמש לא נמצא.', lastowner: 'אי אפשר להסיר או להוריד את הבעלים האחרון.', action: 'פעולה לא מוכרת.' }
 const ok = OK[Astro.url.searchParams.get('ok') ?? ''], err = ERR[Astro.url.searchParams.get('e') ?? '']
 const roles = Object.entries(ROLE_LABEL) as [Role, string][]
@@ -19,7 +19,7 @@ const roles = Object.entries(ROLE_LABEL) as [Role, string][]
   <p class="ad-muted">הגישה לאזור הניהול ניתנת רק לכתובות ברשימה, דרך התחברות עם Google. הסרה מהרשימה חוסמת גישה מיידית.</p>
   <div class="ad-scroll">
   <table class="ad-table">
-    <thead><tr><th>אימייל</th><th>שם</th><th>תפקיד</th><th>התחברות אחרונה</th>{manage && <th><span class="sr-only">פעולות</span></th>}</tr></thead>
+    <thead><tr><th>אימייל</th><th>שם</th><th>תפקיד</th><th>דוח שבועי</th><th>התחברות אחרונה</th>{manage && <th><span class="sr-only">פעולות</span></th>}</tr></thead>
     <tbody>
       {users.map((u) => (
         <tr>
@@ -33,6 +33,15 @@ const roles = Object.entries(ROLE_LABEL) as [Role, string][]
                 <button class="ad-btn soft" type="submit">עדכון</button>
               </form>
             ) : ROLE_LABEL[u.role]}
+          </td>
+          <td>
+            {u.role === 'viewer' ? '—' : manage ? (
+              <form class="inline" method="post" action="/api/admin/users">
+                <input type="hidden" name="action" value="digest" /><input type="hidden" name="email" value={u.email} />
+                <input type="hidden" name="on" value={u.digest ? '0' : '1'} />
+                <button class="ad-btn soft" type="submit" aria-label={`${u.digest ? 'ביטול' : 'הפעלת'} דוח שבועי ל-${u.email}`}>{u.digest ? 'פעיל · ביטול' : 'כבוי · הפעלה'}</button>
+              </form>
+            ) : (u.digest ? 'פעיל' : 'כבוי')}
           </td>
           <td>{fmt(u.last_login)}</td>
           {manage && (

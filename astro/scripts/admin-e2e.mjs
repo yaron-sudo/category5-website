@@ -31,7 +31,7 @@ const mock = http.createServer(async (req, res) => {
 }).listen(MOCK)
 
 const dev = spawn('npx', ['astro', 'dev', '--port', String(SITE)], { cwd: new URL('..', import.meta.url).pathname, env: { ...process.env,
-  ADMIN_DB: 'pglite', ANTHROPIC_API_KEY: 'test-key', ANALYTICS_ALLOW_HEADLESS: '1', GOOGLE_CLIENT_ID: 'test-client', GOOGLE_CLIENT_SECRET: 'x', ADMIN_SESSION_SECRET: 'unit-test-secret-unit-test-secret-1234',
+  ADMIN_DB: 'pglite', CRON_SECRET: 'cron-test-secret', ANTHROPIC_API_KEY: 'test-key', ANALYTICS_ALLOW_HEADLESS: '1', GOOGLE_CLIENT_ID: 'test-client', GOOGLE_CLIENT_SECRET: 'x', ADMIN_SESSION_SECRET: 'unit-test-secret-unit-test-secret-1234',
   ADMIN_BOOTSTRAP_EMAILS: 'owner@example.test', ADMIN_OIDC_AUTH_URL: `http://localhost:${MOCK}/auth`, ADMIN_OIDC_TOKEN_URL: `http://localhost:${MOCK}/token`,
   ADMIN_OIDC_JWKS_URL: `http://localhost:${MOCK}/jwks`, ADMIN_OIDC_ISSUER: `http://localhost:${MOCK}` }, stdio: 'pipe' })
 let log = ''; dev.stdout.on('data', (d) => (log += d)); dev.stderr.on('data', (d) => (log += d))
@@ -155,6 +155,15 @@ try {
   const frameOk = await p.evaluate(() => { try { return !!document.querySelector('.hm-frame').contentDocument.querySelector('main') } catch { return false } })
   ok(frameOk, 'page preview (same-origin frame) loads')
   await p.setViewportSize({ width: 1300, height: 900 }); await p.screenshot({ path: '/tmp/claude-0/-home-user-category5-website/f29084dd-6583-5ae2-ae21-70c3bc202f8a/scratchpad/heat.png' }); await p.goto(`${BASE}/admin/chat?d=7&f=all`); await p.screenshot({ path: '/tmp/claude-0/-home-user-category5-website/f29084dd-6583-5ae2-ae21-70c3bc202f8a/scratchpad/chat.png' })
+  // ---- reports: digest + alerts -------------------------------------------------------------------
+  ok((await a.request.get(`${BASE}/api/cron/digest`)).status() === 401, 'cron digest refuses requests without the secret')
+  ok((await a.request.get(`${BASE}/api/cron/digest`, { headers: { authorization: 'Bearer wrong' } })).status() === 401, 'cron digest refuses a wrong secret')
+  const al = await (await a.request.get(`${BASE}/api/cron/alerts`, { headers: { authorization: 'Bearer cron-test-secret' } })).json(); ok(al.alerts === 0, 'alerts cron: nothing unusual')
+  await p.goto(`${BASE}/admin/users`); await p.locator('tr', { hasText: 'owner@example.test' }).locator('button:has-text("הפעלה")').click(); await p.waitForLoadState('networkidle')
+  ok(await p.locator('tr', { hasText: 'owner@example.test' }).locator('button:has-text("ביטול")').count() > 0, 'owner switches the weekly digest on')
+  const dg = await (await a.request.get(`${BASE}/api/cron/digest`, { headers: { authorization: 'Bearer cron-test-secret' } })).json(); ok(dg.recipients === 1 && dg.sent === 0, `digest cron finds the recipient, mail unconfigured → nothing sent (${JSON.stringify(dg)})`)
+  await p.goto(`${BASE}/admin/reports`); const rep = await p.locator('main').innerText(); ok(/דוח שבועי/.test(rep) && /מבקרים/.test(rep), 'reports page renders the digest preview')
+  await p.click('button:has-text("שליחת הדוח אליי")'); await p.waitForLoadState('networkidle'); ok(/לא מוגדרת/.test(await p.locator('main').innerText()), 'send-to-me explains that mail is not configured')
   await p.goto(`${BASE}/admin/users`); await p.click('button:has-text("התנתקות")'); await p.waitForLoadState('networkidle'); ok(p.url().includes('/admin/login'), 'logout works')
 } catch (e) { console.error(e); failed++ } finally { await browser.close(); dev.kill(); mock.close() }
 console.log(failed ? `\n${failed} FAILED` : '\nall passed'); if (failed) console.log(log.slice(-2500)); process.exit(failed ? 1 : 0)

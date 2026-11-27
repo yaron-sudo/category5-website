@@ -3,7 +3,7 @@ import AdminLayout from '@/layouts/AdminLayout.astro'
 import { q } from '@/admin/db'
 export const prerender = false
 const rows = await q<{ at: string; actor: string; action: string; target: string | null; meta: any }>('SELECT at, actor, action, target, meta FROM admin_audit ORDER BY at DESC, id DESC LIMIT 200')
-const LABEL: Record<string, string> = { login: 'התחברות', logout: 'התנתקות', 'login.denied': 'ניסיון כניסה נדחה', 'user.add': 'הוספת משתמש', 'user.role': 'שינוי תפקיד', 'user.remove': 'הסרת משתמש', 'user.bootstrap': 'יצירת בעלים ראשון', 'chat.review': 'בדיקת שאלה בצ׳אט', 'chat.delete': 'מחיקת שאלה בצ׳אט', 'answer.add': 'הוספת תשובה מאושרת', 'answer.edit': 'עריכת תשובה מאושרת', 'answer.approve': 'אישור תשובה', 'answer.draft': 'הוצאת תשובה מהצ׳אט', 'answer.delete': 'מחיקת תשובה' }
+const LABEL: Record<string, string> = { login: 'התחברות', logout: 'התנתקות', 'login.denied': 'ניסיון כניסה נדחה', 'user.add': 'הוספת משתמש', 'user.role': 'שינוי תפקיד', 'user.remove': 'הסרת משתמש', 'user.bootstrap': 'יצירת בעלים ראשון', 'chat.review': 'בדיקת שאלה בצ׳אט', 'chat.delete': 'מחיקת שאלה בצ׳אט', 'answer.add': 'הוספת תשובה מאושרת', 'answer.edit': 'עריכת תשובה מאושרת', 'answer.approve': 'אישור תשובה', 'answer.draft': 'הוצאת תשובה מהצ׳אט', 'answer.delete': 'מחיקת תשובה', 'user.digest': 'שינוי דוח שבועי', 'digest.send': 'שליחת דוח לעצמי' }
 const fmt = (d: string) => new Date(d).toLocaleString('he-IL', { timeZone: 'Asia/Jerusalem', dateStyle: 'short', timeStyle: 'medium' })
 ---
 <AdminLayout title="יומן פעולות" nav="audit">

@@ -2,6 +2,7 @@
 //   action=add    email, role
 //   action=role   email, role
 //   action=remove email
+//   action=digest email, on=1|0 (weekly e-mail digest; only owners/admins receive it)
 // The last owner can never be removed or demoted. Every change is written to the audit log.
 import type { APIRoute } from 'astro'
 import { audit, can, isEmail, normEmail, type Role } from '@/admin/auth'
@@ -39,6 +40,12 @@ export const POST: APIRoute = async ({ request, locals }) => {
     await q('UPDATE admin_users SET role=$2 WHERE email=$1', [email, role])
     await audit(me.email, 'user.role', email, { from: target.role, to: role })
     return back('ok=role')
+  }
+  if (action === 'digest') {
+    const on = f.get('on') === '1'
+    await q('UPDATE admin_users SET digest=$2 WHERE email=$1', [email, on])
+    await audit(me.email, 'user.digest', email, { on })
+    return back('ok=digest')
   }
   if (action === 'remove') {
     await q('DELETE FROM admin_users WHERE email=$1', [email])

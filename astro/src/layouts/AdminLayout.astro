@@ -11,6 +11,7 @@ const items = [
   { id: 'behavior', href: '/admin/behavior', label: 'התנהגות' },
   { id: 'heatmap', href: '/admin/heatmap', label: 'מפת חום' },
   ...(me && can(me.role, 'chat.read') ? [{ id: 'chat', href: '/admin/chat', label: 'צ׳אט' }] : []),
+  { id: 'reports', href: '/admin/reports', label: 'דוחות' },
   { id: 'users', href: '/admin/users', label: 'משתמשים' },
   { id: 'audit', href: '/admin/audit', label: 'יומן פעולות' },
 ]

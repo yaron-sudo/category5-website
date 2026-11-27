@@ -1,0 +1,26 @@
+---
+import AdminLayout from '@/layouts/AdminLayout.astro'
+import { buildDigest, findAlerts } from '@/admin/digest'
+import { env } from '@/admin/env'
+import { can } from '@/admin/auth'
+export const prerender = false
+const canSend = can(Astro.locals.admin!.role, 'content.write')
+const m = await buildDigest()
+const alerts = await findAlerts()
+const sp = Astro.url.searchParams
+const OK: Record<string, string> = { sent: 'הדוח נשלח אליך.' }
+const ERR: Record<string, string> = { mail: 'שליחת מייל לא מוגדרת (BREVO_API_KEY ו-CONTACT_FROM).', failed: 'השליחה נכשלה.' }
+const ok = OK[sp.get('ok') ?? ''], err = ERR[sp.get('e') ?? '']
+const cron = !!env('CRON_SECRET')
+---
+<AdminLayout title="דוחות והתראות" nav="reports">
+  <h1>דוחות והתראות</h1>
+  {ok && <p class="ad-note" role="status">{ok}</p>}{err && <p class="ad-note" role="alert">{err}</p>}
+  <p class="ad-muted">דוח שבועי נשלח בימי ראשון בבוקר לבעלים ולמנהלים שסומנו בדף המשתמשים. התראה נשלחת בנפרד רק כשיש חריגה: ירידה של מעל 50% בצפיות, זינוק ב-404 או כשלים בצ'אט. {cron ? '' : 'השליחה האוטומטית כבויה: חסר CRON_SECRET בשרת.'}</p>
+  <h2>התראות כרגע</h2>
+  {alerts.length ? <ul>{alerts.map((a) => <li>{a}</li>)}</ul> : <p class="ad-empty">אין חריגות לאתמול.</p>}
+  <h2>תצוגה מקדימה של הדוח</h2>
+  {canSend && <form method="post" action="/api/admin/digest-send" style="margin-bottom:16px"><button class="ad-btn" type="submit">שליחת הדוח אליי עכשיו</button></form>}
+  <p class="ad-muted"><b>{m.subject}</b></p>
+  <iframe title="תצוגה מקדימה של הדוח" sandbox="" srcdoc={m.html} style="width:100%;height:760px;border:1px solid #dcdcd9;border-radius:4px;background:#fff"></iframe>
+</AdminLayout>

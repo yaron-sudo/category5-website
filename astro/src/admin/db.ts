@@ -34,6 +34,7 @@ const SCHEMA = [
      created_at timestamptz NOT NULL DEFAULT now(),
      last_login timestamptz
    )`,
+  `ALTER TABLE admin_users ADD COLUMN IF NOT EXISTS digest boolean NOT NULL DEFAULT false`,
   `CREATE TABLE IF NOT EXISTS admin_audit (
      id bigserial PRIMARY KEY,
      at timestamptz NOT NULL DEFAULT now(),
