@@ -124,7 +124,7 @@ const btn = 'min-height: 48px; padding: 0 22px; border: 1px solid #141414; borde
 
 <script>
   import { buildIndex, search, suggest, didYouMean, normalize, unfold, isBlocked } from '@/c5/search/engine.js'
-  type Doc = { id: string; kind: 'product' | 'article'; title: string; href: string; image?: string; meta?: string; summary?: string; newPack?: boolean; fit?: string; feather?: boolean; fields: Record<string, string> }
+  type Doc = { id: string; kind: 'product' | 'article'; title: string; href: string; image?: string; srcset?: string; sizes?: string; thumb?: string; meta?: string; summary?: string; newPack?: boolean; fit?: string; feather?: boolean; fields: Record<string, string> }
   const D = JSON.parse(document.querySelector('[data-sr-data]')!.textContent || '{}') as {
     docs: Doc[]; synonyms: Array<{ name: string; words: string[] }>; blocked: string[]; quick: Array<{ kind: string; label: string; href: string; prefix: string }>; series: Array<{ slug: string; color: string }>
   }
@@ -147,7 +147,7 @@ const btn = 'min-height: 48px; padding: 0 22px; border: 1px solid #141414; borde
   const seriesColor = (name?: string) => { const s = D.quick.find((q) => q.kind === 'series' && q.label === name); const slug = s ? s.href.split('/').pop() : ''; return D.series.find((x) => x.slug === slug)?.color ?? '#141414' }
 
   const card = (d: Doc) => d.kind === 'product'
-    ? `<a href="${d.href}" class="sr-card"><span class="sr-img">${d.newPack ? `<span class="c5-newpack" style="border-color:${seriesColor(d.meta)}"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c.6 5.4 4.6 9.4 10 10-5.4.6-9.4 4.6-10 10-.6-5.4-4.6-9.4-10-10 5.4-.6 9.4-4.6 10-10Z"></path></svg>אריזה חדשה</span>` : ''}${d.image ? `<img src="${esc(d.image)}" alt="" loading="lazy" class="c5-cutout${d.feather ? ' c5-feather' : ''}" style="${esc(d.fit || 'width: 100%; height: 100%; object-fit: contain')}">` : ''}</span><span class="sr-body"><span class="sr-series"><i style="background:${seriesColor(d.meta)}"></i>${esc(d.meta || '')}</span><span class="sr-title">${esc(d.title)}</span>${d.summary ? `<span class="sr-sum">${esc(d.summary)}</span>` : ''}</span></a>`
+    ? `<a href="${d.href}" class="sr-card"><span class="sr-img">${d.newPack ? `<span class="c5-newpack" style="border-color:${seriesColor(d.meta)}"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c.6 5.4 4.6 9.4 10 10-5.4.6-9.4 4.6-10 10-.6-5.4-4.6-9.4-10-10 5.4-.6 9.4-4.6 10-10Z"></path></svg>אריזה חדשה</span>` : ''}${d.image ? `<img src="${esc(d.image)}"${d.srcset ? ` srcset="${esc(d.srcset)}" sizes="${esc(d.sizes || '')}"` : ''} alt="" loading="lazy" class="c5-cutout${d.feather ? ' c5-feather' : ''}" style="${esc(d.fit || 'width: 100%; height: 100%; object-fit: contain')}">` : ''}</span><span class="sr-body"><span class="sr-series"><i style="background:${seriesColor(d.meta)}"></i>${esc(d.meta || '')}</span><span class="sr-title">${esc(d.title)}</span>${d.summary ? `<span class="sr-sum">${esc(d.summary)}</span>` : ''}</span></a>`
     : `<a href="${d.href}" class="sr-art"><strong>${esc(d.title)}</strong>${d.meta ? `<span class="sr-latin" lang="en">${esc(d.meta)}</span>` : ''}<p>${esc((d.fields.text || '').split(' ').slice(0, 28).join(' '))}</p><span class="sr-more">קרא עוד</span></a>`
 
   const run = (q: string, push = true) => {
