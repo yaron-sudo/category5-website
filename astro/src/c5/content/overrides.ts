@@ -415,7 +415,7 @@ export const PRODUCT_OVERRIDES: Record<string, ProductOverride> = {
   // the brochure names בד״ץ לנדא).
   'lipozamin-mg-spectrum': {
     contains: 'מכיל 60 כמוסות צמחיות',
-    gallery: ['/assets/products/lipozamin-mg-spectrum-bottle.png', '/assets/products/lipozamin-mg-spectrum-box.jpg'],
+    gallery: ['/assets/products/lipozamin-mg-spectrum-bottle.webp', '/assets/products/lipozamin-mg-spectrum-box.jpg'],
     intro: [
       'קומפלקס מגנזיום ליפוזומלי בספקטרום רחב של 3 סוגי מגנזיום צ׳לאט: ביסגליצינאט, מלאט וטאורט, בגודל חלקיקי ננו.',
       'צ׳לאט היא תרכובת כימית שבה משולבים מולקולות מגנזיום (מינרל) ומולקולה אורגנית (חומצת אמינו) שהופכת את הצ׳לאט ממולקולה אנאורגנית בעבר לצורה מינרלית אורגנית. המגנזיום שבמוצר הוא צ׳לאט מלא (Chelated / Fully Reacted), עטוף בליפוזום בגודל חלקיקי ננו.',
@@ -622,8 +622,8 @@ export const PRODUCT_OVERRIDES: Record<string, ProductOverride> = {
   // Calcidex: new pack (carton + glass jar), label and the client's brochure (Kalcidex-Brochure.pdf).
   // Left out: the brochure's research figures, symptom lists and "מומלץ" list.
   calcidex: {
-    image: '/assets/products/calcidex-combo.png',
-    gallery: ['/assets/products/calcidex-jar.png', '/assets/products/calcidex-box.png'],
+    image: '/assets/products/calcidex-combo.webp',
+    gallery: ['/assets/products/calcidex-jar.webp', '/assets/products/calcidex-box.webp'],
     contains: 'מכיל 60 כמוסות צמחיות',
     intro: [
       'קלצידקס - קומפלקס סידן גליצרופוספט ואלוורה להפחתת חומציות מזונות ומשקאות חומציים.',
