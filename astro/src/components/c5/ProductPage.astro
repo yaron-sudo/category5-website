@@ -22,7 +22,7 @@ import { PRODUCT_SUMMARIES } from '@/c5/content/summaries'
 import { imageFit, imageFeather } from '@/c5/content/imageFit'
 import { linkTerms } from '@/c5/glossaryLinks'
 import { productShareImage } from '@/c5/og'
-import { thumb } from '@/c5/content/thumbs'
+import { thumb, imgSet, cardSizes } from '@/c5/content/thumbs'
 import { productLd, breadcrumbLd } from '@/c5/seo'
 // "מחקרים" accordion: hidden on the product page (client decision 14.11.2026). Set to true to show it again.
 const SHOW_RESEARCH = false
@@ -52,11 +52,19 @@ const tabs = [
 ]
 // The product photo is framed uniformly (imageFit). The label is text (ProductLabel);
 // a label scan is only shown while a product has no text label yet.
+// The large image is delivered through srcset (smaller copies, the original as the largest candidate and as `src`),
+// so a phone does not download the 2000px original for a 325px stage; the magnifier below always draws from the original.
+const STAGE = { phone: 'calc(100vw - 32px)', mid: '780px', wide: '740px' }
+const big = async (src: string, extra: Record<string, unknown> = {}) => {
+  const fit = await imageFit(src)
+  const set = await imgSet(src, cardSizes(fit, STAGE))
+  return { src, alt: name, fit, feather: imageFeather(src), srcset: set.srcset, sizes: set.sizes, ...extra }
+}
 const gallery = [
-  p.image && { src: p.image, alt: name, fit: await imageFit(p.image), feather: imageFeather(p.image) },
-  ...(await Promise.all((p.gallery ?? []).map(async (src) => ({ src, alt: name, fit: await imageFit(src), feather: imageFeather(src) })))),
+  p.image && await big(p.image),
+  ...(await Promise.all((p.gallery ?? []).map((src) => big(src)))),
   !p.label && p.labelImage && { src: p.labelImage, alt: `תווית המוצר – ${name}`, fit: undefined },
-].filter(Boolean) as Array<{ src: string; alt: string; fit?: string }>
+].filter(Boolean) as Array<{ src: string; alt: string; fit?: string; feather?: boolean; srcset?: string; sizes?: string }>
 const related = (await productsOfSeries(p.series)).filter((x) => x.slug !== p.slug)
 // Meta description: the first intro line that is a sentence (not a short label such as "כמוסה 1 מכילה:"),
 // else the short summary, else whatever intro there is.
@@ -80,13 +88,13 @@ const btn = 'display: inline-flex; align-items: center; justify-content: center;
 {gallery.length > 1 && (
 <div class="pp-thumbs" role="group" aria-label="תמונות המוצר">
 {gallery.map((g, i) => (
-<button type="button" class="pp-thumb" data-pp-thumb data-src={g.src} data-alt={g.alt} data-fit={g.fit ?? ''} data-feather={g.feather ? '1' : ''} aria-pressed={i === 0 ? 'true' : 'false'} aria-label={g.alt}><img src={thumb(g.src)} alt="" loading="lazy" class={g.feather ? 'c5-feather' : undefined} style={g.fit}></button>
+<button type="button" class="pp-thumb" data-pp-thumb data-src={g.src} data-alt={g.alt} data-fit={g.fit ?? ''} data-feather={g.feather ? '1' : ''} data-srcset={g.srcset ?? ''} data-sizes={g.sizes ?? ''} aria-pressed={i === 0 ? 'true' : 'false'} aria-label={g.alt}><img src={thumb(g.src)} alt="" loading="lazy" class={g.feather ? 'c5-feather' : undefined} style={g.fit}></button>
 ))}
 </div>
 )}
 <div class="pp-stage" data-pp-stage role="button" tabindex="0" aria-label="הגדלת התמונה" aria-pressed="false">
 {gallery.length
-  ? <img data-pp-main src={gallery[0].src} alt={gallery[0].alt} class={gallery[0].feather ? 'c5-feather' : undefined} style={gallery[0].fit} fetchpriority="high">
+  ? <img data-pp-main src={gallery[0].src} srcset={gallery[0].srcset} sizes={gallery[0].sizes} alt={gallery[0].alt} class={gallery[0].feather ? 'c5-feather' : undefined} style={gallery[0].fit} fetchpriority="high">
   : <span>{t('img')}</span>}
 {gallery.length > 0 && <span class="pp-lens" data-pp-lens aria-hidden="true"></span>}
 </div>
@@ -245,6 +253,8 @@ const btn = 'display: inline-flex; align-items: center; justify-content: center;
   const thumbs = [...document.querySelectorAll<HTMLButtonElement>('[data-pp-thumb]')]
   thumbs.forEach((b) => b.addEventListener('click', () => {
     if (!main) return
+    // srcset first: a stale srcset would keep winning over the new src
+    if (b.dataset.srcset) { main.srcset = b.dataset.srcset; main.sizes = b.dataset.sizes || '' } else { main.removeAttribute('srcset'); main.removeAttribute('sizes') }
     main.src = b.dataset.src!; main.alt = b.dataset.alt || ''; main.style.cssText = b.dataset.fit || ''; main.classList.toggle('c5-feather', b.dataset.feather === '1')
     thumbs.forEach((x) => x.setAttribute('aria-pressed', String(x === b)))
   }))
@@ -261,7 +271,7 @@ const btn = 'display: inline-flex; align-items: center; justify-content: center;
       const x = Math.max(s.left, Math.min(cx, s.right)), y = Math.max(s.top, Math.min(cy, s.bottom))
       lens.style.left = `${x - s.left - half}px`
       lens.style.top = `${y - s.top - half}px`
-      lens.style.backgroundImage = `url("${main.currentSrc || main.src}")`
+      lens.style.backgroundImage = `url("${main.getAttribute('src') || main.src}")` // the original, never the smaller copy: the magnifier needs the pixels
       lens.style.backgroundSize = `${r.width * ZOOM}px ${r.height * ZOOM}px`
       lens.style.backgroundPosition = `${-((x - r.left) * ZOOM - half)}px ${-((y - r.top) * ZOOM - half)}px`
     }

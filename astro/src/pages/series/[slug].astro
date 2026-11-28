@@ -13,6 +13,7 @@ import { getCategories } from '@/lib/sanity'
 import { PRODUCT_SUMMARIES } from '@/c5/content/summaries'
 import { linkTerms } from '@/c5/glossaryLinks'
 import { breadcrumbLd } from '@/c5/seo'
+import { imgSet } from '@/c5/content/thumbs'
 
 export function getStaticPaths() {
   return SERIES.map((s) => ({ params: { slug: s.slug }, props: { s } }))
@@ -30,6 +31,8 @@ const itemList = {
   name: s.name,
   itemListElement: products.filter((p) => p.href).map((p, i) => ({ '@type': 'ListItem', position: i + 1, name: p.title, url: new URL(p.href as string, Astro.site).href })),
 }
+const bannerSet = await imgSet(s.banner, '100vw', 'banner')
+const bannerMobileSet = await imgSet(s.bannerMobile, '100vw', 'banner')
 const cards = content.fillPlaceholders
   ? [...products, ...Array.from({ length: Math.max(0, PLACEHOLDER_GRID_SIZE - products.length) }, () => ({ title: PRODUCT_TITLE_PLACEHOLDER, image: undefined, href: undefined }))]
   : products
@@ -40,8 +43,8 @@ const cards = content.fillPlaceholders
 <h1 class="c5-sr">{s.name}</h1>
 <!-- A series with its own phone banner (now: plants, client 19.11.2026) shows it up to 640px. -->
 <picture>
-{s.bannerMobile && <source media="(max-width: 640px)" srcset={s.bannerMobile} width="1440" height="1800">}
-<img src={s.banner} alt={s.name} width="2576" height="1100" fetchpriority="high" style="display: block; width: 100%; height: auto">
+{s.bannerMobile && <source media="(max-width: 640px)" srcset={bannerMobileSet.srcset ?? s.bannerMobile} sizes="100vw" width="1440" height="1800">}
+<img src={s.banner} srcset={bannerSet.srcset} sizes="100vw" alt={s.name} width="2576" height="1100" fetchpriority="high" style="display: block; width: 100%; height: auto">
 </picture>
 </section>
 
