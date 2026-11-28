@@ -12,7 +12,7 @@
 // a copy newer than its source is skipped. The outputs are committed; `npm run build` runs
 // this first (prebuild), so a newly added photo is covered automatically.
 import sharp from 'sharp'
-import { readdirSync, statSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { readdirSync, statSync, existsSync, mkdirSync, readFileSync, writeFileSync, rmSync } from 'node:fs'
 import { join, relative, basename, dirname, extname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -54,6 +54,8 @@ for (const { file, widths } of jobs) {
     if (!meta.width || meta.width < w || (w >= 1600 && meta.width < w * 1.15)) continue // a 1600 copy of a 1600px source would be the original again
     mkdirSync(dir, { recursive: true })
     const buf = await sharp(file).resize({ width: w, withoutEnlargement: true }).webp({ quality, alphaQuality: 100, effort: 6, smartSubsample: true }).toBuffer()
+    // a copy that is not clearly smaller than an already-small original is pointless: the original stays the candidate
+    if (buf.length >= statSync(file).size * 0.85) { if (existsSync(out)) rmSync(out); continue }
     writeFileSync(out, buf); made++; bytesOut += buf.length; bytesIn += statSync(file).size
   }
 }
