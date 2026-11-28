@@ -574,6 +574,46 @@
       "permanent": true
     },
     {
+      "source": "/assets/products/calcidex-box.png",
+      "destination": "/assets/products/calcidex-box.webp",
+      "permanent": true
+    },
+    {
+      "source": "/assets/products/calcidex-combo.png",
+      "destination": "/assets/products/calcidex-combo.webp",
+      "permanent": true
+    },
+    {
+      "source": "/assets/products/calcidex-jar.png",
+      "destination": "/assets/products/calcidex-jar.webp",
+      "permanent": true
+    },
+    {
+      "source": "/assets/products/calcidex.png",
+      "destination": "/assets/products/calcidex.webp",
+      "permanent": true
+    },
+    {
+      "source": "/assets/products/liposomal-multivitamin-box.png",
+      "destination": "/assets/products/liposomal-multivitamin-box.webp",
+      "permanent": true
+    },
+    {
+      "source": "/assets/products/liposomal-vitamin-b-complex-box.png",
+      "destination": "/assets/products/liposomal-vitamin-b-complex-box.webp",
+      "permanent": true
+    },
+    {
+      "source": "/assets/products/lipozamin-mg-spectrum-bottle.png",
+      "destination": "/assets/products/lipozamin-mg-spectrum-bottle.webp",
+      "permanent": true
+    },
+    {
+      "source": "/assets/products/lipozamin-mg-spectrum.png",
+      "destination": "/assets/products/lipozamin-mg-spectrum.webp",
+      "permanent": true
+    },
+    {
       "source": "/:path(.*\\.(?:jpg|jpeg|png|webp|gif|svg|avif))",
       "has": [
         {
