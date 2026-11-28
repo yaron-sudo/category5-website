@@ -164,6 +164,9 @@ try {
   const dg = await (await a.request.get(`${BASE}/api/cron/digest`, { headers: { authorization: 'Bearer cron-test-secret' } })).json(); ok(dg.recipients === 1 && dg.sent === 0, `digest cron finds the recipient, mail unconfigured → nothing sent (${JSON.stringify(dg)})`)
   await p.goto(`${BASE}/admin/reports`); const rep = await p.locator('main').innerText(); ok(/דוח שבועי/.test(rep) && /מבקרים/.test(rep), 'reports page renders the digest preview')
   await p.click('button:has-text("שליחת הדוח אליי")'); await p.waitForLoadState('networkidle'); ok(/לא מוגדרת/.test(await p.locator('main').innerText()), 'send-to-me explains that mail is not configured')
+  await p.goto(`${BASE}/admin`); ok(await p.locator('a.ad-shortcut[href="/admin/chat"]').count() === 1, 'overview has a direct link to chat management')
+  await p.click('a.ad-shortcut'); ok(p.url().endsWith('/admin/chat'), 'the link opens chat management')
+  const vw2 = await login(await browser.newContext(), 'view2@example.test'); await vw2.goto(`${BASE}/admin`); ok(await vw2.locator('a.ad-shortcut').count() === 0, 'viewers do not get the chat shortcut')
   await p.goto(`${BASE}/admin/users`); await p.click('button:has-text("התנתקות")'); await p.waitForLoadState('networkidle'); ok(p.url().includes('/admin/login'), 'logout works')
 } catch (e) { console.error(e); failed++ } finally { await browser.close(); dev.kill(); mock.close() }
 console.log(failed ? `\n${failed} FAILED` : '\nall passed'); if (failed) console.log(log.slice(-2500)); process.exit(failed ? 1 : 0)

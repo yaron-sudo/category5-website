@@ -2,9 +2,14 @@
 import AdminLayout from '@/layouts/AdminLayout.astro'
 import RangeBar from '@/components/admin/RangeBar.astro'
 import { overview, parseRange } from '@/admin/stats'
+import { can } from '@/admin/auth'
+import { q } from '@/admin/db'
 export const prerender = false
 const days = parseRange(Astro.url.searchParams.get('d'))
 const s = await overview(days)
+// Shortcut to chat management (owners/admins): how many questions wait for review.
+const canChat = can(Astro.locals.admin!.role, 'chat.read')
+const todo = canChat ? Number((await q<{ n: string }>(`SELECT count(*) AS n FROM chat_turns WHERE review IS NULL AND (gap OR status IN ('no_results','declined','error'))`))[0].n) : 0
 
 const SRC: Record<string, string> = { direct: 'ישיר', google: 'גוגל', bing: 'Bing', 'search-other': 'מנועי חיפוש אחרים', facebook: 'פייסבוק', instagram: 'אינסטגרם', x: 'X', tiktok: 'TikTok', youtube: 'YouTube', linkedin: 'LinkedIn', whatsapp: 'וואטסאפ', email: 'דוא״ל', ai: 'כלי AI', campaign: 'קמפיינים (UTM / גוגל אדס)', referral: 'אתרים מפנים' }
 const DEV: Record<string, string> = { mobile: 'מובייל', tablet: 'טאבלט', desktop: 'דסקטופ' }
@@ -23,6 +28,12 @@ const pct = (n: number, t: number) => `${Math.round((n / t) * 100)}%`
 ---
 <AdminLayout title="סקירה" nav="home">
   <h1>סקירה</h1>
+  {canChat && (
+    <a class="ad-shortcut" href="/admin/chat">
+      <span><b>ניהול הצ'אט</b><br />שאלות ושיחות, בדיקה ותשובות מאושרות</span>
+      <span class="ad-shortcut-n">{todo > 0 ? `${todo.toLocaleString('he-IL')} ממתינות לבדיקה` : 'אין שאלות שממתינות'}</span>
+    </a>
+  )}
   <RangeBar days={days} base="/admin" />
   {s.pv === 0 ? (
     <p class="ad-empty">אין עדיין נתונים בטווח הזה. הנתונים מתחילים להצטבר מרגע שהסקריפט פעיל באתר. מבקרים שביקשו שלא לעקוב אחריהם (Do Not Track / GPC) ובוטים אינם נספרים.</p>
@@ -90,3 +101,9 @@ const pct = (n: number, t: number) => `${Math.round((n / t) * 100)}%`
     </>
   )}
 </AdminLayout>
+
+<style is:global>
+  .ad-shortcut { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; background: #fff; border: 1px solid #141414; border-radius: 4px; padding: 16px 20px; margin-bottom: 20px; text-decoration: none; transition: background .45s cubic-bezier(.22,.61,.36,1), color .45s cubic-bezier(.22,.61,.36,1); }
+  .ad-shortcut:hover { background: #141414; color: #fff; }
+  .ad-shortcut-n { font-size: 15px; }
+</style>
