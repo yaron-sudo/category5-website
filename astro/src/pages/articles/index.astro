@@ -9,6 +9,10 @@ import { ARTICLES } from '@/c5/content/articles'
 // Search row: same size and centring as the search page (client notes, 17.11.2026).
 const searchBtn = 'min-height: 48px; padding: 0 22px; border: 1px solid #141414; border-radius: 4px; background: #ffffff; color: #141414; font: inherit; cursor: pointer'
 const btn = 'align-self: flex-start; display: inline-flex; align-items: center; min-height: 44px; padding: 0 22px; border: 1px solid #141414; border-radius: 4px; background: #ffffff; color: #141414; text-decoration: none'
+import { imgSet } from '@/c5/content/thumbs'
+// card photo width on screen (measured): 358–369 css px at every viewport
+const ARTICLE_SIZES = '(max-width: 599px) calc(100vw - 32px), 380px'
+const srcsets = Object.fromEntries(await Promise.all(ARTICLES.map(async (a) => [a.slug, (await imgSet(a.image, ARTICLE_SIZES, 'article')).srcset])))
 ---
 <Site title="מאמרים מקצועיים" description="סקירות מחקרים על חומרי גלם: מה נבדק ומה דווח, בשפה נוחה.">
 <section class="c5-arts">
@@ -49,7 +53,7 @@ const btn = 'align-self: flex-start; display: inline-flex; align-items: center; 
 <article class="c5-art-card" data-arts-item data-tags={(a.tags ?? []).join('|')} data-text={`${a.title} ${a.latin ?? ''} ${a.excerpt}`.toLowerCase()} data-min={a.minutes ?? 0} data-title={a.title}>
 <a href={`/articles/${a.slug}`} class="c5-art-link">
 {a.image
-  ? <div class="c5-art-fig"><img src={a.image} alt="" loading="lazy"></div>
+  ? <div class="c5-art-fig"><img src={a.image} srcset={srcsets[a.slug]} sizes={ARTICLE_SIZES} alt="" loading="lazy" decoding="async"></div>
   : <div class="c5-art-fig c5-art-fig--txt" aria-hidden="true"><span lang="en" dir="ltr">{a.latin ?? a.title}</span></div>}
 {a.tag && <p class="c5-art-tag">{a.tag}</p>}
 <h3 class="c5-art-title">{a.title}</h3>

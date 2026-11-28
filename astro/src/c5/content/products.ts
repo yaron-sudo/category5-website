@@ -59,7 +59,7 @@ export const PRODUCTS: Product[] = [
   { slug: 'magnesium-bisglycinate-liposomal', title: 'מגנזיום ביסגליצינאט ליפוזומלי', series: 'vitamins-minerals', image: '/assets/products/magnesium-bisglycinate-liposomal.jpg' },
   { slug: 'curcumin-complex', title: 'קומפלקס ג׳אלו-כורכומין', keywords: ['קומפלקס כורכומין', 'כורכומין', 'כורכום', 'ג׳אלוקור', 'Giallocur'], source: 'giallocur-nano-curcumin', series: 'plants', image: '/assets/products/curcumin-complex-bottle.webp' },
   { slug: 'revival', title: 'רויוואל 20+', keywords: ['רויוואל', 'Revival', 'Revival 20+'], source: 'revival-20', series: 'professional', image: '/assets/products/revival-bottle.webp' },
-  { slug: 'calcidex', title: 'קלצידקס', fullTitle: 'קלצידקס – סידן גליצרופוספט ואלוורה אורגנית', series: 'professional', image: '/assets/products/calcidex.png' },
+  { slug: 'calcidex', title: 'קלצידקס', fullTitle: 'קלצידקס – סידן גליצרופוספט ואלוורה אורגנית', series: 'professional', image: '/assets/products/calcidex.webp' },
   // Products of the BOM list that had no page on the old site (names and pack sizes from the BOM).
   {
     slug: 'lipozamin-nac', title: 'ליפוזמין NAC', series: 'vitamins-minerals', contains: 'מכיל 60 כמוסות צמחיות',
@@ -125,7 +125,7 @@ export const PRODUCTS: Product[] = [
   { slug: 'lipozamin-creatine-complex', title: 'ליפוזמין קריאטין קומפלקס', series: 'vitamins-minerals', contains: 'מכיל 60 כמוסות' },
   {
     slug: 'liposomal-multivitamin', title: 'מולטיויטמין ליפוזומלי', series: 'vitamins-minerals', contains: 'מכיל 60 כמוסות צמחיות',
-    gallery: ['/assets/products/liposomal-multivitamin-bottle.webp', '/assets/products/liposomal-multivitamin-box.png'],
+    gallery: ['/assets/products/liposomal-multivitamin-bottle.webp', '/assets/products/liposomal-multivitamin-box.webp'],
     // Text from the client's brochure (docs/brochures/Multivitamin Brochure.pdf) and the pack label.
     // Health claims only as printed on the pack; dosage as on the label (the brochure says 2 capsules a day).
     intro: [
@@ -156,7 +156,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     slug: 'liposomal-vitamin-b-complex', title: 'קומפלקס ויטמין B ליפוזומלי', series: 'vitamins-minerals', contains: 'מכיל 60 כמוסות צמחיות',
-    gallery: ['/assets/products/liposomal-vitamin-b-complex-bottle.webp', '/assets/products/liposomal-vitamin-b-complex-box.png'],
+    gallery: ['/assets/products/liposomal-vitamin-b-complex-bottle.webp', '/assets/products/liposomal-vitamin-b-complex-box.webp'],
     // Text from the client's brochure (docs/brochures/קומפלקס B ליפוזומלי.pdf) and the pack label. Health claims only as printed on the pack.
     intro: [
       'קומפלקס B ליפוזומלי בגודל חלקיקים ננומטרי: תוסף תזונה יומיומי המאגד שילוב של ויטמינים ממשפחת B.',

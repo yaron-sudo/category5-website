@@ -22,6 +22,7 @@ import { PRODUCT_SUMMARIES } from '@/c5/content/summaries'
 import { imageFit, imageFeather } from '@/c5/content/imageFit'
 import { linkTerms } from '@/c5/glossaryLinks'
 import { productShareImage } from '@/c5/og'
+import { thumb } from '@/c5/content/thumbs'
 import { productLd, breadcrumbLd } from '@/c5/seo'
 // "מחקרים" accordion: hidden on the product page (client decision 14.11.2026). Set to true to show it again.
 const SHOW_RESEARCH = false
@@ -79,7 +80,7 @@ const btn = 'display: inline-flex; align-items: center; justify-content: center;
 {gallery.length > 1 && (
 <div class="pp-thumbs" role="group" aria-label="תמונות המוצר">
 {gallery.map((g, i) => (
-<button type="button" class="pp-thumb" data-pp-thumb data-src={g.src} data-alt={g.alt} data-fit={g.fit ?? ''} data-feather={g.feather ? '1' : ''} aria-pressed={i === 0 ? 'true' : 'false'} aria-label={g.alt}><img src={g.src} alt="" loading="lazy" class={g.feather ? 'c5-feather' : undefined} style={g.fit}></button>
+<button type="button" class="pp-thumb" data-pp-thumb data-src={g.src} data-alt={g.alt} data-fit={g.fit ?? ''} data-feather={g.feather ? '1' : ''} aria-pressed={i === 0 ? 'true' : 'false'} aria-label={g.alt}><img src={thumb(g.src)} alt="" loading="lazy" class={g.feather ? 'c5-feather' : undefined} style={g.fit}></button>
 ))}
 </div>
 )}

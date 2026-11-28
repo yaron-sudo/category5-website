@@ -6,6 +6,7 @@ import { getCatalog } from '@/c5/content/catalog'
 import { productHref } from '@/c5/content/products'
 import { PRODUCT_SUMMARIES } from '@/c5/content/summaries'
 import { imageFit, imageFeather } from '@/c5/content/imageFit'
+import { imgSet, cardSizes, thumb } from '@/c5/content/thumbs'
 import { SERIES, NEEDS } from '@/c5/data'
 import { NEED_CONTENT } from '@/c5/content/needs'
 import { HIGHLIGHTS, HIGHLIGHT_LABELS } from '@/c5/content/highlights'
@@ -20,6 +21,8 @@ const know = new Map(Object.entries(KNOWLEDGE).map(([p, src]) => [p.split('/').p
 
 export interface SearchDoc {
   id: string; kind: 'product' | 'article'; title: string; href: string; image?: string; meta?: string
+  /** Smaller copies of the photo (srcset / sizes for the search cards, one 640px copy for the live rows). */
+  srcset?: string; sizes?: string; thumb?: string
   /** Product cards (same as ProductCard): short description, new-pack tag, image framing. */
   summary?: string; newPack?: boolean; fit?: string; feather?: boolean
   fields: { name: string; keywords: string; ingredients: string; text: string; body: string }
@@ -43,6 +46,7 @@ export async function buildSearchDocs(): Promise<SearchDoc[]> {
     docs.push({
       id: p.slug, kind: 'product', title: p.title, href: productHref(p), image: p.image, meta: series?.name,
       summary: PRODUCT_SUMMARIES[p.slug], newPack: !!p.newPack, fit: await imageFit(p.image), feather: imageFeather(p.image),
+      ...await (async () => { const fit = await imageFit(p.image); const s = await imgSet(p.image, cardSizes(fit, { mid: '260px', wide: '240px' })); return { srcset: s.srcset, sizes: s.sizes, thumb: thumb(p.image) } })(),
       fields: {
         name: [p.title, p.fullTitle, ...(k?.aliases ?? []), p.slug.replace(/-/g, ' ')].filter(Boolean).join(' '),
         keywords: [...(p.keywords ?? []), ...(PRODUCT_KEYWORDS[p.slug] ?? []), ...needs, series?.name ?? ''].join(' '),

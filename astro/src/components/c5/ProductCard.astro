@@ -7,11 +7,15 @@
 import { SERIES } from '@/c5/data'
 import { t } from '@/c5/i18n'
 import { imageFit, imageFeather } from '@/c5/content/imageFit'
-interface Props { summary?: string; title: string; image?: string; href?: string; series: string; newPack?: boolean }
-const { title, image, href, series, newPack = false, summary } = Astro.props
+import { imgSet, cardSizes } from '@/c5/content/thumbs'
+// `box`: how wide the card's square is on screen at each breakpoint (default: the series / need / family grids).
+interface Props { summary?: string; title: string; image?: string; href?: string; series: string; newPack?: boolean; box?: { phone?: string; mid?: string; wide?: string } }
+const { title, image, href, series, newPack = false, summary, box } = Astro.props
 const s = SERIES.find((x) => x.slug === series) ?? SERIES[0]
 const Tag = href ? 'a' : 'div'
 const fit = await imageFit(image)
+// Smaller copies for the card (the original is the largest candidate and the fallback src).
+const set = await imgSet(image, cardSizes(fit, box))
 ---
 <Tag href={href} dir="rtl" style="display: flex; flex-direction: column; height: 100%; text-decoration: none; color: #141414; font-family: 'C5 Sans', 'Noto Sans Hebrew', Arial, sans-serif; background: #ffffff; border: 1px solid #dcdcd9; box-sizing: border-box">
 <div style="position: relative; aspect-ratio: 1 / 1; background: #ffffff; display: flex; align-items: center; justify-content: center; overflow: hidden">
@@ -20,7 +24,7 @@ const fit = await imageFit(image)
 <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c.6 5.4 4.6 9.4 10 10-5.4.6-9.4 4.6-10 10-.6-5.4-4.6-9.4-10-10 5.4-.6 9.4-4.6 10-10Z"></path></svg>
 אריזה חדשה</span>
 )}
-{image ? <img src={image} alt={title} loading="lazy" class={imageFeather(image) ? 'c5-cutout c5-feather' : 'c5-cutout'} style={fit ?? 'width: 100%; height: 100%; object-fit: contain'}> : <span>{t('img')}</span>}
+{image ? <img src={image} srcset={set.srcset} sizes={set.sizes} alt={title} loading="lazy" decoding="async" class={imageFeather(image) ? 'c5-cutout c5-feather' : 'c5-cutout'} style={fit ?? 'width: 100%; height: 100%; object-fit: contain'}> : <span>{t('img')}</span>}
 </div>
 <div style="padding: 16px; display: flex; flex-direction: column; gap: 8px">
 <span style="display: inline-flex; align-items: center; gap: 8px; font-size: 15px"><span style={`width: 14px; height: 14px; background: ${s.color}; display: inline-block`}></span>{s.name}</span>

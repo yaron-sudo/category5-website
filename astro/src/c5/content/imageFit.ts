@@ -18,13 +18,13 @@ const WHITE = 236 // channels above this count as background (also skips faint s
 const FIT_OVERRIDES: Record<string, string> = {
   // Calcidex: the shadow to the right of the bottle is almost as dark as the glass,
   // so the measured box stretched into it and the bottle sat left of centre.
-  '/assets/products/calcidex.png':
+  '/assets/products/calcidex.webp':
     'position: absolute; max-width: none; width: 101.05%; height: 100.80%; left: 0.74%; top: -6.72%',
   // Calcidex carton + jar, and the jar alone: the soft shadow plate pulled the measured box
   // left and up. Same size as measured, moved so the product body (opaque pixels) is centred (23.11.2026).
-  '/assets/products/calcidex-combo.png':
+  '/assets/products/calcidex-combo.webp':
     'position: absolute; max-width: none; width: 90.80%; height: 90.57%; left: 7.23%; top: 5.62%',
-  '/assets/products/calcidex-jar.png':
+  '/assets/products/calcidex-jar.webp':
     'position: absolute; max-width: none; width: 101.37%; height: 101.12%; left: 0.73%; top: -0.15%',
 }
 
@@ -33,9 +33,9 @@ const FIT_OVERRIDES: Record<string, string> = {
 // bottom fades start. The semi-transparent shadow plate of these photos has hard edges; the fade
 // removes them just outside the product, so the product sits cleanly on the light tile.
 const FEATHER = new Map<string, [number, number, number]>([
-  ['/assets/products/calcidex.png', [10, 78, 78]],
-  ['/assets/products/calcidex-combo.png', [11.5, 79, 77]],
-  ['/assets/products/calcidex-jar.png', [31, 66, 80]],
+  ['/assets/products/calcidex.webp', [10, 78, 78]],
+  ['/assets/products/calcidex-combo.webp', [11.5, 79, 77]],
+  ['/assets/products/calcidex-jar.webp', [31, 66, 80]],
 ])
 export const imageFeather = (src?: string) => !!src && FEATHER.has(src)
 const featherVars = (src: string) => { const f = FEATHER.get(src); return f ? `--fl: ${f[0]}%; --fx: ${f[1]}%; --fy: ${f[2]}%` : '' }
