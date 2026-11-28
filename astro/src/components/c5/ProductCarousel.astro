@@ -10,7 +10,7 @@ const { products, label } = Astro.props
 ---
 <div class="pp-car" data-pp-car>
 <div class="pp-car-track" data-pp-track tabindex="0" role="group" aria-label={label}>
-{products.map((r) => <div class="pp-car-item"><ProductCard title={r.title} summary={PRODUCT_SUMMARIES[r.slug]} image={r.image} href={productHref(r)} series={r.series} newPack={r.newPack} box={{ phone: '300px', mid: '400px', wide: '440px' }} /></div>)}
+{products.map((r) => <div class="pp-car-item"><ProductCard title={r.title} summary={PRODUCT_SUMMARIES[r.slug]} image={r.image} href={productHref(r)} series={r.series} newPack={r.newPack} box={{ phone: '240px', mid: '260px', wide: '370px' }} /></div>)}
 </div>
 <button type="button" class="pp-car-btn pp-car-prev" data-pp-prev aria-label="הקודם"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></button>
 <button type="button" class="pp-car-btn pp-car-next" data-pp-next aria-label="הבא"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg></button>

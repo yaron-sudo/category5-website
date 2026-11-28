@@ -7,6 +7,8 @@
 //                     photos the card framing zooms, so phones do not fall back to the 2000px original)
 //   article photos  → <name>-800.webp                      (WebP q85; the 1200px JPEG original stays the large candidate:
 //                     re-encoding grainy photos at that size is not smaller)
+//   banners         → <name>-720 / -1080 / -1300 / -1950.webp (WebP q90; same aspect, no crop, no colour change; the JPEG original
+//                     stays the largest candidate and the fallback src)
 //
 // A width is only written when the source is at least that wide (no upscaling). Idempotent:
 // a copy newer than its source is skipped. The outputs are committed; `npm run build` runs
@@ -38,6 +40,9 @@ try {
 } catch { /* no local dataset */ }
 for (const f of ['overrides.ts', 'products.ts']) { try { for (const m of readFileSync(join(root, 'src/c5/content', f), 'utf8').match(/\/media\/[A-Za-z0-9_\-./]+\.(?:webp|jpe?g|png)/g) ?? []) media.add(m) } catch {} }
 for (const m of media) { const p = join(pub, m); if (existsSync(p)) jobs.push({ file: p, widths: PRODUCT_W }) }
+// banners (full-width, shown at 100vw): the same picture, delivered at the width the screen needs
+const BANNER_W = [{ w: 720, q: 90 }, { w: 1080, q: 90 }, { w: 1300, q: 90 }, { w: 1950, q: 88 }]
+for (const p of walk(join(pub, 'assets/banners'))) if (IMG.test(p)) jobs.push({ file: p, widths: BANNER_W })
 // article photos
 for (const p of walk(join(pub, 'assets/articles'))) if (IMG.test(p)) jobs.push({ file: p, widths: [{ w: 800, q: 85 }] })
 
@@ -51,7 +56,7 @@ for (const { file, widths } of jobs) {
     const out = join(dir, `${name}-${w}.webp`)
     if (existsSync(out) && statSync(out).mtimeMs >= srcTime) { skipped++; continue }
     meta ??= await sharp(file).metadata()
-    if (!meta.width || meta.width < w || (w >= 1600 && meta.width < w * 1.15)) continue // a 1600 copy of a 1600px source would be the original again
+    if (!meta.width || meta.width < w || (w >= 1300 && meta.width < w * 1.15)) continue // a 1600 copy of a 1600px source would be the original again
     mkdirSync(dir, { recursive: true })
     const buf = await sharp(file).resize({ width: w, withoutEnlargement: true }).webp({ quality, alphaQuality: 100, effort: 6, smartSubsample: true }).toBuffer()
     // a copy that is not clearly smaller than an already-small original is pointless: the original stays the candidate

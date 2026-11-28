@@ -11,6 +11,8 @@ import { t } from '@/c5/i18n'
 // this order. A slug without an article yet shows the grey placeholder from the mockup.
 import { ARTICLES } from '@/c5/content/articles'
 const HOME_ARTICLES = ['epimedium-icariin', 'selenium-selenomethionine', 'elderberry', 'olive-polyphenols']
+const banner = async (src: string) => (await imgSet(src, '100vw', 'banner')).srcset ?? src // same picture at the width the screen needs; the original stays src
+const ban = { b1m: await banner('/assets/banners/home-banner-1-mobile.jpg'), b1: await imgSet('/assets/banners/home-banner-1.jpg', '100vw', 'banner'), b2m: await banner('/assets/banners/home-banner-2.jpg'), b2: await imgSet('/assets/banners/home-banner-2-desktop.jpg', '100vw', 'banner') }
 const ART_SIZES = '(max-width: 599px) 320px, 380px' // measured card photo width: 275–363 css px
 const articles = await Promise.all(HOME_ARTICLES.map(async (slug) => {
   const a = ARTICLES.find((x) => x.slug === slug)
@@ -33,8 +35,8 @@ const field = 'display: flex; flex-direction: column; gap: 2px; font-size: 15px'
 </div>
 <!-- Phones get their own portrait banner (client, 19.11.2026); wider screens keep this one. -->
 <picture>
-<source media="(max-width: 640px)" srcset="/assets/banners/home-banner-1-mobile.jpg" width="1440" height="1800">
-<img src="/assets/banners/home-banner-1.jpg" alt="" width="2600" height="1111" fetchpriority="high" style="display: block; width: 100%; height: auto">
+<source media="(max-width: 640px)" srcset={ban.b1m} sizes="100vw" width="1440" height="1800">
+<img src="/assets/banners/home-banner-1.jpg" srcset={ban.b1.srcset} sizes="100vw" alt="" width="2600" height="1111" fetchpriority="high" style="display: block; width: 100%; height: auto">
 </picture>
 </section>
 
@@ -61,8 +63,8 @@ const field = 'display: flex; flex-direction: column; gap: 2px; font-size: 15px'
 </div>
 <!-- Desktop gets the new banner (client, 22.11.2026); phones keep the previous one. -->
 <picture>
-<source media="(max-width: 640px)" srcset="/assets/banners/home-banner-2.jpg" width="2600" height="1110">
-<img src="/assets/banners/home-banner-2-desktop.jpg" alt="" width="2576" height="1100" loading="lazy" style="display: block; width: 100%; height: auto">
+<source media="(max-width: 640px)" srcset={ban.b2m} sizes="100vw" width="2600" height="1110">
+<img src="/assets/banners/home-banner-2-desktop.jpg" srcset={ban.b2.srcset} sizes="100vw" alt="" width="2576" height="1100" loading="lazy" style="display: block; width: 100%; height: auto">
 </picture>
 </section>
 

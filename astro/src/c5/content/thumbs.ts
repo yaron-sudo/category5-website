@@ -10,6 +10,7 @@ import sharp from 'sharp'
 const PUBLIC = [resolve(process.cwd(), 'public'), resolve(process.cwd(), 'astro/public')].find((d) => existsSync(d)) ?? 'public'
 const PRODUCT_WIDTHS = [640, 1200, 1600]
 const ARTICLE_WIDTHS = [800]
+const BANNER_WIDTHS = [720, 1080, 1300, 1950]
 const widthCache = new Map<string, Promise<number>>()
 const width = (src: string) => {
   let p = widthCache.get(src)
@@ -25,9 +26,9 @@ export interface ImgSet { srcset?: string; sizes?: string }
 /** srcset + sizes for a photo. `kind` picks the copy widths; the original always joins the list as the
  *  largest candidate (cards need more than 1200px when the framing zooms a product photo, and the
  *  1200px article JPEGs are not worth re-encoding at full size). */
-export async function imgSet(src: string | undefined, sizes: string, kind: 'product' | 'article' = 'product'): Promise<ImgSet> {
+export async function imgSet(src: string | undefined, sizes: string, kind: 'product' | 'article' | 'banner' = 'product'): Promise<ImgSet> {
   if (!local(src)) return {}
-  const widths = (kind === 'product' ? PRODUCT_WIDTHS : ARTICLE_WIDTHS).filter((w) => has(src, w))
+  const widths = (kind === 'product' ? PRODUCT_WIDTHS : kind === 'banner' ? BANNER_WIDTHS : ARTICLE_WIDTHS).filter((w) => has(src, w))
   if (!widths.length) return {}
   const parts = widths.map((w) => `${thumbPath(src, w)} ${w}w`)
   const ow = await width(src); if (ow > widths[widths.length - 1]) parts.push(`${src} ${ow}w`)
