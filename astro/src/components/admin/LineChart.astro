@@ -1,0 +1,45 @@
+---
+// Line chart of one measure over the days of the selected range: the current period (solid) against
+// the equally long period before it (dashed). One y-axis, thin lines, a legend, a hover crosshair
+// with tooltip (script in pages/admin/index.astro) and a data table for screen readers.
+interface Props { title: string; unit: string; days: string[]; cur: number[]; prevDays: string[]; prev: number[] }
+const { title, unit, days, cur, prevDays, prev } = Astro.props
+const W = 1000, H = 250, L = 46, R = 14, T = 14, B = 30
+const nice = (v: number) => { if (v <= 4) return 4; const p = 10 ** Math.floor(Math.log10(v)); const m = v / p; return (m <= 1 ? 1 : m <= 2 ? 2 : m <= 4 ? 4 : m <= 5 ? 5 : 10) * p }
+const max = nice(Math.max(1, ...cur, ...prev))
+const n = cur.length
+const x = (i: number) => L + (i * (W - L - R)) / Math.max(n - 1, 1)
+const y = (v: number) => T + (H - T - B) * (1 - v / max)
+const path = (a: number[]) => a.map((v, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(' ')
+const fmtDay = (d: string) => `${d.slice(8, 10)}/${d.slice(5, 7)}`
+const nf = (v: number) => v.toLocaleString('he-IL')
+const pts = days.map((d, i) => ({ a: fmtDay(d), v: cur[i], b: fmtDay(prevDays[i]), p: prev[i] }))
+const grid = [0, 0.5, 1].map((f) => ({ y: y(max * f), label: nf(Math.round(max * f)) }))
+const xl = [0, Math.floor((n - 1) / 2), n - 1].map((i) => ({ x: x(i), label: fmtDay(days[i]) }))
+const totalCur = cur.reduce((a, b) => a + b, 0), totalPrev = prev.reduce((a, b) => a + b, 0)
+---
+<figure class="lc" data-points={JSON.stringify(pts)} data-w={W} data-h={H} data-l={L} data-r={R} data-t={T} data-b={B} data-max={max} data-unit={unit}>
+  <figcaption class="lc-head">
+    <span class="lc-title">{title}</span>
+    <span class="lc-legend"><i class="lg cur"></i>תקופה נוכחית ({nf(totalCur)})<i class="lg prev"></i>תקופה קודמת ({nf(totalPrev)})</span>
+  </figcaption>
+  <div class="lc-plot" dir="ltr">
+    <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`${title}: ${nf(totalCur)} בתקופה הנוכחית לעומת ${nf(totalPrev)} בתקופה הקודמת`}>
+      {grid.map((g) => <line x1={L} x2={W - R} y1={g.y} y2={g.y} class="lc-grid" />)}
+      {grid.map((g) => <text x={L - 8} y={g.y + 4} text-anchor="end" class="lc-axis">{g.label}</text>)}
+      {xl.map((t, i) => <text x={t.x} y={H - 8} text-anchor={i === 0 ? 'start' : i === 2 ? 'end' : 'middle'} class="lc-axis">{t.label}</text>)}
+      <path d={path(prev)} class="lc-prev" />
+      <path d={path(cur)} class="lc-cur" />
+      <line class="lc-cross" y1={T} y2={H - B} hidden></line>
+      <circle class="lc-dot lc-dot-cur" r="4.5" hidden></circle>
+      <circle class="lc-dot lc-dot-prev" r="4.5" hidden></circle>
+    </svg>
+    <div class="lc-tip" hidden></div>
+  </div>
+  <details class="lc-table">
+    <summary>טבלת נתונים</summary>
+    <div class="ad-scroll"><table class="ad-table"><thead><tr><th>יום</th><th class="ad-num">{unit}</th><th>יום קודם</th><th class="ad-num">{unit} (קודם)</th></tr></thead><tbody>
+      {pts.map((p) => <tr><td>{p.a}</td><td class="ad-num">{nf(p.v)}</td><td>{p.b}</td><td class="ad-num">{nf(p.p)}</td></tr>)}
+    </tbody></table></div>
+  </details>
+</figure>

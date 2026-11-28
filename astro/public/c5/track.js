@@ -50,6 +50,8 @@
       clicks.push([Math.round(e.pageX / w * 1000), Math.round(e.pageY)]);
       if (clicks.length >= 20) flushClicks();
     }, true);
+    // Heartbeat every 30 s while the visitor is on the page and active ("online now" + active time).
+    setInterval(function () { if (sentPv && document.visibilityState === 'visible' && Date.now() - last < 30000) send({ t: 'hb', d: active, s: maxScroll }); }, 30000);
     function flush() { flushClicks(); if (sentPv && active > 0) send({ t: 'eng', d: active, s: maxScroll }); }
     document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'hidden') flush(); });
     window.addEventListener('pagehide', flush);

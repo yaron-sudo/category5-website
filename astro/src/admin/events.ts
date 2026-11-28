@@ -51,7 +51,13 @@ export async function visitorId(ip: string, ua: string) {
   return sha(`${env('ANALYTICS_SALT') || env('ADMIN_SESSION_SECRET') || 'c5'}|${day}|${ip}|${ua}`)
 }
 
-export interface Ctx { ip: string; ua: string; ownHost: string; country: string }
+export function parseUa(ua: string): { browser: string; os: string } {
+  const browser = /Edg\//.test(ua) ? 'Edge' : /OPR\/|Opera/.test(ua) ? 'Opera' : /SamsungBrowser/.test(ua) ? 'Samsung' : /Firefox\/|FxiOS/.test(ua) ? 'Firefox' : /Chrome\/|CriOS/.test(ua) ? 'Chrome' : /Safari\//.test(ua) ? 'Safari' : 'אחר'
+  const os = /Windows/.test(ua) ? 'Windows' : /Android/.test(ua) ? 'Android' : /iPhone|iPad|iPod/.test(ua) ? 'iOS' : /Mac OS X|Macintosh/.test(ua) ? 'macOS' : /CrOS/.test(ua) ? 'ChromeOS' : /Linux/.test(ua) ? 'Linux' : 'אחר'
+  return { browser, os }
+}
+
+export interface Ctx { ip: string; ua: string; ownHost: string; country: string; city?: string; lang?: string }
 
 /** Stores one tracker message. Returns silently on anything it does not understand. */
 export async function ingest(raw: any, c: Ctx) {
@@ -74,14 +80,22 @@ export async function ingest(raw: any, c: Ctx) {
     const device = w && w < 700 ? 'mobile' : w && w < 1100 ? 'tablet' : 'desktop'
     const source = classify(refHost, c.ownHost.toLowerCase(), us, um, raw.g === 1)
     await q(
-      `INSERT INTO events (type, pid, path, vid, source, ref_host, utm_source, utm_medium, utm_campaign, country, device)
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11) ON CONFLICT DO NOTHING`,
-      [t, pid, path, vid, source, refHost && source !== 'internal' ? refHost.slice(0, 120) : null, us || null, um || null, uc || null, country, device],
+      `INSERT INTO events (type, pid, path, vid, source, ref_host, utm_source, utm_medium, utm_campaign, country, device, city, browser, os, lang, last_seen)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15, now()) ON CONFLICT DO NOTHING`,
+      [t, pid, path, vid, source, refHost && source !== 'internal' ? refHost.slice(0, 120) : null, us || null, um || null, uc || null, country, device,
+        clip(c.city, 60) || null, parseUa(c.ua).browser, parseUa(c.ua).os, /^[a-z]{2}$/.test(c.lang ?? '') ? c.lang : null],
     )
     if (Math.random() < 0.01) {
       await q(`DELETE FROM events WHERE day < (now() AT TIME ZONE 'Asia/Jerusalem')::date - $1::int`, [RETENTION_DAYS])
       await q(`DELETE FROM clicks WHERE day < (now() AT TIME ZONE 'Asia/Jerusalem')::date - $1::int`, [180])
     }
+    return
+  }
+  if (t === 'hb') {
+    // Heartbeat while the page is open and the visitor is active: keeps "online now" accurate and
+    // refreshes the active time even if the closing beacon never arrives (mobile browsers).
+    const dwell = Math.min(Math.max(0, Math.round(Number(raw.d) || 0)), 30 * 60_000), scroll = Math.min(100, Math.max(0, Math.round(Number(raw.s) || 0)))
+    await q(`UPDATE events SET last_seen = now(), dwell_ms = GREATEST(COALESCE(dwell_ms,0), $2), scroll = GREATEST(COALESCE(scroll,0), $3) WHERE pid = $1 AND type = 'pv'`, [pid, dwell, scroll])
     return
   }
   if (t === 'eng') {

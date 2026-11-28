@@ -1,109 +1,252 @@
 ---
 import AdminLayout from '@/layouts/AdminLayout.astro'
 import RangeBar from '@/components/admin/RangeBar.astro'
-import { overview, parseRange } from '@/admin/stats'
+import BarList from '@/components/admin/BarList.astro'
+import LineChart from '@/components/admin/LineChart.astro'
+import { dashboard, type Period } from '@/admin/dashboard'
+import { parseRange } from '@/admin/stats'
 import { can } from '@/admin/auth'
 import { q } from '@/admin/db'
 export const prerender = false
+
 const days = parseRange(Astro.url.searchParams.get('d'))
-const s = await overview(days)
+const d = await dashboard(days)
 // Shortcut to chat management (owners/admins): how many questions wait for review.
 const canChat = can(Astro.locals.admin!.role, 'chat.read')
 const todo = canChat ? Number((await q<{ n: string }>(`SELECT count(*) AS n FROM chat_turns WHERE review IS NULL AND (gap OR status IN ('no_results','declined','error'))`))[0].n) : 0
 
+const nf = (n: number) => n.toLocaleString('he-IL')
+const mmss = (s: number | null) => (s == null ? '—' : s >= 60 ? `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')} דק׳` : `${s} שנ׳`)
+const delta = (a: number, b: number) => (b === 0 ? (a === 0 ? { t: '—', c: '' } : { t: 'חדש', c: 'up' }) : { t: `${a >= b ? '▲' : '▼'} ${Math.abs(Math.round(((a - b) / b) * 100))}%`, c: a >= b ? 'up' : 'down' })
+const pagesPerVisit = (p: Period) => (p.visits ? (p.pv / p.visits).toFixed(1) : '—')
+
 const SRC: Record<string, string> = { direct: 'ישיר', google: 'גוגל', bing: 'Bing', 'search-other': 'מנועי חיפוש אחרים', facebook: 'פייסבוק', instagram: 'אינסטגרם', x: 'X', tiktok: 'TikTok', youtube: 'YouTube', linkedin: 'LinkedIn', whatsapp: 'וואטסאפ', email: 'דוא״ל', ai: 'כלי AI', campaign: 'קמפיינים (UTM / גוגל אדס)', referral: 'אתרים מפנים' }
 const DEV: Record<string, string> = { mobile: 'מובייל', tablet: 'טאבלט', desktop: 'דסקטופ' }
-const mmss = (sec: number | null) => (sec == null ? '—' : sec >= 60 ? `${Math.floor(sec / 60)}:${String(sec % 60).padStart(2, '0')} דק׳` : `${sec} שנ׳`)
-const nf = (n: number) => n.toLocaleString('he-IL')
+const LANG: Record<string, string> = { he: 'עברית', en: 'אנגלית', ru: 'רוסית', ar: 'ערבית', fr: 'צרפתית', es: 'ספרדית', de: 'גרמנית' }
+const DOW = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת']
+const rows = (a: { k: string; n: number; prev?: number }[], map: Record<string, string> = {}) => a.map((r) => ({ label: map[r.k] ?? r.k, n: r.n, prev: r.prev }))
 
-// A bar for every day of the range (days without traffic show as 0).
-const today = new Date().toLocaleDateString('sv-SE', { timeZone: 'Asia/Jerusalem' })
-const byDay = new Map(s.daily.map((d) => [d.day, d]))
-const series = Array.from({ length: days }, (_, i) => { const dt = new Date(`${today}T12:00:00Z`); dt.setUTCDate(dt.getUTCDate() - (days - 1 - i)); const k = dt.toISOString().slice(0, 10); return { day: k, visitors: byDay.get(k)?.visitors ?? 0, pv: byDay.get(k)?.pv ?? 0 } })
-const max = Math.max(1, ...series.map((d) => d.visitors))
-const W = 1000, H = 220, pad = 24, bw = (W - pad * 2) / series.length
-const total = (a: { n: number }[]) => a.reduce((x, y) => x + y.n, 0)
-const srcTotal = total(s.sources) || 1
-const pct = (n: number, t: number) => `${Math.round((n / t) * 100)}%`
+const cards = [
+  { id: 'today', title: 'היום', sub: 'עד עכשיו, מול אתמול עד אותה שעה', cur: d.today, prev: d.yesterday },
+  { id: 'week', title: '7 ימים אחרונים', sub: 'מול 7 הימים שלפניהם', cur: d.w7, prev: d.p7 },
+  { id: 'month', title: '30 ימים אחרונים', sub: 'מול 30 הימים שלפניהם', cur: d.w30, prev: d.p30 },
+]
+const hasData = d.range.pv > 0 || d.today.pv > 0 || d.w30.pv > 0 || d.live.now > 0
+
+// 24 hour columns and 7 weekday columns (SVG, thin bars anchored to the baseline).
+const bars = (vals: number[], labels: string[], unit: string) => {
+  const W = 1000, H = 150, B = 22, gap = 6, bw = (W - gap * (vals.length - 1)) / vals.length, max = Math.max(1, ...vals)
+  return { W, H, B, items: vals.map((v, i) => { const h = Math.round((v / max) * (H - B - 10)); return { x: i * (bw + gap), y: H - B - h, w: bw, h, label: labels[i], tip: `${labels[i]} · ${nf(v)} ${unit}` } }) }
+}
+const hourBars = bars(d.hours, d.hours.map((_, h) => String(h).padStart(2, '0') + ':00'), 'ביקורים')
+const dowBars = bars(d.dows, DOW, 'ביקורים')
 ---
-<AdminLayout title="סקירה" nav="home">
-  <h1>סקירה</h1>
+<AdminLayout title="דשבורד" nav="home">
+  <div class="ad-dh">
+    <h1>דשבורד</h1>
+    <span class="ad-stamp" role="status"><i class="live-dot" aria-hidden="true"></i>מתעדכן אוטומטית · <span data-stamp>עודכן עכשיו</span></span>
+  </div>
   {canChat && (
     <a class="ad-shortcut" href="/admin/chat">
       <span><b>ניהול הצ'אט</b><br />שאלות ושיחות, בדיקה ותשובות מאושרות</span>
-      <span class="ad-shortcut-n">{todo > 0 ? `${todo.toLocaleString('he-IL')} ממתינות לבדיקה` : 'אין שאלות שממתינות'}</span>
+      <span class="ad-shortcut-n">{todo > 0 ? `${nf(todo)} ממתינות לבדיקה` : 'אין שאלות שממתינות'}</span>
     </a>
   )}
   <RangeBar days={days} base="/admin" />
-  {s.pv === 0 ? (
-    <p class="ad-empty">אין עדיין נתונים בטווח הזה. הנתונים מתחילים להצטבר מרגע שהסקריפט פעיל באתר. מבקרים שביקשו שלא לעקוב אחריהם (Do Not Track / GPC) ובוטים אינם נספרים.</p>
-  ) : (
-    <>
-      <div class="ad-kpis">
-        <div class="ad-kpi"><b>{nf(s.visitors)}</b><span>מבקרים (ייחודיים לכל יום)</span></div>
-        <div class="ad-kpi"><b>{nf(s.pv)}</b><span>צפיות בעמודים</span></div>
-        <div class="ad-kpi"><b>{mmss(s.dwell)}</b><span>זמן גלישה ממוצע בעמוד</span></div>
-        <div class="ad-kpi"><b>{s.scroll == null ? '—' : `${s.scroll}%`}</b><span>עומק גלילה ממוצע</span></div>
-      </div>
 
-      <h2>מבקרים לפי יום</h2>
-      <svg class="ad-bars" viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`מבקרים לפי יום, ${days} ימים אחרונים, מקסימום ${max} ביום`}>
-        <line x1={pad} y1={H - 28} x2={W - pad} y2={H - 28} stroke="#dcdcd9" />
-        {series.map((d, i) => {
-          const h = Math.round((d.visitors / max) * (H - 70))
-          return <g><title>{`${d.day}: ${d.visitors} מבקרים, ${d.pv} צפיות`}</title><rect x={W - pad - (i + 1) * bw + 1.5} y={H - 28 - h} width={Math.max(bw - 3, 1)} height={h} fill="#141414" /></g>
-        })}
-        <text x={pad} y={H - 8} font-size="13" fill="#141414">{series[series.length - 1].day}</text>
-        <text x={W - pad} y={H - 8} font-size="13" fill="#141414" text-anchor="end">{series[0].day}</text>
-        <text x={W - pad} y="16" font-size="13" fill="#141414" text-anchor="end">{max}</text>
-      </svg>
+  <div id="dash">
+    {!hasData ? (
+      <p class="ad-empty">אין עדיין נתונים. הנתונים מתחילים להצטבר מרגע שהסקריפט פעיל באתר. מבקרים שביקשו שלא לעקוב אחריהם (Do Not Track / GPC) ובוטים אינם נספרים.</p>
+    ) : (
+      <>
+        <section class="live" aria-label="גולשים עכשיו">
+          <div class="live-n"><i class="live-dot" aria-hidden="true"></i><b data-live-n>{nf(d.live.now)}</b><span>גולשים באתר עכשיו<br /><small>פעילים ב-5 הדקות האחרונות</small></span></div>
+          <div class="live-pages">
+            <span class="ad-muted">העמודים שנצפים עכשיו</span>
+            <ul data-live-pages>{d.live.pages.length ? d.live.pages.map((p) => <li><a class="ltr" href={p.path}>{p.path}</a><span>{p.n}</span></li>) : <li class="ad-muted">אין גולשים פעילים כרגע.</li>}</ul>
+          </div>
+        </section>
 
-      <div class="ad-grid2">
-        <section>
-          <h2>מקורות הגעה</h2>
-          <div class="ad-scroll"><table class="ad-table"><thead><tr><th>מקור</th><th class="ad-num">מבקרים</th><th class="ad-num">חלק</th></tr></thead><tbody>
-            {s.sources.map((r) => <tr><td>{SRC[r.source] ?? r.source}</td><td class="ad-num">{nf(r.n)}</td><td class="ad-num">{pct(r.n, srcTotal)}</td></tr>)}
-          </tbody></table></div>
-        </section>
-        <section>
-          <h2>אתרים מפנים</h2>
-          {s.referrers.length ? <div class="ad-scroll"><table class="ad-table"><thead><tr><th>אתר</th><th class="ad-num">צפיות</th></tr></thead><tbody>
-            {s.referrers.map((r) => <tr><td class="ltr">{r.host}</td><td class="ad-num">{nf(r.n)}</td></tr>)}
-          </tbody></table></div> : <p class="ad-empty">אין הפניות מאתרים חיצוניים בטווח.</p>}
-        </section>
-      </div>
+        <div class="pcards">
+          {cards.map((c) => {
+            const v = delta(c.cur.visits, c.prev.visits), pv = delta(c.cur.pv, c.prev.pv)
+            return (
+              <section class="pcard" aria-label={c.title}>
+                <h2>{c.title}</h2>
+                <p class="pcard-sub">{c.sub}</p>
+                <p class="pcard-big"><b>{nf(c.cur.visits)}</b> <span>כניסות</span> <em class={`dl ${v.c}`}>{v.t}</em></p>
+                <p class="pcard-prev">קודם: {nf(c.prev.visits)}</p>
+                <dl class="pcard-dl">
+                  <div><dt>צפיות בעמודים</dt><dd>{nf(c.cur.pv)} <em class={`dl ${pv.c}`}>{pv.t}</em></dd></div>
+                  <div><dt>זמן גלישה ממוצע לביקור</dt><dd>{mmss(c.cur.visitSec)}</dd></div>
+                  <div><dt>עמודים לביקור</dt><dd>{pagesPerVisit(c.cur)}</dd></div>
+                </dl>
+              </section>
+            )
+          })}
+        </div>
+        <p class="ad-muted">כניסה = ביקור של גולש אחד ביום (גולש שחוזר באותו יום נספר פעם אחת).</p>
 
-      {s.campaigns.length > 0 && (
-        <section>
-          <h2>קמפיינים</h2>
-          <div class="ad-scroll"><table class="ad-table"><thead><tr><th>מקור</th><th>מדיום</th><th>קמפיין</th><th class="ad-num">צפיות</th></tr></thead><tbody>
-            {s.campaigns.map((r) => <tr><td class="ltr">{r.s}</td><td class="ltr">{r.m}</td><td class="ltr">{r.c}</td><td class="ad-num">{nf(r.n)}</td></tr>)}
-          </tbody></table></div>
-        </section>
-      )}
+        <h2>בטווח של {days} ימים</h2>
+        <div class="ad-kpis">
+          <div class="ad-kpi"><b>{nf(d.range.visits)}</b><span>מבקרים (כניסות ייחודיות ליום)</span></div>
+          <div class="ad-kpi"><b>{nf(d.range.pv)}</b><span>צפיות בעמודים</span></div>
+          <div class="ad-kpi"><b>{mmss(d.range.visitSec)}</b><span>זמן גלישה ממוצע לביקור</span></div>
+          <div class="ad-kpi"><b>{mmss(d.range.pageSec)}</b><span>זמן גלישה ממוצע בעמוד</span></div>
+          <div class="ad-kpi"><b>{d.range.scroll == null ? '—' : `${d.range.scroll}%`}</b><span>עומק גלילה ממוצע</span></div>
+          <div class="ad-kpi"><b>{d.range.singleShare}%</b><span>ביקורים של עמוד אחד</span></div>
+        </div>
 
-      <h2>עמודים מובילים</h2>
-      <div class="ad-scroll"><table class="ad-table"><thead><tr><th>עמוד</th><th class="ad-num">צפיות</th><th class="ad-num">מבקרים</th><th class="ad-num">זמן ממוצע</th><th class="ad-num">גלילה</th></tr></thead><tbody>
-        {s.pages.map((r) => <tr><td class="ltr"><a href={r.path}>{r.path}</a></td><td class="ad-num">{nf(r.pv)}</td><td class="ad-num">{nf(r.visitors)}</td><td class="ad-num">{mmss(r.dwell)}</td><td class="ad-num">{r.scroll == null ? '—' : `${r.scroll}%`}</td></tr>)}
-      </tbody></table></div>
+        <h2>מגמה: התקופה הנוכחית מול הקודמת</h2>
+        <LineChart title="כניסות לפי יום" unit="כניסות" days={d.trend.map((t) => t.day)} cur={d.trend.map((t) => t.visits)} prevDays={d.trend.map((t) => t.prevDay)} prev={d.trend.map((t) => t.prevVisits)} />
+        <LineChart title="צפיות בעמודים לפי יום" unit="צפיות" days={d.trend.map((t) => t.day)} cur={d.trend.map((t) => t.pv)} prevDays={d.trend.map((t) => t.prevDay)} prev={d.trend.map((t) => t.prevPv)} />
 
-      <div class="ad-grid2">
-        <section>
-          <h2>מכשירים</h2>
-          <div class="ad-scroll"><table class="ad-table"><tbody>{s.devices.map((r) => <tr><td>{DEV[r.device] ?? r.device}</td><td class="ad-num">{nf(r.n)}</td><td class="ad-num">{pct(r.n, total(s.devices) || 1)}</td></tr>)}</tbody></table></div>
-        </section>
-        <section>
-          <h2>מדינות</h2>
-          <div class="ad-scroll"><table class="ad-table"><tbody>{s.countries.map((r) => <tr><td class="ltr">{r.country}</td><td class="ad-num">{nf(r.n)}</td></tr>)}</tbody></table></div>
-        </section>
-      </div>
-      <p class="ad-muted">המבקר נספר לפי מזהה אנונימי שמתחלף מדי יום ואינו נשמר בעוגייה, ולכן אותו אדם בשני ימים נספר פעמיים. זמן הגלישה הוא זמן פעיל בלבד.</p>
-    </>
-  )}
+        <div class="ad-grid2">
+          <section>
+            <h2>מקורות הגעה לפי סוג</h2>
+            <BarList rows={rows(d.sources, SRC)} empty="אין נתוני מקורות בטווח." />
+            <p class="ad-muted">החץ מראה שינוי לעומת התקופה הקודמת באותו אורך.</p>
+          </section>
+          <section>
+            <h2>אתרים מפנים</h2>
+            <BarList rows={rows(d.referrers)} ltr empty="אין הפניות מאתרים חיצוניים בטווח." />
+          </section>
+        </div>
+
+        {d.campaigns.length > 0 && (
+          <section>
+            <h2>קמפיינים</h2>
+            <div class="ad-scroll"><table class="ad-table"><thead><tr><th>מקור</th><th>מדיום</th><th>קמפיין</th><th class="ad-num">צפיות</th></tr></thead><tbody>
+              {d.campaigns.map((r) => <tr><td class="ltr">{r.s}</td><td class="ltr">{r.m}</td><td class="ltr">{r.c}</td><td class="ad-num">{nf(r.n)}</td></tr>)}
+            </tbody></table></div>
+          </section>
+        )}
+
+        <div class="ad-grid2">
+          <section>
+            <h2>ערים</h2>
+            <BarList rows={rows(d.cities)} empty="אין עדיין נתוני מיקום. הם מגיעים מהכתובת של הגולש (עיר בלבד, הכתובת עצמה לא נשמרת) ונצברים בגלישה חדשה." />
+          </section>
+          <section>
+            <h2>מדינות</h2>
+            <BarList rows={rows(d.countries)} ltr empty="אין נתוני מדינה." />
+          </section>
+        </div>
+
+        <h2>מתי גולשים</h2>
+        <div class="ad-grid2">
+          <figure class="bc">
+            <figcaption>לפי שעה ביום (שעון ישראל)</figcaption>
+            <svg viewBox={`0 0 ${hourBars.W} ${hourBars.H}`} role="img" aria-label="כניסות לפי שעה ביום" dir="ltr">
+              <line x1="0" x2={hourBars.W} y1={hourBars.H - hourBars.B} y2={hourBars.H - hourBars.B} class="lc-grid" />
+              {hourBars.items.map((b, i) => <rect x={b.x} y={b.y} width={b.w} height={Math.max(b.h, 1)} rx="2" class="bc-bar" data-tip={b.tip} />)}
+              {[0, 6, 12, 18, 23].map((h) => <text x={hourBars.items[h].x + hourBars.items[h].w / 2} y={hourBars.H - 5} text-anchor="middle" class="lc-axis">{String(h).padStart(2, '0')}</text>)}
+            </svg>
+          </figure>
+          <figure class="bc">
+            <figcaption>לפי יום בשבוע</figcaption>
+            <svg viewBox={`0 0 ${dowBars.W} ${dowBars.H}`} role="img" aria-label="כניסות לפי יום בשבוע" dir="rtl">
+              <line x1="0" x2={dowBars.W} y1={dowBars.H - dowBars.B} y2={dowBars.H - dowBars.B} class="lc-grid" />
+              {dowBars.items.map((b) => <rect x={dowBars.W - b.x - b.w} y={b.y} width={b.w} height={Math.max(b.h, 1)} rx="2" class="bc-bar" data-tip={b.tip} />)}
+              {dowBars.items.map((b, i) => <text x={dowBars.W - b.x - b.w / 2} y={dowBars.H - 5} text-anchor="middle" class="lc-axis">{DOW[i]}</text>)}
+            </svg>
+          </figure>
+        </div>
+
+        <div class="ad-grid2">
+          <section>
+            <h2>דפי נחיתה</h2>
+            <BarList rows={rows(d.landing)} ltr empty="אין נתונים." />
+            <p class="ad-muted">העמוד שבו התחילה הכניסה (לא מניווט פנימי).</p>
+          </section>
+          <section>
+            <h2>מכשירים</h2>
+            <BarList rows={rows(d.devices, DEV)} />
+          </section>
+        </div>
+
+        <h2>עמודים מובילים</h2>
+        <div class="ad-scroll"><table class="ad-table"><thead><tr><th>עמוד</th><th class="ad-num">צפיות</th><th class="ad-num">כניסות</th><th class="ad-num">זמן ממוצע</th><th class="ad-num">גלילה</th></tr></thead><tbody>
+          {d.pages.map((r) => <tr><td class="ltr"><a href={r.path}>{r.path}</a></td><td class="ad-num">{nf(r.pv)}</td><td class="ad-num">{nf(r.visits)}</td><td class="ad-num">{mmss(r.dwell)}</td><td class="ad-num">{r.scroll == null ? '—' : `${r.scroll}%`}</td></tr>)}
+        </tbody></table></div>
+
+        <div class="ad-grid2">
+          <section><h2>דפדפנים</h2><BarList rows={rows(d.browsers)} ltr /></section>
+          <section><h2>מערכות הפעלה</h2><BarList rows={rows(d.systems)} ltr /></section>
+        </div>
+        <section><h2>שפת הדפדפן</h2><BarList rows={rows(d.langs, LANG)} /></section>
+
+        <p class="ad-muted">הגולש נספר לפי מזהה אנונימי שמתחלף מדי יום ואינו נשמר בעוגייה, ולכן אותו אדם בשני ימים נספר פעמיים. זמן הגלישה הוא זמן פעיל בלבד. "גולשים עכשיו" הם מי שהיו פעילים ב-5 הדקות האחרונות.</p>
+      </>
+    )}
+  </div>
 </AdminLayout>
 
-<style is:global>
-  .ad-shortcut { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; background: #fff; border: 1px solid #141414; border-radius: 4px; padding: 16px 20px; margin-bottom: 20px; text-decoration: none; transition: background .45s cubic-bezier(.22,.61,.36,1), color .45s cubic-bezier(.22,.61,.36,1); }
-  .ad-shortcut:hover { background: #141414; color: #fff; }
-  .ad-shortcut-n { font-size: 15px; }
-</style>
+<div class="lc-global-tip" data-gtip hidden></div>
+
+<script is:inline>
+(function () {
+  var NF = new Intl.NumberFormat('he-IL');
+  function stamp() { var el = document.querySelector('[data-stamp]'); if (el) el.textContent = 'עודכן ' + new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit', second: '2-digit' }); }
+
+  // ---- generic tooltip for bars ([data-tip]) -------------------------------------------------------
+  var gt = document.querySelector('[data-gtip]');
+  document.addEventListener('pointerover', function (e) {
+    var t = e.target.closest && e.target.closest('[data-tip]'); if (!t) return;
+    gt.textContent = t.getAttribute('data-tip'); gt.hidden = false;
+  });
+  document.addEventListener('pointermove', function (e) {
+    if (gt.hidden) return; gt.style.left = (e.clientX + 14) + 'px'; gt.style.top = (e.clientY + 14) + 'px';
+  });
+  document.addEventListener('pointerout', function (e) { if (e.target.closest && e.target.closest('[data-tip]')) gt.hidden = true; });
+
+  // ---- line charts: crosshair + tooltip (delegated, survives the periodic refresh) --------------------
+  document.addEventListener('pointermove', function (e) {
+    var plot = e.target.closest && e.target.closest('.lc-plot'); if (!plot) return;
+    var fig = plot.closest('.lc'), pts = JSON.parse(fig.getAttribute('data-points')), W = +fig.dataset.w, H = +fig.dataset.h, L = +fig.dataset.l, R = +fig.dataset.r, T = +fig.dataset.t, B = +fig.dataset.b, max = +fig.dataset.max;
+    var svg = plot.querySelector('svg'), rect = svg.getBoundingClientRect(), sx = (e.clientX - rect.left) / rect.width * W;
+    var i = Math.round((sx - L) / (W - L - R) * (pts.length - 1)); i = Math.max(0, Math.min(pts.length - 1, i));
+    var px = L + i * (W - L - R) / Math.max(pts.length - 1, 1), yv = function (v) { return T + (H - T - B) * (1 - v / max); };
+    var cross = svg.querySelector('.lc-cross'), dc = svg.querySelector('.lc-dot-cur'), dp = svg.querySelector('.lc-dot-prev'), tip = plot.querySelector('.lc-tip');
+    cross.setAttribute('x1', px); cross.setAttribute('x2', px); cross.hidden = false;
+    dc.setAttribute('cx', px); dc.setAttribute('cy', yv(pts[i].v)); dc.hidden = false;
+    dp.setAttribute('cx', px); dp.setAttribute('cy', yv(pts[i].p)); dp.hidden = false;
+    var ch = pts[i].p === 0 ? '' : ' (' + (pts[i].v >= pts[i].p ? '▲ ' : '▼ ') + Math.abs(Math.round((pts[i].v - pts[i].p) / pts[i].p * 100)) + '%)';
+    tip.innerHTML = '<b></b><div class="t1"></div><div class="t2"></div>';
+    tip.querySelector('b').textContent = pts[i].a;
+    tip.querySelector('.t1').textContent = 'נוכחית: ' + NF.format(pts[i].v) + ch;
+    tip.querySelector('.t2').textContent = 'קודמת (' + pts[i].b + '): ' + NF.format(pts[i].p);
+    tip.hidden = false;
+    var left = (px / W) * rect.width; tip.style.left = Math.min(Math.max(left + 12, 0), rect.width - tip.offsetWidth) + 'px'; tip.style.top = '8px';
+  });
+  document.addEventListener('pointerout', function (e) {
+    var plot = e.target.closest && e.target.closest('.lc-plot'); if (!plot || plot.contains(e.relatedTarget)) return;
+    plot.querySelectorAll('.lc-cross,.lc-dot,.lc-tip').forEach(function (n) { n.hidden = true; });
+  });
+
+  // ---- "online now": every 10 s; the whole dashboard re-renders every 45 s while the tab is visible ---------
+  function pollLive() {
+    if (document.hidden) return;
+    fetch('/api/admin/live', { credentials: 'same-origin' }).then(function (r) { return r.json(); }).then(function (j) {
+      if (j.now == null) return;
+      var n = document.querySelector('[data-live-n]'); if (n) n.textContent = NF.format(j.now);
+      var ul = document.querySelector('[data-live-pages]');
+      if (ul) {
+        ul.textContent = '';
+        if (!j.pages.length) { var li0 = document.createElement('li'); li0.className = 'ad-muted'; li0.textContent = 'אין גולשים פעילים כרגע.'; ul.appendChild(li0); }
+        j.pages.forEach(function (p) { var li = document.createElement('li'), a = document.createElement('a'), s = document.createElement('span'); a.className = 'ltr'; a.href = p.path; a.textContent = p.path; s.textContent = p.n; li.appendChild(a); li.appendChild(s); ul.appendChild(li); });
+      }
+      stamp();
+    }).catch(function () {});
+  }
+  function refresh() {
+    if (document.hidden) return;
+    fetch(location.href, { credentials: 'same-origin' }).then(function (r) { return r.text(); }).then(function (html) {
+      var doc = new DOMParser().parseFromString(html, 'text/html'), nd = doc.getElementById('dash'), cd = document.getElementById('dash');
+      if (nd && cd) { var open = Array.prototype.map.call(cd.querySelectorAll('details'), function (d) { return d.open; }); cd.innerHTML = nd.innerHTML; cd.querySelectorAll('details').forEach(function (d, i) { d.open = !!open[i]; }); stamp(); }
+    }).catch(function () {});
+  }
+  setInterval(pollLive, 10000); setInterval(refresh, 45000);
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) { pollLive(); } });
+})();
+</script>

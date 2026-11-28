@@ -64,6 +64,12 @@ const SCHEMA = [
      dwell_ms int,
      scroll int
    )`,
+  `ALTER TABLE events ADD COLUMN IF NOT EXISTS city text`,
+  `ALTER TABLE events ADD COLUMN IF NOT EXISTS browser text`,
+  `ALTER TABLE events ADD COLUMN IF NOT EXISTS os text`,
+  `ALTER TABLE events ADD COLUMN IF NOT EXISTS lang text`,
+  `ALTER TABLE events ADD COLUMN IF NOT EXISTS last_seen timestamptz`,
+  `CREATE INDEX IF NOT EXISTS events_at ON events (at)`,
   `CREATE INDEX IF NOT EXISTS events_day_type ON events (day, type)`,
   `CREATE UNIQUE INDEX IF NOT EXISTS events_pid ON events (pid) WHERE type IN ('pv','nf')`,
   `CREATE TABLE IF NOT EXISTS chat_turns (

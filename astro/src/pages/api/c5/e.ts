@@ -18,7 +18,12 @@ export const POST: APIRoute = async ({ request, clientAddress, url }) => {
     if (text.length > 2000) return done()
     let ip = ''
     try { ip = clientAddress } catch { ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? '' }
-    await ingest(JSON.parse(text), { ip, ua, ownHost: url.hostname, country: (request.headers.get('x-vercel-ip-country') || '').toUpperCase() })
+    let city = request.headers.get('x-vercel-ip-city') || ''
+    try { city = decodeURIComponent(city) } catch { /* keep as is */ }
+    await ingest(JSON.parse(text), {
+      ip, ua, ownHost: url.hostname, country: (request.headers.get('x-vercel-ip-country') || '').toUpperCase(), city,
+      lang: (request.headers.get('accept-language') || '').slice(0, 2).toLowerCase(),
+    })
   } catch (e) {
     if (!warned) { warned = true; console.warn('[c5 analytics] ingest failed (logged once):', (e as Error).message) }
   }
