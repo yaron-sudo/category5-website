@@ -39,7 +39,7 @@ const W = 1000, H = 160, pad = 24, bw = (W - pad * 2) / series.length
       <h2>שאלות לפי יום</h2>
       <svg class="ad-bars" viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`שאלות לפי יום, מקסימום ${max}`}>
         <line x1={pad} y1={H - 24} x2={W - pad} y2={H - 24} stroke="#dcdcd9" />
-        {series.map((d, i) => <rect aria-label={d.day + ': ' + d.n} x={W - pad - (i + 1) * bw + 1.5} y={H - 24 - Math.round((d.n / max) * (H - 50))} width={Math.max(bw - 3, 1)} height={Math.round((d.n / max) * (H - 50))} fill="#141414" />)}
+        {series.map((d, i) => <rect aria-label={d.day + ': ' + d.n} x={W - pad - (i + 1) * bw + 1.5} y={H - 24 - Math.round((d.n / max) * (H - 50))} width={Math.max(bw - 3, 1)} height={Math.round((d.n / max) * (H - 50))} fill="#003e21" />)}
       </svg>
       <div class="ad-grid2">
         <section><h2>סטטוס תשובות</h2><div class="ad-scroll"><table class="ad-table"><tbody>{o.byStatus.map((r) => <tr><td>{ST[r.status] ?? r.status}</td><td class="ad-num">{nf(r.n)}</td></tr>)}</tbody></table></div></section>

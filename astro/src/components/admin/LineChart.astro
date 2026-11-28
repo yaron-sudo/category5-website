@@ -2,8 +2,8 @@
 // Line chart of one measure over the days of the selected range: the current period (solid) against
 // the equally long period before it (dashed). One y-axis, thin lines, a legend, a hover crosshair
 // with tooltip (script in pages/admin/index.astro) and a data table for screen readers.
-interface Props { title: string; unit: string; days: string[]; cur: number[]; prevDays: string[]; prev: number[] }
-const { title, unit, days, cur, prevDays, prev } = Astro.props
+interface Props { title: string; unit: string; days: string[]; cur: number[]; prevDays: string[]; prev: number[]; color?: 'green' | 'plum' | 'gold' | 'blue' }
+const { title, unit, days, cur, prevDays, prev, color = 'green' } = Astro.props
 const W = 1000, H = 250, L = 46, R = 14, T = 14, B = 30
 const nice = (v: number) => { if (v <= 4) return 4; const p = 10 ** Math.floor(Math.log10(v)); const m = v / p; return (m <= 1 ? 1 : m <= 2 ? 2 : m <= 4 ? 4 : m <= 5 ? 5 : 10) * p }
 const max = nice(Math.max(1, ...cur, ...prev))
@@ -18,7 +18,7 @@ const grid = [0, 0.5, 1].map((f) => ({ y: y(max * f), label: nf(Math.round(max *
 const xl = [0, Math.floor((n - 1) / 2), n - 1].map((i) => ({ x: x(i), label: fmtDay(days[i]) }))
 const totalCur = cur.reduce((a, b) => a + b, 0), totalPrev = prev.reduce((a, b) => a + b, 0)
 ---
-<figure class="lc" data-points={JSON.stringify(pts)} data-w={W} data-h={H} data-l={L} data-r={R} data-t={T} data-b={B} data-max={max} data-unit={unit}>
+<figure class={`lc lc-${color}`} data-points={JSON.stringify(pts)} data-w={W} data-h={H} data-l={L} data-r={R} data-t={T} data-b={B} data-max={max} data-unit={unit}>
   <figcaption class="lc-head">
     <span class="lc-title">{title}</span>
     <span class="lc-legend"><i class="lg cur"></i>תקופה נוכחית ({nf(totalCur)})<i class="lg prev"></i>תקופה קודמת ({nf(totalPrev)})</span>

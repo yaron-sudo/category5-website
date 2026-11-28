@@ -112,3 +112,54 @@ body.ad { margin: 0; background: #f7f7f5; color: #141414; font: 400 17px/1.6 "C5
 /* the `hidden` attribute does not hide SVG elements */
 .lc-cross[hidden], .lc-dot[hidden] { display: none; }
 .bc .lc-axis { font-size: 24px; }
+
+/* ---- series colours (BRIEF §2): green #003e21 · gold #d5a425 · blue #85bbe6 · plum #4d0333 ---------------
+   The admin is outside the public brief; here the four series colours add identity to charts, bars and
+   accents. Text stays #141414 everywhere; every number is also written out, so colour never carries meaning alone. */
+:root { --c-green: #003e21; --c-gold: #d5a425; --c-blue: #85bbe6; --c-plum: #4d0333; }
+.ad-bar { position: sticky; }
+.ad-bar::before { content: ""; position: absolute; top: 0; inset-inline: 0; height: 4px; background: linear-gradient(to left, var(--c-green) 0 25%, var(--c-gold) 25% 50%, var(--c-blue) 50% 75%, var(--c-plum) 75% 100%); }
+.ad-bar nav a:hover, .ad-bar nav a[aria-current] { border-bottom-color: var(--c-gold); border-bottom-width: 2px; }
+.ad-role { background: rgba(133, 187, 230, .35); }
+.ad-note { border-inline-start: 6px solid var(--c-blue); }
+.ad-range a[aria-current] { background: var(--c-green); color: #fff; }
+.ad-range a:hover:not([aria-current]) { background: rgba(213, 164, 37, .22); }
+.ad-btn[aria-pressed="true"] { background: var(--c-green); border-color: var(--c-green); color: #fff; }
+.ad-login .ad-panel { border-top: 4px solid var(--c-green); }
+
+/* live + period cards + KPIs */
+.live { border-inline-start: 5px solid var(--c-green); }
+.live-dot { background: var(--c-green); }
+.live-dot::after { border-color: var(--c-green); }
+.pcard { border-top: 4px solid var(--c-green); }
+.pcard-gold { border-top-color: var(--c-gold); }
+.pcard-plum { border-top-color: var(--c-plum); }
+.pcard-big b { color: #141414; }
+.dl, .dl.down { border-color: transparent; background: rgba(133, 187, 230, .35); }
+.dl.down { background: #efeeea; border-color: #dcdcd9; }
+.ad-kpi { border-inline-start: 4px solid var(--c-green); }
+.ad-kpi.k-gold { border-inline-start-color: var(--c-gold); }
+.ad-kpi.k-blue { border-inline-start-color: var(--c-blue); }
+.ad-kpi.k-plum { border-inline-start-color: var(--c-plum); }
+.ad-shortcut { border-inline-start: 6px solid var(--c-plum); }
+.ad-shortcut:hover { background: var(--c-plum); border-color: var(--c-plum); }
+
+/* bars */
+.bl-green .bl-bar { background: var(--c-green); } .bl-gold .bl-bar { background: var(--c-gold); }
+.bl-blue .bl-bar { background: var(--c-blue); } .bl-plum .bl-bar { background: var(--c-plum); }
+.bc-green { fill: var(--c-green); } .bc-gold { fill: var(--c-gold); }
+.bc-bar:hover { opacity: .75; fill: currentColor; }
+.bc-green:hover { fill: var(--c-green); } .bc-gold:hover { fill: var(--c-gold); }
+
+/* line charts: the current period wears the series colour, the previous period stays neutral and dashed */
+.lc-green .lc-cur { stroke: var(--c-green); } .lc-green .lg.cur { border-top-color: var(--c-green); } .lc-green .lc-dot-cur { fill: var(--c-green); }
+.lc-plum .lc-cur { stroke: var(--c-plum); } .lc-plum .lg.cur { border-top-color: var(--c-plum); } .lc-plum .lc-dot-cur { fill: var(--c-plum); }
+.lc-gold .lc-cur { stroke: var(--c-gold); } .lc-gold .lg.cur { border-top-color: var(--c-gold); } .lc-gold .lc-dot-cur { fill: var(--c-gold); }
+.lc-blue .lc-cur { stroke: var(--c-blue); } .lc-blue .lg.cur { border-top-color: var(--c-blue); } .lc-blue .lc-dot-cur { fill: var(--c-blue); }
+.lc .lg.cur { border-top-width: 3px; }
+.lc-cur { stroke-width: 2.5; }
+/* KPI accents: the shared .ad-kpi rule is declared later (RangeBar.astro), so raise the specificity */
+.ad-kpis .ad-kpi { border-inline-start: 4px solid var(--c-green); }
+.ad-kpis .ad-kpi.k-gold { border-inline-start-color: var(--c-gold); }
+.ad-kpis .ad-kpi.k-blue { border-inline-start-color: var(--c-blue); }
+.ad-kpis .ad-kpi.k-plum { border-inline-start-color: var(--c-plum); }

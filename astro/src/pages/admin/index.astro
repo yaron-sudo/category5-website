@@ -27,9 +27,9 @@ const DOW = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', '
 const rows = (a: { k: string; n: number; prev?: number }[], map: Record<string, string> = {}) => a.map((r) => ({ label: map[r.k] ?? r.k, n: r.n, prev: r.prev }))
 
 const cards = [
-  { id: 'today', title: 'היום', sub: 'עד עכשיו, מול אתמול עד אותה שעה', cur: d.today, prev: d.yesterday },
-  { id: 'week', title: '7 ימים אחרונים', sub: 'מול 7 הימים שלפניהם', cur: d.w7, prev: d.p7 },
-  { id: 'month', title: '30 ימים אחרונים', sub: 'מול 30 הימים שלפניהם', cur: d.w30, prev: d.p30 },
+  { id: 'today', accent: 'green', title: 'היום', sub: 'עד עכשיו, מול אתמול עד אותה שעה', cur: d.today, prev: d.yesterday },
+  { id: 'week', accent: 'gold', title: '7 ימים אחרונים', sub: 'מול 7 הימים שלפניהם', cur: d.w7, prev: d.p7 },
+  { id: 'month', accent: 'plum', title: '30 ימים אחרונים', sub: 'מול 30 הימים שלפניהם', cur: d.w30, prev: d.p30 },
 ]
 const hasData = d.range.pv > 0 || d.today.pv > 0 || d.w30.pv > 0 || d.live.now > 0
 
@@ -71,7 +71,7 @@ const dowBars = bars(d.dows, DOW, 'ביקורים')
           {cards.map((c) => {
             const v = delta(c.cur.visits, c.prev.visits), pv = delta(c.cur.pv, c.prev.pv)
             return (
-              <section class="pcard" aria-label={c.title}>
+              <section class={`pcard pcard-${c.accent}`} aria-label={c.title}>
                 <h2>{c.title}</h2>
                 <p class="pcard-sub">{c.sub}</p>
                 <p class="pcard-big"><b>{nf(c.cur.visits)}</b> <span>כניסות</span> <em class={`dl ${v.c}`}>{v.t}</em></p>
@@ -89,27 +89,27 @@ const dowBars = bars(d.dows, DOW, 'ביקורים')
 
         <h2>בטווח של {days} ימים</h2>
         <div class="ad-kpis">
-          <div class="ad-kpi"><b>{nf(d.range.visits)}</b><span>מבקרים (כניסות ייחודיות ליום)</span></div>
-          <div class="ad-kpi"><b>{nf(d.range.pv)}</b><span>צפיות בעמודים</span></div>
-          <div class="ad-kpi"><b>{mmss(d.range.visitSec)}</b><span>זמן גלישה ממוצע לביקור</span></div>
-          <div class="ad-kpi"><b>{mmss(d.range.pageSec)}</b><span>זמן גלישה ממוצע בעמוד</span></div>
-          <div class="ad-kpi"><b>{d.range.scroll == null ? '—' : `${d.range.scroll}%`}</b><span>עומק גלילה ממוצע</span></div>
-          <div class="ad-kpi"><b>{d.range.singleShare}%</b><span>ביקורים של עמוד אחד</span></div>
+          <div class="ad-kpi k-green"><b>{nf(d.range.visits)}</b><span>מבקרים (כניסות ייחודיות ליום)</span></div>
+          <div class="ad-kpi k-plum"><b>{nf(d.range.pv)}</b><span>צפיות בעמודים</span></div>
+          <div class="ad-kpi k-gold"><b>{mmss(d.range.visitSec)}</b><span>זמן גלישה ממוצע לביקור</span></div>
+          <div class="ad-kpi k-blue"><b>{mmss(d.range.pageSec)}</b><span>זמן גלישה ממוצע בעמוד</span></div>
+          <div class="ad-kpi k-green"><b>{d.range.scroll == null ? '—' : `${d.range.scroll}%`}</b><span>עומק גלילה ממוצע</span></div>
+          <div class="ad-kpi k-plum"><b>{d.range.singleShare}%</b><span>ביקורים של עמוד אחד</span></div>
         </div>
 
         <h2>מגמה: התקופה הנוכחית מול הקודמת</h2>
         <LineChart title="כניסות לפי יום" unit="כניסות" days={d.trend.map((t) => t.day)} cur={d.trend.map((t) => t.visits)} prevDays={d.trend.map((t) => t.prevDay)} prev={d.trend.map((t) => t.prevVisits)} />
-        <LineChart title="צפיות בעמודים לפי יום" unit="צפיות" days={d.trend.map((t) => t.day)} cur={d.trend.map((t) => t.pv)} prevDays={d.trend.map((t) => t.prevDay)} prev={d.trend.map((t) => t.prevPv)} />
+        <LineChart title="צפיות בעמודים לפי יום" unit="צפיות" days={d.trend.map((t) => t.day)} cur={d.trend.map((t) => t.pv)} prevDays={d.trend.map((t) => t.prevDay)} prev={d.trend.map((t) => t.prevPv)} color="plum" />
 
         <div class="ad-grid2">
           <section>
             <h2>מקורות הגעה לפי סוג</h2>
-            <BarList rows={rows(d.sources, SRC)} empty="אין נתוני מקורות בטווח." />
+            <BarList rows={rows(d.sources, SRC)} color="green" empty="אין נתוני מקורות בטווח." />
             <p class="ad-muted">החץ מראה שינוי לעומת התקופה הקודמת באותו אורך.</p>
           </section>
           <section>
             <h2>אתרים מפנים</h2>
-            <BarList rows={rows(d.referrers)} ltr empty="אין הפניות מאתרים חיצוניים בטווח." />
+            <BarList rows={rows(d.referrers)} ltr color="gold" empty="אין הפניות מאתרים חיצוניים בטווח." />
           </section>
         </div>
 
@@ -125,11 +125,11 @@ const dowBars = bars(d.dows, DOW, 'ביקורים')
         <div class="ad-grid2">
           <section>
             <h2>ערים</h2>
-            <BarList rows={rows(d.cities)} empty="אין עדיין נתוני מיקום. הם מגיעים מהכתובת של הגולש (עיר בלבד, הכתובת עצמה לא נשמרת) ונצברים בגלישה חדשה." />
+            <BarList rows={rows(d.cities)} color="plum" empty="אין עדיין נתוני מיקום. הם מגיעים מהכתובת של הגולש (עיר בלבד, הכתובת עצמה לא נשמרת) ונצברים בגלישה חדשה." />
           </section>
           <section>
             <h2>מדינות</h2>
-            <BarList rows={rows(d.countries)} ltr empty="אין נתוני מדינה." />
+            <BarList rows={rows(d.countries)} ltr color="blue" empty="אין נתוני מדינה." />
           </section>
         </div>
 
@@ -139,7 +139,7 @@ const dowBars = bars(d.dows, DOW, 'ביקורים')
             <figcaption>לפי שעה ביום (שעון ישראל)</figcaption>
             <svg viewBox={`0 0 ${hourBars.W} ${hourBars.H}`} role="img" aria-label="כניסות לפי שעה ביום" dir="ltr">
               <line x1="0" x2={hourBars.W} y1={hourBars.H - hourBars.B} y2={hourBars.H - hourBars.B} class="lc-grid" />
-              {hourBars.items.map((b, i) => <rect x={b.x} y={b.y} width={b.w} height={Math.max(b.h, 1)} rx="2" class="bc-bar" data-tip={b.tip} />)}
+              {hourBars.items.map((b, i) => <rect x={b.x} y={b.y} width={b.w} height={Math.max(b.h, 1)} rx="2" class="bc-bar bc-green" data-tip={b.tip} />)}
               {[0, 6, 12, 18, 23].map((h) => <text x={hourBars.items[h].x + hourBars.items[h].w / 2} y={hourBars.H - 5} text-anchor="middle" class="lc-axis">{String(h).padStart(2, '0')}</text>)}
             </svg>
           </figure>
@@ -147,7 +147,7 @@ const dowBars = bars(d.dows, DOW, 'ביקורים')
             <figcaption>לפי יום בשבוע</figcaption>
             <svg viewBox={`0 0 ${dowBars.W} ${dowBars.H}`} role="img" aria-label="כניסות לפי יום בשבוע" dir="rtl">
               <line x1="0" x2={dowBars.W} y1={dowBars.H - dowBars.B} y2={dowBars.H - dowBars.B} class="lc-grid" />
-              {dowBars.items.map((b) => <rect x={dowBars.W - b.x - b.w} y={b.y} width={b.w} height={Math.max(b.h, 1)} rx="2" class="bc-bar" data-tip={b.tip} />)}
+              {dowBars.items.map((b) => <rect x={dowBars.W - b.x - b.w} y={b.y} width={b.w} height={Math.max(b.h, 1)} rx="2" class="bc-bar bc-gold" data-tip={b.tip} />)}
               {dowBars.items.map((b, i) => <text x={dowBars.W - b.x - b.w / 2} y={dowBars.H - 5} text-anchor="middle" class="lc-axis">{DOW[i]}</text>)}
             </svg>
           </figure>
@@ -156,12 +156,12 @@ const dowBars = bars(d.dows, DOW, 'ביקורים')
         <div class="ad-grid2">
           <section>
             <h2>דפי נחיתה</h2>
-            <BarList rows={rows(d.landing)} ltr empty="אין נתונים." />
+            <BarList rows={rows(d.landing)} ltr color="green" empty="אין נתונים." />
             <p class="ad-muted">העמוד שבו התחילה הכניסה (לא מניווט פנימי).</p>
           </section>
           <section>
             <h2>מכשירים</h2>
-            <BarList rows={rows(d.devices, DEV)} />
+            <BarList rows={rows(d.devices, DEV)} color="gold" />
           </section>
         </div>
 
@@ -171,10 +171,10 @@ const dowBars = bars(d.dows, DOW, 'ביקורים')
         </tbody></table></div>
 
         <div class="ad-grid2">
-          <section><h2>דפדפנים</h2><BarList rows={rows(d.browsers)} ltr /></section>
-          <section><h2>מערכות הפעלה</h2><BarList rows={rows(d.systems)} ltr /></section>
+          <section><h2>דפדפנים</h2><BarList rows={rows(d.browsers)} ltr color="blue" /></section>
+          <section><h2>מערכות הפעלה</h2><BarList rows={rows(d.systems)} ltr color="plum" /></section>
         </div>
-        <section><h2>שפת הדפדפן</h2><BarList rows={rows(d.langs, LANG)} /></section>
+        <section><h2>שפת הדפדפן</h2><BarList rows={rows(d.langs, LANG)} color="green" /></section>
 
         <p class="ad-muted">הגולש נספר לפי מזהה אנונימי שמתחלף מדי יום ואינו נשמר בעוגייה, ולכן אותו אדם בשני ימים נספר פעמיים. זמן הגלישה הוא זמן פעיל בלבד. "גולשים עכשיו" הם מי שהיו פעילים ב-5 הדקות האחרונות.</p>
       </>
