@@ -3,6 +3,7 @@
 // the pages of the visit. Comparisons use windows of equal length: today so far against yesterday up
 // to the same time, the last 7 days against the 7 before, the last 30 against the 30 before.
 import { q } from './db'
+import { heCity, heCountry, mergeBy } from './geo'
 
 const n = (v: unknown) => Number(v ?? 0)
 const sec = (ms: unknown) => (ms == null ? null : Math.round(n(ms) / 1000))
@@ -28,7 +29,28 @@ export async function live() {
   const [c] = await q(`SELECT count(DISTINCT vid) AS n FROM events WHERE ${W}`)
   const pages = await q(`SELECT path, count(DISTINCT vid) AS n FROM events WHERE ${W} GROUP BY path ORDER BY n DESC, path LIMIT 6`)
   const [t] = await q(`SELECT count(DISTINCT vid) AS visits, count(*) AS pv FROM events WHERE type = 'pv' AND at >= ${TS0}`)
-  return { now: n(c.n), pages: pages.map((r) => ({ path: r.path as string, n: n(r.n) })), todayVisits: n(t.visits), todayPv: n(t.pv) }
+  // One row per live visitor (anonymous): the page they are on now and how they arrived today
+  // (the first visit of the day that did not come from inside the site).
+  const who = await q(`
+    WITH cur AS (
+      SELECT DISTINCT ON (vid) vid, day, path, city, country, device, COALESCE(last_seen, at) AS seen
+      FROM events WHERE ${W} ORDER BY vid, COALESCE(last_seen, at) DESC)
+    SELECT c.path, c.city, c.country, c.device, c.seen, s.source, s.ref_host, s.utm_source, s.utm_campaign
+    FROM cur c LEFT JOIN LATERAL (
+      SELECT source, ref_host, utm_source, utm_campaign FROM events
+      WHERE type = 'pv' AND vid = c.vid AND day = c.day AND source <> 'internal' ORDER BY at LIMIT 1) s ON true
+    ORDER BY c.seen DESC LIMIT 200`)
+  const visitors = who.map((r) => ({
+    path: r.path as string, city: heCity(r.city as string | null), country: heCountry(r.country as string | null), device: (r.device as string | null) ?? '',
+    source: (r.source as string | null) ?? 'direct', ref: (r.ref_host as string | null) ?? '', campaign: ((r.utm_campaign ?? r.utm_source) as string | null) ?? '',
+    ago: Math.max(0, Math.round((Date.now() - new Date(r.seen as string).getTime()) / 1000)),
+  }))
+  const bySource = new Map<string, number>()
+  for (const v of visitors) bySource.set(v.source, (bySource.get(v.source) ?? 0) + 1)
+  return {
+    now: n(c.n), pages: pages.map((r) => ({ path: r.path as string, n: n(r.n) })), todayVisits: n(t.visits), todayPv: n(t.pv),
+    visitors: visitors.slice(0, 30), sources: [...bySource].sort((a, b) => b[1] - a[1]).map(([source, count]) => ({ source, n: count })),
+  }
 }
 
 type Dim = { k: string; n: number; prev?: number }
@@ -91,8 +113,10 @@ export async function dashboard(days: number) {
 
   return {
     live: liveNow, today, yesterday, w7, p7, w30, p30, range, trend,
-    sources, referrers, countries, cities, devices, browsers, systems, langs, landing,
-    geo: geo.map((r) => ({ city: r.city as string, country: (r.country as string | null) ?? '', lat: n(r.lat), lng: n(r.lng), n: n(r.n) })),
+    sources, referrers, devices, browsers, systems, langs, landing,
+    countries: mergeBy(countries, (r) => heCountry(r.k), (r, k) => ({ ...r, k })),
+    cities: mergeBy(cities, (r) => heCity(r.k), (r, k) => ({ ...r, k })),
+    geo: geo.map((r) => ({ city: heCity(r.city as string), country: heCountry(r.country as string | null), lat: n(r.lat), lng: n(r.lng), n: n(r.n) })),
     campaigns: campaigns.map((r) => ({ s: r.s as string, m: r.m as string, c: r.c as string, n: n(r.n) })),
     pages: pages.map((r) => ({ path: r.path as string, pv: n(r.pv), visits: n(r.visits), dwell: sec(r.dwell), scroll: r.scroll == null ? null : Math.round(n(r.scroll)) })),
     hours: Array.from({ length: 24 }, (_, h) => hourMap.get(h) ?? 0),

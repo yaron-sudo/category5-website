@@ -71,6 +71,14 @@ const dowBars = bars(d.dows, DOW, 'ביקורים')
             <span class="ad-muted">העמודים שנצפים עכשיו</span>
             <ul data-live-pages>{d.live.pages.length ? d.live.pages.map((p) => <li><a class="ltr" href={p.path}>{p.path}</a><span>{p.n}</span></li>) : <li class="ad-muted">אין גולשים פעילים כרגע.</li>}</ul>
           </div>
+          <div class="live-from" data-live-from data-labels={JSON.stringify({ src: SRC, dev: DEV })}>
+            <span class="ad-muted">מאיפה הם מגיעים</span>
+            <ul class="live-chips" data-live-sources>{d.live.sources.length ? d.live.sources.map((s) => <li>{SRC[s.source] ?? s.source}<b>{s.n}</b></li>) : <li class="ad-muted">אין גולשים פעילים כרגע.</li>}</ul>
+            {d.live.visitors.length > 0 && (
+              <div class="ad-scroll"><table class="ad-table live-table"><thead><tr><th>עמוד</th><th>מקור</th><th>עיר</th><th>מכשיר</th><th>פעיל לפני</th></tr></thead>
+                <tbody data-live-visitors>{d.live.visitors.map((v) => <tr><td class="ltr"><a href={v.path}>{v.path}</a></td><td>{SRC[v.source] ?? v.source}{v.ref ? ` · ${v.ref}` : v.campaign ? ` · ${v.campaign}` : ''}</td><td>{v.city || '—'}</td><td>{DEV[v.device] ?? '—'}</td><td>{v.ago < 60 ? `${v.ago} שנ׳` : `${Math.round(v.ago / 60)} דק׳`}</td></tr>)}</tbody></table></div>
+            )}
+          </div>
         </section>
 
         <div class="pcards">
@@ -130,7 +138,7 @@ const dowBars = bars(d.dows, DOW, 'ביקורים')
 
         <section>
           <h2>מפת הגולשים</h2>
-          <div class="geo-slot" data-geo-slot><p class="ad-empty geo-empty" hidden>אין עדיין נתוני מפה. הם מגיעים מהמיקום המשוער של הגולש (ברמת עיר, ללא כתובת) ונצברים בגלישה חדשה.</p></div>
+          <div class="geo-slot" data-geo-slot><p class="ad-empty geo-empty" hidden>אין עדיין נקודות על המפה. הן מגיעות מהמיקום המשוער של הגולש (ברמת עיר, ללא כתובת) ונצברות מגלישה חדשה.</p></div>
           <script type="application/json" data-geo set:html={JSON.stringify(d.geo)}></script>
           <p class="ad-muted">גודל העיגול לפי מספר הכניסות. המיקום משוער ברמת עיר בלבד, והכתובת עצמה לא נשמרת.</p>
         </section>
@@ -142,7 +150,7 @@ const dowBars = bars(d.dows, DOW, 'ביקורים')
           </section>
           <section>
             <h2>מדינות</h2>
-            <BarList rows={rows(d.countries)} ltr color="blue" empty="אין נתוני מדינה." />
+            <BarList rows={rows(d.countries)} color="blue" empty="אין נתוני מדינה." />
           </section>
         </div>
 
@@ -215,7 +223,6 @@ const dowBars = bars(d.dows, DOW, 'ביקורים')
     const pts: Pt[] = JSON.parse(raw)
     const empty = slot.querySelector<HTMLElement>('.geo-empty')
     if (empty) empty.hidden = pts.length > 0
-    if (!pts.length) { host.remove(); return }
     if (host.parentElement !== slot) slot.appendChild(host)
     if (!map) {
       map = L.map(host, { scrollWheelZoom: false, worldCopyJump: true }).setView([31.5, 35], 7)
@@ -223,7 +230,7 @@ const dowBars = bars(d.dows, DOW, 'ביקורים')
       layer = L.layerGroup().addTo(map)
     }
     layer!.clearLayers()
-    const max = Math.max(...pts.map((p) => p.n))
+    const max = Math.max(1, ...pts.map((p) => p.n))
     const bounds = L.latLngBounds([])
     for (const p of pts) {
       const r = 7 + Math.sqrt(p.n / max) * 22
@@ -237,7 +244,8 @@ const dowBars = bars(d.dows, DOW, 'ביקורים')
       bounds.extend([p.lat, p.lng])
     }
     map.invalidateSize()
-    if (pts.length === 1) map.setView([pts[0].lat, pts[0].lng], 8)
+    if (!pts.length) map.setView([31.5, 35], 7)
+    else if (pts.length === 1) map.setView([pts[0].lat, pts[0].lng], 8)
     else if (bounds.isValid()) map.fitBounds(bounds.pad(0.25), { maxZoom: 8 })
   }
   render()
@@ -296,6 +304,24 @@ const dowBars = bars(d.dows, DOW, 'ביקורים')
         ul.textContent = '';
         if (!j.pages.length) { var li0 = document.createElement('li'); li0.className = 'ad-muted'; li0.textContent = 'אין גולשים פעילים כרגע.'; ul.appendChild(li0); }
         j.pages.forEach(function (p) { var li = document.createElement('li'), a = document.createElement('a'), s = document.createElement('span'); a.className = 'ltr'; a.href = p.path; a.textContent = p.path; s.textContent = p.n; li.appendChild(a); li.appendChild(s); ul.appendChild(li); });
+      }
+      var from = document.querySelector('[data-live-from]');
+      if (from && j.sources) {
+        var L = JSON.parse(from.getAttribute('data-labels') || '{}'), chips = from.querySelector('[data-live-sources]');
+        if (chips) { chips.textContent = ''; if (!j.sources.length) { var e = document.createElement('li'); e.className = 'ad-muted'; e.textContent = 'אין גולשים פעילים כרגע.'; chips.appendChild(e); }
+          j.sources.forEach(function (s) { var li = document.createElement('li'), b = document.createElement('b'); li.appendChild(document.createTextNode((L.src && L.src[s.source]) || s.source)); b.textContent = s.n; li.appendChild(b); chips.appendChild(li); }); }
+        var tb = from.querySelector('[data-live-visitors]');
+        if (tb && j.visitors) {
+          tb.textContent = '';
+          j.visitors.forEach(function (v) {
+            var tr = document.createElement('tr'), cells = [], a = document.createElement('a');
+            a.href = v.path; a.textContent = v.path; var c0 = document.createElement('td'); c0.className = 'ltr'; c0.appendChild(a);
+            var src = ((L.src && L.src[v.source]) || v.source) + (v.ref ? ' · ' + v.ref : v.campaign ? ' · ' + v.campaign : '');
+            cells = [c0, src, v.city || '—', (L.dev && L.dev[v.device]) || '—', v.ago < 60 ? v.ago + ' שנ׳' : Math.round(v.ago / 60) + ' דק׳'];
+            cells.forEach(function (x) { if (typeof x === 'string') { var td = document.createElement('td'); td.textContent = x; tr.appendChild(td); } else tr.appendChild(x); });
+            tb.appendChild(tr);
+          });
+        }
       }
       stamp();
     }).catch(function () {});
