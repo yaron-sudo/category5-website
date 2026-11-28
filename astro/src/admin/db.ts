@@ -101,6 +101,11 @@ const SCHEMA = [
   `CREATE INDEX IF NOT EXISTS chat_turns_at ON chat_turns (at DESC)`,
   `CREATE INDEX IF NOT EXISTS chat_turns_vid ON chat_turns (vid, at)`,
   `CREATE INDEX IF NOT EXISTS chat_turns_sid ON chat_turns (sid)`,
+  `CREATE TABLE IF NOT EXISTS city_names (
+     name text PRIMARY KEY,
+     he text NOT NULL,
+     created_at timestamptz NOT NULL DEFAULT now()
+   )`,
   `CREATE TABLE IF NOT EXISTS chat_answers (
      id bigserial PRIMARY KEY,
      question text NOT NULL,

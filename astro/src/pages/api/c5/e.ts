@@ -1,4 +1,4 @@
-// POST /api/c5/e — receives the first-party tracker's beacons (public/c5/track.js). Always answers
+// POST /api/c5/e — receives the first-party tracker's beacons (public/c5/pulse.js). Always answers
 // 204 so the page is never affected, whether the event was stored, filtered (bots, flood, foreign
 // origin) or failed.
 import type { APIRoute } from 'astro'

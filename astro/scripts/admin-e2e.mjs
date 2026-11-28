@@ -11,6 +11,7 @@ const { publicKey, privateKey } = await generateKeyPair('RS256')
 const jwk = { ...(await exportJWK(publicKey)), kid: 'k1', alg: 'RS256', use: 'sig' }
 let who = { email: 'owner@example.test', verified: true }
 const codes = new Map()
+let anthropicCalls = 0
 const mock = http.createServer(async (req, res) => {
   const u = new URL(req.url, `http://localhost:${MOCK}`)
   if (u.pathname === '/set') { who = { email: u.searchParams.get('email'), verified: u.searchParams.get('verified') !== 'false' }; return res.end('ok') }
@@ -18,8 +19,14 @@ const mock = http.createServer(async (req, res) => {
     const code = Math.random().toString(36).slice(2); codes.set(code, { nonce: u.searchParams.get('nonce'), ...who })
     res.writeHead(302, { Location: `${u.searchParams.get('redirect_uri')}?code=${code}&state=${u.searchParams.get('state')}` }); return res.end()
   }
+  if (u.pathname === '/anthropic/v1/messages') {
+    let body = ''; for await (const c of req) body += c
+    anthropicCalls++
+    res.setHeader('content-type', 'application/json')
+    return res.end(JSON.stringify({ id: 'msg_test', type: 'message', role: 'assistant', model: 'claude-haiku-5-5', stop_reason: 'end_turn', usage: { input_tokens: 1, output_tokens: 1 }, content: [{ type: 'text', text: '{"Leesburg": "לסבורג"}' }] }))
+  }
   if (u.pathname.startsWith('/brevo/')) {
-    const people = [['a@example.test', 'דנה', 'כהן', 'footer', '2026-11-27T10:00:00Z', false], ['b@example.test', '=HYPERLINK("http://x")', '', 'contact', '2026-10-01T09:00:00Z', false], ['c@example.test', '', '', '', '2026-01-01T09:00:00Z', true]]
+    const people = [['a@example.test', 'דנה', 'כהן', 'footer', new Date(Date.now() - 10 * 60e3).toISOString(), false], ['b@example.test', '=HYPERLINK("http://x")', '', 'contact', new Date(Date.now() - 20 * 864e5).toISOString(), false], ['c@example.test', '', '', '', new Date(Date.now() - 300 * 864e5).toISOString(), true]]
       .map(([email, f, l, s, at, bl]) => ({ email, emailBlacklisted: bl, createdAt: at, modifiedAt: at, listIds: [7], attributes: { FIRSTNAME: f, LASTNAME: l, SOURCE: s } }))
     res.setHeader('content-type', 'application/json')
     if (req.headers['api-key'] !== 'brevo-test') { res.statusCode = 401; return res.end('{}') }
@@ -42,7 +49,7 @@ const mock = http.createServer(async (req, res) => {
 }).listen(MOCK)
 
 const dev = spawn('npx', ['astro', 'dev', '--port', String(SITE)], { cwd: new URL('..', import.meta.url).pathname, env: { ...process.env,
-  ADMIN_DB: 'pglite', BREVO_API_KEY: 'brevo-test', BREVO_LIST_ID: '7', BREVO_API_BASE: `http://localhost:${MOCK}/brevo`, CRON_SECRET: 'cron-test-secret', ANTHROPIC_API_KEY: 'test-key', ANALYTICS_ALLOW_HEADLESS: '1', GOOGLE_CLIENT_ID: 'test-client', GOOGLE_CLIENT_SECRET: 'x', ADMIN_SESSION_SECRET: 'unit-test-secret-unit-test-secret-1234',
+  ADMIN_DB: 'pglite', BREVO_API_KEY: 'brevo-test', BREVO_LIST_ID: '7', BREVO_API_BASE: `http://localhost:${MOCK}/brevo`, CRON_SECRET: 'cron-test-secret', ANTHROPIC_API_KEY: 'test-key', ANTHROPIC_BASE_URL: `http://localhost:${MOCK}/anthropic`, ANALYTICS_ALLOW_HEADLESS: '1', GOOGLE_CLIENT_ID: 'test-client', GOOGLE_CLIENT_SECRET: 'x', ADMIN_SESSION_SECRET: 'unit-test-secret-unit-test-secret-1234',
   ADMIN_BOOTSTRAP_EMAILS: 'owner@example.test', ADMIN_OIDC_AUTH_URL: `http://localhost:${MOCK}/auth`, ADMIN_OIDC_TOKEN_URL: `http://localhost:${MOCK}/token`,
   ADMIN_OIDC_JWKS_URL: `http://localhost:${MOCK}/jwks`, ADMIN_OIDC_ISSUER: `http://localhost:${MOCK}` }, stdio: 'pipe' })
 let log = ''; dev.stdout.on('data', (d) => (log += d)); dev.stderr.on('data', (d) => (log += d))
@@ -106,6 +113,7 @@ try {
   const dnt = await browser.newContext({ extraHTTPHeaders: {}, userAgent: 'Mozilla/5.0 Chrome/124 Safari/537.36' }); const dp = await dnt.newPage()
   await dp.addInitScript(() => { Object.defineProperty(navigator, 'globalPrivacyControl', { value: true }) })
   await dp.goto(`${BASE}/legal/privacy`, { waitUntil: 'load' }); await dp.waitForTimeout(1500)
+  { const lc = await browser.newContext({ extraHTTPHeaders: { 'x-vercel-ip-city': 'Leesburg', 'x-vercel-ip-country': 'US', 'x-vercel-ip-latitude': '39.1', 'x-vercel-ip-longitude': '-77.5' }, userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/124 Safari/537.36', viewport: { width: 1280, height: 800 } }); const lp = await lc.newPage(); await lp.goto(`${BASE}/stores`, { waitUntil: 'load' }); await lp.waitForTimeout(1500) }
   const bot = await a.request.post(`${BASE}/api/c5/e`, { data: JSON.stringify({ t: 'pv', p: 'botbotbot1', u: '/bot-page' }), headers: { 'user-agent': 'Googlebot/2.1', 'content-type': 'text/plain' } })
   ok(bot.status() === 204, 'ingest answers 204 to bots')
   await pg.goto(`${BASE}/`, { waitUntil: 'load' }); await pg.waitForTimeout(500)
@@ -116,12 +124,15 @@ try {
   ok(/גולשים באתר עכשיו/.test(home) && +(await p.locator('[data-live-n]').innerText()).replace(/,/g, '') >= 1, 'dashboard shows visitors online now')
   ok(await p.locator('.pcard').count() === 3 && /היום/.test(home) && /7 ימים אחרונים/.test(home) && /30 ימים אחרונים/.test(home), 'dashboard has today / week / month cards with comparison')
   ok(/תל אביב-יפו/.test(home) && !/Tel Aviv/.test(home) && /ישראל/.test(home) && !/>IL</.test(home), 'cities and countries are shown in Hebrew')
+  ok(/לסבורג/.test(home) && /ארצות הברית/.test(home) && !/Leesburg/.test(home), 'a city missing from the dictionary is translated by the model; the country is Hebrew')
+  ok(anthropicCalls === 1, `the translation is requested once and cached (${anthropicCalls} calls)`)
   ok(/Chrome/.test(home) && /Windows/.test(home) && /עברית/.test(home), 'browser, OS and language are listed')
   await p.waitForSelector('.geo-map .leaflet-interactive', { timeout: 8000 }).catch(() => {})
   ok(await p.locator('.geo-map .leaflet-interactive').count() >= 1, 'visitors map shows a marker for the city')
   await p.locator('.geo-slot').screenshot({ path: '/tmp/claude-0/-home-user-category5-website/f29084dd-6583-5ae2-ae21-70c3bc202f8a/scratchpad/map.png' })
   ok(/מאיפה הם מגיעים/.test(home) && /קמפיינים/.test(await p.locator('[data-live-from]').innerText()) && /תל אביב-יפו/.test(await p.locator('[data-live-visitors]').innerText()), 'live visitors show how they arrived (source, Hebrew city)')
   await p.locator('.live').screenshot({ path: '/tmp/claude-0/-home-user-category5-website/f29084dd-6583-5ae2-ae21-70c3bc202f8a/scratchpad/live.png' })
+  ok(/האירוע האחרון התקבל לפני/.test(await p.locator('[data-live-last]').innerText()), 'live card says when the last event arrived')
   const liveJson = await (await p.request.get(`${BASE}/api/admin/live`)).json(); ok(liveJson.now >= 1 && Array.isArray(liveJson.pages) && liveJson.visitors?.length >= 1 && liveJson.visitors[0].source && liveJson.sources?.length >= 1 && !('vid' in liveJson.visitors[0]), 'live API returns the online count with sources and no visitor ids')
   ok(await p.locator('.lc').count() === 2 && await p.locator('.lc-cur').count() === 2, 'trend charts rendered (current vs previous period)')
   await p.locator('.lc-plot').first().hover(); await p.waitForTimeout(250)
@@ -199,7 +210,10 @@ try {
   // ---- Brevo subscribers: list + Excel ----------------------------------------------------------------
   await p.goto(`${BASE}/admin/subscribers`); const subs = await p.locator('main').innerText()
   ok(/a@example\.test/.test(subs) && /דנה כהן/.test(subs) && /footer/.test(subs), 'subscribers page lists the Brevo contacts')
-  ok(/מצטרפים ברשימה/.test(subs) && /הצטרפו ב-7 הימים/.test(subs), 'subscribers page shows totals and recent joins')
+  ok(/מצטרפים ברשימה/.test(subs), 'subscribers page shows the total')
+  await p.goto(`${BASE}/admin/subscribers?d=today`); const stoday = await p.locator('main').innerText(); ok(/מצטרפים חדשים היום/.test(stoday) && /a@example\.test/.test(stoday) && !/b@example\.test/.test(stoday), 'range "today": count of new subscribers and only today\'s joins')
+  await p.goto(`${BASE}/admin/subscribers?d=30`); ok(/מצטרפים חדשים ב-30 הימים האחרונים/.test(await p.locator('main').innerText()) && await p.locator('a[href="/admin/subscribers?d=today"]').count() === 1, 'range filter offers today / 7 / 30 / 90 days')
+  await p.goto(`${BASE}/admin/subscribers`)
   await p.fill('input[name=q]', 'b@example.test'); await p.click('form.ad-row button:has-text("חיפוש")'); await p.waitForLoadState('networkidle')
   ok(/b@example\.test/.test(await p.locator('main').innerText()) && !/a@example\.test/.test(await p.locator('main').innerText()), 'search by e-mail finds the contact')
   const xr = await p.request.get(`${BASE}/api/admin/subscribers-export`)

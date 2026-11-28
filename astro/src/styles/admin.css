@@ -184,3 +184,5 @@ body.ad { margin: 0; background: #f7f7f5; color: #141414; font: 400 17px/1.6 "C5
 .live-chips li b { background: var(--c-green); color: #fff; border-radius: 4px; padding: 0 7px; font-size: 14px; }
 .live-table { font-size: 14px; }
 .live-table th, .live-table td { padding: 8px 12px; }
+
+.live-status { flex-basis: 100%; margin: 0; font-size: 14px; }

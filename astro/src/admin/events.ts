@@ -1,4 +1,4 @@
-// First-party, cookie-less analytics: what the tracker (public/c5/track.js) reports, and how it is
+// First-party, cookie-less analytics: what the tracker (public/c5/pulse.js) reports, and how it is
 // stored. Privacy by design:
 //  • no cookies, no localStorage, no fingerprinting; the IP is never stored;
 //  • a visitor is a hash of (secret salt, day, IP, user-agent) — it changes every day, so a person

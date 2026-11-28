@@ -2,25 +2,26 @@
 // Read live from Brevo on every download; nothing is stored here. Each download is written to the audit log.
 import type { APIRoute } from 'astro'
 import { audit, can } from '@/admin/auth'
-import { all, configured } from '@/admin/brevo'
+import { all, configured, joinedSince, parseSubRange, rangeStart } from '@/admin/brevo'
 import { buildXlsx } from '@/admin/xlsx'
 
 export const prerender = false
 const fmt = (d: string | null) => (d ? new Date(d).toLocaleString('he-IL', { timeZone: 'Asia/Jerusalem', dateStyle: 'short', timeStyle: 'short' }) : '')
 
-export const GET: APIRoute = async ({ locals }) => {
+export const GET: APIRoute = async ({ locals, url }) => {
   const me = locals.admin!
   if (!can(me.role, 'subscribers.read')) return Response.json({ error: 'forbidden' }, { status: 403 })
   if (!configured()) return Response.json({ error: 'not-configured' }, { status: 503 })
   try {
-    const { rows, truncated } = await all()
+    const range = parseSubRange(url.searchParams.get('d'))
+    const { rows, truncated } = range === 'all' ? await all() : await joinedSince(rangeStart(range))
     const xlsx = buildXlsx('רשימת תפוצה', ['אימייל', 'שם פרטי', 'שם משפחה', 'מקור ההרשמה', 'תאריך הצטרפות', 'עודכן לאחרונה', 'סטטוס'],
       rows.map((r) => [r.email, r.first, r.last, r.source, fmt(r.joined), fmt(r.modified), r.blocked ? 'חסום / הוסר' : 'פעיל']), [34, 16, 16, 28, 20, 20, 14])
-    await audit(me.email, 'subscribers.export', null, { rows: rows.length, truncated })
+    await audit(me.email, 'subscribers.export', null, { rows: rows.length, truncated, range })
     const stamp = new Date().toLocaleDateString('sv-SE', { timeZone: 'Asia/Jerusalem' })
     return new Response(xlsx, { headers: {
       'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-      'Content-Disposition': `attachment; filename="category5-distribution-list-${stamp}.xlsx"`,
+      'Content-Disposition': `attachment; filename="category5-distribution-list-${range === 'all' ? '' : `new-${range}-`}${stamp}.xlsx"`,
       'Cache-Control': 'no-store',
     } })
   } catch (e) {

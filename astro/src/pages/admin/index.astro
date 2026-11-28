@@ -32,7 +32,12 @@ const cards = [
   { id: 'week', accent: 'gold', title: '7 ימים אחרונים', sub: 'מול 7 הימים שלפניהם', cur: d.w7, prev: d.p7 },
   { id: 'month', accent: 'plum', title: '30 ימים אחרונים', sub: 'מול 30 הימים שלפניהם', cur: d.w30, prev: d.p30 },
 ]
-const hasData = d.range.pv > 0 || d.today.pv > 0 || d.w30.pv > 0 || d.live.now > 0
+const ago = (s: number) => (s < 60 ? `${s} שניות` : s < 3600 ? `${Math.round(s / 60)} דקות` : `${Math.round(s / 3600)} שעות`)
+const liveStatus = (now: number, last: number | null) =>
+  last === null ? 'לא התקבלו אירועים מהאתר ב-24 השעות האחרונות. אם יש גלישה באתר, כדאי לבדוק שהסקריפט נטען ושמסד הנתונים מחובר.'
+  : now > 0 ? `האירוע האחרון התקבל לפני ${ago(last)}.`
+  : `אין גולשים פעילים כרגע. האירוע האחרון התקבל לפני ${ago(last)}. גולשים עם Do Not Track / GPC או חוסם פרסומות אינם נספרים, וגם הגלישה שלך באזור הניהול לא נספרת.`
+const hasData = d.range.pv > 0 || d.today.pv > 0 || d.w30.pv > 0 || d.live.now > 0 || d.live.lastAgo !== null
 
 // 24 hour columns and 7 weekday columns (SVG, thin bars anchored to the baseline).
 const bars = (vals: number[], labels: string[], unit: string) => {
@@ -67,6 +72,7 @@ const dowBars = bars(d.dows, DOW, 'ביקורים')
       <>
         <section class="live" aria-label="גולשים עכשיו">
           <div class="live-n"><i class="live-dot" aria-hidden="true"></i><b data-live-n>{nf(d.live.now)}</b><span>גולשים באתר עכשיו<br /><small>פעילים ב-5 הדקות האחרונות</small></span></div>
+          <p class="live-status ad-muted" data-live-last role="status">{liveStatus(d.live.now, d.live.lastAgo)}</p>
           <div class="live-pages">
             <span class="ad-muted">העמודים שנצפים עכשיו</span>
             <ul data-live-pages>{d.live.pages.length ? d.live.pages.map((p) => <li><a class="ltr" href={p.path}>{p.path}</a><span>{p.n}</span></li>) : <li class="ad-muted">אין גולשים פעילים כרגע.</li>}</ul>
@@ -136,12 +142,6 @@ const dowBars = bars(d.dows, DOW, 'ביקורים')
           </section>
         )}
 
-        <section>
-          <h2>מפת הגולשים</h2>
-          <div class="geo-slot" data-geo-slot><p class="ad-empty geo-empty" hidden>אין עדיין נקודות על המפה. הן מגיעות מהמיקום המשוער של הגולש (ברמת עיר, ללא כתובת) ונצברות מגלישה חדשה.</p></div>
-          <script type="application/json" data-geo set:html={JSON.stringify(d.geo)}></script>
-          <p class="ad-muted">גודל העיגול לפי מספר הכניסות. המיקום משוער ברמת עיר בלבד, והכתובת עצמה לא נשמרת.</p>
-        </section>
 
         <div class="ad-grid2">
           <section>
@@ -153,6 +153,13 @@ const dowBars = bars(d.dows, DOW, 'ביקורים')
             <BarList rows={rows(d.countries)} color="blue" empty="אין נתוני מדינה." />
           </section>
         </div>
+
+        <section>
+          <h2>מפת הגולשים</h2>
+          <div class="geo-slot" data-geo-slot><p class="ad-empty geo-empty" hidden>אין עדיין נקודות על המפה. הן מגיעות מהמיקום המשוער של הגולש (ברמת עיר, ללא כתובת) ונצברות מגלישה חדשה.</p></div>
+          <script type="application/json" data-geo set:html={JSON.stringify(d.geo)}></script>
+          <p class="ad-muted">גודל העיגול לפי מספר הכניסות. המיקום משוער ברמת עיר בלבד, והכתובת עצמה לא נשמרת.</p>
+        </section>
 
         <h2>מתי גולשים</h2>
         <div class="ad-grid2">
@@ -305,6 +312,8 @@ const dowBars = bars(d.dows, DOW, 'ביקורים')
         if (!j.pages.length) { var li0 = document.createElement('li'); li0.className = 'ad-muted'; li0.textContent = 'אין גולשים פעילים כרגע.'; ul.appendChild(li0); }
         j.pages.forEach(function (p) { var li = document.createElement('li'), a = document.createElement('a'), s = document.createElement('span'); a.className = 'ltr'; a.href = p.path; a.textContent = p.path; s.textContent = p.n; li.appendChild(a); li.appendChild(s); ul.appendChild(li); });
       }
+      var st = document.querySelector('[data-live-last]');
+      if (st && j.lastAgo != null) { var a = j.lastAgo, t = a < 60 ? a + ' שניות' : a < 3600 ? Math.round(a / 60) + ' דקות' : Math.round(a / 3600) + ' שעות'; st.textContent = j.now > 0 ? 'האירוע האחרון התקבל לפני ' + t + '.' : 'אין גולשים פעילים כרגע. האירוע האחרון התקבל לפני ' + t + '. גולשים עם Do Not Track / GPC או חוסם פרסומות אינם נספרים, וגם הגלישה שלך באזור הניהול לא נספרת.'; }
       var from = document.querySelector('[data-live-from]');
       if (from && j.sources) {
         var L = JSON.parse(from.getAttribute('data-labels') || '{}'), chips = from.querySelector('[data-live-sources]');
@@ -333,7 +342,7 @@ const dowBars = bars(d.dows, DOW, 'ביקורים')
       if (nd && cd) { var open = Array.prototype.map.call(cd.querySelectorAll('details'), function (d) { return d.open; }); cd.innerHTML = nd.innerHTML; cd.querySelectorAll('details').forEach(function (d, i) { d.open = !!open[i]; }); stamp(); }
     }).catch(function () {});
   }
-  setInterval(pollLive, 10000); setInterval(refresh, 45000);
+  setInterval(pollLive, 5000); setInterval(refresh, 45000);
   document.addEventListener('visibilitychange', function () { if (!document.hidden) { pollLive(); } });
 })();
 </script>

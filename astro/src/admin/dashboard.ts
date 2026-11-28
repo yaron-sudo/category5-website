@@ -3,7 +3,7 @@
 // the pages of the visit. Comparisons use windows of equal length: today so far against yesterday up
 // to the same time, the last 7 days against the 7 before, the last 30 against the 30 before.
 import { q } from './db'
-import { heCity, heCountry, mergeBy } from './geo'
+import { heCity, heCountry, mergeBy, prepareCities } from './geo'
 
 const n = (v: unknown) => Number(v ?? 0)
 const sec = (ms: unknown) => (ms == null ? null : Math.round(n(ms) / 1000))
@@ -24,7 +24,13 @@ async function period(win: string): Promise<Period> {
   return { visits, pv: n(r.pv), visitSec: sec(r.vdwell), pageSec: sec(r.pdwell), scroll: r.scroll == null ? null : Math.round(n(r.scroll)), singleShare: visits ? Math.round((n(r.single) / visits) * 100) : 0 }
 }
 
+async function learnCities(days: number | null) {
+  const rows = await q<{ city: string; country: string | null }>(`SELECT DISTINCT city, country FROM events WHERE type = 'pv' AND city IS NOT NULL AND ${days === null ? `COALESCE(last_seen, at) > now() - interval '5 minutes'` : `day >= ${TODAY} - ($1::int - 1)`} LIMIT 200`, days === null ? [] : [days])
+  await prepareCities(rows)
+}
+
 export async function live() {
+  await learnCities(null)
   const W = `type = 'pv' AND COALESCE(last_seen, at) > now() - interval '5 minutes'`
   const [c] = await q(`SELECT count(DISTINCT vid) AS n FROM events WHERE ${W}`)
   const pages = await q(`SELECT path, count(DISTINCT vid) AS n FROM events WHERE ${W} GROUP BY path ORDER BY n DESC, path LIMIT 6`)
@@ -45,10 +51,12 @@ export async function live() {
     source: (r.source as string | null) ?? 'direct', ref: (r.ref_host as string | null) ?? '', campaign: ((r.utm_campaign ?? r.utm_source) as string | null) ?? '',
     ago: Math.max(0, Math.round((Date.now() - new Date(r.seen as string).getTime()) / 1000)),
   }))
+  const [last] = await q(`SELECT max(COALESCE(last_seen, at)) AS t FROM events WHERE at > now() - interval '1 day'`)
+  const lastAgo = last?.t ? Math.max(0, Math.round((Date.now() - new Date(last.t as string).getTime()) / 1000)) : null
   const bySource = new Map<string, number>()
   for (const v of visitors) bySource.set(v.source, (bySource.get(v.source) ?? 0) + 1)
   return {
-    now: n(c.n), pages: pages.map((r) => ({ path: r.path as string, n: n(r.n) })), todayVisits: n(t.visits), todayPv: n(t.pv),
+    now: n(c.n), lastAgo, pages: pages.map((r) => ({ path: r.path as string, n: n(r.n) })), todayVisits: n(t.visits), todayPv: n(t.pv),
     visitors: visitors.slice(0, 30), sources: [...bySource].sort((a, b) => b[1] - a[1]).map(([source, count]) => ({ source, n: count })),
   }
 }
@@ -68,6 +76,7 @@ async function dim(expr: string, days: number, opts: { where?: string; limit?: n
 }
 
 export async function dashboard(days: number) {
+  await learnCities(days)
   const [today, yesterday, w7, p7, w30, p30, range, liveNow] = await Promise.all([
     period(`at >= ${TS0} AND at < now()`),
     period(`at >= ${TS0} - interval '1 day' AND at < now() - interval '1 day'`),
