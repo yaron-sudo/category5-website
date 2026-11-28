@@ -245,7 +245,7 @@ const mobileRow = 'display: flex; align-items: center; min-height: 52px; border-
     const input = panel.querySelector<HTMLInputElement>('[data-c5-search-q]')!
     const live = panel.querySelector<HTMLElement>('[data-c5-search-live]')!
     const blockedMsg = panel.dataset.blockedMsg || ''
-    type Doc = { id: string; kind: 'product' | 'article'; title: string; href: string; image?: string; meta?: string }
+    type Doc = { id: string; kind: 'product' | 'article'; title: string; href: string; image?: string; thumb?: string; meta?: string }
     let index: any = null, blocked: string[] = [], loading: Promise<void> | null = null
     const load = () => loading ??= fetch('/search-index.json').then((r) => r.json()).then((d) => { index = buildIndex(d.docs, d.synonyms); blocked = d.blocked || [] }).catch(() => { loading = null })
     const esc = (x: string) => x.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!)
@@ -258,7 +258,7 @@ const mobileRow = 'display: flex; align-items: center; min-height: 52px; border-
       const prods = r.filter((x) => x.doc.kind === 'product').slice(0, 4).map((x) => x.doc)
       const arts = r.filter((x) => x.doc.kind === 'article').slice(0, 4).map((x) => x.doc)
       if (!prods.length && !arts.length) { live.innerHTML = '<p class="c5-search-msg">לא מצאנו תוצאות לחיפוש שלך. הקישו Enter לעוד אפשרויות.</p>'; return }
-      live.innerHTML = (prods.length ? `<div><h3>מוצרים</h3><div class="c5-search-prods">${prods.map((d) => `<a class="c5-search-prod" href="${esc(d.href)}"><span class="i">${d.image ? `<img src="${esc(d.image)}" alt="" loading="lazy">` : ''}</span><strong>${esc(d.title)}</strong></a>`).join('')}</div></div>` : '<div></div>')
+      live.innerHTML = (prods.length ? `<div><h3>מוצרים</h3><div class="c5-search-prods">${prods.map((d) => `<a class="c5-search-prod" href="${esc(d.href)}"><span class="i">${d.image ? `<img src="${esc(d.thumb || d.image)}" alt="" loading="lazy">` : ''}</span><strong>${esc(d.title)}</strong></a>`).join('')}</div></div>` : '<div></div>')
         + (arts.length ? `<div><h3>מאמרים</h3><div class="c5-search-arts">${arts.map((d) => `<a class="c5-search-art" href="${esc(d.href)}"><strong>${esc(d.title)}</strong>${d.meta ? `<small lang="en">${esc(d.meta)}</small>` : ''}</a>`).join('')}</div></div>` : '<div></div>')
         + `<a class="c5-search-all" href="/search?q=${encodeURIComponent(q)}">לכל תוצאות החיפוש</a>`
     }

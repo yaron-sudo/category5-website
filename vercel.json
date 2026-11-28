@@ -5,8 +5,14 @@
   "buildCommand": "npm run build",
   "trailingSlash": false,
   "crons": [
-    { "path": "/api/cron/digest", "schedule": "0 6 * * 0" },
-    { "path": "/api/cron/alerts", "schedule": "30 6 * * *" }
+    {
+      "path": "/api/cron/digest",
+      "schedule": "0 6 * * 0"
+    },
+    {
+      "path": "/api/cron/alerts",
+      "schedule": "30 6 * * *"
+    }
   ],
   "headers": [
     {
@@ -130,6 +136,19 @@
         {
           "key": "Cache-Control",
           "value": "public, max-age=604800, s-maxage=2592000"
+        }
+      ]
+    },
+    {
+      "source": "/thumbs/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800, s-maxage=2592000"
+        },
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex"
         }
       ]
     }
