@@ -35,6 +35,12 @@ export async function imgSet(src: string | undefined, sizes: string, kind: 'prod
   return { srcset: parts.join(', '), sizes }
 }
 
+/** Gallery thumbnail (76-129 css px): srcset of the 240 / 480px copies, 480 as src; the original when there are none. */
+export function thumbSet(src: string | undefined): { src?: string; srcset?: string; sizes?: string } {
+  if (!local(src) || !has(src, 240) || !has(src, 480)) return { src }
+  return { src: thumbPath(src, 480), srcset: `${thumbPath(src, 240)} 240w, ${thumbPath(src, 480)} 480w`, sizes: '(max-width: 599px) 110px, 130px' }
+}
+
 /** One small copy (default 640px) for thumbnails shown at ≤ ~220 CSS px, or the original when there is none. */
 export function thumb(src: string | undefined, w = 640): string | undefined {
   return local(src) && has(src, w) ? thumbPath(src, w) : src
