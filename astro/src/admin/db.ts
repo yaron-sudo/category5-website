@@ -101,6 +101,13 @@ const SCHEMA = [
   `CREATE INDEX IF NOT EXISTS chat_turns_at ON chat_turns (at DESC)`,
   `CREATE INDEX IF NOT EXISTS chat_turns_vid ON chat_turns (vid, at)`,
   `CREATE INDEX IF NOT EXISTS chat_turns_sid ON chat_turns (sid)`,
+  `CREATE TABLE IF NOT EXISTS geo_excludes (
+     city text NOT NULL,
+     country text NOT NULL,
+     created_by text NOT NULL,
+     created_at timestamptz NOT NULL DEFAULT now(),
+     PRIMARY KEY (city, country)
+   )`,
   `CREATE TABLE IF NOT EXISTS city_names (
      name text PRIMARY KEY,
      he text NOT NULL,
@@ -134,7 +141,12 @@ let ready: Promise<void> | null = null
 export async function q<T = Row>(text: string, params: unknown[] = []): Promise<T[]> {
   runner ??= open()
   const run = await runner
-  ready ??= (async () => { for (const s of SCHEMA) await run(s) })()
+  ready ??= (async () => {
+    for (const s of SCHEMA) await run(s)
+    // Our own speed tests ran from Leesburg, US: keep that place out of the statistics (and remove what it already recorded).
+    const added = await run(`INSERT INTO geo_excludes (city, country, created_by) VALUES ('Leesburg', 'US', 'system') ON CONFLICT DO NOTHING RETURNING city`)
+    if (added.length) await run(`DELETE FROM events WHERE city = 'Leesburg' AND country = 'US'`)
+  })()
   await ready
   return (await run(text, params)) as T[]
 }

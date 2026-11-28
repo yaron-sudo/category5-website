@@ -23,7 +23,7 @@ const mock = http.createServer(async (req, res) => {
     let body = ''; for await (const c of req) body += c
     anthropicCalls++
     res.setHeader('content-type', 'application/json')
-    return res.end(JSON.stringify({ id: 'msg_test', type: 'message', role: 'assistant', model: 'claude-haiku-5-5', stop_reason: 'end_turn', usage: { input_tokens: 1, output_tokens: 1 }, content: [{ type: 'text', text: '{"Leesburg": "לסבורג"}' }] }))
+    return res.end(JSON.stringify({ id: 'msg_test', type: 'message', role: 'assistant', model: 'claude-haiku-5-5', stop_reason: 'end_turn', usage: { input_tokens: 1, output_tokens: 1 }, content: [{ type: 'text', text: '{"Springfield": "ספרינגפילד"}' }] }))
   }
   if (u.pathname.startsWith('/brevo/')) {
     const people = [['a@example.test', 'דנה', 'כהן', 'footer', new Date(Date.now() - 10 * 60e3).toISOString(), false], ['b@example.test', '=HYPERLINK("http://x")', '', 'contact', new Date(Date.now() - 20 * 864e5).toISOString(), false], ['c@example.test', '', '', '', new Date(Date.now() - 300 * 864e5).toISOString(), true]]
@@ -113,7 +113,8 @@ try {
   const dnt = await browser.newContext({ extraHTTPHeaders: {}, userAgent: 'Mozilla/5.0 Chrome/124 Safari/537.36' }); const dp = await dnt.newPage()
   await dp.addInitScript(() => { Object.defineProperty(navigator, 'globalPrivacyControl', { value: true }) })
   await dp.goto(`${BASE}/legal/privacy`, { waitUntil: 'load' }); await dp.waitForTimeout(1500)
-  { const lc = await browser.newContext({ extraHTTPHeaders: { 'x-vercel-ip-city': 'Leesburg', 'x-vercel-ip-country': 'US', 'x-vercel-ip-latitude': '39.1', 'x-vercel-ip-longitude': '-77.5' }, userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/124 Safari/537.36', viewport: { width: 1280, height: 800 } }); const lp = await lc.newPage(); await lp.goto(`${BASE}/stores`, { waitUntil: 'load' }); await lp.waitForTimeout(1500) }
+  { const lc = await browser.newContext({ extraHTTPHeaders: { 'x-vercel-ip-city': 'Springfield', 'x-vercel-ip-country': 'US', 'x-vercel-ip-latitude': '39.1', 'x-vercel-ip-longitude': '-77.5' }, userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/124 Safari/537.36', viewport: { width: 1280, height: 800 } }); const lp = await lc.newPage(); await lp.goto(`${BASE}/stores`, { waitUntil: 'load' }); await lp.waitForTimeout(1500) }
+  { const xc = await browser.newContext({ extraHTTPHeaders: { 'x-vercel-ip-city': 'Leesburg', 'x-vercel-ip-country': 'US', 'x-vercel-ip-latitude': '39.1', 'x-vercel-ip-longitude': '-77.5' }, userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/124 Safari/537.36', viewport: { width: 1280, height: 800 } }); const xp = await xc.newPage(); await xp.goto(`${BASE}/contact`, { waitUntil: 'load' }); await xp.waitForTimeout(1200) }
   const bot = await a.request.post(`${BASE}/api/c5/e`, { data: JSON.stringify({ t: 'pv', p: 'botbotbot1', u: '/bot-page' }), headers: { 'user-agent': 'Googlebot/2.1', 'content-type': 'text/plain' } })
   ok(bot.status() === 204, 'ingest answers 204 to bots')
   await pg.goto(`${BASE}/`, { waitUntil: 'load' }); await pg.waitForTimeout(500)
@@ -124,16 +125,24 @@ try {
   ok(/גולשים באתר עכשיו/.test(home) && +(await p.locator('[data-live-n]').innerText()).replace(/,/g, '') >= 1, 'dashboard shows visitors online now')
   ok(await p.locator('.pcard').count() === 3 && /היום/.test(home) && /7 ימים אחרונים/.test(home) && /30 ימים אחרונים/.test(home), 'dashboard has today / week / month cards with comparison')
   ok(/תל אביב-יפו/.test(home) && !/Tel Aviv/.test(home) && /ישראל/.test(home) && !/>IL</.test(home), 'cities and countries are shown in Hebrew')
-  ok(/לסבורג/.test(home) && /ארצות הברית/.test(home) && !/Leesburg/.test(home), 'a city missing from the dictionary is translated by the model; the country is Hebrew')
+  ok(/ספרינגפילד/.test(home) && /ארצות הברית/.test(home) && !/Springfield/.test(home), 'a city missing from the dictionary is translated by the model; the country is Hebrew')
   ok(anthropicCalls === 1, `the translation is requested once and cached (${anthropicCalls} calls)`)
+  ok(!/Leesburg|לסבורג|\/contact/.test(home) , 'traffic from the excluded place (Leesburg, US) is not counted')
+  await p.goto(`${BASE}/admin/exclusions`); ok(/Leesburg/.test(await p.locator('main').innerText()), 'Leesburg is pre-excluded and listed on the exclusions page')
+  await p.goto(`${BASE}/admin?d=7`)
   ok(/Chrome/.test(home) && /Windows/.test(home) && /עברית/.test(home), 'browser, OS and language are listed')
   await p.waitForSelector('.geo-map .leaflet-interactive', { timeout: 8000 }).catch(() => {})
   ok(await p.locator('.geo-map .leaflet-interactive').count() >= 1, 'visitors map shows a marker for the city')
   await p.locator('.geo-slot').screenshot({ path: '/tmp/claude-0/-home-user-category5-website/f29084dd-6583-5ae2-ae21-70c3bc202f8a/scratchpad/map.png' })
-  ok(/מאיפה הם מגיעים/.test(home) && /קמפיינים/.test(await p.locator('[data-live-from]').innerText()) && /תל אביב-יפו/.test(await p.locator('[data-live-visitors]').innerText()), 'live visitors show how they arrived (source, Hebrew city)')
+  ok(/מאיפה הם מגיעים/.test(home) && /קמפיינים/.test(await p.locator('[data-live-from]').textContent()) && /תל אביב-יפו/.test(await p.locator('[data-live-visitors]').textContent()), 'live visitors show how they arrived (source, Hebrew city)')
   await p.locator('.live').screenshot({ path: '/tmp/claude-0/-home-user-category5-website/f29084dd-6583-5ae2-ae21-70c3bc202f8a/scratchpad/live.png' })
   ok(/האירוע האחרון התקבל לפני/.test(await p.locator('[data-live-last]').innerText()), 'live card says when the last event arrived')
   const liveJson = await (await p.request.get(`${BASE}/api/admin/live`)).json(); ok(liveJson.now >= 1 && Array.isArray(liveJson.pages) && liveJson.visitors?.length >= 1 && liveJson.visitors[0].source && liveJson.sources?.length >= 1 && !('vid' in liveJson.visitors[0]), 'live API returns the online count with sources and no visitor ids')
+  await p.goto(`${BASE}/admin?d=1`); const todayText = await p.locator('main').innerText()
+  ok(await p.locator('.ad-range a[aria-current]').innerText() === 'היום' && /מגמה: היום מול אתמול/.test(todayText) && /כניסות לפי שעה/.test(todayText), 'range filter has "today" (hourly trend against yesterday)')
+  await p.goto(`${BASE}/admin?d=7`)
+  await p.locator('.live-acc summary').first().click(); ok(await p.locator('.live-acc').first().evaluate((e) => e.open), 'live card accordion opens')
+  ok(await p.locator('.ad-range a').count() === 4, 'range filter shows today / 7 / 30 / 90')
   ok(await p.locator('.lc').count() === 2 && await p.locator('.lc-cur').count() === 2, 'trend charts rendered (current vs previous period)')
   await p.locator('.lc-plot').first().hover(); await p.waitForTimeout(250)
   ok(await p.locator('.lc-tip').first().isVisible() && /נוכחית/.test(await p.locator('.lc-tip').first().innerText()), 'chart hover shows the tooltip with both periods')
@@ -200,6 +209,8 @@ try {
   const dg = await (await a.request.get(`${BASE}/api/cron/digest`, { headers: { authorization: 'Bearer cron-test-secret' } })).json(); ok(dg.recipients === 1 && dg.sent === 0, `digest cron finds the recipient, mail unconfigured → nothing sent (${JSON.stringify(dg)})`)
   await p.goto(`${BASE}/admin/reports`); const rep = await p.locator('main').innerText(); ok(/דוח שבועי/.test(rep) && /מבקרים/.test(rep), 'reports page renders the digest preview')
   await p.click('button:has-text("שליחת הדוח אליי")'); await p.waitForLoadState('networkidle'); ok(/לא מוגדרת/.test(await p.locator('main').innerText()), 'send-to-me explains that mail is not configured')
+  await p.goto(`${BASE}/admin?d=30`); { const sc = await p.locator('a.ad-shortcut-gold').textContent(); ok(/2\s*מצטרפים חדשים ב-30 הימים/.test(sc ?? ''), `dashboard list card shows new subscribers for the 30-day filter (${(sc ?? '').replace(/\s+/g, ' ').trim()})`) }
+  await p.goto(`${BASE}/admin?d=1`); { const sc = await p.locator('a.ad-shortcut-gold').textContent(); ok(/1\s*מצטרפים חדשים היום/.test(sc ?? ''), 'dashboard list card shows new subscribers for "today"') }
   await p.goto(`${BASE}/admin`); ok(await p.locator('a.ad-shortcut[href="/admin/chat"]').count() === 1, 'overview has a direct link to chat management')
   await p.click('a.ad-shortcut'); ok(p.url().endsWith('/admin/chat'), 'the link opens chat management')
   const vw2 = await login(await browser.newContext(), 'view2@example.test'); await vw2.goto(`${BASE}/admin`); ok(await vw2.locator('a.ad-shortcut').count() === 0, 'viewers do not get the chat shortcut')

@@ -14,6 +14,7 @@ const items = [
   ...(me && can(me.role, 'subscribers.read') ? [{ id: 'subscribers', href: '/admin/subscribers', label: 'רשימת תפוצה' }] : []),
   { id: 'reports', href: '/admin/reports', label: 'דוחות' },
   { id: 'users', href: '/admin/users', label: 'משתמשים' },
+  ...(me && can(me.role, 'exclusions.manage') ? [{ id: 'exclusions', href: '/admin/exclusions', label: 'החרגות' }] : []),
   { id: 'audit', href: '/admin/audit', label: 'יומן פעולות' },
 ]
 ---

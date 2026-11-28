@@ -62,11 +62,24 @@ export function parseUa(ua: string): { browser: string; os: string } {
 
 export interface Ctx { ip: string; ua: string; ownHost: string; country: string; city?: string; lang?: string; lat?: string; lng?: string }
 
+let excluded: { at: number; set: Set<string> } | null = null
+/** Places the owners excluded (our own test machines, offices): their events are not stored. Cached for a minute. */
+async function isExcluded(city: string | undefined, country: string): Promise<boolean> {
+  if (!city) return false
+  if (!excluded || Date.now() - excluded.at > 60_000) {
+    const rows = await q<{ city: string; country: string }>('SELECT city, country FROM geo_excludes')
+    excluded = { at: Date.now(), set: new Set(rows.map((r) => `${r.city}|${r.country}`)) }
+  }
+  return excluded.set.has(`${city}|${country}`)
+}
+export const clearExclusionCache = () => { excluded = null }
+
 /** Stores one tracker message. Returns silently on anything it does not understand. */
 export async function ingest(raw: any, c: Ctx) {
   if (!raw || typeof raw !== 'object') return
   const t = clip(raw.t, 6), pid = clip(raw.p, 24).replace(/[^\w-]/g, '')
   if (!pid) return
+  if (await isExcluded(c.city, c.country.toUpperCase())) return
   const day = new Date().toLocaleDateString('sv-SE', { timeZone: 'Asia/Jerusalem' })
   const vid = await sha(`${env('ANALYTICS_SALT') || env('ADMIN_SESSION_SECRET') || 'c5'}|${day}|${c.ip}|${c.ua}`)
   if (flood(vid)) return

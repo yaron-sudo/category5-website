@@ -93,10 +93,23 @@ export async function dashboard(days: number) {
   const byDay = new Map(daily.map((r) => [r.day as string, { visits: n(r.visits), pv: n(r.pv) }]))
   const todayStr = new Date().toLocaleDateString('sv-SE', { timeZone: 'Asia/Jerusalem' })
   const dayStr = (back: number) => { const d = new Date(`${todayStr}T12:00:00Z`); d.setUTCDate(d.getUTCDate() - back); return d.toISOString().slice(0, 10) }
-  const trend = Array.from({ length: days }, (_, i) => {
-    const cur = dayStr(days - 1 - i), prev = dayStr(2 * days - 1 - i)
-    return { day: cur, visits: byDay.get(cur)?.visits ?? 0, pv: byDay.get(cur)?.pv ?? 0, prevDay: prev, prevVisits: byDay.get(prev)?.visits ?? 0, prevPv: byDay.get(prev)?.pv ?? 0 }
-  })
+  const fmtDay = (iso: string) => `${iso.slice(8, 10)}/${iso.slice(5, 7)}`
+  let trend: Array<{ label: string; visits: number | null; pv: number | null; prevLabel: string; prevVisits: number; prevPv: number }>
+  if (days === 1) {
+    // today by the hour, against yesterday by the hour; hours that have not happened yet stay empty
+    const hourly = await q(`SELECT day::text AS day, extract(hour FROM at AT TIME ZONE ${IL})::int AS h, count(DISTINCT vid) AS visits, count(*) AS pv FROM events WHERE type = 'pv' AND day >= ${TODAY} - 1 GROUP BY 1, 2`)
+    const hv = new Map(hourly.map((r) => [`${r.day}|${r.h}`, { visits: n(r.visits), pv: n(r.pv) }]))
+    const nowH = Number(new Date().toLocaleString('en-GB', { timeZone: 'Asia/Jerusalem', hour: '2-digit', hour12: false }))
+    trend = Array.from({ length: 24 }, (_, h) => ({
+      label: `${String(h).padStart(2, '0')}:00`, visits: h <= nowH ? hv.get(`${todayStr}|${h}`)?.visits ?? 0 : null, pv: h <= nowH ? hv.get(`${todayStr}|${h}`)?.pv ?? 0 : null,
+      prevLabel: `אתמול ${String(h).padStart(2, '0')}:00`, prevVisits: hv.get(`${dayStr(1)}|${h}`)?.visits ?? 0, prevPv: hv.get(`${dayStr(1)}|${h}`)?.pv ?? 0,
+    }))
+  } else {
+    trend = Array.from({ length: days }, (_, i) => {
+      const cur = dayStr(days - 1 - i), prev = dayStr(2 * days - 1 - i)
+      return { label: fmtDay(cur), visits: byDay.get(cur)?.visits ?? 0, pv: byDay.get(cur)?.pv ?? 0, prevLabel: fmtDay(prev), prevVisits: byDay.get(prev)?.visits ?? 0, prevPv: byDay.get(prev)?.pv ?? 0 }
+    })
+  }
 
   const [sources, referrers, countries, cities, devices, browsers, systems, langs, landing] = await Promise.all([
     dim('source', days, { where: `source <> 'internal'`, limit: 12, prev: true }),

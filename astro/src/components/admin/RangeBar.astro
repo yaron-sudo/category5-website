@@ -4,7 +4,7 @@ interface Props { days: number; base: string }
 const { days, base } = Astro.props
 ---
 <nav class="ad-range" aria-label="טווח זמן">
-  {RANGES.map((r) => <a href={`${base}?d=${r}`} aria-current={r === days ? 'true' : undefined}>{r} ימים</a>)}
+  {RANGES.map((r) => <a href={`${base}?d=${r}`} aria-current={r === days ? 'true' : undefined}>{r === 1 ? 'היום' : `${r} ימים`}</a>)}
 </nav>
 <style is:global>
   .ad-range { display: inline-flex; border: 1px solid #141414; border-radius: 4px; overflow: hidden; margin-bottom: 20px; background: #fff; }

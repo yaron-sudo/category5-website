@@ -1,22 +1,23 @@
 ---
-// Line chart of one measure over the days of the selected range: the current period (solid) against
-// the equally long period before it (dashed). One y-axis, thin lines, a legend, a hover crosshair
-// with tooltip (script in pages/admin/index.astro) and a data table for screen readers.
-interface Props { title: string; unit: string; days: string[]; cur: number[]; prevDays: string[]; prev: number[]; color?: 'green' | 'plum' | 'gold' | 'blue' }
-const { title, unit, days, cur, prevDays, prev, color = 'green' } = Astro.props
+// Line chart of one measure: the current period (solid) against the equally long period before it
+// (dashed) — days for the 7/30/90-day ranges, hours for "today" (today so far against yesterday).
+// One y-axis, thin lines, a legend, a hover crosshair with tooltip (script in pages/admin/index.astro)
+// and a data table for screen readers. A null value (an hour that has not happened yet) is a gap.
+interface Props { title: string; unit: string; labels: string[]; cur: (number | null)[]; prevLabels: string[]; prev: number[]; color?: 'green' | 'plum' | 'gold' | 'blue' }
+const { title, unit, labels, cur, prevLabels, prev, color = 'green' } = Astro.props
 const W = 1000, H = 250, L = 46, R = 14, T = 14, B = 30
 const nice = (v: number) => { if (v <= 4) return 4; const p = 10 ** Math.floor(Math.log10(v)); const m = v / p; return (m <= 1 ? 1 : m <= 2 ? 2 : m <= 4 ? 4 : m <= 5 ? 5 : 10) * p }
-const max = nice(Math.max(1, ...cur, ...prev))
+const known = cur.filter((v): v is number => v !== null)
+const max = nice(Math.max(1, ...known, ...prev))
 const n = cur.length
 const x = (i: number) => L + (i * (W - L - R)) / Math.max(n - 1, 1)
 const y = (v: number) => T + (H - T - B) * (1 - v / max)
-const path = (a: number[]) => a.map((v, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(' ')
-const fmtDay = (d: string) => `${d.slice(8, 10)}/${d.slice(5, 7)}`
+const path = (a: (number | null)[]) => { let d = '', pen = false; a.forEach((v, i) => { if (v === null) { pen = false; return } d += `${pen ? 'L' : 'M'}${x(i).toFixed(1)},${y(v).toFixed(1)} `; pen = true }); return d.trim() }
 const nf = (v: number) => v.toLocaleString('he-IL')
-const pts = days.map((d, i) => ({ a: fmtDay(d), v: cur[i], b: fmtDay(prevDays[i]), p: prev[i] }))
+const pts = labels.map((a, i) => ({ a, v: cur[i], b: prevLabels[i], p: prev[i] }))
 const grid = [0, 0.5, 1].map((f) => ({ y: y(max * f), label: nf(Math.round(max * f)) }))
-const xl = [0, Math.floor((n - 1) / 2), n - 1].map((i) => ({ x: x(i), label: fmtDay(days[i]) }))
-const totalCur = cur.reduce((a, b) => a + b, 0), totalPrev = prev.reduce((a, b) => a + b, 0)
+const xl = [0, Math.floor((n - 1) / 2), n - 1].map((i) => ({ x: x(i), label: labels[i] }))
+const totalCur = known.reduce((a, b) => a + b, 0), totalPrev = prev.reduce((a, b) => a + b, 0)
 ---
 <figure class={`lc lc-${color}`} data-points={JSON.stringify(pts)} data-w={W} data-h={H} data-l={L} data-r={R} data-t={T} data-b={B} data-max={max} data-unit={unit}>
   <figcaption class="lc-head">
@@ -38,8 +39,8 @@ const totalCur = cur.reduce((a, b) => a + b, 0), totalPrev = prev.reduce((a, b) 
   </div>
   <details class="lc-table">
     <summary>טבלת נתונים</summary>
-    <div class="ad-scroll"><table class="ad-table"><thead><tr><th>יום</th><th class="ad-num">{unit}</th><th>יום קודם</th><th class="ad-num">{unit} (קודם)</th></tr></thead><tbody>
-      {pts.map((p) => <tr><td>{p.a}</td><td class="ad-num">{nf(p.v)}</td><td>{p.b}</td><td class="ad-num">{nf(p.p)}</td></tr>)}
+    <div class="ad-scroll"><table class="ad-table"><thead><tr><th>תקופה</th><th class="ad-num">{unit}</th><th>תקופה קודמת</th><th class="ad-num">{unit} (קודם)</th></tr></thead><tbody>
+      {pts.map((p) => <tr><td>{p.a}</td><td class="ad-num">{p.v === null ? '—' : nf(p.v)}</td><td>{p.b}</td><td class="ad-num">{nf(p.p)}</td></tr>)}
     </tbody></table></div>
   </details>
 </figure>

@@ -1,0 +1,52 @@
+---
+import AdminLayout from '@/layouts/AdminLayout.astro'
+import { can } from '@/admin/auth'
+import { q } from '@/admin/db'
+import { heCity, heCountry } from '@/admin/geo'
+export const prerender = false
+const me = Astro.locals.admin!
+if (!can(me.role, 'exclusions.manage')) return Astro.redirect('/admin?e=forbidden')
+const rows = await q<{ city: string; country: string; created_by: string; created_at: string }>('SELECT city, country, created_by, created_at FROM geo_excludes ORDER BY created_at DESC')
+// places seen in the last 30 days, to pick from
+const seen = await q<{ city: string; country: string; n: string }>(`SELECT city, country, count(DISTINCT (day, vid)) AS n FROM events WHERE type = 'pv' AND city IS NOT NULL AND day >= (now() AT TIME ZONE 'Asia/Jerusalem')::date - 29 GROUP BY city, country ORDER BY n DESC LIMIT 25`)
+const sp = Astro.url.searchParams
+const OK: Record<string, string> = { added: 'המקום הוחרג והנתונים שנאספו ממנו נמחקו.', removed: 'ההחרגה בוטלה. מעכשיו גלישות משם נספרות שוב.' }
+const ERR: Record<string, string> = { forbidden: 'רק בעלים יכולים לנהל החרגות.', invalid: 'יש למלא עיר וקוד מדינה (שתי אותיות, למשל US).' }
+const ok = OK[sp.get('ok') ?? ''], err = ERR[sp.get('e') ?? '']
+const fmt = (d: string) => new Date(d).toLocaleString('he-IL', { timeZone: 'Asia/Jerusalem', dateStyle: 'short', timeStyle: 'short' })
+---
+<AdminLayout title="החרגות" nav="exclusions">
+  <h1>החרגות מהסטטיסטיקה</h1>
+  {ok && <p class="ad-note" role="status">{ok}</p>}{err && <p class="ad-note" role="alert">{err}</p>}
+  <p class="ad-muted">מקום מוחרג לא נספר בשום דוח: גלישות משם לא נשמרות, והנתונים שכבר נאספו ממנו נמחקים. מתאים למכונות בדיקה, משרדים ושרתים. ההחרגה היא לפי עיר ומדינה כפי ש-Vercel מזהה אותן, ולא לפי כתובת IP.</p>
+
+  <h2>מקומות מוחרגים</h2>
+  {rows.length ? (
+    <div class="ad-scroll"><table class="ad-table"><thead><tr><th>מקום</th><th>הוחרג על ידי</th><th>מתי</th><th></th></tr></thead><tbody>
+      {rows.map((r) => (
+        <tr><td>{heCity(r.city)} · {heCountry(r.country)} <span class="ad-muted ltr">({r.city}, {r.country})</span></td><td class="ltr">{r.created_by}</td><td>{fmt(r.created_at)}</td>
+          <td><form method="post" action="/api/admin/exclusions" style="margin:0"><input type="hidden" name="action" value="remove" /><input type="hidden" name="city" value={r.city} /><input type="hidden" name="country" value={r.country} /><button class="ad-btn soft" type="submit">ביטול החרגה</button></form></td></tr>
+      ))}
+    </tbody></table></div>
+  ) : <p class="ad-empty">אין מקומות מוחרגים.</p>}
+
+  <h2>הוספת החרגה</h2>
+  <form class="ad-panel ad-row" method="post" action="/api/admin/exclusions" onsubmit="return confirm('להחריג את המקום ולמחוק את כל הנתונים שנאספו ממנו?')">
+    <input type="hidden" name="action" value="add" />
+    <label>עיר (באנגלית, כפי שמופיעה ב-Vercel)<input class="ltr" type="text" name="city" required maxlength="80" placeholder="Leesburg" style="min-height:44px;border:1px solid #141414;border-radius:4px;padding:0 12px;font:inherit" /></label>
+    <label>קוד מדינה<input class="ltr" type="text" name="country" required maxlength="2" placeholder="US" style="width:90px;min-height:44px;border:1px solid #141414;border-radius:4px;padding:0 12px;font:inherit;text-transform:uppercase" /></label>
+    <button class="ad-btn" type="submit">החרגה ומחיקת הנתונים</button>
+  </form>
+
+  {seen.length > 0 && (
+    <>
+      <h2>מקומות שנצפו ב-30 הימים האחרונים</h2>
+      <div class="ad-scroll"><table class="ad-table"><thead><tr><th>מקום</th><th class="ad-num">כניסות</th><th></th></tr></thead><tbody>
+        {seen.map((r) => (
+          <tr><td>{heCity(r.city)} · {heCountry(r.country)}</td><td class="ad-num">{Number(r.n).toLocaleString('he-IL')}</td>
+            <td><form method="post" action="/api/admin/exclusions" style="margin:0" onsubmit="return confirm('להחריג את המקום ולמחוק את כל הנתונים שנאספו ממנו?')"><input type="hidden" name="action" value="add" /><input type="hidden" name="city" value={r.city} /><input type="hidden" name="country" value={r.country} /><button class="ad-btn soft" type="submit">החרגה</button></form></td></tr>
+        ))}
+      </tbody></table></div>
+    </>
+  )}
+</AdminLayout>

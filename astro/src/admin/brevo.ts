@@ -77,6 +77,23 @@ export function rangeStart(r: SubRange): number {
   return il.getTime() - offset
 }
 
+const countCache = new Map<string, { at: number; v: { n: number; truncated: boolean } }>()
+/** How many joined in a range (null when Brevo is not configured or fails). Cached for 60 s per range. */
+export async function newCount(range: SubRange): Promise<{ n: number; truncated: boolean } | null> {
+  if (!configured()) return null
+  const hit = countCache.get(range)
+  if (hit && Date.now() - hit.at < 60_000) return hit.v
+  try {
+    const j = await joinedSince(rangeStart(range))
+    const v = { n: j.rows.length, truncated: j.truncated }
+    countCache.set(range, { at: Date.now(), v })
+    return v
+  } catch (e) {
+    console.warn('[brevo] new-subscriber count failed:', (e as Error).message)
+    return null
+  }
+}
+
 /** One address, wherever it is in the list (null when Brevo does not know it or it is not on this list). */
 export async function find(email: string): Promise<Subscriber | null> {
   const j = await get(`/contacts/${encodeURIComponent(email)}`)

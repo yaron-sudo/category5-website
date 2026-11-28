@@ -18,6 +18,7 @@ const PERMS: Record<string, Role[]> = {
   'chat.read': ['owner', 'admin'],
   'chat.approve': ['owner'],
   'subscribers.read': ['owner', 'admin'],
+  'exclusions.manage': ['owner'],
 }
 export const can = (role: Role | undefined, perm: keyof typeof PERMS | string) => !!role && (PERMS[perm] ?? []).includes(role)
 
