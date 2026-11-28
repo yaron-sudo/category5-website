@@ -84,6 +84,15 @@ export async function chatOverview(days: number) {
   }
 }
 
+/** The chat panel of the dashboard: questions waiting for review, and questions today / in the last 7, 30, 90 days. */
+export async function chatFigures() {
+  const T = `(now() AT TIME ZONE 'Asia/Jerusalem')::date`
+  const [r] = await q(`SELECT count(*) FILTER (WHERE review IS NULL AND (gap OR status IN ('no_results','declined','error'))) AS todo,
+      count(*) FILTER (WHERE day >= ${T}) AS today, count(*) FILTER (WHERE day >= ${T} - 6) AS d7,
+      count(*) FILTER (WHERE day >= ${T} - 29) AS d30, count(*) FILTER (WHERE day >= ${T} - 89) AS d90 FROM chat_turns`)
+  return { todo: n(r.todo), today: n(r.today), d7: n(r.d7), d30: n(r.d30), d90: n(r.d90) }
+}
+
 export type TurnFilter = 'all' | 'todo' | 'gap' | 'bad' | 'good'
 export async function chatTurns(days: number, filter: TurnFilter, limit = 100) {
   const where = filter === 'todo' ? `review IS NULL AND (gap OR status IN ('no_results','declined','error'))` : filter === 'gap' ? 'gap' : filter === 'bad' ? `review = 'bad'` : filter === 'good' ? `review = 'good'` : 'TRUE'

@@ -66,7 +66,7 @@ export async function joinedSince(sinceMs: number, cap = 5000): Promise<{ rows: 
 /** Ranges of the distribution-list filter: today, or the last 7 / 30 / 90 days including today (Israel time). */
 export const SUB_RANGES = ['today', '7', '30', '90', 'all'] as const
 export type SubRange = (typeof SUB_RANGES)[number]
-export const parseSubRange = (v: string | null): SubRange => ((SUB_RANGES as readonly string[]).includes(v ?? '') ? (v as SubRange) : 'all')
+export const parseSubRange = (v: string | null): SubRange => ((SUB_RANGES as readonly string[]).includes(v ?? '') ? (v as SubRange) : 'today')
 export function rangeStart(r: SubRange): number {
   if (r === 'all') return 0
   const now = new Date()

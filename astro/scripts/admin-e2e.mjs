@@ -209,18 +209,21 @@ try {
   const dg = await (await a.request.get(`${BASE}/api/cron/digest`, { headers: { authorization: 'Bearer cron-test-secret' } })).json(); ok(dg.recipients === 1 && dg.sent === 0, `digest cron finds the recipient, mail unconfigured → nothing sent (${JSON.stringify(dg)})`)
   await p.goto(`${BASE}/admin/reports`); const rep = await p.locator('main').innerText(); ok(/דוח שבועי/.test(rep) && /מבקרים/.test(rep), 'reports page renders the digest preview')
   await p.click('button:has-text("שליחת הדוח אליי")'); await p.waitForLoadState('networkidle'); ok(/לא מוגדרת/.test(await p.locator('main').innerText()), 'send-to-me explains that mail is not configured')
-  await p.goto(`${BASE}/admin?d=30`); { const sc = ((await p.locator('.subs-panel').textContent()) ?? '').replace(/\s+/g, ' ')
+  await p.goto(`${BASE}/admin?d=30`); { const sc = ((await p.locator('.subs-panel[aria-label="רשימת תפוצה"]').textContent()) ?? '').replace(/\s+/g, ' ')
     ok(/3\s*מצטרפים ברשימה/.test(sc) && /1\s*הצטרפו היום/.test(sc) && /1\s*הצטרפו ב-7 הימים/.test(sc) && /2\s*הצטרפו ב-30 הימים/.test(sc) && /2\s*הצטרפו ב-90 הימים/.test(sc), `dashboard shows the list figures: total, today, 7, 30, 90 (${sc.slice(0, 160)})`)
-    ok(await p.locator('.subs-kpi.sel').count() === 1 && /30 הימים/.test(await p.locator('.subs-kpi.sel').innerText()), 'the dashboard filter highlights its figure') }
-  await p.goto(`${BASE}/admin`); ok(await p.locator('a.ad-shortcut[href="/admin/chat"]').count() === 1, 'overview has a direct link to chat management')
-  await p.click('a.ad-shortcut'); ok(p.url().endsWith('/admin/chat'), 'the link opens chat management')
-  const vw2 = await login(await browser.newContext(), 'view2@example.test'); await vw2.goto(`${BASE}/admin`); ok(await vw2.locator('a.ad-shortcut').count() === 0, 'viewers do not get the chat shortcut')
+    ok(await p.locator('.subs-kpi.sel').count() === 2 && /30 הימים/.test(await p.locator('.subs-kpi.sel').first().innerText()), 'the dashboard filter highlights its figure in both panels')
+    ok(await p.locator('.subs-panel').count() === 2 && (await p.locator('.subs-panel').evaluateAll((els) => els.map((e) => Math.round(e.getBoundingClientRect().width)))).every((w, _, a) => w === a[0]), 'chat and distribution-list panels have the same width') }
+  for (const path of ['/admin', '/admin/behavior', '/admin/heatmap', '/admin/chat']) { await p.goto(`${BASE}${path}`); ok((await p.locator('nav[aria-label="טווח זמן"] a[aria-current]').first().innerText()) === 'היום', `default filter is "today" on ${path}`) }
+  await p.goto(`${BASE}/admin/subscribers`); ok(/היום/.test(await p.locator('.ad-range a[aria-current]').innerText()), 'default filter is "today" on /admin/subscribers')
+  await p.goto(`${BASE}/admin`); ok(await p.locator('.subs-panel a.subs-link[href^="/admin/chat"]').count() === 1, 'overview has a direct link to chat management')
+  await p.click('.subs-panel a.subs-link[href^="/admin/chat"]'); ok(/\/admin\/chat(\?|$)/.test(p.url()), 'the link opens chat management')
+  const vw2 = await login(await browser.newContext(), 'view2@example.test'); await vw2.goto(`${BASE}/admin`); ok(await vw2.locator('.subs-panel').count() === 0, 'viewers do not get the chat shortcut')
   // The production CSP (vercel.json) must let the admin frame the site's own pages (heat-map preview).
   { const { readFileSync } = await import('node:fs'); const cfg = JSON.parse(readFileSync(new URL('../../vercel.json', import.meta.url), 'utf8'))
     const csps = cfg.headers.flatMap((h) => h.headers).filter((x) => x.key === 'Content-Security-Policy').map((x) => x.value)
     ok(csps.length > 0 && csps.every((c) => /frame-src [^;]*'self'/.test(c) && /frame-ancestors 'self'/.test(c)), 'vercel.json CSP allows same-origin frames (heat-map preview)') }
   // ---- Brevo subscribers: list + Excel ----------------------------------------------------------------
-  await p.goto(`${BASE}/admin/subscribers`); const subs = await p.locator('main').innerText()
+  await p.goto(`${BASE}/admin/subscribers?d=all`); const subs = await p.locator('main').innerText()
   ok(/a@example\.test/.test(subs) && /דנה כהן/.test(subs) && /footer/.test(subs), 'subscribers page lists the Brevo contacts')
   ok(/מצטרפים ברשימה/.test(subs), 'subscribers page shows the total')
   await p.goto(`${BASE}/admin/subscribers?d=today`); const stoday = await p.locator('main').innerText(); ok(/הצטרפו היום/.test(stoday) && /\bdana\b|a@example\.test/.test(stoday) && !/b@example\.test/.test(stoday) && /היום/.test(await p.locator('.ad-kpi.sel').innerText()), 'range "today": figure highlighted and only today\'s joins listed')

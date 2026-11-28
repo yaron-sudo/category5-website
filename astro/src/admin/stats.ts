@@ -4,7 +4,7 @@
 import { q } from './db'
 
 export const RANGES = [1, 7, 30, 90] as const // 1 = today
-export const parseRange = (v: string | null) => (RANGES as readonly number[]).includes(Number(v)) ? Number(v) : 30
+export const parseRange = (v: string | null) => (RANGES as readonly number[]).includes(Number(v)) ? Number(v) : 1
 const SINCE = `(now() AT TIME ZONE 'Asia/Jerusalem')::date - ($1::int - 1)`
 const num = (v: unknown) => Number(v ?? 0)
 

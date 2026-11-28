@@ -13,7 +13,7 @@ export const GET: APIRoute = async ({ locals, url }) => {
   if (!can(me.role, 'subscribers.read')) return Response.json({ error: 'forbidden' }, { status: 403 })
   if (!configured()) return Response.json({ error: 'not-configured' }, { status: 503 })
   try {
-    const range = parseSubRange(url.searchParams.get('d'))
+    const range = parseSubRange(url.searchParams.get('d') ?? 'all')
     const { rows, truncated } = range === 'all' ? await all() : await joinedSince(rangeStart(range))
     const xlsx = buildXlsx('רשימת תפוצה', ['אימייל', 'שם פרטי', 'שם משפחה', 'מקור ההרשמה', 'תאריך הצטרפות', 'עודכן לאחרונה', 'סטטוס'],
       rows.map((r) => [r.email, r.first, r.last, r.source, fmt(r.joined), fmt(r.modified), r.blocked ? 'חסום / הוסר' : 'פעיל']), [34, 16, 16, 28, 20, 20, 14])

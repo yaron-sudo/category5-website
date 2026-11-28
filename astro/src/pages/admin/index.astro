@@ -8,6 +8,7 @@ import { dashboard, type Period } from '@/admin/dashboard'
 import { parseRange } from '@/admin/stats'
 import { can } from '@/admin/auth'
 import { subscriberStats } from '@/admin/brevo'
+import { chatFigures } from '@/admin/chat'
 import { q } from '@/admin/db'
 export const prerender = false
 
@@ -15,9 +16,9 @@ const days = parseRange(Astro.url.searchParams.get('d'))
 const canSubs = can(Astro.locals.admin!.role, 'subscribers.read')
 const subRange = days === 1 ? 'today' : String(days)
 const [d, subs] = await Promise.all([dashboard(days), canSubs ? subscriberStats() : Promise.resolve(null)])
-// Shortcut to chat management (owners/admins): how many questions wait for review.
+// Chat panel (owners/admins): the same figures as the distribution-list panel.
 const canChat = can(Astro.locals.admin!.role, 'chat.read')
-const todo = canChat ? Number((await q<{ n: string }>(`SELECT count(*) AS n FROM chat_turns WHERE review IS NULL AND (gap OR status IN ('no_results','declined','error'))`))[0].n) : 0
+const chat = canChat ? await chatFigures().catch(() => null) : null
 
 const nf = (n: number) => n.toLocaleString('he-IL')
 const mmss = (s: number | null) => (s == null ? '—' : s >= 60 ? `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')} דק׳` : `${s} שנ׳`)
@@ -63,10 +64,20 @@ const dowBars = bars(d.dows, DOW, 'ביקורים')
     {(canChat || canSubs) && (
       <div class="ad-shortcuts">
         {canChat && (
-          <a class="ad-shortcut" href="/admin/chat">
-            <span><b>ניהול הצ'אט</b><br />שאלות ושיחות, בדיקה ותשובות מאושרות</span>
-            <span class="ad-shortcut-n">{todo > 0 ? `${nf(todo)} ממתינות לבדיקה` : 'אין שאלות שממתינות'}</span>
-          </a>
+          <section class="subs-panel" aria-label="ניהול הצ'אט">
+            <div class="subs-head">
+              <a class="subs-link" href={`/admin/chat?d=${days}`}><b>ניהול הצ'אט</b> <span>לשאלות, לבדיקה ולתשובות מאושרות ←</span></a>
+            </div>
+            {chat ? (
+              <div class="subs-kpis">
+                <div class="subs-kpi k-plum"><b>{nf(chat.todo)}</b><span>ממתינות לבדיקה</span></div>
+                <div class={`subs-kpi k-gold${subRange === 'today' ? ' sel' : ''}`}><b>{nf(chat.today)}</b><span>שאלות היום</span></div>
+                <div class={`subs-kpi k-blue${subRange === '7' ? ' sel' : ''}`}><b>{nf(chat.d7)}</b><span>שאלות ב-7 הימים האחרונים</span></div>
+                <div class={`subs-kpi k-plum${subRange === '30' ? ' sel' : ''}`}><b>{nf(chat.d30)}</b><span>שאלות ב-30 הימים האחרונים</span></div>
+                <div class={`subs-kpi k-green${subRange === '90' ? ' sel' : ''}`}><b>{nf(chat.d90)}</b><span>שאלות ב-90 הימים האחרונים</span></div>
+              </div>
+            ) : <p class="ad-muted" style="margin:6px 0 0">נתוני הצ'אט אינם זמינים כרגע.</p>}
+          </section>
         )}
         {canSubs && (
           <section class="subs-panel" aria-label="רשימת תפוצה">

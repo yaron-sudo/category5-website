@@ -305,3 +305,10 @@ body.ad { margin: 0; background: #f7f7f5; color: #141414; font: 400 17px/1.6 "C5
 .bl-more summary:hover { border-bottom-color: #141414; }
 .bl-more[open] summary { margin-bottom: 4px; }
 @media (prefers-reduced-motion: reduce) { .bl-more summary::after { transition: none; } }
+
+/* the two dashboard panels (chat, distribution list): identical size and structure, stacked, full width */
+.ad-shortcuts { display: grid; grid-template-columns: 1fr; gap: 14px; margin-bottom: 20px; }
+.ad-shortcuts .subs-panel { grid-column: auto; }
+.subs-panel { padding: 14px 18px 16px; }
+.subs-kpis { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.subs-kpi { min-height: 76px; }
