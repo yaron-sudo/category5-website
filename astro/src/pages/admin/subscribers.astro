@@ -1,0 +1,73 @@
+---
+import AdminLayout from '@/layouts/AdminLayout.astro'
+import { can } from '@/admin/auth'
+import { configured, find, listTotals, page, type Subscriber } from '@/admin/brevo'
+export const prerender = false
+
+const me = Astro.locals.admin!
+if (!can(me.role, 'subscribers.read')) return Astro.redirect('/admin?e=forbidden')
+
+const PER = 50
+const sp = Astro.url.searchParams
+const pg = Math.max(1, Number(sp.get('p')) || 1)
+const q = (sp.get('q') ?? '').trim().toLowerCase().slice(0, 200)
+const fmt = (d: string | null) => (d ? new Date(d).toLocaleString('he-IL', { timeZone: 'Asia/Jerusalem', dateStyle: 'short', timeStyle: 'short' }) : '—')
+const nf = (n: number) => n.toLocaleString('he-IL')
+
+let error = '', totals: Awaited<ReturnType<typeof listTotals>> = null, rows: Subscriber[] = [], recent = { w: 0, m: 0 }, found: Subscriber | null | undefined
+if (configured()) {
+  try {
+    totals = await listTotals()
+    if (q) found = await find(q)
+    else rows = await page((pg - 1) * PER, PER)
+    // newest first: count the joins of the last 7 / 30 days from the newest 1000
+    if (!q) {
+      const newest = pg === 1 ? rows : []
+      const head = newest.length === PER ? [...newest, ...(await page(PER, 450)), ...(await page(500, 500))] : newest
+      const now = Date.now()
+      for (const r of head) { const t = r.joined ? Date.parse(r.joined) : 0; if (now - t < 7 * 864e5) recent.w++; if (now - t < 30 * 864e5) recent.m++ }
+    }
+  } catch (e) {
+    console.error('[subscribers]', e)
+    error = 'הקריאה מ-Brevo נכשלה. בדקו את BREVO_API_KEY ואת BREVO_LIST_ID.'
+  }
+}
+const pages = totals ? Math.max(1, Math.ceil(totals.subscribers / PER)) : 1
+const show = q ? (found ? [found] : []) : rows
+---
+<AdminLayout title="רשימת תפוצה" nav="subscribers">
+  <h1>רשימת תפוצה</h1>
+  {!configured() ? (
+    <p class="ad-note" role="alert">החיבור ל-Brevo לא מוגדר: חסרים <span class="ltr">BREVO_API_KEY</span> ו-<span class="ltr">BREVO_LIST_ID</span> ב-Vercel.</p>
+  ) : (
+    <>
+      {error && <p class="ad-note" role="alert">{error}</p>}
+      <div class="ad-kpis">
+        <div class="ad-kpi k-green"><b>{totals ? nf(totals.subscribers) : '—'}</b><span>מצטרפים ברשימה{totals?.name ? ` "${totals.name}"` : ''}</span></div>
+        {!q && pg === 1 && <div class="ad-kpi k-gold"><b>{nf(recent.w)}</b><span>הצטרפו ב-7 הימים האחרונים</span></div>}
+        {!q && pg === 1 && <div class="ad-kpi k-plum"><b>{nf(recent.m)}</b><span>הצטרפו ב-30 הימים האחרונים</span></div>}
+        {totals && totals.blocked > 0 && <div class="ad-kpi k-blue"><b>{nf(totals.blocked)}</b><span>הוסרו או נחסמו</span></div>}
+      </div>
+      <form class="ad-row" method="get" action="/admin/subscribers" style="margin:20px 0">
+        <label>חיפוש לפי אימייל<input class="ltr" type="email" name="q" value={q} placeholder="name@example.com" autocomplete="off" /></label>
+        <button class="ad-btn" type="submit">חיפוש</button>
+        {q && <a class="ad-btn soft" href="/admin/subscribers">ניקוי</a>}
+        <span style="flex:1"></span>
+        <a class="ad-btn" href="/api/admin/subscribers-export" download>הורדה לאקסל</a>
+      </form>
+      <p class="ad-muted">הרשימה נקראת ישירות מ-Brevo ולא נשמרת באתר. מי שנרשם ועדיין לא אישר את המייל (אישור כפול) יופיע רק אחרי האישור. כל הורדה נרשמת ביומן הפעולות.</p>
+      {show.length ? (
+        <div class="ad-scroll"><table class="ad-table"><thead><tr><th>אימייל</th><th>שם</th><th>מקור ההרשמה</th><th>הצטרף</th><th>סטטוס</th></tr></thead><tbody>
+          {show.map((r) => <tr><td class="ltr">{r.email}</td><td>{[r.first, r.last].filter(Boolean).join(' ') || '—'}</td><td class="ltr">{r.source || '—'}</td><td>{fmt(r.joined)}</td><td>{r.blocked ? 'הוסר / חסום' : 'פעיל'}</td></tr>)}
+        </tbody></table></div>
+      ) : <p class="ad-empty">{q ? 'הכתובת לא נמצאה ברשימה.' : 'אין מצטרפים ברשימה.'}</p>}
+      {!q && pages > 1 && (
+        <nav class="ad-range" aria-label="עמודים" style="margin-top:16px">
+          {pg > 1 && <a href={`/admin/subscribers?p=${pg - 1}`}>הקודם</a>}
+          <a href="#" aria-current="true" onclick="return false">עמוד {pg} מתוך {pages}</a>
+          {pg < pages && <a href={`/admin/subscribers?p=${pg + 1}`}>הבא</a>}
+        </nav>
+      )}
+    </>
+  )}
+</AdminLayout>

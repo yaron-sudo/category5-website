@@ -18,6 +18,17 @@ const mock = http.createServer(async (req, res) => {
     const code = Math.random().toString(36).slice(2); codes.set(code, { nonce: u.searchParams.get('nonce'), ...who })
     res.writeHead(302, { Location: `${u.searchParams.get('redirect_uri')}?code=${code}&state=${u.searchParams.get('state')}` }); return res.end()
   }
+  if (u.pathname.startsWith('/brevo/')) {
+    const people = [['a@example.test', 'דנה', 'כהן', 'footer', '2026-11-27T10:00:00Z', false], ['b@example.test', '=HYPERLINK("http://x")', '', 'contact', '2026-10-01T09:00:00Z', false], ['c@example.test', '', '', '', '2026-01-01T09:00:00Z', true]]
+      .map(([email, f, l, s, at, bl]) => ({ email, emailBlacklisted: bl, createdAt: at, modifiedAt: at, listIds: [7], attributes: { FIRSTNAME: f, LASTNAME: l, SOURCE: s } }))
+    res.setHeader('content-type', 'application/json')
+    if (req.headers['api-key'] !== 'brevo-test') { res.statusCode = 401; return res.end('{}') }
+    if (u.pathname === '/brevo/contacts/lists/7') return res.end(JSON.stringify({ name: 'Newsletter', uniqueSubscribers: 3, totalBlacklisted: 1 }))
+    if (u.pathname === '/brevo/contacts/lists/7/contacts') { const o = +u.searchParams.get('offset') || 0, l = +u.searchParams.get('limit') || 50; return res.end(JSON.stringify({ contacts: people.slice(o, o + l), count: 3 })) }
+    const hit = people.find((x) => '/brevo/contacts/' + encodeURIComponent(x.email) === u.pathname)
+    if (hit) return res.end(JSON.stringify(hit))
+    res.statusCode = 404; return res.end('{}')
+  }
   if (u.pathname === '/jwks') { res.setHeader('content-type', 'application/json'); return res.end(JSON.stringify({ keys: [jwk] })) }
   if (u.pathname === '/token') {
     let body = ''; for await (const c of req) body += c
@@ -31,7 +42,7 @@ const mock = http.createServer(async (req, res) => {
 }).listen(MOCK)
 
 const dev = spawn('npx', ['astro', 'dev', '--port', String(SITE)], { cwd: new URL('..', import.meta.url).pathname, env: { ...process.env,
-  ADMIN_DB: 'pglite', CRON_SECRET: 'cron-test-secret', ANTHROPIC_API_KEY: 'test-key', ANALYTICS_ALLOW_HEADLESS: '1', GOOGLE_CLIENT_ID: 'test-client', GOOGLE_CLIENT_SECRET: 'x', ADMIN_SESSION_SECRET: 'unit-test-secret-unit-test-secret-1234',
+  ADMIN_DB: 'pglite', BREVO_API_KEY: 'brevo-test', BREVO_LIST_ID: '7', BREVO_API_BASE: `http://localhost:${MOCK}/brevo`, CRON_SECRET: 'cron-test-secret', ANTHROPIC_API_KEY: 'test-key', ANALYTICS_ALLOW_HEADLESS: '1', GOOGLE_CLIENT_ID: 'test-client', GOOGLE_CLIENT_SECRET: 'x', ADMIN_SESSION_SECRET: 'unit-test-secret-unit-test-secret-1234',
   ADMIN_BOOTSTRAP_EMAILS: 'owner@example.test', ADMIN_OIDC_AUTH_URL: `http://localhost:${MOCK}/auth`, ADMIN_OIDC_TOKEN_URL: `http://localhost:${MOCK}/token`,
   ADMIN_OIDC_JWKS_URL: `http://localhost:${MOCK}/jwks`, ADMIN_OIDC_ISSUER: `http://localhost:${MOCK}` }, stdio: 'pipe' })
 let log = ''; dev.stdout.on('data', (d) => (log += d)); dev.stderr.on('data', (d) => (log += d))
@@ -182,6 +193,20 @@ try {
   { const { readFileSync } = await import('node:fs'); const cfg = JSON.parse(readFileSync(new URL('../../vercel.json', import.meta.url), 'utf8'))
     const csps = cfg.headers.flatMap((h) => h.headers).filter((x) => x.key === 'Content-Security-Policy').map((x) => x.value)
     ok(csps.length > 0 && csps.every((c) => /frame-src [^;]*'self'/.test(c) && /frame-ancestors 'self'/.test(c)), 'vercel.json CSP allows same-origin frames (heat-map preview)') }
+  // ---- Brevo subscribers: list + Excel ----------------------------------------------------------------
+  await p.goto(`${BASE}/admin/subscribers`); const subs = await p.locator('main').innerText()
+  ok(/a@example\.test/.test(subs) && /דנה כהן/.test(subs) && /footer/.test(subs), 'subscribers page lists the Brevo contacts')
+  ok(/מצטרפים ברשימה/.test(subs) && /הצטרפו ב-7 הימים/.test(subs), 'subscribers page shows totals and recent joins')
+  await p.fill('input[name=q]', 'b@example.test'); await p.click('form.ad-row button:has-text("חיפוש")'); await p.waitForLoadState('networkidle')
+  ok(/b@example\.test/.test(await p.locator('main').innerText()) && !/a@example\.test/.test(await p.locator('main').innerText()), 'search by e-mail finds the contact')
+  const xr = await p.request.get(`${BASE}/api/admin/subscribers-export`)
+  ok(xr.status() === 200 && /spreadsheetml/.test(xr.headers()['content-type'] ?? '') && /attachment; filename="category5-distribution-list-\d{4}-\d{2}-\d{2}\.xlsx"/.test(xr.headers()['content-disposition'] ?? ''), 'Excel download is served as .xlsx')
+  { const { writeFileSync } = await import('node:fs'); const { execFileSync } = await import('node:child_process'); writeFileSync('/tmp/c5-subs.xlsx', await xr.body())
+    const out = execFileSync('python3', ['-c', "import openpyxl;ws=openpyxl.load_workbook('/tmp/c5-subs.xlsx').active;print(ws.max_row,ws.cell(1,1).value,ws.cell(2,1).value,ws.cell(2,2).value,ws.cell(3,2).value,ws.cell(4,7).value,ws.sheet_view.rightToLeft)"]).toString().trim()
+    ok(out === '4 אימייל a@example.test דנה =HYPERLINK("http://x") חסום / הוסר True', `Excel file opens (openpyxl): ${out}`) }
+  const vs = await login(await browser.newContext(), 'view2@example.test'); await vs.goto(`${BASE}/admin/subscribers`); ok(!vs.url().endsWith('/admin/subscribers'), 'viewer cannot open the subscribers page')
+  ok((await vs.request.get(`${BASE}/api/admin/subscribers-export`)).status() === 403, 'viewer cannot download the list')
+  await p.goto(`${BASE}/admin/audit`); ok(/הורדת רשימת תפוצה/.test(await p.locator('table').innerText()), 'download is written to the audit log')
   await p.goto(`${BASE}/admin/users`); await p.click('button:has-text("התנתקות")'); await p.waitForLoadState('networkidle'); ok(p.url().includes('/admin/login'), 'logout works')
 } catch (e) { console.error(e); failed++ } finally { await browser.close(); dev.kill(); mock.close() }
 console.log(failed ? `\n${failed} FAILED` : '\nall passed'); if (failed) console.log(log.slice(-2500)); process.exit(failed ? 1 : 0)

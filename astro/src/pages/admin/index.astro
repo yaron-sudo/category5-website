@@ -48,10 +48,15 @@ const dowBars = bars(d.dows, DOW, 'ביקורים')
     <span class="ad-stamp" role="status"><i class="live-dot" aria-hidden="true"></i>מתעדכן אוטומטית · <span data-stamp>עודכן עכשיו</span></span>
   </div>
   {canChat && (
-    <a class="ad-shortcut" href="/admin/chat">
-      <span><b>ניהול הצ'אט</b><br />שאלות ושיחות, בדיקה ותשובות מאושרות</span>
-      <span class="ad-shortcut-n">{todo > 0 ? `${nf(todo)} ממתינות לבדיקה` : 'אין שאלות שממתינות'}</span>
-    </a>
+    <div class="ad-shortcuts">
+      <a class="ad-shortcut" href="/admin/chat">
+        <span><b>ניהול הצ'אט</b><br />שאלות ושיחות, בדיקה ותשובות מאושרות</span>
+        <span class="ad-shortcut-n">{todo > 0 ? `${nf(todo)} ממתינות לבדיקה` : 'אין שאלות שממתינות'}</span>
+      </a>
+      <a class="ad-shortcut ad-shortcut-gold" href="/admin/subscribers">
+        <span><b>רשימת תפוצה</b><br />המצטרפים מ-Brevo והורדה לאקסל</span>
+      </a>
+    </div>
   )}
   <RangeBar days={days} base="/admin" />
 
