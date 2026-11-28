@@ -1,6 +1,7 @@
 ---
 import AdminLayout from '@/layouts/AdminLayout.astro'
 import RangeBar from '@/components/admin/RangeBar.astro'
+import 'leaflet/dist/leaflet.css'
 import BarList from '@/components/admin/BarList.astro'
 import LineChart from '@/components/admin/LineChart.astro'
 import { dashboard, type Period } from '@/admin/dashboard'
@@ -122,6 +123,13 @@ const dowBars = bars(d.dows, DOW, 'ביקורים')
           </section>
         )}
 
+        <section>
+          <h2>מפת הגולשים</h2>
+          <div class="geo-slot" data-geo-slot><p class="ad-empty geo-empty" hidden>אין עדיין נתוני מפה. הם מגיעים מהמיקום המשוער של הגולש (ברמת עיר, ללא כתובת) ונצברים בגלישה חדשה.</p></div>
+          <script type="application/json" data-geo set:html={JSON.stringify(d.geo)}></script>
+          <p class="ad-muted">גודל העיגול לפי מספר הכניסות. המיקום משוער ברמת עיר בלבד, והכתובת עצמה לא נשמרת.</p>
+        </section>
+
         <div class="ad-grid2">
           <section>
             <h2>ערים</h2>
@@ -183,6 +191,54 @@ const dowBars = bars(d.dows, DOW, 'ביקורים')
 </AdminLayout>
 
 <div class="lc-global-tip" data-gtip hidden></div>
+
+<script>
+  // Visitors map (Leaflet + OpenStreetMap tiles, the same stack as the stores page). The map element is
+  // created once and moved into the new slot whenever the dashboard re-renders, so it never flickers.
+  import L from 'leaflet'
+  type Pt = { city: string; country: string; lat: number; lng: number; n: number }
+  let map: L.Map | null = null
+  let layer: L.LayerGroup | null = null
+  const host = document.createElement('div')
+  host.className = 'geo-map'
+  host.setAttribute('role', 'img')
+  host.setAttribute('aria-label', 'מפת הגולשים לפי עיר')
+  function render() {
+    const slot = document.querySelector<HTMLElement>('[data-geo-slot]')
+    const raw = document.querySelector('[data-geo]')?.textContent
+    if (!slot || raw == null) return
+    const pts: Pt[] = JSON.parse(raw)
+    const empty = slot.querySelector<HTMLElement>('.geo-empty')
+    if (empty) empty.hidden = pts.length > 0
+    if (!pts.length) { host.remove(); return }
+    if (host.parentElement !== slot) slot.appendChild(host)
+    if (!map) {
+      map = L.map(host, { scrollWheelZoom: false, worldCopyJump: true }).setView([31.5, 35], 7)
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '© OpenStreetMap' }).addTo(map)
+      layer = L.layerGroup().addTo(map)
+    }
+    layer!.clearLayers()
+    const max = Math.max(...pts.map((p) => p.n))
+    const bounds = L.latLngBounds([])
+    for (const p of pts) {
+      const r = 7 + Math.sqrt(p.n / max) * 22
+      const m = L.circleMarker([p.lat, p.lng], { radius: r, color: '#4d0333', weight: 2, fillColor: '#4d0333', fillOpacity: 0.45 })
+      const box = document.createElement('div')
+      box.dir = 'rtl'
+      const b = document.createElement('b'); b.textContent = p.city + (p.country ? ' · ' + p.country : '')
+      box.appendChild(b); box.appendChild(document.createElement('br')); box.appendChild(document.createTextNode(p.n.toLocaleString('he-IL') + ' כניסות'))
+      m.bindPopup(box).bindTooltip(p.city + ' · ' + p.n.toLocaleString('he-IL'))
+      m.addTo(layer!)
+      bounds.extend([p.lat, p.lng])
+    }
+    map.invalidateSize()
+    if (pts.length === 1) map.setView([pts[0].lat, pts[0].lng], 8)
+    else if (bounds.isValid()) map.fitBounds(bounds.pad(0.25), { maxZoom: 8 })
+  }
+  render()
+  // the dashboard script (below) re-renders #dash every 45 s: re-attach the map afterwards
+  new MutationObserver(() => { if (!host.isConnected || host.parentElement !== document.querySelector('[data-geo-slot]')) render() }).observe(document.getElementById('dash') ?? document.body, { childList: true })
+</script>
 
 <script is:inline>
 (function () {

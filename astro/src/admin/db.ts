@@ -65,6 +65,8 @@ const SCHEMA = [
      scroll int
    )`,
   `ALTER TABLE events ADD COLUMN IF NOT EXISTS city text`,
+  `ALTER TABLE events ADD COLUMN IF NOT EXISTS lat real`,
+  `ALTER TABLE events ADD COLUMN IF NOT EXISTS lng real`,
   `ALTER TABLE events ADD COLUMN IF NOT EXISTS browser text`,
   `ALTER TABLE events ADD COLUMN IF NOT EXISTS os text`,
   `ALTER TABLE events ADD COLUMN IF NOT EXISTS lang text`,

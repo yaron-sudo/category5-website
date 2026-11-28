@@ -78,6 +78,9 @@ export async function dashboard(days: number) {
     dim('lang', days, { limit: 6 }),
     dim('path', days, { where: `source <> 'internal'`, limit: 10 }),
   ])
+  const geo = await q(`SELECT city, country, round(avg(lat)::numeric, 3)::float AS lat, round(avg(lng)::numeric, 3)::float AS lng, count(DISTINCT (day, vid)) AS n
+    FROM events WHERE type = 'pv' AND city IS NOT NULL AND lat IS NOT NULL AND lng IS NOT NULL AND day >= ${TODAY} - ($1::int - 1)
+    GROUP BY city, country ORDER BY n DESC LIMIT 300`, [days])
   const campaigns = await q(`SELECT COALESCE(utm_source,'(gclid / ללא)') AS s, COALESCE(utm_medium,'—') AS m, COALESCE(utm_campaign,'—') AS c, count(*) AS n
     FROM events WHERE type = 'pv' AND source = 'campaign' AND day >= ${TODAY} - ($1::int - 1) GROUP BY 1, 2, 3 ORDER BY n DESC LIMIT 10`, [days])
   const pages = await q(`SELECT path, count(*) AS pv, count(DISTINCT (day, vid)) AS visits, avg(NULLIF(dwell_ms, 0)) AS dwell, avg(NULLIF(scroll, 0)) AS scroll
@@ -89,6 +92,7 @@ export async function dashboard(days: number) {
   return {
     live: liveNow, today, yesterday, w7, p7, w30, p30, range, trend,
     sources, referrers, countries, cities, devices, browsers, systems, langs, landing,
+    geo: geo.map((r) => ({ city: r.city as string, country: (r.country as string | null) ?? '', lat: n(r.lat), lng: n(r.lng), n: n(r.n) })),
     campaigns: campaigns.map((r) => ({ s: r.s as string, m: r.m as string, c: r.c as string, n: n(r.n) })),
     pages: pages.map((r) => ({ path: r.path as string, pv: n(r.pv), visits: n(r.visits), dwell: sec(r.dwell), scroll: r.scroll == null ? null : Math.round(n(r.scroll)) })),
     hours: Array.from({ length: 24 }, (_, h) => hourMap.get(h) ?? 0),

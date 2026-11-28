@@ -23,6 +23,7 @@ export const POST: APIRoute = async ({ request, clientAddress, url }) => {
     await ingest(JSON.parse(text), {
       ip, ua, ownHost: url.hostname, country: (request.headers.get('x-vercel-ip-country') || '').toUpperCase(), city,
       lang: (request.headers.get('accept-language') || '').slice(0, 2).toLowerCase(),
+      lat: city ? request.headers.get('x-vercel-ip-latitude') ?? undefined : undefined, lng: city ? request.headers.get('x-vercel-ip-longitude') ?? undefined : undefined,
     })
   } catch (e) {
     if (!warned) { warned = true; console.warn('[c5 analytics] ingest failed (logged once):', (e as Error).message) }

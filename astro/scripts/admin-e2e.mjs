@@ -82,7 +82,7 @@ try {
   ok(/ניסיון כניסה נדחה/.test(t) && /הוספת משתמש/.test(t) && /הסרת משתמש/.test(t), 'audit log records denial, add and remove')
   const hdr = (await a.request.get(`${BASE}/admin`)).headers(); ok(/noindex/.test(hdr['x-robots-tag'] ?? '') && /no-store/.test(hdr['cache-control'] ?? ''), 'admin pages: noindex + no-store')
   // ---- analytics: tracker → ingest → dashboards ------------------------------------------------
-  const pub = await browser.newContext({ extraHTTPHeaders: { 'x-vercel-ip-city': 'Tel%20Aviv', 'x-vercel-ip-country': 'IL', 'accept-language': 'he-IL,he;q=0.9' }, userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124 Safari/537.36', viewport: { width: 1280, height: 800 } })
+  const pub = await browser.newContext({ extraHTTPHeaders: { 'x-vercel-ip-city': 'Tel%20Aviv', 'x-vercel-ip-country': 'IL', 'x-vercel-ip-latitude': '32.0853', 'x-vercel-ip-longitude': '34.7818', 'accept-language': 'he-IL,he;q=0.9' }, userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124 Safari/537.36', viewport: { width: 1280, height: 800 } })
   const pg = await pub.newPage()
   await pg.route('**/*googletagmanager*', (r) => r.abort())
   await pg.goto(`${BASE}/?utm_source=newsletter&utm_medium=email&utm_campaign=winter`, { waitUntil: 'load' })
@@ -105,6 +105,9 @@ try {
   ok(/גולשים באתר עכשיו/.test(home) && +(await p.locator('[data-live-n]').innerText()).replace(/,/g, '') >= 1, 'dashboard shows visitors online now')
   ok(await p.locator('.pcard').count() === 3 && /היום/.test(home) && /7 ימים אחרונים/.test(home) && /30 ימים אחרונים/.test(home), 'dashboard has today / week / month cards with comparison')
   ok(/Tel Aviv/.test(home) && /Chrome/.test(home) && /Windows/.test(home) && /עברית/.test(home), 'cities, browser, OS and language are listed')
+  await p.waitForSelector('.geo-map .leaflet-interactive', { timeout: 8000 }).catch(() => {})
+  ok(await p.locator('.geo-map .leaflet-interactive').count() >= 1, 'visitors map shows a marker for the city')
+  await p.locator('.geo-slot').screenshot({ path: '/tmp/claude-0/-home-user-category5-website/f29084dd-6583-5ae2-ae21-70c3bc202f8a/scratchpad/map.png' })
   const liveJson = await (await p.request.get(`${BASE}/api/admin/live`)).json(); ok(liveJson.now >= 1 && Array.isArray(liveJson.pages), 'live API returns the online count')
   ok(await p.locator('.lc').count() === 2 && await p.locator('.lc-cur').count() === 2, 'trend charts rendered (current vs previous period)')
   await p.locator('.lc-plot').first().hover(); await p.waitForTimeout(250)
