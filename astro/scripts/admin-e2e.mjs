@@ -209,8 +209,9 @@ try {
   const dg = await (await a.request.get(`${BASE}/api/cron/digest`, { headers: { authorization: 'Bearer cron-test-secret' } })).json(); ok(dg.recipients === 1 && dg.sent === 0, `digest cron finds the recipient, mail unconfigured → nothing sent (${JSON.stringify(dg)})`)
   await p.goto(`${BASE}/admin/reports`); const rep = await p.locator('main').innerText(); ok(/דוח שבועי/.test(rep) && /מבקרים/.test(rep), 'reports page renders the digest preview')
   await p.click('button:has-text("שליחת הדוח אליי")'); await p.waitForLoadState('networkidle'); ok(/לא מוגדרת/.test(await p.locator('main').innerText()), 'send-to-me explains that mail is not configured')
-  await p.goto(`${BASE}/admin?d=30`); { const sc = await p.locator('a.ad-shortcut-gold').textContent(); ok(/2\s*מצטרפים חדשים ב-30 הימים/.test(sc ?? ''), `dashboard list card shows new subscribers for the 30-day filter (${(sc ?? '').replace(/\s+/g, ' ').trim()})`) }
-  await p.goto(`${BASE}/admin?d=1`); { const sc = await p.locator('a.ad-shortcut-gold').textContent(); ok(/1\s*מצטרפים חדשים היום/.test(sc ?? ''), 'dashboard list card shows new subscribers for "today"') }
+  await p.goto(`${BASE}/admin?d=30`); { const sc = ((await p.locator('.subs-panel').textContent()) ?? '').replace(/\s+/g, ' ')
+    ok(/3\s*מצטרפים ברשימה/.test(sc) && /1\s*הצטרפו היום/.test(sc) && /1\s*הצטרפו ב-7 הימים/.test(sc) && /2\s*הצטרפו ב-30 הימים/.test(sc) && /2\s*הצטרפו ב-90 הימים/.test(sc), `dashboard shows the list figures: total, today, 7, 30, 90 (${sc.slice(0, 160)})`)
+    ok(await p.locator('.subs-kpi.sel').count() === 1 && /30 הימים/.test(await p.locator('.subs-kpi.sel').innerText()), 'the dashboard filter highlights its figure') }
   await p.goto(`${BASE}/admin`); ok(await p.locator('a.ad-shortcut[href="/admin/chat"]').count() === 1, 'overview has a direct link to chat management')
   await p.click('a.ad-shortcut'); ok(p.url().endsWith('/admin/chat'), 'the link opens chat management')
   const vw2 = await login(await browser.newContext(), 'view2@example.test'); await vw2.goto(`${BASE}/admin`); ok(await vw2.locator('a.ad-shortcut').count() === 0, 'viewers do not get the chat shortcut')
@@ -222,8 +223,8 @@ try {
   await p.goto(`${BASE}/admin/subscribers`); const subs = await p.locator('main').innerText()
   ok(/a@example\.test/.test(subs) && /דנה כהן/.test(subs) && /footer/.test(subs), 'subscribers page lists the Brevo contacts')
   ok(/מצטרפים ברשימה/.test(subs), 'subscribers page shows the total')
-  await p.goto(`${BASE}/admin/subscribers?d=today`); const stoday = await p.locator('main').innerText(); ok(/מצטרפים חדשים היום/.test(stoday) && /a@example\.test/.test(stoday) && !/b@example\.test/.test(stoday), 'range "today": count of new subscribers and only today\'s joins')
-  await p.goto(`${BASE}/admin/subscribers?d=30`); ok(/מצטרפים חדשים ב-30 הימים האחרונים/.test(await p.locator('main').innerText()) && await p.locator('a[href="/admin/subscribers?d=today"]').count() === 1, 'range filter offers today / 7 / 30 / 90 days')
+  await p.goto(`${BASE}/admin/subscribers?d=today`); const stoday = await p.locator('main').innerText(); ok(/הצטרפו היום/.test(stoday) && /\bdana\b|a@example\.test/.test(stoday) && !/b@example\.test/.test(stoday) && /היום/.test(await p.locator('.ad-kpi.sel').innerText()), 'range "today": figure highlighted and only today\'s joins listed')
+  await p.goto(`${BASE}/admin/subscribers?d=30`); ok(/30 הימים/.test(await p.locator('.ad-kpi.sel').innerText()) && await p.locator('.ad-range a').count() === 5, 'subscribers page offers today / 7 / 30 / 90 / all and highlights the figure of the filter')
   await p.goto(`${BASE}/admin/subscribers`)
   await p.fill('input[name=q]', 'b@example.test'); await p.click('form.ad-row button:has-text("חיפוש")'); await p.waitForLoadState('networkidle')
   ok(/b@example\.test/.test(await p.locator('main').innerText()) && !/a@example\.test/.test(await p.locator('main').innerText()), 'search by e-mail finds the contact')

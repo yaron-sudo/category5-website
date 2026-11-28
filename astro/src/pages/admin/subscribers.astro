@@ -1,7 +1,7 @@
 ---
 import AdminLayout from '@/layouts/AdminLayout.astro'
 import { can } from '@/admin/auth'
-import { configured, find, joinedSince, listTotals, page, parseSubRange, rangeStart, type Subscriber } from '@/admin/brevo'
+import { configured, find, joinedSince, listTotals, page, parseSubRange, rangeStart, subscriberStats, type Subscriber } from '@/admin/brevo'
 export const prerender = false
 
 const me = Astro.locals.admin!
@@ -19,10 +19,12 @@ const LABEL: Record<string, string> = { today: 'היום', '7': '7 ימים', '3
 const SPAN: Record<string, string> = { today: 'היום', '7': 'ב-7 הימים האחרונים', '30': 'ב-30 הימים האחרונים', '90': 'ב-90 הימים האחרונים' }
 
 let error = '', totals: Awaited<ReturnType<typeof listTotals>> = null, rows: Subscriber[] = [], found: Subscriber | null | undefined
+let stats: Awaited<ReturnType<typeof subscriberStats>> = null
 let newCount = 0, newTruncated = false, filtered: Subscriber[] = []
 if (configured()) {
   try {
     totals = await listTotals()
+    stats = await subscriberStats()
     if (q) found = await find(q)
     else if (range === 'all') rows = await page((pg - 1) * PER, PER)
     else {
@@ -46,9 +48,12 @@ const show = q ? (found ? [found] : []) : rows
   ) : (
     <>
       {error && <p class="ad-note" role="alert">{error}</p>}
-      <div class="ad-kpis">
+      <div class="ad-kpis subs-page-kpis">
         <div class="ad-kpi k-green"><b>{totals ? nf(totals.subscribers) : '—'}</b><span>מצטרפים ברשימה{totals?.name ? ` "${totals.name}"` : ''}</span></div>
-        {!q && range !== 'all' && <div class="ad-kpi k-plum"><b>{nf(newCount)}{newTruncated ? '+' : ''}</b><span>מצטרפים חדשים {SPAN[range]}</span></div>}
+        {stats && <div class={`ad-kpi k-gold${range === 'today' ? ' sel' : ''}`}><b>{nf(stats.today)}</b><span>הצטרפו היום</span></div>}
+        {stats && <div class={`ad-kpi k-blue${range === '7' ? ' sel' : ''}`}><b>{nf(stats.d7)}</b><span>הצטרפו ב-7 הימים האחרונים</span></div>}
+        {stats && <div class={`ad-kpi k-plum${range === '30' ? ' sel' : ''}`}><b>{nf(stats.d30)}</b><span>הצטרפו ב-30 הימים האחרונים</span></div>}
+        {stats && <div class={`ad-kpi k-green${range === '90' ? ' sel' : ''}`}><b>{nf(stats.d90)}{stats.truncated ? '+' : ''}</b><span>הצטרפו ב-90 הימים האחרונים</span></div>}
         {totals && totals.blocked > 0 && <div class="ad-kpi k-blue"><b>{nf(totals.blocked)}</b><span>הוסרו או נחסמו</span></div>}
       </div>
       <nav class="ad-range" aria-label="תקופה" style="margin-top:20px">

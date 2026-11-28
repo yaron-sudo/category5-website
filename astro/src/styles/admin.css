@@ -41,6 +41,22 @@ body.ad { margin: 0; background: #f7f7f5; color: #141414; font: 400 17px/1.6 "C5
 @media (max-width: 700px) { .ad-bar { padding: 10px 16px; gap: 12px; } .ad-bar nav { order: 3; flex-basis: 100%; } .ad-main { padding: 24px 16px 64px; } .ad-who { display: none; } }
 @media (prefers-reduced-motion: reduce) { .ad *, .ad *::before { transition: none !important; } }
 
+/* shared components (range filter, KPI cards, grids): they used to live in RangeBar.astro and so only
+   existed on pages that rendered it */
+  .ad-range { display: inline-flex; border: 1px solid #141414; border-radius: 4px; overflow: hidden; margin-bottom: 20px; background: #fff; }
+  .ad-range a { padding: 10px 18px; font-size: 15px; text-decoration: none; transition: background .4s cubic-bezier(.22,.61,.36,1), color .4s cubic-bezier(.22,.61,.36,1); }
+  .ad-range a + a { border-inline-start: 1px solid #141414; }
+  .ad-range a:hover { background: #efeeea; }
+  .ad-range a[aria-current] { background: #141414; color: #fff; }
+  .ad-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 16px; margin-bottom: 8px; }
+  .ad-kpi { background: #fff; border: 1px solid #dcdcd9; border-radius: 4px; padding: 16px 20px; }
+  .ad-kpi b { display: block; font-size: 28px; font-weight: 600; line-height: 1.2; }
+  .ad-kpi span { font-size: 14px; }
+  .ad-grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 24px; align-items: stretch; }
+  .ad-bars { width: 100%; height: auto; display: block; background: #fff; border: 1px solid #dcdcd9; border-radius: 4px; }
+  .ad-empty { color: #141414; background: #fff; border: 1px dashed #dcdcd9; border-radius: 4px; padding: 16px 20px; margin: 0; font-size: 15px; }
+  .ad-num { text-align: end; font-variant-numeric: tabular-nums; }
+
 /* ---- dashboard (/admin) ------------------------------------------------------------------------- */
 .ad-dh { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 .ad-stamp { font-size: 14px; display: inline-flex; align-items: center; gap: 8px; }
@@ -228,7 +244,7 @@ body.ad { margin: 0; background: #f7f7f5; color: #141414; font: 400 17px/1.6 "C5
 .ad-card .ad-muted { margin: 8px 0 0; }
 .ad-card .geo-slot { border: 0; padding: 0; }
 .ad-grid2 { gap: 20px; }
-.ad-grid4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; align-items: start; }
+.ad-grid4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; align-items: stretch; }
 .lc { margin-bottom: 18px; }
 .ad-grid2 > .bc { align-self: stretch; }
 
@@ -252,3 +268,40 @@ body.ad { margin: 0; background: #f7f7f5; color: #141414; font: 400 17px/1.6 "C5
 
 .sc-big { font-size: 26px; font-weight: 600; line-height: 1; margin-inline-end: 4px; font-variant-numeric: tabular-nums; }
 .ad-shortcut-n { text-align: end; }
+
+/* KPI cards: breathing room between the coloured bar and the number */
+.ad-kpis .ad-kpi, .subs-kpi { padding-inline-start: 22px; padding-inline-end: 14px; }
+.ad-kpi.sel, .subs-kpi.sel { background: #f1f7fc; box-shadow: inset 0 0 0 1px #141414; }
+.subs-page-kpis { grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); }
+/* distribution-list panel on the dashboard */
+.subs-panel { grid-column: 1 / -1; background: #fff; border: 1px solid #dcdcd9; border-radius: 4px; padding: 14px 18px 16px; }
+.subs-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.subs-link { text-decoration: none; display: inline-flex; gap: 14px; align-items: baseline; flex-wrap: wrap; }
+.subs-link b { font-size: 18px; font-weight: 600; }
+.subs-link span { font-size: 14px; border-bottom: 1px solid transparent; transition: border-color .4s cubic-bezier(.22,.61,.36,1); }
+.subs-link:hover span { border-bottom-color: #141414; }
+.subs-kpis { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+.subs-kpi { background: #fff; border: 1px solid #dcdcd9; border-inline-start: 4px solid var(--c-green); border-radius: 4px; padding-block: 10px; }
+.subs-kpi.k-gold { border-inline-start-color: var(--c-gold); } .subs-kpi.k-blue { border-inline-start-color: var(--c-blue); } .subs-kpi.k-plum { border-inline-start-color: var(--c-plum); }
+.subs-kpi b { display: block; font-size: 24px; font-weight: 600; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.subs-kpi span { font-size: 13px; line-height: 1.4; display: block; margin-top: 2px; }
+@media (max-width: 1000px) { .subs-kpis { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .subs-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* uniform cards: same height per row, long labels cut with an ellipsis, extra rows in an accordion */
+.ad-card { display: flex; flex-direction: column; }
+.ad-card > .bl-wrap, .ad-card > .ad-scroll { flex: 1; }
+.bl-wrap { min-width: 0; }
+.bl-row { grid-template-columns: minmax(110px, 1.5fr) 1.2fr auto auto auto; }
+.bl-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; overflow-wrap: normal; }
+.bl-label.ltr { text-align: end; }
+.bl-green .bl-bar { background: var(--c-green); } .bl-gold .bl-bar { background: var(--c-gold); }
+.bl-blue .bl-bar { background: var(--c-blue); } .bl-plum .bl-bar { background: var(--c-plum); }
+.bl-more { margin-top: 4px; }
+.bl-more summary { list-style: none; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; font-size: 14px; padding: 6px 0; border-bottom: 1px solid transparent; transition: border-color .4s cubic-bezier(.22,.61,.36,1); }
+.bl-more summary::-webkit-details-marker { display: none; }
+.bl-more summary::after { content: ""; width: 7px; height: 7px; border-inline-end: 2px solid #141414; border-bottom: 2px solid #141414; transform: rotate(45deg); transition: transform .4s cubic-bezier(.22,.61,.36,1); margin-bottom: 3px; }
+.bl-more[open] summary::after { transform: rotate(-135deg); margin-bottom: -3px; }
+.bl-more summary:hover { border-bottom-color: #141414; }
+.bl-more[open] summary { margin-bottom: 4px; }
+@media (prefers-reduced-motion: reduce) { .bl-more summary::after { transition: none; } }

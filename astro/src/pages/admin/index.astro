@@ -7,14 +7,14 @@ import LineChart from '@/components/admin/LineChart.astro'
 import { dashboard, type Period } from '@/admin/dashboard'
 import { parseRange } from '@/admin/stats'
 import { can } from '@/admin/auth'
-import { newCount, type SubRange } from '@/admin/brevo'
+import { subscriberStats } from '@/admin/brevo'
 import { q } from '@/admin/db'
 export const prerender = false
 
 const days = parseRange(Astro.url.searchParams.get('d'))
 const canSubs = can(Astro.locals.admin!.role, 'subscribers.read')
-const subRange: SubRange = days === 1 ? 'today' : (String(days) as SubRange)
-const [d, newSubs] = await Promise.all([dashboard(days), canSubs ? newCount(subRange) : Promise.resolve(null)])
+const subRange = days === 1 ? 'today' : String(days)
+const [d, subs] = await Promise.all([dashboard(days), canSubs ? subscriberStats() : Promise.resolve(null)])
 // Shortcut to chat management (owners/admins): how many questions wait for review.
 const canChat = can(Astro.locals.admin!.role, 'chat.read')
 const todo = canChat ? Number((await q<{ n: string }>(`SELECT count(*) AS n FROM chat_turns WHERE review IS NULL AND (gap OR status IN ('no_results','declined','error'))`))[0].n) : 0
@@ -69,10 +69,20 @@ const dowBars = bars(d.dows, DOW, 'ביקורים')
           </a>
         )}
         {canSubs && (
-          <a class="ad-shortcut ad-shortcut-gold" href={`/admin/subscribers?d=${subRange}`}>
-            <span><b>רשימת תפוצה</b><br />המצטרפים מ-Brevo והורדה לאקסל</span>
-            {newSubs && <span class="ad-shortcut-n"><b class="sc-big">{nf(newSubs.n)}{newSubs.truncated ? '+' : ''}</b> מצטרפים חדשים {days === 1 ? 'היום' : `ב-${days} הימים האחרונים`}</span>}
-          </a>
+          <section class="subs-panel" aria-label="רשימת תפוצה">
+            <div class="subs-head">
+              <a class="subs-link" href={`/admin/subscribers?d=${subRange}`}><b>רשימת תפוצה</b> <span>לרשימה ולהורדה לאקסל ←</span></a>
+            </div>
+            {subs ? (
+              <div class="subs-kpis">
+                <div class="subs-kpi k-green"><b>{nf(subs.total)}</b><span>מצטרפים ברשימה</span></div>
+                <div class={`subs-kpi k-gold${subRange === 'today' ? ' sel' : ''}`}><b>{nf(subs.today)}</b><span>הצטרפו היום</span></div>
+                <div class={`subs-kpi k-blue${subRange === '7' ? ' sel' : ''}`}><b>{nf(subs.d7)}</b><span>הצטרפו ב-7 הימים האחרונים</span></div>
+                <div class={`subs-kpi k-plum${subRange === '30' ? ' sel' : ''}`}><b>{nf(subs.d30)}</b><span>הצטרפו ב-30 הימים האחרונים</span></div>
+                <div class={`subs-kpi k-green${subRange === '90' ? ' sel' : ''}`}><b>{nf(subs.d90)}{subs.truncated ? '+' : ''}</b><span>הצטרפו ב-90 הימים האחרונים</span></div>
+              </div>
+            ) : <p class="ad-muted" style="margin:6px 0 0">הנתונים מ-Brevo אינם זמינים כרגע.</p>}
+          </section>
         )}
       </div>
     )}
@@ -207,8 +217,16 @@ const dowBars = bars(d.dows, DOW, 'ביקורים')
           <section class="ad-card">
             <h2>עמודים מובילים</h2>
             <div class="ad-scroll"><table class="ad-table"><thead><tr><th>עמוד</th><th class="ad-num">צפיות</th><th class="ad-num">כניסות</th><th class="ad-num">זמן ממוצע</th><th class="ad-num">גלילה</th></tr></thead><tbody>
-          {d.pages.map((r) => <tr><td class="ltr"><a href={r.path}>{r.path}</a></td><td class="ad-num">{nf(r.pv)}</td><td class="ad-num">{nf(r.visits)}</td><td class="ad-num">{mmss(r.dwell)}</td><td class="ad-num">{r.scroll == null ? '—' : `${r.scroll}%`}</td></tr>)}
-        </tbody></table></div>
+              {d.pages.slice(0, 8).map((r) => <tr><td class="ltr"><a href={r.path}>{r.path}</a></td><td class="ad-num">{nf(r.pv)}</td><td class="ad-num">{nf(r.visits)}</td><td class="ad-num">{mmss(r.dwell)}</td><td class="ad-num">{r.scroll == null ? '—' : `${r.scroll}%`}</td></tr>)}
+            </tbody></table></div>
+            {d.pages.length > 8 && (
+              <details class="bl-more">
+                <summary>הצג עוד {d.pages.length - 8}</summary>
+                <div class="ad-scroll"><table class="ad-table"><tbody>
+                  {d.pages.slice(8).map((r) => <tr><td class="ltr"><a href={r.path}>{r.path}</a></td><td class="ad-num">{nf(r.pv)}</td><td class="ad-num">{nf(r.visits)}</td><td class="ad-num">{mmss(r.dwell)}</td><td class="ad-num">{r.scroll == null ? '—' : `${r.scroll}%`}</td></tr>)}
+                </tbody></table></div>
+              </details>
+            )}
           </section>
         </div>
 

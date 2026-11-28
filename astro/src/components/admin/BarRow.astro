@@ -1,0 +1,19 @@
+---
+// One row of a BarList: label, share bar, count, share %, change against the previous period.
+interface Props { label: string; n: number; max: number; total: number; prev?: number; href?: string; ltr?: boolean; showShare?: boolean }
+const { label, n, max, total, prev, href, ltr = false, showShare = true } = Astro.props
+const nf = (v: number) => v.toLocaleString('he-IL')
+const chip = (a: number, b: number | undefined) => {
+  if (b === undefined) return ''
+  if (b === 0) return a > 0 ? 'חדש' : ''
+  const p = Math.round(((a - b) / b) * 100)
+  return p === 0 ? '0%' : `${p > 0 ? '▲' : '▼'} ${Math.abs(p)}%`
+}
+---
+<li class="bl-row">
+  <span class={ltr ? 'bl-label ltr' : 'bl-label'} title={label}>{href ? <a href={href}>{label}</a> : label}</span>
+  <span class="bl-track" aria-hidden="true"><span class="bl-bar" style={`width:${Math.max(2, Math.round((n / max) * 100))}%`}></span></span>
+  <span class="bl-n">{nf(n)}</span>
+  {showShare && <span class="bl-pct">{Math.round((n / total) * 100)}%</span>}
+  {prev !== undefined && <span class="bl-delta" title="לעומת התקופה הקודמת">{chip(n, prev)}</span>}
+</li>

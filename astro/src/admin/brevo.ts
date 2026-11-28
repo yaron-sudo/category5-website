@@ -77,19 +77,26 @@ export function rangeStart(r: SubRange): number {
   return il.getTime() - offset
 }
 
-const countCache = new Map<string, { at: number; v: { n: number; truncated: boolean } }>()
-/** How many joined in a range (null when Brevo is not configured or fails). Cached for 60 s per range. */
-export async function newCount(range: SubRange): Promise<{ n: number; truncated: boolean } | null> {
+export interface SubStats { total: number; blocked: number; today: number; d7: number; d30: number; d90: number; truncated: boolean }
+let statsCache: { at: number; v: SubStats } | null = null
+/** The list's figures in one go: total, and how many joined today / in the last 7, 30 and 90 days (Israel time).
+ *  One pass over the newest contacts; cached for 60 s. null when Brevo is not configured or fails. */
+export async function subscriberStats(): Promise<SubStats | null> {
   if (!configured()) return null
-  const hit = countCache.get(range)
-  if (hit && Date.now() - hit.at < 60_000) return hit.v
+  if (statsCache && Date.now() - statsCache.at < 60_000) return statsCache.v
   try {
-    const j = await joinedSince(rangeStart(range))
-    const v = { n: j.rows.length, truncated: j.truncated }
-    countCache.set(range, { at: Date.now(), v })
+    const [totals, j] = await Promise.all([listTotals(), joinedSince(rangeStart('90'))])
+    const from = { today: rangeStart('today'), d7: rangeStart('7'), d30: rangeStart('30') }
+    const t = (r: Subscriber) => (r.joined ? Date.parse(r.joined) : 0)
+    const v: SubStats = {
+      total: totals?.subscribers ?? 0, blocked: totals?.blocked ?? 0, truncated: j.truncated,
+      today: j.rows.filter((r) => t(r) >= from.today).length, d7: j.rows.filter((r) => t(r) >= from.d7).length,
+      d30: j.rows.filter((r) => t(r) >= from.d30).length, d90: j.rows.length,
+    }
+    statsCache = { at: Date.now(), v }
     return v
   } catch (e) {
-    console.warn('[brevo] new-subscriber count failed:', (e as Error).message)
+    console.warn('[brevo] stats failed:', (e as Error).message)
     return null
   }
 }
